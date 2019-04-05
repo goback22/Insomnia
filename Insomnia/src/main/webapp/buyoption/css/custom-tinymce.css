@@ -1,0 +1,910 @@
+@charset "UTF-8";
+
+/*******************************
+         Site Overrides
+*******************************/
+
+/* FONT */
+  @font-face {
+        font-family: 'webfont-light';
+        font-style: normal;
+        font-weight: 100;
+        src: local('Noto Sans KR Light'), local('NotoSans-Light'),
+        url('https://www.ycrowdy.com/resources/fonts/NotoSansKR-Light-Hestia.eot'),
+        url('https://www.ycrowdy.com/resources/fonts/NotoSansKR-Light-Hestia.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/NotoSansKR-Light-Hestia.woff') format('woff'),
+        url('../fonts/NotoSansKR-Light-Hestia.otf') format('opentype');
+      }
+
+  @font-face {
+        font-family: 'webfont-regular';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Noto Sans KR Regular'), local('NotoSans-Regular'),
+        url('https://www.ycrowdy.com/resources/fonts/NotoSansKR-Regular-Hestia.eot'),
+        url('https://www.ycrowdy.com/resources/fonts/NotoSansKR-Regular-Hestia.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/NotoSansKR-Regular-Hestia.woff') format('woff'),
+        url('../fonts/NotoSansKR-Regular-Hestia.otf') format('opentype');
+        }
+
+  @font-face {
+        font-family: 'webfont-medium';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Noto Sans KR Medium'), local('NotoSans-Medium'),
+        url('https://www.ycrowdy.com/resources/fonts/NotoSansKR-Medium-Hestia.eot'),
+        url('https://www.ycrowdy.com/resources/fonts/NotoSansKR-Medium-Hestia.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/NotoSansKR-Medium-Hestia.woff') format('woff'),
+        url('../fonts/NotoSansKR-Medium-Hestia.otf') format('opentype');
+        }
+
+  @font-face {
+        font-family: 'webfont-bold';
+        font-style: normal;
+        font-weight: 100;
+        src: local('Noto Sans KR Bold'), local('NotoSans-Bold'),
+        url('https://www.ycrowdy.com/resources/fonts/NotoSansKR-Bold-Hestia.eot'),
+        url('https://www.ycrowdy.com/resources/fonts/NotoSansKR-Bold-Hestia.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/NotoSansKR-Bold-Hestia.woff') format('woff'),
+        url('../fonts/NotoSansKR-Bold-Hestia.otf') format('opentype');
+      }
+
+
+.mce-content-body {
+  /* 
+  Set basic(default) font style and line height 
+  This setting is as same as storyContent p style
+  */
+  max-width: 800px;
+  margin: 0 auto;
+  /*padding: 1rem;*/
+  overflow-x: hidden;
+  font-size: 15px;
+  line-height: 1.8;
+  font-family: 'webfont-light';
+
+  word-break: break-all;
+
+  @media (min-width: 1080px) {
+    padding: 1.5rem 1rem;
+    font-size: 17px;
+  }
+
+  ::selection {
+    background-color: black;
+    color: #ffffff;
+  }
+}
+
+.mce-content-body h1, .mce-content-body p {
+   margin-bottom: 15px; 
+}
+.mce-content-body h2, .mce-content-body h3 {
+  margin-bottom: 13px; }
+
+.mce-content-body h4, .mce-content-body5 h5, .mce-content-body h6 {
+  margin-top: 0;
+  margin-bottom: 6.5px; }
+
+.mce-content-body del, .mce-content-body mark, .mce-content-body s, .mce-content-body u {
+  text-decoration: none; }
+
+.mce-content-body, .mce-content-body dl, .mce-content-body label, .mce-content-body legend, .mce-content-body ol, .mce-content-body p, .mce-content-body ul {
+  color: #000; 
+  background: #ffffff;
+  background-color: #ffffff;  }
+
+.mce-content-body a, .mce-content-body mark, .mce-content-body u {
+  color: inherit; }
+
+
+.mce-content-body body {
+  /*
+  For classic Tumblbug styling, use:
+  */
+  /* font: normal normal 300 100%/28px Avenir, "Helvetica Neue", Helvetica, Arial, Verdana sans-serif; */
+/*  font: normal normal 100 100%/20px 'webfont' !important;
+  line-height: 26px;
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;*/ 
+}
+
+/*.mce-content-body h1, .mce-content-body h2, .mce-content-body h3, .mce-content-body h4, .mce-content-body h5, .mce-content-body h6 {
+  color: #000;
+  font-weight: 700;
+  line-height: 1.5;
+}*/
+
+.mce-content-body h1 {
+  font-size: 2.25rem;
+  line-height: 1.5;
+  margin-top: 0;
+}
+
+.mce-content-body h2 {
+  font-family: 'webfont-bold';
+  font-size: 36px;
+  word-spacing : -0.75px;
+  line-height: 1.5em;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.mce-content-body h3 {
+  font-family: 'webfont-bold';
+  font-size: 30px;
+  word-spacing : -0.75px;
+  line-height: 1.5em;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.mce-content-body h4 {
+  font-family: 'webfont-regular';
+  font-size: 24px;
+  font-weight: bold;
+  word-spacing : -0.75px;
+  line-height: 1.5em;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.mce-content-body h5 {
+  font-size: 19px;
+  /*font-weight: 400;*/
+  font-weight: 300;
+  line-height: 34px;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.mce-content-body h6 {
+  font-size: 14px;
+  word-spacing : -0.75px;
+  line-height: 1.8em;
+
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.mce-content-body h2 + h5, .mce-content-body h3 + h5, .mce-content-body h4 + h5 {
+  margin-top: 20px; }
+
+.mce-content-body h2 + h6, .mce-content-body h3 + h6, .mce-content-body h4 + h6 {
+  margin-top: 20px; }
+
+.mce-content-body h2 + p, .mce-content-body h3 + p, .mce-content-body h4 + p {
+  margin-top: 18px;
+  }
+
+.mce-content-body h6 + p {
+  margin-top: 34px;
+}
+
+.mce-content-body dl + h1, .mce-content-body dl + h2, .mce-content-body dl + h3, .mce-content-body ol + h1, .mce-content-body ol + h2, .mce-content-body ol + h3, .mce-content-body p + h1, .mce-content-body p + h2, .mce-content-body p + h3, .mce-content-body table + h1, .mce-content-body table + h2, .mce-content-body table + h3, .mce-content-body ul + h1, .mce-content-body ul + h2, .mce-content-body ul + h3 {
+  margin-top: 39px; }
+.mce-content-body h3 + .lead {
+  font-size: 1rem; }
+.mce-content-body .lead + h3 {
+  margin-top: 26px; }
+.mce-content-body li + h5 {
+  margin-top: 13px; }
+.mce-content-body dl, .mce-content-body hr, .mce-content-body li + ol, .mce-content-body li + ul {
+  margin-top: 6.5px;
+  }
+
+.mce-content-body cite, .mce-content-body dfn, .mce-content-body i {
+  font-style: italic; }
+.mce-content-body .code, .mce-content-body code, .mce-content-body kbd, .mce-content-body pre, .mce-content-body samp, .mce-content-body tt, .mce-content-body var {
+  font-family: Menlo, "Courier New", Courier, monospace; }
+.mce-content-body dt {
+  margin-bottom: 13px;
+  color: #433; }
+.mce-content-body dd {
+  margin-left: 0; }
+.mce-content-body button, .mce-content-body input[type=submit], .mce-content-body select, .mce-content-body textarea {
+  font-family: AppleSDGothicNeo, Helvetica, sans-serif; }
+.mce-content-body button.is-not-Mac, .mce-content-body input[type=submit].is-not-Mac, .mce-content-body select.is-not-Mac, .mce-content-body textarea.is-not-Mac {
+  font-family: RixSGo, MalgunGothic, Dotum, sans-serif; }
+.mce-content-body select, .mce-content-body textarea {
+  font-size: 100%;
+  line-height: 24px; }
+.mce-content-body mark, .mce-content-body u {
+  padding: .15rem 0 }
+.mce-content-body del, .mce-content-body s {
+  text-decoration: line-through;
+}
+.mce-content-body small {
+  font-size: .8rem; }
+.mce-content-body b, .mce-content-body caption, .mce-content-body dt, .mce-content-body strong, .mce-content-body th, .mce-content-body thead {
+  font-weight: 800;
+  font-family: 'webfont-bold';
+  /*font-weight: 500;*/
+   }
+
+/* 숫자리스트 */
+.mce-content-body ol{
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 24px;
+    display: block;
+    list-style-type: decimal;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 32px;
+    }
+
+/* 점리스트 */
+.mce-content-body ul {
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 24px;
+  display: block;
+  list-style-type: circle;
+  
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 32px;
+}
+
+
+.mce-content-body li + ol, .mce-content-body li + ul {
+  margin-bottom: 6.5px; }
+
+.mce-content-body li + li {
+  margin-top: 18px; }
+
+.mce-content-body dl {
+  margin-bottom: 13px; }
+.mce-content-body section + section {
+  margin-top: 39px; }
+.mce-content-body article + article {
+  margin-top: 52px; }
+/*.mce-content-body:first-child {
+  margin-top: 0; }*/
+
+
+.mce-content-body p {
+  font-size: 17px;
+  line-height: 1.8em;
+  word-spacing: -0.75px
+
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.mce-content-body .blockquote_center {
+  color: #000;
+  margin: 13px 24px 26px; }
+
+.mce-content-body .blockquote_center {
+  margin: 0;
+  color: #000;
+
+  font-family: 'webfont-regular';
+  text-align: center; 
+  font-size: 32px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 1.8;
+}
+.mce-content-body .blockquote_center.pull-quote {
+  font-family: "Nanum Myeongjo", serif;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  border-left: 0;
+  display: inline-block;
+  letter-spacing: -.025rem;
+  padding-top: 13px;
+  padding-bottom: 13px; }
+
+.mce-content-body hr {
+    border: .5px solid #cccccc;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.mce-content-body iframe {
+  max-width: 100%;
+  height: 450px;
+  width: 100%;
+   }
+.mce-content-body a {
+  color: #1b61ab;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.mce-content-body img {
+  /*width: auto !important;*/
+  max-width: 100% !important;
+  padding-bottom: 6px; 
+  height : auto;
+}
+.mce-content-body .b-layout-body_page_edit_project {
+  min-height: 520px; }
+
+.mce-container {
+    color: red;
+}
+
+.mce-content-body table {
+  min-width: 200px !important; 
+  width: auto !important;
+  max-width: 100% !important;
+
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.mce-content-body td {
+  padding-left: 10px;
+  padding-right: 10px;
+  min-width: 10px !important; 
+  font-size: 17px;
+  border: 1px solid #e4e4e4 !important;
+}
+
+.mce-content-body span.bg_color {
+  /*background: rgb(255, 153, 153, 0.24) !important;*/
+  background: #d7eaff !important
+}
+
+
+.mce-content-body span.txt_color {
+  color: #1d62ab;
+  font-family: 'webfont-bold';
+}
+
+
+.mce-content-body span.custom_underline {
+  border-bottom: 2px #1d62ab solid;
+}
+
+.mce-content-body span.mce-preview-object, 
+.mce-content-body span.mce-object-iframe{
+  width : 100%;
+}
+
+.mce-content-body .videodetector iframe {
+  height : 320px;
+}
+
+.mce-branding-powered-by {
+  display : none;
+}
+
+.mce-btn > .mce-open, .mce-tab {
+  display: none;
+}
+
+/* 하이라이터 버튼 색상  */
+i.mce-i-backcolor {
+  background: #d7eaff !important;
+}
+
+/* 글자 색상  */
+i.mce-i-forecolor {
+  /*color : #ff0070;*/
+  color : #1d62ab;
+}
+
+.popup_mce_menu {
+  position: fixed !important;
+}
+
+.popup_mce_tooltip {
+  position: fixed !important;
+}         
+
+
+/* 인용구 */
+.mce-content-body .blockquote_center {
+  width: 100% !important;
+  max-width: 640px;
+  margin: 0 auto;
+  padding-left: 0;
+}
+
+.mce-content-body .blockquote_center::before {
+  background-image: url(img/crowdy_blockquote3.png); 
+  background-size: auto;   
+    background-repeat:   no-repeat;
+    background-position: center center; 
+    content:''; 
+    display: block; 
+    margin: 40px auto 12px; 
+    width: 23px; 
+    height: 24px; 
+    font-size: 24px; 
+    line-height: 1;
+}
+
+.mce-content-body .blockquote_center::after {
+  background-image: url(img/crowdy_blockquote4.png); 
+  background-size: auto;   
+    background-repeat:   no-repeat;
+    background-position: center center; 
+    content:''; 
+    display: block; 
+    margin: 12px auto 40px; 
+    width: 23px; 
+    height: 24px; 
+    font-size: 24px; 
+    line-height: 1;
+ }
+
+.mce-content-body p.blockquote_center {
+  font-size: 17px;
+  line-height: 1.8em;
+  word-spacing: -0.75px
+}
+
+.mce-content-body h2.blockquote_center {
+  font-family: 'webfont-bold';
+  font-size: 36px;
+  word-spacing : -0.75px;
+  line-height: 1.5em;
+}
+
+.mce-content-body h3.blockquote_center {
+  font-family: 'webfont-bold';
+  font-size: 30px;
+  word-spacing : -0.75px;
+  line-height: 1.5em;
+}
+
+.mce-content-body h4.blockquote_center {
+  font-family: 'webfont-regular';
+  font-size: 24px;
+  font-weight: bold;
+  word-spacing : -0.75px;
+  line-height: 1.5em;
+}
+
+.mce-content-body .blockquote_left {
+
+  font-family: 'webfont-bold';
+  font-size: 30px;
+  word-spacing : -0.75px;
+  line-height: 1.5em;
+
+  margin-left: 0px;
+  
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 1px 8px 1px;
+  border-left: 2px solid #1b62ab;
+}
+
+.mce-content-body .hr1 {
+    border: .5px solid #cccccc;
+    width: 100%;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.mce-content-body .hr2 {
+    border: .5px solid #cccccc;
+    width: 160px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    /*margin-left: 0;
+    border: 2px solid #1b62ab;
+    width: 8%;
+    margin-top: 34px;
+    margin-bottom: 34px;*/
+}
+
+.mce-content-body .hr3 {
+    border: 5px dotted #1b62ab;
+    width: 100%;
+    margin-bottom: 34px;
+    margin-top: 34px;
+    border-top: 0px;
+}
+
+
+/*  br[data-mce-bogus="1"] {
+    display:none;
+  }*/
+
+ hr br[data-mce-bogus="1"] {
+    display:none;
+  }
+
+
+/* visual box 제목 없앰 */
+.mce-visualblocks h2, h3, h4, h5, p, h6, blockquote, ul, ol {
+    background: none !important;
+}
+
+.mce-visualblocks h5, p, h6, blockquote{
+    padding-top: 0px !important;
+}
+
+.mce-visualblocks h3{
+    padding-top: 5px !important;
+}
+
+.mce-visualblocks h4{
+    padding-top: 3px !important;
+}
+
+.mce-content-body p + p {
+    margin-top :18px
+}
+
+.mce-content-body p + h2 {
+  margin-top : 64px
+}
+
+.mce-content-body p + h3 {
+  margin-top : 50px
+}
+
+.mce-content-body p + h4 {
+  margin-top : 42px
+}
+
+.mce-content-body p + img, .mce-content-body p + p img  {
+  /*margin-top : 34px*/
+  margin-top : 14px
+}
+
+.mce-content-body img + img, .mce-content-body p img + p img {
+  /*margin-top : 34px*/
+  margin-top : 14px
+}
+
+.mce-content-body h5 + h2 {
+  margin-top :34px
+}
+
+.mce-content-body h5 + h3 {
+  margin-top :34px
+}
+
+.mce-content-body h5 + h4 {
+  margin-top :34px
+}
+
+.mce-content-body h5 + p {
+  margin-top :34px
+}
+  
+.mce-content-body h2 + .hr2, .mce-content-body .hr2 + h2{
+  margin-top: 64px; 
+}
+
+.mce-content-body h3 + .hr2, .mce-content-body .hr2 + h3 {
+  margin-top: 50px; 
+}
+
+.mce-content-body h4 + .hr2, .mce-content-body .hr2 + h4 {
+  margin-top: 42px; 
+}
+
+.mce-content-body p + .hr2, .mce-content-body .hr2 + p {
+  margin-top: 50px; 
+}
+
+.mce-content-body h2 + .hr1, .mce-content-body .hr1 + h2{
+  margin-top: 64px; 
+}
+
+.mce-content-body h3 + .hr1, .mce-content-body .hr1 + h3 {
+  margin-top: 50px; 
+}
+
+.mce-content-body h4 + .hr1, .mce-content-body .hr1 + h4 {
+  margin-top: 42px; 
+}
+
+.mce-content-body p + .hr1, .mce-content-body .hr1 + p {
+  margin-top: 50px; 
+}
+
+.mce-content-body .blockquote_left + p {
+  margin-top: 18px;   
+  margin-bottom: 10px;
+}  
+
+.mce-content-body p + .blockquote_left {
+  margin-top : 50px
+}
+
+.mce-content-body .blockquote_left + h2 {
+    margin-top: 64px;
+}
+
+.mce-content-body .blockquote_left + h3 {
+    margin-top: 50px;
+}
+
+.mce-content-body .blockquote_left + h4 {
+    margin-top: 42px;
+}
+
+.mce-content-body .blockquote_center + p, .mce-content-body p + .blockquote_center, .mce-content-body .blockquote_center + .blockquote_center {
+  margin-top: 42px;   
+}  
+
+.mce-content-body .blockquote_center + h2, .blockquote_center + h3, .blockquote_center + h4 {
+  margin-top: 34px;   
+} 
+
+	@media only screen and ( max-width: 991px) {
+		.mce-content-body iframe {
+	  		height: 410px;
+	   }
+	}
+
+	@media only screen and ( max-width: 767px) {
+		.mce-content-body iframe {
+	  		height: 290px;
+	   }
+	}
+	
+  @media only screen and ( max-width: 510px) {
+  	
+  	.mce-content-body p{
+  		margin-top :0px;
+  		margin-bottom :0px;
+  	}
+  	.mce-content-body p + p {
+  		margin-top :0px;
+  		margin-bottom :10px;
+  	}
+  	.mce-content-body p + img, .mce-content-body p + p img  {
+	  	margin-bottom :0px;
+	}
+	.mce-content-body img {
+		padding-bottom: 0px;
+	}
+
+    .mce-content-body h2 {
+     font-size: 26px;
+   }
+
+    .mce-content-body h3 {
+     font-size: 22px;
+   }
+
+    .mce-content-body h4 {
+     font-size: 20px;
+   }
+
+    .mce-content-body h5 {
+     font-size: 18px;
+   }
+
+    .mce-content-body p {
+     font-size: 17px;
+   }
+
+   .mce-content-body ol, .mce-content-body ul {
+      font-size: 16px; 
+    }
+
+   .mce-content-body h6 {
+     font-size: 14px;
+   }
+
+   .mce-content-body .blockquote_left {
+      padding: 1px 10px 1px;
+      font-size: 26px;
+   }
+
+   .mce-content-body .blockquote_center {
+      font-size: 26px;
+   }
+
+   .mce-content-body p + h2 {
+      margin-top : 48px
+    }
+
+    .mce-content-body p + h3 {
+      margin-top : 46px
+    }
+
+    .mce-content-body p + h4 {
+      margin-top : 36px
+    }
+
+    .mce-content-body p + img, .mce-content-body p + p img  {
+      margin-top : 0px;
+    }
+
+    .mce-content-body img + img, .mce-content-body p img + p img {
+      margin-top : 32px
+    }
+	.mce-content-body h2 + p, .mce-content-body h3 + p, .mce-content-body h4 + p {
+	  margin-bottom:10px;
+	}	
+    .mce-content-body h5 + h2 {
+      margin-top :32px
+    }
+
+    .mce-content-body h5 + h3 {
+      margin-top :32px
+    }
+
+    .mce-content-body h5 + h4 {
+      margin-top :32px
+    }
+
+    .mce-content-body h5 + p {
+      margin-top :32px
+    }
+
+    .mce-content-body h2 + .hr2, .mce-content-body .hr2 + h2{
+      margin-top: 46px; 
+    }
+
+    .mce-content-body h3 + .hr2, .mce-content-body .hr2 + h3 {
+      margin-top: 46px; 
+    }
+
+    .mce-content-body h4 + .hr2, .mce-content-body .hr2 + h4 {
+      margin-top: 46px; 
+    }
+
+    .mce-content-body p + .hr2, .mce-content-body .hr2 + p {
+      margin-top: 46px; 
+    }
+
+    .mce-content-body h2 + .hr1, .mce-content-body .hr1 + h2{
+      margin-top: 46px; 
+    }
+
+    .mce-content-body h3 + .hr1, .mce-content-body .hr1 + h3 {
+      margin-top: 46px; 
+    }
+
+    .mce-content-body h4 + .hr1, .mce-content-body .hr1 + h4 {
+      margin-top: 46px; 
+    }
+
+    .mce-content-body p + .hr1, .mce-content-body .hr1 + p {
+      margin-top: 46px; 
+    }
+
+    .mce-content-body h2.blockquote_center {
+      font-family: 'webfont-bold';
+      font-size: 26px;
+      word-spacing : -0.75px;
+      line-height: 1.5em;
+    }
+
+    .mce-content-body h3.blockquote_center {
+      font-family: 'webfont-bold';
+      font-size: 22px;
+      word-spacing : -0.75px;
+      line-height: 1.5em;
+    }
+
+    .mce-content-body h4.blockquote_center {
+      font-family: 'webfont-regular';
+      font-size: 20px;
+      font-weight: bold;
+      word-spacing : -0.75px;
+      line-height: 1.5em;
+    }
+
+    .mce-content-body .blockquote_center + p, .mce-content-body p + .blockquote_center, .mce-content-body .blockquote_center + .blockquote_center {
+      margin-top: 30px;   
+       width: 100% !important;
+    }  
+
+    .mce-content-body .blockquote_center + h2, .blockquote_center + h3, .blockquote_center + h4 {
+      margin-top: 30px;   
+    } 
+
+    .mce-content-body .blockquote_left + h2 {
+        margin-top: 48px;
+    }
+
+    .mce-content-body .blockquote_left + h3 {
+        margin-top: 36px;
+    }
+
+    .mce-content-body .blockquote_left + h4 {
+        margin-top: 32px;
+    }
+	
+	.mce-content-body iframe {
+  		height: 220px;
+   }
+
+  }
+
+	@media only screen and ( max-width: 420px) {
+		.mce-content-body iframe {
+	  		height: 190px;
+	   }
+	}
+	
+ul.dwc-icon ul {
+    -webkit-padding-start: 0px;
+}
+
+ul.dwc-icon ol {
+    -webkit-padding-start: 0px;
+}
+
+.dinvest_wrap_contents .dwc-icon li {
+    list-style-type: none;
+}
+
+/* 하단 단어 개수, path 텍스트 없애기 */
+.mce-path, .mce-wordcount {
+    display: none !important;
+}
+
+
+/*.mce-visualblocks hr {
+  padding-top: 10px;
+  border: 1px dashed #BBB;
+  margin-left: 3px;
+}*/
+
+
+/* @media only screen and ( min-width: 1200px) {
+  .mce-content-body img {
+       
+  }
+}
+@media only screen and ( max-width: 1200px) {
+  .mce-content-body img {
+      max-width: 1200px !important; 
+  }
+} 
+@media only screen and ( max-width: 991px) {
+  .mce-content-body img {
+      max-width: 991px !important; 
+  }
+} 
+@media only screen and ( max-width: 767px) {
+  .mce-content-body img {
+      max-width: 767px !important; 
+  }
+} 
+@media only screen and ( max-width: 600px) {
+  .mce-content-body img {
+      max-width: 600px !important; 
+  } 
+} 
+@media only screen and ( max-width: 370px) {
+  .mce-content-body img {
+      max-width: 370px !important; 
+  }
+}            
+ */
+/* 점 리스트 이미지 넣기  */
+/* .mce-content-body ul li {
+    height: 33px;
+    margin: 8px 0;
+    background: url('/resources/image/bullet_icon.png') no-repeat left center;
+    background-size: 30px auto;
+    list-style: none;
+    padding-left: 28px;
+    font-size: 15px;
+    line-height: 2.1;
+    word-spacing: .5px;
+} */
+
+/* .mce-container, .mce-container *, .mce-widget, .mce-widget *, .mce-reset {
+    color: red;
+} */
+       

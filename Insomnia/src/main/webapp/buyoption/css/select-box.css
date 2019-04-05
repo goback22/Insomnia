@@ -1,0 +1,98 @@
+
+select {
+  
+}
+
+// select box 색상
+.select2 {
+    
+}
+
+
+.select2-container--default {
+    width: 100% !important;
+    color: #a1a1a1;
+}
+
+.common_sub_top_menu .select2-container--default {
+    width: 100% !important;
+    color: #a1a1a1;
+    margin: 15px 0 !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #a1a1a1;
+    color: white;
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #1d62ab;
+    border-radius: 0px;
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: -.033em;
+    height: 34px;
+    color: #1d62ab;
+}
+
+.select2-container--default .select2-selection--single span {
+    color: #1d62ab !important;
+    line-height: 35px !important;
+    padding-right: 0px !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #1d62ab;
+    color: white;
+}
+
+
+.select2-dropdown {
+    background-color: white;
+    border: 1px solid #1d62ab;
+    border-radius: 0px;
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    left: -100000px;
+    width: 100%;
+    z-index: 1051;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border:       solid currentColor;
+    border-width: 0 .1em .1em 0;
+    display:      inline-block;
+    padding:      .20em;
+    top: 55%;
+    transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+    line-height: 35px;
+}
+
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border:       solid currentColor;
+    border-width: 0 .1em .1em 0;
+    display:      inline-block;
+    padding:      .20em;
+    top: 68%;
+    transform:rotate(-135deg);
+    -webkit-transform:rotate(-135deg);
+}
+
+#select-box-container {
+    
+}
+
+#select-box-container > [class*="col-"] {
+              padding-right: 10px;
+              padding-left: 10px;
+            }
+
+.select2-results__option {
+    color: #a1a1a1;
+    font-weight: bold;
+    font-size: 16px;
+}
+
