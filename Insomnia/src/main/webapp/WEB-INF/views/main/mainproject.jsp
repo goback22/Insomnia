@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
        <style>
           
@@ -12,7 +12,7 @@
     }
     .person{
         position:fixed;
-        background-image:url(vendor/img/person.png);
+        background-image:url(../resource/img/person.png);
         background-repeat:no-repeat;
         background-size:cover;
         margin-top:16%;
@@ -23,7 +23,7 @@
     }
     .instruments{
         position:fixed;
-        background-image:url(vendor/img/instruments.png);
+        background-image:url(../resource/img/instruments.png);
         background-repeat:no-repeat;
         background-size:cover;
         margin-top:22%;
@@ -36,7 +36,7 @@
         padding:150px;
     }
     .section1{               /* 발라드 / 포크 */
-        background-image:url('vendor/img/boat.jpg');    
+        background-image:url('../resource/img/boat.jpg');    
         background-size:cover;
         background-position:left center;
         height:100%;
@@ -44,35 +44,35 @@
         
     }
     .section2{               /* 재즈 */
-        background-image:url('vendor/img/jazz.jpg');
+        background-image:url('../resource/img/jazz.jpg');
         background-size:cover;
         background-position:top center;
         height:100%;
         background-attachment:fixed;
     }
     .section3{               /* 힙합 */
-        background-image:url('vendor/img/mic.jpg');
+        background-image:url('../resource/img/mic.jpg');
         background-size:cover;
         background-position:left center;
         height:100%;
         background-attachment:fixed;
     }
     .section4{               /* 댄스 */
-        background-image:url('vendor/img/dance.jpg');
+        background-image:url('../resource/img/dance.jpg');
         background-size:cover;
         background-position:top center;
         height:100%;
         background-attachment:fixed;
     }
     .section5{               /* 락 / 메탈 */
-        background-image:url('vendor/img/rock.jpg');
+        background-image:url('../resource/img/rock.jpg');
         background-size:cover;
         background-position: left center;
         height:100%;
         background-attachment:fixed;
     }
     .section6{               /* 클래식 */
-        background-image:url('vendor/img/korea.jpg');
+        background-image:url('../resource/img/korea.jpg');
         background-size:cover;
         background-position:top center;
         height:100%;
@@ -192,7 +192,8 @@ $(function(){
             ml = Math.round(Math.random()*100)+ 'px ';// margin값 
             mb = Math.round(Math.random()*100)+ 'px ';// margin값 
 
-            resultString = resultString + "<div class='DIV box-shadow'  data-scroll='toggle(.scaleUpIn, .scaleDownOut)' style='width:"+wh+"; height:"+wh+";background-color:rgb("+red+","+green+","+blue+");display:inline-block; display:inline-block; position:relative; margin:"+mt+mr+ml+mb+";'></div>";
+            resultString = resultString + "<a href='/insomnia/main/content.ins'>"
+            resultString = resultString + "<div class='DIV box-shadow'  data-scroll='toggle(.scaleUpIn, .scaleDownOut)' style='width:"+wh+"; height:"+wh+";background-color:rgb("+red+","+green+","+blue+");display:inline-block; display:inline-block; position:relative; margin:"+mt+mr+ml+mb+";'></div></a>";
             }     
 
             $('.section'+i).html(resultString);
@@ -281,30 +282,13 @@ $(function(){
 
 
 
-        <!-- /#site -->
-	<!-- Dependency Scripts -->
-        <!-- 상단 네비게이션 스크롤시 다운 -->
-    <script src="dependencies/jquery-ui/jquery-ui.min.js"></script>
-	<script src="dependencies/bootstrap/js/bootstrap.min.js"></script>
-	<script src="dependencies/swiper/js/swiper.min.js"></script>
-	<script src="dependencies/swiperRunner/swiperRunner.min.js"></script>
-	<script src="dependencies/magnific-popup/js/jquery.magnific-popup.min.js"></script>
-	<script src="dependencies/slick-carousel/js/slick.min.js"></script>
-	<script src="assets/js/headroom.js"></script>
+  
 
-    <!-- 사이트 스크립트 -->
-    <script src="assets/js/app.js"></script>
-
-        <!--ScrollTrigger-->
-        <script src="vendor/js/ScrollTrigger.min.js"></script>
+		<!--ScrollTrigger-->
+    	<script src="<c:url value='/vendor/js/ScrollTrigger.min.js'/>"></script>
         
         <script>
         document.addEventListener('DOMContentLoaded', function(){
         var trigger = new ScrollTrigger();
         });
         </script>
-
-    </body>
-    
-    
-    </html>

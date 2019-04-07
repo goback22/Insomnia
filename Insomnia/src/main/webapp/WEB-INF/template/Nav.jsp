@@ -15,9 +15,9 @@
 						<div class="header-magic-line-inner clearfix">
 							<div id="site-logo" class="float-left">
 								<a href="index.html" class="logo-main"> <img
-									src="resource/img/logo_5.png" alt="logo">
+									src="<c:url value='/resource/img/logo_5.png'/>" alt="logo">
 								</a> <a href="index.html" class="logo-stickky"> <img
-									src="resource/img/logo_5.png" alt="logo">
+									src="<c:url value='/resource/img/logo_5.png'/>" alt="logo">
 								</a>
 							</div>
 
@@ -35,7 +35,7 @@
 									<ul class="custom-content cart-overview">
 										<li class="cart-item clearfix"><a
 											href="single-product.html" class="product-thumbnail"> <img
-												src="media/product/9.jpg" alt="">
+												src="<c:url value='/media/product/9.jpg'/>" alt="">
 										</a>
 											<div class="product-details">
 												<a href="single-product.html" class="product-title">Drums
@@ -46,7 +46,7 @@
 											</div></li>
 										<li class="cart-item clearfix"><a
 											href="single-product.html" class="product-thumbnail"> <img
-												src="media/product/10.jpg" alt="">
+												src="<c:url value='/media/product/10.jpg'/>" alt="">
 										</a>
 											<div class="product-details">
 												<a href="single-product.html" class="product-title">Rocking
@@ -57,7 +57,7 @@
 											</div></li>
 										<li class="cart-item clearfix"><a
 											href="single-product.html" class="product-thumbnail"> <img
-												src="media/product/11.jpg" alt="">
+												src="<c:url value='/media/product/11.jpg'/>" alt="">
 										</a>
 											<div class="product-details">
 												<a href="single-product.html" class="product-title">Exclusive
@@ -113,7 +113,7 @@
 			<!-- 로그인 메뉴 넣어야 하는 부분 -->
 			<div class="offset-menu-two">
 				<a href="<c:url value='/#'/>" class="offset-closer"><img
-					src="resource/img/offset-cross2.png" alt=""></a>
+					src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
 				<div class="div-form-login">
 					<h2 class="text-title">로그인</h2>
 					<form name="form-login" id="form-login" class="form-login">
@@ -180,13 +180,13 @@
 						<button type="button" id="facebookLoginBtn" class="facebook"
 							onclick="FB.login();">
 							<img class="icon"
-								src="resource/img/f-ogo_RGB_HEX-58.png" />
+								src="<c:url value='/resource/img/f-ogo_RGB_HEX-58.png'/>" />
 							<i class="facebook"></i>페이스북으로 로그인
 						</button>
 						<button type="button" id="custom-login-btn"
 							onclick="javascript:loginWithKakao()">
 							<img class="icon"
-								src="resource/img/kakaolink_btn_medium.png" />
+								src="<c:url value='/resource/img/kakaolink_btn_medium.png'/>" />
 							<i class="kakao"></i>카카오
 						</button>
 						<!-- <a id="custom-login-btn" href="javascript:loginWithKakao()">
@@ -196,17 +196,17 @@
 
 						<button type="button" id="naverLoginBtn">
 							<img class="icon"
-								src="resource/img/네이버 아이디로 로그인_아이콘형_Green.PNG" />
+								src="<c:url value='/resource/img/naver_login_icon.png'/>" />
 							<i class="naver"></i>네이버
 						</button>
 						<button type="button" id="googleLoginBtn">
 							<img class="icon"
-								src="resource/img/icons8-google-48.png" />
+								src="<c:url value='/resource/img/icons8-google-48.png'/>" />
 							<i class="google color"></i>구글
 						</button>
 						<button type="button" onclick="pageLoginByTwitter()">
 							<img class="icon"
-								src="resource/img/Twitter_Logo_WhiteOnBlue.png" />
+								src="<c:url value='/resource/img/Twitter_Logo_WhiteOnBlue.png'/>" />
 							<i class="twitter"></i>트위터
 						</button>
 					</div>
@@ -218,7 +218,7 @@
 						</p>
 					</div>
 
-					<img src="resource/img/cat-eyes.jpg"
+					<img src="<c:url value='/resource/img/cat-eyes.jpg'/>"
 						class="cat_eye" />
 				</div>
 
@@ -226,7 +226,7 @@
 
 				<!-- 여기까지 -->
 				<div class="offset-social-two">
-					<a href=""> <img src="resource/img/logo_5.png" alt="">
+					<a href=""> <img src="<c:url value='/resource/img/logo_5.png'/>" alt="">
 					</a>
 					<!-- <ul>
                         <li><a href="<c:url value='/#'/>"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -243,7 +243,7 @@
 			<header id="mobile-nav-wrap">
 				<div class="mob-header-inner d-flex justify-content-between">
 					<div id="mobile-logo" class="d-flex justify-content-start">
-						<a href="index.html"><img src="resource/img/logo.png"
+						<a href="index.html"><img src="<c:url value='/resource/img/logo.png'/>"
 							alt="Site Logo"></a>
 					</div>
 
@@ -267,7 +267,7 @@
 				<div class="mobile-nav-top-wrap">
 					<div class="mob-header-inner clearfix">
 						<div class="d-flex justify-content-start mobile-logo">
-							<a href="index.html"> <img src="resource/img/logo-dark.png"
+							<a href="index.html"> <img src="<c:url value='/resource/img/logo-dark.png'/>"
 								alt="Site Logo">
 							</a>
 						</div>

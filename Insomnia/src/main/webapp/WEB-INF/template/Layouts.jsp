@@ -12,19 +12,17 @@
 	
 	<meta name="theme-color" content="#e43a90">
 	
-	    
+	    <!-- 
        <link rel="stylesheet" href="<c:url value='/https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'/>" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
-       <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+       
        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
        <link rel="stylesheet" href="<c:url value='/https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'/>">
-       <!-- JQuery Migrate Plugin -->
-       <script src="<c:url value='/vendor/js/jquery-migrate-1.4.1.min.js'/>"></script>
-       
-       <!-- JQuery for ScrollTrigger -->
-       <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-	
+        -->
 
+	
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	
 	<!-- Dependency Styles -->
 	<link rel="stylesheet" href="<c:url value='/vendor/css/bootstrap.min.css'/>" type="text/css">
 	<link rel="stylesheet" href="<c:url value='/vendor/css/stylesheet.css'/>" type="text/css">
@@ -36,21 +34,62 @@
 	<link rel="stylesheet" href="<c:url value='/vendor/css/slick.css'/>" type="text/css">
 	<link rel="stylesheet" href="<c:url value='/vendor/css/colornip.min.css'/>" type="text/css">
 	<link rel="stylesheet" href="<c:url value='/vendor/css/css-loader.css'/>" type="text/css">
+	
+
 
 	<!-- Site Stylesheet -->
 	<link rel="stylesheet" href="<c:url value='/vendor/css/woocommerce.css'/>" type="text/css">
 	<link rel="stylesheet" href="<c:url value='/vendor/css/app.css'/>" type="text/css">
 	
 	<!-- fonts -->
-    <link href="/https://fonts.googleapis.com/css?family=Cormorant+Garamond" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond" rel="stylesheet">
     
 	<!-- 로그인 처리 CSS -->
 	<link href="<c:url value='/vendor/css/LoginCSS.css'/>" rel="stylesheet" />
-	<script src="vendor/js/FacebookLogin.js"></script>
+	<script src="<c:url value='/vendor/js/FacebookLogin.js'/>"></script>
 	<!-- 페이스북 로그인 -->
 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 	<!-- 카카오 로그인 -->
-	<script src="vendor/js/kakao.js"></script>
+	<script src="<c:url value='/vendor/js/kakao.js'/>"></script>
+	
+	
+		 
+	 
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="<c:url value='/vendor/js/jquery.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/jquery-ui.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/swiper.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/swiperRunner.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/wow.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/jquery.countdown.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/jquery.magnific-popup.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/jquery.spinner.js'/>"></script>
+	<script src="<c:url value='/vendor/js/isotope.pkgd.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/masonry.pkgd.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/imagesloaded.pkgd.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/slick.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/headroom.js'/>"></script>
+	<script src="<c:url value='/vendor/js/soundmanager2.js'/>"></script>
+	<script src="<c:url value='/vendor/js/mp3-player-button.js'/>"></script>
+	<script src="<c:url value='/vendor/js/smoke.js'/>"></script>
+	<script src="<c:url value='/vendor/js/jquery.fittext.js'/>"></script>
+	<script src="<c:url value='/vendor/js/gmap3.min.js'/>"></script>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>
+	<script src='<c:url value="/vendor/js/tilt.jquery.js"/>'></script>
+	<script src='<c:url value="/vendor/js/parallax.min.js"/>'></script>
+	<!-- Player -->
+	<script src="<c:url value='/vendor/js/jquery.jplayer.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/jplayer.playlist.min.js'/>"></script>
+	<script src="<c:url value='/vendor/js/myplaylist.js'/>"></script>
+	<script src="<c:url value='/vendor/js/jquery-migrate-1.4.1.min.js'/>"></script>
+
+	<!--Google map api -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsBrMPsyNtpwKXPPpG54XwJXnyobfMAIc"></script>
+
+	<!-- Site Scripts -->
+	<script src="<c:url value='/vendor/js/app.js'/>"></script>
+	
 
 
 
@@ -71,52 +110,15 @@
 	3. Navigation Bar는 개별적으로 jsp페이지에 붙여 사용 하도록 한다.
 	사용법 : 네비게이션 바가 들어갈 자리에 jsp:include 태그를 사용한다.
 	
-			<jsp:include page="../template/Nav.jsp"/>
+			<jsp:include page="/WEB-INF/template/Nav.jsp"/>
 			
 	위의 태그를 그대로 복붙해서 사용하면 된다.
 	기본경로가 설정되어있기때문에 경로불문 사용하면 된다.
 	 --%> 
 	 
 	 
-	 
-	 
-	 
-	 <script src="vendor/js/jquery.min.js"></script>
-	<script src="vendor/js/jquery-ui.min.js"></script>
-	<script src="vendor/js/bootstrap.min.js"></script>
-	<script src="vendor/js/swiper.min.js"></script>
-	<script src="vendor/js/swiperRunner.min.js"></script>
-	<script src="vendor/js/wow.min.js"></script>
-	<script src="vendor/js/jquery.countdown.min.js"></script>
-	<script src="vendor/js/jquery.magnific-popup.min.js"></script>
-	<script src="vendor/js/jquery.spinner.js"></script>
-	<script src="vendor/js/isotope.pkgd.min.js"></script>
-	<script src="vendor/js/masonry.pkgd.min.js"></script>
-	<script src="vendor/js/imagesloaded.pkgd.min.js"></script>
-	<script src="vendor/js/slick.min.js"></script>
-	<script src="vendor/js/headroom.js"></script>
-	<script src="vendor/js/soundmanager2.js"></script>
-	<script src="vendor/js/mp3-player-button.js"></script>
-	<script src="vendor/js/smoke.js"></script>
-	<script src="vendor/js/jquery.fittext.js"></script>
-	<script src="vendor/js/gmap3.min.js"></script>
-	<script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>
-	<script src='vendor/js/tilt.jquery.js'></script>
-	<script src='vendor/js/parallax.min.js'></script>
-	<!-- Player -->
-	<script src="vendor/js/jquery.jplayer.min.js"></script>
-	<script src="vendor/js/jplayer.playlist.min.js"></script>
-	<script src="vendor/js/myplaylist.js"></script>
 
-	<!-- Remove It -->
-	<script src="vendor/js/colornip.min.js"></script>
 
-	<!--Google map api -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsBrMPsyNtpwKXPPpG54XwJXnyobfMAIc"></script>
-
-	<!-- Site Scripts -->
-	<script src="vendor/js/app.js"></script>
-	
 	
 	
 <script>
@@ -236,10 +238,12 @@ window.onload = function() {
         }
     }
 
+    /* 자꾸오류나서 주석해둠
     if(!qv_func.getCookie('notice_main')) {
         //tmp
         //$(".notice-obt").show();
     }
+    */
 };
 
 $(window).resize(function(){

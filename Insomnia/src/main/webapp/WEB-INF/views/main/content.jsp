@@ -1,45 +1,4 @@
-<!doctype html>
-
-<html lang="en">
-<head>
-   <meta charset="utf-8">
-   <title>unNamed.html</title>
-
-
-
-       <!-- 기본 부트스트랩 최신자와 제이쿼리 최신자 (적용되지 않는 스타일에 대해 구버전을 섞었음)-->
-       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
-       <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-       <!-- JQuery Migrate Plugin -->
-       <script src="vendor/js/jquery-migrate-1.4.1.min.js"></script>
-
-       <!-- JQuery for ScrollTrigger -->
-       <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-       
-
-       <!-- site style sheets -->
-       	<!-- Dependency Styles -->
-	<link rel="stylesheet" href="dependencies/bootstrap/css/bootstrap.min.css" type="text/css">
-	<link rel="stylesheet" href="dependencies/intro/css/stylesheet.css" type="text/css">
-	<link rel="stylesheet" href="dependencies/font-awesome/css/font-awesome.min.css" type="text/css">
-	<link rel="stylesheet" href="dependencies/wow/css/animate.css" type="text/css">
-	<link rel="stylesheet" href="dependencies/magnific-popup/magnific-popup.css" type="text/css">
-
-
-	<!-- Site Stylesheet -->
-	<link rel="stylesheet" href="assets/css/woocommerce.css" type="text/css">
-	<link rel="stylesheet" href="assets/css/app.css" type="text/css">
-	
-
-       <!-- fonts -->
-       <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond" rel="stylesheet">
-
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
        <style>
@@ -150,8 +109,6 @@ $(document).ready(function() {
         "top":position+"px"
         },1000); 
 
-        console.log($(".floating-menu").css("top"));
-
         });
 
 
@@ -169,13 +126,13 @@ $(document).ready(function() {
     
         <div id="site">
             
-              <jsp:include page="../template/Nav.jsp"/>
+              <jsp:include page="/WEB-INF/template/Nav.jsp"/>
                 
 		<!--=============================-->
 		<!--=        	Artitst         =-->
         <!--=============================-->
         <div><!-- Section  -->
-		<section id="artist" class="section-padding section-dark" data-parallax="image" data-bg-image="vendor/img/drumset.jpg">
+		<section id="artist" class="section-padding section-dark" data-parallax="image" data-bg-image="<c:url value='/resource/img/drumset.jpg'/> ">
 			<div class="container" style="margin-top:5%;">
 				<div class="section-title text-center">
 					<h2>Artist BiO History</h2>
@@ -188,7 +145,7 @@ $(document).ready(function() {
 				<div class="row">
 					<div class="col-lg-6 col-md-6 col-full-width">
 						<div class="artist-image">
-							<img src="vendor/img/drumset.jpg" alt="artist">
+							<img src="<c:url value='/resource/img/drumset.jpg'/>" alt="artist">
 						</div>
 						<!-- /.artist-image -->
 					</div>
@@ -211,7 +168,7 @@ $(document).ready(function() {
 									There are many variations of passages of Lorem Ipsum availabe, but the majority have suffered alteration in some form by injected humour
 								</p>
 
-								<img src="media/artist/2.png" alt="Artist- Sing" class="sng">
+								<img src="<c:url value='/media/artist/2.png'/>" alt="Artist- Sing" class="sng">
 							</div>
 						</div>
 						<!-- /.artist-details -->
@@ -243,21 +200,21 @@ $(document).ready(function() {
 						<div class="show-archive-wrapper row no-gutters">
 							<div class="offset-xs-0 offset-sm-4 col-sm-4 col-6">
 								<div class="single-show-archive">
-									<img src="media/album/18.jpg" alt="">
+									<img src="<c:url value='/media/album/18.jpg'/>" alt="">
 									<a href="#"><i class="fa fa-link" aria-hidden="true"></i>
 							</a>
 								</div>
 							</div>
 							<div class="col-6 col-sm-4">
 								<div class="single-show-archive">
-									<img src="media/album/19.jpg" alt="">
+									<img src="<c:url value='/media/album/19.jpg'/>" alt="">
 									<a href="#"><i class="fa fa-link" aria-hidden="true"></i>
 							</a>
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-8">
 								<div class="single-show-archive video-archive">
-									<img src="media/album/20.jpg" alt="">
+									<img src="<c:url value='/media/album/20.jpg'/>" alt="">
 									<div class="video-player">
 										<a href="https://www.youtube.com/watch?v=0I8GmbDU7c4" class="video-btn-three popup-video-btn">
 									<i class="fa fa-play"></i>
@@ -275,7 +232,7 @@ $(document).ready(function() {
 							</div>
 							<div class="col-12 col-sm-4">
 								<div class="single-show-archive">
-									<img src="media/album/21.jpg" alt="">
+									<img src="<c:url value='/media/album/21.jpg'/>" alt="">
 									<a href="#"><i class="fa fa-link" aria-hidden="true"></i>
 	</a>
 								</div>
@@ -414,7 +371,7 @@ $(document).ready(function() {
                                                 <footer class="comment-meta">
                                                     <div class="comment-author">
                                                         <div class="author-thumb">
-                                                            <img alt="" src="media/blog/10.jpg" class="avatar">
+                                                            <img alt="" src="<c:url value='/media/blog/10.jpg'/>" class="avatar">
                                                         </div>
                                                         <div class="author-name">
                                                             <a href="#" class="url">John Doe</a>
@@ -453,7 +410,7 @@ $(document).ready(function() {
                                                         <footer class="comment-meta">
                                                             <div class="comment-author">
                                                                 <div class="author-thumb">
-                                                                    <img alt="" src="media/blog/11.jpg" class="avatar">
+                                                                    <img alt="" src="<c:url value='/media/blog/11.jpg'/>" class="avatar">
                                                                 </div>
     
                                                                 <div class="author-name">
@@ -493,7 +450,7 @@ $(document).ready(function() {
                                                 <footer class="comment-meta">
                                                     <div class="comment-author">
                                                         <div class="author-thumb">
-                                                            <img alt="" src="media/blog/12.jpg" class="avatar">
+                                                            <img alt="" src="<c:url value='/media/blog/12.jpg'/>" class="avatar">
                                                         </div>
                                                         <div class="author-name">
                                                             <a href="#" class="url">Jane Doe</a>
@@ -568,21 +525,12 @@ $(document).ready(function() {
                             </div>
                         </div>
 
-
-         
+				</div><!-- row -->
+         	</div>
         </div><!--site-->
 
 
 
 
 
-
-        <!--ScrollTrigger-->
-        <script src="vendor/js/ScrollTrigger.min.js"></script>
-        
-        <script>
-        document.addEventListener('DOMContentLoaded', function(){
-        var trigger = new ScrollTrigger();
-        });
-        </script>
 

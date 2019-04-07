@@ -44,4 +44,11 @@ public class HomeController {
 	}////
 	
 	
+	
+	@RequestMapping(value="/main/content.ins")
+	public String content() {
+		return "/main/content.tiles";
+	}
+	
+	
 }//classs

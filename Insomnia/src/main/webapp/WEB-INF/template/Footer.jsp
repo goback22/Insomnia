@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <!-- 
 https://mdbootstrap.com/components/bootstrap-footer/
@@ -22,7 +24,7 @@ https://mdbootstrap.com/components/bootstrap-footer/
 						<div class="footer-three-bottom">
 							<div class="footer-three-left">
 								<a href="<c:url value='/#'/>">
-							<img src="resource/img/teamlogo.png" alt="">
+							<img src="<c:url value='/resource/img/teamlogo.png'/>" alt="">
 						</a>
 								<p>There are many variations of passages of Lorem Ipsum available but the majority. We are proud there are many variations of passages of Lorem Ipsum available but the majority of the users does use this.</p>
 							</div>
