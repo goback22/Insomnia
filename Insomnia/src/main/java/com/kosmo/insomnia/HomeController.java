@@ -24,6 +24,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/home.ins", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+		/*
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -32,7 +33,15 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
+		*/
 		return "home.tiles";
-	}
-}
+	}///home
+	
+	
+	@RequestMapping(value="/main/mainproject.ins")
+	public String mainproject() {
+		return "/main/mainproject.tiles";
+	}////
+	
+	
+}//classs

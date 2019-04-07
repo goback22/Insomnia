@@ -3,110 +3,328 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<!--=========================-->
-<!--=        Navbar         =-->
-<!--=========================-->
+<!-- 네비게이션 바 -->
+		<div class="nav">
 
-	<header class="header header-magic-line">
-		<div class="header-inner">
-			<div class="tim-container clearfix">
-				<div class="header-magic-line-inner clearfix">
-					<div id="site-logo" class="float-left">
-						<a href="index.html" class="logo-main"> <img
-							src="assets/img/teamlogo.png" alt="logo">
-						</a> <a href="index.html" class="logo-stickky"> <img
-							src="assets/img/teamlogo.png" alt="logo">
-						</a>
-					</div>
-
-					<ul class="user-login">
-						<li><a href="#" class="off-opener"> <i class="fa fa-bars"
-								aria-hidden="true"></i>
-						</a></li>
-						<li><a href="#"><i class="fa fa-user-o"
-								aria-hidden="true"></i> </a></li>
-
-						<li class="cart-count"><a href="#"> <i
-								class="fa fa-shopping-cart" aria-hidden="true"></i> <span
-								class="badge">3</span>
-						</a>
-
-							<ul class="custom-content cart-overview">
-								<li class="cart-item clearfix"><a
-									href="single-product.html" class="product-thumbnail"> <img
-										src="media/product/9.jpg" alt="">
+			<!--=========================-->
+			<!--=        Navbar         =-->
+			<!--=========================-->
+			<header class="header header-magic-line">
+				<div class="header-inner">
+					<div class="tim-container clearfix">
+						<div class="header-magic-line-inner clearfix">
+							<div id="site-logo" class="float-left">
+								<a href="index.html" class="logo-main"> <img
+									src="resource/img/logo_5.png" alt="logo">
+								</a> <a href="index.html" class="logo-stickky"> <img
+									src="resource/img/logo_5.png" alt="logo">
 								</a>
-									<div class="product-details">
-										<a href="single-product.html" class="product-title">Drums
-											&amp; Percussion</a> <span class="product-quantity">1 x</span> <span
-											class="product-price"> <span class="currency">$</span>
-											300
-										</span> <a href="#" class="product-remove tim-cross-out"></a>
-									</div></li>
-								<li class="cart-item clearfix"><a
-									href="single-product.html" class="product-thumbnail"> <img
-										src="media/product/10.jpg" alt="">
-								</a>
-									<div class="product-details">
-										<a href="single-product.html" class="product-title">Rocking
-											Guitar</a> <span class="product-quantity">2 x</span> <span
-											class="product-price"> <span class="currency">$</span>
-											250
-										</span> <a href="#" class="product-remove tim-cross-out"> </a>
-									</div></li>
-								<li class="cart-item clearfix"><a
-									href="single-product.html" class="product-thumbnail"> <img
-										src="media/product/11.jpg" alt="">
-								</a>
-									<div class="product-details">
-										<a href="single-product.html" class="product-title">Exclusive
-											Headphones</a> <span class="product-quantity">3 x</span> <span
-											class="product-price"> <span class="currency">$</span>
-											550
-										</span> <a href="#" class="product-remove tim-cross-out"></a>
-									</div></li>
-								<li class="cart-subtotal">Sub Total <span class="amount">
-										<span class="currency">$</span> 1100.00
-								</span>
-								</li>
-								<li class="cart-actions"><a href="cart.html"
-									class="view-cart">View Cart</a> <a href="checkout.html"
-									class="checkout button pill small"> <span
-										class="icon-check"></span> Checkout
+							</div>
+
+							<ul class="user-login">
+								<li><a href="<c:url value='/#'/>" class="off-opener"> <i
+										class="fa fa-bars" aria-hidden="true"></i>
 								</a></li>
-							</ul></li>
-						<li><a href="javascript:void(0)" class="search-trigger"><i
-								class="fa fa-search" aria-hidden="true"></i></a>
-							<div class="search-input-wrapper">
-								<input class="search-input" placeholder="Search" type="text">
-							</div></li>
-					</ul>
 
-					<div class="nav">
-						<ul class="group" id="header-menu-magic-line">
 
-							<li class="menu-item-has-children current_page_item"><a
-								href="index.html">HOME</a></li>
-							<li class="menu-item-has-children"><a href="#about">Introduce</a></li>
-							<li class="menu-item-has-children"><a
-								href="mainprojects.html">Projects</a>
-								<ul class="sub-menu">
-									<li><a href="mainprojects.html">Main Projects</a></li>
-									<li><a href="SubProjects.jsp">Sub Projects</a></li>
-								</ul></li>
+								<li class="cart-count"><a href="<c:url value='/#'/>"> <i
+										class="fa fa-shopping-cart" aria-hidden="true"></i> <span
+										class="badge">3</span>
+								</a>
 
-							<li class="menu-item-has-ch	ildren"><a href="MyPage.jsp">My
-									Page</a></li>
-						</ul>
+									<ul class="custom-content cart-overview">
+										<li class="cart-item clearfix"><a
+											href="single-product.html" class="product-thumbnail"> <img
+												src="media/product/9.jpg" alt="">
+										</a>
+											<div class="product-details">
+												<a href="single-product.html" class="product-title">Drums
+													&amp; Percussion</a> <span class="product-quantity">1 x</span>
+												<span class="product-price"> <span class="currency">$</span>
+													300
+												</span> <a href="<c:url value='/#'/>" class="product-remove tim-cross-out"></a>
+											</div></li>
+										<li class="cart-item clearfix"><a
+											href="single-product.html" class="product-thumbnail"> <img
+												src="media/product/10.jpg" alt="">
+										</a>
+											<div class="product-details">
+												<a href="single-product.html" class="product-title">Rocking
+													Guitar</a> <span class="product-quantity">2 x</span> <span
+													class="product-price"> <span class="currency">$</span>
+													250
+												</span> <a href="<c:url value='/#'/>" class="product-remove tim-cross-out"> </a>
+											</div></li>
+										<li class="cart-item clearfix"><a
+											href="single-product.html" class="product-thumbnail"> <img
+												src="media/product/11.jpg" alt="">
+										</a>
+											<div class="product-details">
+												<a href="single-product.html" class="product-title">Exclusive
+													Headphones</a> <span class="product-quantity">3 x</span> <span
+													class="product-price"> <span class="currency">$</span>
+													550
+												</span> <a href="<c:url value='/#'/>" class="product-remove tim-cross-out"></a>
+											</div></li>
+										<li class="cart-subtotal">Sub Total <span class="amount">
+												<span class="currency">$</span> 1100.00
+										</span>
+										</li>
+										<li class="cart-actions"><a href="cart.html"
+											class="view-cart">View Cart</a> <a href="checkout.html"
+											class="checkout button pill small"> <span
+												class="icon-check"></span> Checkout
+										</a></li>
+									</ul></li>
+								<li><a href="javascript:void(0)" class="search-trigger"><i
+										class="fa fa-search" aria-hidden="true"></i></a>
+									<div class="search-input-wrapper">
+										<input class="search-input" placeholder="Search" type="text">
+									</div></li>
+							</ul>
+
+							<div class="nav">
+								<ul class="group" id="header-menu-magic-line">
+
+									<li class="menu-item-has-children current_page_item"><a
+										href="<c:url value='/#'/>">HOME</a></li>
+
+									<li class="menu-item-has-children"><a href="#about">Introduce</a>
+									</li>
+
+									<li class="menu-item-has-children"><a
+										href="<c:url value='/#'/>">Projects</a>
+										<ul class="sub-menu">
+											<li><a href="<c:url value='/main/mainproject.ins'/>">Main Projects</a></li>
+											<li><a href="SubProjects.jsp">Sub Projects</a></li>
+										</ul></li>
+
+									<li class="menu-item-has-children"><a href="MyPage.jsp">My Page</a></li>
+								</ul>
+							</div>
+							<!-- /.nav -->
+						</div>
 					</div>
-					<!-- /.nav -->
+					<!-- /.tim-container -->
+				</div>
+				<!-- /.header-inner -->
+			</header>
+			<!-- /#header -->
+			<!-- 로그인 메뉴 넣어야 하는 부분 -->
+			<div class="offset-menu-two">
+				<a href="<c:url value='/#'/>" class="offset-closer"><img
+					src="resource/img/offset-cross2.png" alt=""></a>
+				<div class="div-form-login">
+					<h2 class="text-title">로그인</h2>
+					<form name="form-login" id="form-login" class="form-login">
+						<div class="field">
+							<div class="input-login">
+								<input type="email" id="userName" name="userName"
+									class="input-text" placeholder="이메일 아이디">
+							</div>
+							<em id="emailError" class="error-text">이메일 형식이 올바르지 않습니다.</em>
+						</div>
+						<div class="field">
+							<div class="input-login">
+								<input type="password" id="password" name="password"
+									class="input-text" maxlength="17"
+									placeholder="비밀번호(영문, 숫자, 특수문자 포함 8자)">
+							</div>
+							<p id="loginError" class="error-text">와디즈에 등록되지 않은 아이디거나, 아이디
+								또는 비밀번호가 회원정보와 일치하지 않습니다.</p>
+						</div>
+						<!-- 
+					<div class="recaptcha">
+						<p id="recaptchaMessage" class="error-text">
+							잘못된 아이디 또는 비밀번호로 여러번 로그인 시도하였습니다. <br>계정 보안 조치를 위해 아래 사항을 체크하신
+							뒤 다시 진행하세요.
+						</p>
+						<p id="recaptchaComplete" class="complete-text">
+							<span>계정 보안 조치가 완료되었습니다!</span>협조해주셔서 감사합니다. 로그인을 다시 시도하세요
+						</p>
+						<div class="g-recaptcha"
+							data-sitekey="6Lcr70MUAAAAAHfmxpaHaXPDlgLIwiS6gRO5YCcB"
+							data-size="600" id="recaptcha" data-callback="recaptchaComplete"
+							style="display: none;">
+							<div style="width: 304px; height: 78px;">
+								<div>
+									<iframe
+										src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Lcr70MUAAAAAHfmxpaHaXPDlgLIwiS6gRO5YCcB&amp;co=aHR0cHM6Ly93d3cud2FkaXoua3I6NDQz&amp;hl=ko&amp;v=v1552285980763&amp;size=normal&amp;cb=p8g2z520abgp"
+										width="304" height="78" role="presentation"
+										name="a-dh950kauq7sc" frameborder="0" scrolling="no"
+										sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe>
+								</div>
+								<textarea id="g-recaptcha-response" name="g-recaptcha-response"
+									class="g-recaptcha-response"
+									style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
+							</div>
+						</div>
+					</div> -->
+						<div class="login-action">
+							<label id="saveIdLabel" class="save"> <input
+								id="saveUserId" type="checkbox" title="아이디 저장"> <span
+								id="txtSaveId" class="wz text caption2">아이디 저장</span>
+							</label>
+							<p class="forgot">
+								<a class="wz text forgot_a" href="<c:url value='' />">아이디∙비밀번호
+									찾기<i class="icon chevron-right"></i>
+								</a>
+							</p>
+						</div>
+						<button type="button" id="btnLogin" class="button-login">로그인</button>
+					</form>
+					<div class="separator">
+						<span class="text">또는</span>
+					</div>
+					<div class="social-login">
+						<button type="button" id="facebookLoginBtn" class="facebook"
+							onclick="FB.login();">
+							<img class="icon"
+								src="resource/img/f-ogo_RGB_HEX-58.png" />
+							<i class="facebook"></i>페이스북으로 로그인
+						</button>
+						<button type="button" id="custom-login-btn"
+							onclick="javascript:loginWithKakao()">
+							<img class="icon"
+								src="resource/img/kakaolink_btn_medium.png" />
+							<i class="kakao"></i>카카오
+						</button>
+						<!-- <a id="custom-login-btn" href="javascript:loginWithKakao()">
+							<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
+							</a> -->
+
+
+						<button type="button" id="naverLoginBtn">
+							<img class="icon"
+								src="resource/img/네이버 아이디로 로그인_아이콘형_Green.PNG" />
+							<i class="naver"></i>네이버
+						</button>
+						<button type="button" id="googleLoginBtn">
+							<img class="icon"
+								src="resource/img/icons8-google-48.png" />
+							<i class="google color"></i>구글
+						</button>
+						<button type="button" onclick="pageLoginByTwitter()">
+							<img class="icon"
+								src="resource/img/Twitter_Logo_WhiteOnBlue.png" />
+							<i class="twitter"></i>트위터
+						</button>
+					</div>
+					<div class="bottom-message">
+						<p class="text">
+							아직 계정이 없나요?&nbsp;&nbsp;<a
+								href="<c:url value='/Insomnia/RegisterTerm.jsp' />"
+								data-return-url="">회원가입</a>
+						</p>
+					</div>
+
+					<img src="resource/img/cat-eyes.jpg"
+						class="cat_eye" />
+				</div>
+
+
+
+				<!-- 여기까지 -->
+				<div class="offset-social-two">
+					<a href=""> <img src="resource/img/logo_5.png" alt="">
+					</a>
+					<!-- <ul>
+                        <li><a href="<c:url value='/#'/>"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="<c:url value='/#'/>"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="<c:url value='/#'/>"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                        <li><a href="<c:url value='/#'/>"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    </ul> -->
 				</div>
 			</div>
-			<!-- /.tim-container -->
-		</div>
-		<!-- /.header-inner -->
-	</header>
-	<!-- /#header -->
 
+			<!--=============================-->
+			<!--=        Mobile Nav         =-->
+			<!--=============================-->
+			<header id="mobile-nav-wrap">
+				<div class="mob-header-inner d-flex justify-content-between">
+					<div id="mobile-logo" class="d-flex justify-content-start">
+						<a href="index.html"><img src="resource/img/logo.png"
+							alt="Site Logo"></a>
+					</div>
+
+					<ul class="user-link nav justify-content-end">
+						<li><a href="<c:url value='/#'/>"><i class="fa fa-user"></i>Login</a></li>
+						<li><a href="<c:url value='/#'/>"><i class="fa fa-sign-in"></i>Sign Up</a></li>
+					</ul>
+
+					<div id="nav-toggle" class="nav-toggle hidden-md">
+						<div class="toggle-inner">
+							<span></span> <span></span> <span></span> <span></span>
+						</div>
+					</div>
+				</div>
+				<!-- /.mob-header-inner -->
+			</header>
+			<!-- /#mobile-header -->
+
+			<div class="mobile-menu-inner">
+
+				<div class="mobile-nav-top-wrap">
+					<div class="mob-header-inner clearfix">
+						<div class="d-flex justify-content-start mobile-logo">
+							<a href="index.html"> <img src="resource/img/logo-dark.png"
+								alt="Site Logo">
+							</a>
+						</div>
+
+						<div class="close-menu">
+							<span class="bar"></span> <span class="bar"></span>
+						</div>
+					</div>
+					<!-- /.mob-header-inner -->
+
+					<div class="close-menu">
+						<span class="bar"></span> <span class="bar"></span>
+					</div>
+				</div>
+				<!-- /.mobile-nav-top-wrap -->
+
+				<nav id="accordian">
+					<ul class="accordion-menu">
+						<li><a href="#0" class="dropdownlink">Home</a>
+							<ul class="submenuItems">
+								<li><a href="index.html">Home One</a></li>
+								<li><a href="index-two.html">Home Two</a></li>
+								<li><a href="index-three.html">Home Three</a></li>
+								<li><a href="index-four.html">Home Four</a></li>
+							</ul></li>
+						<li><a href="#0" class="dropdownlink">Artist</a>
+							<ul class="submenuItems">
+								<li><a href="artist.html">Artist</a></li>
+								<li><a href="artist-single.html">Artist Details</a></li>
+							</ul></li>
+						<li><a href="album.html">Album</a></li>
+						<li><a href="#0" class="dropdownlink">Events</a>
+							<ul class="submenuItems">
+								<li><a href="event.html">Events</a></li>
+								<li><a href="contact.html">Contact Us</a></li>
+							</ul></li>
+						<li><a href="tabs.html">Tabs</a></li>
+						<li><a href="#0" class="dropdownlink">Blog</a>
+							<ul class="submenuItems">
+								<li><a href="blog-list-right.html">Blog Standard</a></li>
+								<li><a href="blog-grid-right.html">Blog Grid</a></li>
+								<li><a href="blog-single.html">Blog Single</a></li>
+							</ul></li>
+
+						<li><a href="gallery.html">Gallery</a></li>
+						<li><a href="#0" class="dropdownlink">Shop</a>
+							<ul class="submenuItems">
+								<li><a href="shop-right.html">Shop Right</a></li>
+								<li><a href="shop-left.html">Shop Left</a></li>
+								<li><a href="shop-single.html">Shop Details</a></li>
+							</ul></li>
+					</ul>
+				</nav>
+			</div>
+			<!-- /.mobile-menu-inner -->
+
+		</div>
+		<!-- 네비게이션 바 끝 -->
 	<!-- 밑 두줄 필요(없으면 꺠지는 부분이 있음) -->
 	<header id="mobile-nav-wrap"> </header>
