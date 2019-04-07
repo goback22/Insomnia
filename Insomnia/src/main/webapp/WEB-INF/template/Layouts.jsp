@@ -8,28 +8,27 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-	<title>Template.jsp</title>
-	<!-- 부트스트랩 -->
-    <link href="<c:url value='/vendors/Bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
-	<!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
-    <!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-    <script src="<c:url value='/vendors/Bootstrap/js/bootstrap.min.js'/>"></script>
-	
-</head>
-<body>
-	<!-- 탑 부분  -->
-	<tiles:insertAttribute name="Top"/>
-	<!-- 바디부분 -->
+	<title>Insomnia</title>
 	<tiles:insertAttribute name="Body"/>
 	<!-- 푸터 부분 -->
 	<tiles:insertAttribute name="Footer"/>
+	
+	<%--                jsp페이지 작성 규칙
+	
+	1. css파일과 js파일들의 개별화를 위해 layout.jsp에서 제공해주지 않는다.
+		개별적으로 css, js를 추가시켜 </head>로 헤드를 닫아주어야 한다.
+		
+	2. Body부분까지 작성한 후에 </body>를 닫지않는다.
+		layout.jsp가 제공해주는 Footer에 </body>와 </html>태그가 포함되어있다.
+		
+	3. Navigation Bar는 개별적으로 jsp페이지에 붙여 사용 하도록 한다.
+	사용법 : 네비게이션 바가 들어갈 자리에 jsp:include 태그를 사용한다.
+	
+			<jsp:include page="../template/Nav.jsp"/>
+			
+	위의 태그를 그대로 복붙해서 사용하면 된다.
+	기본경로가 설정되어있기때문에 경로불문 사용하면 된다.
+	 --%> 
+	
 </body>
 </html>

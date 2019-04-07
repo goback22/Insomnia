@@ -7,7 +7,7 @@
 
 	<!-- template에 최상위 페이지명 -->
 	<definition name="layouts" template="/WEB-INF/template/Layouts.jsp">
-		<put-attribute name="Top" value="/WEB-INF/template/Top.jsp" />		
+		<put-attribute name="Nav" value="/WEB-INF/template/Nav.jsp" />	
 		<!-- 내용은 동적으로 변하기때문에 value에 ""지정 -->
 		<put-attribute name="Body" value="" />
 		<put-attribute name="Footer" value="/WEB-INF/template/Footer.jsp" />
