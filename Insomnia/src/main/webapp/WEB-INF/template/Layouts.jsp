@@ -101,7 +101,6 @@
 			<jsp:include page="/WEB-INF/template/Nav.jsp"/>
 			
 	위의 태그를 그대로 복붙해서 사용하면 된다.
-	기본경로가 설정되어있기때문에 경로불문 사용하면 된다.
 	 --%> 
 	 
 	 
