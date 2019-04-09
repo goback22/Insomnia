@@ -261,14 +261,14 @@ $(function(){
 
         <div class="section">
 
-            <!-- ì¹´íê³ ë¦¬ë¥¼ ìë ¤ì£¼ë ìê¸° transform -->
-            <!-- ë°°ê²½ íì¤í¸ í ì ì© ìì  -->
-            
+           
+           	<!--  
             <div class="person"></div>
-            <div class="instruments"></div> 
+            <div class="instruments"></div>
+             --> 
             
 
-            <!-- ì¨ë²ì»¤ë²ë¤ì ëì°ê¸° ìí section -->
+            <!--  음악 카테고리별 섹션 section -->
             <div class="sec section1" id="ballad"></div> <!-- Ballad / Fork -->
             <div class="sec section2" id="jazz"></div> <!-- Jazz / Classic -->
             <div class="sec section3" id="hiphop"></div> <!-- Hip Hop -->

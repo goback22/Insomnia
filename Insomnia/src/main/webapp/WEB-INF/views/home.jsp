@@ -73,7 +73,7 @@
                     <div class="row">
                         <div class="section-title style-four">
                             <h2 id="about">HOT Track</h2>
-     						<p style="font-size: 1.4em; color:#6c757d;">ë¨ê±°ì´ ë°´ëë¤, ë¨ê±°ì´ ììë¤</p> 
+     						<p style="font-size: 1.4em; color:#6c757d;">뜨거운 밴드, 뜨거운 음악들</p> 
                         </div>
                     </div>
                     <div class="swiper-container row" data-swiper-config='{ "loop": true, "prevButton":".swiper-button-prev", "nextButton": ".swiper-button-next", "speed": 700, "autoplay": "5000", "slidesPerView": 6, "spaceBetween": 0, "grabCursor": true,"breakpoints": { "1300": { "slidesPerView": 4 }, "767": { "slidesPerView": 3 }, "500": { "slidesPerView": 1 }}}'>
