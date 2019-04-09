@@ -1,10 +1,10 @@
 
 /* Drop Tables */
 
+DROP TABLE BandImg CASCADE CONSTRAINTS;
 DROP TABLE BandMember CASCADE CONSTRAINTS;
 DROP TABLE BandMusic CASCADE CONSTRAINTS;
-DROP TABLE BandPicture CASCADE CONSTRAINTS;
-DROP TABLE BandSubmit_Content CASCADE CONSTRAINTS;
+DROP TABLE BandSubmit_Comment CASCADE CONSTRAINTS;
 DROP TABLE SafePayCancle CASCADE CONSTRAINTS;
 DROP TABLE SafePay CASCADE CONSTRAINTS;
 DROP TABLE Reward CASCADE CONSTRAINTS;
@@ -12,20 +12,6 @@ DROP TABLE BandSubmit CASCADE CONSTRAINTS;
 DROP TABLE Band CASCADE CONSTRAINTS;
 DROP TABLE Member CASCADE CONSTRAINTS;
 DROP TABLE Pay CASCADE CONSTRAINTS;
-
-
-
-/* Drop Sequence */
-
-DROP Sequence seq_Band;
-DROP Sequence seq_BandMusic;
-DROP Sequence seq_BandPicture;
-DROP Sequence seq_BandSubmit;
-DROP Sequence seq_Pay;
-DROP Sequence seq_Reward;
-DROP Sequence seq_SafePay;
-DROP Sequence seq_SafePayCancle;
-
 
 
 /* Create Sequence */
@@ -38,7 +24,7 @@ CREATE Sequence seq_BandMusic
 nocycle
 nocache;
 
-CREATE Sequence seq_BandPicture
+CREATE Sequence seq_BandImg
 nocycle
 nocache;
 
@@ -72,10 +58,18 @@ CREATE TABLE Band
 	B_no number NOT NULL,
 	B_name nvarchar2(50),
 	B_description nvarchar2(2000),
-	BP_profile number,
+	BI_profile number,
 	BM_title number,
 	B_Liked number DEFAULT 0,
 	PRIMARY KEY (B_no)
+);
+
+
+CREATE TABLE BandImg
+(
+	BI_no number NOT NULL,
+	B_no number NOT NULL,
+	PRIMARY KEY (BI_no)
 );
 
 
@@ -97,14 +91,6 @@ CREATE TABLE BandMusic
 );
 
 
-CREATE TABLE BandPicture
-(
-	BP_no number NOT NULL,
-	B_no number NOT NULL,
-	PRIMARY KEY (BP_no)
-);
-
-
 CREATE TABLE BandSubmit
 (
 	S_no number NOT NULL,
@@ -123,7 +109,7 @@ CREATE TABLE BandSubmit
 );
 
 
-CREATE TABLE BandSubmit_Content
+CREATE TABLE BandSubmit_Comment
 (
 	S_no number NOT NULL,
 	C_Step number DEFAULT 0,
@@ -140,7 +126,7 @@ CREATE TABLE Member
 (
 	id varchar2(30) NOT NULL,
 	password varchar2(30),
-	Profile_Img number,
+	Profile_Img number DEFAULT 0,
 	Zip_Code number,
 	Shipping_Adress nvarchar2(100),
 	Description nvarchar2(2000),
@@ -209,6 +195,12 @@ CREATE TABLE SafePayCancle
 
 /* Create Foreign Keys */
 
+ALTER TABLE BandImg
+	ADD FOREIGN KEY (B_no)
+	REFERENCES Band (B_no)
+;
+
+
 ALTER TABLE BandMember
 	ADD FOREIGN KEY (B_no)
 	REFERENCES Band (B_no)
@@ -221,19 +213,13 @@ ALTER TABLE BandMusic
 ;
 
 
-ALTER TABLE BandPicture
-	ADD FOREIGN KEY (B_no)
-	REFERENCES Band (B_no)
-;
-
-
 ALTER TABLE BandSubmit
 	ADD FOREIGN KEY (B_no)
 	REFERENCES Band (B_no)
 ;
 
 
-ALTER TABLE BandSubmit_Content
+ALTER TABLE BandSubmit_Comment
 	ADD FOREIGN KEY (S_no)
 	REFERENCES BandSubmit (S_no)
 ;
@@ -251,7 +237,7 @@ ALTER TABLE BandMember
 ;
 
 
-ALTER TABLE BandSubmit_Content
+ALTER TABLE BandSubmit_Comment
 	ADD FOREIGN KEY (id)
 	REFERENCES Member (id)
 ;
@@ -291,10 +277,6 @@ ALTER TABLE SafePayCancle
 /* Comments */
 
 COMMENT ON COLUMN SafePay.SP_Support IS '제품 이외 추가 후원';
-
-Purge recyclebin;
-COMMIT;
-
 
 
 
