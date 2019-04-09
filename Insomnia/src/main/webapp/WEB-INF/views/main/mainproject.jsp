@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
        <style>
@@ -35,7 +37,7 @@
     .sec{
         padding:150px;
     }
-    .section1{               /* 발라드 / 포크 */
+    .section1{               /* ë°ë¼ë / í¬í¬ */
         background-image:url('../resource/img/boat.jpg');    
         background-size:cover;
         background-position:left center;
@@ -43,35 +45,35 @@
         background-attachment:fixed;
         
     }
-    .section2{               /* 재즈 */
+    .section2{               /* ì¬ì¦ */
         background-image:url('../resource/img/jazz.jpg');
         background-size:cover;
         background-position:top center;
         height:100%;
         background-attachment:fixed;
     }
-    .section3{               /* 힙합 */
+    .section3{               /* íí© */
         background-image:url('../resource/img/mic.jpg');
         background-size:cover;
         background-position:left center;
         height:100%;
         background-attachment:fixed;
     }
-    .section4{               /* 댄스 */
+    .section4{               /* ëì¤ */
         background-image:url('../resource/img/dance.jpg');
         background-size:cover;
         background-position:top center;
         height:100%;
         background-attachment:fixed;
     }
-    .section5{               /* 락 / 메탈 */
+    .section5{               /* ë½ / ë©í */
         background-image:url('../resource/img/rock.jpg');
         background-size:cover;
         background-position: left center;
         height:100%;
         background-attachment:fixed;
     }
-    .section6{               /* 클래식 */
+    .section6{               /* í´ëì */
         background-image:url('../resource/img/korea.jpg');
         background-size:cover;
         background-position:top center;
@@ -80,13 +82,13 @@
     }
 
 
-    /* 각각의 앨범 커버들 */
+    /* ê°ê°ì ì¨ë² ì»¤ë²ë¤ */
     .box-shadow{
         box-shadow: 9px 9px 20px -2px rgba(0,0,0,0.4);
     }
 
     
-        /*****************************스크롤 CSS****************************/
+        /*****************************ì¤í¬ë¡¤ CSS****************************/
 
 .fromTopIn{
     transition: transform 1.0s ease, opacity 1.0s ease;
@@ -167,13 +169,13 @@
         
 $(function(){
         ///////////////////////////////////////////////////////////////////////////
-        ////////////////////////////// 컨텐츠 div 생성하기 /////////////////////////
+        ////////////////////////////// ì»¨íì¸  div ìì±íê¸° /////////////////////////
         
         var seCount = 6;
-        var count = Math.round(Math.random()*5) + 20; // 카테고리별 div개수 설정 20~30
-        var wh = (Math.round(Math.random()*100) + 100) + 'px';// div에 크기 설정 100~200
-        var color = Math.round(Math.random()*255); // rgb값 설정을 위한           0~255
-        var m = Math.round(Math.random()*50)+ 'px';// margin값 
+        var count = Math.round(Math.random()*5) + 20; // ì¹´íê³ ë¦¬ë³ divê°ì ì¤ì  20~30
+        var wh = (Math.round(Math.random()*100) + 100) + 'px';// divì í¬ê¸° ì¤ì  100~200
+        var color = Math.round(Math.random()*255); // rgbê° ì¤ì ì ìí           0~255
+        var m = Math.round(Math.random()*50)+ 'px';// marginê° 
         
 
         
@@ -187,10 +189,10 @@ $(function(){
             var red = Math.round(Math.random()*255);
             var green = Math.round(Math.random()*255);
             var blue = Math.round(Math.random()*255);
-            mt = Math.round(Math.random()*100)+ 'px ';// margin값 
-            mr = Math.round(Math.random()*100)+ 'px ';// margin값 
-            ml = Math.round(Math.random()*100)+ 'px ';// margin값 
-            mb = Math.round(Math.random()*100)+ 'px ';// margin값 
+            mt = Math.round(Math.random()*100)+ 'px ';// marginê° 
+            mr = Math.round(Math.random()*100)+ 'px ';// marginê° 
+            ml = Math.round(Math.random()*100)+ 'px ';// marginê° 
+            mb = Math.round(Math.random()*100)+ 'px ';// marginê° 
 
             resultString = resultString + "<a href='/insomnia/main/content.ins'>"
             resultString = resultString + "<div class='DIV box-shadow'  data-scroll='toggle(.scaleUpIn, .scaleDownOut)' style='width:"+wh+"; height:"+wh+";background-color:rgb("+red+","+green+","+blue+");display:inline-block; display:inline-block; position:relative; margin:"+mt+mr+ml+mb+";'></div></a>";
@@ -215,7 +217,7 @@ $(function(){
         }///for
 
         ///////////////////////////////////////////////////////////////////////////
-        ////////////////////////////// 악기 바꿔주는 JQuery ////////////////////////
+        ////////////////////////////// ìê¸° ë°ê¿ì£¼ë JQuery ////////////////////////
 
             $(window).scroll(function(){
                 var ins = $('.instruments');
@@ -259,14 +261,14 @@ $(function(){
 
         <div class="section">
 
-            <!-- 카테고리를 알려주는 악기 transform -->
-            <!-- 배경 테스트 후 적용 예정 -->
+            <!-- ì¹´íê³ ë¦¬ë¥¼ ìë ¤ì£¼ë ìê¸° transform -->
+            <!-- ë°°ê²½ íì¤í¸ í ì ì© ìì  -->
             
             <div class="person"></div>
             <div class="instruments"></div> 
             
 
-            <!-- 앨범커버들을 띄우기 위한 section -->
+            <!-- ì¨ë²ì»¤ë²ë¤ì ëì°ê¸° ìí section -->
             <div class="sec section1" id="ballad"></div> <!-- Ballad / Fork -->
             <div class="sec section2" id="jazz"></div> <!-- Jazz / Classic -->
             <div class="sec section3" id="hiphop"></div> <!-- Hip Hop -->

@@ -96,7 +96,8 @@
 										href="<c:url value='/#'/>">Projects</a>
 										<ul class="sub-menu">
 											<li><a href="<c:url value='/main/mainproject.ins'/>">Main Projects</a></li>
-											<li><a href="SubProjects.jsp">Sub Projects</a></li>
+											<li><a href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
+										
 										</ul></li>
 
 									<li class="menu-item-has-children"><a href="MyPage.jsp">My Page</a></li>

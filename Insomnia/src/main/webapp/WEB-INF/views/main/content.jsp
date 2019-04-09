@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
@@ -5,7 +7,7 @@
           
   
     
-        /*****************************스크롤 CSS****************************/
+        /*****************************ì¤í¬ë¡¤ CSS****************************/
 
 .fromTopIn{
     transition: transform 1.0s ease, opacity 1.0s ease;
@@ -95,7 +97,7 @@
   
 <script>
 
-    //////////////// 따라다니는 jquery //////////////////
+    //////////////// ë°ë¼ë¤ëë jquery //////////////////
 
 
 $(document).ready(function() {
@@ -153,7 +155,7 @@ $(document).ready(function() {
 
 					<div class="col-lg-6 col-md-6 col-full-width">
 						<div class="artist-details">
-							<h3 class="artist-name">It’s james robinson</h3>
+							<h3 class="artist-name">Itâs james robinson</h3>
 							<h4 class="band-name">Band Name Here</h4>
 
 							<div class="details">
@@ -517,8 +519,8 @@ $(document).ready(function() {
                             <!-- /.comments-area -->
                         </div>
                         <!-- /.col-lg-8 -->
-                        <!-- 콘텐트 설명 끝 -->
-                        <!-- 사이드 노래 사기 -->
+                        <!-- ì½íí¸ ì¤ëª ë -->
+                        <!-- ì¬ì´ë ë¸ë ì¬ê¸° -->
                         <div class="col-sm-offset-1 col-sm-3" style="border:1px solid green;">
                             <div class="floating-menu">
                                 <a href="#" class=" tim-btn">Support it!</a>

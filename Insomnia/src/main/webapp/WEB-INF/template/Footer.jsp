@@ -5,12 +5,9 @@
 https://mdbootstrap.com/components/bootstrap-footer/
  -->
 <!-- Footer -->
-
-
 		<!--==============================-->
 		<!--=        	Footer         	 =-->
 		<!--==============================-->
-
 		<footer id="footer-3">
 			<div class="container">
 				<div class="d-flex justify-content-center row">
@@ -19,7 +16,6 @@ https://mdbootstrap.com/components/bootstrap-footer/
 							<div class="section-title style-four">
 								<h2>FROM THE FEED</h2>
 							</div>
-							
 						</div>
 						<div class="footer-three-bottom">
 							<div class="footer-three-left">
