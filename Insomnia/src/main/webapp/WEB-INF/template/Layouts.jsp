@@ -19,8 +19,6 @@
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
        <link rel="stylesheet" href="<c:url value='/https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'/>">
         -->
-
-	
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 	
 	<!-- Dependency Styles -->
@@ -35,8 +33,6 @@
 	<link rel="stylesheet" href="<c:url value='/vendor/css/colornip.min.css'/>" type="text/css">
 	<link rel="stylesheet" href="<c:url value='/vendor/css/css-loader.css'/>" type="text/css">
 	
-
-
 	<!-- Site Stylesheet -->
 	<link rel="stylesheet" href="<c:url value='/vendor/css/woocommerce.css'/>" type="text/css">
 	<link rel="stylesheet" href="<c:url value='/vendor/css/app.css'/>" type="text/css">
@@ -52,9 +48,6 @@
 	<!-- 카카오 로그인 -->
 	<script src="<c:url value='/vendor/js/kakao.js'/>"></script>
 	
-	
-		 
-	 
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="<c:url value='/vendor/js/jquery.min.js'/>"></script>
 	<script src="<c:url value='/vendor/js/jquery-ui.min.js'/>"></script>
@@ -90,17 +83,12 @@
 	<!-- Site Scripts -->
 	<script src="<c:url value='/vendor/js/app.js'/>"></script>
 	
-
-
-
-
-	
 	<tiles:insertAttribute name="Body"/>
+	
 	<!-- 푸터 부분 -->
 	<tiles:insertAttribute name="Footer"/>
 	
 	<%--                jsp페이지 작성 규칙
-	
 	1. css파일과 js파일들의 개별화를 위해 layout.jsp에서 제공해주지 않는다.
 		개별적으로 css, js를 추가시켜 </head>로 헤드를 닫아주어야 한다.
 		
@@ -129,7 +117,6 @@ $('.mobile-nav-btn').on('click', function(e) {
 	toggleMobileHeader();
 });
 
-// 2018.06.25 재헌
 // a태그 (href) 클릭 시 해당 위치로 부드럽게 스크롤
 $(document).on('click', 'a[href^="#"]', function (event) {
     event.preventDefault();
@@ -238,7 +225,7 @@ window.onload = function() {
         }
     }
 
-    /* 자꾸오류나서 주석해둠
+    /* 자꾸 오류나서 주석해둠
     if(!qv_func.getCookie('notice_main')) {
         //tmp
         //$(".notice-obt").show();
@@ -259,7 +246,5 @@ $(window).resize(function(){
     }
 });
 </script>
-	
-	
 </body>
 </html>
