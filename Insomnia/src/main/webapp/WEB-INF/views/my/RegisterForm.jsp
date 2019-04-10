@@ -330,7 +330,7 @@ body {
 		
 		
 	}////validateFormd
-	var a;
+	var a, b;
 		
 		
 	
