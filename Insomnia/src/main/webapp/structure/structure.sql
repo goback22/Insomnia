@@ -10,9 +10,9 @@ DROP TABLE SafePay CASCADE CONSTRAINTS;
 DROP TABLE Reward CASCADE CONSTRAINTS;
 DROP TABLE BandSubmit CASCADE CONSTRAINTS;
 DROP TABLE Band CASCADE CONSTRAINTS;
+DROP TABLE Category CASCADE CONSTRAINTS;
 DROP TABLE Member CASCADE CONSTRAINTS;
 DROP TABLE Pay CASCADE CONSTRAINTS;
-
 
 /* Create Sequence */
 
@@ -24,7 +24,7 @@ CREATE Sequence seq_BandMusic
 nocycle
 nocache;
 
-CREATE Sequence seq_BandImg
+CREATE Sequence seq_BandPicture
 nocycle
 nocache;
 
@@ -47,6 +47,7 @@ nocache;
 CREATE Sequence seq_SafePayCancle
 nocycle
 nocache;
+
 
 
 
@@ -84,6 +85,7 @@ CREATE TABLE BandMusic
 (
 	BM_no number NOT NULL,
 	B_no number NOT NULL,
+	G_Name nvarchar2(30) NOT NULL,
 	BM_name nvarchar2(30),
 	BM_description nvarchar2(2000),
 	BM_Liked number DEFAULT 0,
@@ -95,7 +97,7 @@ CREATE TABLE BandSubmit
 (
 	S_no number NOT NULL,
 	B_no number NOT NULL,
-	P_no number NOT NULL,
+	P_no number,
 	S_Account_Bank nvarchar2(50),
 	S_Account_Serial varchar2(20),
 	S_Album_cover number,
@@ -119,6 +121,14 @@ CREATE TABLE BandSubmit_Comment
 	C_Content nvarchar2(2000),
 	C_Post_Date date DEFAULT SYSDATE,
 	C_Liked number DEFAULT 0
+);
+
+
+CREATE TABLE Category
+(
+	G_Name nvarchar2(30) NOT NULL,
+	G_description nvarchar2(300),
+	PRIMARY KEY (G_Name)
 );
 
 
@@ -172,12 +182,13 @@ CREATE TABLE SafePay
 	-- 제품 이외 추가 후원
 	SP_Support number DEFAULT 0,
 	SP_Date date DEFAULT SYSDATE,
+	SP_Recipient nvarchar2(15),
 	SP_Zip_Code number,
 	SP_Shipping_Address nvarchar2(1000),
+	SP_Depositor nvarchar2(15),
 	SP_Bank_Name nvarchar2(30),
 	SP_Account_Serial number,
 	SP_Phone number,
-	SP_Recipient nvarchar2(200),
 	PRIMARY KEY (SP_No)
 );
 
@@ -228,6 +239,12 @@ ALTER TABLE BandSubmit_Comment
 ALTER TABLE Reward
 	ADD FOREIGN KEY (S_no)
 	REFERENCES BandSubmit (S_no)
+;
+
+
+ALTER TABLE BandMusic
+	ADD FOREIGN KEY (G_Name)
+	REFERENCES Category (G_Name)
 ;
 
 
