@@ -52,7 +52,13 @@ input {
     vertical-align: top;
     border-radius: 0;
     font-family: 'nbg', '맑은 고딕', HelveticaNeue, DroidSans, Sans-serif, Helvetica;
+    
 }
+
+/* input[type=checkbox] {
+	position: default;
+	z-index : 100;
+} */
 
 label {
     margin: 0;
@@ -113,7 +119,8 @@ img {
 
 .mem_destruction_wrap h5, .mem_purpose_wrap h5, .mem_article_wrap h5, .mem_agreement_wrap h5 {
     font-size: 18px;
-    color: #222;				/*		각각의 소제목들의 텍스트 스타일들*/
+    /* color: #222; */				/*		각각의 소제목들의 텍스트 스타일들*/
+    color: white;
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -184,7 +191,7 @@ input.mem[type=checkbox]:not(old) + label {
 
 .chk1, .chk2 {				/*이게 바로 동의 체크하는 동그란 버튼인 듯*/
    /*  position: absolute; */
-        display: inline-block;
+    display: inline-block;
     width: 26px;
     height: 26px;
     line-height: 26px;
@@ -194,12 +201,12 @@ input.mem[type=checkbox]:not(old) + label {
     border: 0 none;
     background: #fff;
     cursor: pointer;
-        vertical-align: top;
-            background-size: 26px;
+    vertical-align: top;
+    background-size: 26px;
     text-indent: -9999px;
-        font-size: 0;
+    font-size: 0;
     overflow: hidden;
-    z-index: 4;
+    z-index: 100;
     float: right;
 }
 
@@ -245,7 +252,8 @@ div.mem_destruction_area, div.mem_purpose_area, div.mem_article_area, div.mem_ag
 .join-form div.mem_agreement_area {
     background: black;
     box-sizing: border-box;
-    color: #666 !important;
+    /* color: #666 !important; */
+    color: red;
     height: 170px;
     width: 100%;
 }
@@ -264,7 +272,7 @@ div.mem_agreement_area {
 .find_form_txt {				/*회원가입 약관동의 및 가입 페이지입니다!!!*/
     background: black;
     border-bottom: 1px solid #ddd;
-    color: #777;
+    color: white;
     font-size: 18px;
     line-height: 24px;
     text-align: center;
@@ -307,7 +315,8 @@ div.mem_agreement_area {
 .join-form div.mem_purpose_area, .join-form div.mem_agreement_area {
     background: black;
     box-sizing: border-box;
-    color: #666 !important;
+    /* color: #666 !important; */
+    color: white;
     height: 170px;
     width: 100%;
 }

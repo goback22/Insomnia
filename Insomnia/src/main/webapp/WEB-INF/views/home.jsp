@@ -2,9 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 
-
-
-
        <style>
            body{
                width:100%;
@@ -45,6 +42,7 @@
 
 
        </script>
+       
 
        </head>
 
