@@ -37,8 +37,8 @@ div {
 }
 
 section {
-     display: block;
-         font-size: 100%;
+    display: block;
+    font-size: 100%;
     vertical-align: baseline;
     background-color: black;
 }
@@ -89,6 +89,10 @@ select {
     border-image: initial; */
 }
 
+option {
+	color: black;
+}
+
 fieldset {
 	margin-left: auto;
 	margin-right: auto;
@@ -107,6 +111,10 @@ fieldset {
     padding-block-end: 0.625em;
     min-inline-size: min-content;
 	}
+	
+dt, dd {
+	color: white;
+}
 
 
 
@@ -414,4 +422,9 @@ input {
 
 .p {
 	color: white;
+}
+
+#phone1, #phone2 {
+	display: inline;
+	width: 30px;
 }
