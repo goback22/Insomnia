@@ -4,7 +4,6 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-
 	<!-- template에 최상위 페이지명 -->
 	<definition name="layouts" template="/WEB-INF/template/Layouts.jsp">
 		<put-attribute name="Nav" value="/WEB-INF/template/Nav.jsp" />	
@@ -12,7 +11,6 @@
 		<put-attribute name="Body" value="" />
 		<put-attribute name="Footer" value="/WEB-INF/template/Footer.jsp" />
 	</definition>
-	
 	
 	<definition name="*.tiles" extends="layouts">		
 		<put-attribute name="Body" value="/WEB-INF/views/{1}.jsp" />		
