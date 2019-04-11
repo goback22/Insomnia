@@ -25,7 +25,8 @@ public class MemberDAO implements MemberService {
 
 	@Override
 	public boolean isMember(Map map) {
-		return (Integer) template.selectOne("memberIsMember", map) == 0 ? false : true;
+		System.out.println("dao asdasdasd");
+		return (Integer)template.selectOne("memberIsMember", map) == 0 ? false : true;
 	}
 
 	@Override

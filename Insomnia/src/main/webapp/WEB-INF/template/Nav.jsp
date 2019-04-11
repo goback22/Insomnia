@@ -113,7 +113,7 @@
 			<!-- /#header -->
 			
 			<!-- 로그인/회원정보 페이지 시작 -->
-			<c:if test="${empty sessionScope.user_id}" var="result">
+			<c:if test="${empty sessionScope.id}" var="result">
 			<!-- 비로그인 시 보여줄 화면 시작-->
 				<div class="offset-menu-two">
 					<a href="<c:url value='/#'/>" class="offset-closer"><img
@@ -123,7 +123,7 @@
 						<form name="form-login" id="form-login" class="form-login" action="<c:url value='/login.ins'/>" >
 							<div class="field">
 								<div class="input-login">
-									<input type="email" id="userName" name="userName"
+									<input type="email" id="id" name="id"
 										class="input-text" placeholder="이메일 아이디">
 								</div>
 								<p id="emailError" class="error-text">이메일 형식이 올바르지 않습니다.</p>
@@ -175,7 +175,7 @@
 									</a>
 								</p>
 							</div>
-							<button type="button" id="btnLogin" class="button-login">로그인</button>
+							<button type="submit" id="btnLogin" class="button-login">로그인</button>
 						</form>
 						<div class="separator">
 							<span class="text">또는</span>
@@ -244,7 +244,7 @@
 							<a href="<c:url value='/#'/>" class="offset-closer">
 								<img src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
 								
-							<p>${record.name}님! 안녕하세요!</p>
+							<p>${id}님! 안녕하세요!</p>
 							
 							<a href="<c:url value='/menu/mypage.ins'/>" style="display: block;">마이페이지 이동</a>
 							<a href="<c:url value='/menu/mypage/edit.ins'/>" style="display: block;">개인정보 수정</a>

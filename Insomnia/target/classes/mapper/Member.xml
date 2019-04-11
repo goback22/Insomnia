@@ -9,7 +9,7 @@
 		SELECT COUNT(*) FROM member WHERE id=#{id} AND password=#{password}
 	</select>
 
-	<select id="memberSelectList" resultType="MemberDTO">
-		select * from Member
-	</select>
+<!-- 	<select id="memberSelectList" resultType="MemberDTO"> -->
+<!-- 		select * from Member -->
+<!-- 	</select> -->
 </mapper>
