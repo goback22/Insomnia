@@ -14,12 +14,8 @@ import com.sun.xml.internal.ws.server.ServiceDefinitionImpl;
 @Controller
 public class MemberController {
 	
-	
 	@RequestMapping("/home/Members.ins")
 	public String select(Model model) throws Exception{
-		
 		return "home.tiles";
 	}
-	
-
-}
+}//class

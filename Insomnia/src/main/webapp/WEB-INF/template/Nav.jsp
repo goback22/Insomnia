@@ -238,124 +238,28 @@
 				<c:if test="${not result}">
 				<!-- 로그인 시 보여줄 화면 시작 -->
 					<div class="offset-menu-two">
-					
-						<div class="afterLogin">
-						
+						<div class="afterLogin" style="margin-top: -370px">
 							<a href="<c:url value='/#'/>" class="offset-closer">
-								<img src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
-								
-							<p>${id}님! 안녕하세요!</p>
-							
+								<img style="margin-left: 270px;margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
+							<p style="font-weight: bold;font-size: 1.1em;color:white;">${id}님  안녕하세요!</p>
 							<a href="<c:url value='/menu/mypage.ins'/>" style="display: block;">마이페이지 이동</a>
 							<a href="<c:url value='/menu/mypage/edit.ins'/>" style="display: block;">개인정보 수정</a>
-							
+							<a href="<c:url value='/logout.ins'/>" style="display: block;">로그아웃</a>
 							<!-- position absoulute 없애자 -->
-							
-			
 							<img src="<c:url value='/resource/img/cat-eyes.jpg'/>" class="cat_eye" />
-							
 							<div class="offset-social-two">
 								<a href=""> <img src="<c:url value='/resource/img/logo_5.png'/>" alt=""></a>
 							</div>
-							
 						</div>
-					
 					</div>
-					
-				
 				<!-- 로그인 시 보여줄 화면 끝 -->
 				</c:if>
 				<!-- 로그인/회원정보 페이지 시작 -->
 				
-				
-			
-
 			<!--=============================-->
 			<!--=        Mobile Nav         =-->
 			<!--=============================-->
-			<header id="mobile-nav-wrap">
-				<div class="mob-header-inner d-flex justify-content-between">
-					<div id="mobile-logo" class="d-flex justify-content-start">
-						<a href="index.html"><img src="<c:url value='/resource/img/logo.png'/>"
-							alt="Site Logo"></a>
-					</div>
 
-					<ul class="user-link nav justify-content-end">
-						<li><a href="<c:url value='/#'/>"><i class="fa fa-user"></i>Login</a></li>
-						<li><a href="<c:url value='/#'/>"><i class="fa fa-sign-in"></i>Sign Up</a></li>
-					</ul>
-
-					<div id="nav-toggle" class="nav-toggle hidden-md">
-						<div class="toggle-inner">
-							<span></span> <span></span> <span></span> <span></span>
-						</div>
-					</div>
-				</div>
-				<!-- /.mob-header-inner -->
-			</header>
-			<!-- /#mobile-header -->
-
-			<div class="mobile-menu-inner">
-
-				<div class="mobile-nav-top-wrap">
-					<div class="mob-header-inner clearfix">
-						<div class="d-flex justify-content-start mobile-logo">
-							<a href="index.html"> <img src="<c:url value='/resource/img/logo-dark.png'/>"
-								alt="Site Logo">
-							</a>
-						</div>
-
-						<div class="close-menu">
-							<span class="bar"></span> <span class="bar"></span>
-						</div>
-					</div>
-					<!-- /.mob-header-inner -->
-
-					<div class="close-menu">
-						<span class="bar"></span> <span class="bar"></span>
-					</div>
-				</div>
-				<!-- /.mobile-nav-top-wrap -->
-
-				<nav id="accordian">
-					<ul class="accordion-menu">
-						<li><a href="#0" class="dropdownlink">Home</a>
-							<ul class="submenuItems">
-								<li><a href="index.html">Home One</a></li>
-								<li><a href="index-two.html">Home Two</a></li>
-								<li><a href="index-three.html">Home Three</a></li>
-								<li><a href="index-four.html">Home Four</a></li>
-							</ul></li>
-						<li><a href="#0" class="dropdownlink">Artist</a>
-							<ul class="submenuItems">
-								<li><a href="artist.html">Artist</a></li>
-								<li><a href="artist-single.html">Artist Details</a></li>
-							</ul></li>
-						<li><a href="album.html">Album</a></li>
-						<li><a href="#0" class="dropdownlink">Events</a>
-							<ul class="submenuItems">
-								<li><a href="event.html">Events</a></li>
-								<li><a href="contact.html">Contact Us</a></li>
-							</ul></li>
-						<li><a href="tabs.html">Tabs</a></li>
-						<li><a href="#0" class="dropdownlink">Blog</a>
-							<ul class="submenuItems">
-								<li><a href="blog-list-right.html">Blog Standard</a></li>
-								<li><a href="blog-grid-right.html">Blog Grid</a></li>
-								<li><a href="blog-single.html">Blog Single</a></li>
-							</ul></li>
-
-						<li><a href="gallery.html">Gallery</a></li>
-						<li><a href="#0" class="dropdownlink">Shop</a>
-							<ul class="submenuItems">
-								<li><a href="shop-right.html">Shop Right</a></li>
-								<li><a href="shop-left.html">Shop Left</a></li>
-								<li><a href="shop-single.html">Shop Details</a></li>
-							</ul></li>
-					</ul>
-				</nav>
-			</div>
-			<!-- /.mobile-menu-inner -->
 
 		</div>
 		<!-- 네비게이션 바 끝 -->

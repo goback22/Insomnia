@@ -6,7 +6,6 @@ public class StaticUserIdSource implements UserIdSource {
 
 	@Override
 	public String getUserId() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

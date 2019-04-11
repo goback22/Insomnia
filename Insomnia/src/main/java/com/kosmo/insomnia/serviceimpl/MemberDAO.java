@@ -25,37 +25,31 @@ public class MemberDAO implements MemberService {
 
 	@Override
 	public boolean isMember(Map map) {
-		System.out.println("dao asdasdasd");
 		return (Integer)template.selectOne("memberIsMember", map) == 0 ? false : true;
 	}
 
 	@Override
 	public int getTotalRecord(Map map) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public MemberDTO selectOne(Map map) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int delete(Map map) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int insert(Map map) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int update(Map map) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

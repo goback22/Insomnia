@@ -26,7 +26,6 @@ public class MemberServiceImpl implements MemberService{
 	//로그인 처리
 	@Override
 	public boolean isMember(Map map) {
-		System.out.println("asdasdasdasdasd");
 		return dao.isMember(map);
 	}
 
