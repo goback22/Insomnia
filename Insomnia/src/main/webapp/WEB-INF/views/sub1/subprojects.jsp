@@ -33,7 +33,7 @@
 <!-- 배경색 -->
 <style>
 body {
-	background: url('/Insomnia/resource/img/background.jpg');
+	background: url('../resource/img/background.jpg');
 }
 .section-title.style-four{
 	margin-top: 55px

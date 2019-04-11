@@ -8,7 +8,7 @@
 
 <style>
 body {
-	background-color: black;
+	background: url('../resource/img/background.jpg');
 }
 </style>
 
@@ -37,7 +37,7 @@ body {
 									<!-- <figure> -->
 									<!-- <p class="regu_user_pic_mask"></p> -->
 									<img class="profileImgUrl"
-										src="<c:url value='/Insomnia/ProjectImg/cat_110_165.jpg'/>">
+										src="../resource/img/cat_110_165.jpg">
 									<!-- </figure> -->
 								</article>
 								<article class="regu_user_info_center">

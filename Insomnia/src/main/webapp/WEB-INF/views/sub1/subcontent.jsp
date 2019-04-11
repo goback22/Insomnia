@@ -95,7 +95,7 @@ body>#standalone-container {
 body {
 	/* 	background-color: black; */
 	color: white;
-	background: url('/Insomnia/resource/img/background.jpg');
+	background: url('../resource/img/background.jpg');
 }
 
 .text1 {
@@ -129,7 +129,7 @@ body {
 	margin-left: 60px;
 	width: 550px;
 	height: 450px;
-	background-image: url('/Insomnia/resource/img/sub1_A.jpg');
+	background-image: url('../resource/img/sub1_A.jpg');
 }
 
 .section2 {
@@ -137,7 +137,7 @@ body {
 	margin-left: 740px;
 	width: 550px;
 	height: 450px;
-	background-image: url('/Insomnia/resource/img/sub1_D.jpg');
+	background-image: url('../resource/img/sub1_D.jpg');
 }
 
 .section3 {
@@ -145,7 +145,7 @@ body {
 	margin-left: 60px;
 	width: 550px;
 	height: 450px;
-	background-image: url('/Insomnia/resource/img/sub1_C.jpg');
+	background-image: url('../resource/img/sub1_C.jpg');
 }
 
 .section4 {
@@ -154,7 +154,7 @@ body {
 	margin-bottom: 200px;
 	width: 550px;
 	height: 450px;
-	background-image: url('/Insomnia/resource/img/sub1_B.jpg');
+	background-image: url('../resource/img/sub1_B.jpg');
 }
 
 .review-comments {

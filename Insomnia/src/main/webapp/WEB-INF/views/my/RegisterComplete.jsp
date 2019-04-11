@@ -8,8 +8,8 @@
 
 <style>
 body {
-	background-color: black;
-}
+	background: url('../resource/img/background.jpg');
+}}
 </style>
 
 </head>

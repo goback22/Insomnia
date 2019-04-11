@@ -34,7 +34,7 @@
 <style type="text/css">
 body {
 	color: #F5F5F5;
-	background: url('/Insomnia/resource/img/background.jpg');
+	background: url('../resource/img/background.jpg');
 }
 
 .text1 {

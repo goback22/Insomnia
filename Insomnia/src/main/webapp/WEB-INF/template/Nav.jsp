@@ -97,10 +97,12 @@
 										<ul class="sub-menu">
 											<li><a href="<c:url value='/main/mainproject.ins'/>">Main Projects</a></li>
 											<li><a href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
-										
 										</ul></li>
-
+										<% if("admin@naver.com".equals(session.getAttribute("id"))){   %>
+									<li class="menu-item-has-children"><a href="<c:url value='/menu/mypage.ins'/>">Admin Page</a></li>
+									<% } else{%> 
 									<li class="menu-item-has-children"><a href="<c:url value='/menu/mypage.ins'/>">My Page</a></li>
+									<%} %>
 								</ul>
 							</div>
 							<!-- /.nav -->
@@ -269,14 +271,11 @@
 	<script>
 	
 	$(function(){
-		
 		$('#btnLogin').click(function(){
-			
-			if(!verifyEmail($('#userName').val())) {
-				$('#emailError').css('display', 'block');		
-			} else {
-				$('#emailError').css('display', 'none');
-			}
+				if(!verifyEmail($('#id').val())) {
+					$('#emailError').css('display', 'block');		
+				} else {
+					$('#emailError').css('display', 'none');
 			
 			//이메일 에러만 프론트 단에서 자바스크립트로 처리하고, 전체 로그인 에러(비밀번호 에러는 따로 표기하지 않는다.)는 컨트롤러에서 모델에 저장한 후 el로 표시하자?
 			
@@ -287,6 +286,7 @@
 	
 	function verifyEmail(value) {
 		var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		}
 		
 		if(value.match(regExp) != null)
 			return true;
