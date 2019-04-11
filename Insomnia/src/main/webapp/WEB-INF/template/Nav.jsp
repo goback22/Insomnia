@@ -120,7 +120,7 @@
 						src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
 					<div class="div-form-login">
 						<h2 class="text-title">로그인</h2>
-						<form name="form-login" id="form-login" class="form-login">
+						<form name="form-login" id="form-login" class="form-login" action="<c:url value='/login.ins'/>" >
 							<div class="field">
 								<div class="input-login">
 									<input type="email" id="userName" name="userName"
@@ -389,6 +389,9 @@
 		else 
 			return false;
 	}
+	
+	
+	
 	
 	
 	</script>

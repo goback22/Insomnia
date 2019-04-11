@@ -4,8 +4,12 @@
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 
-<mapper namespace="mapper.Supporters">
-	<select id="supportSelectList" resultType="SupportersDTO">
-		select * from supporters
+<mapper namespace="mapper.Member">
+	<select id="memberIsMember" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM member WHERE id=#{id} AND password=#{password}
+	</select>
+
+	<select id="memberSelectList" resultType="MemberDTO">
+		select * from Member
 	</select>
 </mapper>

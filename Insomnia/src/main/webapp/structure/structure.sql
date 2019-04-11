@@ -1,65 +1,4 @@
 
-/* Drop Tables */
-
-DROP TABLE BandImg CASCADE CONSTRAINTS;
-DROP TABLE BandMember CASCADE CONSTRAINTS;
-DROP TABLE BandMusic CASCADE CONSTRAINTS;
-DROP TABLE BandSubmit_Comment CASCADE CONSTRAINTS;
-DROP TABLE SafePayCancle CASCADE CONSTRAINTS;
-DROP TABLE SafePay CASCADE CONSTRAINTS;
-DROP TABLE Reward CASCADE CONSTRAINTS;
-DROP TABLE BandSubmit CASCADE CONSTRAINTS;
-DROP TABLE Band CASCADE CONSTRAINTS;
-DROP TABLE BGSAttachedFile CASCADE CONSTRAINTS;
-DROP TABLE BGSHire CASCADE CONSTRAINTS;
-DROP TABLE BGSApply CASCADE CONSTRAINTS;
-DROP TABLE BGSQnA CASCADE CONSTRAINTS;
-DROP TABLE BGSReview CASCADE CONSTRAINTS;
-DROP TABLE concertTimes CASCADE CONSTRAINTS;
-DROP TABLE BGSConcert CASCADE CONSTRAINTS;
-DROP TABLE BGSGuiterlist CASCADE CONSTRAINTS;
-DROP TABLE BGSPay CASCADE CONSTRAINTS;
-DROP TABLE Member CASCADE CONSTRAINTS;
-DROP TABLE Pay CASCADE CONSTRAINTS;
-
-
-/* Create Sequence */
-
-CREATE Sequence seq_Band
-nocycle
-nocache;
-
-CREATE Sequence seq_BandMusic
-nocycle
-nocache;
-
-CREATE Sequence seq_BandPicture
-nocycle
-nocache;
-
-CREATE Sequence seq_BandSubmit
-nocycle
-nocache;
-
-CREATE Sequence seq_Pay
-nocycle
-nocache;
-
-CREATE Sequence seq_Reward
-nocycle
-nocache;
-
-CREATE Sequence seq_SafePay
-nocycle
-nocache;
-
-CREATE Sequence seq_SafePayCancle
-nocycle
-nocache;
-
-
-
-
 
 
 /* Create Tables */
@@ -80,6 +19,7 @@ CREATE TABLE BandImg
 (
 	BI_no number NOT NULL,
 	B_no number NOT NULL,
+	image varchar2(50),
 	PRIMARY KEY (BI_no)
 );
 
@@ -192,9 +132,9 @@ CREATE TABLE BGSPay
 	P_no number NOT NULL,
 	id varchar2(30) NOT NULL,
 	qty number,
-	P_Pay_date date,
+	pagydate date,
 	reciveway varchar2(100),
-	bank_name nvarchar2(30),
+	bank_name varchar2(10),
 	account_serial number,
 	phone number,
 	email varchar2(50),
@@ -239,12 +179,13 @@ CREATE TABLE concertTimes
 );
 
 
-CREATE TABLE Member
+CREATE TABLE Members
 (
 	id varchar2(30) NOT NULL,
 	password varchar2(30),
+	Name varchar2(20),
 	Profile_Img number DEFAULT 0,
-	Birthday number,
+	Birthday date,
 	Zip_Code number,
 	Shipping_Adress nvarchar2(100),
 	Description nvarchar2(2000),
@@ -288,7 +229,7 @@ CREATE TABLE SafePay
 	SP_Order_No number,
 	P_no number NOT NULL,
 	SP_Reward_Qty number,
-	-- �젣�뭹 �씠�쇅 異붽� �썑�썝
+	-- 제품 이외 추가 후원
 	SP_Support number DEFAULT 0,
 	SP_Date date DEFAULT SYSDATE,
 	SP_Recipient nvarchar2(15),
@@ -401,43 +342,43 @@ ALTER TABLE concertTimes
 
 ALTER TABLE BandMember
 	ADD FOREIGN KEY (id)
-	REFERENCES Member (id)
+	REFERENCES Members (id)
 ;
 
 
 ALTER TABLE BandSubmit_Comment
 	ADD FOREIGN KEY (id)
-	REFERENCES Member (id)
+	REFERENCES Members (id)
 ;
 
 
 ALTER TABLE BGSGuiterlist
 	ADD FOREIGN KEY (id)
-	REFERENCES Member (id)
+	REFERENCES Members (id)
 ;
 
 
 ALTER TABLE BGSPay
 	ADD FOREIGN KEY (id)
-	REFERENCES Member (id)
+	REFERENCES Members (id)
 ;
 
 
 ALTER TABLE BGSQnA
 	ADD FOREIGN KEY (id)
-	REFERENCES Member (id)
+	REFERENCES Members (id)
 ;
 
 
 ALTER TABLE BGSReview
 	ADD FOREIGN KEY (id)
-	REFERENCES Member (id)
+	REFERENCES Members (id)
 ;
 
 
 ALTER TABLE SafePay
 	ADD FOREIGN KEY (id)
-	REFERENCES Member (id)
+	REFERENCES Members (id)
 ;
 
 
@@ -465,10 +406,6 @@ ALTER TABLE SafePayCancle
 ;
 
 
-
-/* Comments */
-
-COMMENT ON COLUMN SafePay.SP_Support IS '�젣�뭹 �씠�쇅 異붽� �썑�썝';
 
 
 
