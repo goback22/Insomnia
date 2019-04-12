@@ -67,7 +67,7 @@
 					<li id="anotherfirstlevel2"><a href="#">sub content?<b class="caret"></b></a>
 						<!--  -->
 						<ul id="anothersecondlevel2">
-							<li><a href="#">second level 1</a></li>
+							<li><a href="<c:url value='/admin/subcontent.ins'/>">sub 메인</a></li>
 							<li><a href="#">second level 2</a></li>
 						</ul>
 					</li>

@@ -82,6 +82,7 @@
 										<td class="col-md-2 text-center">55</td>
 <!-- 										<td class="col-md-1"><input type="button" value="delete"/></td> -->
 									</tr>
+									
 									<!-- DB에서 꺼내기 끝 -->
 								</table>
 								
