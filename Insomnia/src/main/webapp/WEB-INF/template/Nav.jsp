@@ -103,6 +103,7 @@
 										</ul></li>
 										<% if("admin".equals(session.getAttribute("id")) || "ADMIN".equals(session.getAttribute("id"))){   %>
 									<li class="menu-item-has-children"><a href="<c:url value='/admin/index.ins'/>">Admin Page</a></li>
+									<li class="menu-item-has-children"><a href="<c:url value ='/Pay/PayPage.ins'/>">PayPage(Test)</a></li>
 									<% } else{%> 
 									<li class="menu-item-has-children"><a href="<c:url value='/menu/mypage.ins'/>">My Page</a></li>
 									<%} %>
@@ -215,8 +216,10 @@
 					<div class="offset-menu-two">
 						<div class="afterLogin" style="margin-top: -370px">
 							<a href="<c:url value='/#'/>" class="offset-closer">
+
 							<img style="margin-left: 270px;margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
-							
+				
+
 							<!-- 일반 로그인 시 보여줄 화면-->
 							<c:if test="${empty socialName}" var="socialResult">
 								<p style="font-weight: bold;font-size: 1.1em;color:white;">${id}님  안녕하세요!</p>
@@ -237,9 +240,16 @@
 							</c:if>
 							<!-- 소셜 로그인 시 보여줄 화면 끝 -->
 
+
 							<a href="<c:url value='/menu/mypage.ins'/>" style="display: block;">마이페이지 이동</a>
 							<a href="<c:url value='/menu/mypage/edit.ins'/>" style="display: block;">개인정보 수정</a>
 
+
+
+
+
+				
+			
 
 							<a href="<c:url value='/logout.ins'/>" style="display: block;">로그아웃</a>
 
@@ -253,6 +263,7 @@
 				</c:if>
 				<!-- 로그인/회원정보 페이지 끝 -->
 				<!-- 소셜 로그인 : 히든 폼 시작 -->
+
 				
 				<form id="socialForm" action="<c:url value='/login/social.ins'/>" method="POST" style="display: none;">
 					<input type="hidden" name="socialEmail" id="socialEmail" value=""/>
@@ -262,7 +273,9 @@
 				</form>
 				
 				<!-- 소셜 로그인 : 히든 폼 끝 -->				
+
 				
+			
 			<!--=============================-->
 			<!--=        Mobile Nav         =-->
 			<!--=============================-->
