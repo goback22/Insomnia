@@ -100,10 +100,12 @@
 										<ul class="sub-menu">
 											<li><a href="<c:url value='/main/mainproject.ins'/>">Main Projects</a></li>
 											<li><a href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
-										
 										</ul></li>
-
+										<% if("admin@naver.com".equals(session.getAttribute("id"))){   %>
+									<li class="menu-item-has-children"><a href="<c:url value='/admin/index.ins'/>">Admin Page</a></li>
+									<% } else{%> 
 									<li class="menu-item-has-children"><a href="<c:url value='/menu/mypage.ins'/>">My Page</a></li>
+									<%} %>
 								</ul>
 							</div>
 							<!-- /.nav -->
@@ -116,17 +118,17 @@
 			<!-- /#header -->
 			
 			<!-- 로그인/회원정보 페이지 시작 -->
-			<c:if test="${empty sessionScope.user_id}" var="result">
+			<c:if test="${empty sessionScope.id}" var="result">
 			<!-- 비로그인 시 보여줄 화면 시작-->
 				<div class="offset-menu-two">
 					<a href="<c:url value='/#'/>" class="offset-closer"><img
 						src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
 					<div class="div-form-login">
 						<h2 class="text-title">로그인</h2>
-						<form name="form-login" id="form-login" class="form-login">
+						<form name="form-login" id="form-login" class="form-login" action="<c:url value='/login.ins'/>" >
 							<div class="field">
 								<div class="input-login">
-									<input type="email" id="userName" name="userName"
+									<input type="email" id="id" name="id"
 										class="input-text" placeholder="이메일 아이디">
 								</div>
 								<p id="emailError" class="error-text">이메일 형식이 올바르지 않습니다.</p>
@@ -152,7 +154,7 @@
 									</a>
 								</p>
 							</div>
-							<button type="button" id="btnLogin" class="button-login">로그인</button>
+							<button type="submit" id="btnLogin" class="button-login">로그인</button>
 						</form>
 						<div class="separator">
 							<span class="text">또는</span>
@@ -211,34 +213,38 @@
 				<c:if test="${not result}">
 				<!-- 로그인 시 보여줄 화면 시작 -->
 					<div class="offset-menu-two">
-					
-						<div class="afterLogin">
-						
+						<div class="afterLogin" style="margin-top: -370px">
 							<a href="<c:url value='/#'/>" class="offset-closer">
+<<<<<<< HEAD
 								<img src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
 								
 							<p>${sessionScope.user_id}님! 안녕하세요!</p>
 							
+=======
+								<img style="margin-left: 270px;margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
+							<p style="font-weight: bold;font-size: 1.1em;color:white;">${id}님  안녕하세요!</p>
+>>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 							<a href="<c:url value='/menu/mypage.ins'/>" style="display: block;">마이페이지 이동</a>
 							<a href="<c:url value='/menu/mypage/edit.ins'/>" style="display: block;">개인정보 수정</a>
+<<<<<<< HEAD
 				
 			
+=======
+							<a href="<c:url value='/logout.ins'/>" style="display: block;">로그아웃</a>
+							<!-- position absoulute 없애자 -->
+>>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 							<img src="<c:url value='/resource/img/cat-eyes.jpg'/>" class="cat_eye" />
-							
 							<div class="offset-social-two">
 								<a href=""> <img src="<c:url value='/resource/img/logo_5.png'/>" alt=""></a>
 							</div>
-							
 						</div>
-					
 					</div>
-					
-				
 				<!-- 로그인 시 보여줄 화면 끝 -->
 				</c:if>
 				<!-- 로그인/회원정보 페이지 끝 -->
 				<!-- 소셜 로그인 : 히든 폼 시작 -->
 				
+<<<<<<< HEAD
 				<form id="socialForm" action="<c:url value='/login/social.ins'/>" method="POST" style="display: none;">
 					<input type="hidden" name="socialEmail" id="socialEmail" value=""/>
 					<input type="hidden" name="socialName" id="socialName" value=""/>
@@ -251,92 +257,12 @@
 				
 			
 
+=======
+>>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 			<!--=============================-->
 			<!--=        Mobile Nav         =-->
 			<!--=============================-->
-			<header id="mobile-nav-wrap">
-				<div class="mob-header-inner d-flex justify-content-between">
-					<div id="mobile-logo" class="d-flex justify-content-start">
-						<a href="index.html"><img src="<c:url value='/resource/img/logo.png'/>"
-							alt="Site Logo"></a>
-					</div>
 
-					<ul class="user-link nav justify-content-end">
-						<li><a href="<c:url value='/#'/>"><i class="fa fa-user"></i>Login</a></li>
-						<li><a href="<c:url value='/#'/>"><i class="fa fa-sign-in"></i>Sign Up</a></li>
-					</ul>
-
-					<div id="nav-toggle" class="nav-toggle hidden-md">
-						<div class="toggle-inner">
-							<span></span> <span></span> <span></span> <span></span>
-						</div>
-					</div>
-				</div>
-				<!-- /.mob-header-inner -->
-			</header>
-			<!-- /#mobile-header -->
-
-			<div class="mobile-menu-inner">
-
-				<div class="mobile-nav-top-wrap">
-					<div class="mob-header-inner clearfix">
-						<div class="d-flex justify-content-start mobile-logo">
-							<a href="index.html"> <img src="<c:url value='/resource/img/logo-dark.png'/>"
-								alt="Site Logo">
-							</a>
-						</div>
-
-						<div class="close-menu">
-							<span class="bar"></span> <span class="bar"></span>
-						</div>
-					</div>
-					<!-- /.mob-header-inner -->
-
-					<div class="close-menu">
-						<span class="bar"></span> <span class="bar"></span>
-					</div>
-				</div>
-				<!-- /.mobile-nav-top-wrap -->
-
-				<nav id="accordian">
-					<ul class="accordion-menu">
-						<li><a href="#0" class="dropdownlink">Home</a>
-							<ul class="submenuItems">
-								<li><a href="index.html">Home One</a></li>
-								<li><a href="index-two.html">Home Two</a></li>
-								<li><a href="index-three.html">Home Three</a></li>
-								<li><a href="index-four.html">Home Four</a></li>
-							</ul></li>
-						<li><a href="#0" class="dropdownlink">Artist</a>
-							<ul class="submenuItems">
-								<li><a href="artist.html">Artist</a></li>
-								<li><a href="artist-single.html">Artist Details</a></li>
-							</ul></li>
-						<li><a href="album.html">Album</a></li>
-						<li><a href="#0" class="dropdownlink">Events</a>
-							<ul class="submenuItems">
-								<li><a href="event.html">Events</a></li>
-								<li><a href="contact.html">Contact Us</a></li>
-							</ul></li>
-						<li><a href="tabs.html">Tabs</a></li>
-						<li><a href="#0" class="dropdownlink">Blog</a>
-							<ul class="submenuItems">
-								<li><a href="blog-list-right.html">Blog Standard</a></li>
-								<li><a href="blog-grid-right.html">Blog Grid</a></li>
-								<li><a href="blog-single.html">Blog Single</a></li>
-							</ul></li>
-
-						<li><a href="gallery.html">Gallery</a></li>
-						<li><a href="#0" class="dropdownlink">Shop</a>
-							<ul class="submenuItems">
-								<li><a href="shop-right.html">Shop Right</a></li>
-								<li><a href="shop-left.html">Shop Left</a></li>
-								<li><a href="shop-single.html">Shop Details</a></li>
-							</ul></li>
-					</ul>
-				</nav>
-			</div>
-			<!-- /.mobile-menu-inner -->
 
 		</div>
 		<!-- 네비게이션 바 끝 -->
@@ -346,14 +272,11 @@
 	<script>
 	
 	$(function(){
-		
 		$('#btnLogin').click(function(){
-			
-			if(!verifyEmail($('#userName').val())) {
-				$('#emailError').css('display', 'block');		
-			} else {
-				$('#emailError').css('display', 'none');
-			}
+				if(!verifyEmail($('#id').val())) {
+					$('#emailError').css('display', 'block');		
+				} else {
+					$('#emailError').css('display', 'none');
 			
 			//이메일 에러만 프론트 단에서 자바스크립트로 처리하고, 전체 로그인 에러(비밀번호 에러는 따로 표기하지 않는다.)는 컨트롤러에서 모델에 저장한 후 el로 표시하자?
 			
@@ -364,12 +287,16 @@
 	
 	function verifyEmail(value) {
 		var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		}
 		
 		if(value.match(regExp) != null)
 			return true;
 		else 
 			return false;
 	}
+	
+	
+	
 	
 	
 	</script>

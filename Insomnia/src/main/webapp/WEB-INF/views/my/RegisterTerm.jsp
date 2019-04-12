@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="<c:url value='/vendor/css/TermCSS.css'/>" type="text/css" />
 <style>
 body {
-	background-color: black;
-	color: white;
+	background: url('../resource/img/background.jpg');
+	color:white;
 }
 </style>
 

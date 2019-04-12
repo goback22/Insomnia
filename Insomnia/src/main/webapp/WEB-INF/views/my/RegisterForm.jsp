@@ -10,8 +10,12 @@
 	
 <style>
 body {
+<<<<<<< HEAD
 	/* background-color: black; */
 	background-image: url("<c:url value='/Insomnia/src/main/webapp/img/RegisterBackground.jpg'/>");
+=======
+	background: url('../resource/img/background.jpg');
+>>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 }
 </style>
 
@@ -45,7 +49,7 @@ body {
 				<section class="renew_joinform_v2">
 					<!-- 머릿말 -->
 					<div class="find_mem_sally">
-							<img class="find_mem_sally" src="<c:url value='/Insomnia/ProjectImg/약관_편집_폼.jpg'/>"/>
+							<img class="find_mem_sally" src="../resource/img/약관_편집_폼.jpg"/>
 					</div>
 					<p class="find_form_txt">회원정보를 입력해 주세요.</p>
 					
