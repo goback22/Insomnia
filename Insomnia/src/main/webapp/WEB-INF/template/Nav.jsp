@@ -99,7 +99,7 @@
 											<li><a href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
 										</ul></li>
 										<% if("admin@naver.com".equals(session.getAttribute("id"))){   %>
-									<li class="menu-item-has-children"><a href="<c:url value='/menu/mypage.ins'/>">Admin Page</a></li>
+									<li class="menu-item-has-children"><a href="<c:url value='/admin/index.ins'/>">Admin Page</a></li>
 									<% } else{%> 
 									<li class="menu-item-has-children"><a href="<c:url value='/menu/mypage.ins'/>">My Page</a></li>
 									<%} %>
