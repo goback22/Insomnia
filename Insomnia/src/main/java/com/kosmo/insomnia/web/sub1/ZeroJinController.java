@@ -24,7 +24,13 @@ public class ZeroJinController {
 	@RequestMapping("/login.ins")
 	public String login(HttpSession session, Model model, @RequestParam Map map) throws Exception{
 		boolean flag = insService.isMember(map);
-		if(flag) session.setAttribute("id", map.get("id"));
+		if(flag) {
+			session.setAttribute("id", map.get("id"));
+			//admin@naver.com으로 로그인시 바로 관리자 페이지로 이동 - 임시
+			if(map.get("id").equals("admin@naver.com")) {
+				return "/admin/AdminIndex";
+			}//
+		}//if
 		else model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
 		return "home.tiles";
 	}
