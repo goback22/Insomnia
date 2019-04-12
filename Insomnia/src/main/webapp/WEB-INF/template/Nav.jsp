@@ -101,7 +101,7 @@
 											<li><a href="<c:url value='/main/mainproject.ins'/>">Main Projects</a></li>
 											<li><a href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
 										</ul></li>
-										<% if("admin@naver.com".equals(session.getAttribute("id"))){   %>
+										<% if("admin".equals(session.getAttribute("id")) || "ADMIN".equals(session.getAttribute("id"))){   %>
 									<li class="menu-item-has-children"><a href="<c:url value='/admin/index.ins'/>">Admin Page</a></li>
 									<% } else{%> 
 									<li class="menu-item-has-children"><a href="<c:url value='/menu/mypage.ins'/>">My Page</a></li>
@@ -128,8 +128,8 @@
 						<form name="form-login" id="form-login" class="form-login" action="<c:url value='/login.ins'/>" >
 							<div class="field">
 								<div class="input-login">
-									<input type="email" id="id" name="id"
-										class="input-text" placeholder="이메일 아이디">
+									<input type="text" id="id" name="id"
+										class="input-text" placeholder="이메일 아이디">  <!-- 타입 email 에서 text로 -->
 								</div>
 								<p id="emailError" class="error-text">이메일 형식이 올바르지 않습니다.</p>
 							</div>
@@ -172,8 +172,8 @@
 									src="<c:url value='/resource/img/kakaolink_btn_medium.png'/>" />
 								<i class="kakao"></i>카카오
 							</button>
-
-							<button type="button" id="naverLoginBtn">
+							<!-- naverLoginBtn -->
+							<button type="button" id="naver_id_login">
 								<img class="icon"
 									src="<c:url value='/resource/img/naver_login_icon.png'/>" />
 								<i class="naver"></i>네이버
@@ -215,24 +215,34 @@
 					<div class="offset-menu-two">
 						<div class="afterLogin" style="margin-top: -370px">
 							<a href="<c:url value='/#'/>" class="offset-closer">
-<<<<<<< HEAD
-								<img src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
-								
-							<p>${sessionScope.user_id}님! 안녕하세요!</p>
+							<img style="margin-left: 270px;margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
 							
-=======
-								<img style="margin-left: 270px;margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
-							<p style="font-weight: bold;font-size: 1.1em;color:white;">${id}님  안녕하세요!</p>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
+							<!-- 일반 로그인 시 보여줄 화면-->
+							<c:if test="${empty socialName}" var="socialResult">
+								<p style="font-weight: bold;font-size: 1.1em;color:white;">${id}님  안녕하세요!</p>
+							</c:if>
+							<!-- 일반 로그인 시 보여줄 화면 끝-->
+							
+							<!-- 소셜 로그인 시 보여줄 화면 시작 -->
+							<c:if test="${not result}">
+								<프로필 사진>
+								<img src="${socialProfile}"/>
+								<p style="font-weight: bold;font-size: 1.1em;color:orange;">${socialName}님  안녕하세요!</p>
+								<p style="font-weight: bold;font-size: 1.1em;color:orange;">${socialEmail}</br>로 이메일 인증을 진행하세요!</p>
+								<p style="font-weight: bold;font-size: 1.1em;color:white;">
+									회원님의 생일이 </br>
+									<i style="color: orange; font-size: 30px;">${socialBirth}</i>인가요?</br>
+									회원님의 생일에 특별한 혜택을 누려보세요.
+								</p>
+							</c:if>
+							<!-- 소셜 로그인 시 보여줄 화면 끝 -->
+
 							<a href="<c:url value='/menu/mypage.ins'/>" style="display: block;">마이페이지 이동</a>
 							<a href="<c:url value='/menu/mypage/edit.ins'/>" style="display: block;">개인정보 수정</a>
-<<<<<<< HEAD
-				
-			
-=======
+
+
 							<a href="<c:url value='/logout.ins'/>" style="display: block;">로그아웃</a>
-							<!-- position absoulute 없애자 -->
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
+
 							<img src="<c:url value='/resource/img/cat-eyes.jpg'/>" class="cat_eye" />
 							<div class="offset-social-two">
 								<a href=""> <img src="<c:url value='/resource/img/logo_5.png'/>" alt=""></a>
@@ -244,21 +254,15 @@
 				<!-- 로그인/회원정보 페이지 끝 -->
 				<!-- 소셜 로그인 : 히든 폼 시작 -->
 				
-<<<<<<< HEAD
 				<form id="socialForm" action="<c:url value='/login/social.ins'/>" method="POST" style="display: none;">
 					<input type="hidden" name="socialEmail" id="socialEmail" value=""/>
-					<input type="hidden" name="socialName" id="socialName" value=""/>
-					
+					<input type="hidden" name="socialName" id="socialName" value=""/>	
 					<input type="hidden" name="socialProfile" id="socialProfile" value=""/>
-					<input type="hidden" name="socialBirth" id="socialProfile" value=""/>
+					<input type="hidden" name="socialBirth" id="socialBirth" value=""/>
 				</form>
 				
 				<!-- 소셜 로그인 : 히든 폼 끝 -->				
 				
-			
-
-=======
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 			<!--=============================-->
 			<!--=        Mobile Nav         =-->
 			<!--=============================-->
@@ -277,6 +281,7 @@
 					$('#emailError').css('display', 'block');		
 				} else {
 					$('#emailError').css('display', 'none');
+				}
 			
 			//이메일 에러만 프론트 단에서 자바스크립트로 처리하고, 전체 로그인 에러(비밀번호 에러는 따로 표기하지 않는다.)는 컨트롤러에서 모델에 저장한 후 el로 표시하자?
 			
@@ -287,13 +292,13 @@
 	
 	function verifyEmail(value) {
 		var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		}
 		
-		if(value.match(regExp) != null)
+		
+		if(value.match(regExp) != null || value.toUpperCase == 'ADMIN')  //null처리는? &&앞에?
 			return true;
 		else 
 			return false;
-	}
+	};
 	
 	
 	
@@ -320,7 +325,7 @@
 		    var js, fjs = d.getElementsByTagName(s)[0];
 		    if (d.getElementById(id)) return;
 		    js = d.createElement(s); js.id = id;
-		    js.src = "https://connect.facebook.net/en_US/sdk.js";
+		    js.src = "https://connect.facebook.net/ko_KR/sdk.js";
 		    fjs.parentNode.insertBefore(js, fjs);
 		  }(document, 'script', 'facebook-jssdk'));
 		    
@@ -333,20 +338,28 @@
 				  if (response.status === 'connected') {
 					  
 					  //확인용 alert()
-					  alert('로그인 아직!');
+					  alert('소셜 로그인에 성공했습니다.');
 				  
 				      /////사용자 정보를 갖고 온다.
-					   FB.api('/me?fields=name,email,birthday,picture', function(response) {
+					   FB.api('/me', {locale : 'ko_KR'}, {fields: 'name,email,birthday,picture'}, function(response) {
 					      if(response && !response.error) {
-					    	  console.log("response값: " + response);
-					    	 
+					    	  
+					      	  console.log("받은 json 객체" + JSON.stringify(response));
+					    	  $('#socialName').prop('value', response.name);
+					    	  $('#socialEmail').prop('value', response.email);
+					    	  $('#socialBirth').prop('value', response.birthday);
+					    	  $('#socialProfile').prop('value', response.picture.data.url);
+					    	  
+					    	  $('#socialForm').submit();
+					    	  
+					    	 				    	 
 					      }//if블럭
-	      				});//함수의 인자인 함수(1급객체)
-					 
+	      			   });//함수의 인자인 함수(1급객체)
+	      			   
 					  
 				  } else {
 					  
-					  alert('로그인 아직!');
+					  alert('로그인에 실패했습니다.');
 				    
 				  }
 				});
@@ -355,6 +368,40 @@
 		
 	})
 	
+	////현재 문제점 : 페이지 이동 후 돌아오면, 세션 영역에 저장된 이름은 화면에 표시되지만, 동적으로 받아오는 생일, 이메일, 사진은 표시되지 않는다. 한 번 회원가입 후에는 
+	//관련 정보를 DB에 저장해 둔 뒤, 추후 다시 로그인 하면, 그 때 정보를 업데이트 하는 식으로 수정해야 할 듯 하다.
+	
+	
+	
+	</script>
+	
+	<!-- 네이버 로그인 -->
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	<script>
+	
+		var naver_id_login = new naver_id_login("baw69zHb2FPVPqvEd5sl", "https://localhost:8080/insomnia/");
+	  	var state = naver_id_login.getUniqState();
+	  	naver_id_login.setButton("white", 2,40);
+	  	naver_id_login.setDomain("https://localhost:8080/insomnia/");
+	  	naver_id_login.setState(state);
+	  	naver_id_login.setPopup();
+	  	naver_id_login.init_naver_id_login();
+	
+	</script>
+	
+	<script>
+	 	// 접근 토큰 값 출력
+	  alert(naver_id_login.oauthParams.access_token);
+	 	
+		// 네이버 사용자 프로필 조회
+	  naver_id_login.get_naver_userprofile("naverSignInCallback()");
+		
+	  	// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+	  function naverSignInCallback() {
+	    alert(naver_id_login.getProfileData('email'));
+	    alert(naver_id_login.getProfileData('nickname'));
+	    alert(naver_id_login.getProfileData('age'));
+	  }
 	
 	
 	</script>

@@ -10,9 +10,11 @@ Kakao.init('9db89cfefc1651dffe3e0d2694cd52c0');
 	     	              success: function(res) {
 	     	            	
 	     	            	$('#socialName').prop('value', res.properties.nickname);
-	     	            	$('#socialEmail').prop('value', res.properties.nickname);
+	     	            	/*$('#socialEmail').prop('value', res.properties.nickname);
 	     	            	$('#socialProfile').prop('value', res.properties.nickname);
-	     	            	$('#socialBirth').prop('value', res.properties.nickname);
+	     	            	$('#socialBirth').prop('value', res.properties.nickname);*/
+	     	            	
+	     	            	//주석 처리하면 value가 null 값일텐데, 괜찮겠지?
 	     	            	
 	     	            	$('#socialForm').submit();
 	     	            	  
