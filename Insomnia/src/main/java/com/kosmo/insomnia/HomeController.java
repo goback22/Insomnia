@@ -50,5 +50,10 @@ public class HomeController {
 		return "/main/content.tiles";
 	}
 	
+	@RequestMapping(value="/Pay/PayPage.ins")
+	public String payPage() {
+		return "/Pay/PayPage.tiles";
+	}///
+	
 	
 }//classs

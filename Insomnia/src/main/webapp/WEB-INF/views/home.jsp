@@ -2,7 +2,8 @@
 
 
 
-
+	<!-- 로그인 처리 CSS -->
+	<link href="<c:url value='/vendor/css/LoginCSS.css'/>" rel="stylesheet" />
 
        <style>
            body{
@@ -58,6 +59,7 @@
             <div class="banner">
                 <div class="banner-video"><video class="queen" loop autoplay muted src="resource/video/queen.mp4"></video></div>
                 <div class="banner-title">I N S O M N I A</div>
+              
             </div>
             <!-- ê²ì-->
             <div class="search"></div>

@@ -99,7 +99,7 @@
 											<li><a href="SubProjects.jsp">Sub Projects</a></li>
 										</ul></li>
 
-									<li class="menu-item-has-children"><a href="MyPage.jsp">My Page</a></li>
+									<li class="menu-item-has-children"><a href="<c:url value ='/Pay/PayPage.ins'/>">My Page</a></li>
 								</ul>
 							</div>
 							<!-- /.nav -->
