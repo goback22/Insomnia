@@ -1,9 +1,5 @@
-
-
-
-
-	<!-- 로그인 처리 CSS -->
-	<link href="<c:url value='/vendor/css/LoginCSS.css'/>" rel="stylesheet" />
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
        <style>
            body{

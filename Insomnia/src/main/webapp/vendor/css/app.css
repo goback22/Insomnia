@@ -290,6 +290,7 @@ h1, h2, h3, h4, h5, h6 {
 .section-title.style-four {
   width: 100%;
   text-align: center;
+  margin-top: 25px;
 }
 
 .section-title.style-four h2 {
@@ -9516,6 +9517,7 @@ div.jp-seeking-bg {
 
 .album-filter-button.album-filter-button-two {
   max-width: 760px;
+  margin-top: -60px;
 }
 
 .album-filter-button.album-filter-button-two:after {
@@ -13685,6 +13687,8 @@ ul.products li.product-two .ajax_add_to_cart i {
   border-top: 1px solid #ededed;
   text-align: center;
   display: inherit;
+  font-size: 1.4em;
+  margin-top: -25px;
 }
 
 .product-tab-wrapper .product-tabs li {
@@ -13694,7 +13698,7 @@ ul.products li.product-two .ajax_add_to_cart i {
 .product-tab-wrapper .product-tabs li a {
   padding: 10px 20px;
   text-decoration: none;
-  color: #444;
+  color: white;
   display: inline-block;
   -webkit-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
@@ -13799,7 +13803,7 @@ ul.products li.product-two .ajax_add_to_cart i {
   width: 100%;
   text-align: center;
   background: transparent;
-  color: #343434;
+  color: white;
   border-radius: 4px;
   padding: 12px 0px;
   font-weight: 500;
@@ -13861,7 +13865,7 @@ ul.products li.product-two .ajax_add_to_cart i {
 
 /* Rating Star Widgets Style */
 .rating {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .rating li {

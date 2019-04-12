@@ -16,12 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class HomeController {
-	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	//로그인 폼으로 이동
 	@RequestMapping(value = "/home.ins", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		/*
@@ -37,23 +36,15 @@ public class HomeController {
 		return "home.tiles";
 	}///home
 	
-	
+	//메인 프로젝트
 	@RequestMapping(value="/main/mainproject.ins")
 	public String mainproject() {
 		return "/main/mainproject.tiles";
-	}////
+	}
 	
-	
-	
+	//메인 프로젝트 - 컨텐트
 	@RequestMapping(value="/main/content.ins")
 	public String content() {
 		return "/main/content.tiles";
 	}
-	
-	@RequestMapping(value="/Pay/PayPage.ins")
-	public String payPage() {
-		return "/Pay/PayPage.tiles";
-	}///
-	
-	
 }//classs

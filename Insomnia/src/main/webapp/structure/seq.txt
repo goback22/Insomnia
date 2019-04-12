@@ -1,0 +1,35 @@
+/* Create Sequence */
+
+CREATE Sequence seq_Band
+nocycle
+nocache;
+
+CREATE Sequence seq_BandMusic
+nocycle
+nocache;
+
+CREATE Sequence seq_BandPicture
+nocycle
+nocache;
+
+CREATE Sequence seq_BandSubmit
+nocycle
+nocache;
+
+CREATE Sequence seq_Pay
+nocycle
+nocache;
+
+CREATE Sequence seq_Reward
+nocycle
+nocache;
+
+CREATE Sequence seq_SafePay
+nocycle
+nocache;
+
+CREATE Sequence seq_SafePayCancle
+nocycle
+nocache;
+
+
