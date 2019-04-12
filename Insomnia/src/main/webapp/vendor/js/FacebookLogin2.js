@@ -1,9 +1,6 @@
-
-
-
-	
-	//0] 준비단계 : 건드릴 필요 없다.
+window.onload = function() {
 	window.fbAsyncInit = function() {
+		console.log('들어오는지?');
 		    FB.init({
 		      appId      : '1073792512792998',
 		      cookie     : true, 
@@ -16,7 +13,7 @@
 		      statusChangeCallback(response);
 		    });
 		
-	};//////window.fbAsyncInit()
+		 };//////window.fbAsyncInit()
 
 	(function(d, s, id) {
 	    var js, fjs = d.getElementsByTagName(s)[0];
@@ -26,23 +23,20 @@
 	    fjs.parentNode.insertBefore(js, fjs);
 	  }(document, 'script', 'facebook-jssdk'));
 	/////////////////
-	
-window.onload = function() {
-	
 
-}
+
 
 	function statusChangeCallback(response) {
     
 	    if (response.status === 'connected') {
 	     // testAPI();
 	    	console.log('Logged in and authenticated');
-	    	//setElements(true);
-	    	//testAPI();
+	    	setElements(true);
+	    	testAPI();
 	    } else {
 	     
 	    	console.log('Not authenticated');
-	    	//setElements(false);
+	    	setElements(false);
 	    }
   }//////////////statusChangeCallback()
 
@@ -164,4 +158,4 @@ window.onload = function() {
 	      });
 	 }
 	 
-/*});*/	
+/*});*/}	

@@ -14,7 +14,7 @@ p {
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    font-color: white;
+    color: white;
 }
 
 strong {
@@ -24,6 +24,7 @@ strong {
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
+    color: white;
 }
 
 div {
@@ -75,7 +76,7 @@ input {
 
 
 select {
- /*    -webkit-appearance: menulist; */
+    -webkit-appearance: menulist; */
     box-sizing: border-box;
     align-items: center;
     white-space: pre;
@@ -83,14 +84,17 @@ select {
     color: white;
     /* background-color: white; */
     cursor: default;
-   /*  border-width: 1px;
+    border-width: 1px;
     border-style: solid;
-    border-color: initial;
-    border-image: initial; */
+    overflow: hidden;
+    height: auto;
+   /*  border-color: initial;
+    border-image: initial;  */
 }
 
 option {
-	color: black;
+	color: white;
+	background-color: black;
 }
 
 fieldset {
@@ -116,6 +120,14 @@ dt, dd {
 	color: white;
 }
 
+.renew_input_box.birth_chk {
+    height: 150px;
+}
+
+input::placeholder {
+	color: gold;
+	font-size: 16px;
+}
 
 
 /*========================================태그 선택자 끝======================================*/
@@ -196,6 +208,7 @@ dt, dd {
     /* outline: none; */
     padding: 15px;
     width: 100%;
+    color: white;
 }
 
 .renew_input_box.id_chk input {
@@ -224,7 +237,6 @@ dt, dd {
 }
 
 .renew_input_box strong {
-    color: #222;
     display: block;
     font-size: 18px;
     margin-bottom: 10px;
@@ -232,7 +244,7 @@ dt, dd {
 
 
 .limit_txt {				/*아이디 비번 문자수 제한 경고문자*/
-    color: #444;
+    color: red;
     display: none;
     font-size: 16px;
     line-height: 1.6;
@@ -293,7 +305,7 @@ dt, dd {
 
 .user_gender a.on {					/*남/여 둘 중에서 선택된 성별. 자바스크립트로 조정하는 듯*/
     /* background: #f4f4f2; */
-    color: #222;
+    color: white;
 }
 
 .user_gender a.male {
@@ -318,15 +330,17 @@ dt, dd {
     width: 100%;
     -webkit-appearance: none;
     appearance: none;
-    padding: 16px 5px;
+    padding: 7px 5px;
     background: transparent;
     float: left;
+    text-align: center;
 }
 
 /*		아래부터는 년=> 월 => 일 => 양력		*/
 
 .select_birth_box .birth_select.year {
-    width: 31.161%;
+    /* width: 31.161%; */
+    width: 24.11%;
     float: left;
     margin-right: 1.760%;
     /* background: #fff url(../img/util/mem/icon_arrow_down.png) 90% center no-repeat; */
@@ -344,7 +358,8 @@ dt, dd {
 }
 
 .select_birth_box .birth_select.yny {
-    width: 15.3169%;
+    /* width: 15.3169%; */
+     width: 24.11%;
     margin-right: 0;
     float: left;
 }
@@ -424,7 +439,23 @@ input {
 	color: white;
 }
 
-#phone1, #phone2 {
+#phone1, #phone2, #phone3 {
 	display: inline;
-	width: 30px;
+	width: 75px;
+    height: 20px;
+    text-align: center;
+}
+
+#email {
+    width: 250px;
+    height: 20px;
+    text-align: center;
+}
+
+#portal {
+    background-color: black;
+    height: 30px;
+    width: 160px;
+    font-size: 20px;
+    margin-top: 1px;
 }

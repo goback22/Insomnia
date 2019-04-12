@@ -185,6 +185,13 @@
     	<artifactId>spring-social-security</artifactId>
     	<version>1.1.6.RELEASE</version>
 	</dependency>
+	
+	<!-- 페이스북 API -->
+	<dependency>
+    	<groupId>org.springframework.social</groupId>
+    	<artifactId>spring-social-facebook</artifactId>
+    	<version>2.0.3.RELEASE</version>
+	</dependency>
 		
 	</dependencies>
 	<build>

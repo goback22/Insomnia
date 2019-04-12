@@ -10,7 +10,8 @@
 	
 <style>
 body {
-	background-color: black;
+	/* background-color: black; */
+	background-image: url("<c:url value='/Insomnia/src/main/webapp/img/RegisterBackground.jpg'/>");
 }
 </style>
 
@@ -76,8 +77,8 @@ body {
 						<input type="hidden" id="user_nm" name="user_nm" value="서기환" required="required">
 						<!-- 성별입력 -->
 						<div class="user_gender">
-							<a class="male on" href="javascript:void(0);">남</a> 
-							<a class="female " href="javascript:void(0);">여</a> 
+							<a class="male on">남</a> 
+							<a class="female">여</a> 
 							<input type="hidden" id="gender" name="gender" value="">
 						</div>
 					</div>
@@ -88,7 +89,7 @@ body {
 							<div class="birth_select year">
 								<label for="birth_year" class="a11y">1994년</label> 
 								<select id="birth_year" name="birth_year" required="required">
-									<option value="">선택</option>
+									<option value="">연도</option>
 									<option value="2005">2005년</option><option value="2004">2004년</option><option value="2003">2003년</option>
 									<option value="2002">2002년</option><option value="2001">2001년</option><option value="2000">2000년</option>
 									<option value="1999">1999년</option><option value="1998">1998년</option><option value="1997">1997년</option>
@@ -111,18 +112,18 @@ body {
 									</select>
 							</div>
 							<div class="birth_select month">
-								<label for="birth_month" class="a11y">2월</label> <select
-									id="birth_month" name="birth_month" required="required"><option
-										value="">선택</option>
+								<label for="birth_month" class="a11y">2월</label> 
+								<select id="birth_month" name="birth_month" required="required">
+								<option value="">월</option>
 									<option value="01">1월</option><option value="02">2월</option><option value="03">3월</option>
 									<option value="04">4월</option><option value="05">5월</option><option value="06">6월</option>
 									<option value="07">7월</option><option value="08">8월</option><option value="09">9월</option>
 									<option value="10">10월</option><option value="11">11월</option><option value="12">12월</option></select>
 							</div>
 							<div class="birth_select day">
-								<label for="birth_day" class="a11y">18일</label> <select
-									id="birth_day" name="birth_day" required="required"><option
-										value="">선택</option>
+								<label for="birth_day" class="a11y">18일</label> 
+								<select id="birth_day" name="birth_day" required="required">
+								<option value="">일</option>
 									<option value="01">1일</option><option value="02">2일</option><option value="03">3일</option>
 									<option value="04">4일</option><option value="05">5일</option><option value="06">6일</option>
 									<option value="07">7일</option><option value="08">8일</option><option value="09">9일</option>
@@ -142,34 +143,53 @@ body {
 								</select>
 							</div>
 						</div>
-						<p class="limit_txt input_warn_text birth_txt" id="birth_txt">생년월일을 선택해주세요.</p>
+						<p class="limit_txt birth_txt" id="birth_txt">생년월일을 선택해주세요.</p>
 					</div>
 					<!-- 주소 입력 -->
 					<div class="renew_input_box addr_chk">
 						<strong>주소(필수)</strong> 
-						<input type="button" class="form-control inputInfo" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required><br>
-						<input type="text" class="inputInfo" id="postcode" placeholder="우편번호" required name="postcode"> 
-						<input type="text" class="form-control inputInfo" id="roadAddress" placeholder="도로명주소" required name="roadAddress"> 
-						<span id="guide" style="color: #999; display: none"></span> 
-						<input type="text" class="form-control inputInfo" id="detailAddress" placeholder="상세주소" required name="detailAddress">
+						<input type="text" id="sample4_postcode" placeholder="우편번호">
+						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+						<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
+						<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
+						<span id="guide" style="color:#999;display:none"></span>
+						<input type="text" id="sample4_detailAddress" placeholder="상세주소">
+						<input type="text" id="sample4_extraAddress" placeholder="참고항목">
 					</div>
-					<p class="limit_txt input_warn_text addr_txt" id="birth_txt">주소를 입력해주세요.</p>
+					<p class="limit_txt addr_txt" id="birth_txt">주소를 입력해주세요.</p>
+					
+					
+					
+					
+					<!-- 여기부터 -->
+					
+					<!-- 여기까지 -->
+					
+					
 					
 					<!-- 휴대폰 번호 입력 -->
 					<div class="renew_input_box phone_chk">
 						<strong>휴대폰 번호(필수)</strong>
 							
-						<input type="text" disabled value="010"/>
+						<input type="text" value="010" id="phone3" readonly="readonly"/> -
 						<input type="text" name="phone1" id="phone1" required/> -
 						<input type="text" name="phone2" id="phone2" required/>
 						
 						<p class="limit_txt phone_txt" id="phone_txt">휴대폰 번호를 입력해주세요.</p>
 					</div>	
 					<!-- 이메일 입력 -->
-					<div class="choice_cont_mail">
-						<label for="email" class="hid">e-mail</label> 
-						<input type="text" name="email" id="email" placeholder="E-mail을 입력하세요." required="required">
-						<p class="limit_txt mail_txt" id="mail_txt">이메일을 입력해주세요.</p>
+					<div class="renew_input_box email_chk">
+						<strong>이메일(필수)</strong>
+						
+							<label for="email" class="hid">e-mail</label> 
+							<input type="text" name="email" id="email" placeholder="E-mail을 입력하세요." required="required">
+							<select id="portal">
+								<option value="naver">@naver.com</option>
+								<option value="daum">@daum.com</option>
+								<option value="nate">@nate.com</option>
+								<option value="google">@google.com</option>
+							</select>
+							<p class="limit_txt email_txt" id="email_txt">이메일을 입력해주세요.</p>
 					</div>
 				</section>
 
@@ -193,9 +213,12 @@ body {
 	
 	$(function(){
 		
+			
 			///1] 키 입력시 검증 메서드 호출
 			$('input').bind('keyup', function(){
-				validateForm();
+				console.log($(this));
+				console.log($(this)[0]);
+				validateKeyup($(this)[0]);
 			});
 			
 			//2] 폼의 submit 이벤트와 검증 메서드 바인딩
@@ -210,16 +233,24 @@ body {
 			
 			//4] 성별 선택시 효과주기
 			$('.male, .female').click(function(){
-				
-				/* $(this).css('color', 'white'); */
-				$(this).addClass('on');
-			})
+
+					if($(this).html() == '남') {
+						$('#gender').prop('value', 'M');
+						$('.female').removeClass('on');
+					} else {
+						$('#gender').prop('value', 'F');
+						$('.male').removeClass('on');
+					}
+					
+					$(this).addClass('on');
+					
+			});
 		
 	})/////////제이쿼리 진입점
 	
 	
 	///입력값 검증 메서드
-	function validateForm() {
+	function validateForm(which) {
 		
 		//플래그 변수 선언
 		var flag = 0;
@@ -233,18 +264,17 @@ body {
 		var pwdValue = $('#user_pwd').val();
 		var pwdChkValue = $('#user_pwd_chk').val();
 		
-		//[검증 시작]    //flag를 다시 마이너스 시켜야 하나. 아냐. 플래그는 매번 0으로 초기화되고, 서브밋 할 때만 필요한 거니까. 최종 가입 버튼 눌렀을 때만 한꺼번에
-		//확인하면 돼
+		//[검증 시작]   
 		
 		//1]아이디 검증
 		if(idValue.length < 8 || idValue.length > 16) {	
 			$('#id_chk_txt').html('아이디는 8자 이상, 10자 이하여야 합니다.');
 			$('#id_chk_txt').css('display', 'block');
-			$('#user_id').focus();
+			
 		} else if(idValue.match(regID) == null) {
 			$('#id_chk_txt').html('아이디는 영문으로 시작하여야 하며, 영문/숫자의 조합으로 만들어야 합니다. 특수문자는?');
 			$('#id_chk_txt').css('display', 'block');
-			$('#user_id').focus();
+				
 		} else if(idValue.match(regID) != null) {
 			$('#id_chk_txt').html('');
 			$('#id_chk_txt').css('display', 'none');
@@ -252,10 +282,16 @@ body {
 		}
 		
 		//2]비밀번호 검증
-		if(pwdValue.match(regPWD)) {
+		
+		if(pwdValue.length == 0) {
+			
+			$('#user_pwd_txt').html('비밀번호를 입력해주세요.');
+			$('#user_pwd_txt').css('display', 'block');
+			
+		} else if(pwdValue.match(regPWD) == null) {
 			$('#user_pwd_txt').html('비밀번호는 숫자/영문/특수문자 포함 8자에서 16자 사이로 입력해주세요.');
 			$('#user_pwd_txt').css('display', 'block');
-			$('#user_pwd').focus();
+			
 		} else {
 			$('#user_pwd_txt').html('');
 			$('#user_pwd_txt').css('display', 'none');
@@ -265,14 +301,14 @@ body {
 		
 		//3]비밀번호 동일성 검증
 		if(pwdChkValue.length == 0) {
-			$('#user_pwd_chk_txt').html('');
-			$('#user_pwd_chk_txt').css('display', 'none');
-			$('#user_pwd_chk').focus();
+			$('#user_pwd_chk_txt').html('비밀번호를 확인해주세요.');
+			$('#user_pwd_chk_txt').css('display', 'block');
+			
 		} else if(pwdChkValue != pwdValue) {
 			$('#user_pwd_chk_txt').html('비밀번호가 일치하지 않습니다.');
 			$('#user_pwd_chk_txt').css('color', 'red');
 			$('#user_pwd_chk_txt').css('display', 'block');
-			$('#user_pwd_chk').focus();
+			
 		} else if(pwdChkValue == pwdValue) {
 			$('#user_pwd_chk_txt').html('비밀번호가 일치합니다.');
 			$('#user_pwd_chk_txt').css('color', 'green');
@@ -283,11 +319,10 @@ body {
 		
 		//4]생년월일 검증
 		
-		console.log($('select').val());
-		
-		if($('select').val == '') {
+		if($('#birth_year option:selected').val() == '' || $('#birth_month option:selected').val() == '' || $('#birth_day option:selected').val() == '' || $('#birth_flag option:selected').val() == '' ) {
 			$('#birth_txt').html('생년월일을 선택해주세요.');
 			$('#birth_txt').css('display', 'block');
+			
 		} else {
 			$('#birth_txt').html('');
 			$('#birth_txt').css('display', 'none');
@@ -295,10 +330,10 @@ body {
 		}
 		
 		//5]성별 검증
-		if($('#gender').val == '') {
+		if($('#gender').val() == '') {
 			$('#gender_txt').html('성별을 선택해주세요.');
 			$('#gender_txt').css('display', 'block');
-			$('.user_gender').focus();
+			
 		} else {
 			$('#gender_txt').html('성별을 선택해주세요.');
 			$('#gender_txt').css('display', 'block');
@@ -309,15 +344,27 @@ body {
 		if($('#phone1').val() == '' || $('#phone2').val() == '') {
 			$('#phone_txt').html('휴대전화를 입력해주세요.');
 			$('#phone_txt').css('display', 'block');
-			$('#phone1').focus();
-		} else if( $('#phone1, #phone2').val().length < 3 || $('#phone1, #phone2').val().length > 4) {
+			
+		} else if($('#phone1, #phone2').val().length < 3 || $('#phone1, #phone2').val().length > 4) {
 			$('#phone_txt').html('알맞은 번호형식이 아닙니다.');
 			$('#phone_txt').css('display', 'block');
-			$('#phone1').focus();
+			
 		} else {
 			$('#phone_txt').html('');
 			$('#phone_txt').css('display', 'none');
 			flag++; //플래그 = 6
+		}
+		
+		//7]주소 검증
+		
+		
+		//8]이메일 검증
+		if($('#email').val() == '') {
+			$('#email_txt').html('이메일을 입력해주세요.');
+			$('#phone_txt').css('display', 'block');
+		} else {
+			$('#email_txt').html('');
+			$('#phone_txt').css('display', 'none');
 		}
 		
 		
@@ -327,10 +374,108 @@ body {
 
 			return false;
 		
-		
-		
 	}////validateFormd
-	var a, b, c;
+	
+	function validateKeyup(which) {
+		
+		//정규식 변수 선언
+		var regID = /^[^a-z]|[^a-z0-9]+|^([a-z]+|[0-9]+)$/i;
+		var regPWD = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+		
+		//폼 입력값 얻기
+		var idValue = $('#user_id').val();
+		var pwdValue = $('#user_pwd').val();
+		var pwdChkValue = $('#user_pwd_chk').val();
+	
+		
+		if(which == $('#user_id')[0]) {
+			
+			//1]아이디 검증
+			if(idValue.length < 8 || idValue.length > 16) {	
+				$('#id_chk_txt').html('아이디는 8자 이상, 10자 이하여야 합니다.');
+				$('#id_chk_txt').css('display', 'block');
+				
+			} else if(idValue.match(regID) == null) {
+				$('#id_chk_txt').html('아이디는 영문으로 시작하여야 하며, 영문/숫자의 조합으로 만들어야 합니다. 특수문자는?');
+				$('#id_chk_txt').css('display', 'block');
+					
+			} else if(idValue.match(regID) != null) {
+				$('#id_chk_txt').html('');
+				$('#id_chk_txt').css('display', 'none');
+			}
+			
+		} else if(which == $('#user_pwd')[0]) {
+			
+			if(pwdValue.length == 0) {
+				
+				$('#user_pwd_txt').html('비밀번호를 입력해주세요.');
+				$('#user_pwd_txt').css('display', 'block');
+				
+			} else if(pwdValue.match(regPWD) == null) {
+				$('#user_pwd_txt').html('비밀번호는 숫자/영문/특수문자 포함 8자에서 16자 사이로 입력해주세요.');
+				$('#user_pwd_txt').css('display', 'block');
+				
+			} else {
+				$('#user_pwd_txt').html('');
+				$('#user_pwd_txt').css('display', 'none');
+				flag++; //플래그 = 2
+			}
+			
+		} else if(which == $('#user_pwd_chk')[0]) {
+			
+			//3]비밀번호 동일성 검증
+			if(pwdChkValue.length == 0) {
+				$('#user_pwd_chk_txt').html('비밀번호를 확인해주세요.');
+				$('#user_pwd_chk_txt').css('display', 'block');
+				
+			} else if(pwdChkValue != pwdValue) {
+				$('#user_pwd_chk_txt').html('비밀번호가 일치하지 않습니다.');
+				$('#user_pwd_chk_txt').css('color', 'red');
+				$('#user_pwd_chk_txt').css('display', 'block');
+				
+			} else if(pwdChkValue == pwdValue) {
+				$('#user_pwd_chk_txt').html('비밀번호가 일치합니다.');
+				$('#user_pwd_chk_txt').css('color', 'green');
+				$('#user_pwd_chk_txt').css('display', 'block');
+			}
+			
+		} else if(which == $('select').not('#portal')[0]) {
+			
+			console.log('4');
+			
+		} else if(which == $('#gender')[0]) {
+			
+			console.log('5');
+			
+		} else if(which == $('#email')[0]) {
+			
+			if($('#email').val() == '') {
+				$('#email_txt').html('이메일을 입력해주세요.');
+				$('#phone_txt').css('display', 'block');
+			} else {
+				$('#email_txt').html('');
+				$('#phone_txt').css('display', 'none');
+			}
+			
+		} else if(which == $('#phone1') || which == $('#phone2')) {
+			
+			if($('#phone1').val() == '' || $('#phone2').val() == '') {
+				$('#phone_txt').html('휴대전화를 입력해주세요.');
+				$('#phone_txt').css('display', 'block');
+				
+			} else if($('#phone1, #phone2').val().length < 3 || $('#phone1, #phone2').val().length > 4) {
+				$('#phone_txt').html('알맞은 번호형식이 아닙니다.');
+				$('#phone_txt').css('display', 'block');
+				
+			} else {
+				$('#phone_txt').html('');
+				$('#phone_txt').css('display', 'none');
+			}
+			
+		}
+		
+		
+	}
 		
 		
 	

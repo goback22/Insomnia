@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
+
+
+
 <!-- 네비게이션 바 -->
 		<div class="nav">
 
@@ -89,7 +92,7 @@
 									<li class="menu-item-has-children current_page_item"><a
 										href="<c:url value='/#'/>">HOME</a></li>
 
-									<li class="menu-item-has-children"><a href="#about">Introduce</a>
+									<li class="menu-item-has-children"><a href="">Introduce</a>
 									</li>
 
 									<li class="menu-item-has-children"><a
@@ -137,33 +140,7 @@
 								<p id="loginError" class="error-text">와디즈에 등록되지 않은 아이디거나, 아이디
 									또는 비밀번호가 회원정보와 일치하지 않습니다.</p>
 							</div>
-							<!-- 
-						<div class="recaptcha">
-							<p id="recaptchaMessage" class="error-text">
-								잘못된 아이디 또는 비밀번호로 여러번 로그인 시도하였습니다. <br>계정 보안 조치를 위해 아래 사항을 체크하신
-								뒤 다시 진행하세요.
-							</p>
-							<p id="recaptchaComplete" class="complete-text">
-								<span>계정 보안 조치가 완료되었습니다!</span>협조해주셔서 감사합니다. 로그인을 다시 시도하세요
-							</p>
-							<div class="g-recaptcha"
-								data-sitekey="6Lcr70MUAAAAAHfmxpaHaXPDlgLIwiS6gRO5YCcB"
-								data-size="600" id="recaptcha" data-callback="recaptchaComplete"
-								style="display: none;">
-								<div style="width: 304px; height: 78px;">
-									<div>
-										<iframe
-											src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Lcr70MUAAAAAHfmxpaHaXPDlgLIwiS6gRO5YCcB&amp;co=aHR0cHM6Ly93d3cud2FkaXoua3I6NDQz&amp;hl=ko&amp;v=v1552285980763&amp;size=normal&amp;cb=p8g2z520abgp"
-											width="304" height="78" role="presentation"
-											name="a-dh950kauq7sc" frameborder="0" scrolling="no"
-											sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe>
-									</div>
-									<textarea id="g-recaptcha-response" name="g-recaptcha-response"
-										class="g-recaptcha-response"
-										style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
-								</div>
-							</div>
-						</div> -->
+						
 							<div class="login-action">
 								<label id="saveIdLabel" class="save"> <input
 									id="saveUserId" type="checkbox" title="아이디 저장" class="chkbox"> <span
@@ -182,7 +159,7 @@
 						</div>
 						<div class="social-login">
 							<button type="button" id="facebookLoginBtn" class="facebook"
-								onclick="FB.login();">
+								>
 								<img class="icon"
 									src="<c:url value='/resource/img/f-ogo_RGB_HEX-58.png'/>" />
 								<i class="facebook"></i>페이스북으로 로그인
@@ -193,11 +170,7 @@
 									src="<c:url value='/resource/img/kakaolink_btn_medium.png'/>" />
 								<i class="kakao"></i>카카오
 							</button>
-							<!-- <a id="custom-login-btn" href="javascript:loginWithKakao()">
-								<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
-								</a> -->
-	
-	
+
 							<button type="button" id="naverLoginBtn">
 								<img class="icon"
 									src="<c:url value='/resource/img/naver_login_icon.png'/>" />
@@ -244,13 +217,11 @@
 							<a href="<c:url value='/#'/>" class="offset-closer">
 								<img src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
 								
-							<p>${record.name}님! 안녕하세요!</p>
+							<p>${sessionScope.user_id}님! 안녕하세요!</p>
 							
 							<a href="<c:url value='/menu/mypage.ins'/>" style="display: block;">마이페이지 이동</a>
 							<a href="<c:url value='/menu/mypage/edit.ins'/>" style="display: block;">개인정보 수정</a>
-							
-							<!-- position absoulute 없애자 -->
-							
+				
 			
 							<img src="<c:url value='/resource/img/cat-eyes.jpg'/>" class="cat_eye" />
 							
@@ -265,8 +236,18 @@
 				
 				<!-- 로그인 시 보여줄 화면 끝 -->
 				</c:if>
-				<!-- 로그인/회원정보 페이지 시작 -->
+				<!-- 로그인/회원정보 페이지 끝 -->
+				<!-- 소셜 로그인 : 히든 폼 시작 -->
 				
+				<form id="socialForm" action="<c:url value='/login/social.ins'/>" method="POST" style="display: none;">
+					<input type="hidden" name="socialEmail" id="socialEmail" value=""/>
+					<input type="hidden" name="socialName" id="socialName" value=""/>
+					
+					<input type="hidden" name="socialProfile" id="socialProfile" value=""/>
+					<input type="hidden" name="socialBirth" id="socialProfile" value=""/>
+				</form>
+				
+				<!-- 소셜 로그인 : 히든 폼 끝 -->				
 				
 			
 
@@ -392,6 +373,67 @@
 	
 	
 	</script>
+	
+	
+	<script>
+	
+	////////페이스북 로그인. 내 파일에서는 정상 실행되는데??
+	
+	 window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '1073792512792998',
+		      cookie     : true,  // enable cookies to allow the server to access 
+		                          // the session
+		      xfbml      : true,  // parse social plugins on this page
+		      version    : 'v3.2' // The Graph API version to use for the call
+		    });
+	 };
+	 
+	 (function(d, s, id) {
+		    var js, fjs = d.getElementsByTagName(s)[0];
+		    if (d.getElementById(id)) return;
+		    js = d.createElement(s); js.id = id;
+		    js.src = "https://connect.facebook.net/en_US/sdk.js";
+		    fjs.parentNode.insertBefore(js, fjs);
+		  }(document, 'script', 'facebook-jssdk'));
+		    
+	
+	$(function(){
+		
+		$('#facebookLoginBtn').click(function(){
+			
+			FB.login(function(response) {
+				  if (response.status === 'connected') {
+					  
+					  //확인용 alert()
+					  alert('로그인 아직!');
+				  
+				      /////사용자 정보를 갖고 온다.
+					   FB.api('/me?fields=name,email,birthday,picture', function(response) {
+					      if(response && !response.error) {
+					    	  console.log("response값: " + response);
+					    	 
+					      }//if블럭
+	      				});//함수의 인자인 함수(1급객체)
+					 
+					  
+				  } else {
+					  
+					  alert('로그인 아직!');
+				    
+				  }
+				});
+			
+		});
+		
+	})
+	
+	
+	
+	</script>
+	
+	
+	
 	
 	
 	

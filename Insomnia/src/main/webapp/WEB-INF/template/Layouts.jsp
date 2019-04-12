@@ -42,11 +42,10 @@
     <!-- 로그인 처리 CSS -->
 	<link href="<c:url value='/vendor/css/LoginCSS.css'/>" rel="stylesheet" />
 	
-	
-	<script src="<c:url value='/vendor/js/FacebookLogin.js'/>"></script>
 	<!-- 페이스북 로그인 -->
-	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script src="<c:url value='/vendor/js/NewFaceBook.js'/>"></script>
 	<!-- 카카오 로그인 -->
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 	<script src="<c:url value='/vendor/js/kakao.js'/>"></script>
 	
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -76,7 +75,7 @@
 	<script src="<c:url value='/vendor/js/jquery.jplayer.min.js'/>"></script>
 	<script src="<c:url value='/vendor/js/jplayer.playlist.min.js'/>"></script>
 	<script src="<c:url value='/vendor/js/myplaylist.js'/>"></script>
-	<script src="<c:url value='/vendor/js/jquery-migrate-1.4.1.min.js'/>"></script>
+	<%-- <script src="<c:url value='/vendor/js/jquery-migrate-1.4.1.min.js'/>"></script> --%>
 
 	<!--Google map api -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsBrMPsyNtpwKXPPpG54XwJXnyobfMAIc"></script>

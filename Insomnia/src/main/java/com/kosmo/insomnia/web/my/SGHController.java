@@ -1,7 +1,14 @@
 package com.kosmo.insomnia.web.my;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
 public class SGHController {
@@ -36,6 +43,15 @@ public class SGHController {
 		return "my/MemberEdit.tiles";
 	}
 	
+	@RequestMapping("/login/social.ins")
+	public String login_social(@RequestParam Map map, Model model, HttpSession session) throws Exception {
+		
+		
+		String name = map.get("socialEmail").toString();
+		session.setAttribute("user_id", name);
+		
+		return "home.tiles";
+	}
 	
 
 }

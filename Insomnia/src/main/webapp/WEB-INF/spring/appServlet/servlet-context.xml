@@ -43,6 +43,6 @@
 	<context:component-scan base-package="com.kosmo.insomnia" />
 	
 	
-	<context:property-placeholder location="classpath:my/social.properties" />
+	<!-- <context:property-placeholder location="classpath:my/social.properties" /> -->
 	
 </beans>
