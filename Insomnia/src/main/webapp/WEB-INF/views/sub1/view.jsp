@@ -105,28 +105,24 @@ body {
 							<h5 class="comments-title">Application</h5>
 							<table class="table table-hover table-bordered text-center">
 								<tr style="height: 35px">
-									<td style="width: 10%;">작성자</td>
-									<td class="B">김길동</td>
-								</tr>
-								<tr style="height: 35px">
-									<td style="height: 30px;">작성일</td>
-									<td class="B">2019-03-28</td>
-								</tr>
-								<tr style="height: 35px">
-									<td style="height: 30px;">조회수</td>
-									<td class="B">1</td>
+									<td style="width: 10%;">번호</td>
+									<td class="B">${record.ap_no}</td>
 								</tr>
 								<tr style="height: 35px">
 									<td style="height: 30px;">제목</td>
-									<td class="B">방구석 기타리스트 프로젝트 지원</td>
+									<td class="B">${record.ap_title}</td>
+								</tr>
+								<tr style="height: 35px">
+									<td style="width: 10%;">작성자</td>
+									<td class="B">${record.name}</td>
+								</tr>
+								<tr style="height: 35px">
+									<td style="height: 30px;">등록일</td>
+									<td class="B">${record.ap_postdate}</td>
 								</tr>
 								<tr style="height: 300px">
-									<td style="padding-top: 140px;">자기 소개</td>
-									<td></td>
-								</tr>
-								<tr style="height: 300px">
-									<td style="padding-top: 140px;">지원 동기</td>
-									<td></td>
+									<td style="padding-top: 140px;">내용</td>
+									<td style="text-align: left">${record.ap_content}</td>
 								</tr>
 							</table>
 						</div>
@@ -134,9 +130,10 @@ body {
 					<div class="row" style="margin-bottom: 10px">
 						<div class="col-md-12 text-right">
 							<a href="<c:url value='/sub1/subcontent.ins'/>" class="btn btn-success"
-								style="margin-right: 20px;">목록</a> <a href="<c:url value='/sub1/edit.ins'/>"
-								class="btn btn-success" style="margin-right: 20px;">수정</a> <a
-								href="" class="btn btn-success" style="margin-right: 120px;">삭제</a>
+								style="margin-right: 20px;">목록</a> 
+							<a href="<c:url value='/sub1/edit.ins?ap_no=${record.ap_no}'/>"
+								class="btn btn-success" style="margin-right: 20px;">수정</a> 
+							<a href="javascript:isDelete()" class="btn btn-success" style="margin-right: 120px;">삭제</a>
 						</div>
 					</div>
 				</div>
@@ -147,6 +144,14 @@ body {
 
 	<!-- /.container -->
 	<!-- /.single-product -->
+	
+<script>
+	var isDelete = function() {
+		if (confirm("정말로 삭제 하시겠습니까?")) {
+			location.replace("<c:url value='/sub1/delete.ins?ap_no=${record.ap_no}'/>");
+		}
+	};
+</script>
 
 
 	<!-- Quick View -->

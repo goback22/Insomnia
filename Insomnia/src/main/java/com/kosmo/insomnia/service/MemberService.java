@@ -7,7 +7,6 @@ import java.util.Map;
 public interface MemberService {
 	List<MemberDTO> selectList();
 	
-	boolean isMember(Map map);
 	
 	int getTotalRecord(Map map);
 	//상세보기용]

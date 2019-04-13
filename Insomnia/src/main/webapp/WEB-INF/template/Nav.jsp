@@ -384,42 +384,47 @@
 	////현재 문제점 : 페이지 이동 후 돌아오면, 세션 영역에 저장된 이름은 화면에 표시되지만, 동적으로 받아오는 생일, 이메일, 사진은 표시되지 않는다. 한 번 회원가입 후에는 
 	//관련 정보를 DB에 저장해 둔 뒤, 추후 다시 로그인 하면, 그 때 정보를 업데이트 하는 식으로 수정해야 할 듯 하다.
 	
-	
-	
 	</script>
 	
-	<!-- 네이버 로그인 -->
-	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-	<script>
-	
-		var naver_id_login = new naver_id_login("baw69zHb2FPVPqvEd5sl", "https://localhost:8080/insomnia/");
-	  	var state = naver_id_login.getUniqState();
-	  	naver_id_login.setButton("white", 2,40);
-	  	naver_id_login.setDomain("https://localhost:8080/insomnia/");
-	  	naver_id_login.setState(state);
-	  	naver_id_login.setPopup();
-	  	naver_id_login.init_naver_id_login();
-	
-	</script>
-	
-	<script>
-	 	// 접근 토큰 값 출력
-	  /* alert(naver_id_login.oauthParams.access_token); */
-	 	
-		// 네이버 사용자 프로필 조회
-	  naver_id_login.get_naver_userprofile("naverSignInCallback()");
-		
-	  	// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-	  function naverSignInCallback() {
-	    alert(naver_id_login.getProfileData('email'));
-	    alert(naver_id_login.getProfileData('nickname'));
-	    alert(naver_id_login.getProfileData('age'));
-	  }
-	
-	
-	</script>
-	
-	
+<!-- 네이버로그인 -->
+<%--    
+
+   <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script> 
+   <script>
+   
+   
+       var naver_id_login = new naver_id_login("baw69zHb2FPVPqvEd5sl", "https://localhost:8080/insomnia/");
+         var state = naver_id_login.getUniqState();
+         naver_id_login.setButton("white", 2,40);
+         naver_id_login.setDomain("https://localhost:8080/insomnia/");
+         naver_id_login.setState(state);
+         naver_id_login.setPopup();
+         naver_id_login.init_naver_id_login();
+   
+   </script>
+   
+   <script>
+       // 접근 토큰 값 출력
+     /* alert(naver_id_login.oauthParams.access_token); */
+       
+      // 네이버 사용자 프로필 조회
+     naver_id_login.get_naver_userprofile("naverSignInCallback()");
+      
+        // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+     function naverSignInCallback() {
+       alert(naver_id_login.getProfileData('email'));
+       alert(naver_id_login.getProfileData('nickname'));
+       alert(naver_id_login.getProfileData('age'));
+     }
+   
+   
+   </script>
+   --%>
+   
+   
+   
+   
+   
 	
 	
 	

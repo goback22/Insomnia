@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.service.MemberService;
 
-@Service("insService")
 public class MemberServiceImpl implements MemberService{
 
 	//DAO객체 주입
@@ -21,12 +20,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<MemberDTO> selectList() {
 		return dao.selectList();
-	}
-
-	//로그인 처리
-	@Override
-	public boolean isMember(Map map) {
-		return dao.isMember(map);
 	}
 
 	@Override

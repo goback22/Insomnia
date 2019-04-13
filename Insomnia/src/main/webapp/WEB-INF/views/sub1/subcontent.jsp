@@ -12,7 +12,6 @@
 	src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
 <!-- 구매하기 css -->
 <link href="<c:url value='/vendor/css/bootstrap.min.css'/>"
 	rel="stylesheet">
@@ -77,6 +76,7 @@
 	href="<c:url value='/vendor/css/woocommerce.css'/>" type="text/css">
 <link rel="stylesheet" href="<c:url value='/vendor/css/app.css'/>"
 	type="text/css">
+
 <style>
 element.style {
 	background-color: white;
@@ -161,7 +161,6 @@ body {
 	margin-top: -10px;
 }
 
-
 .title {
 	color: white;
 }
@@ -176,7 +175,7 @@ body {
 	margin: auto;
 }
 
-#kyj{
+#kyj {
 	margin-left: 0px;
 }
 </style>
@@ -354,7 +353,6 @@ body {
 													</div>
 												</div>
 
-
 												<div class="option-box" style="margin-top: -25px;">
 													<div class="option-box-left">
 														<div class="option-box-amount">오후 20시</div>
@@ -385,231 +383,47 @@ body {
 							</div>
 						</div>
 
-
-						<!-- 두번째 카테고리 : 기타리스트 모집(게시판 형식, view에선 한줄 댓글 기능 추가하기) -->
+						<!-- 두번째 카테고리 : 기타리스트 모집(게시판)-->
 						<div role="tabpanel" class="tab-pane fade" id="buzz">
 							<div class="row">
 								<div class="col-md-10">
 									<div>
 										<h5 class="comments-title">
 											Recruit Notice Board <a
-												href="#kyj" class="btn btn-success" style="margin-left: 850px;">등록</a>
+												href="<c:url value='/sub1/write.ins'/>"
+												class="btn btn-success" style="margin-left: 850px;">등록</a>
 										</h5>
 									</div>
-									<table class="table table-hover table-bordered text-center" >
+									<table class="table table-hover table-bordered text-center">
 										<tr style="height: 35px;">
-											<th style="width: 5%; text-align: center;">번호</th>
-											<th style="width: 75%; text-align: center;">제목</th>
+											<th style="width: 7%; text-align: center;">번호</th>
+											<th style="width: 70%; text-align: center;">제목</th>
 											<th style="width: 10%; text-align: center;">작성자</th>
-											<th style="width: 10%; text-align: center;">등록일</th>
+											<th style="width: 13%; text-align: center;">등록일</th>
 										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;">1</td>
+										<c:if test="${empty list }" var="isEmpty">
+											<tr>
+												<td colspan="4">등록된 게시물이 없어요</td>
+											</tr>
+										</c:if>
+										<c:if test="${not isEmpty }">
+										<c:forEach var="item" items="${list}" varStatus="loop">
+										<tr>
+											<td style="text-align: center; padding-top: 10px;">${item.ap_no}</td>
 											<td
 												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="<c:url value='/sub1/view.ins'/>" class="title">방구석
-													기타리스트 프로젝트 지원</a></td>
-											<td style="text-align: center; padding-top: 10px;">김길동</td>
-											<td style="text-align: center; padding-top: 10px;">2019-03-28</td>
+												href="<c:url value='/sub1/view.ins?ap_no=${item.ap_no}'/>" class="title">${item.ap_title}</a></td>
+											<td style="text-align: center; padding-top: 10px;">${item.name}</td>
+											<td style="text-align: center; padding-top: 10px;">${item.ap_postdate}</td>
 										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;">2</td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="<c:url value='/sub1/view.ins'/>" class="title">방구석
-													기타리스트에 지원합니다.</a></td>
-											<td style="text-align: center; padding-top: 10px;">홍길동</td>
-											<td style="text-align: center; padding-top: 10px;">2019-03-28</td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;">3</td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="<c:url value='/sub1/view.ins'/>" class="title">프로젝트
-													지원서</a></td>
-											<td style="text-align: center; padding-top: 10px;">박길동</td>
-											<td style="text-align: center; padding-top: 10px;">2019-03-28</td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
-										<tr style="height: 50px;">
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="View.jsp" class="title"></a></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-											<td style="text-align: center; padding-top: 10px;"></td>
-										</tr>
+										</c:forEach>
+										</c:if>
 									</table>
 								</div>
 							</div>
 
-							<br>
-							<br>
+							<br> <br>
 
-							<form class="review-form" action="#" method="post"
-								style="padding-left: 115px;">
-								<hr />
-								<h5 class="comments-title" id="kyj" style="margin-bottom: 0px;">Write</h5>
-								<div>
-									<input type="text" name="text" placeholder="Title" style="width: 350px">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="text" name="name"
-										class="form-fname form-element large" placeholder="Name"
-										style="width: 250px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="email"
-										name="email" class="form-email form-element large"
-										placeholder="Email" style="width: 250px"> 
-									<br> <br>
-									<div id="standalone-container" style="width: 935px;">
-										<div id="toolbar-container">
-											<span class="ql-formats"> <select class="ql-size"></select>
-											</span> <span class="ql-formats">
-												<button class="ql-bold"></button>
-												<button class="ql-italic"></button>
-											</span> <span class="ql-formats"> <select class="ql-color"></select>
-												<select class="ql-background"></select>
-											</span> <span class="ql-formats">
-												<button class="ql-header" value="1"></button>
-												<button class="ql-header" value="2"></button>
-											</span> <span class="ql-formats">
-												<button class="ql-list" value="ordered"></button>
-												<button class="ql-list" value="bullet"></button>
-												<button class="ql-indent" value="-1"></button>
-												<button class="ql-indent" value="+1"></button>
-											</span> <span class="ql-formats">
-												<button class="ql-direction" value="rtl"></button> <select
-												class="ql-align"></select>
-											</span> <span class="ql-formats">
-												<button class="ql-link"></button>
-												<button class="ql-image"></button>
-												<button class="ql-video"></button>
-												<button class="ql-formula"></button>
-											</span>
-										</div>
-										<div id="editor-container"></div>
-									</div>
-									<input type="submit" value="Submit" class="gp-btn" style="margin-left: 0px;">
-								</div>
-							</form>
 
 						</div>
 

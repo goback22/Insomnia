@@ -91,7 +91,7 @@ body {
 						<div class="d-flex justify-content-center row">
 							<div class="col-xl-10">
 								<div class="section-title style-four" id="ad">
-									<h2>E D I T</h2>
+									<h2>W R I T E</h2>
 								</div>
 							</div>
 							<!-- /.col-xl- -->
@@ -107,25 +107,24 @@ body {
 				<div role="tabpanel">
 					<div class="row">
 						<div class="col-md-10">
-							<form class="frm" id="frm" method="post" action="<c:url value='/sub1/edit.ins'/>">
+							<form class="frm" id="frm" method="post" action="<c:url value='/sub1/write.ins'/>">
 								<div class="form-group">
- 								<input type="hidden" name="ap_no" value="${record.ap_no}" /> 
-									<label for="ap_title" class="col-sm-2 control-label">제목</label>
+									<label for="title" class="col-sm-2 control-label">제목</label>
 									<div class="col-sm-7 KYJ">
-										<input value="${record.ap_title}" type="text" class="form-control" name="ap_title"
+										<input type="text" class="form-control" name="ap_title"
 											id="ap_title" placeholder="제목을 입력하세요" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="ap_content" class="col-sm-2 ">내용</label>
+									<label for="content" class="col-sm-2 ">내용</label>
 									<div class="col-sm-10 KYJ2">
 										<textarea rows="10" id="ap_content" name="ap_content" style="width: 650px;height:370px;"
-											class="form-control" placeholder="내용을 입력하세요">${record.ap_content}</textarea>
+											class="form-control" placeholder="내용을 입력하세요"></textarea>
 									</div>
 								</div>
 								<div class="row" style="margin-top: 355px">
 									<div class="col-md-12 text-right">
-									<input type="submit" style="margin-right: 10px" class="btn btn-info" value="등록" />
+									<input type="submit" class="btn btn-info" value="등록" />
 									<a href="<c:url value='/sub1/subcontent.ins'/>" class="btn btn-success"
 										style="margin-right: 230px;">취소</a>
 									</div>

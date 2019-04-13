@@ -23,10 +23,6 @@ public class MemberDAO implements MemberService {
 		return template.selectList("memberSelectList");
 	}
 
-	@Override
-	public boolean isMember(Map map) {
-		return (Integer)template.selectOne("memberIsMember", map) == 0 ? false : true;
-	}
 
 	@Override
 	public int getTotalRecord(Map map) {
