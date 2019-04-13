@@ -549,7 +549,9 @@
                                 <img src="media/artist/a2.jpg" alt="">
                                 <div class="artist-single-content">
                                     <ul>
-                                        <li><a href="<c:url value='/#'/>"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li><a
+											href="<c:url value='/#'/>"><i class="fa fa-facebook"
+												aria-hidden="true"></i></a></li>
                                         <li><a href="<c:url value='/#'/>"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                                     </ul>
                                     <h6>James Hetfield</h6>

@@ -39,6 +39,7 @@
 	
 	<!-- fonts -->
     <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond" rel="stylesheet">
+
 	
 	<!-- 페이스북 로그인 -->
 	<script src="<c:url value='/vendor/js/NewFaceBook.js'/>"></script>
