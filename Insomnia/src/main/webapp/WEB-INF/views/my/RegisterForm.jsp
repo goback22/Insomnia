@@ -2,22 +2,88 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!-- 
 	<link rel="stylesheet" href="<c:url value='/vendor/css/RegisterFormCSS.css'/>"/>
+ -->
+ 
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>  <!-- 도로명주소 CDN -->
 	<script src="<c:url value='/vendor/js/road.js'/>"></script>
 	
+<link href="<c:url value='/vendor/css/RegisterTerm-reset.css'/>" rel="stylesheet">
+<link href="<c:url value='/vendor/css/RegisterTerm-style.css'/>" rel="stylesheet">
+<link href="<c:url value='/vendor/css/RegisterTerm-style_mem.css'/>" rel="stylesheet">
+<link href="<c:url value='/vendor/css/RegisterTerm-style_dt.css'/>" rel="stylesheet">
+<link href="<c:url value='/vendor/css/RegisterTerm-style_util.css'/>" rel="stylesheet">
+	
+	
+	<!-- 스타벅스 회원가입폼 -->
+	
+	
+	<!-- 기환이 내용 2019 04 14 -->
 	
 	
 <style>
-body {
-<<<<<<< HEAD
-	/* background-color: black; */
-	background-image: url("<c:url value='/Insomnia/src/main/webapp/img/RegisterBackground.jpg'/>");
-=======
-	background: url('../resource/img/background.jpg');
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
+	.space_for_nav{
+		background-color:black;
+		width:100%;
+		height:80px;
+	}
+	.find_insomnia_logo{
+		margin-top:50px;
+		margin-left:24%;
+	}
+	
+/* 임한결 추가 2019 04 14 이메일 인증 버튼 넣기 */
+
+/* 이메일 input태그에 버튼넣기 */
+
+.inner-btn-input{
+	border:1px solid #ddd;
+	padding:1px;
 }
+
+.input-email{
+	height:45px;
+	border:1px solid #fff !important;
+	max-width:270px !important;
+	width:270px !important;
+}
+
+.input-email:focus{
+	border:1px solid #fff !important; 
+	outline-offset: none !important;
+	outline: none !important;
+}
+
+#btnEmailAuthentication{
+	margin-left:50px;
+}
+
+.input_phone_num{
+	width:31% !important;
+}
+
+/* 가입 버튼 div에서 input submit으로 대체 */
+#btnSubmit{
+	width: 500px;
+    height: 50px;
+    margin-top: 20px;
+}
+
+.btnSubmit_div{
+	width:100%;
+	text-align: center;
+}
+
 </style>
+
+<script>
+
+
+
+</script>
+
+
 
 </head>
 
@@ -26,6 +92,7 @@ body {
 		<!--=========================-->
 		<!--=        Navbar         =-->
 		<!--=========================-->
+		<div class="space_for_nav"></div>
 		<jsp:include page="/WEB-INF/template/Nav.jsp"/>
 
 
@@ -43,22 +110,43 @@ body {
 			<div class="find_mem_ttl_div">
 				<strong class="find_mem_ttl">회원가입</strong>
 			</div>
-			
-			<form id="frm" method="POST" action="<c:url value='/register/complete.ins'/>">
+					<!-- <c:url value='/register/complete.ins'/> -->
+			<form id="frm" method="post" action="<c:url value='/register/complete.ins'/>">
 			<!-- 섹션1: 아이디, 비번, 비번확인 -->
 				<section class="renew_joinform_v2">
 					<!-- 머릿말 -->
-					<div class="find_mem_sally">
-							<img class="find_mem_sally" src="../resource/img/약관_편집_폼.jpg"/>
-					</div>
+					<img class="find_insomnia_logo" src="../resource/img/insomnia-logo.png"/>
 					<p class="find_form_txt">회원정보를 입력해 주세요.</p>
 					
-					<!-- 아이디 입력 -->
+					<!-- 이메일 입력 -->
+					<div class="renew_input_box email_chk">
+						<strong>이메일(필수)</strong>
+						<div class="inner-btn-input">
+							<label for="email" class="hid">e-mail</label> 
+							<input class="input-email" type="text" name="email" id="email" placeholder="E-mail을 입력하세요." required="required">
+							<select id="portal">
+								<option value="naver">naver.com</option>
+								<option value="daum">daum.com</option>
+								<option value="nate">nate.com</option>
+								<option value="google">google.com</option>
+							</select>
+							<button type="button" class="btn btn-success" id="btnEmailAuthentication">인증하기</button>
+							<p class="limit_txt email_txt" id="email_txt">이메일을 입력해주세요.</p>
+						</div> <!-- 버튼이 들어간 input태그  -->
+							
+							
+					</div>
+					
+					<!-- 아이디 입력 // 이메일로 대체 2019 04 14 -->
+					<!-- 
 					<div class="renew_input_box id_chk">
 						<label for="user_id" class="hid">아이디</label>
 						<input type="text" name="user_id" id="user_id" placeholder="아이디" maxlength="13" required>
 						<p class="limit_txt id_chk_txt" id="id_chk_txt">아이디 에러메세지</p>
 					</div>
+					 -->
+					 
+					 
 					<!-- 비번 입력 -->
 					<div class="renew_input_box pw_chk">
 						<label for="user_pwd" class="hid">비밀번호</label> 
@@ -83,7 +171,7 @@ body {
 						<div class="user_gender">
 							<a class="male on">남</a> 
 							<a class="female">여</a> 
-							<input type="hidden" id="gender" name="gender" value="">
+							<input type="hidden" id="gender" name="gender" value="M">
 						</div>
 					</div>
 					<!-- 생년월일 입력 -->
@@ -175,58 +263,58 @@ body {
 					<div class="renew_input_box phone_chk">
 						<strong>휴대폰 번호(필수)</strong>
 							
-						<input type="text" value="010" id="phone3" readonly="readonly"/> -
-						<input type="text" name="phone1" id="phone1" required/> -
-						<input type="text" name="phone2" id="phone2" required/>
+						<input class="input_phone_num" type="text" value="010" id="phone3" readonly="readonly"/> -
+						<input class="input_phone_num" type="text" name="phone1" id="phone1" required/> -
+						<input class="input_phone_num" type="text" name="phone2" id="phone2" required/>
 						
 						<p class="limit_txt phone_txt" id="phone_txt">휴대폰 번호를 입력해주세요.</p>
-					</div>	
-					<!-- 이메일 입력 -->
-					<div class="renew_input_box email_chk">
-						<strong>이메일(필수)</strong>
-						
-							<label for="email" class="hid">e-mail</label> 
-							<input type="text" name="email" id="email" placeholder="E-mail을 입력하세요." required="required">
-							<select id="portal">
-								<option value="naver">@naver.com</option>
-								<option value="daum">@daum.com</option>
-								<option value="nate">@nate.com</option>
-								<option value="google">@google.com</option>
-							</select>
-							<p class="limit_txt email_txt" id="email_txt">이메일을 입력해주세요.</p>
 					</div>
 				</section>
-
-				<!-- 가입 전 안내문구 -->
+				
+				<!-- 가입 전 안내문구 삭제 : 선택항목이 존재하지 않음 -->
+				<!-- 
 				<div class="modify_txt2_div">
 					<p class="modify_txt2"><b>＊ 선택항목은 입력하지 않거나 동의하지 않아도 회원 가입이 가능합니다.</b></p>
 				</div>
+				 -->
+				 
+				 <!-- 마케팅 정보 수신동의 히든타입으로 넘기기 --> 
+				 <input type="hidden" name="advertise" value="${advertise}">
+				  
 				<!-- 로그인버튼 -->
+				<div class="btnSubmit_div">
+					<input id="btnSubmit" class="btn btn-success" type="submit" value="가입하기">
+				</div>
+					
+				<!-- 
 				<div class="btn_mem_login_div">
 					<p class="btn_mem_login"><a id="btnSubmit">가입하기</a></p> 
 				</div>
+				 -->
 			</form>
 		</fieldset>
 
 		<!-- 여기까지 -->
 			
 		</section>
+	</div> <!-- site다이브 끝 -->
 		
 
 	<script>
 	
+	
+
 	$(function(){
 		
 			
 			///1] 키 입력시 검증 메서드 호출
 			$('input').bind('keyup', function(){
-				console.log($(this));
-				console.log($(this)[0]);
 				validateKeyup($(this)[0]);
 			});
 			
 			//2] 폼의 submit 이벤트와 검증 메서드 바인딩
 			$('#frm').bind('submit', function(){
+				console.log(validateForm());
 				return validateForm();
 			})
 			
@@ -236,6 +324,7 @@ body {
 			})
 			
 			//4] 성별 선택시 효과주기
+			//   성별 선택시 hidden input에 val값 설정
 			$('.male, .female').click(function(){
 
 					if($(this).html() == '남') {
@@ -257,7 +346,7 @@ body {
 	function validateForm(which) {
 		
 		//플래그 변수 선언
-		var flag = 0;
+		var flag = 2;
 		
 		//정규식 변수 선언
 		var regID = /^[^a-z]|[^a-z0-9]+|^([a-z]+|[0-9]+)$/i;
@@ -270,7 +359,8 @@ body {
 		
 		//[검증 시작]   
 		
-		//1]아이디 검증
+		//1]아이디 검증 - 아이디를 이메일로 대체
+		/*
 		if(idValue.length < 8 || idValue.length > 16) {	
 			$('#id_chk_txt').html('아이디는 8자 이상, 10자 이하여야 합니다.');
 			$('#id_chk_txt').css('display', 'block');
@@ -284,6 +374,7 @@ body {
 			$('#id_chk_txt').css('display', 'none');
 			flag++; //플래그 = 1	
 		}
+		*/
 		
 		//2]비밀번호 검증
 		
@@ -300,6 +391,7 @@ body {
 			$('#user_pwd_txt').html('');
 			$('#user_pwd_txt').css('display', 'none');
 			flag++; //플래그 = 2
+			console.log(flag);
 		}
 		
 		
@@ -318,6 +410,7 @@ body {
 			$('#user_pwd_chk_txt').css('color', 'green');
 			$('#user_pwd_chk_txt').css('display', 'block');
 			flag++; //플래그 = 3
+			console.log(flag);
 		}
 			
 		
@@ -331,6 +424,7 @@ body {
 			$('#birth_txt').html('');
 			$('#birth_txt').css('display', 'none');
 			flag++; //플래그 = 4
+			console.log(flag);
 		}
 		
 		//5]성별 검증
@@ -342,6 +436,7 @@ body {
 			$('#gender_txt').html('성별을 선택해주세요.');
 			$('#gender_txt').css('display', 'block');
 			flag++; //플래그 = 5
+			console.log(flag);
 		}
 		
 		//6]휴대전화 검증
@@ -357,6 +452,7 @@ body {
 			$('#phone_txt').html('');
 			$('#phone_txt').css('display', 'none');
 			flag++; //플래그 = 6
+			console.log(flag);
 		}
 		
 		//7]주소 검증
@@ -372,7 +468,7 @@ body {
 		}
 		
 		
-		if(flag == 6) 
+		if(flag >= 6) 
 			return true;
 		else 
 
@@ -381,6 +477,8 @@ body {
 	}////validateFormd
 	
 	function validateKeyup(which) {
+		
+		var flag = 1;
 		
 		//정규식 변수 선언
 		var regID = /^[^a-z]|[^a-z0-9]+|^([a-z]+|[0-9]+)$/i;
@@ -394,7 +492,8 @@ body {
 		
 		if(which == $('#user_id')[0]) {
 			
-			//1]아이디 검증
+			//1]아이디 검증 - 아이디를 이메일로 대체
+			/*
 			if(idValue.length < 8 || idValue.length > 16) {	
 				$('#id_chk_txt').html('아이디는 8자 이상, 10자 이하여야 합니다.');
 				$('#id_chk_txt').css('display', 'block');
@@ -407,6 +506,7 @@ body {
 				$('#id_chk_txt').html('');
 				$('#id_chk_txt').css('display', 'none');
 			}
+			*/
 			
 		} else if(which == $('#user_pwd')[0]) {
 			
@@ -423,6 +523,7 @@ body {
 				$('#user_pwd_txt').html('');
 				$('#user_pwd_txt').css('display', 'none');
 				flag++; //플래그 = 2
+				console.log(flag);
 			}
 			
 		} else if(which == $('#user_pwd_chk')[0]) {
