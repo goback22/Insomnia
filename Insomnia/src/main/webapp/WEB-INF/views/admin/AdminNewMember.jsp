@@ -13,7 +13,7 @@
 	<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script><!-- min -->
 	<!--  -->
 	<link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>" rel="stylesheet">
-	
+	<link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>" rel="stylesheet">
 	
 	
 </head>
@@ -41,59 +41,66 @@
 						</div>
 						<div class="panel-body feed">
 							<section class="feed-item">
-								<table class="table table-hover" id="membercheckbox">
+								<table class="table table-hover" id="membercheckbox" style="border-bottom: 1px #c8c8c8 solid;">
 									<tr>
-										<th><input type="checkbox" value="all"/></th>
-										<th class="col-md-1 text-center">no</th>
+										<th class="col-md-1"><input type="checkbox" value="all"/>&nbsp;&nbsp;no</th>
+										<th class="col-md-2 text-center">id</th>
 										<th class="col-md-2 text-center">name</th>
-										<th class="col-md-2 text-center">email</th>
-										<th class="col-md-2 text-center">phone?</th>
-										<th class="col-md-1 text-center">등급</th>
-										<th class="col-md-1 text-center">성별</th>
-										<th class="col-md-1 text-center">정보공개여부</th>
-										<th class="col-md-1 text-center">방구석?</th>
+										<th class="text-center">column1</th>
+										<th class="text-center">column2</th>
+										<th class="text-center">column3</th>
+										<th class="col-md-2 text-center">해줄까 말까</th>
 										<!-- 삭제 버튼을 위한 한줄 -->
 									</tr>
 									<!-- DB에서 꺼내서~ each~~...tq -->
-									<!-- 1.checkbox
-										2.아이디?
-										3.성명
-										4.이메일
-										5.연락처
-										6.회원구분,등급?
-										7.성별
-										8.방구석여부?
-										삭제버튼 -->
-									<tr>
-										<th><input type="checkbox" name="allmember"/></th>
-										<td class="text-center">1</td>
-										<td class="text-center">김길동</td>
-										<td class="text-center">kimkildong@navet.com</td>
-										<td class="text-center">010-1234-5678</td>
-										<td class="text-center">일반</td>
-										<th class="text-center">남</th>
-										<th class="text-center">x</th>
-										<th class="text-center">x</th>
-										<th class="col-md-1"><input type="button" value="delete"/></th>
+									
+									<tr class="view">
+										<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;1</td>
+										<td class="text-center">choong1kim@naver.com</td>
+										<td class="text-center">김원빈</td>
+										<td class="text-center">일반1</td>
+										<td class="text-center">일반2</td>
+										<td class="text-center">일반3</td>
+										<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
 									</tr>
-									<tr>
-										<th><input type="checkbox" name="allmember"/></th>
-										<td class="col-md-1 text-center">2</td>
-										<td class="col-md-2 text-center">이세종</td>
-										<td class="col-md-3 text-center">sejong@sejong.kr</td>
-										<td class="col-md-2 text-center">010-5555-5555</td>
-										<td class="text-center">방구석</td>
-										<th class="col-md-1 text-center">-</th>
-										<th class="col-md-1 text-center">o</th>
-										<th class="col-md-1 text-center">방구석</th>
-										<th class="col-md-1"><input type="button" value="delete"/></th>
+									<!-- 위의 detail -->
+									<tr class="fold">
+										<td colspan="6">
+								        <div class="fold-content">
+								          <table class="table table-bordered">
+								            <thead>
+								              <tr>
+								                <th>name</th><th>Customer no</th><th>Customer name</th><th>Insurance no</th><th>Strategy</th><th>Start</th><th>Current</th><th>Diff</th>
+								              </tr>
+								            </thead>
+								            <tbody>
+								              <tr>
+								                <td>김원빈</td>
+								                <td>13245</td>
+								                <td>John Doe</td>
+								                <td>064578</td>
+								                <td>A, 100%</td>
+								                <td>20000</td>
+								                <td>33000</td>
+								                <td class="cur">13000</td>
+								              </tr>
+								            </tbody>
+								          </table>          
+								        </div>
+								      </td>
 									</tr>
+									<!-- 위의 detail 끝 -->
 									<!-- DB에서 꺼내기 끝 -->
 								</table>
 							</section>
 							
 							
-							<div class="btn btn-default">checked delete</div>
+							<div>
+								<div class="btn btn-default checkeddelete">삭제</div>
+								<div class="btn btn-default">수락</div>
+								<div class="btn btn-default">거부</div>
+								<div align="center">페이징a</div>
+							</div>
 							
 						</div>
 						
@@ -110,6 +117,11 @@
 	
 <!-- checked about checkbox -->
 <script type="text/javascript" src="<c:url value='/vendor/js/admin_allchecked.js'/>"></script>
-
+<script type="text/javascript">
+$(".view").on("click", function(){
+	console.log("click");
+	$(this).next(".fold").toggle();
+});
+</script>
 </body>
 </html>
