@@ -440,6 +440,10 @@ create sequence seq_bgsapply
 nocycle
 nocache;
 
+create sequence SEQ_MEMOCOMMENT 
+nocycle
+nocache;
+
 /* Comments */
 
 COMMENT ON COLUMN SafePay.SP_Support IS '제품 이외 추가 후원';
