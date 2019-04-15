@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <!-- Meta Data -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,20 +20,10 @@
 <link href="<c:url value='/vendor/css/jquery.scrolling-tabs.css'/>"
 	rel="stylesheet">
 
-<!-- 텍스트에디터 css -->
-<link rel="canonical" href="https://quilljs.com/standalone/full/">
-<link type="application/atom+xml" rel="alternate"
-	href="https://quilljs.com/feed.xml"
-	title="Quill - Your powerful rich text editor" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" />
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/quill.snow.css'/>" />
-
 <script>
 	$(function() {
+		showComments();
+
 		//구매하기 hide, show
 		$('.option-btn').click(function() {
 			if ($('#optionList').css('display') === 'none') {
@@ -41,7 +32,132 @@
 				$('#optionList').hide(1000);
 			}
 		});
-	});
+
+		//작성
+		$('#submitComment').click(function() {
+			if ($(this).val() == '등록') {
+				var action = "<c:url value='/sub1/memowrite.ins'/>";
+			}
+			else{
+				var action = "<c:url value='/sub1/memoedit.ins'/>";
+			}
+
+			$.ajax({
+				url : action,
+				data : $('#frm').serialize(),
+				dataType : 'text',
+				type : 'post',
+				success : function() {
+					//등록 후 현재 모든 댓글 뿌려주기
+					showComments();
+
+					//입력 댓글 클리어 및 포커스 주기
+					$('#c_content').val('');
+					$('#about').focus();
+					
+					//글 수정후 등록버튼으로 다시 교체하기
+					if($('#submitComment').val()=='수정'){
+						$('#submitComment').val('등록');
+					}
+				},
+				error : function(request, error) {
+					console.log('상태코드:', request.status);
+					console.log('서버로부터 받은 HTML데이타 :', request.responseText);
+					console.log('에러:', error);
+				}
+			});
+		})
+
+	}); //function
+
+	//리스트
+	var showComments = function() {
+		$.ajax({
+			url : '<c:url value="/sub1/memolist.ins"/>',
+			dataType : 'text',
+			success : successAjax,
+			error : function(request, error) {
+				console.log('상태코드:', request.status);
+				console.log('서버로부터 받은 HTML데이타 :', request.responseText);
+				console.log('에러:', error);
+			}
+		});
+	};//showComments
+
+	var successAjax = function(data) {
+		/*JSON배열을 출력할때는 $.each(data,function(index,index에 따른 요소값){}); 
+		사용]
+		data:서버로부터 전송받은 데이타(JSON배열타입)
+		index:JSON배열의 인덱스(0부터 시작)	
+		index에 따른 요소값:JSON배열에서 하나씩 꺼내온거를 담은 인자		
+		 */
+		console.log('서버로부터 받은 데이타:', data);
+
+		var tableString = "<li>";
+		tableString += "<article class='review-comment'>";
+		$.each(JSON.parse(data),
+			function(index, element) {
+				tableString += "<div class='user-avatar'>";
+				tableString += "<img src='<c:url value='/resource/img/commenttemp.jpg'/>'>";
+				tableString += "</div>";
+				tableString += "<div class='comment-content'>";
+				tableString += "<h5 class='name'>"
+						+ element['NAME'] + "</h5>";
+				tableString += "<div class='comment-meta'>";
+				tableString += "<div class='star-rating'>";
+				tableString += "<span>Rated <strong class='rating'>5.00</strong>out of 5</span>";
+				tableString += "</div>";
+				tableString += "<span class='post-date'>"
+						+ element['C_POST_DATE'] + "</span>";
+				tableString += "</div>";
+				tableString += "<span>" + element['C_CONTENT']
+						+ "</span>"
+				tableString += "<a href='#frm' class='commentEdit' title='"+element['C_NO']+"' style='color:white;font-size:0.8em;'>" + '&nbsp&nbsp[수정]' + "<span style='display:none;'>"
+						+ element['C_CONTENT'] + "</span></a>"
+				tableString += "<span class='commentDelete' title='"+element['C_NO']+"' style='color:white;font-size:0.8em;cursor:pointer'>"
+						+ '&nbsp&nbsp[삭제]' + "</span>";
+				tableString += "</div>";
+			});
+		tableString += "</article>";
+		tableString += "</li>";
+		//리스트 뿌려주기
+		$('#comments').html(tableString);
+		
+		//코멘트 제목 클릭시 코멘트 수정처리를 위한 UI변경부분]
+		$('.commentEdit').click(function(){
+			console.log('클릭한 댓글의 키(C_NO):',$(this).attr('title'));
+			console.log('asdasd:'+$(this));
+			
+			//클릭한 제목으로 텍스트박스 값 설정
+			$('#c_content').val($(this).text());
+			$('#submitComment').val('수정');
+			
+			//form의 hidden속성중 name="cno"값 설정
+			$('input[name=c_no]').val($(this).attr('title'));
+		});
+
+		//코멘트 삭제 처리]
+		$('.commentDelete').click(function() {
+			console.log($('.commentDelete').attr('title'));
+			// 			var action = "<c:url value='/sub1/memodelete.ins'/>";
+
+			$.ajax({
+				url : '<c:url value="/sub1/memodelete.ins"/>',
+				data : {
+					c_no : $('.commentDelete').attr('title')
+				},
+				dataType : 'text',
+				type : 'post',
+				success : showComments(),
+
+				error : function(request, error) {
+					console.log('상태코드:', request.status);
+					console.log('서버로부터 받은 HTML데이타 :', request.responseText);
+					console.log('에러:', error);
+				}
+			});
+		});
+	}
 </script>
 
 <!-- aos 구동 -->
@@ -81,6 +197,12 @@
 element.style {
 	background-color: white;
 	color: white;
+}
+/* iframe을 숨기기 위한 css*/
+#if {
+	width: 0px;
+	height: 0px;
+	border: 0px;
 }
 
 body>#standalone-container {
@@ -407,26 +529,51 @@ body {
 											</tr>
 										</c:if>
 										<c:if test="${not isEmpty }">
-										<c:forEach var="item" items="${list}" varStatus="loop">
-										<tr>
-											<td style="text-align: center; padding-top: 10px;">${item.ap_no}</td>
-											<td
-												style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-												href="<c:url value='/sub1/view.ins?ap_no=${item.ap_no}'/>" class="title">${item.ap_title}</a></td>
-											<td style="text-align: center; padding-top: 10px;">${item.name}</td>
-											<td style="text-align: center; padding-top: 10px;">${item.ap_postdate}</td>
-										</tr>
-										</c:forEach>
+											<c:forEach var="item" items="${list}" varStatus="loop">
+												<tr>
+													<td style="text-align: center; padding-top: 10px;">${totalRecordCount - (((nowPage - 1) * pageSize) + loop.index)}</td>
+													<td
+														style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
+														href="<c:url value='/sub1/view.ins?ap_no=${item.ap_no}'/>"
+														class="title">${item.ap_title}</a></td>
+													<td style="text-align: center; padding-top: 10px;">${item.name}</td>
+													<td style="text-align: center; padding-top: 10px;">${item.ap_postdate}</td>
+												</tr>
+											</c:forEach>
 										</c:if>
 									</table>
+
+									<!-- 페이징 -->
+									<div class="row">
+										<!-- 페이지네이션 가운데 배치:text-center -->
+										<div class="col-md-12 text-center"
+											style="color: white; margin-left: 550px; margin-top: 10px">${pagingString}</div>
+									</div>
+
+									<!-- 검색UI -->
+									<div class="text-center">
+										<form class="form-inline"
+											style="margin-left: 370px; margin-top: 20px" method="post"
+											action="<c:url value='/sub1/subcontent.ins'/>">
+											<div class="form-group">
+												<select name="searchColumn" class="form-control">
+													<option value="ap_title">제목</option>
+													<option value="name">작성자</option>
+													<option value="ap_content">내용</option>
+												</select>
+											</div>
+											<div class="form-group" style="margin-left: 5px">
+												<input type="text" name="searchWord" class="form-control" />
+											</div>
+											<button style="margin-left: 10px" type="submit" id="temp"
+												class="btn btn-primary">검색</button>
+										</form>
+									</div>
 								</div>
 							</div>
-
 							<br> <br>
 
-
 						</div>
-
 						<!-- 세번째 카테고리 : 리뷰 게시판 -->
 						<div role="tabpanel" class="tab-pane fade" id="references">
 							<div class="tab-content left">
@@ -435,8 +582,8 @@ body {
 										<!-- Reviews -->
 										<div class="review-comments">
 											<h5 class="comments-title">
-												Reviews <a href="#about" class="btn btn-success"
-													style="margin-left: 40px;">등록</a>
+												Reviews <a href="#frm" id="about" class="btn btn-success"
+													style="margin-left: 40px;">작성</a>
 											</h5>
 											<br>
 											<div class="review-comments">
@@ -449,7 +596,7 @@ body {
 																	alt="Avatar">
 															</div>
 															<div class="comment-content">
-																<h5 class="name">Michael Cunningham</h5>
+																<h5 class="name" >Michael Cunningham</h5>
 																<div class="comment-meta">
 																	<div class="star-rating">
 																		<span>Rated <strong class="rating">5.00</strong>
@@ -467,121 +614,21 @@ body {
 															</div>
 														</article>
 													</li>
-													<li>
-														<article class="review-comment">
-															<div class="user-avatar">
-																<img
-																	src="<c:url value='/resource/img/commenttemp.jpg'/>"
-																	alt="Avatar">
-															</div>
-															<div class="comment-content">
-																<h5 class="name">Jane Mullner</h5>
-																<div class="comment-meta">
-																	<div class="star-rating">
-																		<span>Rated <strong class="rating">5.00</strong>
-																			out of 5
-																		</span>
-																	</div>
-																	<span class="post-date">24 August 2018</span>
-																</div>
-
-																<p>Exactly what I expected, a great durable jacket
-																	for a good price. Very happy with my purchase although
-																	delivery was delayed by a few days, no big deal though.</p>
-															</div>
-														</article>
-													</li>
-													<li>
-														<article class="review-comment">
-															<div class="user-avatar">
-																<img
-																	src="<c:url value='/resource/img/commenttemp.jpg'/>"
-																	alt="Avatar">
-															</div>
-															<div class="comment-content">
-																<h5 class="name">Michael Cunningham</h5>
-																<div class="comment-meta">
-																	<div class="star-rating">
-																		<span>Rated <strong class="rating">5.00</strong>
-																			out of 5
-																		</span>
-																	</div>
-																	<span class="post-date">18 August 2018</span>
-																</div>
-
-																<p>
-																	Description says it's water proof. This isn't really
-																	the case, but then again I guess it's obvious from the
-																	title of the product.<br> Overall very happy that
-																	I purchased this jacked, plus I got a discount!
-																</p>
-															</div>
-														</article>
-													</li>
-
-
-													<li>
-														<article class="review-comment">
-															<div class="user-avatar">
-																<img
-																	src="<c:url value='/resource/img/commenttemp.jpg'/>"
-																	alt="Avatar">
-															</div>
-															<div class="comment-content">
-																<h5 class="name">Jamie Sanders</h5>
-																<div class="comment-meta">
-																	<span class="post-date">24 August 2018</span>
-																	<div class="star-rating">
-																		<span>Rated <strong class="rating">5.00</strong>
-																			out of 5
-																		</span>
-																	</div>
-																</div>
-																<p>Not overly thirlled with this jacket, but I guess
-																	it's good value for the money spent.</p>
-															</div>
-														</article>
-													</li>
-													<li>
-														<article class="review-comment">
-															<div class="user-avatar">
-																<img
-																	src="<c:url value='/resource/img/commenttemp.jpg'/>"
-																	alt="Avatar">
-															</div>
-															<div class="comment-content">
-																<h5 class="name">Michael Cunningham</h5>
-																<div class="comment-meta">
-																	<div class="star-rating">
-																		<span>Rated <strong class="rating">5.00</strong>
-																			out of 5
-																		</span>
-																	</div>
-																	<span class="post-date">18 August 2018</span>
-																</div>
-																<p id="about">
-																	Description says it's water proof. This isn't really
-																	the case, but then again I guess it's obvious from the
-																	title of the product.<br> Overall very happy that
-																	I purchased this jacked, plus I got a discount!
-																</p>
-																<br>
-															</div>
-														</article>
+													<li id="comments">
+														<!-- ajax로 아래에 코멘트 목록 뿌리기 -->
 													</li>
 												</ul>
 											</div>
 										</div>
 										<!-- Leave Review -->
 									</div>
+								</div>
 
-									<br>
-
-									<form class="review-form" action="#" method="post"
-										style="padding-left: 140px;">
-										<hr />
+								<!-- comment 등록 폼 -->
+								<div class="col-md-10" style="margin-top: 75px">
+									<div>
 										<h5 class="comments-title">Write</h5>
-										<div>
+										<form id="frm" method="post" target="param">
 											<ul class="rating">
 												<li class="rating-title">Leave A Rating</li>&nbsp;&nbsp;
 												<li class="star"><i class="fa fa-star"></i></li>
@@ -590,17 +637,22 @@ body {
 												<li class="star"><i class="fa fa-star"></i></li>
 												<li class="star"><i class="fa fa-star"></i></li>
 											</ul>
-											<input type="text" name="name"
-												class="form-fname form-element large" placeholder="Name"
-												style="width: 250px">&nbsp;&nbsp; <input
-												type="email" name="email"
-												class="form-email form-element large" placeholder="Email"
-												style="width: 250px"> <br> <br>
-											<textarea name="message" class="form-message"
-												placeholder="Review" tabindex="5"></textarea>
-											<input type="submit" value="Submit" class="gp-btn">
-										</div>
-									</form>
+											<!-- 수정 및 삭제용 파라미터 -->
+											<input type="hidden" name="c_no" /> <input type="hidden"
+												name="name" class="form-fname form-element large"
+												placeholder="Name" style="width: 250px">&nbsp;&nbsp;
+											<br> <br>
+											<textarea name="c_content" id="c_content"
+												class="form-message" placeholder="Review" tabindex="5"
+												style="margin-top: -30px; width: 400px; height: 200px"></textarea>
+											<input type="submit" id="submitComment" value="등록"
+												class="btn btn-primary "
+												style="width: 80px; margin-top: -30px; margin-left: 20px;">
+												
+											<!-- iframe 설정 -->
+											<iframe id="if" name="param"></iframe>
+										</form>
+									</div>
 								</div>
 							</div>
 							<!-- /.row -->
@@ -612,138 +664,10 @@ body {
 	</div>
 	<!-- /.container -->
 	</section>
-	<!-- /.single-product -->
-
-
-	<!-- Quick View -->
-	<div class="modal quickview-wrapper">
-		<div class="quickview">
-			<div class="quickview-content">
-				<div class="row">
-					<div class="col-md-6 col-sm-6">
-
-						<div class="quickview-slider">
-							<div class="slider-for1">
-								<div class="slick-slide">
-									<img src="media/product/3.jpg" alt="Thumb">
-								</div>
-								<div class="slick-slide">
-									<img src="media/product/4.jpg" alt="thumb">
-								</div>
-								<div class="slick-slide">
-									<img src="media/product/5.jpg" alt="thumb">
-								</div>
-							</div>
-
-							<div class="slider-nav1">
-								<div class="slick-slide">
-									<div class="slide-img">
-										<img src="media/product/10.jpg" alt="Thumb">
-									</div>
-								</div>
-								<div class="slick-slide">
-									<img src="media/product/11.jpg" alt="thumb">
-								</div>
-								<div class="slick-slide">
-									<img src="media/product/13.jpg" alt="thumb">
-								</div>
-							</div>
-						</div>
-						<!-- /.quickview-slider -->
-					</div>
-					<!-- /.col-md-6 -->
-
-					<div class="col-md-6 col-sm-6">
-						<div class="product-details">
-							<span class="close-menu"> <i class="tim-cross-out"></i>
-							</span>
-							<h2 class="product-title">Exclusive Headphone</h2>
-
-							<p class="price">
-								<ins>
-									<span class="woocommerce-Price-amount amount"> <span
-										class="woocommerce-Price-currencySymbol">$</span>450
-									</span>
-								</ins>
-
-								<del>
-									<span class="woocommerce-Price-amount amount"> <span
-										class="woocommerce-Price-currencySymbol">$</span>680
-									</span>
-								</del>
-							</p>
-
-							<div class="woocommerce-product-details__short-description">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-									Illum esse iusto neque reprehenderit rerum, et rem quos
-									veritatis molestias.</p>
-							</div>
-
-							<div class="color-checkboxes">
-								<h4>Choose Color:</h4>
-								<input class="color-checkbox__input" type="radio" id="col-Blue1"
-									name="colour" /> <label class="color-checkbox col-Blue-label"
-									for="col-Blue1"></label> <span></span> <input
-									class="color-checkbox__input" type="radio" id="col-Green1"
-									value="#8bc34a" name="colour" /> <label
-									class="color-checkbox col-Green-label" for="col-Green1"></label>
-								<span></span> <input class="color-checkbox__input" type="radio"
-									id="col-Yellow1" value="#fdd835" name="colour" /> <label
-									class="color-checkbox col-Yellow-label" for="col-Yellow1"></label>
-								<span></span> <input class="color-checkbox__input" type="radio"
-									id="col-Orange1" value="#ff9800" name="colour" /> <label
-									class="color-checkbox col-Orange-label" for="col-Orange1"></label>
-								<span></span> <input class="color-checkbox__input" type="radio"
-									id="col-Red1" value="#f44336" name="colour" /> <label
-									class="color-checkbox col-Red-label" for="col-Red1"></label> <span></span>
-							</div>
-
-							<div class="options__item">
-								<h4 class="option-title">Size:</h4>
-
-								<span>S</span> <span class="active">M</span> <span>L</span> <span>XL</span>
-							</div>
-
-							<form action="#" class="product-cart" method="post">
-
-								<div class="quantity">
-									<span class="minus"><i class="fa fa-minus"></i></span> <input
-										name="quantity" value="1"> <span class="plus"><i
-										class="fa fa-plus"></i></span>
-								</div>
-
-								<button type="submit" name="add-to-cart" value="0"
-									class="tim-cart-btn">
-									<i class="fa fa-cart-plus"></i>Add to cart
-								</button>
-							</form>
-
-							<div class="share-wrap">
-								<h3>Share:</h3>
-								<ul class="product-share-link">
-									<li><a href="#" class="facebook-bg"><i
-											class="fa fa-facebook"></i></a></li>
-									<li><a href="#" class="twitter-bg"><i
-											class="fa fa-twitter"></i></a></li>
-									<li><a href="#" class="google-plus-bg"><i
-											class="fa fa-google-plus"></i></a></li>
-									<li><a href="#" class="pinterest-bg"><i
-											class="fa fa-pinterest-p"></i></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /.col-md-5 -->
-				</div>
-				<!-- /.row -->
-			</div>
-		</div>
-	</div>
 
 	<br>
 	<br>
 	<br>
-
 	<!-- /#site -->
 	<!-- Dependency Scripts -->
 	<script src="<c:url value='/vendor/js/jquery.min.js'/>"></script>
@@ -786,13 +710,6 @@ body {
 	</script>
 	<!-- 등록버튼 효과 -->
 	<script>
-		$('.mobile-nav-btn').on('click', function(e) {
-			e.preventDefault();
-
-			$(document).scrollTop(0);
-			toggleMobileHeader();
-		});
-
 		$(document).on('click', 'a[href^="#"]', function(event) {
 			event.preventDefault();
 			if ($($.attr(this, 'href')).length == 0) {
@@ -802,35 +719,5 @@ body {
 					scrollTop : $($.attr(this, 'href')).offset().top
 				}, 500);
 			}
-		});
-
-		function toggleMobileHeader() {
-			$('.wrapper > .header').toggleClass('menu-mobile');
-
-			if ($('.wrapper > .header').hasClass('menu-mobile')) {
-				$('html').addClass('mobile-overflow-hidden');
-				$('body').addClass('mobile-overflow-hidden');
-			} else {
-				$('html').removeClass('mobile-overflow-hidden');
-				$('body').removeClass('mobile-overflow-hidden');
-			}
-		}
-	</script>
-
-	<!-- 텍스트 에디터 -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-	<script src="<c:url value='/vendor/js/quill.min.js'/>"></script>
-	<script>
-		var quill = new Quill('#editor-container', {
-			modules : {
-				formula : true,
-				syntax : true,
-				toolbar : '#toolbar-container'
-			},
-			placeholder : '내용을 입력하세요',
-			theme : 'snow'
 		});
 	</script>

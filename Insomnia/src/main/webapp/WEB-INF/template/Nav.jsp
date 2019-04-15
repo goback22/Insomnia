@@ -140,7 +140,12 @@
 				src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
 			<div class="div-form-login">
 				<h2 class="text-title">로그인</h2>
+<<<<<<< HEAD
 				<form name="form-login" id="form-login" class="form-login" action="<c:url value='/login.ins'/>">
+=======
+				<form name="form-login" id="form-login" class="form-login" method="post"
+					action="<c:url value='/login.ins'/>">
+>>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<div class="field">
 						<div class="input-login">
 							<input type="text" id="id" name="id" class="input-text"

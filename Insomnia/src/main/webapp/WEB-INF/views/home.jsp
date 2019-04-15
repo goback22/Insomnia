@@ -161,6 +161,7 @@
 			</header>
 			<!-- /#header -->
 			
+
 			<!-- 여기부터 -->			
 			
 			<!-- 로그인/회원정보 페이지 시작 -->
@@ -260,10 +261,6 @@
 		<!-- 비 로그인시 보여줄 화면 끝-->
 	</c:if>
 	<c:if test="${not result}">
-	
-		<script>
-			var isLogined = true;
-		</script>
 	
 		<!-- 로그인 시 보여줄 화면 시작 -->
 		<div class="offset-menu-two">
