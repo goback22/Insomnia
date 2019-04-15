@@ -30,9 +30,9 @@ public class ListDAO implements ListService {
 
 	@Override
 	public int getTotalRecord(Map map) {
-		return 0;
+		return template.selectOne("insTotalCount", map);
 	}
-
+	
 	@Override
 	public ListDTO selectOne(Map map) {
 		return template.selectOne("insSelectOne",map);

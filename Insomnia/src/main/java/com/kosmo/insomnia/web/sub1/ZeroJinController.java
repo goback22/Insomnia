@@ -90,6 +90,11 @@ public class ZeroJinController {
 		List<ListDTO> list = insService.selectList(map);
 		String pagingString = PagingUtil.pagingBootStrapStyle(totalRecordCount, pageSize, blockPage, nowPage,
 				req.getContextPath() + "/sub1/subcontent.ins?");
+		System.out.println("totalRecordCount : " + totalRecordCount);
+		System.out.println("pageSize : " + pageSize);
+		System.out.println("blockPage" + blockPage);
+		System.out.println("nowPage" + nowPage);
+		
 
 		model.addAttribute("list", list);
 		model.addAttribute("nowPage", nowPage);
