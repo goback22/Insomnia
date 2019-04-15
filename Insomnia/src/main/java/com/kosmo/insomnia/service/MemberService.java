@@ -16,4 +16,7 @@ public interface MemberService {
 	int insert(Map map);
 	int update(Map map);
 	
+	//소셜 로그인
+	int socialInsert(Map map);
+	
 }

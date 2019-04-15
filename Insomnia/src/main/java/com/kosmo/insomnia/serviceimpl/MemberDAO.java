@@ -43,7 +43,12 @@ public class MemberDAO implements MemberService {
 	public int insert(Map map) {
 		return 0;
 	}
-
+	
+	@Override
+	public int socialInsert(Map map) {
+		return template.insert("socialInsert", map);
+	}
+	
 	@Override
 	public int update(Map map) {
 		return 0;

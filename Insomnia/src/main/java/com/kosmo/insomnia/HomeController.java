@@ -20,7 +20,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	//로그인 폼으로 이동
+	//로그인 폼으로 이동, 혹은 홈 화면으로 이동
 	@RequestMapping(value = "/home.ins", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		/*

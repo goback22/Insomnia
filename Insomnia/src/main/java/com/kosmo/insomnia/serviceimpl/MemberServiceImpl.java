@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.service.MemberService;
 
+@Service("memberService")
 public class MemberServiceImpl implements MemberService{
 
 	//DAO객체 주입
@@ -39,7 +40,12 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int insert(Map map) {
-		return 0;
+		return dao.insert(map);
+	}
+	
+	@Override
+	public int socialInsert(Map map) {
+		return dao.socialInsert(map);
 	}
 
 	@Override

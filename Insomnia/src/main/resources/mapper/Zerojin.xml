@@ -28,4 +28,5 @@
 	<delete id="insDelete" parameterType="java.util.Map">
 	DELETE bgsapply WHERE ap_no =#{ap_no}
 	</delete>
+	
 </mapper>

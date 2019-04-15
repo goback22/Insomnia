@@ -1,7 +1,6 @@
 
 /* Drop Tables */
 
-
 DROP TABLE BandImg CASCADE CONSTRAINTS;
 DROP TABLE BandMember CASCADE CONSTRAINTS;
 DROP TABLE BandMusic CASCADE CONSTRAINTS;
@@ -22,6 +21,7 @@ DROP TABLE BGSGuiterlist CASCADE CONSTRAINTS;
 DROP TABLE BGSPay CASCADE CONSTRAINTS;
 DROP TABLE Members CASCADE CONSTRAINTS;
 DROP TABLE Pay CASCADE CONSTRAINTS;
+
 
 
 
@@ -100,7 +100,7 @@ CREATE TABLE BandSubmit_Comment
 CREATE TABLE BGSApply
 (
 	AP_no number NOT NULL,
-	G_no number NOT NULL,
+	G_no number,
 	AP_title varchar2(50),
 	AP_content varchar2(2000),
 	AP_postdate date,
@@ -436,9 +436,7 @@ ALTER TABLE SafePayCancle
 	REFERENCES SafePay (SP_No)
 ;
 
-create sequence seq_bgsapply 
-nocycle
-nocache;
+
 
 /* Comments */
 

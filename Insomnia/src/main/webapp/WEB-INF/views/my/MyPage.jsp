@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/WEB-INF/views/my/isMember.jsp" %>
 
 
 <!-- Site Stylesheet -->
@@ -222,34 +223,33 @@ body {
 					<!-- ==============================네브바===================================== -->
 					<nav class="ms_nav" id="msRnb">
 						<ul>
-							<li><a class="menu">개인정보</a>
+							<li><a class="menu">My 리워드</a>
 								<ul style="display: none;">
 
 									<li><a href="<c:url value='/menu/mypage/edit.ins'/>"
-										required="login">· 개인정보변경</a></li>
-									<li><a href="" required="login">· 작은제목2</a></li>
+										required="login">· 리워드 내역</a></li>
+									<li><a href="" required="login">· 이벤트 및 혜택</a></li>
 
 								</ul></li>
-							<li><a class="menu">큰제목2</a>
-								<ul style="display: none;">
-
+							<li><a class="menu">My 뮤직</a>
+								<!-- <ul style="display: none;">
 									<li><a href="" required="login">· 작은제목1</a></li>
 									<li><a href="" required="login">· 작은제목2</a></li>
 									<li><a href="" required="login">· 작은제목3</a></li>
 									<li><a href="" required="login">· 작은제목4</a></li>
-
-								</ul></li>
-							<li><a class="menu">큰제목3</a>
-								<ul style="display: none;">
+								</ul> -->
+							</li>
+							<li><a class="menu">My 캘린더</a>
+								<!-- <ul style="display: none;">
 									<li><a href="" required="login">· 작은제목1</a></li>
 									<li><a href="" required="login">· 작은제목2</a></li>
 									<li><a href="" required="login">· 작은제목3</a></li>
-								</ul></li>
-							<li class="msRnb_btn"><a class="menu">큰제목4</a>
+								</ul> -->
+							</li>
+							<li class="msRnb_btn"><a class="menu">개인정보관리</a>
 								<ul style="display: none;">
-									<li><a href="">· 작은제목1</a></li>
-									<li><a href="">· 작은제목2</a></li>
-									<li><a href="">· 작은제목3</a></li>
+									<li><a href="">· 개인정보 확인 및 수정</a></li>
+									<li><a href="">· 회원탈퇴</a></li>
 								</ul></li>
 							<li class=""><a href="" required="login">큰제목5</a></li>
 							<li class=""><a href="" required="login">큰제목6</a></li>

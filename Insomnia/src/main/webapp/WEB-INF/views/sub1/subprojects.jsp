@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%@ include file="/WEB-INF/views/my/isMember.jsp" %>
+
 <!-- Dependency Styles -->
 <link rel="stylesheet"
 	href="dependencies/bootstrap/css/bootstrap.min.css" type="text/css">
@@ -39,6 +41,9 @@ body {
 	margin-top: 55px
 }
 </style>
+
+
+
 </head>
 
 <body id="home-version-1" class="home-version-1" data-style="default">

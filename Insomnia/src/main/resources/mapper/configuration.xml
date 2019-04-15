@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="mapper/Member.xml" />
 		<mapper resource="mapper/Zerojin.xml" />
+		<mapper resource="mapper/sgh.xml" />
 	</mappers>
 	
 </configuration>

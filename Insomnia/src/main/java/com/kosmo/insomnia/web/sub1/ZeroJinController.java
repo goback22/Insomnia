@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,10 +32,12 @@ public class ZeroJinController {
 		if(flag) {
 			session.setAttribute("id", map.get("id"));
 			
+			
 			//admin@naver.com으로 로그인시 바로 관리자 페이지로 이동 - 임시
 			if(map.get("id").equals("admin")) {
 				return "/admin/AdminIndex";
 			}
+			
 		}
 		else model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
 		

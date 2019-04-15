@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
+
 @Controller
 public class SGHController {
+	
+	@Resource(name="memberService")
+	private MemberServiceImpl memberService;
 
 	@RequestMapping("/menu/mypage.ins")
 	public String mypage() throws Exception {
@@ -26,6 +32,20 @@ public class SGHController {
 	public String mypage_edit() throws Exception {
 		
 		return "my/MemberEdit.tiles";
+	}
+	
+	
+	//소셜 회원가입/로그인 구분  ==> DB에 없을 경우, 저장 후 추가정보 입력
+	@RequestMapping("/social.ins")
+	public String which_social(@RequestParam Map map) throws Exception {
+		String socialEmail = map.get("socialName").toString();
+		
+		//분기: DB에 없을 시 가입 메세지, DB에 있을시 바로 로그인 메서드로.
+		/*if(memberService.isMember()) {
+			
+		}*/
+		
+		return "forward:/login/social.ins";
 	}
 	
 	
@@ -44,6 +64,7 @@ public class SGHController {
 		socialBirth = String.format("%s년 %s월 %s일", birthArr[2], birthArr[0], birthArr[1]);
 		
 		
+		
 		//세션에 저장할 필요가?
 		session.setAttribute("id", socialName);
 		
@@ -55,6 +76,9 @@ public class SGHController {
 				
 		return "home.tiles";
 	}
+	
+	
+	
 	
 
 }

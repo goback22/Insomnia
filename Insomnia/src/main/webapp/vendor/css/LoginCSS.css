@@ -225,6 +225,7 @@
 		line-height: 22px;
 		color: rgba(0, 0, 0, .87);
 		font-size: 15px;
+		width: 130px;
 	}
 	
 	#facebookLoginBtn {
@@ -233,6 +234,7 @@
     	border-color: #3b5998;
     	background: #3b5998;
     	color: white;
+    	width: 279px;
 	}
 	
 	
