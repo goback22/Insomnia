@@ -30,7 +30,7 @@
 	href="<c:url value='/vendor/css/woocommerce.css'/>" type="text/css">
 <link rel="stylesheet" href="<c:url value='/vendor/css/app.css'/>"
 	type="text/css">
-	
+
 <style type="text/css">
 body {
 	color: #F5F5F5;
@@ -46,23 +46,29 @@ body {
 	font-weight: bold;
 }
 
-.title {
-	color: white;
-}
-
-td:not (.A ){
-	padding-top: 20px;
-}
-
-.B {
-	text-align: left;
-}
-
 .col-md-10 {
-	margin:auto;	
+	margin: auto;
 	margin-top: -75px;
-	
 }
+
+.frm{
+	margin-left : 180px;
+	margin-top: 15px;
+	height: 1500px;
+}
+
+.KYJ{
+	position:absolute;
+	left: 260px;
+	top:11px;
+}
+
+.KYJ2{
+	position:absolute;
+	left: 260px;
+	top:68px;
+}
+
 </style>
 </head>
 
@@ -101,39 +107,30 @@ td:not (.A ){
 				<div role="tabpanel">
 					<div class="row">
 						<div class="col-md-10">
-							<h5 class="comments-title">Application</h5>
-							<table class="table table-hover table-bordered text-center">
-								<tr style="height: 35px">
-									<td style="width: 10%; border: 1px solid black">작성자</td>
-									<td class="B" style="border: 1px solid black"><input
-										type="text" style="width: 30%;"></td>
-								</tr>
-								<tr style="height: 35px">
-									<td style="height: 30px; border: 1px solid black">제목</td>
-									<td class="B" style="border: 1px solid black"><input
-										type="text" style="width: 30%;">
-								</tr>
-								<tr style="height: 300px;">
-									<td style="padding-top: 140px; border: 1px solid black">자기
-										소개</td>
-									<td class="B" style="border: 1px solid black"><textarea
-											style="width: 100%; height: 300px">
-									</textarea>
-								</tr>
-								<tr style="height: 300px">
-									<td style="padding-top: 140px; border: 1px solid black">지원
-										동기</td>
-									<td class="B" style="border: 1px solid black"><textarea
-											style="width: 100%; height: 300px">
-									</textarea>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<div class="row" style="margin-bottom: 10px">
-						<div class="col-md-12 text-right">
-							<a href="View.jsp" class="btn btn-success"
-								style="margin-right: 120px;">완료</a>
+							<form class="frm" id="frm" method="post" action="<c:url value='/sub1/edit.ins'/>">
+								<div class="form-group">
+ 								<input type="hidden" name="ap_no" value="${record.ap_no}" /> 
+									<label for="ap_title" class="col-sm-2 control-label">제목</label>
+									<div class="col-sm-7 KYJ">
+										<input value="${record.ap_title}" type="text" class="form-control" name="ap_title"
+											id="ap_title" placeholder="제목을 입력하세요" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="ap_content" class="col-sm-2 ">내용</label>
+									<div class="col-sm-10 KYJ2">
+										<textarea rows="10" id="ap_content" name="ap_content" style="width: 650px;height:370px;"
+											class="form-control" placeholder="내용을 입력하세요">${record.ap_content}</textarea>
+									</div>
+								</div>
+								<div class="row" style="margin-top: 355px">
+									<div class="col-md-12 text-right">
+									<input type="submit" style="margin-right: 10px" class="btn btn-info" value="등록" />
+									<a href="<c:url value='/sub1/subcontent.ins'/>" class="btn btn-success"
+										style="margin-right: 230px;">취소</a>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -147,49 +144,5 @@ td:not (.A ){
 
 
 	<!-- Quick View -->
-	<div class="modal quickview-wrapper">
-		<div class="quickview">
-			<div class="quickview-content">
-				<div class="row">
-					<div class="col-md-6 col-sm-6">
 
-						<div class="quickview-slider">
-							<div class="slider-for1">
-								<div class="slick-slide">
-									<img src="media/product/3.jpg" alt="Thumb">
-								</div>
-								<div class="slick-slide">
-									<img src="media/product/4.jpg" alt="thumb">
-								</div>
-								<div class="slick-slide">
-									<img src="media/product/5.jpg" alt="thumb">
-								</div>
-							</div>
-
-							<div class="slider-nav1">
-								<div class="slick-slide">
-									<div class="slide-img">
-										<img src="media/product/10.jpg" alt="Thumb">
-									</div>
-								</div>
-								<div class="slick-slide">
-									<img src="media/product/11.jpg" alt="thumb">
-								</div>
-								<div class="slick-slide">
-									<img src="media/product/13.jpg" alt="thumb">
-								</div>
-							</div>
-						</div>
-						<!-- /.quickview-slider -->
-					</div>
-					<!-- /.col-md-6 -->
-
-				</div>
-				<!-- /.row -->
-			</div>
-		</div>
-	</div>
-
-	<br>
-	<br>
-	<br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

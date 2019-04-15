@@ -8,16 +8,11 @@ Kakao.init('9db89cfefc1651dffe3e0d2694cd52c0');
 		     	    	  Kakao.API.request({
 	     	              url: '/v2/user/me',
 	     	              success: function(res) {
-	     	            	
-	     	            	$('#socialName').prop('value', res.properties.nickname);
-	     	            	/*$('#socialEmail').prop('value', res.properties.nickname);
-	     	            	$('#socialProfile').prop('value', res.properties.nickname);
-	     	            	$('#socialBirth').prop('value', res.properties.nickname);*/
-	     	            	
-	     	            	//주석 처리하면 value가 null 값일텐데, 괜찮겠지?
-	     	            	
-	     	            	$('#socialForm').submit();
-	     	            	  
+	     	            	document.getElementById('kkname').innerHTML = res.properties.nickname;
+	     	            	document.getElementById('kakaoStatusImg').src = res.properties.profile_image;
+	     	            	document.getElementById('kkemail').innerHTML = res.kakao_account.has_email == true ? '이메일 있음' : '이메일 없음';
+	     	            	$('#kname').prop('value', res.properties.nickname);
+	     	    			$('#kimgsrc').prop('value', res.properties.profile_image);
 	     	              }, 
 	     	              
 	     	    fail: function(error) {

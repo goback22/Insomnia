@@ -5,11 +5,7 @@
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 
 <mapper namespace="mapper.Member">
-	<select id="memberIsMember" parameterType="java.util.Map" resultType="int">
-		SELECT COUNT(*) FROM members WHERE id=#{id} AND password=#{password}
-	</select>
 
-<!--  	<select id="memberSelectList" resultType="MemberDTO"> -->
-<!--  		select * from members -->
-<!--  	</select> -->
+	
+
 </mapper>

@@ -264,7 +264,7 @@
 								</tr>
 							</table>
 							<!-- table end -->
-							<div class="" style="text-align: right;margin-right: 60px;">
+							<div class="" style="text-align: right;margin-right: 30px;">
 								<a href="<c:url value='/admin/maincontent.ins'/>">more view</a></div>
 						</div>
 					</div>
@@ -312,7 +312,7 @@
 								</tr>
 							</table>
 							<div class="" style="text-align: right;margin-right: 5px;">
-								<a href="#">more view</a></div>
+								<a href="<c:url value='/admin/subcontent.ins'/>">more view</a></div>
 						</div>
 					</div>
 				</div>

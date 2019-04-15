@@ -15,25 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
 public class SGHController {
-	
-	@RequestMapping("/register/term.ins")
-	public String registerTerm() throws Exception {
-		
-		return "my/RegisterTerm.tiles";
-	}
-	
-	@RequestMapping("/register/form.ins")
-	public String registerForm() throws Exception {
-		
-		return "my/RegisterForm.tiles";
-	}
-	
-	@RequestMapping("/register/complete.ins")
-	public String registerComplete() throws Exception {
-		
-		return "my/RegisterComplete.tiles";
-	}
-	
+
 	@RequestMapping("/menu/mypage.ins")
 	public String mypage() throws Exception {
 		

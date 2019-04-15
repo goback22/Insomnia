@@ -2,9 +2,14 @@
 
 /*========================================태그 선택자======================================*/
 
+
+
+
+
+
 body {
-	
-	 background-color: black;
+	 background-color: white;
+	 font-family:'Malgun Gothic';
 }
 
 p {
@@ -33,7 +38,7 @@ div {
     font-size: 100%;
     vertical-align: baseline;
     display: block;
-    background-color: black;
+    background-color: white;
    
 }
 
@@ -41,7 +46,7 @@ section {
     display: block;
     font-size: 100%;
     vertical-align: baseline;
-    background-color: black;
+    background-color: white;
 }
 
 label {
@@ -74,6 +79,10 @@ input {
     font-family: 'nbg', '맑은 고딕', HelveticaNeue, DroidSans, Sans-serif, Helvetica;
 }
 
+input :hover{
+	border:1px solid blakc;
+}
+
 
 select {
     -webkit-appearance: menulist; */
@@ -94,7 +103,7 @@ select {
 
 option {
 	color: white;
-	background-color: black;
+	background-color: white;
 }
 
 fieldset {
@@ -127,6 +136,14 @@ dt, dd {
 input::placeholder {
 	color: gold;
 	font-size: 16px;
+}
+
+/* 임한결 추가분 2019-04-14 navBar원상태로 돌리기 */
+.tim-container{
+	background-color:black;
+}
+.tim-container div{
+	background-color:black;
 }
 
 
@@ -210,7 +227,6 @@ input::placeholder {
     width: 100%;
     color: white;
 }
-
 .renew_input_box.id_chk input {
     /* width: 75.464%; */
     width: 100%;
@@ -417,22 +433,22 @@ select:not(:-internal-list-box) {
 
 body {
 	
-	background-color: black;
+	background-color: white;
 }
 
 input {
 	
-	background-color: black;
+	background-color: white;
 	color: white;
 }
 
 .form-control inputInfo {
 	
-	background-color: black;
+	background-color: white;
 }
 
 .form-control {
-	background-color: black;
+	background-color: white;
 }
 
 .p {
@@ -448,14 +464,43 @@ input {
 
 #email {
     width: 250px;
-    height: 20px;
+    height: 60px;
     text-align: center;
 }
 
 #portal {
-    background-color: black;
-    height: 30px;
-    width: 160px;
+	font-family:NanumBarunGothicLight;
+    background-color: white;
+    height: 60px;
+    width: 192px;
     font-size: 20px;
     margin-top: 1px;
+    margin-left: 10px;
+}
+
+
+/* 임한결 추가 2019 04 14 이메일 인증 버튼 넣기 */
+
+#btnEmailAuthentication{
+	height:60px;
+	margin:0 0 10px 10px;
+}
+
+/* 배경색 하얗게 */
+
+#footer-3 div{
+	background-color:black;
+}
+
+/* 이메일 input태그에 버튼넣기 */
+
+.inner-btn-input{
+	border:1px solid red important!;
+	padding:20px;
+}
+
+.input-email{
+	border:1px solid white;
+	width:100px;
+	margin-bottom:20px;
 }

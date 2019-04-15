@@ -46,7 +46,6 @@ https://mdbootstrap.com/components/bootstrap-footer/
 									</ul>
 								</div>
 							</div>
-
 						</div>
 					</div>
 					<!-- /.col-xl- -->

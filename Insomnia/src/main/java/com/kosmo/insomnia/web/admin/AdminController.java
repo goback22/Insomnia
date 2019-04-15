@@ -30,4 +30,10 @@ public class AdminController {
 	public String mainContent() {
 		return "/admin/AdminMainContentMember";
 	}
+	
+	//서브
+	@RequestMapping(value="/admin/subcontent.ins")
+	public String subContent() {
+		return "/admin/AdminSubContent";
+	}
 }/////////////
