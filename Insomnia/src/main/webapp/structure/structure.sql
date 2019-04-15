@@ -17,7 +17,6 @@ DROP TABLE BGSQnA CASCADE CONSTRAINTS;
 DROP TABLE BGSReview CASCADE CONSTRAINTS;
 DROP TABLE concertTimes CASCADE CONSTRAINTS;
 DROP TABLE BGSConcert CASCADE CONSTRAINTS;
-DROP TABLE BGSGuiterlist CASCADE CONSTRAINTS;
 DROP TABLE BGSPay CASCADE CONSTRAINTS;
 DROP TABLE Members CASCADE CONSTRAINTS;
 DROP TABLE Pay CASCADE CONSTRAINTS;
@@ -86,24 +85,25 @@ CREATE TABLE BandSubmit
 
 CREATE TABLE BandSubmit_Comment
 (
-	S_no number NOT NULL,
+	S_no number,
 	C_Step number DEFAULT 0,
 	C_Depth number DEFAULT 0,
 	id varchar2(30) NOT NULL,
 	C_Stars number DEFAULT 5,
 	C_Content nvarchar2(2000),
 	C_Post_Date date DEFAULT SYSDATE,
-	C_Liked number DEFAULT 0
+	C_Liked number DEFAULT 0,
+	c_no number NOT NULL,
+	PRIMARY KEY (c_no)
 );
 
 
 CREATE TABLE BGSApply
 (
 	AP_no number NOT NULL,
-	G_no number,
 	AP_title varchar2(50),
 	AP_content varchar2(2000),
-	AP_postdate date,
+	AP_postdate date DEFAULT SYSDATE,
 	AP_visit number,
 	AP_remarks varchar2(2000),
 	id varchar2(30) NOT NULL,
@@ -129,17 +129,6 @@ CREATE TABLE BGSConcert
 	C_place varchar2(1000),
 	C_content varchar2(3000),
 	PRIMARY KEY (BGSCO_no)
-);
-
-
-CREATE TABLE BGSGuiterlist
-(
-	G_no number NOT NULL,
-	id varchar2(30) NOT NULL,
-	G_skil varchar2(3),
-	G_prefergenre varchar2(10),
-	G_introduce varchar2(1000),
-	PRIMARY KEY (G_no)
 );
 
 
@@ -209,7 +198,7 @@ CREATE TABLE Members
 	id varchar2(30) NOT NULL,
 	password varchar2(30),
 	Name varchar2(20),
-	Profile_Img number DEFAULT 0,
+	Profile_Img nvarchar2(300) DEFAULT '0',
 	Birthday date,
 	Zip_Code number,
 	Shipping_Adress nvarchar2(100),
@@ -353,12 +342,6 @@ ALTER TABLE concertTimes
 ;
 
 
-ALTER TABLE BGSApply
-	ADD FOREIGN KEY (G_no)
-	REFERENCES BGSGuiterlist (G_no)
-;
-
-
 ALTER TABLE concertTimes
 	ADD FOREIGN KEY (P_no)
 	REFERENCES BGSPay (P_no)
@@ -378,12 +361,6 @@ ALTER TABLE BandSubmit_Comment
 
 
 ALTER TABLE BGSApply
-	ADD FOREIGN KEY (id)
-	REFERENCES Members (id)
-;
-
-
-ALTER TABLE BGSGuiterlist
 	ADD FOREIGN KEY (id)
 	REFERENCES Members (id)
 ;
@@ -437,10 +414,6 @@ ALTER TABLE SafePayCancle
 ;
 
 
-
-create sequence SEQ_MEMOCOMMENT 
-nocycle
-nocache;
 
 /* Comments */
 
