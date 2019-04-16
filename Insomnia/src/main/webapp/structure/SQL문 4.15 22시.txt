@@ -847,3 +847,9 @@ nocache;
 create sequence SEQ_MEMOCOMMENT 
 nocycle
 nocache;
+
+/* 추가해줘야 하는 컬럼(로그인 + 게시판 이용)
+insert into members(id,password,name) values('KIM@naver.com','1234','김길동');
+insert into members(id,password,name) values('LEE@naver.com','1234','이길동');
+insert into members(id,password,name) values('HONG@naver.com','1234','홍길동');
+insert into members(id,password,name) values('admin','1234','관리자');
