@@ -316,12 +316,12 @@
 	<!-- 소셜 로그인 : 히든 폼 시작 -->
 
 
-	<form id="socialForm" action="<c:url value='/login/social.ins'/>"
-		method="POST" style="display: none;">
-		<input type="hidden" name="socialEmail" id="socialEmail" value="" /> <input
-			type="hidden" name="socialName" id="socialName" value="" /> <input
-			type="hidden" name="socialProfile" id="socialProfile" value="" /> <input
-			type="hidden" name="socialBirth" id="socialBirth" value="" />
+	<form id="socialForm" action="<c:url value='/login/social.ins'/>" method="POST" style="display: none;">
+		<input type="hidden" name="socialId" id="socialId" value="" />
+		<input type="hidden" name="socialEmail" id="socialEmail" value="" />
+		<input type="hidden" name="socialName" id="socialName" value="" />
+		<input type="hidden" name="socialProfile" id="socialProfile" value="" />
+		<input type="hidden" name="socialBirth" id="socialBirth" value="" />
 	</form>
 
 	<!-- 소셜 로그인 : 히든 폼 끝 -->
@@ -413,10 +413,11 @@
 					  
 				  
 				      /////사용자 정보를 갖고 온다.
-					   FB.api('/me', {locale : 'ko_KR'}, {fields: 'name,email,birthday,picture'}, function(response) {
+					   FB.api('/me', {locale : 'ko_KR'}, {fields: 'id, name,email,birthday,picture'}, function(response) {
 					      if(response && !response.error) {
 					    	  
 					      	  console.log("받은 json 객체" + JSON.stringify(response));
+					      	  $('#socialId').prop('value', response.id);
 					    	  $('#socialName').prop('value', response.name);
 					    	  $('#socialEmail').prop('value', response.email);
 					    	  $('#socialBirth').prop('value', response.birthday);

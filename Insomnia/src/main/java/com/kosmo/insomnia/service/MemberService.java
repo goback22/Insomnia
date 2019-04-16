@@ -5,6 +5,7 @@ import java.util.Map;
 
 
 public interface MemberService {
+	
 	List<MemberDTO> selectList();
 	
 	
@@ -17,6 +18,9 @@ public interface MemberService {
 	int update(Map map);
 	
 	//소셜 로그인
-	int socialInsert(Map map);
+	boolean isSocialMember(Map map);
+	
+	//소셜 회원가입
+	boolean socialRegister(Map map);
 	
 }

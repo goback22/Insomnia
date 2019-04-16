@@ -5,6 +5,7 @@ import java.sql.Date;
 public class MemberDTO {
 	private String id;
 	private String password;
+	private String name;   //추가 서기환
 	private String profile_img;
 	private String birthDay;
 	private String zip_code;
@@ -14,9 +15,10 @@ public class MemberDTO {
 	private String phone;
 	private String bank_name;
 	private String bank_serial;
+	private String sms_receive;  //추가 서기환
 	private String email_recieve;
 	private Date join_date;
-	
+	private String email;  //추가 서기환
 	
 	public String getId() {
 		return id;
@@ -96,6 +98,30 @@ public class MemberDTO {
 	public void setJoin_date(Date join_date) {
 		this.join_date = join_date;
 	}
+	
+	
+	//추가된 게터세터 - 서기환
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getSms_receive() {
+		return sms_receive;
+	}
+	public void setSms_receive(String sms_receive) {
+		this.sms_receive = sms_receive;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
+	
 	
 	
 	

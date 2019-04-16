@@ -17,7 +17,7 @@ public class MemberDAO implements MemberService {
 	// SqlSessionTemplate객체 주입]
 	@Resource(name = "template")
 	private SqlSessionTemplate template;
-
+	
 	@Override
 	public List<MemberDTO> selectList() {
 		return template.selectList("memberSelectList");
@@ -44,14 +44,26 @@ public class MemberDAO implements MemberService {
 		return 0;
 	}
 	
-	@Override
-	public int socialInsert(Map map) {
-		return template.insert("socialInsert", map);
-	}
 	
 	@Override
 	public int update(Map map) {
 		return 0;
 	}
+	
+	//소셜 로그인
+	@Override
+	public boolean isSocialMember(Map map) {
+		return (Integer)template.selectOne("isSocialMember", map) == 1 ? true: false;
+	}
+	
+	
+	//소셜 회원가입
+	@Override
+	public boolean socialRegister(Map map) {
+		return template.insert("socialRegister", map) == 1 ? true : false;
+	}
+
+
+	
 
 }

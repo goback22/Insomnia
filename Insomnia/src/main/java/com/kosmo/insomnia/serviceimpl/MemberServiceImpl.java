@@ -43,13 +43,23 @@ public class MemberServiceImpl implements MemberService{
 		return dao.insert(map);
 	}
 	
-	@Override
-	public int socialInsert(Map map) {
-		return dao.socialInsert(map);
-	}
 
 	@Override
 	public int update(Map map) {
 		return 0;
 	}
+	
+	//소셜 로그인
+	@Override
+	public boolean isSocialMember(Map map) {
+		return dao.isSocialMember(map);
+	}
+	
+	//소셜 회원가입
+	@Override
+	public boolean socialRegister(Map map) {
+		return dao.socialRegister(map);
+	}
+
+	
 }

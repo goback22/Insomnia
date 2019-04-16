@@ -6,12 +6,14 @@
 
 <mapper namespace="mapper.sgh">
 
-	<insert id="socialInsert" parameterType="java.util.Map">
-		insert into members(id, name, profile_img, birthday, join_date, login_chain, phone) 
-		values(#{socialEmail}, #{socialName}, #{socialProfile}, #{socialBirth}, sysdate, 'facebook', 010)
+	<select id="isSocialMember" parameterType="java.util.Map" resultType="int">
+		select count(*) from members where id=#{socialId}
+	</select>
+
+	<insert id="socialRegister" parameterType="java.util.Map">
+		insert into members(id, email, name, profile_img, birthday, join_date, login_chain, phone) 
+		values(#{socialId}, #{socialEmail}, #{socialName}, #{socialProfile}, #{socialBirth}, sysdate, 'facebook', 010)
 	</insert>
-
-
 
 
 </mapper>
