@@ -85,11 +85,10 @@
 	};//showComments
 
 	var successAjax = function(data) {
-		/*JSON배열을 출력할때는 $.each(data,function(index,index에 따른 요소값){}); 
-		사용]
-		data:서버로부터 전송받은 데이타(JSON배열타입)
-		index:JSON배열의 인덱스(0부터 시작)	
-		index에 따른 요소값:JSON배열에서 하나씩 꺼내온거를 담은 인자		
+		/*JSON배열을 출력할때는 $.each(data,function(index,index에 따른 요소값){}); 사용]
+		data : 서버로부터 전송받은 데이타(JSON배열타입)
+		index : JSON배열의 인덱스(0부터 시작)	
+		index에 따른 요소 값 : JSON 배열에서 하나씩 꺼내온거를 담은 인자		
 		 */
 		console.log('서버로부터 받은 데이타:', data);
 
@@ -128,11 +127,11 @@
 			console.log('클릭한 댓글의 키(C_NO):',$(this).attr('title'));
 			
 			//클릭한 제목으로 텍스트박스 값 설정
-			$('#c_content').val($(this).text());
+			$('#c_content').val($(this).children().eq(0).text());
 			$('#submitComment').val('수정');
 			
 			//form의 hidden속성중 name="cno"값 설정
-// 			$('input[name=c_no]').val($(this).attr('title'));
+			$('input[name=c_no]').val($(this).attr('title'));
 		});
 
 		//코멘트 삭제 
@@ -147,7 +146,6 @@
 				dataType : 'text',
 				type : 'post',
 				success : showComments(),
-
 				error : function(request, error) {
 					console.log('상태코드:', request.status);
 					console.log('서버로부터 받은 HTML데이타 :', request.responseText);
@@ -155,6 +153,13 @@
 				}
 			});
 		});
+		
+		//작성 버튼 눌렀을 때 수정으로 돼있다면 등록으로 바꾸기
+		$('#about').click(function(){
+			if($('#submitComment').val() == '수정') {
+				($('#submitComment')).val('등록')	;
+			}
+		})
 	}
 </script>
 
