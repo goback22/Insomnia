@@ -32,15 +32,7 @@
                 margin-left:27%;
                 font-size:120px;
            }
-           
-           
-       
        </style>
-
-       <script>
-
-
-       </script>
 <!-- 로그인 처리 CSS -->
 	<link href="<c:url value='/vendor/css/LoginCSS.css'/>" rel="stylesheet" />
        </head>

@@ -22,6 +22,7 @@
 
 <script>
 	$(function() {
+		//페이지 뿌리기
 		showComments();
 
 		//구매하기 hide, show
@@ -33,7 +34,7 @@
 			}
 		});
 
-		//작성
+		//댓글 작성
 		$('#submitComment').click(function() {
 			if ($(this).val() == '등록') {
 				var action = "<c:url value='/sub1/memowrite.ins'/>";
@@ -67,11 +68,10 @@
 				}
 			});
 		})
-
 	}); //function
 
 	//리스트
-	var showComments = function() {
+	var showComments = function() { // ★ajax를 함수로 감싸서 리스트를 뿌릴 때 쓰기
 		$.ajax({
 			url : '<c:url value="/sub1/memolist.ins"/>',
 			dataType : 'text',
@@ -112,7 +112,7 @@
 				tableString += "</div>";
 				tableString += "<span>" + element['C_CONTENT']
 						+ "</span>"
-				tableString += "<a href='#frm' class='commentEdit' title='"+element['C_NO']+"' style='color:white;font-size:0.8em;'>" + '&nbsp&nbsp[수정]' + "<span style='display:none;'>"
+				tableString += "<a href='#HH' class='commentEdit' title='"+element['C_NO']+"' style='color:white;font-size:0.8em;'>" + '&nbsp&nbsp[수정]' + "<span id='asd' style='display:none;'>"
 						+ element['C_CONTENT'] + "</span></a>"
 				tableString += "<span class='commentDelete' title='"+element['C_NO']+"' style='color:white;font-size:0.8em;cursor:pointer'>"
 						+ '&nbsp&nbsp[삭제]' + "</span>";
@@ -123,23 +123,21 @@
 		//리스트 뿌려주기
 		$('#comments').html(tableString);
 		
-		//코멘트 제목 클릭시 코멘트 수정처리를 위한 UI변경부분]
+		//코멘트 수정]
 		$('.commentEdit').click(function(){
 			console.log('클릭한 댓글의 키(C_NO):',$(this).attr('title'));
-			console.log('asdasd:'+$(this));
 			
 			//클릭한 제목으로 텍스트박스 값 설정
 			$('#c_content').val($(this).text());
 			$('#submitComment').val('수정');
 			
 			//form의 hidden속성중 name="cno"값 설정
-			$('input[name=c_no]').val($(this).attr('title'));
+// 			$('input[name=c_no]').val($(this).attr('title'));
 		});
 
-		//코멘트 삭제 처리]
+		//코멘트 삭제 
 		$('.commentDelete').click(function() {
 			console.log($('.commentDelete').attr('title'));
-			// 			var action = "<c:url value='/sub1/memodelete.ins'/>";
 
 			$.ajax({
 				url : '<c:url value="/sub1/memodelete.ins"/>',
@@ -582,12 +580,15 @@ body {
 										<!-- Reviews -->
 										<div class="review-comments">
 											<h5 class="comments-title">
-												Reviews <a href="#frm" id="about" class="btn btn-success"
+												Reviews <a href="#HH" id="about" class="btn btn-success"
 													style="margin-left: 40px;">작성</a>
 											</h5>
 											<br>
 											<div class="review-comments">
 												<ul class="review-list">
+													<li id="comments">
+														<!-- ajax로 아래에 코멘트 목록 뿌리기 -->
+													</li>
 													<li>
 														<article class="review-comment">
 															<div class="user-avatar">
@@ -598,12 +599,12 @@ body {
 															<div class="comment-content">
 																<h5 class="name" >Michael Cunningham</h5>
 																<div class="comment-meta">
-																	<div class="star-rating">
+																	<div class="star-rating" id="HH">
 																		<span>Rated <strong class="rating">5.00</strong>
 																			out of 5
 																		</span>
 																	</div>
-																	<span class="post-date">18 August 2018</span>
+																	<span class="post-date">2018-12-25</span>
 																</div>
 																<p>
 																	Description says it's water proof. This isn't really
@@ -614,9 +615,7 @@ body {
 															</div>
 														</article>
 													</li>
-													<li id="comments">
-														<!-- ajax로 아래에 코멘트 목록 뿌리기 -->
-													</li>
+
 												</ul>
 											</div>
 										</div>

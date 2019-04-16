@@ -174,6 +174,8 @@ public class ZeroJinController {
 		//날짜 값을 문자열으로 변경
 		for(Map comment:comments) {
 			comment.put("C_POST_DATE", comment.get("C_POST_DATE").toString().substring(0,10));
+			//엔터 값
+			comment.put("C_CONTENT", comment.get("C_CONTENT").toString().replace("\r\n", "<br/>"));
 		}
 		
 		return JSONArray.toJSONString(comments);
@@ -186,12 +188,8 @@ public class ZeroJinController {
 		//서비스 호출]
 		//한줄 댓글 작성자 아이디 맵에 설정
 		map.put("id", session.getAttribute("id"));
-//		map.get("c_content").toString().replace("\r\n", "<br/>");
-		String a = map.get("c_content").toString().replace("<br/>", "\r\n");
-		map.get("c_content").toString().replace("<br/>", "\r\n");
-		System.out.println(a);
-		commentService.insert(map);
 		
+		commentService.insert(map);
 		
 		return map.get("c_no").toString();
 	}//write
@@ -202,11 +200,9 @@ public class ZeroJinController {
 	public String update(@RequestParam Map map) throws Exception{
 		//서비스 호출]
 		commentService.update(map);
-		System.out.println("넘어옵니까?");
 		
 		return "";
 	}//
-	
 	
 	//삭제 처리]
 	@ResponseBody
