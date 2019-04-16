@@ -62,7 +62,10 @@ public class MemberDAO implements MemberService {
 	public boolean socialRegister(Map map) {
 		return template.insert("socialRegister", map) == 1 ? true : false;
 	}
-
+	@Override
+	public int checkSignup(String id) {
+		return template.selectOne("checkIdDuple",id);
+	}
 
 	
 

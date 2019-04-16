@@ -6,6 +6,20 @@
 
 <mapper namespace="mapper.Member">
 
-	
+	<insert id="memberInsert" parameterType="java.util.Map">
+		insert into members(id,password,name,gender,birthday,zip_code,shipping_address,phone,sms_recieve) values(#{id},#{password},#{name},#{gender},#{birthday},#{zip_code},#{address},#{phone},#{sms_recieve})
+	</insert>
 
+	<update id="createAuthKey" parameterType="MemberDTO">
+		update members set activation_key = #{activation_key} where id = #{id}
+	</update>
+
+	<update id="userAuth" parameterType="java.util.Map">
+		update members set is_activation = #{active} where id = #{user_email} and activation_key= #{key}
+	</update>
+	
+	<select id="checkIdDuple" resultType="int" parameterType="java.lang.String">
+		select count(*) from members where id = #{id}
+	</select>
+	
 </mapper>
