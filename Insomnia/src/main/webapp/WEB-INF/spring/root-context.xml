@@ -20,5 +20,9 @@
 	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
+	
+	<!-- 파일 업로드(4월 17일 서기환) -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
 
 </beans>

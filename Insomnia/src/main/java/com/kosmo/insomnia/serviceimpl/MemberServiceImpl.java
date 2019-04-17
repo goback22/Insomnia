@@ -25,17 +25,17 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int getTotalRecord(Map map) {
-		return 0;
+		return dao.getTotalRecord(map);
 	}
 
 	@Override
 	public MemberDTO selectOne(Map map) {
-		return null;
+		return dao.selectOne(map);
 	}
 
 	@Override
 	public int delete(Map map) {
-		return 0;
+		return dao.delete(map);
 	}
 
 	@Override
@@ -46,16 +46,16 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int update(Map map) {
-		return 0;
+		return dao.update(map);
 	}
 	
-	//소셜 로그인
+	//소셜 로그인-서기환, 4월 15일
 	@Override
 	public boolean isSocialMember(Map map) {
 		return dao.isSocialMember(map);
 	}
 	
-	//소셜 회원가입
+	//소셜 회원가입-서기환, 4월 15일
 	@Override
 	public boolean socialRegister(Map map) {
 		return dao.socialRegister(map);

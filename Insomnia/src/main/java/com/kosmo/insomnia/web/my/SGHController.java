@@ -1,18 +1,27 @@
 package com.kosmo.insomnia.web.my;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
@@ -24,11 +33,27 @@ public class SGHController {
 	@Resource(name="memberService")
 	private MemberServiceImpl memberService;
 	
-
+	/////마이페이지 이동
 	@RequestMapping("/menu/mypage.ins")
-	public String mypage() throws Exception {
+	public String mypage(HttpSession session, Map map, Model model) throws Exception {
 		
-		return "my/MyPage.tiles";
+		//세션에 저장된 아이디값 구하기
+		String id = session.getAttribute("id").toString();
+		
+		System.out.println("저장된 id는 " + id);
+		
+		//서비스 객체가 쓸 map객체
+		map.put("id", id);
+		//서비스 객체를 통해 DTO객체 받기
+		MemberDTO record = memberService.selectOne(map);
+		
+		System.out.println("갖고온 이름은? " + record.getName());
+		
+		//반환한 레코드 객체(1명) 모델에 담아서 반환
+		model.addAttribute("record", record);
+		
+		
+		return "my/MyPage2.tiles";
 	}
 	
 	@RequestMapping("/menu/mypage/edit.ins")
@@ -120,6 +145,47 @@ public class SGHController {
 		return "home.tiles";
 		
 	}////socialRegister()
+	
+	
+	////////////사진 업로드
+	@RequestMapping("/edit/profileImg.ins")  
+	public String editProfileImg(MultipartHttpServletRequest mhsr, Model model) throws Exception {
+		
+		//1]서버의 물리적 경로 얻기
+		
+		String physicalPath = mhsr.getServletContext().getRealPath("/upload");
+		MultipartFile upload = mhsr.getFile("imgUpload");
+		
+		System.out.println("physicalPath는?" + physicalPath);
+		System.out.println("upload객체 널이야?" + upload);
+		
+		//2] 파일객체 생성/ 파일 이름 중복시 이름변경
+		String newFileName = FileUpDownUtils.getNewFileName(physicalPath, upload.getOriginalFilename());
+		File file = new File(physicalPath + File.separator + newFileName);
+		//3] 업로드 처리
+		upload.transferTo(file);
+		
+		//DB에 저장- 이걸 완료해야 뷰단에서 이미지 구분해서 보임
+		
+		//4]리퀘스트 영역에 데이터 저장
+		mhsr.setAttribute("fileName", newFileName);
+		System.out.println("파일이름은? " + newFileName);
+		
+		return "forward:/menu/mypage.ins";  //마이페이지 컨트롤러 메서드로. 지금은 이동만 하고 있으나 데이터 뿌려주어야 한다.
+	}
+	
+	/////펀딩한, 좋아한, 만든 : ajax
+	@RequestMapping("/mypage/history.ins")
+	public String getHistory() throws Exception {
+		
+		List<Map> historyList = new Vector<Map>();
+		
+		
+		
+		
+		
+		return JSONArray.toJSONString(historyList);
+	}
 	
 	
 	

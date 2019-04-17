@@ -11,7 +11,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<typeAlias alias="MemberDTO" type="com.kosmo.insomnia.service.MemberDTO"/>	
 		<typeAlias alias="ListDTO" type="com.kosmo.insomnia.service.ListDTO"/>
-		<typeAlias alias="CommentDTO" type="com.kosmo.insomnia.service.CommentDTO"/>	
+		<typeAlias alias="CommentDTO" type="com.kosmo.insomnia.service.CommentDTO"/>
+		<typeAlias alias="RewardDTO" type="com.kosmo.insomnia.service.RewardDTO"/>	
 	</typeAliases>
 	
 	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 -->	

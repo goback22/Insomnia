@@ -30,8 +30,8 @@ public class MemberDAO implements MemberService {
 	}
 
 	@Override
-	public MemberDTO selectOne(Map map) {
-		return null;
+	public MemberDTO selectOne(Map map) { //서기환, 4월 17일
+		return template.selectOne("selectOne_Member", map);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class MemberDAO implements MemberService {
 
 	@Override
 	public int insert(Map map) {
-		return 0;
+		return template.insert("insert_Member", map);
 	}
 	
 	

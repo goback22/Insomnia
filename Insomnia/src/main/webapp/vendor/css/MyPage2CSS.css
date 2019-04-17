@@ -1,0 +1,525 @@
+* {
+    box-sizing: border-box;
+}
+
+article, blockquote, body, dd, div, dl, dt, h1, h2, h3, h4, html, li, main, ol, p, section, table, tbody, td, th, thead, tr, ul {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    line-height: 1.5em;
+    letter-spacing: -.02em;
+    color: rgba(0,0,0,.84);
+    font-size: 15px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: Roboto, 'Noto Sans KR', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+div {
+    display: block;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+body li, body ol, body ul {
+    list-style: none;
+}
+
+body, body button, body input, body li, body ol, body select, body textarea, body ul {
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+		
+.wz.container, body a {		/*링크 색깔들*/
+    color: rgba(0,0,0,.84);
+}
+
+body a {
+    text-decoration: none;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+/*=====================================================================*/
+
+#mypageWrap, #mypageWrap * {   /*전체 감싸는*/
+    font-family: Roboto,"Noto Sans KR",sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.myinfo-wrap {  /*상단*/
+    width: 100%;
+}
+
+@media screen and (min-width: 960px)  /*반응형*/
+.myinfo-wrap > .inner-section {
+    width: 960px;
+    margin: 0 auto;
+    padding: 56px 24px 40px;
+}
+
+.myinfo-wrap > .inner-section {  /*상단 내부 섹션 부분*/
+    padding: 40px 16px 32px;
+}
+
+@media screen and (min-width: 960px)  /*상단 내부 컨텐트 부분, 반응형*/
+.myinfo-content {
+    padding-right: 160px;
+}
+
+.myinfo-content {  /*상단 내부 컨텐트*/
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.myinfo-content dl {		 /*아띠, 개인회원, 프로필이미지*/
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    margin-bottom: 16px;
+}
+
+.myinfo-content dd {   /*아띠, 개인회원*/
+    display: table-cell;
+    width: auto;
+    padding-right: 16px;
+    vertical-align: top;
+}
+
+@media screen and (min-width: 960px)		/*아띠, 반응형*/
+.myinfo-content .nickname {
+    font-size: 36px;
+    line-height: 44px;
+}
+
+.myinfo-content .nickname {		/*아띠*/
+    display: inline-block;
+    margin-bottom: 6px;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -.02em;
+    font-weight: 500;
+    color: #44484b;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.myinfo-content .accnttype {		/*개인회원*/
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #90949c;
+}
+
+.myinfo-content .otherinfo {		/*기타 정보라는데.. 현재 내 화면에서는 보이지는 않음*/
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #90949c;
+}
+
+.myinfo-content dt {		/*프로필 이미지*/
+    display: table-cell;
+    width: 96px;
+    vertical-align: top;
+    text-align: center;
+}
+
+element.style {		/*프로필 이미지 나오나?*/
+    background-image: url(https://www.wadiz.kr/wwwwadiz/green001/sns_profile_pics/20190304205851548_59178389.jpg);
+}
+
+.myinfo-content .profile-img {	/*프로필 이미지*/
+    position: relative;
+    display: block;
+    background: no-repeat center;
+    background-size: cover;
+}
+
+.myinfo-content .profile-img, .myinfo-content .profile-img:after {	/*프로필 이미지*/
+    width: 96px;
+    height: 96px;
+    box-sizing: border-box;
+    border-radius: 100%;
+}
+
+.editImage {
+	font-family: Roboto, 'Noto Sans KR', sans-serif;
+	font-size: 13px;
+	color: #90949C;
+}
+
+
+em, i {
+    font-style: normal;
+}
+
+.myinfo-content .activity-list {		/*펀딩, 지지서명, 팔로워, 팔로잉*/
+    font-size: 0;
+    margin-bottom: 40px;
+    justify-content: space-between;
+}
+
+
+.myinfo-content .activity-list li {
+    margin-right: 8px;
+    display: inline-block;
+    text-align: center;
+}
+
+.myinfo-content .activity-list .count {		/*펀딩 등의 글자 strong 태그*/
+    display: block;
+    width: 60px;
+    color: #557cf2;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.17;
+    margin-bottom: 4px;
+}
+
+.myinfo-content .activity-list span, .myinfo-content .activity-list em {	/*strong 태그 밑 span 태그*/
+    color: #90949c;
+    font-size: 13px;
+    font-size: 1.38;
+}
+
+.myinfo-content .introduce {		/*펀딩 ~ 밑에 자기소래란. 안 쓰면 비워져 있다.*/
+    max-width: 700px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+    max-height: 40px;
+    letter-spacing: -.02em;
+    color: #44484b;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+}
+
+.myinfo-content .interest-list { /*관심사항인 듯. 역시 비워져 있다.*/
+    max-width: 700px;
+    width: 100%;
+}
+
+.myinfo-content .btn-wrap {		/*프로필 편집 버튼(a태그)을 감싸는 div*/
+    display: block;
+    padding-top: 16px;
+    font-size: 0;
+}
+
+.myinfo-content .btn-wrap .btn-edit {	/*프로필 편집*/
+    display: inline-block;
+    padding: 0 12px;
+    font-size: 15px;
+    color: #60656A;
+    letter-spacing: -.02em;
+    border: 1px solid #babdc0;
+}
+
+/*버튼 관련 시작*/
+.icon.wz-btn>[class*=icon-]:before, .wz.button.icon>[class*=icon-]:before, .wz.button[class*=icon-]:before, .wz.button[href], .wzui a.icon.btn>[class*=icon-]:before, .wzui a[class*=icon-].btn:before, .wzui a[href].btn, .wzui button.icon>[class*=icon-]:before, .wzui button[class*=icon-]:before, .wzui button[href], .wzui input.icon[type=button]>[class*=icon-]:before, .wzui input.icon[type=submit]>[class*=icon-]:before, .wzui input[class*=icon-][type=button]:before, .wzui input[class*=icon-][type=submit]:before, .wzui input[href][type=button], .wzui input[href][type=submit], [class*=icon-].wz-btn:before, [href].wz-btn {
+    line-height: 46px;
+}
+
+.myinfo-content .btn-wrap a, .myinfo-content .btn-wrap button {
+    max-width: 105px;
+    width: 100%;
+    text-align: center;
+}
+
+.myinfo-content .btn-wrap a, .myinfo-content .btn-wrap button {
+    margin-right: 8px;
+    margin-bottom: 4px;
+}
+
+.wz.button, .wzui a.btn, a.wz-btn {
+    display: inline-block;
+    padding-top: .07em;
+    text-decoration: none;
+}
+
+.wz-btn, .wz.button, .wzui a.btn, .wzui button, .wzui input[type=button], .wzui input[type=submit] {
+    transition-property: background-color,border-color,color,opacity;
+    transition-duration: .2s;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 0;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 0 1.41176em;
+    height: 48px;
+    vertical-align: middle;
+    text-decoration: none;
+    line-height: 1;
+    color: rgba(0,0,0,.54);
+    font-size: 17px;
+    font-weight: 400;
+    box-sizing: border-box!important;
+    -webkit-appearance: none;
+}
+
+/*버튼관련 끝*/
+
+/*하단 시작*/
+
+.mypage-project.bg {
+    background: #F5F7FA;
+    padding-bottom: 160px;
+}
+
+.mypage-project.bg .tab-list {	/*펀딩한 좋아한 만든*/
+    border-top: none;
+}
+
+.mypage-project .tab-list {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 1px 0 0 rgba(0,0,0,.08);
+    z-index: 100;
+    transition-property: background-color,-webkit-backdrop-filter,backdrop-filter;
+    transition-duration: .5s;
+}
+
+@media screen and (min-width: 960px)		/*반응형*/
+.mypage-project .tab-list ul {
+    width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.mypage-project .tab-list ul {
+   /*  width: 100%; */
+    
+    width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+
+}
+
+.mypage-project .tab-list ul:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+	
+.mypage-project .tab-list ul li {		/*각각의 펀딩한, 좋아한, 만든*/
+    float: left;
+    width: 33.33333%;
+}
+
+@media screen and (min-width: 960px)
+.mypage-project .tab-list ul li {
+    width: auto;
+    margin-right: 24px;
+}
+
+.mypage-project .tab-list ul li a {		/*각 a 링크들*/
+    display: block;
+    width: 100%;
+    height: 47px;
+    font-size: 15px;
+    line-height: 48px;
+    color: #90949c;
+    text-align: center;
+    border-bottom: 1px solid #fff;
+    text-decoration: none;
+}
+
+.mypage-project .tab-list ul li.active a {		/*활성화된 li 태그*/
+    color: #00BF99;
+    height: 47px;
+    border-bottom: 2px solid #00CCA3;
+}
+
+.mypage-project .project-list {	/*만든 프로젝트가 없습니다, 혹은 있다면 프로젝트의 내용들*/
+    width: 100%;
+    padding: 0;
+    background: #F5F7FA;
+}
+
+@media screen and (min-width: 960px)		/*프로젝트 분류. 전체 ...*/
+.mypage-project .top-area {
+    width: 960px;
+    margin: 0 auto;
+    padding: 16px 24px 35px;
+}
+
+.mypage-project .top-area {
+    position: relative;
+    padding: 16px 16px 24px;
+   
+}
+
+@media screen and (min-width: 960px)			/*전체 셀렉트 박스*/
+.mypage-project .top-area .select-box {
+    right: 66px !important;
+}
+
+
+.mypage-project .top-area .select-box {
+    position: absolute;
+    right: 16px;
+    top: 3px;
+    height: 40px;
+}
+
+.mypage-project .top-area .select-box:before {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 20px;
+    line-height: 46px;
+    color: #60656A;
+    vertical-align: middle;
+}
+
+.icon-expand-more:before, i.icon.expand-more:before, i.wadizicon.wa-expand-more:before {
+    content: "\E94E";
+}
+
+[class*=icon-]:before, i.icon:before, i.wadizicon {
+    display: inline-block;
+    margin-top: -.2em;
+    vertical-align: middle;
+    text-transform: none;
+    line-height: 1;
+    font-family: wadizicon!important;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-style: normal;
+    font-variant: normal;
+    speak: none;
+}
+
+.mypage-project .top-area .select-box select {		/*전체라는 글자*/
+    position: relative;
+    padding: 0 24px 0 0;
+    font-size: 13px;
+    font-weight: 400;
+    height: 40px;
+    line-height: 40px;
+    color: #44484b;
+    background: none;
+    border: none;
+    text-align-last: right;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    z-index: 10;
+}
+
+.mypage-project .top-area .select-box select option {
+    display: inline-block;
+}
+
+.mypage-project .card-list {		/*실제 프로젝트 내용*/
+    width: 100%;
+}
+
+#emptyProjectText {		/*만든 프로젝트가 없습니다*/
+    display: none;
+    padding: 80px 0;
+    text-align: center;
+    line-height: 24px;
+    letter-spacing: -0.5;
+    font-size: 17px;
+    color: #44484B;
+}
+
+#emptyProjectText {		/*있다면 표시될 내용*/
+    display: none;
+    padding: 80px 0;
+    text-align: center;
+    line-height: 24px;
+    letter-spacing: -0.5;
+    font-size: 17px;
+    color: #44484B;
+}
+
+.mypage-project .card-list ul {
+    padding: 0 16px;
+    margin: 0;
+}
+
+@media screen and (min-width: 960px)
+.mypage-project .card-list ul:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+/*모달 CSS*/
+
+/* .modal {
+	
+	display: none;
+	position: fixed;
+	z-index: 101; 100짜리가 있다. tab-list
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;  스크롤 필요할 경우
+	background-color: rgba(0, 0, 0, 0.4);	반투명
+
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;  위로부터 15%, 좌우는 가운데
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%;
+}
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+ */
+ 
+ #imgUpload {
+ 	display: none;
+ }
+ 
+ #imgForm {
+ 	display: none;
+ }
+
+
+
+
