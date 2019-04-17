@@ -3,9 +3,10 @@ package com.kosmo.insomnia.service;
 import java.sql.Date;
 
 public class MemberDTO {
+	
 	private String id;
 	private String password;
-	private String name;   //추가 서기환
+	private String gender;
 	private String profile_img;
 	private String birthDay;
 	private String zip_code;
@@ -15,10 +16,11 @@ public class MemberDTO {
 	private String phone;
 	private String bank_name;
 	private String bank_serial;
-	private String sms_receive;  //추가 서기환
 	private String email_recieve;
+	private String name;
 	private Date join_date;
-	private String email;  //추가 서기환
+	private String is_activation;
+	private String activation_key;
 	
 	public String getId() {
 		return id;
@@ -98,30 +100,30 @@ public class MemberDTO {
 	public void setJoin_date(Date join_date) {
 		this.join_date = join_date;
 	}
-	
-	
-	//추가된 게터세터 - 서기환
+	public String getIs_activation() {
+		return is_activation;
+	}
+	public void setIs_activation(String is_activation) {
+		this.is_activation = is_activation;
+	}
+	public String getActivation_key() {
+		return activation_key;
+	}
+	public void setActivation_key(String activation_key) {
+		this.activation_key = activation_key;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getSms_receive() {
-		return sms_receive;
+	public String getGender() {
+		return gender;
 	}
-	public void setSms_receive(String sms_receive) {
-		this.sms_receive = sms_receive;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	
-	
 	
 	
 	

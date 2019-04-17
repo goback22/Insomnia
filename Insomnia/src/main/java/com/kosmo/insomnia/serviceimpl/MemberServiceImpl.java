@@ -60,6 +60,11 @@ public class MemberServiceImpl implements MemberService{
 	public boolean socialRegister(Map map) {
 		return dao.socialRegister(map);
 	}
+	
+	@Override
+	public int checkSignup(String id) {
+		return dao.checkSignup(id);
+	}
 
 	
 }

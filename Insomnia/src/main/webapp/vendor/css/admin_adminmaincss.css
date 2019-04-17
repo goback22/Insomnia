@@ -1,4 +1,8 @@
 @charset "UTF-8";
+.pcs:after { content: " pcs"; }
+.cur:after { content: " 원"; }
+.per:after { content: "%"; }
+.people:after { content: " 명"; }
 
 .nav {
 	padding-left: 0;

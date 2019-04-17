@@ -1,7 +1,5 @@
 @charset "UTF-8";
-.pcs:after { content: " pcs"; }
-.cur:before { content: "$"; }
-.per:after { content: "%"; }
+
 
 
 .view{

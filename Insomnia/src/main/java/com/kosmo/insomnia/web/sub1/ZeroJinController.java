@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.ls.LSInput;
 
+import com.kosmo.insomnia.service.BGSConcertDTO;
+import com.kosmo.insomnia.service.BGSConcertService;
 import com.kosmo.insomnia.service.ListDTO;
 import com.kosmo.insomnia.serviceimpl.CommentServiceImpl;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
@@ -33,6 +36,11 @@ public class ZeroJinController {
 	@Resource(name="commentService")
 	private CommentServiceImpl commentService;
 
+	@Resource(name="bGSConcertService")
+	private BGSConcertService bGSConcertService;
+	
+	
+	
 	   // 로그인
 	   @RequestMapping(value = "/login.ins")
 	   public String login(HttpSession session, Model model, @RequestParam Map map) throws Exception {
@@ -90,11 +98,10 @@ public class ZeroJinController {
 		List<ListDTO> list = insService.selectList(map);
 		String pagingString = PagingUtil.pagingBootStrapStyle(totalRecordCount, pageSize, blockPage, nowPage,
 				req.getContextPath() + "/sub1/subcontent.ins?");
-		System.out.println("totalRecordCount : " + totalRecordCount);
-		System.out.println("pageSize : " + pageSize);
-		System.out.println("blockPage" + blockPage);
-		System.out.println("nowPage" + nowPage);
-		
+//		System.out.println("totalRecordCount : " + totalRecordCount);
+//		System.out.println("pageSize : " + pageSize);
+//		System.out.println("blockPage" + blockPage);
+//		System.out.println("nowPage" + nowPage);
 
 		model.addAttribute("list", list);
 		model.addAttribute("nowPage", nowPage);
@@ -102,6 +109,12 @@ public class ZeroJinController {
 		model.addAttribute("totalRecordCount", totalRecordCount);
 		model.addAttribute("pagingString", pagingString);
 
+		
+		List<Map> product_List = bGSConcertService.selectList();
+		
+		model.addAttribute("bgs1", product_List.get(0));
+		model.addAttribute("bgs2", product_List.get(1));		
+		
 		return "/sub1/subcontent.tiles";
 	}
 

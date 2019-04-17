@@ -7,7 +7,7 @@
 	<packaging>war</packaging>
 	<artifactId>insomnia</artifactId>
 	<name>Insomnia</name>
-	
+
 	<version>1.0.0</version>
 	<properties>
 		<java-version>1.8</java-version>
@@ -161,9 +161,46 @@
 
 		<!-- JSON라이브러리 -->
 		<dependency>
-		    <groupId>com.googlecode.json-simple</groupId>
-		    <artifactId>json-simple</artifactId>
-		    <version>1.1.1</version>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<!-- 스프링 소셜 라이브러리 추가 -->
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-core</artifactId>
+			<version>1.1.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-config</artifactId>
+			<version>1.1.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-web</artifactId>
+			<version>1.1.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-security</artifactId>
+			<version>1.1.6.RELEASE</version>
+		</dependency>
+
+
+		<!-- 메일인증 라이브러리 -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<!-- mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
 		
 		<!-- 스프링 소셜 라이브러리 추가 -->
@@ -214,7 +251,22 @@
 	    <version>1.4</version>
 	</dependency>
 		
-		
+		<!-- 페이스북 API -->
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-facebook</artifactId>
+			<version>2.0.3.RELEASE</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.el/javax.el-api -->
+		<!-- el문 사용을 위한 라이브러리 -->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+
 	</dependencies>
 	<build>
 		<plugins>

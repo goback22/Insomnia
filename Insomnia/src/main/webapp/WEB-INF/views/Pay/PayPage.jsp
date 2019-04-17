@@ -18,7 +18,15 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- ============= 아임포트 ============== -->
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
+<style>
+	.col-md-3{
+		padding-left: 79px;
+	}
+</style>
 </head>
 <body id="home-version-1" class="home-version-1" data-style="default">
 	<div id="site">
@@ -145,6 +153,14 @@
 								<!-- ==================================================.tbl-order================================================== -->
 								<!-- ============================================================================================================== -->
 								<fieldset>
+								<div class="row">
+									<div class="col-md-9"></div>
+									<div class="col-md-3">
+										<a data-clk="top.ann" href="https://search.naver.com/search.naver?sm=top_ros&amp;fbm=1&amp;ie=utf8&amp;query=%EC%84%B8%EC%9B%94%ED%98%B8+%ED%9D%AC%EC%83%9D%EC%9E%90+5%EC%A3%BC%EA%B8%B0">
+											<img style="position: absolute;" src="https://s.pstatic.net/static/www/mobile/edit/2019/0321/mobile_162311687752.png" width="235" height="45" alt="4·16 세월호 참사" title="4·16 세월호 참사">
+										</a>
+									</div>
+								</div>
 									<legend>주문리스트</legend>
 									<h3>주문리스트</h3>
 									<input type="button" value="추가" class="add_order_list_count">
@@ -183,7 +199,6 @@
 									<!-- ============================================================================================================== -->
 									<!-- ==================================================.tbl-order================================================== -->
 									<!-- ============================================================================================================== -->
-
 
 									<h3>주문자정보</h3>
 									<div class="tbl-order">
@@ -708,11 +723,9 @@
 									<!-- .tbl-pay -->
 
 									<div id="paybutton">
-										<a href="javascript:send();">
-											<button class="btn btn-success btn_FontSize" style="margin-right: 5px;">주문하기</button>
-										</a>
+										<input type="button" id="btn_order_ok" class="btn btn-success btn_FontSize" style="margin-right: 5px;" value="주문하기"/>
 										<a href="javascript:order_cancel('cancel')">
-											<button class="btn btn-default btn_FontSize" style="margin-left: 5px">주문취소</button>
+											<button id="btn_order_cancle" class="btn btn-default btn_FontSize" style="margin-left: 5px">주문취소</button>
 										</a>
 									</div>
 								</fieldset>

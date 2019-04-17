@@ -23,4 +23,7 @@ public interface MemberService {
 	//소셜 회원가입
 	boolean socialRegister(Map map);
 	
+	//아이디 중복확인
+	int checkSignup(String id);
+	
 }
