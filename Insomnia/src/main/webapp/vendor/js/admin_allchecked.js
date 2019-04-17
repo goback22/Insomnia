@@ -4,6 +4,7 @@ $(function(){
 	$(':checkbox:first').click(function(){
 		if($(this).is(':checked')){			
 			$(':checkbox[name=allmember]').prop('checked',true);
+			
 		}
 		else{
 			$(':checkbox[name=allmember]').prop('checked',false);
@@ -18,7 +19,7 @@ $(function(){
 		}
 	});
 	
-	//테이블 우측 수락 삭제버튼
+	//테이블 우측 하단 수락 삭제버튼
 	$('.deny').click(function(){
 		console.log("거부버튼");
 		//$(this).closest('tr').css("display","none");
@@ -36,12 +37,15 @@ $(function(){
 	$(':checkbox[name=allmember]').click(function(){
 		if($(this).is(':checked')){
 			$(this).addClass('readytodelete');
+			$(this).closest('.fold').addClass('readytodelete');
 			console.log("checked");
 		}
 		else{
 			$(this).removeClass('readytodelete');
+			$(this).closest('.fold').removeClass('readytodelete');
 			console.log("unchecked");
 		}
+		
 	});
 	//2 밑에 삭제버튼 클릭시
 //	$('table').next('div').click(function(){

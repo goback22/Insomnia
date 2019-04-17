@@ -39,10 +39,6 @@
 				</button>
 				<a class="navbar-brand" href="<c:url value='/home.ins'/>">ISOMNIA</a>
 				
-				<a class="navbar-brand" href="">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Table
-				</a>
-				<a class="navbar-brand" href="">Chart</a>
 			</div>
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<!-- side -->
@@ -53,32 +49,33 @@
 						<ul id="membersecondlevel">
 						<li><a href="<c:url value='/admin/allmember.ins'/>">전체보기</a></li>
 							<li><a href="<c:url value='/admin/newmember.ins'/>">신규회원</a></li>
+							<li><a href="<c:url value='#'/>">main(band)목록</a></li>
 							<li><a href="<c:url value='/admin/submember.ins'/>">방구석회원</a></li>
-							
 						</ul>
 					</li>
 					<li id="anotherfirstlevel"><a href="#">main content<b class="caret"></b></a>
 					<!--  -->
 						<ul id="anothersecondlevel">
-							<li><a href="<c:url value='/admin/maincontent.ins'/>">main 신청 정보</a></li>
-							<li><a href="#">second level 2</a></li>
+							<li><a href="<c:url value='/admin/maincontentmember.ins'/>">main(band)목록</a></li>
+							<li><a href="<c:url value='/admin/maincontentvote.ins'/>">main 신청 정보</a></li>
+							<li><a href="<c:url value='#'/>">진행중인 밴드목록</a></li>
 						</ul>
 					</li>
 					<li id="anotherfirstlevel2"><a href="#">sub content?<b class="caret"></b></a>
 						<!--  -->
 						<ul id="anothersecondlevel2">
-							<li><a href="<c:url value='/admin/subcontent.ins'/>">sub 메인</a></li>
+							<li><a href="<c:url value='/admin/subcontent.ins'/>">sub content</a></li>
 							<li><a href="#">second level 2</a></li>
 						</ul>
 					</li>
-					<li id="instrumentfirstlevel"><a href="#">물품 목록<b class="caret"></b></a>
+					<li id="instrumentfirstlevel"><a href="#">결제관련<b class="caret"></b></a>
 						<!--  -->
 						<ul id="instrumentsecondlevel">
-							<li><a href="#">보유중</a></li>
-							<li><a href="#">대여중</a></li>
+							<li><a href="<c:url value='/admin/paymain.ins'/>">main 결제</a></li>
+							<li><a href="#">sub 결제</a></li>
 						</ul>
 					</li>
-					<li><a href="#">결제관련</a></li>
+					<li><a href="#">etc</a></li>
 					<li><a href="#">etc</a></li>
 					<li><a href="#">etc</a></li>
 				</ul>
