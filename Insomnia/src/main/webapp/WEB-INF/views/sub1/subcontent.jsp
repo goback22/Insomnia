@@ -20,6 +20,8 @@
 <link href="<c:url value='/vendor/css/jquery.scrolling-tabs.css'/>"
 	rel="stylesheet">
 
+<!-- PayMoving js -->
+<script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
 <script>
 	$(function() {
 		//페이지 뿌리기
@@ -169,7 +171,7 @@
 
 <!-- Dependency Styles -->
 <link rel="stylesheet"
-	href="dependencies/bootstrap/css/bootstrap.min.css" type="text/css">
+	href="<c:url value='/vendor/css/bootstrap.min.css'/>" type="text/css">
 <link rel="stylesheet"
 	href="<c:url value='/vendor/css/stylesheet.css'/>" type="text/css">
 <link rel="stylesheet"
@@ -431,6 +433,7 @@ body {
 											options);
 								</script>
 
+								
 								<div>
 									<div class="option-container">
 										<div class="option-btn"
@@ -445,34 +448,35 @@ body {
 													</div>
 													<div class="option-box option-box-blue">
 														<div class="option-box-left" style="padding-top: 10px">
-															<div class="option-box-amount">오후 16시</div>
+															<div class="option-box-amount">${bgs1.C_CONSERTDATE}</div>
 															<div class="mt5" style="padding-top: 5px">
 																<span><strong>13석 남음</strong></span> <span
 																	style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
 																	12석 판매</span>
 															</div>
 														</div>
+														
 														<div class="option-box-center" style="padding-top: 10px">
-															<div class="option-box-title">[ 방구석 기타리스트 ]</div>
-															<div class="option-box-desc mt5" style="margin-top: 10px">남
-																몰래 갈고 닦은 실력, 무대에서 직접만나보세요</div>
+															<div class="option-box-title">${bgs1.B_TITLE}</div>
+															<div class="option-box-desc mt5" style="margin-top: 10px">${bgs1.B_CONTENT}</div>
 														</div>
 														<div class="box_inventory option_box_grey">
 															<input type="hidden" name="limited_qty_yn" value="">
 															<input type="hidden" name="limited_min_qty" value="1">
 															<input type="hidden" name="limited_max_qty" value="999">
 															<div style="padding-top: 1px;">
-																<span class="txt_count_inventory option_title">수량&nbsp;&nbsp;&nbsp;
-																</span> <input name="qty" type="text" value="1"
-																	style="background-color: black; width: 38px; height: 20px; text-align: center"
+																<span class="txt_count_inventory option_title">수량&nbsp;&nbsp;&nbsp;</span> 
+																<input name="qty" type="text" value="1" style="color:white; background-color: black; width: 38px; height: 20px; text-align: center"
 																	class="input_add" onkeyup="checkQty(this);"
 																	onfocus="this.select();" style="line-height: 18px">
 																<a href="javascript:void(0)" style="font-size: 1.5em">&nbsp;+&nbsp;</a>
 																<a href="javascript:void(0)" style="font-size: 1.5em">-</a>
 															</div>
 															<div style="padding-top: 2px">
-																<span>금액&nbsp;&nbsp;&nbsp;</span> <span>11,000원</span>
-
+																<span>금액&nbsp;&nbsp;&nbsp;</span> <span id="bgs_price"></span>원
+																 <script>
+																	$("#bgs_price").text(String(${bgs1.C_PRICE}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+																</script> 
 															</div>
 														</div>
 													</div>
@@ -480,7 +484,7 @@ body {
 
 												<div class="option-box" style="margin-top: -25px;">
 													<div class="option-box-left">
-														<div class="option-box-amount">오후 20시</div>
+														<div class="option-box-amount">${bgs2.C_CONSERTDATE}</div>
 														<div class="mt5" style="padding-top: 5px">
 															<strong class="font-pink">Sold out</strong> <span
 																style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -488,9 +492,8 @@ body {
 														</div>
 													</div>
 													<div class="option-box-center">
-														<div class="option-box-title">[ 방구석 기타리스트 ]</div>
-														<div class="option-box-desc mt5" style="margin-top: 10px">남
-															몰래 갈고 닦은 실력, 무대에서 직접 만나보세요</div>
+														<div class="option-box-title">${bgs2.B_TITLE}</div>
+														<div class="option-box-desc mt5" style="margin-top: 10px">${bgs2.B_CONTENT}</div>
 													</div>
 													<div class="hidden-xs option-delivery-date">
 														<strong class="font-pink"
@@ -690,7 +693,7 @@ body {
 	<script src="<c:url value='/vendor/js/slick.min.js'/>"></script>
 	<script src="<c:url value='/vendor/js/headroom.js'/>"></script>
 	<script src="<c:url value='/vendor/js/mp3-player-button.js'/>"></script>
-	<script src="<c:url value='/vendor/js/smoke.js'/>"></script>
+	<s7cript src="<c:url value='/vendor/js/smoke.js'/>"></script>
 	<script src="<c:url value='/vendor/js/jquery.fittext.js'/>"></script>
 	<script src="<c:url value='/vendor/js/tilt.jquery.js'/>"></script>
 	<script src="<c:url value='/vendor/js/parallax.min.js'/>"></script>

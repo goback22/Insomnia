@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="MemberDTO" type="com.kosmo.insomnia.service.MemberDTO"/>	
 		<typeAlias alias="ListDTO" type="com.kosmo.insomnia.service.ListDTO"/>
 		<typeAlias alias="CommentDTO" type="com.kosmo.insomnia.service.CommentDTO"/>	
+		<typeAlias alias="BGSConcertDTO" type="com.kosmo.insomnia.service.BGSConcertDTO"/>	
 	</typeAliases>
 	
 	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 -->	
@@ -20,6 +21,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mapper/Zerojin_List.xml" />
 		<mapper resource="mapper/Zerojin_Comment.xml" />
 		<mapper resource="mapper/sgh.xml" />
+		<mapper resource="mapper/bgsConcert.xml" />
 	</mappers>
 	
 </configuration>
