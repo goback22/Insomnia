@@ -11,40 +11,55 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-	<mvc:annotation-driven/>
-	<mvc:default-servlet-handler/>
-	
-	
-	<!-- tiles사용을 위한 bean등록-->
-	<bean  class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-			<property name="definitions">
-				<list>
-					<value>/WEB-INF/template/layouts.xml</value>
-				</list>
-			</property>		
-	</bean>	
-	
+	<mvc:annotation-driven
+		content-negotiation-manager="contentNegotiationManager" />
+	<bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="false" />
+		<property name="favorParameter" value="true" />
+		<property name="ignoreAcceptHeader" value="false" />
+	</bean>
+	<mvc:default-servlet-handler />
+
+
+	<!-- tiles사용을 위한 bean등록 -->
+	<bean
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/template/layouts.xml</value>
+			</list>
+		</property>
+	</bean>
+
 	<!-- tiles를 처리하도록 또 다른 뷰리졸버 등록 -->
-	<bean  class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-			<property name="order" value="0"/> 			
-			<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
-			
-	 </bean>
-	
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="order" value="1"/> 
+	<bean
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="order" value="0" />
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+
+	</bean>
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="1" />
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	 
-	
+
+
 	<!-- 하위 패키지 컨트롤러 자동 스캔 -->
-	<context:component-scan base-package="com.kosmo.insomnia" />
-	
-		 <!-- 리소스파일(.properties) 사용을 위한 설정 --> 
-	<context:property-placeholder location="classpath:memo/memo.properties"/>	
-	 
-	<!-- <context:property-placeholder location="classpath:my/social.properties" /> -->
-	
+	<context:component-scan
+		base-package="com.kosmo.insomnia" />
+
+	<!-- 리소스파일(.properties) 사용을 위한 설정 -->
+	<context:property-placeholder
+		location="classpath:memo/memo.properties" />
+
+	<!-- <context:property-placeholder location="classpath:my/social.properties" 
+		/> -->
+
 </beans>
