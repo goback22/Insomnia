@@ -86,6 +86,7 @@ public class ZeroJinController {
 
    }*/
 
+
 	// 로그아웃
 	@RequestMapping("/logout.ins")
 	public String logout(HttpSession session) throws Exception {
@@ -214,9 +215,9 @@ public class ZeroJinController {
 		
 		//날짜 값을 문자열으로 변경
 		for(Map comment:comments) {
-			comment.put("C_POST_DATE", comment.get("C_POST_DATE").toString().substring(0,10));
+			comment.put("POSTDATE", comment.get("POSTDATE").toString().substring(0,10));
 			//엔터 값
-			comment.put("C_CONTENT", comment.get("C_CONTENT").toString().replace("\r\n", "<br/>"));
+			comment.put("CONTENT", comment.get("CONTENT").toString().replace("\r\n", "<br/>"));
 		}
 		
 		return JSONArray.toJSONString(comments);
@@ -232,7 +233,7 @@ public class ZeroJinController {
 		
 		commentService.insert(map);
 		
-		return map.get("c_no").toString();
+		return map.get("r_no").toString();
 	}//write
 	
 	//코멘트 수정처리]
@@ -250,9 +251,8 @@ public class ZeroJinController {
 	@RequestMapping(value="/sub1/memodelete.ins",produces="text/html; charset=UTF-8")
 	public String delete(@RequestParam Map map) throws Exception{
 		//서비스 호출]
-		System.out.println("?");
 		commentService.delete(map);
-		System.out.println("???");
+		
 		return "";
 	}//	
 }

@@ -2,50 +2,22 @@ package com.kosmo.insomnia.service;
 
 public class CommentDTO {
 	//멤버 변수
-	private String s_no;
-	private String c_step;
-	private String c_depth;
+	private String r_no;
 	private String id;
-	private String c_stars;
-	private String c_content;
-	private String c_post_date;
-	private String c_liked;
-	private String c_no;
-	
+	private String stars;
+	private String bgsco_no;
+	private String content;
+	private String postdate;
+
 	//이름	
 	private String name;
-	
-	//Getter and Setter
-	public String getS_no() {
-		return s_no;
-	}
-	
-	public void setS_no(String s_no) {
-		this.s_no = s_no;
-	}
-	
-	public String getC_no() {
-		return c_no;
-	}
-	
-	public void setC_no(String c_no) {
-		this.c_no = c_no;
+
+	public String getR_no() {
+		return r_no;
 	}
 
-	public String getC_step() {
-		return c_step;
-	}
-
-	public void setC_step(String c_step) {
-		this.c_step = c_step;
-	}
-
-	public String getC_depth() {
-		return c_depth;
-	}
-
-	public void setC_depth(String c_depth) {
-		this.c_depth = c_depth;
+	public void setR_no(String r_no) {
+		this.r_no = r_no;
 	}
 
 	public String getId() {
@@ -56,36 +28,36 @@ public class CommentDTO {
 		this.id = id;
 	}
 
-	public String getC_stars() {
-		return c_stars;
+	public String getStars() {
+		return stars;
 	}
 
-	public void setC_stars(String c_stars) {
-		this.c_stars = c_stars;
+	public void setStars(String stars) {
+		this.stars = stars;
 	}
 
-	public String getC_content() {
-		return c_content;
+	public String getBgsco_no() {
+		return bgsco_no;
 	}
 
-	public void setC_content(String c_content) {
-		this.c_content = c_content;
+	public void setBgsco_no(String bgsco_no) {
+		this.bgsco_no = bgsco_no;
 	}
 
-	public String getC_post_date() {
-		return c_post_date;
+	public String getContent() {
+		return content;
 	}
 
-	public void setC_post_date(String c_post_date) {
-		this.c_post_date = c_post_date;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public String getC_liked() {
-		return c_liked;
+	public String getPostdate() {
+		return postdate;
 	}
 
-	public void setC_liked(String c_liked) {
-		this.c_liked = c_liked;
+	public void setPostdate(String postdate) {
+		this.postdate = postdate;
 	}
 
 	public String getName() {
@@ -95,5 +67,9 @@ public class CommentDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	//Getter and Setter
+	
+	
 	
 }//class
