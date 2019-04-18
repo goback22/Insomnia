@@ -47,7 +47,7 @@ public class MemberDAO implements MemberService {
 	
 	@Override
 	public int update(Map map) {
-		return 0;
+		return template.update("update_Member", map);
 	}
 	
 	//소셜 로그인
