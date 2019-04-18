@@ -154,12 +154,21 @@ element.style {		/*프로필 이미지 나오나?*/
     background-size: cover;
 }
 
-.myinfo-content .profile-img, .myinfo-content .profile-img:after {	/*프로필 이미지*/
+.myinfo-content .profile-img, .myinfo-content .profile-img2:after {	/*프로필 이미지*/
     width: 96px;
     height: 96px;
     box-sizing: border-box;
     border-radius: 100%;
 }
+
+.myinfo-content .profile-img, .myinfo-content .profile-img2 {	/*프로필 이미지*/
+    width: 96px;
+    height: 96px;
+    box-sizing: border-box;
+    border-radius: 100%;
+}
+
+
 
 .editImage {
 	font-family: Roboto, 'Noto Sans KR', sans-serif;

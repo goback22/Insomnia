@@ -56,7 +56,6 @@ public class MemberDAO implements MemberService {
 		return (Integer)template.selectOne("isSocialMember", map) == 1 ? true: false;
 	}
 	
-	
 	//소셜 회원가입
 	@Override
 	public boolean socialRegister(Map map) {

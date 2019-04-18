@@ -20,9 +20,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
@@ -51,6 +53,8 @@ public class SGHController {
 		//서비스 객체를 통해 DTO객체 받기
 		MemberDTO record = memberService.selectOne(map);
 		
+		record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+		 
 		System.out.println("갖고온 이름은? " + record.getName());
 		
 		//반환한 레코드 객체(1명) 모델에 담아서 반환
@@ -160,9 +164,6 @@ public class SGHController {
 		String physicalPath = mhsr.getServletContext().getRealPath("/upload");
 		MultipartFile upload = mhsr.getFile("imgUpload");
 		
-		System.out.println("physicalPath는?" + physicalPath);
-		System.out.println("upload객체 널이야?" + upload);
-		
 		//2] 파일객체 생성/ 파일 이름 중복시 이름변경
 		String newFileName = FileUpDownUtils.getNewFileName(physicalPath, upload.getOriginalFilename());
 		File file = new File(physicalPath + File.separator + newFileName);
@@ -172,7 +173,9 @@ public class SGHController {
 		//DB에 저장- 이걸 완료해야 뷰단에서 이미지 구분해서 보임
 		map.put("profile_img", newFileName);
 		map.put("id", session.getAttribute("id"));
+		
 		memberService.update(map);
+
 		
 		//4]리퀘스트 영역에 데이터 저장
 		mhsr.setAttribute("fileName", newFileName);
@@ -192,6 +195,30 @@ public class SGHController {
 		
 		
 		return JSONArray.toJSONString(historyList);
+	}
+	
+	@ResponseBody  //요거 꼭 붙여야 됨
+	@RequestMapping(value="/edit/profileImgAjax.ins", produces="text/html; charset=UTF-8")  //한글깨짐 방지
+	public String editProfileImgAjax(@RequestParam Map map, MultipartHttpServletRequest mhsr, Model model, Map dismap, HttpSession session, MultipartRequest multipartRequest) throws Exception {
+		
+		String physicalPath = mhsr.getServletContext().getRealPath("/upload");
+		//MultipartFile upload = mhsr.getFile("imgUpload");
+		MultipartFile upload = multipartRequest.getFile("imgUpload");
+		
+		String newFileName = FileUpDownUtils.getNewFileName(physicalPath, upload.getOriginalFilename());///upload가 null인듯
+		File file = new File(physicalPath + File.separator + newFileName);
+		
+		System.out.println("newFileName은? " + newFileName);
+		
+		upload.transferTo(file);
+		
+		dismap.put("profile_img", newFileName);
+		dismap.put("id", session.getAttribute("id"));
+		
+		memberService.update(dismap);
+		
+		return newFileName;
+	
 	}
 	
 	

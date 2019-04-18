@@ -1,10 +1,12 @@
 package com.kosmo.insomnia.web.sub1;
 
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
@@ -22,6 +24,7 @@ import org.w3c.dom.ls.LSInput;
 import com.kosmo.insomnia.service.BGSConcertDTO;
 import com.kosmo.insomnia.service.BGSConcertService;
 import com.kosmo.insomnia.service.ListDTO;
+import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.serviceimpl.CommentServiceImpl;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
@@ -39,24 +42,49 @@ public class ZeroJinController {
 	@Resource(name="bGSConcertService")
 	private BGSConcertService bGSConcertService;
 	
+	@Resource
+	private MemberServiceImpl memberService;
 	
 	
-	   // 로그인
-	   @RequestMapping(value = "/login.ins")
-	   public String login(HttpSession session, Model model, @RequestParam Map map) throws Exception {
-	      boolean flag = insService.isMember(map);
-	      if (flag) {
-	         session.setAttribute("id", map.get("id"));
+	
+   // 로그인
+   @RequestMapping(value = "/login.ins")
+   public String login(HttpSession session, Model model, @RequestParam Map map) throws Exception {
+	   
+      boolean flag = insService.isMember(map);
+      
+      if(flag) {
+    	  
+    	  session.setAttribute("id", map.get("id"));
+    	  
+    	  MemberDTO record = memberService.selectOne(map);
+    	  model.addAttribute("record", record);
+    	  
+    	  System.out.println("받아오나? 이름은?" + record.getName());
+    	  
+    	  if(map.get("id").equals("admin")) {
+    		  return "/admin/AdminIndex";
+    	  }
+    	  
+      } else {
+    	  model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
+    	 /* return "forward:/loginErr/ajax.ins";*/
+      }
+      
+      return "home.tiles";
+      
+   }
+   
+   
+ /*  ////로그인 ajax
+   @ResponseBody
+   @RequestMapping(value="/loginErr/ajax.ins", produces="text/html; charset=UTF-8")
+   public String loginErrAjax(Model model) throws Exception {
+	   
+	   model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
+	   return "틀렸습니다.";
 
-	         // admin@naver.com으로 로그인시 바로 관리자 페이지로 이동 - 임시
-	         if (map.get("id").equals("admin")) {
-	            return "/admin/AdminIndex";
-	         }
-	      } else
-	         model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
-
-	      return "home.tiles";
-	   }
+   }*/
 
 	// 로그아웃
 	@RequestMapping("/logout.ins")

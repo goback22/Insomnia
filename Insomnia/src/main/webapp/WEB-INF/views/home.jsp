@@ -111,7 +111,7 @@ body {
 
 
 			<!-- 여기부터 -->
-
+			<p id="isError" style="display:none;">${errorMessage}</p>
 			<!-- 로그인/회원정보 페이지 시작 -->
 			<c:if test="${empty sessionScope.id}" var="result">
 				<!-- 비로그인 시 보여줄 화면 시작-->
@@ -136,8 +136,8 @@ body {
 										class="input-text" maxlength="17"
 										placeholder="비밀번호(영문, 숫자, 특수문자 포함 8자)">
 								</div>
-								<p id="loginError" class="error-text">와디즈에 등록되지 않은 아이디거나,
-									아이디 또는 비밀번호가 회원정보와 일치하지 않습니다.</p>
+								<p id="loginError" class="error-text">와디즈에 등록되지 않은 아이디거나,</br>
+									비밀번호가 회원정보와 일치하지 않습니다.</p>
 							</div>
 
 							<div class="login-action">
@@ -220,32 +220,15 @@ body {
 							src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
 
 						<div id="naver_id_login" style="display: none;"></div>
+						
+						<%-- <!-- 새로 만든 개인정보 화면 -->
+						<img id="userImg" src="${record.profile_img}">
+						<div id="userName">${record.name}</div>
+						<div id="birthPromotion">${record.birthDay}</div> --%>
+						
 
 
-						<!-- 일반 로그인 시 보여줄 화면-->
-						<c:if test="${empty socialName}" var="socialResult">
-							<p style="font-weight: bold; font-size: 1.1em; color: white;">${id}님
-								안녕하세요!</p>
-						</c:if>
-						<!-- 일반 로그인 시 보여줄 화면 끝-->
-
-						<!-- 소셜 로그인 시 보여줄 화면 시작 -->
-						<c:if test="${not socialResult}">
-							<프로필 사진> <img src="${socialProfile}" />
-							<p style="font-weight: bold; font-size: 1.1em; color: orange;">${socialName}님
-								안녕하세요!</p>
-							<p style="font-weight: bold; font-size: 1.1em; color: orange;">${socialEmail}</br>로
-								이메일 인증을 진행하세요!
-							</p>
-							<p style="font-weight: bold; font-size: 1.1em; color: white;">
-								회원님의 생일이 </br> <i style="color: orange; font-size: 30px;">${socialBirth}</i>인가요?</br>
-								회원님의 생일에 특별한 혜택을 누려보세요.
-							</p>
-						</c:if>
-						<!-- 소셜 로그인 시 보여줄 화면 끝 -->
-
-
-						<a href="<c:url value='/menu/mypage.ins'/>"
+						<%-- <a href="<c:url value='/menu/mypage.ins'/>"
 							style="display: block;">마이페이지 이동</a> <a
 							href="<c:url value='/menu/mypage/edit.ins'/>"
 							style="display: block;">개인정보 수정</a> <a
@@ -256,7 +239,59 @@ body {
 						<div class="offset-social-two">
 							<a href=""> <img
 								src="<c:url value='/resource/img/logo_5.png'/>" alt=""></a>
-						</div>
+						</div> --%>
+						
+						
+						<!-- 여기부터 -->
+				<div class="wz-popover-user user-private">
+	            <div class="user-profile">
+              		<!-- <a href="javascript:void(0)"> 이름 -->
+                		<!-- <div class="user-picture" role="img"></div> -->
+                		<img class="user-picture" src="<c:url value='/upload/${record.profile_img}'/>"/>
+              		<!-- </a> -->
+              <p><a href="<c:url value='/menu/mypage.ins'/>" class="user-link">${record.name}</a></p>
+              <dl class="user-benefit">
+                <dt>쿠폰</dt>
+                <dd><a href="/web/wmypage/mybenefit/coupon/my"><span id="header-user-coupon">0</span>장</a></dd>
+                <dt>포인트</dt>
+                <dd><a href="/web/wmypage/mybenefit/pointlist"><span id="header-user-point">0</span>P</a></dd>
+              </dl>
+            </div>
+            <ul class="user-menu">
+              <li>
+                  <a id="btn-myequity" class="icon-my-equity" href="javascript:void(0)" data-is-valid-email="true">
+                    	나의 투자
+                  </a>
+              </li>
+              <li><a href="javascript:void(0)" class="icon-my-reward">나의 리워드</a></li>
+              <li><a href="javascript:void(0)" class="icon-group-o">팔로잉</a></li>
+              <li><a href="javascript:void(0)" class="icon-favorite-o">좋아한</a></li>
+              <!-- <li class="menu-event-reward"><a href="javascript:void(0)" class="icon-gift-o">친구 초대하기</a></li> -->
+            </ul>
+            <!-- display:none 시작 -->
+            <ul id="header-user-myproject" class="maker-menu" style="display: none">
+              <li><a href="javascript:void(0)" class="icon-archive-o">만든 프로젝트 <span style="display: none"></span></a></li>
+            </ul>
+            <!-- display:none 끝 -->
+            <ul class="unb">
+              <li>
+                <a id="header-user-message" class="icon-chat-o" href="javascript:void(0)">
+                  		메시지<span class="wz primary empty badge"></span>
+                </a>
+              </li>
+              <li><a class="icon-gift-o" href="javascript:void(0)">친구 초대하기</a></li>
+              <li><a class="icon-setting-o" href="javascript:void(0)">설정</a></li>
+              <li><a class="icon-app-out" href="<c:url value='/logout.ins'/>">로그아웃</a></li>
+            </ul>
+            
+          </div>
+						
+			<!-- 여기까지 -->
+			<a href="<c:url value='/logout.ins'/>">로그아웃</a>
+						
+						
+						
+						
 					</div>
 				</div>
 				<!-- 로그인 시 보여줄 화면 끝 -->
@@ -527,6 +562,26 @@ body {
 		</script>
 
 		<!-- 아이디 저장 끝(쿠키) -->
+		
+		<!-- 아이디 유효성 -->
+		
+		<script>
+		
+			$(function(){
+				
+				if($('#isError').html() != "") {
+					alert('아이디 혹은 비밀번호가 올바르지 않습니다.');
+					$('#loginError').css('display', 'block');
+				}
+				
+				
+			})
+		
+		
+		</script>
+		
+		
+		
 
 		<!-- í¸ -->
 		<div class="banner">

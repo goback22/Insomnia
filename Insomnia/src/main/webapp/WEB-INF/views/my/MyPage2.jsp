@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/WEB-INF/views/my/isMember.jsp" %>
 
+<script src="http://malsup.github.com/jquery.form.js"></script> 
+
 
 <!-- Site Stylesheet -->
 <link rel="stylesheet" href="<c:url value='/vendor/css/MyPage2CSS.css'/>" />
@@ -55,7 +57,8 @@ body {
 										<p class="otherinfo"></p>
 									</dd>
 									<dt>
-									<c:if test="${empty record.profile_img}" var="isExistProfile">
+									<!-- 비 ajax : 새로고침 된다. -->
+									<%-- <c:if test="${empty record.profile_img}" var="isExistProfile">
 										<em class="profile-img"
 											style="background-image: url(https://www.wadiz.kr/wwwwadiz/green001/sns_profile_pics/20190304205851548_59178389.jpg);"></em>
 										<a id="editImage">이미지 등록</a>
@@ -63,10 +66,13 @@ body {
 									<c:if test="${not isExistProfile}">
 										<img class="profile-img" src="<c:url value='/upload/${fileName}'/>"> <!-- DB에서 갖고오자! -->
 										<a id="editImage">이미지 수정</a>
-									</c:if>
-												
+									</c:if> --%>
+									<!-- ajax -->
+									<img class="profile-img2" src="<c:url value='/upload/${record.profile_img}'/>"/>
+									<a id="editImage">${empty record.profile_img ? '이미지등록' : '이미지수정'}</a>
 									</dt>
 								</dl>
+								<p style="display:hidden" id="imgSrc"></p>
 								<form id="imgForm" action="<c:url value='/edit/profileImg.ins'/>" method="POST" enctype="multipart/form-data">
 										<input type="file" id="imgUpload" name="imgUpload" accept="image/*">
 								</form>
@@ -184,7 +190,10 @@ body {
 		</script> -->
 		<script>
 		
+		
 			$(function(){
+				
+				console.log("콘솔에 찍어본 c:url 주소" + $('.profile-img2').prop('src'));
 				
 				$.ajaxSetup({type:'post'});
 				
@@ -193,26 +202,64 @@ body {
 				});
 				
 				$('#imgUpload').change(function(){
+					
+					
+					var extensionPos = $(this).val().lastIndexOf('.')+1;
+					var extension = $(this).val().substring(extensionPos);
+					console.log("확장자 = " + extension);
+					
+					var match = ['jpg', 'png', 'gif', 'jpeg', 'bmp', 'tif'];
+					
+					console.log("타입은 대체?" + $(this).type);
+					
+					if($.inArray(extension.toLowerCase(), match) == -1) {
+						alert('이미지 파일만 등록해주세요.');
+						return;
+					}
+					
 					var uploadOk = confirm('이미지를 프로필 사진으로 등록하시겠습니까?');
 					
+					//FormData 객체 사용!
+					/* var form = new FormData($('#imgForm'));  */ //자바스크립트 객체의 인자로 제이쿼리 객체 넣어도 되나?
+					
 					if(uploadOk) {
-						방법1. $('#imgForm').submit();
+						//방법1.  
+						//$('#imgForm').submit();
 						//방법2.
-						/* $.ajax({
+						$('#imgForm').ajaxForm({
 							
-							url : '<c:url value="/edit/profileImg.ins"/>',
-							dataType : 'text',
-							data : $('#imgForm').serialize(),
+							url : '<c:url value="/edit/profileImgAjax.ins"/>',
+							enctype: 'multipart/form-data',
+							dataType : 'text',	
 							success : function(data){
 								
-								$('.profile-img').prop('src', data);
+								
+								var pos = $('.profile-img2').prop('src').indexOf("/upload");
+								var srcStr = $('.profile-img2').prop('src').substring(0, pos+7) + "/";
+								
+								 console.log("데이터 " + data);
+								console.log("post "  + pos);
+								console.log("srcStr " + srcStr);
+								
+								 console.log("내가 조합한 주소" + srcStr + data);
+								$('.profile-img2').prop('src', srcStr + data);
+								
+								if($('.editImage').html() == '이미지등록') {
+									$('.editImage').html('이미지수정');
+								}
 								
 							},
-							error : function(data){
+							error : function(request,error){
+								console.log('상태코드:',request.status);
+								console.log('서버로부터 받은 HTML데이타 :',request.responseText);
+								console.log('에러:',error);	
 								
 							}
 							
-						});///$.ajax(); */
+						});///$.ajaxForm(); */
+						
+						$('#imgForm').submit();
+						
 					}
 				});
 				
