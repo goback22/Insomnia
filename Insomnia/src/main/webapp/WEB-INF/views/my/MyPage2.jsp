@@ -61,13 +61,10 @@ body {
 										<a id="editImage">이미지 등록</a>
 									</c:if>
 									<c:if test="${not isExistProfile}">
-										<img class="profile-img" src="<c:url value='/upload/${fileName}'/>">
+										<img class="profile-img" src="<c:url value='/upload/${fileName}'/>"> <!-- DB에서 갖고오자! -->
 										<a id="editImage">이미지 수정</a>
 									</c:if>
-									
-									
-									
-									
+												
 									</dt>
 								</dl>
 								<form id="imgForm" action="<c:url value='/edit/profileImg.ins'/>" method="POST" enctype="multipart/form-data">
@@ -189,6 +186,8 @@ body {
 		
 			$(function(){
 				
+				$.ajaxSetup({type:'post'});
+				
 				$('#editImage').click(function(){
 					$('#imgUpload').trigger('click');
 				});
@@ -197,7 +196,23 @@ body {
 					var uploadOk = confirm('이미지를 프로필 사진으로 등록하시겠습니까?');
 					
 					if(uploadOk) {
-						$('#imgForm').submit();
+						방법1. $('#imgForm').submit();
+						//방법2.
+						/* $.ajax({
+							
+							url : '<c:url value="/edit/profileImg.ins"/>',
+							dataType : 'text',
+							data : $('#imgForm').serialize(),
+							success : function(data){
+								
+								$('.profile-img').prop('src', data);
+								
+							},
+							error : function(data){
+								
+							}
+							
+						});///$.ajax(); */
 					}
 				});
 				
@@ -236,7 +251,7 @@ body {
 			$('.tab-list ul li a').click(function(){
 				
 				$.ajax({
-					url : '/mypage/history.ins',
+					url : '<c:url value="/mypage/history.ins"/>',
 					dataType : 'json',
 					data : {id:"${sessionScope.id}", target:$(this).html()},
 					success : function(data) {

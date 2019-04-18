@@ -3,6 +3,7 @@ package com.kosmo.insomnia.web.my;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -149,7 +150,7 @@ public class SGHController {
 	
 	////////////사진 업로드
 	@RequestMapping("/edit/profileImg.ins")  
-	public String editProfileImg(MultipartHttpServletRequest mhsr, Model model) throws Exception {
+	public String editProfileImg(MultipartHttpServletRequest mhsr, Model model, Map map) throws Exception {
 		
 		//1]서버의 물리적 경로 얻기
 		
@@ -166,6 +167,8 @@ public class SGHController {
 		upload.transferTo(file);
 		
 		//DB에 저장- 이걸 완료해야 뷰단에서 이미지 구분해서 보임
+		map.put("profile_img", newFileName);
+		memberService.update(map);
 		
 		//4]리퀘스트 영역에 데이터 저장
 		mhsr.setAttribute("fileName", newFileName);

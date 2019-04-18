@@ -22,6 +22,10 @@
 	<select id="selectList_reward" parameterType="java.util.Map" resultType="RewardDTO">
 		select s.id, r.r_name, r.r_price, r.r_description from reward r join safepay s where id=#{id}
 	</select>
+	
+	<update id="update_Member" parameterType="java.util.Map">
+		update members set profile_img = #{profile_img} where id = #{id}
+	</update>
 
 
 </mapper>
