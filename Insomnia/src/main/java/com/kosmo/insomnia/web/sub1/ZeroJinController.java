@@ -39,24 +39,22 @@ public class ZeroJinController {
 	@Resource(name="bGSConcertService")
 	private BGSConcertService bGSConcertService;
 	
-	
-	
-	   // 로그인
-	   @RequestMapping(value = "/login.ins")
-	   public String login(HttpSession session, Model model, @RequestParam Map map) throws Exception {
-	      boolean flag = insService.isMember(map);
-	      if (flag) {
-	         session.setAttribute("id", map.get("id"));
-
-	         // admin@naver.com으로 로그인시 바로 관리자 페이지로 이동 - 임시
-	         if (map.get("id").equals("admin")) {
-	            return "/admin/AdminIndex";
-	         }
-	      } else
-	         model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
-
-	      return "home.tiles";
-	   }
+   // 로그인
+    @RequestMapping(value = "/login.ins")
+    public String login(HttpSession session, Model model, @RequestParam Map map) throws Exception {
+       boolean flag = insService.isMember(map);
+       if (flag) {
+          session.setAttribute("id", map.get("id"));
+ 
+          // admin@naver.com으로 로그인시 바로 관리자 페이지로 이동 - 임시
+          if (map.get("id").equals("admin")) {
+             return "/admin/AdminIndex";
+          }
+       } else
+          model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
+ 
+       return "home.tiles";
+    }
 
 	// 로그아웃
 	@RequestMapping("/logout.ins")
@@ -186,9 +184,9 @@ public class ZeroJinController {
 		
 		//날짜 값을 문자열으로 변경
 		for(Map comment:comments) {
-			comment.put("C_POST_DATE", comment.get("C_POST_DATE").toString().substring(0,10));
+			comment.put("POSTDATE", comment.get("POSTDATE").toString().substring(0,10));
 			//엔터 값
-			comment.put("C_CONTENT", comment.get("C_CONTENT").toString().replace("\r\n", "<br/>"));
+			comment.put("CONTENT", comment.get("CONTENT").toString().replace("\r\n", "<br/>"));
 		}
 		
 		return JSONArray.toJSONString(comments);
@@ -204,7 +202,7 @@ public class ZeroJinController {
 		
 		commentService.insert(map);
 		
-		return map.get("c_no").toString();
+		return map.get("r_no").toString();
 	}//write
 	
 	//코멘트 수정처리]
@@ -222,9 +220,8 @@ public class ZeroJinController {
 	@RequestMapping(value="/sub1/memodelete.ins",produces="text/html; charset=UTF-8")
 	public String delete(@RequestParam Map map) throws Exception{
 		//서비스 호출]
-		System.out.println("?");
 		commentService.delete(map);
-		System.out.println("???");
+		
 		return "";
 	}//	
 }

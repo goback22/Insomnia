@@ -6,18 +6,18 @@
 
 <mapper namespace="mapper.Zerojin_Comment">
 	<select id="commentSelectList" parameterType="java.util.Map" resultType="java.util.Map">
-	SELECT m.id,c_content,name,c_post_date,c_no FROM BANDSUBMIT_COMMENT m JOIN members b ON m.id=b.id order by c_no desc
+	SELECT m.id,content,name,postdate,r_no FROM BGSREVIEW m JOIN members b ON m.id=b.id order by r_no desc
 	</select>
 	
 	<insert id="commentInsert" parameterType="java.util.Map" >
-	insert into BANDSUBMIT_COMMENT(c_no,c_content,c_post_date,id) values(seq_memocomment.nextval,#{c_content},default,#{id})
+	insert into BGSREVIEW(r_no,content,postdate,id) values(SEQ_bgsreview.nextval,#{content},default,#{id})
 	</insert>
 	
 	<update id="commentUpdate" parameterType="java.util.Map">
-		UPDATE BANDSUBMIT_COMMENT SET c_content=#{c_content} WHERE c_no =#{c_no}	
+	UPDATE BGSREVIEW SET content=#{content} WHERE r_no =#{r_no}	
 	</update>
 	
 	<delete id="commentDelete" parameterType="java.util.Map">
-	DELETE BANDSUBMIT_COMMENT WHERE c_no =#{c_no}	
+	DELETE FROM BGSREVIEW WHERE r_no =#{r_no}	
 	</delete>
 </mapper>

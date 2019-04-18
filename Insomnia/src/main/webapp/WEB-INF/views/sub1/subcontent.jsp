@@ -55,7 +55,7 @@
 					showComments();
 
 					//입력 댓글 클리어 및 포커스 주기
-					$('#c_content').val('');
+					$('#content').val('');
 					$('#about').focus();
 					
 					//글 수정후 등록버튼으로 다시 교체하기
@@ -109,13 +109,13 @@
 				tableString += "<span>Rated <strong class='rating'>5.00</strong>out of 5</span>";
 				tableString += "</div>";
 				tableString += "<span class='post-date'>"
-						+ element['C_POST_DATE'] + "</span>";
+						+ element['POSTDATE'] + "</span>";
 				tableString += "</div>";
-				tableString += "<span>" + element['C_CONTENT']
+				tableString += "<span>" + element['CONTENT']
 						+ "</span>"
-				tableString += "<a href='#HH' class='commentEdit' title='"+element['C_NO']+"' style='color:white;font-size:0.8em;'>" + '&nbsp&nbsp[수정]' + "<span id='asd' style='display:none;'>"
-						+ element['C_CONTENT'] + "</span></a>"
-				tableString += "<span class='commentDelete' title='"+element['C_NO']+"' style='color:white;font-size:0.8em;cursor:pointer'>"
+				tableString += "<a href='#HH' class='commentEdit' title='"+element['R_NO']+"' style='color:white;font-size:0.8em;'>" + '&nbsp&nbsp[수정]' + "<span id='asd' style='display:none;'>"
+						+ element['CONTENT'] + "</span></a>"
+				tableString += "<span class='commentDelete' title='"+element['R_NO']+"' style='color:white;font-size:0.8em;cursor:pointer'>"
 						+ '&nbsp&nbsp[삭제]' + "</span>";
 				tableString += "</div>";
 			});
@@ -126,14 +126,14 @@
 		
 		//코멘트 수정]
 		$('.commentEdit').click(function(){
-			console.log('클릭한 댓글의 키(C_NO):',$(this).attr('title'));
+			console.log('클릭한 댓글의 키(r_no):',$(this).attr('title'));
 			
 			//클릭한 제목으로 텍스트박스 값 설정
-			$('#c_content').val($(this).children().eq(0).text());
+			$('#content').val($(this).children().eq(0).text());
 			$('#submitComment').val('수정');
 			
 			//form의 hidden속성중 name="cno"값 설정
-			$('input[name=c_no]').val($(this).attr('title'));
+			$('input[name=r_no]').val($(this).attr('title'));
 		});
 
 		//코멘트 삭제 
@@ -143,7 +143,7 @@
 			$.ajax({
 				url : '<c:url value="/sub1/memodelete.ins"/>',
 				data : {
-					c_no : $('.commentDelete').attr('title')
+					r_no : $('.commentDelete').attr('title')
 				},
 				dataType : 'text',
 				type : 'post',
@@ -644,11 +644,11 @@ body {
 												<li class="star"><i class="fa fa-star"></i></li>
 											</ul>
 											<!-- 수정 및 삭제용 파라미터 -->
-											<input type="hidden" name="c_no" /> <input type="hidden"
+											<input type="hidden" name="r_no" /> <input type="hidden"
 												name="name" class="form-fname form-element large"
 												placeholder="Name" style="width: 250px">&nbsp;&nbsp;
 											<br> <br>
-											<textarea name="c_content" id="c_content"
+											<textarea name="content" id="content"
 												class="form-message" placeholder="Review" tabindex="5"
 												style="margin-top: -30px; width: 400px; height: 200px"></textarea>
 											<input type="submit" id="submitComment" value="등록"
