@@ -559,8 +559,7 @@ body {
 									<!-- 검색UI -->
 									<div class="text-center">
 										<form class="form-inline"
-											style="margin-left: 370px; margin-top: 20px" method="post"
-											action="<c:url value='/sub1/subcontent.ins'/>">
+											style="margin-left: 370px; margin-top: 20px" method="post" action="<c:url value='/sub1/subcontent.ins'/>">
 											<div class="form-group">
 												<select name="searchColumn" class="form-control">
 													<option value="ap_title">제목</option>
