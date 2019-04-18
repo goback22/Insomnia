@@ -21,69 +21,11 @@
 						</a>
 					</div>
 
+					<!-- 로그인 아이콘 -->
 					<ul class="user-login">
 						<li><a href="<c:url value='/#'/>" class="off-opener"> <i
 								class="fa fa-bars" aria-hidden="true"></i>
 						</a></li>
-
-
-						<li class="cart-count"><a href="<c:url value='/#'/>"> <i
-								class="fa fa-shopping-cart" aria-hidden="true"></i> <span
-								class="badge">3</span>
-						</a>
-
-							<ul class="custom-content cart-overview">
-								<li class="cart-item clearfix"><a
-									href="single-product.html" class="product-thumbnail"> <img
-										src="<c:url value='/media/product/9.jpg'/>" alt="">
-								</a>
-									<div class="product-details">
-										<a href="single-product.html" class="product-title">Drums
-											&amp; Percussion</a> <span class="product-quantity">1 x</span> <span
-											class="product-price"> <span class="currency">$</span>
-											300
-										</span> <a href="<c:url value='/#'/>"
-											class="product-remove tim-cross-out"></a>
-									</div></li>
-								<li class="cart-item clearfix"><a
-									href="single-product.html" class="product-thumbnail"> <img
-										src="<c:url value='/media/product/10.jpg'/>" alt="">
-								</a>
-									<div class="product-details">
-										<a href="single-product.html" class="product-title">Rocking
-											Guitar</a> <span class="product-quantity">2 x</span> <span
-											class="product-price"> <span class="currency">$</span>
-											250
-										</span> <a href="<c:url value='/#'/>"
-											class="product-remove tim-cross-out"> </a>
-									</div></li>
-								<li class="cart-item clearfix"><a
-									href="single-product.html" class="product-thumbnail"> <img
-										src="<c:url value='/media/product/11.jpg'/>" alt="">
-								</a>
-									<div class="product-details">
-										<a href="single-product.html" class="product-title">Exclusive
-											Headphones</a> <span class="product-quantity">3 x</span> <span
-											class="product-price"> <span class="currency">$</span>
-											550
-										</span> <a href="<c:url value='/#'/>"
-											class="product-remove tim-cross-out"></a>
-									</div></li>
-								<li class="cart-subtotal">Sub Total <span class="amount">
-										<span class="currency">$</span> 1100.00
-								</span>
-								</li>
-								<li class="cart-actions"><a href="cart.html"
-									class="view-cart">View Cart</a> <a href="checkout.html"
-									class="checkout button pill small"> <span
-										class="icon-check"></span> Checkout
-								</a></li>
-							</ul></li>
-						<li><a href="javascript:void(0)" class="search-trigger"><i
-								class="fa fa-search" aria-hidden="true"></i></a>
-							<div class="search-input-wrapper">
-								<input class="search-input" placeholder="Search" type="text">
-							</div></li>
 					</ul>
 
 					<div class="nav">
@@ -95,12 +37,13 @@
 							<li class="menu-item-has-children"><a href="">Introduce</a>
 							</li>
 
-							<li class="menu-item-has-children">
-							<a href="javascript:void(0);">Projects</a>
-								<ul class="sub-menu">
-									<li><a href="<c:url value='/main/mainproject.ins'/>">Main Projects</a></li>
-									<li><a href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
-								</ul></li>
+							<li class="menu-item-has-children"><a
+								href="<c:url value='/main/mainproject.ins'/>">Funding</a>
+							</li>
+
+							<li class="menu-item-has-children"><a
+								href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
+
 							<%
 								if ("admin".equals(session.getAttribute("id")) || "ADMIN".equals(session.getAttribute("id"))) {
 							%>
@@ -111,7 +54,7 @@
 							<%
 								} else {
 							%>
-							
+
 							<li class="menu-item-has-children"><a
 								href="<c:url value='/menu/mypage.ins'/>">My Page</a></li>
 							<%
@@ -127,11 +70,11 @@
 		<!-- /.header-inner -->
 	</header>
 	<!-- /#header -->
-	
-	
-	<!-- 여기부터 -->			
-			
-			<!-- 로그인/회원정보 페이지 시작 -->
+
+
+	<!-- 여기부터 -->
+
+	<!-- 로그인/회원정보 페이지 시작 -->
 	<c:if test="${empty sessionScope.id}" var="result">
 		<!-- 비로그인 시 보여줄 화면 시작-->
 		<div class="offset-menu-two">
@@ -139,7 +82,8 @@
 				src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
 			<div class="div-form-login">
 				<h2 class="text-title">로그인</h2>
-				<form name="form-login" id="form-login" class="form-login" action="<c:url value='/login.ins'/>">
+				<form name="form-login" id="form-login" class="form-login"
+					action="<c:url value='/login.ins'/>">
 
 
 					<div class="field">
@@ -191,7 +135,7 @@
 					<!-- naverLoginBtn -->
 					<div id="naver_id_login">
 						<!-- <button type="button"> -->
-							<%-- <img class="icon"
+						<%-- <img class="icon"
 								src="<c:url value='/resource/img/naver_login_icon.png'/>" /> <i
 								class="naver"></i>네이버 --%>
 						<!-- </button> -->
@@ -225,26 +169,24 @@
 			</div>
 
 		</div>
-		
+
 
 		<!-- 비 로그인시 보여줄 화면 끝-->
 	</c:if>
 	<c:if test="${not result}">
-	
+
 		<script>
 			var isLogined = true;
 		</script>
-	
+
 		<!-- 로그인 시 보여줄 화면 시작 -->
 		<div class="offset-menu-two">
 			<div class="afterLogin" style="margin-top: -370px">
 				<a href="<c:url value='/#'/>" class="offset-closer"> <img
 					style="margin-left: 270px; margin-top: -60px"
 					src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
-					
-					<div id="naver_id_login" style="display: none;">
-					
-					</div>
+
+				<div id="naver_id_login" style="display: none;"></div>
 
 
 				<!-- 일반 로그인 시 보여줄 화면-->
@@ -291,19 +233,19 @@
 
 	<form id="socialForm" action="<c:url value='/login/social.ins'/>"
 		method="POST" style="display: none;">
-		<input type="hidden" name="socialEmail" id="socialEmail" value="" /> <input
-			type="hidden" name="socialName" id="socialName" value="" /> <input
+		<input type="hidden" name="socialEmail" id="socialEmail" value="" />
+		<input type="hidden" name="socialName" id="socialName" value="" /> <input
 			type="hidden" name="socialProfile" id="socialProfile" value="" /> <input
 			type="hidden" name="socialBirth" id="socialBirth" value="" />
 	</form>
 
 	<!-- 소셜 로그인 : 히든 폼 끝 -->
-			
-			
-			
-			<!-- 여기까지 -->
 
-	
+
+
+	<!-- 여기까지 -->
+
+
 
 
 	<!--=============================-->
