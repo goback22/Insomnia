@@ -39,7 +39,10 @@ public class SGHController {
 	public String mypage(HttpSession session, Map map, Model model) throws Exception {
 		
 		//세션에 저장된 아이디값 구하기
-		String id = session.getAttribute("id").toString();
+		String id = session.getAttribute("id") == null ? null : session.getAttribute("id").toString();
+		if(id == null) {
+			return "my/MyPage2.tiles";
+		}
 		
 		System.out.println("저장된 id는 " + id);
 		
@@ -150,7 +153,7 @@ public class SGHController {
 	
 	////////////사진 업로드
 	@RequestMapping("/edit/profileImg.ins")  
-	public String editProfileImg(MultipartHttpServletRequest mhsr, Model model, Map map) throws Exception {
+	public String editProfileImg(MultipartHttpServletRequest mhsr, Model model, Map map, HttpSession session) throws Exception {
 		
 		//1]서버의 물리적 경로 얻기
 		
@@ -168,6 +171,7 @@ public class SGHController {
 		
 		//DB에 저장- 이걸 완료해야 뷰단에서 이미지 구분해서 보임
 		map.put("profile_img", newFileName);
+		map.put("id", session.getAttribute("id"));
 		memberService.update(map);
 		
 		//4]리퀘스트 영역에 데이터 저장
