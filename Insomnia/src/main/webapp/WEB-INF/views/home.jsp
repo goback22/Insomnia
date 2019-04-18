@@ -74,8 +74,6 @@ body {
 									<li class="menu-item-has-children current_page_item"><a
 										href="<c:url value='/#'/>">HOME</a></li>
 
-									<li class="menu-item-has-children"><a href="">Introduce</a>
-									</li>
 
 									<li class="menu-item-has-children"><<a
 										href="<c:url value='/main/mainproject.ins'/>">Funding</a>
