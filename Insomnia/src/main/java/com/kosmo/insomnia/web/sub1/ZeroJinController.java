@@ -45,8 +45,6 @@ public class ZeroJinController {
 	@Resource
 	private MemberServiceImpl memberService;
 	
-	
-	
    // 로그인
    @RequestMapping(value = "/login.ins")
    public String login(HttpSession session, Model model, @RequestParam Map map) throws Exception {
@@ -54,25 +52,20 @@ public class ZeroJinController {
       boolean flag = insService.isMember(map);
       
       if(flag) {
-    	  
     	  session.setAttribute("id", map.get("id"));
     	  
     	  MemberDTO record = memberService.selectOne(map);
     	  model.addAttribute("record", record);
     	  
-    	  System.out.println("받아오나? 이름은?" + record.getName());
-    	  
+//    	  System.out.println("받아오나 이름" + record.getName());
     	  if(map.get("id").equals("admin")) {
     		  return "/admin/AdminIndex";
     	  }
-    	  
       } else {
     	  model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
     	 /* return "forward:/loginErr/ajax.ins";*/
       }
-      
       return "home.tiles";
-      
    }
    
    
@@ -85,7 +78,6 @@ public class ZeroJinController {
 	   return "틀렸습니다.";
 
    }*/
-
 
 	// 로그아웃
 	@RequestMapping("/logout.ins")
@@ -101,17 +93,10 @@ public class ZeroJinController {
 	public String subprojects() throws Exception {
 		return "/sub1/subprojects.tiles";
 	}
-
-	// 목록처리]
-	// 리소스 파일(memo.properties)에서 읽어오기
-	@Value("${PAGESIZE}")
-	private int pageSize;
-	@Value("${BLOCKPAGE}")
-	private int blockPage;
-
-	// 서브 프로젝트 -> 방구석 기타리스트 // 목록처리
-	@RequestMapping(value = "/sub1/subcontent.ins")
-	public String subcontent(Model model, @RequestParam Map map, HttpServletRequest req,
+	
+	// 서브 프로젝트 게시판
+	@RequestMapping(value = "/sub1/list.ins")
+	public String list(Model model, @RequestParam Map map, HttpServletRequest req,
 			@RequestParam(required = false, defaultValue = "1") int nowPage) throws Exception {
 		int totalRecordCount = insService.getTotalRecord(map);
 
@@ -126,11 +111,7 @@ public class ZeroJinController {
 		// 서비스 호출
 		List<ListDTO> list = insService.selectList(map);
 		String pagingString = PagingUtil.pagingBootStrapStyle(totalRecordCount, pageSize, blockPage, nowPage,
-				req.getContextPath() + "/sub1/subcontent.ins?");
-//		System.out.println("totalRecordCount : " + totalRecordCount);
-//		System.out.println("pageSize : " + pageSize);
-//		System.out.println("blockPage" + blockPage);
-//		System.out.println("nowPage" + nowPage);
+				req.getContextPath() + "/sub1/list.ins?");
 
 		model.addAttribute("list", list);
 		model.addAttribute("nowPage", nowPage);
@@ -142,8 +123,22 @@ public class ZeroJinController {
 		List<Map> product_List = bGSConcertService.selectList();
 		
 		model.addAttribute("bgs1", product_List.get(0));
-		model.addAttribute("bgs2", product_List.get(1));		
+		model.addAttribute("bgs2", product_List.get(1));	
 		
+		return "/sub1/list.tiles";
+	}
+
+	// 목록처리]
+	// 리소스 파일(memo.properties)에서 읽어오기
+	@Value("${PAGESIZE}")
+	private int pageSize;
+	@Value("${BLOCKPAGE}")
+	private int blockPage;
+
+	// 서브 프로젝트 -> 방구석 기타리스트 // 목록처리
+	@RequestMapping(value = "/sub1/subcontent.ins")
+	public String subcontent() throws Exception {
+	
 		return "/sub1/subcontent.tiles";
 	}
 
@@ -161,7 +156,7 @@ public class ZeroJinController {
 
 		insService.insert(map);
 
-		return "forward:/sub1/subcontent.ins";
+		return "forward:/sub1/list.ins";
 	}
 
 	// 방구석 기타리스트 - view

@@ -89,7 +89,7 @@
 								placeholder="이메일 아이디">
 							<!-- 타입 email 에서 text로 -->
 						</div>
-						<p id="emailError" class="error-text">이메일 형식이 올바르지 않습니다.</p>
+<!-- 						<p id="emailError" class="error-text">이메일 형식이 올바르지 않습니다.</p> -->
 					</div>
 					<div class="field">
 						<div class="input-login">
@@ -97,7 +97,7 @@
 								class="input-text" maxlength="17"
 								placeholder="비밀번호(영문, 숫자, 특수문자 포함 8자)">
 						</div>
-						<p id="loginError" class="error-text">와디즈에 등록되지 않은 아이디거나, 아이디
+						<p id="loginError" class="error-text">Insomnia에 등록되지 않은 아이디거나, 아이디
 							또는 비밀번호가 회원정보와 일치하지 않습니다.</p>
 					</div>
 

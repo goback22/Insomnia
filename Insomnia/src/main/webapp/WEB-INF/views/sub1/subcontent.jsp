@@ -19,6 +19,10 @@
 <link href="<c:url value='/vendor/css/custom.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendor/css/jquery.scrolling-tabs.css'/>"
 	rel="stylesheet">
+	
+<!-- 공지사항 -->
+<script type="text/javascript" src="<c:url value='/vendor/js/obt.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/vendor/js/obt2.js'/>"></script>
 
 <!-- PayMoving js -->
 <script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
@@ -210,6 +214,11 @@ element.style {
 	border: 0px;
 }
 
+div.tab-content.left{
+	margin-left: 50px;
+	margin-top: 20px;
+}
+
 body>#standalone-container {
 	margin: 50px auto;
 	max-width: 720px;
@@ -222,7 +231,7 @@ body>#standalone-container {
 body {
 	/* 	background-color: black; */
 	color: white;
-	background: url('../resource/img/background.jpg');
+	background-image: url('../resource/img/background.jpg');
 }
 
 .text1 {
@@ -305,10 +314,88 @@ body {
 #kyj {
 	margin-left: 0px;
 }
+
+/* notice */
+.notice-obt {
+	position: fixed;
+	width: 420px;
+	height: 407px;
+	color:white;
+	top: 200px;
+	left: 100px;
+	border: 1px solid #ccc;
+	padding: 20px;
+	background: black;
+	z-index: 1000;
+	margin-left:1400px;
+	margin-top:100px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, .5);	
+}
+
+.notice-obt-close {
+	position: relative;
+	cursor: pointer;
+	font-size: 35px;
+	right :	-360px; 
+}
+
+.notice-obt-title {
+	line-height: 80px;
+	font-size: 24px;
+	font-weight: bold;
+	margin-top: -50px;	
+	l
+}
+
+.notice-obt-content {
+	height: 270px;
+	padding: 20px 10px;
+	margin-left: -10px;
+	margin-top: -35px;
+	line-height:2.3em;
+}
+
+.notice-obt-content a {
+	color: #2196F3;
+	font-weight: bold;
+}
+
+.notice-obt-bottom {
+	text-align: right;
+}
 </style>
 </head>
 
 <body id="home-version-1" class="home-version-1" data-style="default">
+<!-- OBT 공지 시작 -->
+	<div class="notice-obt">
+		<div class="notice-obt-close">×</div>
+		<div class="notice-obt-title" style="color: red">' 방구석 기타리스트 가족 모집 '</div>
+		<div class="notice-obt-content">
+			<b>지난해, 모두를 광란의 도가니속으로 몰아 넣었던 
+			<br>`방구석 기타리스트`가 2탄으로 다시 찾아옵니다.</b>
+			<br>
+			<span style="font-style: bold">Insomnia는</span> 공연을 빛내줄 여러분들을 기다립니다.<br>
+			<a href="<c:url value='/sub1/list.ins'/>">모집 게시판</a>을 통해 게시글을 등록해주세요.<br>
+			&lt;참여 조건&gt;
+			<br>연령 : 25세 이상
+			<br>자격 : 음악을 사랑하는 누구나
+			<br>신청 기간 : ~  2019.  5.  29
+			<br>응모 발표  : 2019.  6.  6 
+		</div>
+		<div class="notice-obt-bottom">
+			<img style="margin-top: 24px;height: 70px;width: 145px;"src="<c:url value='/resource/img/logo_5.png'/>">
+		</div>
+	</div>
+	<!-- OBT 공지 끝 -->
+	
+	<script>
+	$('.notice-obt-close').on('click', function() {
+		$('.notice-obt').remove();
+	});
+</script>
+	
+	
 	<div id="site">
 		<!--=========================-->
 		<!--=        Navbar         =-->
@@ -342,8 +429,6 @@ body {
 					<ul class="nav product-tabs" role="tablist" id="abd">
 						<li class="nav-item"><a class="nav-link active"
 							href="#profile" role="tab" data-toggle="tab">Description</a></li>
-						<li class="nav-item"><a class="nav-link" href="#buzz"
-							role="tab" data-toggle="tab">Recruit</a></li>
 						<li class="nav-item"><a class="nav-link" href="#references"
 							role="tab" data-toggle="tab">Reviews</a></li>
 					</ul>
@@ -511,75 +596,7 @@ body {
 							</div>
 						</div>
 
-						<!-- 두번째 카테고리 : 기타리스트 모집(게시판)-->
-						<div role="tabpanel" class="tab-pane fade" id="buzz">
-							<div class="row">
-								<div class="col-md-10">
-									<div>
-										<h5 class="comments-title">
-											Recruit Notice Board <a
-												href="<c:url value='/sub1/write.ins'/>"
-												class="btn btn-success" style="margin-left: 850px;">등록</a>
-										</h5>
-									</div>
-									<table class="table table-hover table-bordered text-center">
-										<tr style="height: 35px;">
-											<th style="width: 7%; text-align: center;">번호</th>
-											<th style="width: 70%; text-align: center;">제목</th>
-											<th style="width: 10%; text-align: center;">작성자</th>
-											<th style="width: 13%; text-align: center;">등록일</th>
-										</tr>
-										<c:if test="${empty list }" var="isEmpty">
-											<tr>
-												<td colspan="4">등록된 게시물이 없어요</td>
-											</tr>
-										</c:if>
-										<c:if test="${not isEmpty }">
-											<c:forEach var="item" items="${list}" varStatus="loop">
-												<tr>
-													<td style="text-align: center; padding-top: 10px;">${totalRecordCount - (((nowPage - 1) * pageSize) + loop.index)}</td>
-													<td
-														style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-														href="<c:url value='/sub1/view.ins?ap_no=${item.ap_no}'/>"
-														class="title">${item.ap_title}</a></td>
-													<td style="text-align: center; padding-top: 10px;">${item.name}</td>
-													<td style="text-align: center; padding-top: 10px;">${item.ap_postdate}</td>
-												</tr>
-											</c:forEach>
-										</c:if>
-									</table>
-
-									<!-- 페이징 -->
-									<div class="row">
-										<!-- 페이지네이션 가운데 배치:text-center -->
-										<div class="col-md-12 text-center"
-											style="color: white; margin-left: 550px; margin-top: 10px">${pagingString}</div>
-									</div>
-
-									<!-- 검색UI -->
-									<div class="text-center">
-										<form class="form-inline"
-											style="margin-left: 370px; margin-top: 20px" method="post" action="<c:url value='/sub1/subcontent.ins'/>">
-											<div class="form-group">
-												<select name="searchColumn" class="form-control">
-													<option value="ap_title">제목</option>
-													<option value="name">작성자</option>
-													<option value="ap_content">내용</option>
-												</select>
-											</div>
-											<div class="form-group" style="margin-left: 5px">
-												<input type="text" name="searchWord" class="form-control" />
-											</div>
-											<button style="margin-left: 10px" type="submit" id="temp"
-												class="btn btn-primary">검색</button>
-										</form>
-									</div>
-								</div>
-							</div>
-							<br> <br>
-
-						</div>
-						<!-- 세번째 카테고리 : 리뷰 게시판 -->
+						<!-- 두번째 카테고리 : 리뷰 게시판 -->
 						<div role="tabpanel" class="tab-pane fade" id="references">
 							<div class="tab-content left">
 								<div class="row">
@@ -631,8 +648,8 @@ body {
 								</div>
 
 								<!-- comment 등록 폼 -->
-								<div class="col-md-10" style="margin-top: 75px">
-									<div>
+								<div class="col-md-10" style="margin-top: 75px;">
+									<div style="margin-left: -15px	">
 										<h5 class="comments-title">Write</h5>
 										<form id="frm" method="post" target="param">
 											<ul class="rating">
@@ -650,7 +667,7 @@ body {
 											<br> <br>
 											<textarea name="content" id="content"
 												class="form-message" placeholder="Review" tabindex="5"
-												style="margin-top: -30px; width: 400px; height: 200px"></textarea>
+												style="margin-top: -30px; width: 400px; height: 200px; border-radius: 20px;padding: 20px"></textarea>
 											<input type="submit" id="submitComment" value="등록"
 												class="btn btn-primary "
 												style="width: 80px; margin-top: -30px; margin-left: 20px;">
@@ -667,9 +684,9 @@ body {
 				</div>
 			</div>
 			<!-- /.product-tab-wrapper -->
-	</div>
-	<!-- /.container -->
 	</section>
+	</div> <!-- 끝 -->
+	<!-- /.container -->
 
 	<br>
 	<br>
