@@ -19,7 +19,7 @@
 <link href="<c:url value='/vendor/css/custom.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendor/css/jquery.scrolling-tabs.css'/>"
 	rel="stylesheet">
-	
+
 <!-- 공지사항 -->
 <script type="text/javascript" src="<c:url value='/vendor/js/obt.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/vendor/js/obt2.js'/>"></script>
@@ -214,7 +214,7 @@ element.style {
 	border: 0px;
 }
 
-div.tab-content.left{
+div.tab-content.left {
 	margin-left: 50px;
 	margin-top: 20px;
 }
@@ -311,39 +311,35 @@ body {
 	margin: auto;
 }
 
-#kyj {
-	margin-left: 0px;
-}
-
 /* notice */
 .notice-obt {
 	position: fixed;
 	width: 420px;
 	height: 407px;
-	color:white;
+	color: white;
 	top: 200px;
 	left: 100px;
 	border: 1px solid #ccc;
 	padding: 20px;
 	background: black;
 	z-index: 1000;
-	margin-left:1400px;
-	margin-top:100px;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, .5);	
+	margin-left: 1400px;
+	margin-top: 100px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
 }
 
 .notice-obt-close {
 	position: relative;
 	cursor: pointer;
 	font-size: 35px;
-	right :	-360px; 
+	right: -360px;
 }
 
 .notice-obt-title {
 	line-height: 80px;
 	font-size: 24px;
 	font-weight: bold;
-	margin-top: -50px;	
+	margin-top: -50px;
 	l
 }
 
@@ -352,7 +348,7 @@ body {
 	padding: 20px 10px;
 	margin-left: -10px;
 	margin-top: -35px;
-	line-height:2.3em;
+	line-height: 2.3em;
 }
 
 .notice-obt-content a {
@@ -367,35 +363,27 @@ body {
 </head>
 
 <body id="home-version-1" class="home-version-1" data-style="default">
-<!-- OBT 공지 시작 -->
+	<!-- 공지 시작 -->
 	<div class="notice-obt">
 		<div class="notice-obt-close">×</div>
-		<div class="notice-obt-title" style="color: red">' 방구석 기타리스트 가족 모집 '</div>
+		<div class="notice-obt-title" style="color: red">' 방구석 기타리스트 가족
+			모집 '</div>
 		<div class="notice-obt-content">
-			<b>지난해, 모두를 광란의 도가니속으로 몰아 넣었던 
-			<br>`방구석 기타리스트`가 2탄으로 다시 찾아옵니다.</b>
-			<br>
-			<span style="font-style: bold">Insomnia는</span> 공연을 빛내줄 여러분들을 기다립니다.<br>
-			<a href="<c:url value='/sub1/list.ins'/>">모집 게시판</a>을 통해 게시글을 등록해주세요.<br>
-			&lt;참여 조건&gt;
-			<br>연령 : 25세 이상
-			<br>자격 : 음악을 사랑하는 누구나
-			<br>신청 기간 : ~  2019.  5.  29
-			<br>응모 발표  : 2019.  6.  6 
+			<b>지난해, 모두를 광란의 도가니속으로 몰아 넣었던 <br>`방구석 기타리스트`가 2탄으로 다시
+				찾아옵니다.
+			</b> <br> <span style="font-style: bold">Insomnia는</span> 공연을 빛내줄
+			여러분들을 기다립니다.<br> <a href="<c:url value='/sub1/list.ins'/>">모집
+				게시판</a>을 통해 게시글을 등록해주세요.<br> &lt;참여 조건&gt; <br>연령 : 25세 이상 <br>자격
+			: 음악을 사랑하는 누구나 <br>신청 기간 : ~ 2019. 5. 29 <br>응모 발표 : 2019.
+			6. 6
 		</div>
 		<div class="notice-obt-bottom">
-			<img style="margin-top: 24px;height: 70px;width: 145px;"src="<c:url value='/resource/img/logo_5.png'/>">
+			<img style="margin-top: 24px; height: 70px; width: 145px;"
+				src="<c:url value='/resource/img/logo_5.png'/>">
 		</div>
 	</div>
-	<!-- OBT 공지 끝 -->
-	
-	<script>
-	$('.notice-obt-close').on('click', function() {
-		$('.notice-obt').remove();
-	});
-</script>
-	
-	
+	<!--  공지 끝 -->
+
 	<div id="site">
 		<!--=========================-->
 		<!--=        Navbar         =-->
@@ -518,7 +506,7 @@ body {
 											options);
 								</script>
 
-								
+
 								<div>
 									<div class="option-container">
 										<div class="option-btn"
@@ -540,7 +528,7 @@ body {
 																	12석 판매</span>
 															</div>
 														</div>
-														
+
 														<div class="option-box-center" style="padding-top: 10px">
 															<div class="option-box-title">${bgs1.B_TITLE}</div>
 															<div class="option-box-desc mt5" style="margin-top: 10px">${bgs1.B_CONTENT}</div>
@@ -550,8 +538,9 @@ body {
 															<input type="hidden" name="limited_min_qty" value="1">
 															<input type="hidden" name="limited_max_qty" value="999">
 															<div style="padding-top: 1px;">
-																<span class="txt_count_inventory option_title">수량&nbsp;&nbsp;&nbsp;</span> 
-																<input name="qty" type="text" value="1" style="color:white; background-color: black; width: 38px; height: 20px; text-align: center"
+																<span class="txt_count_inventory option_title">수량&nbsp;&nbsp;&nbsp;</span>
+																<input name="qty" type="text" value="1"
+																	style="color: white; background-color: black; width: 38px; height: 20px; text-align: center"
 																	class="input_add" onkeyup="checkQty(this);"
 																	onfocus="this.select();" style="line-height: 18px">
 																<a href="javascript:void(0)" style="font-size: 1.5em">&nbsp;+&nbsp;</a>
@@ -559,9 +548,9 @@ body {
 															</div>
 															<div style="padding-top: 2px">
 																<span>금액&nbsp;&nbsp;&nbsp;</span> <span id="bgs_price"></span>원
-																 <script>
+																<script>
 																	$("#bgs_price").text(String(${bgs1.C_PRICE}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
-																</script> 
+																</script>
 															</div>
 														</div>
 													</div>
@@ -621,7 +610,7 @@ body {
 																	alt="Avatar">
 															</div>
 															<div class="comment-content">
-																<h5 class="name" >Michael Cunningham</h5>
+																<h5 class="name">Michael Cunningham</h5>
 																<div class="comment-meta">
 																	<div class="star-rating" id="HH">
 																		<span>Rated <strong class="rating">5.00</strong>
@@ -649,7 +638,7 @@ body {
 
 								<!-- comment 등록 폼 -->
 								<div class="col-md-10" style="margin-top: 75px;">
-									<div style="margin-left: -15px	">
+									<div style="margin-left: -15px">
 										<h5 class="comments-title">Write</h5>
 										<form id="frm" method="post" target="param">
 											<ul class="rating">
@@ -665,13 +654,13 @@ body {
 												name="name" class="form-fname form-element large"
 												placeholder="Name" style="width: 250px">&nbsp;&nbsp;
 											<br> <br>
-											<textarea name="content" id="content"
-												class="form-message" placeholder="Review" tabindex="5"
-												style="margin-top: -30px; width: 400px; height: 200px; border-radius: 20px;padding: 20px"></textarea>
+											<textarea name="content" id="content" class="form-message"
+												placeholder="Review" tabindex="5"
+												style="margin-top: -30px; width: 400px; height: 200px; border-radius: 20px; padding: 20px"></textarea>
 											<input type="submit" id="submitComment" value="등록"
 												class="btn btn-primary "
 												style="width: 80px; margin-top: -30px; margin-left: 20px;">
-												
+
 											<!-- iframe 설정 -->
 											<iframe id="if" name="param"></iframe>
 										</form>
@@ -684,8 +673,9 @@ body {
 				</div>
 			</div>
 			<!-- /.product-tab-wrapper -->
-	</section>
-	</div> <!-- 끝 -->
+		</section>
+	</div>
+	<!-- 끝 -->
 	<!-- /.container -->
 
 	<br>
@@ -709,7 +699,7 @@ body {
 	<script src="<c:url value='/vendor/js/slick.min.js'/>"></script>
 	<script src="<c:url value='/vendor/js/headroom.js'/>"></script>
 	<script src="<c:url value='/vendor/js/mp3-player-button.js'/>"></script>
-	<s7cript src="<c:url value='/vendor/js/smoke.js'/>"></script>
+	<script src="<c:url value='/vendor/js/smoke.js'/>"> </script>
 	<script src="<c:url value='/vendor/js/jquery.fittext.js'/>"></script>
 	<script src="<c:url value='/vendor/js/tilt.jquery.js'/>"></script>
 	<script src="<c:url value='/vendor/js/parallax.min.js'/>"></script>
@@ -719,7 +709,6 @@ body {
 	<script src="<c:url value='/vendor/js/jquery.jplayer.min.js'/>"></script>
 	<script src="<c:url value='/vendor/js/jplayer.playlist.min.js'/>"></script>
 	<script src="<c:url value='/vendor/js/myplaylist.js'/>"></script>
-
 	<!--Google map api -->
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsBrMPsyNtpwKXPPpG54XwJXnyobfMAIc"></script>
@@ -743,4 +732,9 @@ body {
 				}, 500);
 			}
 		});
+		
+	//공지사항 닫기 버튼 활성화
+	$('.notice-obt-close').on('click', function() {
+		$('.notice-obt').remove();
+	});
 	</script>

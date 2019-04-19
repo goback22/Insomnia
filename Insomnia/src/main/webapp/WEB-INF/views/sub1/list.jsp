@@ -138,8 +138,8 @@ body {
 						<div>
 							<h5 class="comments-title">
 								Recruit Notice Board 
-								<a href="<c:url value='/sub1/write.ins'/>" class="btn btn-success" style="margin-left: 740px;">등록</a>
-								<a href="<c:url value='/sub1/subcontent.ins'/>" class="btn btn-success" style="margin-left: 17px;">돌아가기</a>
+								<a href="<c:url value='/sub1/write.ins'/>" class="btn btn-success" style="margin-left: 760px;">등록</a>
+								<a href="<c:url value='/sub1/subcontent.ins'/>" class="btn btn-success" style="margin-left: 16px;">돌아가기</a>
 							</h5>
 						</div>
 						<table class="table table-hover table-bordered text-center">
