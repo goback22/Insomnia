@@ -118,12 +118,6 @@ public class ZeroJinController {
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("totalRecordCount", totalRecordCount);
 		model.addAttribute("pagingString", pagingString);
-
-		
-		List<Map> product_List = bGSConcertService.selectList();
-		
-		model.addAttribute("bgs1", product_List.get(0));
-		model.addAttribute("bgs2", product_List.get(1));	
 		
 		return "/sub1/list.tiles";
 	}
@@ -137,8 +131,11 @@ public class ZeroJinController {
 
 	// 서브 프로젝트 -> 방구석 기타리스트 // 목록처리
 	@RequestMapping(value = "/sub1/subcontent.ins")
-	public String subcontent() throws Exception {
-	
+	public String subcontent(Model model) throws Exception {
+		List<Map> product_List = bGSConcertService.selectList();
+		
+		model.addAttribute("bgs1", product_List.get(0));
+		model.addAttribute("bgs2", product_List.get(1));
 		return "/sub1/subcontent.tiles";
 	}
 
