@@ -52,6 +52,20 @@ public class ListServiceImpl implements ListService{
 		return dao.delete(map);
 	}
 
+	@Override
+	public ListDTO prevSelectOne(Map map) {
+		return dao.prevSelectOne(map);
+	}
 
+	@Override
+	public ListDTO nextSelectOne(Map map) {
+		return dao.nextSelectOne(map);
+	}
+
+	@Override
+	public int updateVisitCount(Map map) {
+		System.out.println("impl");
+		return dao.updateVisitCount(map);
+	}
 
 }//class

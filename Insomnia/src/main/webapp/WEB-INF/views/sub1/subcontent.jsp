@@ -24,6 +24,7 @@
 <script type="text/javascript" src="<c:url value='/vendor/js/obt.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/vendor/js/obt2.js'/>"></script>
 
+
 <!-- PayMoving js -->
 <script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
 <script>
@@ -167,6 +168,47 @@
 			}
 		})
 	}
+	
+	//오늘 하루 그만보기
+	//쿠키설정	
+	function setCookie(name, value, expiredays) {
+		var todayDate = new Date();
+		todayDate.setDate(todayDate.getDate() + expiredays);
+		document.cookie = name + '=' + escape(value) + '; path=/; expires='
+				+ todayDate.toGMTString() + ';'
+	}
+
+	//쿠키 불러오기
+	function getCookie(name) {
+		var obj = name + "=";
+		var x = 0;
+		while (x <= document.cookie.length) {
+			var y = (x + obj.length);
+			if (document.cookie.substring(x, y) == obj) {
+				if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
+					endOfCookie = document.cookie.length;
+				return unescape(document.cookie.substring(y, endOfCookie));
+			}
+			x = document.cookie.indexOf(" ", x) + 1;
+			if (x == 0)
+				break;
+		}
+		return "";
+	}
+
+	//닫기 버튼 클릭시
+	function closeWin(key) {
+		if ($("#todaycloseyn").prop("checked")) {
+			setCookie('notice-obt' + key, 'Y', 1);
+		}
+		$("#notice-obt" + key + "").hide();
+	}
+
+	$(function() {
+		if (getCookie("notice-obt1") != "Y") {
+			$("#notice-obt1").show();
+		}
+	});
 </script>
 
 <!-- aos 구동 -->
@@ -315,7 +357,7 @@ body {
 .notice-obt {
 	position: fixed;
 	width: 420px;
-	height: 407px;
+	height: 440px;
 	color: white;
 	top: 200px;
 	left: 100px;
@@ -326,6 +368,7 @@ body {
 	margin-left: 1400px;
 	margin-top: 100px;
 	box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+	display: none;
 }
 
 .notice-obt-close {
@@ -369,7 +412,7 @@ body {
 <!-- 	</a> -->
 
 	<!-- 공지 시작 -->
-	<div class="notice-obt">
+	<div class="notice-obt" id="notice-obt1">
 		<div class="notice-obt-close">×</div>
 		<div class="notice-obt-title" style="color: red">방구석 기타리스트 가족 모집
 		</div>
@@ -383,8 +426,12 @@ body {
 			발표)
 		</div>
 		<div class="notice-obt-bottom">
-			<img style="margin-top: 23px; height: 70px; width: 125px;"
+			<img style="margin-top: 60px; margin-left:35px;height: 70px; width: 115px;"
 				src="<c:url value='/resource/img/logo_5.png'/>">
+		</div>
+		<div class="button_area" style="margin-top: -45px">
+			<input type='checkbox' name='chkbox' id='todaycloseyn' value='Y'>&nbsp;&nbsp;오늘
+			이 창을 열지 않음 &nbsp;&nbsp;<a href='' onclick="javascript:closeWin(1);"><B>[닫기]</B></a>
 		</div>
 	</div>
 	<!--  공지 끝 -->

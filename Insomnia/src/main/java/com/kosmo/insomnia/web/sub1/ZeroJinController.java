@@ -70,7 +70,6 @@ public class ZeroJinController {
       return "home.tiles";
    }
    
-   
  /*  ////로그인 ajax
    @ResponseBody
    @RequestMapping(value="/loginErr/ajax.ins", produces="text/html; charset=UTF-8")
@@ -95,6 +94,13 @@ public class ZeroJinController {
 	public String subprojects() throws Exception {
 		return "/sub1/subprojects.tiles";
 	}
+	
+	// 목록처리]
+	// 리소스 파일(memo.properties)에서 읽어오기
+	@Value("${PAGESIZE}")
+	private int pageSize;
+	@Value("${BLOCKPAGE}")
+	private int blockPage;
 	
 	// 서브 프로젝트 게시판
 	@RequestMapping(value = "/sub1/list.ins")
@@ -121,15 +127,10 @@ public class ZeroJinController {
 		model.addAttribute("totalRecordCount", totalRecordCount);
 		model.addAttribute("pagingString", pagingString);
 		
+//		System.out.println("조회수:"+list.get(0).getAp_visit()); // 이게 널이면 java.lang.IndexOutOfBoundsException 에러 뜸 
+		
 		return "/sub1/list.tiles";
 	}
-
-	// 목록처리]
-	// 리소스 파일(memo.properties)에서 읽어오기
-	@Value("${PAGESIZE}")
-	private int pageSize;
-	@Value("${BLOCKPAGE}")
-	private int blockPage;
 
 	// 서브 프로젝트 -> 방구석 기타리스트 // 목록처리
 	@RequestMapping(value = "/sub1/subcontent.ins")
@@ -156,6 +157,7 @@ public class ZeroJinController {
 		insService.insert(map);
 
 		return "forward:/sub1/list.ins";
+		//return "/sub1/list.tiles";로하면 안돼
 	}
 
 	// 방구석 기타리스트 - view
@@ -163,10 +165,28 @@ public class ZeroJinController {
 	public String view(@RequestParam Map map, Model model) throws Exception {
 		// 서비스 호출
 		ListDTO record = insService.selectOne(map);
-
+		
 		// 데이타 저장 및 줄바꿈 처리
-		record.setAp_content(record.getAp_content().replace("\r\n", "<br/>"));
+		if(record.getAp_content() != null) {
+			record.setAp_content(record.getAp_content().replace("\r\n", "<br/>"));
+		}
 		model.addAttribute("record", record);
+		
+		//				System.out.println(record.getAp_content());
+		
+		// 이전 글
+		ListDTO prev = insService.prevSelectOne(map);
+		// 다음 글
+		ListDTO next = insService.nextSelectOne(map);
+		
+		model.addAttribute("prev", prev);
+		model.addAttribute("next", next);
+		
+		//조회수 호출
+		insService.updateVisitCount(map);
+		
+		/*조회수 xml sql문
+		//★ UPDATE bgsapply SET ap_visit = {ap_visit}+1 WHERE ap_no =#{ap_no}이 아니라 UPDATE bgsapply SET ap_visit = ap_visit+1 WHERE ap_no =#{ap_no}이다. */ 
 
 		return "/sub1/view.tiles";
 	}

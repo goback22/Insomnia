@@ -39,7 +39,7 @@
 body {
 	color: white;
 	background-image: url('../resource/img/tempBG.jpg');
-	background-attachment : fixed;
+	background-attachment: fixed;
 }
 
 .text1 {
@@ -61,10 +61,15 @@ body {
 	padding-left: 15px;
 }
 
-.col-md-10{
-	margin:auto;
-	margin-top:-75px;
+.col-md-10 {
+	margin: auto;
+	margin-top: -75px;
 }
+
+.table td, .table th{
+border-bottom: 1px solid gray;
+}
+
 </style>
 </head>
 
@@ -104,62 +109,81 @@ body {
 					<div class="row">
 						<div class="col-md-10">
 							<h5 class="comments-title">Application</h5>
-							<table class="table table-hover table-bordered text-center">
-								<tr style="height: 35px;display: none">
-									<td style="width: 10%;">번호</td>
+							<table class="table table-hover text-center">
+								<tr style="height: 35px; display: none">
+									<td style="width: 10%;">No</td>
 									<td class="B">${record.ap_no}</td>
 								</tr>
 								<tr style="height: 35px">
-									<td style="height: 30px;">제목</td>
-									<td class="B">${record.ap_title}</td>
+									<td style="height: 30px;">Subject</td>
+									<td class="B">${record.ap_title == null ? "" : record.ap_title}</td>
 								</tr>
 								<tr style="height: 35px">
-									<td style="width: 10%;">작성자</td>
+									<td style="width: 10%;">Name</td>
 									<td class="B">${record.name}</td>
 								</tr>
-								<tr style="height: 35px;display: none">
-									<td style="height: 30px;">등록일</td>
+								<tr style="height: 35px; display: none">
+									<td style="height: 30px;">Date</td>
 									<td class="B">${record.ap_postdate}</td>
 								</tr>
 								<tr style="height: 300px">
-									<td style="padding-top: 140px;">내용</td>
-									<td style="text-align: left">${record.ap_content}</td>
+									<td style="padding-top: 140px;">Content</td>
+									<td style="text-align: left">${record.ap_content == null ? "" : record.ap_content}</td>
 								</tr>
 							</table>
 						</div>
 					</div>
-					<div class="row" style="margin-bottom: 10px">
+					
+					<!-- 이전, 다음글 만들기 -->
+                    <table style="width:75%">
+                      		<tr >
+                      			<td style="width:15%">이전글</td>
+                      			<td>${prev.ap_title == null ? "" : prev.ap_title}</td> 
+                      		</tr>
+                      		<tr>
+                      			<td>다음글</td>
+                      			<td>${next.ap_title == null ? "" : next.ap_title}</td>
+                      		</tr>
+                    </table>
+                    
+					<div class="row" style="margin-bottom: 10px;pa">
 						<div class="col-md-12 text-right">
-							
-							<c:if test="${sessionScope.id == record.id }"> <!-- 로그인한 아이디와 글쓴 아이디가 같다면 수정,삭제 버튼을 보여준다. -->
-							<a href="<c:url value='/sub1/subcontent.ins'/>" class="btn btn-success"
-								style="margin-right: 20px;">목록</a>
-							<a href="<c:url value='/sub1/edit.ins?ap_no=${record.ap_no}'/>"
-								class="btn btn-success" style="margin-right: 20px;">수정</a> 
-							<a href="javascript:isDelete()" class="btn btn-success" style="margin-right: 120px;">삭제</a>
+
+							<c:if test="${sessionScope.id == record.id }">
+								<!-- 로그인한 아이디와 글쓴 아이디가 같다면 수정,삭제 버튼을 보여준다. -->
+								<a href="<c:url value='/sub1/list.ins'/>"
+									class="btn btn-success" style="margin-right: 20px;">목록</a>
+								<a href="<c:url value='/sub1/edit.ins?ap_no=${record.ap_no}'/>"
+									class="btn btn-success" style="margin-right: 20px;">수정</a>
+								<a href="javascript:isDelete()" class="btn btn-success"
+									style="margin-right: 120px;">삭제</a>
 							</c:if>
-							<c:if test="${sessionScope.id != record.id }"> <!-- 로그인한 아이디와 글쓴 아이디가 같다면 수정,삭제 버튼을 보여준다. -->
-							<a href="<c:url value='/sub1/subcontent.ins'/>" class="btn btn-success"
-								style="margin-right: 120px;">목록</a>
-							</c:if> 
+							<c:if test="${sessionScope.id != record.id }">
+								<!-- 로그인한 아이디와 글쓴 아이디가 같다면 수정,삭제 버튼을 보여준다. -->
+								<a href="<c:url value='/sub1/list.ins'/>"
+									class="btn btn-success" style="margin-right: 120px;">목록</a>
+							</c:if>
 						</div>
 					</div>
+					
 				</div>
 				<!-- /.row -->
 			</div>
+		</section>
 	</div>
 	<!-- /.product-tab-wrapper -->
 
 	<!-- /.container -->
 	<!-- /.single-product -->
-	
-<script>
-	var isDelete = function() {
-		if (confirm("정말로 삭제 하시겠습니까?")) {
-			location.replace("<c:url value='/sub1/delete.ins?ap_no=${record.ap_no}'/>");
-		}
-	};
-</script>
+
+	<script>
+		var isDelete = function() {
+			if (confirm("정말로 삭제 하시겠습니까?")) {
+				location
+						.replace("<c:url value='/sub1/delete.ins?ap_no=${record.ap_no}'/>");
+			}
+		};
+	</script>
 
 
 	<!-- Quick View -->

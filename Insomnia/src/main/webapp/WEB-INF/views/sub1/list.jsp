@@ -18,25 +18,6 @@
 <!-- Dependency Styles -->
 <link rel="stylesheet"
 	href="<c:url value='/vendor/css/bootstrap.min.css'/>" type="text/css">
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/stylesheet.css'/>" type="text/css">
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/swiper.min.css'/>" type="text/css">
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/font-awesome.min.css'/>"
-	type="text/css">
-<link rel="stylesheet" href="<c:url value='/vendor/css/animate.css'/>"
-	type="text/css">
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/magnific-popup.css'/>" type="text/css">
-<link rel="stylesheet" href="<c:url value='/vendor/css/jquery-ui.css'/>"
-	type="text/css">
-<link rel="stylesheet" href="<c:url value='/vendor/css/slick.css'/>"
-	type="text/css">
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/colornip.min.css'/>" type="text/css">
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/css-loader.css'/>" type="text/css">
 
 <!-- Site Stylesheet -->
 <link rel="stylesheet"
@@ -65,23 +46,6 @@ body {
 	font-weight: bold;
 }
 
-.section {
-	text-align: center;
-	color: white;
-	font-size: 40px;
-	text-shadow: 1px 1px 10px black;
-	z-index: 50;
-	letter-spacing: 10px;
-	line-height: 180%;
-	font-weight: 500;
-	padding-left: 95px;
-	padding-right: 150px;
-	padding-top: 170px;
-	padding-bottom: 50px;
-	border: none;
-	font-family: 'Cormorant Garamond', serif;
-}
-
 .title {
 	color: white;
 }
@@ -98,6 +62,14 @@ body {
 
 #kyj {
 	margin-left: 0px;
+}
+
+*{
+border: none;
+}
+
+.table td, .table th{
+border-bottom: 1px solid gray;
 }
 </style>
 </head>
@@ -142,16 +114,17 @@ body {
 								<a href="<c:url value='/sub1/subcontent.ins'/>" class="btn btn-success" style="margin-left: 16px;">돌아가기</a>
 							</h5>
 						</div>
-						<table class="table table-hover table-bordered text-center">
+						<table class="table table-hover text-center">
 							<tr style="height: 35px;">
-								<th style="width: 7%; text-align: center;">번호</th>
-								<th style="width: 70%; text-align: center;">제목</th>
-								<th style="width: 10%; text-align: center;">작성자</th>
-								<th style="width: 13%; text-align: center;">등록일</th>
+								<th style="width: 7%; text-align: center;">No</th>
+								<th style="width: 63%; text-align: center;">Subject</th>
+								<th style="width: 10%; text-align: center;">Name</th>
+								<th style="width: 7%; text-align: center;">Read</th>
+								<th style="width: 13%; text-align: center;">Date</th>
 							</tr>
 							<c:if test="${empty list }" var="isEmpty">
 								<tr>
-									<td colspan="4">등록된 게시물이 없어요</td>
+									<td colspan="5">등록된 게시물이 없어요</td>
 								</tr>
 							</c:if>
 							<c:if test="${not isEmpty }">
@@ -161,8 +134,9 @@ body {
 										<td
 											style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
 											href="<c:url value='/sub1/view.ins?ap_no=${item.ap_no}'/>"
-											class="title">${item.ap_title}</a></td>
+											class="title">${item.ap_title == null ? "" : item.ap_title}</a></td>
 										<td style="text-align: center; padding-top: 10px;">${item.name}</td>
+										<td style="text-align: center; padding-top: 10px;color:red">${item.ap_visit == null ? "null" : item.ap_visit}</td>
 										<td style="text-align: center; padding-top: 10px;">${item.ap_postdate}</td>
 									</tr>
 								</c:forEach>
