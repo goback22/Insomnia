@@ -1,18 +1,45 @@
 $(function(){
 	
 //=============================방구석기타리스트 BUY==============================
-//	var bgs_price = $("#bgs_price").text();
-//	$("#bgs_price").text(bgs_price).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+
+	$(document).on("click",".aa",function(){
+		$("input[name=bgs1_qty]").val($("#qtyqty").val());
+		$("input[name=bgs1_price").val($("#bgs_price").text().replace(/[^\d]+/g, ''));
+		
+		$("#bgs_sub_item_list").submit();
+	});
+	
+	
 //===============================================================================
 	
 //============================= 결제창 들어가기 전 +,- ==========================
-	
-	$("#plus_ordered").click(function(){
+	var number_of_items = $("#qtyqty").val();
+	var price;
+	var isOne = false;
+	$(document).on("click","#plus_ordered",function(){
 		console.log("플라스");
+		number_of_items++;
+		$("#qtyqty").val(number_of_items);
+		if(!isOne){
+			price = Number($("#bgs_price").text().replace(/[^\d]+/g, ''));
+			isOne = true;
+		}
+		var str_price = String(price*number_of_items).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+		$("#bgs_price").text(str_price);
+		
 	})
 	
 	$("#minus_ordered").click(function(){
 		console.log("마이나스");
+		number_of_items--;
+		if(number_of_items<=0){
+			alert("한개 이상의 수량을 선택하세요.");
+			return;
+		}
+		$("#qtyqty").val(number_of_items);
+		var str_price = String(price*number_of_items).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+		$("#bgs_price").text(str_price);
+		
 	})
 	
 //===============================================================================
@@ -150,14 +177,12 @@ $(function(){
 	
 //========================== 주문리스트 - 수량 변경 이벤트 ======================
 	//초기값 저장용] 추후엔 ${}로 값 받아와서 저장]
+	//동적으로 생성시 사용]
 	var is_One = false;
 	var order_price;
 	
 	//가격 얻어오기용 변수]
 	var item_count;
-	var count;
-	var length;
-	var count_num;
 	
 	//수량에 따른 값 증가 - db저장용
 	var order_price_save;
@@ -171,18 +196,12 @@ $(function(){
 	//============================= 플러스 =============================
 	$(this).on("click",".btn_plus",function(){
 		//var item_count = $(".item_Count_"+값).text();
-		item_count = $(this).prev().val();
-		count = $(this).prev().attr("class");
-		length = count.length;
-		if(length == 12){
-			count_num = count.substring(length-1);
-		}else{
-			count_num = count.substring(length-2);
-		}
+		item_count = $(".item_Count").val();
+		
 		
 		//초기 price(콤마 풀기)
 		if(!is_One){
-			order_price = $(".div_money_"+count_num+" span").text().replace(/[^\d]+/g, '');
+			order_price = Number($("#price_concert").text().replace(/[^\d]+/g, '')) / item_count;
 			is_One = true;
 		}
 	    
@@ -193,56 +212,39 @@ $(function(){
 		order_price_print = String(order_price_save).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 	
 		$(this).prev().val(item_count);
-		$(".div_money_"+count_num+" span").text(order_price_print);
+		$("#price_concert").text(order_price_print)
 		
 		// 전체 금액 출력]
-		var ss = $(".add_trTag tr");
-		var length_ss = $(".add_trTag tr").length;
-		console.log(length_ss);
-		for(var i = 0; i<length_ss; i++){
-			if(ss.css("display") == "none"){
-				console.log("논이다!!");
-				
-			}
-		}
+		$("#op_total_price").text(order_price_print);
 		
 	});
 	
 	//============================= 마이너스 =============================
 	$(this).on("click",".btn_minus",function(){
-		item_count = $(this).prev().prev().val();
-		count = $(this).prev().prev().attr("class");
-		length = count.length;
-		if(length == 12){
-			count_num = count.substring(length-1);
-		}else{
-			count_num = count.substring(length-2);
-		}
+		item_count = $(".item_Count").val();
+		
 		
 		//초기 price(콤마 풀기)
 		if(!is_One){
-			order_price = $(".div_money_"+count_num+" span").text().replace(/[^\d]+/g, '');
+			order_price = Number($("#price_concert").text().replace(/[^\d]+/g, '')) / item_count;
 			is_One = true;
 		}
-		console.log(order_price);
-		
+	    
 		item_count--;
-		
-		console.log(item_count);
-		//출력용]
 		if(item_count <= 0){
-			item_count = 0;
-			
-			$(".div_money_"+count_num+" span").text("0");
-		}else{
-			order_price_save = order_price * item_count;
-			
-			order_price_print = String(order_price_save).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-			
-			$(".div_money_"+count_num+" span").text(order_price_print);
+			alert("한개 이상의 수량을 선택하세요.");
+			return;
 		}
 		
+		order_price_save = order_price * item_count;
+		
+		order_price_print = String(order_price_save).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	
 		$(this).prev().prev().val(item_count);
+		$("#price_concert").text(order_price_print)
+		
+		// 전체 금액 출력]
+		$("#op_total_price").text(order_price_print);
 	});
 	
 	
@@ -399,6 +401,154 @@ $(function(){
 				//name : $(".tb-left:eq(0)").text(),
 				//결제할 금액
 				amount : 1000, 
+				//구매정보
+				buyer_email : 'iamport@siot.do',
+				buyer_name : '구매자이름',
+				buyer_tel : '010-1234-5678',
+				buyer_addr : '서울특별시 강남구 삼성동',
+				buyer_postcode : '123-456',
+				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+			/*
+			 모바일 결제시,
+			 결제가 끝나고 랜딩되는 URL을 지정
+			 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+			 */
+			}, function(rsp) {
+				console.log(rsp);
+				if (rsp.success) {
+					var msg = '결제가 완료되었습니다.';
+					msg += '고유ID : ' + rsp.imp_uid;
+					msg += '상점 거래ID : ' + rsp.merchant_uid;
+					msg += '결제 금액 : ' + rsp.paid_amount;
+					msg += '카드 승인번호 : ' + rsp.apply_num;
+				} else {
+					var msg = '결제에 실패하였습니다.';
+					msg += '에러내용 : ' + rsp.error_msg;
+					//location.href = "/insomnia/Pay/PayComplete.ins";
+				}
+				alert(msg);
+			});
+		}else if(pay_Way=="D"){
+			var IMP = window.IMP; // 생략가능
+			IMP.init('imp11329087');
+			// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+			IMP.request_pay({
+				// pg : 하나의 아임포트계정으로 여러 PG를 사용할 때 구분자
+				pg : 'uplus', // version 1.1.0부터 지원.
+				/*
+				 'kakao':카카오페이,
+				 'html5_inicis':이니시스(웹표준결제)
+				 'nice':나이스페이
+				 'jtnet':제이티넷
+				 'uplus':LG유플러스
+				 'danal':다날
+				 'payco':페이코
+				 'syrup':시럽페이
+				 'paypal':페이팔
+				 */
+				
+				//pay_method : 결제수단
+				pay_method : 'phone',
+				/*
+				 'samsung':삼성페이,
+				 'card':신용카드,
+				 'trans':실시간계좌이체,
+				 'vbank':가상계좌,
+				 'phone':휴대폰소액결제
+				 */
+				
+				//escrow : 에스크로 결제여부(default : false)
+				//escrow : 'true';
+			
+				//merchant_uid : 가맹점에서 생성/관리하는 고유 주문번호
+				merchant_uid : 'merchant_' + new Date().getTime(),
+				/*
+				 merchant_uid에 경우
+				 https://docs.iamport.kr/implementation/payment
+				 위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+				 참고하세요.
+				 나중에 포스팅 해볼게요.
+				 */
+				//결제창에서 보여질 이름
+				name : $(".tb-left:eq(0)").text(),
+				//name : $(".tb-left:eq(0)").text(),
+				//결제할 금액
+				amount : 100, 
+				//구매정보
+				buyer_email : 'iamport@siot.do',
+				buyer_name : '구매자이름',
+				buyer_tel : '010-1234-5678',
+				buyer_addr : '서울특별시 강남구 삼성동',
+				buyer_postcode : '123-456',
+				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+			/*
+			 모바일 결제시,
+			 결제가 끝나고 랜딩되는 URL을 지정
+			 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+			 */
+			}, function(rsp) {
+				console.log(rsp);
+				if (rsp.success) {
+					var msg = '결제가 완료되었습니다.';
+					msg += '고유ID : ' + rsp.imp_uid;
+					msg += '상점 거래ID : ' + rsp.merchant_uid;
+					msg += '결제 금액 : ' + rsp.paid_amount;
+					msg += '카드 승인번호 : ' + rsp.apply_num;
+				} else {
+					var msg = '결제에 실패하였습니다.';
+					msg += '에러내용 : ' + rsp.error_msg;
+					//location.href = "/insomnia/Pay/PayComplete.ins";
+				}
+				alert(msg);
+			});
+		}else{
+			var IMP = window.IMP; // 생략가능
+			IMP.init('imp11329087');
+			// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+			IMP.request_pay({
+				// pg : 하나의 아임포트계정으로 여러 PG를 사용할 때 구분자
+				pg : 'nice', // version 1.1.0부터 지원.
+				/*
+				 'kakao':카카오페이,
+				 'html5_inicis':이니시스(웹표준결제)
+				 'nice':나이스페이
+				 'jtnet':제이티넷
+				 'uplus':LG유플러스
+				 'danal':다날
+				 'payco':페이코
+				 'syrup':시럽페이
+				 'paypal':페이팔
+				 */
+				
+				//pay_method : 결제수단
+				pay_method : 'trans',
+				/*
+				 'samsung':삼성페이,
+				 'card':신용카드,
+				 'trans':실시간계좌이체,
+				 'vbank':가상계좌,
+				 'phone':휴대폰소액결제
+				 */
+				
+				//escrow : 에스크로 결제여부(default : false)
+				//escrow : 'true';
+			
+				//merchant_uid : 가맹점에서 생성/관리하는 고유 주문번호
+				merchant_uid : 'merchant_' + new Date().getTime(),
+				/*
+				 merchant_uid에 경우
+				 https://docs.iamport.kr/implementation/payment
+				 위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+				 참고하세요.
+				 나중에 포스팅 해볼게요.
+				 */
+				//결제창에서 보여질 이름
+				name : $(".tb-left:eq(0)").text(),
+				//name : $(".tb-left:eq(0)").text(),
+				//결제할 금액
+				amount : 20000, 
 				//구매정보
 				buyer_email : 'iamport@siot.do',
 				buyer_name : '구매자이름',

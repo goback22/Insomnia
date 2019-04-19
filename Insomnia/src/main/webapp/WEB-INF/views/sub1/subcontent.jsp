@@ -512,6 +512,7 @@ body {
 								</script>
 
 
+								<!-- =========================================================================================================== -->
 								<div>
 									<div class="option-container">
 										<div class="option-btn"
@@ -524,32 +525,39 @@ body {
 													<div class="common-flex-between">
 														<span class="option-title mt10 xs-mt25">Buy Tickets</span>
 													</div>
+													
 													<div class="option-box option-box-blue">
-														<div class="option-box-left" style="padding-top: 10px">
-															<div class="option-box-amount">${bgs1.C_CONSERTDATE}</div>
-															<div class="mt5" style="padding-top: 5px">
-																<span><strong>13석 남음</strong></span> <span
-																	style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
-																	12석 판매</span>
+														<div class="aa" style="display: contents">
+															<div class="option-box-left" style="padding-top: 10px">
+																<div class="option-box-amount">${bgs1.C_CONSERTDATE}</div>
+																<div class="mt5" style="padding-top: 5px">
+																	<span><strong>13석 남음</strong></span> <span
+																		style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
+																		12석 판매</span>
+																</div>
 															</div>
-														</div>
-
-														<div class="option-box-center" style="padding-top: 10px">
-															<div class="option-box-title">${bgs1.B_TITLE}</div>
-															<div class="option-box-desc mt5" style="margin-top: 10px">${bgs1.B_CONTENT}</div>
+															<form action="<c:url value='/Pay/PayPage.ins'/>" id="bgs_sub_item_list" style="display: none">
+																<input type="hidden" name="bgs1_title" value="${bgs1.B_TITLE }">
+																<input type="hidden" name="bgs1_content" value="${bgs1.B_CONTENT }">
+																<input type="hidden" name="bgs1_price" value="">
+																<input type="hidden" name="bgs1_qty" value="">
+															</form>
+															<div class="option-box-center" style="padding-top: 10px">
+																<div class="option-box-title">${bgs1.B_TITLE}</div>
+																<div class="option-box-desc mt5" style="margin-top: 10px">${bgs1.B_CONTENT}</div>
+															</div>
 														</div>
 														<div class="box_inventory option_box_grey">
 															<input type="hidden" name="limited_qty_yn" value="">
 															<input type="hidden" name="limited_min_qty" value="1">
 															<input type="hidden" name="limited_max_qty" value="999">
 															<div style="padding-top: 1px;">
-																<span class="txt_count_inventory option_title">수량&nbsp;&nbsp;&nbsp;</span>
-																<input name="qty" type="text" value="1"
-																	style="color: white; background-color: black; width: 38px; height: 20px; text-align: center"
+																<span class="txt_count_inventory option_title">수량&nbsp;&nbsp;&nbsp;</span> 
+																<input disabled="disabled" id="qtyqty" name="qty" type="text" value="1" style="color:white; background-color: black; width: 38px; height: 20px; text-align: center"
 																	class="input_add" onkeyup="checkQty(this);"
 																	onfocus="this.select();" style="line-height: 18px">
-																<a href="javascript:void(0)" style="font-size: 1.5em">&nbsp;+&nbsp;</a>
-																<a href="javascript:void(0)" style="font-size: 1.5em">-</a>
+																<a id="plus_ordered" href="javascript:void(0)" style="font-size: 1.5em">&nbsp;+&nbsp;</a>
+																<a id="minus_ordered" href="javascript:void(0)" style="font-size: 1.5em">-</a>
 															</div>
 															<div style="padding-top: 2px">
 																<span>금액&nbsp;&nbsp;&nbsp;</span> <span id="bgs_price"></span>원
@@ -558,7 +566,9 @@ body {
 																</script>
 															</div>
 														</div>
+														
 													</div>
+													
 												</div>
 
 												<div class="option-box" style="margin-top: -25px;">
@@ -584,6 +594,9 @@ body {
 										</div>
 									</div>
 								</div>
+								
+							<!-- =========================================================================================================== -->
+								
 								<div class="optionBtnBox">
 									<div class="optionStepBtn">다음단계</div>
 								</div>

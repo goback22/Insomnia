@@ -56,8 +56,10 @@ public class ZeroJinController {
     	  
     	  MemberDTO record = memberService.selectOne(map);
     	  model.addAttribute("record", record);
+    	  session.setAttribute("login_user_name", record.getName());
+	      session.setAttribute("login_user_phoneNb", record.getPhone());
+	      System.out.println(record.getPhone());
     	  
-//    	  System.out.println("받아오나 이름" + record.getName());
     	  if(map.get("id").equals("admin")) {
     		  return "/admin/AdminIndex";
     	  }
