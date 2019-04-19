@@ -229,9 +229,9 @@ body>#standalone-container {
 }
 
 body {
-	/* 	background-color: black; */
 	color: white;
-	background-image: url('../resource/img/background.jpg');
+	background-image: url('../resource/img/tempBG.jpg');
+	background-attachment : fixed;
 }
 
 .text1 {
@@ -265,7 +265,7 @@ body {
 	margin-left: 60px;
 	width: 550px;
 	height: 450px;
-	background-image: url('../resource/img/sub1_A.jpg');
+	background-image: url('../resource/img/sub1_D.jpg');
 }
 
 .section2 {
@@ -273,7 +273,7 @@ body {
 	margin-left: 740px;
 	width: 550px;
 	height: 450px;
-	background-image: url('../resource/img/sub1_D.jpg');
+	background-image: url('../resource/img/sub1_B.jpg');
 }
 
 .section3 {
@@ -290,7 +290,7 @@ body {
 	margin-bottom: 200px;
 	width: 550px;
 	height: 450px;
-	background-image: url('../resource/img/sub1_B.jpg');
+	background-image: url('../resource/img/sub1_A.jpg');
 }
 
 .review-comments {
@@ -363,22 +363,27 @@ body {
 </head>
 
 <body id="home-version-1" class="home-version-1" data-style="default">
+<!-- 	<!-- 반응형 글씨 --> 
+<!-- 	<a class="typewrite" data-period="3000" data-type='[ "#반응형 #모바일 #무료" ]'> -->
+<!-- 		<span class="wrap"></span> -->
+<!-- 	</a> -->
+
 	<!-- 공지 시작 -->
 	<div class="notice-obt">
 		<div class="notice-obt-close">×</div>
-		<div class="notice-obt-title" style="color: red">' 방구석 기타리스트 가족
-			모집 '</div>
+		<div class="notice-obt-title" style="color: red">방구석 기타리스트 가족 모집
+		</div>
 		<div class="notice-obt-content">
 			<b>지난해, 모두를 광란의 도가니속으로 몰아 넣었던 <br>`방구석 기타리스트`가 2탄으로 다시
 				찾아옵니다.
 			</b> <br> <span style="font-style: bold">Insomnia는</span> 공연을 빛내줄
 			여러분들을 기다립니다.<br> <a href="<c:url value='/sub1/list.ins'/>">모집
-				게시판</a>을 통해 게시글을 등록해주세요.<br> &lt;참여 조건&gt; <br>연령 : 25세 이상 <br>자격
-			: 음악을 사랑하는 누구나 <br>신청 기간 : ~ 2019. 5. 29 <br>응모 발표 : 2019.
-			6. 6
+				게시판</a>을 통해 게시글을 등록해주세요.<br> &lt;참여 조건&gt; <br>연령 : 25세 이상 <br>
+			장르 : 무관 <br>자격 : 음악을 사랑하는 누구나 <br>신청 기간 : ~ 2019. 6. 4 (6일
+			발표)
 		</div>
 		<div class="notice-obt-bottom">
-			<img style="margin-top: 24px; height: 70px; width: 145px;"
+			<img style="margin-top: 23px; height: 70px; width: 125px;"
 				src="<c:url value='/resource/img/logo_5.png'/>">
 		</div>
 	</div>
@@ -428,7 +433,7 @@ body {
 						<div role="tabpanel" class="tab-pane fade in active" id="profile">
 							<div class="single-product-wrapper">
 								<div class="row">
-									<div class="col-md-12 col-sm-6">
+									<div class="col-md-12 col-sm-6" style="margin-top: 60px">
 										<div class="quickview-slider">
 											<!-- 											<div> -->
 											<!-- 												<span class="text1">What comes to your mind when you -->
@@ -737,4 +742,119 @@ body {
 	$('.notice-obt-close').on('click', function() {
 		$('.notice-obt').remove();
 	});
+	
+	//반응형 글씨
+// 	$('.notice-cbt-close, .notice-cbt').on('click', function() {
+//         $('.notice-cbt').remove();
+//     });
+
+//     $('.notice-obt-close').on('click', function() {
+//         qv_func.setCookie('notice_main',1,1);
+//         $('.notice-obt').remove();
+//     });
+
+//     $('.start-btn').click(function(e){
+//        location.href="template.html";
+//     });
+//     $('#main-slide').bind('slide.bs.carousel', function (e) {
+//         //console.log('slide event!');
+//     });
+
+//     $('#main-slide').carousel({
+// //        swipe: 30
+// //        wrap: false
+//     });
+
+//     var TxtType = function(el, toRotate, period) {
+//         this.toRotate = toRotate;
+//         this.el = el;
+//         this.loopNum = 0;
+//         this.period = parseInt(period, 10) || 2000;
+//         this.txt = '';
+//         this.tick();
+//         this.isDeleting = false;
+//     };
+
+//     TxtType.prototype.tick = function() {
+//         var i = this.loopNum % this.toRotate.length;
+//         var fullTxt = this.toRotate[i];
+
+//         if (this.isDeleting) {
+//             this.txt = fullTxt.substring(0, this.txt.length - 1);
+//         } else {
+//             this.txt = fullTxt.substring(0, this.txt.length + 1);
+//         }
+
+//         this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+//         var that = this;
+//         var delta = 200 - Math.random() * 100;
+
+//         if (this.isDeleting) { delta /= 2; }
+
+//         if (!this.isDeleting && this.txt === fullTxt) {
+//             delta = this.period;
+//             this.isDeleting = true;
+//         } else if (this.isDeleting && this.txt === '') {
+//             this.isDeleting = false;
+//             this.loopNum++;
+//             delta = 500;
+
+//             var count = $('.carousel').find('.carousel-inner .item').length;
+//             var index = $('.carousel').find('.carousel-inner .item.active').index();
+//             if (count - 1 > index) {
+//                 $('.carousel').carousel(index + 1);
+//             }
+//             else {
+//                 $('.carousel').carousel(0);
+//             }
+//         }
+
+//         setTimeout(function() {
+//             that.tick();
+//         }, delta);
+//     };
+
+//     window.onload = function() {
+//         var elements = document.getElementsByClassName('typewrite');
+//         for (var i=0; i<elements.length; i++) {
+//             var toRotate = elements[i].getAttribute('data-type');
+//             var period = elements[i].getAttribute('data-period');
+//             if (toRotate) {
+//                 new TxtType(elements[i], JSON.parse(toRotate), period);
+//             }
+//         }
+//         // INJECT CSS
+//         var css = document.createElement("style");
+//         css.type = "text/css";
+//         document.body.appendChild(css);
+
+//         //alert(screen.height);
+//         //main-slide txt padding refit
+//         //PC
+//         if($("#main-slide").width()>600) {
+//             if ($("#main-slide").height() < 700) {
+//                 //console.log("resize");
+//                 $("#main-slide .carousel-contents .slide-txt").css("padding", 0);
+//             }
+//         }
+
+//         if(!qv_func.getCookie('notice_main')) {
+//             //tmp
+//             //$(".notice-obt").show();
+//         }
+//     };
+
+//     $(window).resize(function(){
+//         //main-slide txt padding refit
+//         //PC
+//         if($("#main-slide").width()>600) {
+//             //console.log("resize");
+//             if ($("#main-slide").height() < 700) {
+//                 $("#main-slide .carousel-contents .slide-txt").css("padding", 0);
+//             } else {
+//                 $("#main-slide .carousel-contents .slide-txt").css("padding", "40px 40px 30px 40px");
+//             }
+//         }
+//     });
 	</script>

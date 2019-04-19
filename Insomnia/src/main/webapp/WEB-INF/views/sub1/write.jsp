@@ -34,8 +34,9 @@
 
 <style type="text/css">
 body {
-	color: #F5F5F5;
-	background: url('../resource/img/background.jpg');
+	color: white;
+	background-image: url('../resource/img/tempBG.jpg');
+	background-attachment : fixed;
 }
 
 .text1 {

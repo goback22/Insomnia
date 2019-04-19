@@ -51,9 +51,9 @@ element.style {
 }
 
 body {
-	/* 	background-color: black; */
 	color: white;
-	background-image: url('../resource/img/background.jpg');
+	background-image: url('../resource/img/tempBG.jpg');
+	background-attachment : fixed;
 }
 
 .text1 {
@@ -176,11 +176,12 @@ body {
 								style="color: white; margin-left: 550px; margin-top: 10px">${pagingString}</div>
 						</div>
 
+
 						<!-- 검색UI -->
 						<div class="text-center">
 							<form class="form-inline"
 								style="margin-left: 370px; margin-top: 20px; padding-left: 10px"
-								method="post" action="<c:url value='/sub1/subcontent.ins'/>">
+								method="post" action="<c:url value='/sub1/list.ins'/>">
 								<div class="form-group">
 									<select name="searchColumn" class="form-control">
 										<option value="ap_title">제목</option>
