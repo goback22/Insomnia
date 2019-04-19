@@ -20,7 +20,17 @@ public class AdminServiceImpl implements AdminService{
 	public List<AdminDTO> selectList(Map map) {
 		return dao.selectList(map);
 	}
+	
+	@Override
+	public List<AdminDTO> selectBandList(Map map) {
+		return dao.selectBandList(map);
+	}
 
+	@Override
+	public List<AdminDTO> selectBandMusicList(String string) {
+		return dao.selectBandMusicList(string);
+	}
+	
 	@Override
 	public AdminDTO selectOne(Map map) {
 		return dao.selectOne(map);
@@ -45,5 +55,9 @@ public class AdminServiceImpl implements AdminService{
 	public int getTotalRecord(Map map) {
 		return 0;
 	}
+
+	
+
+	
 
 }

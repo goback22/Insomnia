@@ -54,7 +54,7 @@
 									<!-- example1 -->
 									<tr class="view">
 										<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;1</td>
-										<td class="text-center mainname">진행중인 B_NAME</td>
+										<td class="text-center viewDetail">진행중인 B_NAME</td>
 										<td class="text-center people">500</td>
 										<td class="text-center cur">4500</td>
 										<td class="text-center">2019-05-30</td>
@@ -216,10 +216,9 @@
 <script type="text/javascript">
 $('.thischart').hide();
 
-$(".view").on("click", function(){
-	//console.log("click");
-	$(this).next(".fold").toggle(500);
-	$('.thischart').toggle(500);
+$(".viewDetail").on("click", function() {//[o]
+		$(this).parent().next(".fold").toggle(400);
+		$('.thischart').toggle(400);
 });
 </script>
 <script src="<c:url value='/vendor/js/admin_jqbar.js'/>" type="text/javascript"></script>

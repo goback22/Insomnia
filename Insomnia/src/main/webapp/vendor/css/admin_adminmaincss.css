@@ -1,7 +1,6 @@
 @charset "UTF-8";
-.pcs:after { content: " pcs"; }
 .cur:after { content: " 원"; }
-.per:after { content: "%"; }
+.per:after { content: " %"; }
 .people:after { content: " 명"; }
 
 .nav {
@@ -10,8 +9,8 @@
 }
 
 .side-nav {
-	margin-left: -225px;
-	left: 225px;
+/* 	margin-left: -225px; */
+/* 	left: 225px; */
 	width: 225px;
 	position: fixed;
 	top: 51px;
@@ -59,14 +58,15 @@
 #active li ul li a{
 	color:#ffffff;
 }
-#active li ul li a:hover {
-	color:#ffffff;
-	font-weight: bolder;
-	font-size: 1.2em;
-}
-
+/* #active li ul li a:hover { */
+/* 	color:#ffffff; */
+/* 	font-weight: bolder; */
+/* 	font-size: 1.2em; */
+/* } */
+/* #active li:hover{ */
+/* 	color:#ffffff; */
+/* } */
 #page-wrapper {
-	padding: 80px 20px 0 240px;
+	padding:50px 20px 0 240px;
 	/* 	background-color: #060606; */
-	
 }

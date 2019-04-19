@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.annotation.Resource;
 
@@ -55,7 +56,24 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/admin/maincontentmember.ins")
-	public String mainContentMember() throws Exception {
+	public String mainContentMember(Map mapBandList,Map musicList,Model model) throws Exception {
+		//band list
+		List<AdminDTO> list = adminService.selectBandList(mapBandList);
+		
+		
+		List<AdminDTO> bandMusicAll = new Vector<AdminDTO>();
+		for(AdminDTO dto :list ) {
+			List<AdminDTO> bandMusicList = adminService.selectBandMusicList(dto.getB_name());
+			for(AdminDTO dto2 : bandMusicList) {
+				bandMusicAll.add(dto2);
+			}
+		}
+		
+		
+		
+		
+		model.addAttribute("bandlist", list);
+		model.addAttribute("bandmusiclist", bandMusicAll);
 		return "/admin/AdminMainContentMember";
 	}
 	

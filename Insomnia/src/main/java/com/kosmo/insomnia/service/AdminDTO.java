@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class AdminDTO {
 
+	//members
 	private String id;
 	private String name;
 	private String password;
@@ -18,23 +19,86 @@ public class AdminDTO {
 	private String bank_serial;
 	private String sms_recieve;
 	private String email_recieve;
+	private Date join_date;
+	//band
+	private String b_no;
+	private String b_name;
+	private String bm_title;
+	private String b_description;
+	private String bi_profile;
+	private String b_liked;
+	//bandmusic
+	private String bm_name;
+	private String bm_description;
+	private String bm_liked;
 	
+	
+	public String getB_no() {
+		return b_no;
+	}
+	public void setB_no(String b_no) {
+		this.b_no = b_no;
+	}
+	public String getBm_name() {
+		return bm_name;
+	}
+	public void setBm_name(String bm_name) {
+		this.bm_name = bm_name;
+	}
+	public String getBm_description() {
+		return bm_description;
+	}
+	public void setBm_description(String bm_description) {
+		this.bm_description = bm_description;
+	}
+	public String getBm_liked() {
+		return bm_liked;
+	}
+	public void setBm_liked(String bm_liked) {
+		this.bm_liked = bm_liked;
+	}
+	public String getB_description() {
+		return b_description;
+	}
+	public void setB_description(String b_description) {
+		this.b_description = b_description;
+	}
+	public String getBi_profile() {
+		return bi_profile;
+	}
+	public void setBi_profile(String bi_profile) {
+		this.bi_profile = bi_profile;
+	}
+	public String getB_liked() {
+		return b_liked;
+	}
+	public void setB_liked(String b_liked) {
+		this.b_liked = b_liked;
+	}
+	public String getBm_title() {
+		return bm_title;
+	}
+	public void setBm_title(String bm_title) {
+		this.bm_title = bm_title;
+	}
+	public String getB_name() {
+		return b_name;
+	}
+	public void setB_name(String b_name) {
+		this.b_name = b_name;
+	}
 	public String getSms_recieve() {
 		return sms_recieve;
 	}
 	public void setSms_recieve(String sms_recieve) {
 		this.sms_recieve = sms_recieve;
 	}
-	
-	private Date join_date;
-	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 	public String getId() {
 		return id;
 	}
