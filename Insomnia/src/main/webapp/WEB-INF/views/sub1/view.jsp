@@ -66,10 +66,9 @@ body {
 	margin-top: -75px;
 }
 
-.table td, .table th{
-border-bottom: 1px solid gray;
+.table td, .table th {
+	border-bottom: 1px solid gray;
 }
-
 </style>
 </head>
 
@@ -133,20 +132,22 @@ border-bottom: 1px solid gray;
 							</table>
 						</div>
 					</div>
-					
+
 					<!-- 이전, 다음글 만들기 -->
-                    <table style="width:75%">
-                      		<tr >
-                      			<td style="width:15%">이전글</td>
-                      			<td>${prev.ap_title == null ? "" : prev.ap_title}</td> 
-                      		</tr>
-                      		<tr>
-                      			<td>다음글</td>
-                      			<td>${next.ap_title == null ? "" : next.ap_title}</td>
-                      		</tr>
-                    </table>
-                    
-					<div class="row" style="margin-bottom: 10px;pa">
+					<table style="width: 75%">
+						<tr>
+							<td style="width: 15%">이전글</td>
+							<td>${prev.ap_title == null ? "" : prev.ap_title}</td>
+						</tr>
+						<tr>
+							<td>다음글</td>
+							<td>${next.ap_title == null ? "" : next.ap_title}</td>
+							<a href="<c:url value='/sub1/list.ins'/>" class="btn btn-success"
+								style="margin-right: 20px;">목록</a>
+						</tr>
+					</table>
+
+					<div class="row" style="margin-bottom: 10px;">
 						<div class="col-md-12 text-right">
 
 							<c:if test="${sessionScope.id == record.id }">
@@ -165,7 +166,6 @@ border-bottom: 1px solid gray;
 							</c:if>
 						</div>
 					</div>
-					
 				</div>
 				<!-- /.row -->
 			</div>

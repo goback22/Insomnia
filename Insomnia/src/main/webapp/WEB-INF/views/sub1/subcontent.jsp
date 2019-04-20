@@ -305,33 +305,33 @@ body {
 .section1 {
 	margin-top: 20px;
 	margin-left: 60px;
-	width: 550px;
-	height: 450px;
+	width: 480px;
+	height: 380px;
 	background-image: url('../resource/img/sub1_D.jpg');
 }
 
 .section2 {
 	margin-top: 280px;
-	margin-left: 740px;
-	width: 550px;
-	height: 450px;
+	margin-left: 810px;
+	width: 480px;
+	height: 380px;
 	background-image: url('../resource/img/sub1_B.jpg');
 }
 
 .section3 {
 	margin-top: 280px;
 	margin-left: 60px;
-	width: 550px;
-	height: 450px;
+	width: 480px;
+	height: 380px;
 	background-image: url('../resource/img/sub1_C.jpg');
 }
 
 .section4 {
 	margin-top: 280px;
-	margin-left: 740px;
+	margin-left: 810px;
 	margin-bottom: 200px;
-	width: 550px;
-	height: 450px;
+	width: 480px;
+	height: 380px;
 	background-image: url('../resource/img/sub1_A.jpg');
 }
 

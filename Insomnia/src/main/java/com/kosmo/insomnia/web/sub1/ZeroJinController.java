@@ -127,7 +127,7 @@ public class ZeroJinController {
 		model.addAttribute("totalRecordCount", totalRecordCount);
 		model.addAttribute("pagingString", pagingString);
 		
-//		System.out.println("조회수:"+list.get(0).getAp_visit()); // 이게 널이면 java.lang.IndexOutOfBoundsException 에러 뜸 
+//		System.out.println("조회수:"+list.get(0).getAp_visit()); // 이게 널이면 java.lang.IndexOutOfBoundsException - index : 0  에러 뜸 
 		
 		return "/sub1/list.tiles";
 	}

@@ -17,9 +17,6 @@ import com.kosmo.insomnia.service.BGSConcertService;
 
 @Controller
 public class PayController {
-	
-
-	
 	//결제페이지[서브]로 이동]
 	@RequestMapping(value="/Pay/PayPage.ins")
 	public String payPage(@RequestParam Map map,Map view,HttpSession session) throws Exception{
@@ -31,8 +28,8 @@ public class PayController {
 		view.put("email_first",st.nextToken());
 		view.put("email_second", st.nextToken());
 		
-		view.put("phone_first", view.get("phone_num").toString().substring(2,6));
-		view.put("phone_second", view.get("phone_num").toString().substring(6));	
+//		view.put("phone_first", view.get("phone_num").toString().substring(2,6));
+//		view.put("phone_second", view.get("phone_num").toString().substring(6));	
 			
 		return "/Pay/SubPayPage.tiles";
 	}///payPage()
