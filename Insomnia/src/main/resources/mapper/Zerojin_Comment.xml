@@ -10,14 +10,14 @@
 	</select>
 	
 	<insert id="commentInsert" parameterType="java.util.Map" >
-	insert into BGSREVIEW(r_no,content,postdate,id) values(SEQ_bgsreview.nextval,#{content},default,#{id})
+	insert into BGSREVIEW(r_no,content,postdate,id) values(SEQ_bgsreview.nextval,#{content, jdbcType=VARCHAR},default,#{id, jdbcType=VARCHAR})
 	</insert>
 	
 	<update id="commentUpdate" parameterType="java.util.Map">
-	UPDATE BGSREVIEW SET content=#{content} WHERE r_no =#{r_no}	
+	UPDATE BGSREVIEW SET content=#{content} WHERE r_no =#{r_no, jdbcType=VARCHAR}	
 	</update>
 	
 	<delete id="commentDelete" parameterType="java.util.Map">
-	DELETE FROM BGSREVIEW WHERE r_no =#{r_no}	
+	DELETE FROM BGSREVIEW WHERE r_no =#{r_no, jdbcType=VARCHAR}	
 	</delete>
 </mapper>

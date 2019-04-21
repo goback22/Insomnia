@@ -153,7 +153,7 @@ public class ZeroJinController {
 	// 방구석 기타리스트 게시판 - write폼으로 이동
 	@RequestMapping(value = "/sub1/write.ins", method = RequestMethod.GET)
 	public String write() throws Exception {
-		return "/sub1/write.tiles";
+		return "sub1/write";
 	}
 
 	// 방구석 기타리스트 게시판 - write처리
@@ -213,7 +213,7 @@ public class ZeroJinController {
 		if (req.getMethod().equals("GET")) {
 			ListDTO record = insService.selectOne(map);
 			model.addAttribute("record", record);
-			return "/sub1/edit.tiles";
+			return "sub1/edit";
 		}
 
 		int sucFail = insService.update(map);
