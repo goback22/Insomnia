@@ -69,9 +69,6 @@ public class AdminController {
 			}
 		}
 		
-		
-		
-		
 		model.addAttribute("bandlist", list);
 		model.addAttribute("bandmusiclist", bandMusicAll);
 		return "/admin/AdminMainContentMember";

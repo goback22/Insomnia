@@ -257,7 +257,7 @@ element.style {
 }
 
 div.tab-content.left {
-	margin-left: 50px;
+	margin-left: 130px;
 	margin-top: 20px;
 }
 
@@ -365,7 +365,7 @@ body {
 	padding: 20px;
 	background: black;
 	z-index: 1000;
-	margin-left: 1400px;
+	margin-left: 1200px;
 	margin-top: 100px;
 	box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
 	display: none;

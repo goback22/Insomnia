@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/WEB-INF/views/common/IsMember.jsp" %>
+<%@ include file="/WEB-INF/views/common/IsMember.jsp"%>
 
 <!-- Dependency Styles -->
 <link rel="stylesheet"
@@ -36,7 +36,7 @@
 body {
 	color: white;
 	background-image: url('../resource/img/tempBG.jpg');
-	background-attachment : fixed;
+	background-attachment: fixed;
 }
 
 .text1 {
@@ -53,24 +53,23 @@ body {
 	margin-top: -75px;
 }
 
-.frm{
-	margin-left : 180px;
+.frm {
+	margin-left: 180px;
 	margin-top: 15px;
 	height: 1500px;
 }
 
-.KYJ{
-	position:absolute;
+.KYJ {
+	position: absolute;
 	left: 260px;
-	top:11px;
+	top: 11px;
 }
 
-.KYJ2{
-	position:absolute;
+.KYJ2 {
+	position: absolute;
 	left: 260px;
-	top:68px;
+	top: 68px;
 }
-
 </style>
 </head>
 
@@ -109,7 +108,8 @@ body {
 				<div role="tabpanel">
 					<div class="row">
 						<div class="col-md-10">
-							<form class="frm" id="frm" method="post" action="<c:url value='/sub1/write.ins'/>">
+							<form class="frm" id="frm" method="post"
+								action="<c:url value='/sub1/write.ins'/>">
 								<div class="form-group">
 									<label for="title" class="col-sm-2 control-label">제목</label>
 									<div class="col-sm-7 KYJ">
@@ -120,15 +120,30 @@ body {
 								<div class="form-group">
 									<label for="content" class="col-sm-2 ">내용</label>
 									<div class="col-sm-10 KYJ2">
-										<textarea rows="10" id="ap_content" name="ap_content" style="width: 650px;height:370px;"
-											class="form-control" placeholder="내용을 입력하세요"></textarea>
+										<textarea rows="10" id="ap_content" name="ap_content"
+											style="width: 650px; height: 370px;" class="form-control"
+											placeholder="내용을 입력하세요"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="content" class="col-sm-2 ">장르</label>
+									<div class="col-sm-10 KYJ2">
+										<select id="ap_genre" name="ap_genre">
+											<option value="" disabled selected>장르 선택</option>
+											<option value="보컬">보컬</option>
+											<option value="기타">기타</option>
+											<option value="베이스">베이스</option>
+											<option value="피아노">피아노</option>
+											<option value="드럼">드럼</option>
+											<option value="etc">etc</option>
+										</select>
 									</div>
 								</div>
 								<div class="row" style="margin-top: 355px">
 									<div class="col-md-12 text-right">
-									<input type="submit" class="btn btn-info" value="등록" />
-									<a href="<c:url value='/sub1/subcontent.ins'/>" class="btn btn-success"
-										style="margin-right: 230px;">취소</a>
+										<input type="submit" class="btn btn-info" value="등록" /> <a
+											href="<c:url value='/sub1/subcontent.ins'/>"
+											class="btn btn-success" style="margin-right: 230px;">취소</a>
 									</div>
 								</div>
 							</form>
@@ -146,4 +161,27 @@ body {
 
 	<!-- Quick View -->
 
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>

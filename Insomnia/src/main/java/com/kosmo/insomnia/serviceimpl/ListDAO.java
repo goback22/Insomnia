@@ -66,9 +66,16 @@ public class ListDAO implements ListService {
 		return template.selectOne("nextSelect",map);
 	}
 
+	//조회 수 업데이트
 	@Override
 	public int updateVisitCount(Map map) {
 		System.out.println("dao");
 		return template.update("updateVisit",map);
+	}
+
+	//조회 순
+	@Override
+	public List<ListDTO> readDesc(Map map) {
+		return template.selectList("readDesc",map);
 	}
 }

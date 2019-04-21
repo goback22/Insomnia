@@ -68,4 +68,9 @@ public class ListServiceImpl implements ListService{
 		return dao.updateVisitCount(map);
 	}
 
+	@Override
+	public List<ListDTO> readDesc(Map map) {
+		return dao.readDesc(map);
+	}
+
 }//class

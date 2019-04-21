@@ -29,4 +29,7 @@ public interface ListService {
 	
 	//조회수
 	int updateVisitCount(Map map);
+	
+	//조회순으로 목록 뿌리기
+	List<ListDTO> readDesc(Map map);
 }

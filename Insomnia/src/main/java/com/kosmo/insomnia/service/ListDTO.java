@@ -10,21 +10,13 @@ public class ListDTO {
 	private String ap_visit;
 	private String ap_remarks;
 	private String id;
-	private String ap_co;
-	
+	private String ap_genre;
 	//★
 	private String name;
 	
 	//getter and setter
-	
 	public String getAp_no() {
 		return ap_no;
-	}
-	public String getAp_co() {
-		return ap_co;
-	}
-	public void setAp_co(String ap_co) {
-		this.ap_co = ap_co;
 	}
 	public void setAp_no(String ap_no) {
 		this.ap_no = ap_no;
@@ -77,5 +69,10 @@ public class ListDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	public String getAp_genre() {
+		return ap_genre;
+	}
+	public void setAp_genre(String ap_genre) {
+		this.ap_genre = ap_genre;
+	}
 }

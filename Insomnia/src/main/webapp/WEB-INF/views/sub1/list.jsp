@@ -34,7 +34,7 @@ element.style {
 body {
 	color: white;
 	background-image: url('../resource/img/tempBG.jpg');
-	background-attachment : fixed;
+	background-attachment: fixed;
 }
 
 .text1 {
@@ -64,14 +64,79 @@ body {
 	margin-left: 0px;
 }
 
-*{
-border: none;
+* {
+	border: none;
 }
 
-.table td, .table th{
-border-bottom: 1px solid gray;
+.table td, .table th {
+	border-bottom: 1px solid gray;
 }
 </style>
+<script>
+	$(function() {
+		$('#read').click(function() {
+			console.log("read가 눌러지네요");
+
+			$.ajax({
+				url : '<c:url value="/sub1/sort.ins"/>',
+// 				type : 'post',
+				dataType : 'json',
+				success : function(data){
+					showReadDescSort(data)
+				},
+				// seccess에 showReadDescSort, 라고만 적어줘도 되고 위처럼 적어줘도 됨
+				error : function(request, error) {
+					console.log('여긴 왜 들어가니');
+					console.log('상태코드:', request.status);
+					console.log('서버로부터 받은 HTML데이타 :', request.responseText);
+					console.log('에러:', error);
+				}//error			
+			});//ajax
+		});
+	})
+
+	var showReadDescSort = function(data) { 
+		console.log('서버로부터 받은 데이타:', data);
+		//틀
+		var tableString = '<tr style="height: 35px;" >'
+		tableString += '<th style="width: 7%; text-align: center;">No</th>'
+		tableString += '<th style="width: 9%; text-align: center;">Genre</th>'
+		tableString += '<th style="width: 54%; text-align: center;">Subject</th>'
+		tableString += '<th style="width: 10%; text-align: center;">Name</th>'
+		tableString += '<th style="width: 7%; text-align: center;"><a id="read">Read</a></th>'
+		tableString += '<th style="width: 13%; text-align: center;">Date</th>'
+		tableString += '</tr>';		
+		tableString += '<tr style="color: aqua;" >'; 
+		tableString += '<td style="text-align: center; padding-top: 10px;">·</td>'; 
+		tableString += '<td style="text-align: center; padding-top: 10px;">·</td>'; 
+		tableString += '<td style="text-align: left; padding-left: 10px; padding-top: 10px; font-weight: bold;"><a style="color: aqua;" href="<c:url value="/sub1/viewadmin.ins"/>" class="title">게시글 작성 예시</a></td>';
+		tableString += '<td style="text-align: center; padding-top: 10px; font-weight: bold;">관리자</td>';		
+		tableString += '<td style="text-align: center; padding-top: 10px;">·</td>'; 
+		tableString += '<td style="text-align: center; padding-top: 10px; font-weight: bold;">2019-04-15</td></tr>'; 
+		tableString += '<tr style="color: aqua;" >'; 
+		tableString += '<td style="text-align: center; padding-top: 10px;">·</td>'; 
+		tableString += '<td style="text-align: center; padding-top: 10px;">·</td>'; 
+		tableString += '<td style="text-align: left; padding-left: 10px; padding-top: 10px; font-weight: bold;"><a style="color: aqua;" class="title">첨부파일 업로드 시 주의사항</a></td>'; 
+		tableString += '<td style="text-align: center; padding-top: 10px; font-weight: bold;">관리자</td>'; 
+		tableString += '<td style="text-align: center; padding-top: 10px;">·</td>'; 
+		tableString += '<td style="text-align: center; padding-top: 10px; font-weight: bold;">2018-12-24</td>'; 
+		tableString += '</tr>'; 
+		//--
+		tableString += "<tr>"; 
+		$.each(data, function(index, element){ // 위에 dataType을 text로하고 JSON.parse(data)로 해도 된다.
+			tableString += "<td style='text-align: center; padding-top: 10px;'>"+element["ap_no"]+"</td>";
+			//tableString += "<td style='text-align: center; padding-top: 10px;'>"+(index+1)+"</td>";
+			tableString += "<td style='text-align: center; padding-top: 10px;'>"+element["ap_genre"]+"</td>";
+			tableString += "<td style='text-align: left; padding-left: 10px; padding-top: 10px; font-weight: bold;'><a style='color: white;' href='<c:url value='/sub1/view.ins?ap_no="+element["ap_no"]+"'/>' class='title'>"+element["ap_title"]+"</a></td>";
+			tableString += "<td style='text-align: center; padding-top: 10px;'>"+element["name"]+"</td>";
+			tableString += "<td style='text-align: center; padding-top: 10px;'>"+element["ap_visit"]+"</td>";
+			tableString += "<td style='text-align: center; padding-top: 10px;'>"+element["ap_postdate"]+"</td>";
+			tableString += "</tr>";
+		});
+		
+		$('#readDesc').html(tableString);
+	};
+</script>
 </head>
 
 <body id="home-version-1" class="home-version-1" data-style="default">
@@ -109,40 +174,75 @@ border-bottom: 1px solid gray;
 					<div class="col-md-10">
 						<div>
 							<h5 class="comments-title">
-								Recruit Notice Board 
-								<a href="<c:url value='/sub1/write.ins'/>" class="btn btn-success" style="margin-left: 760px;">등록</a>
-								<a href="<c:url value='/sub1/subcontent.ins'/>" class="btn btn-success" style="margin-left: 16px;">돌아가기</a>
+								Recruit Notice Board <a href="<c:url value='/sub1/write.ins'/>"
+									class="btn btn-success" style="margin-left: 760px;">등록</a> <a
+									href="<c:url value='/sub1/subcontent.ins'/>"
+									class="btn btn-success" style="margin-left: 16px;">돌아가기</a>
 							</h5>
 						</div>
-						<table class="table table-hover text-center">
-							<tr style="height: 35px;">
+						<table class="table table-hover text-center" id="readDesc">
+							<tr style="height: 35px;" >
 								<th style="width: 7%; text-align: center;">No</th>
-								<th style="width: 63%; text-align: center;">Subject</th>
+								<th style="width: 9%; text-align: center;">Genre</th>
+								<th style="width: 54%; text-align: center;">Subject</th>
 								<th style="width: 10%; text-align: center;">Name</th>
-								<th style="width: 7%; text-align: center;">Read</th>
+								<th style="width: 7%; text-align: center;"><a id="read">Read</a></th>
 								<th style="width: 13%; text-align: center;">Date</th>
 							</tr>
-							<c:if test="${empty list }" var="isEmpty">
+							<c:if test="${empty list }" var="isEmpty" >
 								<tr>
-									<td colspan="5">등록된 게시물이 없어요</td>
+									<td colspan="6">등록된 게시물이 없어요</td>
 								</tr>
 							</c:if>
+
+							<c:if test="${not isEmpty }">
+							<!-- 공지사항 -->
+							<tr style="color: aqua;" >
+								<td style="text-align: center; padding-top: 10px;">·</td>
+								<td style="text-align: center; padding-top: 10px;">·</td>
+								<td
+									style="text-align: left; padding-left: 10px; padding-top: 10px; font-weight: bold;"><a
+									style="color: aqua;"
+									href="<c:url value='/sub1/viewadmin.ins'/>" class="title">게시글
+										작성 예시</a></td>
+								<td
+									style="text-align: center; padding-top: 10px; font-weight: bold;">관리자</td>
+								<td style="text-align: center; padding-top: 10px;">·</td>
+								<td
+									style="text-align: center; padding-top: 10px; font-weight: bold;">2019-04-15</td>
+							</tr>
+							<tr style="color: aqua;" >
+								<td style="text-align: center; padding-top: 10px;">·</td>
+								<td style="text-align: center; padding-top: 10px;">·</td>
+								<td
+									style="text-align: left; padding-left: 10px; padding-top: 10px; font-weight: bold;"><a
+									style="color: aqua;" href="" class="title">첨부파일 업로드 시 주의사항</a></td>
+								<td
+									style="text-align: center; padding-top: 10px; font-weight: bold;">관리자</td>
+								<td style="text-align: center; padding-top: 10px;">·</td>
+								<td
+									style="text-align: center; padding-top: 10px; font-weight: bold;">2018-12-24</td>
+							</tr>
+							</c:if>
+														
 							<c:if test="${not isEmpty }">
 								<c:forEach var="item" items="${list}" varStatus="loop">
-									<tr>
-										<td style="text-align: center; padding-top: 10px;">${totalRecordCount - (((nowPage - 1) * pageSize) + loop.index)}</td>
+									<tr class="originally" >
+<%-- 									<td style="text-align: center; padding-top: 10px;">${totalRecordCount - (((nowPage - 1) * pageSize) + loop.index)}</td> --%>
+										<td style="text-align: center; padding-top: 10px;">${item.ap_no}</td>
+										<td style="text-align: center; padding-top: 10px;">${item.ap_genre}</td>
 										<td
 											style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
 											href="<c:url value='/sub1/view.ins?ap_no=${item.ap_no}'/>"
 											class="title">${item.ap_title == null ? "" : item.ap_title}</a></td>
 										<td style="text-align: center; padding-top: 10px;">${item.name}</td>
-										<td style="text-align: center; padding-top: 10px;color:red">${item.ap_visit == null ? "null" : item.ap_visit}</td>
+										<td style="text-align: center; padding-top: 10px;">${item.ap_visit == null ? "null" : item.ap_visit}</td>
 										<td style="text-align: center; padding-top: 10px;">${item.ap_postdate}</td>
 									</tr>
 								</c:forEach>
 							</c:if>
 						</table>
-
+						
 						<!-- 페이징 -->
 						<div class="row">
 							<!-- 페이지네이션 가운데 배치:text-center -->
@@ -161,6 +261,7 @@ border-bottom: 1px solid gray;
 										<option value="ap_title">제목</option>
 										<option value="name">작성자</option>
 										<option value="ap_content">내용</option>
+										<option value="ap_genre">장르</option>
 									</select>
 								</div>
 								<div class="form-group" style="margin-left: 5px">

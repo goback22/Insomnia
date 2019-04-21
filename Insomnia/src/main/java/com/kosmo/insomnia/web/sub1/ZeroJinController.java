@@ -1,8 +1,10 @@
 package com.kosmo.insomnia.web.sub1;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -95,14 +97,24 @@ public class ZeroJinController {
 		return "/sub1/subprojects.tiles";
 	}
 	
+	// 서브 프로젝트 -> 방구석 기타리스트 
+	@RequestMapping(value = "/sub1/subcontent.ins")
+	public String subcontent(Model model) throws Exception {
+		List<Map> product_List = bGSConcertService.selectList();
+		
+		model.addAttribute("bgs1", product_List.get(0));
+		model.addAttribute("bgs2", product_List.get(1));
+		return "/sub1/subcontent.tiles";
+	}
+
 	// 목록처리]
 	// 리소스 파일(memo.properties)에서 읽어오기
 	@Value("${PAGESIZE}")
 	private int pageSize;
 	@Value("${BLOCKPAGE}")
 	private int blockPage;
-	
-	// 서브 프로젝트 게시판
+		
+	// 방구석 기타리스트 게시판
 	@RequestMapping(value = "/sub1/list.ins")
 	public String list(Model model, @RequestParam Map map, HttpServletRequest req,
 			@RequestParam(required = false, defaultValue = "1") int nowPage) throws Exception {
@@ -116,6 +128,7 @@ public class ZeroJinController {
 		int end = nowPage * pageSize;
 		map.put("start", start);
 		map.put("end", end);
+		
 		// 서비스 호출
 		List<ListDTO> list = insService.selectList(map);
 		String pagingString = PagingUtil.pagingBootStrapStyle(totalRecordCount, pageSize, blockPage, nowPage,
@@ -127,28 +140,19 @@ public class ZeroJinController {
 		model.addAttribute("totalRecordCount", totalRecordCount);
 		model.addAttribute("pagingString", pagingString);
 		
-//		System.out.println("조회수:"+list.get(0).getAp_visit()); // 이게 널이면 java.lang.IndexOutOfBoundsException - index : 0  에러 뜸 
+//		System.out.println("조회수:"+list.get(0).getAp_visit()); // 이게 널이면 java.lang.IndexOutOfBoundsException - index : 0  에러 뜸
+//		System.out.println("궁금해:"+list.get(0).getAp_genre());
 		
 		return "/sub1/list.tiles";
 	}
-
-	// 서브 프로젝트 -> 방구석 기타리스트 // 목록처리
-	@RequestMapping(value = "/sub1/subcontent.ins")
-	public String subcontent(Model model) throws Exception {
-		List<Map> product_List = bGSConcertService.selectList();
 		
-		model.addAttribute("bgs1", product_List.get(0));
-		model.addAttribute("bgs2", product_List.get(1));
-		return "/sub1/subcontent.tiles";
-	}
-
-	// 방구석 기타리스트 - write폼으로 이동
+	// 방구석 기타리스트 게시판 - write폼으로 이동
 	@RequestMapping(value = "/sub1/write.ins", method = RequestMethod.GET)
 	public String write() throws Exception {
 		return "/sub1/write.tiles";
 	}
 
-	// 방구석 기타리스트 - write처리
+	// 방구석 기타리스트 게시판 - write처리
 	@RequestMapping(value = "/sub1/write.ins", method = RequestMethod.POST)
 	public String writeOk(@RequestParam Map map, HttpSession session) throws Exception {
 		// 서비스 호출
@@ -159,8 +163,8 @@ public class ZeroJinController {
 		return "forward:/sub1/list.ins";
 		//return "/sub1/list.tiles";로하면 안돼
 	}
-
-	// 방구석 기타리스트 - view
+	
+	// 방구석 기타리스트 게시판  - view
 	@RequestMapping(value = "/sub1/view.ins")
 	public String view(@RequestParam Map map, Model model) throws Exception {
 		// 서비스 호출
@@ -172,7 +176,8 @@ public class ZeroJinController {
 		}
 		model.addAttribute("record", record);
 		
-		//				System.out.println(record.getAp_content());
+		// System.out.println(record.getAp_content());
+
 		
 		// 이전 글
 		ListDTO prev = insService.prevSelectOne(map);
@@ -190,8 +195,14 @@ public class ZeroJinController {
 
 		return "/sub1/view.tiles";
 	}
+	
+	// 방구석 기타리스트 게시판 - view 공지사항으로 이동
+	@RequestMapping(value = "/sub1/viewadmin.ins", method = RequestMethod.GET)
+	public String viewadmin() throws Exception {
+		return "/sub1/viewadmin.tiles";
+	}
 
-	// 방구석 기타리스트 - edit
+	// 방구석 기타리스트 게시판 - edit
 	@RequestMapping(value = "/sub1/edit.ins")
 	public String edit(@RequestParam Map map, HttpServletRequest req, Model model) throws Exception {
 		// edit 폼에 값을 뿌려주기 위한 record 설정
@@ -207,7 +218,7 @@ public class ZeroJinController {
 		return "sub1/Message";
 	}
 
-	// 방구석 기타리스트 - delete
+	// 방구석 기타리스트 게시판 - delete
 	@RequestMapping("/sub1/delete.ins")
 	public String delete(@RequestParam Map map, Model model) throws Exception {
 		int sucFail = insService.delete(map);
@@ -215,10 +226,41 @@ public class ZeroJinController {
 		return "sub1/Message";
 	}
 	
+	// 방구석 기타리스트 게시판 - read눌렀을 때 조회수 순으로 뿌려주기
+	@ResponseBody
+	@RequestMapping(value="/sub1/sort.ins", produces="text/html; charset=UTF-8")
+	public String readSort(@RequestParam Map map) throws Exception{
+		System.out.println("여기까지 오니");
+		
+		//비지니스 로직 호출
+		map.put("start", 1);
+		map.put("end", 10);
+				
+		//서비스 호출
+		List<ListDTO> read = insService.readDesc(map);
+		List<Map> collections = new Vector<Map>();
+		for(ListDTO dto : read) {
+			Map record = new HashMap();
+			record.put("ap_no", dto.getAp_no());
+			record.put("ap_genre", dto.getAp_genre());
+			record.put("ap_title", dto.getAp_content());
+			record.put("name", dto.getName());
+			record.put("ap_visit", dto.getAp_visit());
+			record.put("ap_postdate", dto.getAp_postdate().toString());
+			collections.add(record);
+		}
+ 		
+		System.out.println("??:"+JSONArray.toJSONString(collections));
+		
+		return JSONArray.toJSONString(collections);
+	}
+	
+	//----------------------------
+	//----------------------------
 	//방구석 기타리스트 - reviews(댓글)
 	//코멘트 전체 목록 가져오기
 	@ResponseBody 
-	@RequestMapping(value="/sub1/memolist.ins",produces="text/html; charset=UTF-8")
+	@RequestMapping(value="/sub1/memolist.ins", produces="text/html; charset=UTF-8")
 	public String list(@RequestParam Map map) throws Exception{
 		//비지니스 로직 호출
 		map.put("start", 1);
@@ -227,13 +269,13 @@ public class ZeroJinController {
 		//서비스 호출]
 		List<Map> comments= commentService.selectList(map);
 		
-		//날짜 값을 문자열으로 변경
 		for(Map comment:comments) {
 			comment.put("POSTDATE", comment.get("POSTDATE").toString().substring(0,10));
 			//엔터 값
 			comment.put("CONTENT", comment.get("CONTENT").toString().replace("\r\n", "<br/>"));
 		}
 		
+		System.out.println(JSONArray.toJSONString(comments));
 		return JSONArray.toJSONString(comments);
 	}//list()
 		
