@@ -62,7 +62,7 @@
 											<!-- example1 -->
 											<tr class="view">
 												<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;1</td>
-												<td class="text-center viewDetail">${item.id}</td>
+												<td class="text-center viewDetail">${item.id}<b class="caret"></b></td>
 												<td class="text-center viewDetail">${item.name}</td>
 												<td class="text-center viewDetail">일반1</td>
 												<td class="text-center viewDetail">일반2</td>

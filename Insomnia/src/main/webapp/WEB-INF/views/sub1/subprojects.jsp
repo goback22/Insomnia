@@ -35,7 +35,9 @@
 <!-- 배경색 -->
 <style>
 body {
-	background: url('../resource/img/background.jpg');
+	color: white;
+	background-image: url('../resource/img/tempBG.jpg');
+	background-attachment : fixed;
 }
 .section-title.style-four{
 	margin-top: 55px

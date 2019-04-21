@@ -107,38 +107,26 @@ body {
 				<div role="tabpanel">
 					<div class="row">
 						<div class="col-md-10">
-							<h5 class="comments-title">Application</h5>
 							<table class="table table-hover text-center">
 								<tr style="height: 40px; display: none">
 									<td style="width: 10%;">No</td>
-									<td class="B">${record.ap_no}</td>
+									<td class="B"></td>
 								</tr>
 								<tr style="height: 40px">
 									<td style="height: 30px;">Subject</td>
-									<td class="B">${record.ap_title == null ? "" : record.ap_title}</td>
+									<td class="B">게시글 작성 시 주의사항</td>
 								</tr>
 								<tr style="height: 40px">
 									<td style="width: 10%;">Name</td>
-									<td class="B">${record.name}</td>
+									<td class="B">관리자</td>
 								</tr>
 								<tr style="height: 40px; display: none">
 									<td style="height: 30px;">Date</td>
-									<td class="B">${record.ap_postdate}</td>
+									<td class="B"></td>
 								</tr>
 								<tr style="height: 350px">
 									<td style="padding-top: 140px;">Content</td>
-									<td style="text-align: left">${record.ap_content == null ? "" : record.ap_content}</td>
-								<tr>
-									<td style="height: 40px;">File</td>
-									<td class="B"></td>
-								</tr>
-								<tr style="border-bottom: none">
-									<td style="height: 40px;"> &nbsp;이전 글 <br> 다음 글 </td>
-									<td class="B">
-								 	 <a style="color:white;" href="<c:url value='/sub1/view.ins?ap_no=${prev.ap_no}'/>">${prev.ap_title == null ? "등록된 이전 글이 없습니다." : prev.ap_title}</a>
-									 <br> 
-									 <a style="color:white;" href="<c:url value='/sub1/view.ins?ap_no=${next.ap_no}'/>">${next.ap_title == null ? "등록된 다음 글이 없습니다." : next.ap_title}</a>
-								</tr>
+									<td style="text-align: left">사이트 관리자입니다.<br>게시글 신청 시 기입해야하는 목록에 대해서 말씀드리겠습니다.</td>
 							</table>
 						</div>
 					</div>

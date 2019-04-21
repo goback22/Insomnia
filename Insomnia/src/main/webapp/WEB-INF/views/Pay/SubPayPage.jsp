@@ -37,116 +37,8 @@
 				<div id="content">
 					<div id="order">
 						<div class="page-body">
-							<form name="form1" id="order_form" action="/shop/orderin.html" method="post">
-								<input type="hidden" name="ok" value="N"> 
-								<input type="hidden" name="paymethod" value="B"> 
-								<input type="hidden" name="paydata1" value=""> 
-								<input type="hidden" name="paydata2" value=""> 
-								<input type="hidden" name="address" value="" id="address"> 
-								<input type="hidden" name="etcaddress" value=""> 
-								<input type="hidden" name="virresno1" value=""> 
-								<input type="hidden" name="virresno2" value=""> 
-								<input type="hidden" name="resno" value=""> 
-								<input type="hidden" name="msecure_key" value="LDoo/UZhSMRdSr9Qw/S1sg=="> 
-								<input type="hidden" name="add_msecure_key" value=""> 
-								<input type="hidden" name="id_info" value="" id="id_info"> 
-								<input type="hidden" name="id_name" value="" id="id_name"> 
-								<input type="hidden" name="sslid" value="superstari"> 
-								<input type="hidden" name="sslip" value="www.superstari.co.kr">
-								<input type="hidden" name="tempid" value="36ae504279011882970532cf37a8321f"> 
-								<input type="hidden" name="id" value="" id="id"> 
-								<input type="hidden" name="use_freedeli_coupon" value="N"> 
-								<input type="hidden" name="banktown_id" value=""> 
-								<input type="hidden" name="card_brand" value="수납&amp;공간활용 진공 압축팩">
-								<input type="hidden" name="banktownprice" value="5400">
-								<input type="hidden" name="cardprice" value="5400"> 
-								<input type="hidden" name="cur_reserve" value=""> 
-								<input type="hidden" name="reserveonlyprice" value=""> 
-								<input type="hidden" name="ktprice" value="2900" origin-data-value="2900"> 
-								<input type="hidden" name="kt_id" value=""> 
-								<input type="hidden" name="deli_product_price" value="2500"> 
-								<input type="hidden" name="bankonly" value="N"> 
-								<input type="hidden" name="quickdelihour" value=""> 
-								<input type="hidden" name="quickdelimethod" value=""> 
-								<input type="hidden" name="quickdelipricetype" value="C"> 
-								<input type="hidden" name="shoplang" value=""> 
-								<input type="hidden" name="pay_path" value="PC"> 
-								<input type="hidden" name="tm1post1" value="" id="tm1post1"> 
-								<input type="hidden" name="tm1post2" value="" id="tm1post2"> 
-								<input type="hidden" name="tm1address1" value="" id="tm1address1">
-								<input type="hidden" name="tm1address2" value="" id="tm1address2"> 
-								<input type="hidden" name="tm2post1" value="" id="tm2post1"> 
-								<input type="hidden" name="tm2post2" value="" id="tm2post2"> 
-								<input type="hidden" name="tm2address1" value="" id="tm2address1">
-								<input type="hidden" name="tm2address2" value="" id="tm2address2"> 
-								<input type="hidden" name="deli_reserve" value=""> 
-								<input type="hidden" name="deli_emoney" value=""> 
-								<input type="hidden" name="order_deli_price" value="2500"> 
-								<input type="hidden" name="discount_use_not_reserve" value="0">
-								<input type="hidden" name="mobile_type" value="DA">
-								<!--핸드폰 결제 타입  (DA : 다날, MO : 모빌리언스)-->
-								<input type="hidden" name="group_deli_type" id="group_deli_type" value="">
-								<!--회원등급 배송료처리-->
-								<input type="hidden" name="mk_ems_type" id="mk_ems_type" value="">
-								<!--해외 배송료처리-->
-								<input type="hidden" name="simplepay_type" id="simplepay_type" value="">
-								<!-- 간편결제 -->
-								<input type="hidden" name="order_paytype" id="order_paytype" value="PAY">
-								<!-- 스마트주문서(주문서리뉴얼) 결제팝업 버전 -->
-								<input type="hidden" name="add_deli_price" id="add_deli_price" value="0">
-								<!-- 스마트주문서(주문서리뉴얼) 추가배송비 -->
-
-								<input type="hidden" name="tba_name" id="tba_name">
-								<!-- 증빙신청 세금계산서 신청자명 -->
-								<input type="hidden" name="tba_phone" id="tba_phone">
-								<!-- 증빙신청 세금계산서 휴대전화 번호 -->
-								<input type="hidden" name="tba_email" id="tba_email">
-								<!-- 증빙신청 세금계산서 이메일 -->
-								<input type="hidden" name="tba_company_num" id="tba_company_num">
-								<!-- 증빙신청 세금계산서 사업자번호 -->
-								<input type="hidden" name="tba_company_name" id="tba_company_name">
-								<!-- 증빙신청 세금계산서 (상호)법인명 -->
-								<input type="hidden" name="tba_company_owner" id="tba_company_owner">
-								<!-- 증빙신청 세금계산서 대표자명 -->
-								<input type="hidden" name="tba_company_post" id="tba_company_post">
-								<!-- 증빙신청 세금계산서 우편번호 -->
-								<input type="hidden" name="tba_company_addr" id="tba_company_addr">
-								<!-- 증빙신청 세금계산서 주소 -->
-								<input type="hidden" name="tba_company_addr2" id="tba_company_addr2">
-								<!-- 증빙신청 세금계산서 상세주소 -->
-								<input type="hidden" name="tba_company_biz" id="tba_company_biz">
-								<!-- 증빙신청 세금계산서 업태 -->
-								<input type="hidden" name="tba_company_item" id="tba_company_item">
-								<!-- 증빙신청 세금계산서 업종 -->
-								<input type="hidden" name="is_evidence_serchaddress" id="is_evidence_serchaddress">
-								<!-- 증빙신청 세금계산서 우편번호 클릭여부 -->
-								<input type="hidden" name="evidence_data" id="evidence_data" value="cashbill"> 
-								<input type="hidden" name="use_tax" id="use_tax" value=""> 
-								<input type="hidden" name="pvd_deli_price" id="pvd_deli_price" value="0">
-								<!-- 공급자 배송비 (추가배송비 포함)-->
-
-								<input type="hidden" id="usereserve" name="usereserve" value="0">
-								<input type="hidden" name="type" value="guest"> 
-								<input type="hidden" name="year" value="2019"> 
-								<input type="hidden" name="mon" value="04"> 
-								<input type="hidden" name="day" value="09"> 
-								<input type="hidden" name="hope_deli_s_date" value=""> 
-								<input type="hidden" name="hope_deli_e_date" value=""> 
-								<input type="hidden" name="hope_deli_day2_setting" value="3649">
-								<input type="hidden" name="hopedate_start_year" value="2019">
-								<input type="hidden" name="hopedate_start_month" value="04">
-								<input type="hidden" name="hopedate_start_day" value="09">
-								<input type="hidden" id="hopedate_except_month" value="">
-								<input type="hidden" id="hopedate_except_day" value="">
-								<input type="hidden" id="hopedate_except_holiday" value="">
-								<input type="hidden" name="useemoney" value=""> 
-								<input type="hidden" name="emergency" value=""> 
-								<input type="hidden" name="emergency2" value=""> 
-								<input type="hidden" name="emergency3" value=""> 
-								<input type="hidden" name="tempemergency21" value="" id="tempemergency21"> 
-								<input type="hidden" name="tempemergency22" value="" id="tempemergency22"> 
-								<input type="hidden" name="tempemergency23" value="" id="tempemergency23"> 
-								<input type="hidden" name="member_before_pay" id="member_before_agree" value="Y">
+							<form name="form1" id="order_form" action="<c:url value='/Pay/PayComplete.ins'/>" method="post">
+								
 								
 
 								<!-- ============================================================================================================== -->
@@ -163,7 +55,6 @@
 								</div>
 									<legend>주문리스트</legend>
 									<h3>주문리스트</h3>
-									<input type="button" value="추가" class="add_order_list_count">
 									<div class="tbl-order">
 										<table>
 											<caption>주문리스트</caption>
@@ -184,7 +75,38 @@
 												</tr>
 											</thead>
 											<tbody class="add_trTag">
-												
+												<tr class='orderlist_checkNrelease_delete'>
+													<td>
+														<div class='tb-center'>
+															<div class='thumb'>
+																<input type='checkbox' class='order_list_checked' checked='checked'>
+																<img src='<c:url value="/img/guita.png"/>' width='40'>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class='tb-left'>
+															<a href='#'>${param.bgs1_title } </a><br/>
+															<a href="#">${param.bgs1_content}</a>
+														</div>
+													</td>
+													<td>
+														<div class='tb-center'>
+															<input disabled="disabled" type='text' class='item_Count' value='${param.bgs1_qty }' style='width: 25px; text-align: right;background-color: #fff;'> 개
+															<input type='button' class='btn btn-info btn_plus' value='+'>
+															<input type='button' class='btn btn-info btn_minus' value='-''>
+														</div>
+													</td>
+													<td>
+														<div class='tb-right tb-bold tb-center'><span id="price_concert"></span>원</div>
+														<script>
+															$("#price_concert").text(String(${param.bgs1_price}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+														</script>
+													</td>
+													<td>
+														<div class='tb-center'>없음</div>
+													</td>
+												</tr>
 											</tbody>
 										</table>
 									</div>
@@ -212,28 +134,52 @@
 												<tr>
 													<th scope="row"><div class="txt-l">이름</div></th>
 													<td><input type="text" name="sender" form="order_form"
-														id="sender" class="MS_input_txt" value=""></td>
+														id="sender" class="MS_input_txt" value="${name }"></td>
 												</tr>
 												<tr>
 													<th scope="row"><div class="txt-l">이메일</div></th>
 													<td>
-														<input type="text" name="email" form="order_form" id="email" value="" class="MS_input_txt" maxlength="10" size="4">
+														<input type="text" name="email" form="order_form" id="email" value="${email_first }" class="MS_input_txt" maxlength="10" size="4">
 														@
 														<input type="text" name="email" form="order_form" id="email_self" value="" class="MS_input_txt" maxlength="10" size="4" style="display: none;">
 														<select name="email_change" class="choose_email">
+														<c:if test="${email_second eq 'naver.com'}">
 																<option value="0" selected="selected">naver.com</option>
 																<option value="1">daum.net</option>
 																<option value="2">nate.com</option>
-																<option value="3" id="self_write">직접 입력</option>
+																<option value="3">google.com</option>
+																<option value="4" id="self_write">직접 입력</option>
+														</c:if>
+														<c:if test="${email_second eq 'daum.net'}">
+																<option value="0">naver.com</option>
+																<option value="1" selected="selected">daum.net</option>
+																<option value="2">nate.com</option>
+																<option value="3">google.com</option>
+																<option value="4" id="self_write">직접 입력</option>
+														</c:if>
+														<c:if test="${email_second eq 'nate.com'}">
+																<option value="0" selected="selected">naver.com</option>
+																<option value="1">daum.net</option>
+																<option value="2" selected="selected">nate.com</option>
+																<option value="3">google.com</option>
+																<option value="4" id="self_write">직접 입력</option>
+														</c:if>
+														<c:if test="${email_second eq 'google.com'}">
+																<option value="0">naver.com</option>
+																<option value="1">daum.net</option>
+																<option value="2">nate.com</option>
+																<option value="3" selected="selected">google.com</option>
+																<option value="4" id="self_write">직접 입력</option>
+														</c:if>
 														</select>
 													</td>
 												</tr>
 												<tr>
 													<th scope="row"><div class="txt-l">연락처</div></th>
 													<td>
-														<input type="text" name="emergency11" form="order_form" id="emergency11" size="4" maxlength="4" class="MS_input_txt w60" value="">
-														 - <input type="text" name="emergency12" form="order_form" id="emergency12" size="4" maxlength="4" class="MS_input_txt w60" value="">
-														 - <input type="text" name="emergency13" form="order_form" id="emergency13" size="4" maxlength="4" class="MS_input_txt w60" value="">
+														<input type="text" name="emergency11" form="order_form" id="emergency11" size="4" maxlength="4" class="MS_input_txt w60" value="010">
+														 - <input type="text" name="emergency12" form="order_form" id="emergency12" size="4" maxlength="4" class="MS_input_txt w60" value="${phone_first }">
+														 - <input type="text" name="emergency13" form="order_form" id="emergency13" size="4" maxlength="4" class="MS_input_txt w60" value="${phone_second }">
 													 </td>
 												</tr>
 											</tbody>
@@ -276,35 +222,11 @@
 														id="emergency23" size="4" maxlength="4"
 														class="MS_input_txt w60" value=""></td>
 												</tr>
-												<tr>
-													<th scope="row">
-														<div class="txt-l">주소</div>
-													</th>
-													<td colspan="3">
-<!-- 													<input name="post1" id="post_number" readonly=""> -->
-<!-- 														<input type="button" id="post_number_api" value="우편번호" > -->
-<!-- 														<div class="mt-10"> -->
-<!-- 															<input type="text" name="address1" form="order_form" id="address1" size="50" class="MS_input_txt w240" readonly="" placeholder="주소">  -->
-<!-- 															<input type="hidden" name="old_address" form="order_form" id="old_address" value="">  -->
-<!-- 															<input type="hidden" name="old_home_address" form="order_form" id="old_home_address" value="">  -->
-<!-- 															<input type="hidden" name="old_offi_address" form="order_form" id="old_offi_address" value="">  -->
-<!-- 															<input type="text" name="address2" form="order_form" id="address2" size="50" class="MS_input_txt w240" placeholder="상세주소"> -->
-<!-- 														</div> -->
-															<input type="text" id="sample4_postcode" placeholder="우편번호" readonly="">
-															<input type="button" class="d_btn" id="sample4_execDaumPostcode" value="우편번호 찾기"><br>
-															<input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly="">
-															<input type="text" id="sample4_jibunAddress" placeholder="지번주소" readonly="">
-															<span id="guide" style="color:#999;display:none"></span>
-															<br/>
-															<input type="text" id="sample4_detailAddress" placeholder="상세주소">
-															<input type="text" id="sample4_extraAddress" placeholder="참고항목" readonly="">
-													</td>
-												</tr>
 												
 												<tr>
 													<th scope="row">
 														<div class="txt-l">
-															주문메세지<br> <span>(100자내외)</span>
+															주문 메세지<br> <span>(100자내외)</span>
 														</div></th>
 													<td colspan="3">
 														<textarea name="message" form="order_form" id="message" cols="50" rows="5" class="MS_textarea"></textarea>
@@ -383,10 +305,6 @@
 																</select>
 															</li>
 															<li>
-																<input type="radio" class="chk-rdo" name="radio_paymethod" value="PAYCO"> 
-																페이코(PAYCO) <em><span class="op-card-dc-price fc-red"></span></em>
-															</li>
-															<li>
 															<input type="radio" class="chk-rdo" name="radio_paymethod" value="C"> 
 																신용카드 <em><span class="op-card-dc-price fc-red"></span></em>
 															</li>
@@ -394,10 +312,6 @@
 																<input type="radio" class="chk-rdo" name="radio_paymethod" value="D"> 
 																휴대폰 결제 
 																<em><span class="op-hp-dc-price fc-red"></span></em>
-															</li>
-															<li>
-																<input type="radio" class="chk-rdo" name="radio_paymethod" value="KAKAOPAY">
-																카카오페이(KAKAOPAY) <em><span class="op-card-dc-price fc-red"></span></em>
 															</li>
 														</ul>
 													</td>
@@ -712,9 +626,12 @@
 												<tr>
 													<th>최종 결제금액</th>
 													<td><strong class="price"><em><span
-																id="block_unit_dollar" style="display: none">$</span> <span
-																id="op_total_price">5,400</span></em> <span
-															id="block_unit_won">원</span></strong> &nbsp;</td>
+																id="block_unit_dollar" style="display: none">$</span> 
+																<span id="op_total_price"></span></em> 
+																<script>
+																	$("#op_total_price").text(String(${param.bgs1_price}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+																</script>
+																<span id="block_unit_won">원</span></strong> &nbsp;</td>
 												</tr>
 
 											</thead>

@@ -3,6 +3,7 @@ package com.kosmo.insomnia.service;
 import java.util.List;
 import java.util.Map;
 
+
 public interface ListService {
 	//로그인
 	boolean isMember(Map map);
@@ -20,4 +21,15 @@ public interface ListService {
 	int insert(Map map);
 	int update(Map map);
 	int delete(Map map);
+	
+	//이전글
+	ListDTO prevSelectOne(Map map);
+	//다음글
+	ListDTO nextSelectOne(Map map);
+	
+	//조회수
+	int updateVisitCount(Map map);
+	
+	//조회순으로 목록 뿌리기
+	List<ListDTO> readDesc(Map map);
 }

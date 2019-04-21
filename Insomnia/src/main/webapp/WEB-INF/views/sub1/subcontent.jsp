@@ -20,6 +20,11 @@
 <link href="<c:url value='/vendor/css/jquery.scrolling-tabs.css'/>"
 	rel="stylesheet">
 
+<!-- 공지사항 -->
+<script type="text/javascript" src="<c:url value='/vendor/js/obt.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/vendor/js/obt2.js'/>"></script>
+
+
 <!-- PayMoving js -->
 <script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
 <script>
@@ -163,6 +168,47 @@
 			}
 		})
 	}
+	
+	//오늘 하루 그만보기
+	//쿠키설정	
+	function setCookie(name, value, expiredays) {
+		var todayDate = new Date();
+		todayDate.setDate(todayDate.getDate() + expiredays);
+		document.cookie = name + '=' + escape(value) + '; path=/; expires='
+				+ todayDate.toGMTString() + ';'
+	}
+
+	//쿠키 불러오기
+	function getCookie(name) {
+		var obj = name + "=";
+		var x = 0;
+		while (x <= document.cookie.length) {
+			var y = (x + obj.length);
+			if (document.cookie.substring(x, y) == obj) {
+				if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
+					endOfCookie = document.cookie.length;
+				return unescape(document.cookie.substring(y, endOfCookie));
+			}
+			x = document.cookie.indexOf(" ", x) + 1;
+			if (x == 0)
+				break;
+		}
+		return "";
+	}
+
+	//닫기 버튼 클릭시
+	function closeWin(key) {
+		if ($("#todaycloseyn").prop("checked")) {
+			setCookie('notice-obt' + key, 'Y', 1);
+		}
+		$("#notice-obt" + key + "").hide();
+	}
+
+	$(function() {
+		if (getCookie("notice-obt1") != "Y") {
+			$("#notice-obt1").show();
+		}
+	});
 </script>
 
 <!-- aos 구동 -->
@@ -210,6 +256,11 @@ element.style {
 	border: 0px;
 }
 
+div.tab-content.left {
+	margin-left: 130px;
+	margin-top: 20px;
+}
+
 body>#standalone-container {
 	margin: 50px auto;
 	max-width: 720px;
@@ -220,9 +271,9 @@ body>#standalone-container {
 }
 
 body {
-	/* 	background-color: black; */
 	color: white;
-	background: url('../resource/img/background.jpg');
+	background-image: url('../resource/img/tempBG.jpg');
+	background-attachment : fixed;
 }
 
 .text1 {
@@ -254,34 +305,34 @@ body {
 .section1 {
 	margin-top: 20px;
 	margin-left: 60px;
-	width: 550px;
-	height: 450px;
-	background-image: url('../resource/img/sub1_A.jpg');
+	width: 480px;
+	height: 380px;
+	background-image: url('../resource/img/sub1_D.jpg');
 }
 
 .section2 {
 	margin-top: 280px;
-	margin-left: 740px;
-	width: 550px;
-	height: 450px;
-	background-image: url('../resource/img/sub1_D.jpg');
+	margin-left: 810px;
+	width: 480px;
+	height: 380px;
+	background-image: url('../resource/img/sub1_B.jpg');
 }
 
 .section3 {
 	margin-top: 280px;
 	margin-left: 60px;
-	width: 550px;
-	height: 450px;
+	width: 480px;
+	height: 380px;
 	background-image: url('../resource/img/sub1_C.jpg');
 }
 
 .section4 {
 	margin-top: 280px;
-	margin-left: 740px;
+	margin-left: 810px;
 	margin-bottom: 200px;
-	width: 550px;
-	height: 450px;
-	background-image: url('../resource/img/sub1_B.jpg');
+	width: 480px;
+	height: 380px;
+	background-image: url('../resource/img/sub1_A.jpg');
 }
 
 .review-comments {
@@ -302,13 +353,89 @@ body {
 	margin: auto;
 }
 
-#kyj {
-	margin-left: 0px;
+/* notice */
+.notice-obt {
+	position: fixed;
+	width: 420px;
+	height: 440px;
+	color: white;
+	top: 200px;
+	left: 100px;
+	border: 1px solid #ccc;
+	padding: 20px;
+	background: black;
+	z-index: 1000;
+	margin-left: 1200px;
+	margin-top: 100px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+	display: none;
+}
+
+.notice-obt-close {
+	position: relative;
+	cursor: pointer;
+	font-size: 35px;
+	right: -360px;
+}
+
+.notice-obt-title {
+	line-height: 80px;
+	font-size: 24px;
+	font-weight: bold;
+	margin-top: -50px;
+	l
+}
+
+.notice-obt-content {
+	height: 270px;
+	padding: 20px 10px;
+	margin-left: -10px;
+	margin-top: -35px;
+	line-height: 2.3em;
+}
+
+.notice-obt-content a {
+	color: #2196F3;
+	font-weight: bold;
+}
+
+.notice-obt-bottom {
+	text-align: right;
 }
 </style>
 </head>
 
 <body id="home-version-1" class="home-version-1" data-style="default">
+<!-- 	<!-- 반응형 글씨 --> 
+<!-- 	<a class="typewrite" data-period="3000" data-type='[ "#반응형 #모바일 #무료" ]'> -->
+<!-- 		<span class="wrap"></span> -->
+<!-- 	</a> -->
+
+	<!-- 공지 시작 -->
+	<div class="notice-obt" id="notice-obt1">
+		<div class="notice-obt-close">×</div>
+		<div class="notice-obt-title" style="color: red">방구석 기타리스트 가족 모집
+		</div>
+		<div class="notice-obt-content">
+			<b>지난해, 모두를 광란의 도가니속으로 몰아 넣었던 <br>`방구석 기타리스트`가 2탄으로 다시
+				찾아옵니다.
+			</b> <br> <span style="font-style: bold">Insomnia는</span> 공연을 빛내줄
+			여러분들을 기다립니다.<br> <a href="<c:url value='/sub1/list.ins'/>">모집
+				게시판</a>을 통해 게시글을 등록해주세요.<br> &lt;참여 조건&gt; <br>연령 : 25세 이상 <br>
+			장르 : 무관 <br>자격 : 음악을 사랑하는 누구나 <br>신청 기간 : ~ 2019. 6. 4 (6일
+			발표)
+		</div>
+		<div class="notice-obt-bottom">
+			<img style="margin-top: 60px; margin-left:35px;height: 70px; width: 115px;"
+				src="<c:url value='/resource/img/logo_5.png'/>">
+		</div>
+		<div class="button_area" style="margin-top: -45px">
+			<input type='checkbox' name='chkbox' id='todaycloseyn' value='Y'>&nbsp;&nbsp;오늘
+			이 창을 열지 않음 &nbsp;&nbsp;<a href='' onclick="javascript:closeWin(1);"><B>[닫기]</B></a>
+		</div>
+	</div>
+	<!--  공지 끝 -->
+
 	<div id="site">
 		<!--=========================-->
 		<!--=        Navbar         =-->
@@ -342,8 +469,6 @@ body {
 					<ul class="nav product-tabs" role="tablist" id="abd">
 						<li class="nav-item"><a class="nav-link active"
 							href="#profile" role="tab" data-toggle="tab">Description</a></li>
-						<li class="nav-item"><a class="nav-link" href="#buzz"
-							role="tab" data-toggle="tab">Recruit</a></li>
 						<li class="nav-item"><a class="nav-link" href="#references"
 							role="tab" data-toggle="tab">Reviews</a></li>
 					</ul>
@@ -355,7 +480,7 @@ body {
 						<div role="tabpanel" class="tab-pane fade in active" id="profile">
 							<div class="single-product-wrapper">
 								<div class="row">
-									<div class="col-md-12 col-sm-6">
+									<div class="col-md-12 col-sm-6" style="margin-top: 60px">
 										<div class="quickview-slider">
 											<!-- 											<div> -->
 											<!-- 												<span class="text1">What comes to your mind when you -->
@@ -433,7 +558,8 @@ body {
 											options);
 								</script>
 
-								
+
+								<!-- =========================================================================================================== -->
 								<div>
 									<div class="option-container">
 										<div class="option-btn"
@@ -446,19 +572,27 @@ body {
 													<div class="common-flex-between">
 														<span class="option-title mt10 xs-mt25">Buy Tickets</span>
 													</div>
+													
 													<div class="option-box option-box-blue">
-														<div class="option-box-left" style="padding-top: 10px">
-															<div class="option-box-amount">${bgs1.C_CONSERTDATE}</div>
-															<div class="mt5" style="padding-top: 5px">
-																<span><strong>13석 남음</strong></span> <span
-																	style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
-																	12석 판매</span>
+														<div class="aa" style="display: contents">
+															<div class="option-box-left" style="padding-top: 10px">
+																<div class="option-box-amount">${bgs1.C_CONSERTDATE}</div>
+																<div class="mt5" style="padding-top: 5px">
+																	<span><strong>13석 남음</strong></span> <span
+																		style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
+																		12석 판매</span>
+																</div>
 															</div>
-														</div>
-														
-														<div class="option-box-center" style="padding-top: 10px">
-															<div class="option-box-title">${bgs1.B_TITLE}</div>
-															<div class="option-box-desc mt5" style="margin-top: 10px">${bgs1.B_CONTENT}</div>
+															<form action="<c:url value='/Pay/PayPage.ins'/>" id="bgs_sub_item_list" style="display: none">
+																<input type="hidden" name="bgs1_title" value="${bgs1.B_TITLE }">
+																<input type="hidden" name="bgs1_content" value="${bgs1.B_CONTENT }">
+																<input type="hidden" name="bgs1_price" value="">
+																<input type="hidden" name="bgs1_qty" value="">
+															</form>
+															<div class="option-box-center" style="padding-top: 10px">
+																<div class="option-box-title">${bgs1.B_TITLE}</div>
+																<div class="option-box-desc mt5" style="margin-top: 10px">${bgs1.B_CONTENT}</div>
+															</div>
 														</div>
 														<div class="box_inventory option_box_grey">
 															<input type="hidden" name="limited_qty_yn" value="">
@@ -466,20 +600,22 @@ body {
 															<input type="hidden" name="limited_max_qty" value="999">
 															<div style="padding-top: 1px;">
 																<span class="txt_count_inventory option_title">수량&nbsp;&nbsp;&nbsp;</span> 
-																<input name="qty" type="text" value="1" style="color:white; background-color: black; width: 38px; height: 20px; text-align: center"
+																<input disabled="disabled" id="qtyqty" name="qty" type="text" value="1" style="color:white; background-color: black; width: 38px; height: 20px; text-align: center"
 																	class="input_add" onkeyup="checkQty(this);"
 																	onfocus="this.select();" style="line-height: 18px">
-																<a href="javascript:void(0)" style="font-size: 1.5em">&nbsp;+&nbsp;</a>
-																<a href="javascript:void(0)" style="font-size: 1.5em">-</a>
+																<a id="plus_ordered" href="javascript:void(0)" style="font-size: 1.5em">&nbsp;+&nbsp;</a>
+																<a id="minus_ordered" href="javascript:void(0)" style="font-size: 1.5em">-</a>
 															</div>
 															<div style="padding-top: 2px">
 																<span>금액&nbsp;&nbsp;&nbsp;</span> <span id="bgs_price"></span>원
-																 <script>
+																<script>
 																	$("#bgs_price").text(String(${bgs1.C_PRICE}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
-																</script> 
+																</script>
 															</div>
 														</div>
+														
 													</div>
+													
 												</div>
 
 												<div class="option-box" style="margin-top: -25px;">
@@ -505,81 +641,16 @@ body {
 										</div>
 									</div>
 								</div>
+								
+							<!-- =========================================================================================================== -->
+								
 								<div class="optionBtnBox">
 									<div class="optionStepBtn">다음단계</div>
 								</div>
 							</div>
 						</div>
 
-						<!-- 두번째 카테고리 : 기타리스트 모집(게시판)-->
-						<div role="tabpanel" class="tab-pane fade" id="buzz">
-							<div class="row">
-								<div class="col-md-10">
-									<div>
-										<h5 class="comments-title">
-											Recruit Notice Board <a
-												href="<c:url value='/sub1/write.ins'/>"
-												class="btn btn-success" style="margin-left: 850px;">등록</a>
-										</h5>
-									</div>
-									<table class="table table-hover table-bordered text-center">
-										<tr style="height: 35px;">
-											<th style="width: 7%; text-align: center;">번호</th>
-											<th style="width: 70%; text-align: center;">제목</th>
-											<th style="width: 10%; text-align: center;">작성자</th>
-											<th style="width: 13%; text-align: center;">등록일</th>
-										</tr>
-										<c:if test="${empty list }" var="isEmpty">
-											<tr>
-												<td colspan="4">등록된 게시물이 없어요</td>
-											</tr>
-										</c:if>
-										<c:if test="${not isEmpty }">
-											<c:forEach var="item" items="${list}" varStatus="loop">
-												<tr>
-													<td style="text-align: center; padding-top: 10px;">${totalRecordCount - (((nowPage - 1) * pageSize) + loop.index)}</td>
-													<td
-														style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
-														href="<c:url value='/sub1/view.ins?ap_no=${item.ap_no}'/>"
-														class="title">${item.ap_title}</a></td>
-													<td style="text-align: center; padding-top: 10px;">${item.name}</td>
-													<td style="text-align: center; padding-top: 10px;">${item.ap_postdate}</td>
-												</tr>
-											</c:forEach>
-										</c:if>
-									</table>
-
-									<!-- 페이징 -->
-									<div class="row">
-										<!-- 페이지네이션 가운데 배치:text-center -->
-										<div class="col-md-12 text-center"
-											style="color: white; margin-left: 550px; margin-top: 10px">${pagingString}</div>
-									</div>
-
-									<!-- 검색UI -->
-									<div class="text-center">
-										<form class="form-inline"
-											style="margin-left: 370px; margin-top: 20px" method="post" action="<c:url value='/sub1/subcontent.ins'/>">
-											<div class="form-group">
-												<select name="searchColumn" class="form-control">
-													<option value="ap_title">제목</option>
-													<option value="name">작성자</option>
-													<option value="ap_content">내용</option>
-												</select>
-											</div>
-											<div class="form-group" style="margin-left: 5px">
-												<input type="text" name="searchWord" class="form-control" />
-											</div>
-											<button style="margin-left: 10px" type="submit" id="temp"
-												class="btn btn-primary">검색</button>
-										</form>
-									</div>
-								</div>
-							</div>
-							<br> <br>
-
-						</div>
-						<!-- 세번째 카테고리 : 리뷰 게시판 -->
+						<!-- 두번째 카테고리 : 리뷰 게시판 -->
 						<div role="tabpanel" class="tab-pane fade" id="references">
 							<div class="tab-content left">
 								<div class="row">
@@ -604,7 +675,7 @@ body {
 																	alt="Avatar">
 															</div>
 															<div class="comment-content">
-																<h5 class="name" >Michael Cunningham</h5>
+																<h5 class="name">Michael Cunningham</h5>
 																<div class="comment-meta">
 																	<div class="star-rating" id="HH">
 																		<span>Rated <strong class="rating">5.00</strong>
@@ -631,8 +702,8 @@ body {
 								</div>
 
 								<!-- comment 등록 폼 -->
-								<div class="col-md-10" style="margin-top: 75px">
-									<div>
+								<div class="col-md-10" style="margin-top: 75px;">
+									<div style="margin-left: -15px">
 										<h5 class="comments-title">Write</h5>
 										<form id="frm" method="post" target="param">
 											<ul class="rating">
@@ -648,13 +719,13 @@ body {
 												name="name" class="form-fname form-element large"
 												placeholder="Name" style="width: 250px">&nbsp;&nbsp;
 											<br> <br>
-											<textarea name="content" id="content"
-												class="form-message" placeholder="Review" tabindex="5"
-												style="margin-top: -30px; width: 400px; height: 200px"></textarea>
+											<textarea name="content" id="content" class="form-message"
+												placeholder="Review" tabindex="5"
+												style="margin-top: -30px; width: 400px; height: 200px; border-radius: 20px; padding: 20px"></textarea>
 											<input type="submit" id="submitComment" value="등록"
 												class="btn btn-primary "
 												style="width: 80px; margin-top: -30px; margin-left: 20px;">
-												
+
 											<!-- iframe 설정 -->
 											<iframe id="if" name="param"></iframe>
 										</form>
@@ -667,9 +738,10 @@ body {
 				</div>
 			</div>
 			<!-- /.product-tab-wrapper -->
+		</section>
 	</div>
+	<!-- 끝 -->
 	<!-- /.container -->
-	</section>
 
 	<br>
 	<br>
@@ -692,7 +764,7 @@ body {
 	<script src="<c:url value='/vendor/js/slick.min.js'/>"></script>
 	<script src="<c:url value='/vendor/js/headroom.js'/>"></script>
 	<script src="<c:url value='/vendor/js/mp3-player-button.js'/>"></script>
-	<s7cript src="<c:url value='/vendor/js/smoke.js'/>"></script>
+	<script src="<c:url value='/vendor/js/smoke.js'/>"> </script>
 	<script src="<c:url value='/vendor/js/jquery.fittext.js'/>"></script>
 	<script src="<c:url value='/vendor/js/tilt.jquery.js'/>"></script>
 	<script src="<c:url value='/vendor/js/parallax.min.js'/>"></script>
@@ -702,7 +774,6 @@ body {
 	<script src="<c:url value='/vendor/js/jquery.jplayer.min.js'/>"></script>
 	<script src="<c:url value='/vendor/js/jplayer.playlist.min.js'/>"></script>
 	<script src="<c:url value='/vendor/js/myplaylist.js'/>"></script>
-
 	<!--Google map api -->
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsBrMPsyNtpwKXPPpG54XwJXnyobfMAIc"></script>
@@ -726,4 +797,124 @@ body {
 				}, 500);
 			}
 		});
+		
+	//공지사항 닫기 버튼 활성화
+	$('.notice-obt-close').on('click', function() {
+		$('.notice-obt').remove();
+	});
+	
+	//반응형 글씨
+// 	$('.notice-cbt-close, .notice-cbt').on('click', function() {
+//         $('.notice-cbt').remove();
+//     });
+
+//     $('.notice-obt-close').on('click', function() {
+//         qv_func.setCookie('notice_main',1,1);
+//         $('.notice-obt').remove();
+//     });
+
+//     $('.start-btn').click(function(e){
+//        location.href="template.html";
+//     });
+//     $('#main-slide').bind('slide.bs.carousel', function (e) {
+//         //console.log('slide event!');
+//     });
+
+//     $('#main-slide').carousel({
+// //        swipe: 30
+// //        wrap: false
+//     });
+
+//     var TxtType = function(el, toRotate, period) {
+//         this.toRotate = toRotate;
+//         this.el = el;
+//         this.loopNum = 0;
+//         this.period = parseInt(period, 10) || 2000;
+//         this.txt = '';
+//         this.tick();
+//         this.isDeleting = false;
+//     };
+
+//     TxtType.prototype.tick = function() {
+//         var i = this.loopNum % this.toRotate.length;
+//         var fullTxt = this.toRotate[i];
+
+//         if (this.isDeleting) {
+//             this.txt = fullTxt.substring(0, this.txt.length - 1);
+//         } else {
+//             this.txt = fullTxt.substring(0, this.txt.length + 1);
+//         }
+
+//         this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+//         var that = this;
+//         var delta = 200 - Math.random() * 100;
+
+//         if (this.isDeleting) { delta /= 2; }
+
+//         if (!this.isDeleting && this.txt === fullTxt) {
+//             delta = this.period;
+//             this.isDeleting = true;
+//         } else if (this.isDeleting && this.txt === '') {
+//             this.isDeleting = false;
+//             this.loopNum++;
+//             delta = 500;
+
+//             var count = $('.carousel').find('.carousel-inner .item').length;
+//             var index = $('.carousel').find('.carousel-inner .item.active').index();
+//             if (count - 1 > index) {
+//                 $('.carousel').carousel(index + 1);
+//             }
+//             else {
+//                 $('.carousel').carousel(0);
+//             }
+//         }
+
+//         setTimeout(function() {
+//             that.tick();
+//         }, delta);
+//     };
+
+//     window.onload = function() {
+//         var elements = document.getElementsByClassName('typewrite');
+//         for (var i=0; i<elements.length; i++) {
+//             var toRotate = elements[i].getAttribute('data-type');
+//             var period = elements[i].getAttribute('data-period');
+//             if (toRotate) {
+//                 new TxtType(elements[i], JSON.parse(toRotate), period);
+//             }
+//         }
+//         // INJECT CSS
+//         var css = document.createElement("style");
+//         css.type = "text/css";
+//         document.body.appendChild(css);
+
+//         //alert(screen.height);
+//         //main-slide txt padding refit
+//         //PC
+//         if($("#main-slide").width()>600) {
+//             if ($("#main-slide").height() < 700) {
+//                 //console.log("resize");
+//                 $("#main-slide .carousel-contents .slide-txt").css("padding", 0);
+//             }
+//         }
+
+//         if(!qv_func.getCookie('notice_main')) {
+//             //tmp
+//             //$(".notice-obt").show();
+//         }
+//     };
+
+//     $(window).resize(function(){
+//         //main-slide txt padding refit
+//         //PC
+//         if($("#main-slide").width()>600) {
+//             //console.log("resize");
+//             if ($("#main-slide").height() < 700) {
+//                 $("#main-slide .carousel-contents .slide-txt").css("padding", 0);
+//             } else {
+//                 $("#main-slide .carousel-contents .slide-txt").css("padding", "40px 40px 30px 40px");
+//             }
+//         }
+//     });
 	</script>

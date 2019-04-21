@@ -18,7 +18,7 @@
 	</select>
 	
 	<insert id="insInsert" parameterType="java.util.Map" >
-		INSERT INTO bgsapply(ap_no,ap_title,ap_content,id) VALUES(SEQ_bgsapply.NEXTVAL,#{ap_title, jdbcType=VARCHAR},#{ap_content,  jdbcType=VARCHAR},#{id,  jdbcType=VARCHAR})
+		INSERT INTO bgsapply(ap_no,ap_title,ap_content,id,ap_visit,ap_genre) VALUES(SEQ_bgsapply.NEXTVAL,#{ap_title, jdbcType=VARCHAR},#{ap_content,  jdbcType=VARCHAR},#{id,  jdbcType=VARCHAR}, default, #{ap_genre, jdbcType=VARCHAR})
 	</insert>
 
 	<select id="insTotalCount" parameterType="java.util.Map" resultType="int">
@@ -39,4 +39,21 @@
 	<delete id="insDelete" parameterType="java.util.Map">
 	DELETE bgsapply WHERE ap_no =#{ap_no, jdbcType=VARCHAR}
 	</delete>
+	
+	<select id="prevSelect" parameterType="java.util.Map" resultType="ListDTO">
+	SELECT ap_no,ap_title FROM bgsapply WHERE ap_no = (SELECT MIN(ap_no) FROM bgsapply WHERE ap_no <![CDATA[ > ]]> #{ap_no})
+	</select>
+	
+	<select id="nextSelect" parameterType="java.util.Map" resultType="ListDTO">
+	SELECT ap_no,ap_title FROM bgsapply WHERE ap_no = (SELECT MAX(ap_no) FROM bgsapply WHERE ap_no <![CDATA[ < ]]> #{ap_no})
+	</select>
+	
+	<update id="updateVisit" parameterType="java.util.Map">
+	UPDATE bgsapply SET ap_visit = ap_visit+1 WHERE ap_no =#{ap_no,  jdbcType=VARCHAR} 
+	</update>
+	
+	<select id="readDesc" parameterType="java.util.Map" resultType="ListDTO">
+		SELECT * FROM (SELECT T.*, ROWNUM R FROM (SELECT O.*,name FROM bgsapply O JOIN members M ON O.id=M.id
+		ORDER BY ap_visit DESC) T) WHERE R BETWEEN #{start} AND #{end}
+	</select>
 </mapper>

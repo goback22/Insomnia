@@ -22,6 +22,16 @@ public class AdminDAO implements AdminService{
 	public List<AdminDTO> selectList(Map map) {
 		return template.selectList("adminMember",map);
 	}
+	
+	@Override
+	public List<AdminDTO> selectBandList(Map map) {
+		return template.selectList("adminMainMember",map);
+	}
+	
+	@Override
+	public List<AdminDTO> selectBandMusicList(String string) {
+		return template.selectList("adminMainMusicList",string);
+	}
 
 	@Override
 	public AdminDTO selectOne(Map map) {
@@ -47,5 +57,7 @@ public class AdminDAO implements AdminService{
 	public int getTotalRecord(Map map) {
 		return 0;
 	}
+
+	
 
 }

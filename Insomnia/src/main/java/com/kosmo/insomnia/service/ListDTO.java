@@ -10,7 +10,7 @@ public class ListDTO {
 	private String ap_visit;
 	private String ap_remarks;
 	private String id;
-	
+	private String ap_genre;
 	//★
 	private String name;
 	
@@ -69,5 +69,10 @@ public class ListDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	public String getAp_genre() {
+		return ap_genre;
+	}
+	public void setAp_genre(String ap_genre) {
+		this.ap_genre = ap_genre;
+	}
 }
