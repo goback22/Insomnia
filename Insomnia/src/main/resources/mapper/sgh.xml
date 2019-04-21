@@ -20,12 +20,17 @@
 	</select>
 	
 	<select id="selectList_reward" parameterType="java.util.Map" resultType="RewardDTO">
-		select s.id, r.r_name, r.r_price, r.r_description from reward r join safepay s where id=#{id}
+		select r_no, r_price, r_name, s_no, r_description, b_name, bm_name, s_album_cover from (select r.*, bm_name , b_name, s_album_cover from reward r join safepay s on r.r_no = s.r_no
+		join bandsubmit bs on bs.s_no = r.s_no
+		join band b on b.b_no = bs.b_no
+		join bandmusic bm on bm.b_no = b.b_no
+        where id = #{id}
+        )
 	</select>
 	
 	<update id="update_Member" parameterType="java.util.Map">
 		update members set profile_img = #{profile_img} where id = #{id}
 	</update>
-
+	
 
 </mapper>

@@ -293,214 +293,112 @@
 	
 /*===================로그인 후 회원화면=========================*/
 
-.afterLogin p {
+.user_top dd, .user_top dt {
 	
+	display: inline;
 	color: white;
+	font-size: 15px;
+}
+
+.afterLogin p, .afterLogin a {
+	color: white;
+	font-size: 15px;
 }
 
 
-@media screen and (min-width: 960px)
-#wz-header .wz-popover-user.user-private {
-    position: absolute;
-    top: -8px;
-    right: 0;
-    transition: all .25s;
-    opacity: 0;
-    margin-top: -4px;
-    border: 1px solid rgba(0,0,0,.1);
-    box-shadow: 1px 1px 1px rgba(0,0,0,.2);
-    background-color: #fff;
-    padding: 36px 0 0;
-    width: 100%;
-    max-width: 360px;
+.user_picture {
+	
+	width: 70px;
+	height: 50px;
+	border-radius: 100%;
+	margin-right: 20px;
+	margin-left: 10px;
+	margin-bottom: 5px;
+	
 }
 
-.wz-popover-user.user-private {
-    height: auto;
-    pointer-events: none;
-}
-
-.wz-popover-user {
-    border-bottom: 1px solid #f0f0f0;
-    line-height: 24px;
-    font-size: 15px;
-    box-sizing: border-box;
-}
-
-@media screen and (min-width: 960px)
-#wz-header .wz-popover-openfunding, #wz-header .wz-popover-user, #wz-header .wz-popover .full-menu {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-}
-
-@media screen and (min-width: 960px)
-#wz-header .wz-popover-user.user-private:before {
-    margin-top: -1.5px;
-    border-bottom-color: #dedede;
-}
-
-@media screen and (min-width: 960px)
-#wz-header .wz-popover-user.user-private:after, #wz-header .wz-popover-user.user-private:before {
-    position: absolute;
-    top: -7px;
-    left: 152px;
-    border-width: 0 7px 7px;
-    border-style: solid;
-    border-color: transparent;
-    border-bottom-color: #fff;
-    content: "";
-}
-
-/*위는 전체 관련*/
-/*여기는 윗 부분 아띠*/
-
-.wz-popover-user .user-profile {
-    position: relative;
-    padding-left: 83px;
-    min-height: 56px;
-    box-sizing: border-box;
-}
-
-/* #wz-header>input[type=checkbox]#header-open-user-popover:checked~.header-wrap .user-private {
-    display: block;
-    top: 0;
-    opacity: 1;
-    z-index: 1;
-    pointer-events: all;
-} */
-
-.wz-popover-user.user-private {
-    height: auto;
-    pointer-events: none;
-}
-
-.wz-popover-user {
-    border-bottom: 1px solid #f0f0f0;
-    line-height: 24px;
-    font-size: 15px;
-    box-sizing: border-box;
-}
-
-.wz-popover a {
-    color: rgba(0,0,0,.87);
-}
-
-.wz-popover .user-link {
-    display: inline-block;
-    position: relative;
-    padding-right: 44px;
-    max-height: 56px;
-    overflow: hidden;
-    line-height: 28px;
-    font-size: 21px;
-    font-weight: 700;
+.benefit span, .benefit dt, .benefit dd, .benefit a {
+	font-size: 13px;
+	margin-left: 5px;
 }
 
 
-.wz-popover-user .user-benefit {		/*쿠폰0장 포인트 0p*/
-    line-height: 20px;
-    font-size: 15px;
+#logout {
+	font-size; 13px;
+	float: right;
 }
 
-/*아마 여기부터가 나의투자, 나의리워드, 팔로잉, 좋아한*/
-.wz-popover-user .user-benefit dt {
-    margin-right: 2px;
-    color: white;
+
+.afterLogin img {
+	width: 30px;
 }
 
-.wz-popover-user .user-benefit dd, .wz-popover-user .user-benefit dt {
-    float: left;
-    font-size: 15px;
-    color: white;
+table {
+	width: 279px;
+	text-align: center;
 }
 
-.wz-popover-user .user-benefit dd {
-    margin-right: 16px;
-    font-weight: 700;
-    color: white;
+.user_middle table tr {
+	width: 279px;
+	text-align: center;
 }
 
-.wz-popover-user .user-benefit dt {
-    margin-right: 2px;
+.user_middle table td  {
+	width: 25%;
 }
 
-.wz-popover-user .user-benefit:after {
-    display: block;
-    clear: both;
-    content: "";
+.user_middle td a {
+	width: 100%;
+	text-align: center;
+	height: 100px;
 }
 
-.wz-popover-user .user-menu li {
-    display: block;
-    float: left;
-    width: 25%;
-    text-align: center;
+
+.user_middle label {
+	color: white;
+	font-size: 15px;
 }
 
-.wz-popover-user .user-menu li a {
-    display: block;
-    position: relative;
-    padding: 15px 0 24px;
-    line-height: 18px;
-    color: white;
-    font-size: 13px;
+
+.user_bottom li, .user_bottom ul {
+	width: 100%
 }
 
-.wz-popover-user .user-menu:after {
-    display: block;
-    clear: both;
-    content: "";
+.user_bottom img{
+	width: 20%
 }
 
-/*display:none*/
-.wz-popover-user .maker-menu {
-    display: flex;
-    border-top: 1px solid #f0f0f0;
+.user_bottom span{
+	width: 80%
+	text-align: center;
 }
 
-/*메세지, 친구초대하기, 설정, 로그아웃*/
-
-@media screen and (min-width: 960px)
-#wz-header .wz-popover .unb {
-    display: block;
+.profile_name {
+	color: orange;
+	font-size: 17px;
 }
 
-@media screen and (min-width: 960px)
-#wz-header .unb {
-    margin: 0;
-    border-top: 1px solid rgba(0,0,0,.1);
-    padding-top: 12px;
-    padding-bottom: 20px;
+
+
+
+
+.user_top {	
+	
+	
 }
 
-@media screen and (min-width: 960px)
-#wz-header .unb a {
-    padding: 12px 18px;
-    font-size: 15px;
+.user_middle {
+	
+	
 }
 
-.unb a {
-    display: block;
-    cursor: pointer;
-    z-index: 100;
+.user_bottom {
+	
 }
 
-.wz-popover a {
-    color: rgba(0,0,0,.87);
-}
 
-@media screen and (min-width: 960px)
-#wz-header .wz-popover-user.user-private:after, #wz-header .wz-popover-user.user-private:before {
-    position: absolute;
-    top: -7px;
-    left: 152px;
-    border-width: 0 7px 7px;
-    border-style: solid;
-    border-color: transparent;
-    border-bottom-color: #fff;
-    content: "";
-}
+
+
 
 
 	

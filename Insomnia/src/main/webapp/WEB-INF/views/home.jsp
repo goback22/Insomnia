@@ -215,85 +215,64 @@ body {
 				<!-- 로그인 시 보여줄 화면 시작 -->
 				<div class="offset-menu-two">
 					<div class="afterLogin" style="margin-top: -370px">
-						<a href="<c:url value='/#'/>" class="offset-closer"> <img
-							style="margin-left: 270px; margin-top: -60px"
-							src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
-
-						<div id="naver_id_login" style="display: none;"></div>
+					<!-- 닫기 버튼 -->
+						<a href="<c:url value='/#'/>" class="offset-closer">
+							<img style="margin-left: 270px; margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
+						</a>
+					<!-- 네이버 로그인 display:none -->
+					<div id="naver_id_login" style="display: none;"></div>
 						
-						<%-- <!-- 새로 만든 개인정보 화면 -->
-						<img id="userImg" src="${record.profile_img}">
-						<div id="userName">${record.name}</div>
-						<div id="birthPromotion">${record.birthDay}</div> --%>
-						
-
-
-						<%-- <a href="<c:url value='/menu/mypage.ins'/>"
-							style="display: block;">마이페이지 이동</a> <a
-							href="<c:url value='/menu/mypage/edit.ins'/>"
-							style="display: block;">개인정보 수정</a> <a
-							href="<c:url value='/logout.ins'/>" style="display: block;">로그아웃</a>
-
-						<img src="<c:url value='/resource/img/cat-eyes.jpg'/>"
-							class="cat_eye" />
-						<div class="offset-social-two">
-							<a href=""> <img
-								src="<c:url value='/resource/img/logo_5.png'/>" alt=""></a>
-						</div> --%>
-						
-						
-						<!-- 여기부터 -->
-				<div class="wz-popover-user user-private">
-	            <div class="user-profile">
-              		<!-- <a href="javascript:void(0)"> 이름 -->
-                		<!-- <div class="user-picture" role="img"></div> -->
-                		<img class="user-picture" src="<c:url value='/upload/${record.profile_img}'/>"/>
-              		<!-- </a> -->
-              <p><a href="<c:url value='/menu/mypage.ins'/>" class="user-link">${record.name}</a></p>
-              <dl class="user-benefit">
-                <dt>쿠폰</dt>
-                <dd><a href="/web/wmypage/mybenefit/coupon/my"><span id="header-user-coupon">0</span>장</a></dd>
-                <dt>포인트</dt>
-                <dd><a href="/web/wmypage/mybenefit/pointlist"><span id="header-user-point">0</span>P</a></dd>
-              </dl>
-            </div>
-            <ul class="user-menu">
-              <li>
-                  <a id="btn-myequity" class="icon-my-equity" href="javascript:void(0)" data-is-valid-email="true">
-                    	나의 투자
-                  </a>
-              </li>
-              <li><a href="javascript:void(0)" class="icon-my-reward">나의 리워드</a></li>
-              <li><a href="javascript:void(0)" class="icon-group-o">팔로잉</a></li>
-              <li><a href="javascript:void(0)" class="icon-favorite-o">좋아한</a></li>
-              <!-- <li class="menu-event-reward"><a href="javascript:void(0)" class="icon-gift-o">친구 초대하기</a></li> -->
-            </ul>
-            <!-- display:none 시작 -->
-            <ul id="header-user-myproject" class="maker-menu" style="display: none">
-              <li><a href="javascript:void(0)" class="icon-archive-o">만든 프로젝트 <span style="display: none"></span></a></li>
-            </ul>
-            <!-- display:none 끝 -->
-            <ul class="unb">
-              <li>
-                <a id="header-user-message" class="icon-chat-o" href="javascript:void(0)">
-                  		메시지<span class="wz primary empty badge"></span>
-                </a>
-              </li>
-              <li><a class="icon-gift-o" href="javascript:void(0)">친구 초대하기</a></li>
-              <li><a class="icon-setting-o" href="javascript:void(0)">설정</a></li>
-              <li><a class="icon-app-out" href="<c:url value='/logout.ins'/>">로그아웃</a></li>
-            </ul>
+					<!-- 사용자 계정정보 -->
+				
+	            	<div class="user_top">		<!-- 상단메뉴:div -->
+              			<!-- 프로필 이미지 -->
+                		<img class="user_picture" src="<c:url value='/upload/${record.profile_img}'/>"/>
+              			<!-- 사용자 이름 -->
+              			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${record.name}</span>님 환영합니다!</a>
+              			<!-- 쿠폰, 포인트 -->
+			             <dl class="c">
+			               <dt>쿠폰</dt>
+			               <dd><a href="javascript:void(0)"><span id="">0</span>장</a></dd>
+			               <dt>포인트</dt>
+			               <dd><a href="javascript:void(0)"><span id="">0</span>P</a></dd>
+			             </dl>
+            		</div>
+		            <table class="user_middle">	<!-- 중간메뉴:ul -->	<!-- ul이 1 칸 차지, li display : inline -->
+		              <tr>
+			              <td><a id="middle1" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_apple-music-2_2301791.png'/>"/></a></td>
+			              <td><a id="middle2" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_microphone_1055023.png'/>"/></a></td>
+			              <td><a id="middle3" href="javascript:void(0)" class=""><img src="<c:url value='/img/followers.png'/>"/></a></td>
+			              <td><a id="middle4" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_heart_289619.png'/>"/></a></td>
+			           </tr>
+			           <tr>
+		           		  <td><label for="middle1">리워드</label></td>
+		           		  <td><label for="middle2">마이페이지</label></td>
+		           		  <td><label for="middle3">초대하기</label></td>
+		           		  <td><label for="middle4">블라블라</label></td>
+			           		
+			           </tr>
+		            </table>
+		            
+		            <!-- display:none 끝 -->
+		            <%-- <ul class="user_bottom">		<!-- 하단메뉴 --> <!-- ul이 1칸 차지, li display: inline -->
+		              <li>
+		                <a id="" class="" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_mail_1055030.png'/>"/>
+		                  		<span class="">메시지</span>
+		                </a>
+		              </li>
+		              <li><a class="" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_humans_1216581.png'/>"/><span>친구 초대하기</span></a></li>
+		              <li><a class="" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_wrench_416405.png'/>"/><span>설정</span></a></li>
+		              <li><a class="" href="<c:url value='/logout.ins'/>"><img src="<c:url value='/img/exit.png'/>"/><span>로그아웃</span></a></li>
+		            </ul> --%>
+		            <a id="logout" href="<c:url value='/logout.ins'/>">로그아웃</a>
             
-          </div>
+          		</div> <!-- afterLogin div 끝 -->
 						
 			<!-- 여기까지 -->
-			<a href="<c:url value='/logout.ins'/>">로그아웃</a>
 						
 						
-						
-						
-					</div>
-				</div>
+		</div>
+				
 				<!-- 로그인 시 보여줄 화면 끝 -->
 			</c:if>
 			<!-- 로그인/회원정보 페이지 끝 -->
@@ -578,6 +557,22 @@ body {
 			})
 		
 		
+		</script>
+		<!-- hover 효과 -->
+		<script> 
+			$(function(){
+				
+				$('.afterLogin label, #logout').hover(function(){
+					
+					$(this).css('color', 'rgb(222, 255, 239)');
+					
+				}, function(){
+					$(this).css('color', 'white');
+				});
+				
+				
+			})
+			
 		</script>
 		
 		

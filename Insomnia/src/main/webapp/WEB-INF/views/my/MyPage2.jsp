@@ -117,11 +117,10 @@ body {
 
 					<div class="mypage-project bg ">   <!-- 하단 부분 시작 -->
 						<div class="tab-list">
-							<ul>
-								<li><a href="javascript:void(0)">펀딩한</a></li> <!-- 결제 -->
-								<li><a href="javascript:void(0)">좋아한</a></li>	<!-- 좋아요 -->
-								<li class="active"><a
-									href="javascript:void(0)">만든</a></li>	<!-- 밴드/방구석 -->
+							<ul id="historyTab">
+								<li class="active"><span>펀딩한</span></li> <!-- 결제 -->
+								<li><span>좋아한</span></li>	<!-- 좋아요 -->
+								<li><span>만든</span></li>	<!-- 밴드/방구석 -->
 							</ul>
 						</div>
 						<div class="project-list">
@@ -135,21 +134,25 @@ body {
 									</select>
 								</div>
 							</div> <!-- top-area 끝 -->
-
+							
+							<!-- 실질적으로 내용 뿌려주는 부분 -->
 							<div id="projectCardList" class="card-list">
-								<p id="emptyProjectText" style="display: block">만든 음악이
-									없습니다.</p>
-								<ul>
-									<!-- S : 전체 리스트 -->
-
-									<!-- E : 전체 리스트 -->
-
-									<!-- S : 리워드 리스트 -->
-
-
-
-								</ul>
+								<!-- 내용이 없을 경우 -->
+								<c:if test="${empty record}" var="result">
+									<p id="emptyProjectText" style="display: block">만든 음악이
+										없습니다.</p>
+								</c:if>
+								<!-- 내용이 있을 경우: 스크롤(혹은 페이징) + ajax -->
+								<!-- 밑에서 ajax로 갖고 오기는 하는데, 일단 처음 페이지 들어올 때도 떠 있기는 해야 되니까, 처음에도 갖고 와야됨 -->
+								<c:if test="${not result}">
+									<div class="historyValue"> <!-- 루프 -->
+									
+									</div>
+								</c:if>
+								
 							</div>  <!-- projectCardList 끝 -->
+						
+							
 						</div>  <!-- projectList 끝 -->
 					</div>  <!-- 하단 부분 끝 -->
 					
@@ -188,8 +191,8 @@ body {
 			})
 		
 		</script> -->
+		<!-- 프로필 이미지 등록 -->
 		<script>
-		
 		
 			$(function(){
 				
@@ -237,11 +240,11 @@ body {
 								var pos = $('.profile-img2').prop('src').indexOf("/upload");
 								var srcStr = $('.profile-img2').prop('src').substring(0, pos+7) + "/";
 								
-								 console.log("데이터 " + data);
+								/* console.log("데이터 " + data);
 								console.log("post "  + pos);
 								console.log("srcStr " + srcStr);
 								
-								 console.log("내가 조합한 주소" + srcStr + data);
+								 console.log("내가 조합한 주소" + srcStr + data); */
 								$('.profile-img2').prop('src', srcStr + data);
 								
 								if($('.editImage').html() == '이미지등록') {
@@ -271,17 +274,29 @@ body {
 		<!--=========================-->
 		<!--=        footer         =-->
 		<!--=========================-->
-		
+	
+	<!--  -->	
 	<script>
 	
 	$(function(){
 		
 		$('.tab-list ul li').hover(function(){
+			//아 근데 hover 효과와 click 효과가 동일하니까 햇갈리네. hover 효과는 다른 걸로 주자. 파란 배경이나
+			/* $('.tab-list ul li').not($(this)).removeClass('active');
+			$(this).addClass('active'); */
+			
+		}, 
+		
+		function(){
+			
+		})
+		
+		$('.tab-list ul li').click(function(){
 			$(this).addClass('active');
 		}, 
 		
 		function(){
-			$(this).removeClass('active');
+			$('.tab-list ul li').not($(this)).removeClass('active');
 		})
 		
 	})
@@ -293,31 +308,64 @@ body {
 	
 		$(function(){
 			
-			$.ajaxSetup({type:'post'});
-			
-			$('.tab-list ul li a').click(function(){
+			$('#historyTab li').click(function(){
 				
+				console.log("historyTab li가 클릭은 되니?");
+				console.log("컨트롤러의 switch문에 전달하는 값은? " + $('#historyTab li span').html());
+
 				$.ajax({
 					url : '<c:url value="/mypage/history.ins"/>',
+					type: 'post',
 					dataType : 'json',
-					data : {id:"${sessionScope.id}", target:$(this).html()},
+					data : {target:$('#historyTab li span').html()},
 					success : function(data) {
+						console.log("ajax succFunction 실행 전 코드");
 						succFunction(data);
 					},
-					error : function(data) {
-						failFunction(data);
+					error : function(request, error) {
+						console.log('상태코드:',request.status);
+						console.log('서버로부터 받은 HTML데이타 :',request.responseText);
+						console.log('에러:',error);	
+						
 					}
 					
 				});///////$.ajax
 				
-			});
+			});//////click 이벤트
 			
 		})///////제이쿼리 진입점
 		
-		function succFunction() {
+		function succFunction(data) {
 			//값 받아서 뿌려주기 projectCardList, div 1개로 돌려막기? 3개 생성?
-		}
+			console.log('succFunction이 받은 데이터' + data)
+			var listString = "";
+			///일단 리스트로
+			$.each(data, function(index, element){
+				listString += "<li>리워드 명: " + element["R_Name"] + ", 리워드 가격: " + element["R_Price"] + ", 리워드 명세: " + element["R_Description"] + ", 밴드이름: " + element["B_name"] + ", 곡이름: " + element["BM_name"] + "</li>"
+			});	
+			//이제 div로
+			var listString2 = "";
+			$.each(data, function(index, element){
+				
+				listString2 += "<div class='historyDiv' style='display:inline; width:90px; border:1px black solid;'>";  //전체 div
+				listString2 += "<div class='historyDivName' style='display:inline; width:90px;'>" + element["R_Name"] + "</div>"; //이름 div
+				listString2 += "<div class='historyDivImg' style='display:inline; width:90px;'><img class='historyImg' src=''/></div>" //이미지 div  
+				listString2 += "<div class='historyDivInfo' style='display:inline; width:90px;'>"	//정보 div
+				
+				listString2 += "<span style=';'>"+element["R_Description"]+"</span><br/>";
+				listString2 += "<span style=''>"+element["R_Price"]+"</span>&npsp;";
+				listString2 += "<span>"+element["B_name"]+"</span>&npsp;<span>"+element["BM_name"]+"</span>";
+
+				listString2 += "</div>"  //정보 div 끝
+				
+				listString2 += "</div>"  //전체 div끝
+				
+			});
+			
+			$('.historyValue').html(listString2);
+		}/////succFunction
 	
 	
 	</script>
+	
 

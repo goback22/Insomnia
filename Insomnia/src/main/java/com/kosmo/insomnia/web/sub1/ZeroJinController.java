@@ -58,9 +58,9 @@ public class ZeroJinController {
     	  session.setAttribute("id", map.get("id"));
     	  
     	  MemberDTO record = memberService.selectOne(map);
-    	  model.addAttribute("record", record);
+    	  record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
     	  
-    	  System.out.println("받아오나? 이름은?" + record.getName());
+    	  model.addAttribute("record", record);
     	  
     	  if(map.get("id").equals("admin")) {
     		  return "/admin/AdminIndex";

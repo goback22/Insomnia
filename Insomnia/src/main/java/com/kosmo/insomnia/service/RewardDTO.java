@@ -10,6 +10,11 @@ public class RewardDTO {
 	private String R_Name;
 	private String R_Description;
 	
+	//편의를 위해 추가
+	private String B_name;  //리워드를 준비한 밴드 이름
+	private String BM_name; //리워드로 준비한 노래 이름
+	private String S_Album_cover;
+	
 	//게터*세터
 	public String getR_no() {
 		return R_no;
@@ -41,6 +46,27 @@ public class RewardDTO {
 	public void setR_Description(String r_Description) {
 		R_Description = r_Description;
 	}
+	public String getB_name() {
+		return B_name;
+	}
+	public void setB_name(String b_name) {
+		B_name = b_name;
+	}
+	public String getBM_name() {
+		return BM_name;
+	}
+	public void setBM_name(String bM_name) {
+		BM_name = bM_name;
+	}
+	public String getS_Album_cover() {
+		return S_Album_cover;
+	}
+	public void setS_Album_cover(String s_Album_cover) {
+		S_Album_cover = s_Album_cover;
+	}
+	
+	
+	
 	
 	
 	

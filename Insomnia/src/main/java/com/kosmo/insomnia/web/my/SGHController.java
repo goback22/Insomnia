@@ -27,14 +27,19 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.kosmo.insomnia.service.MemberDTO;
+import com.kosmo.insomnia.service.RewardDTO;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
+import com.kosmo.insomnia.serviceimpl.RewardServiceImpl;
 
 @Controller
 public class SGHController {
 	
 	@Resource(name="memberService")
 	private MemberServiceImpl memberService;
+	
+	@Resource(name="rewardServiceImpl")
+	private RewardServiceImpl rewardService;
 	
 	/////마이페이지 이동
 	@RequestMapping("/menu/mypage.ins")
@@ -184,18 +189,6 @@ public class SGHController {
 		return "forward:/menu/mypage.ins";  //마이페이지 컨트롤러 메서드로. 지금은 이동만 하고 있으나 데이터 뿌려주어야 한다.
 	}
 	
-	/////펀딩한, 좋아한, 만든 : ajax
-	@RequestMapping("/mypage/history.ins")
-	public String getHistory() throws Exception {
-		
-		List<Map> historyList = new Vector<Map>();
-		
-		
-		
-		
-		
-		return JSONArray.toJSONString(historyList);
-	}
 	
 	@ResponseBody  //요거 꼭 붙여야 됨
 	@RequestMapping(value="/edit/profileImgAjax.ins", produces="text/html; charset=UTF-8")  //한글깨짐 방지
@@ -219,6 +212,58 @@ public class SGHController {
 		
 		return newFileName;
 	
+	}
+	
+	////펀딩, 좋아요, 제작 목록 가져오는 ajax 메서드
+	@ResponseBody
+	@RequestMapping(value="/mypage/history.ins", produces="text/html; charset=UTF-8")
+	public String getHistory(@RequestParam Map map, Map dismap, HttpSession session) throws Exception {
+		
+		///요청한 유저의 id를 쿼리문으로 전달하기 위해 dismap에 저장
+		dismap.put("id", session.getAttribute("id"));
+		
+		System.out.println("컨트롤러에는 들어오니?");
+		
+		//펀딩, 좋아요, 제작 목록 중 어떤 요청인지 확인
+		
+		System.out.println("dismap.get()의 값은?" + dismap.get("id"));
+				
+		System.out.println("switch에 들어가는 값은 " + map.get("target").toString());
+		switch(map.get("target").toString()) {
+		
+			case "펀딩한" :
+				//구한 리스트 - 이걸 쓰면 안 된다.
+				List<RewardDTO> records = rewardService.selectList(dismap);
+				
+				//json을 위해 선언한 리스트
+				List<Map> resultList = new Vector<>();
+				
+				for(RewardDTO dto: records) {
+					//맵 생성
+					Map tempMap = new HashMap<>();
+					tempMap.put("R_no", dto.getR_no());
+					tempMap.put("S_no", dto.getS_no());
+					tempMap.put("R_Price", dto.getR_Price());
+					tempMap.put("R_Name", dto.getR_Name());
+					tempMap.put("R_Description", dto.getR_Description());
+					tempMap.put("B_name", dto.getB_name());
+					tempMap.put("BM_name", dto.getBM_name());
+					tempMap.put("S_Album_cover", dto.getS_Album_cover());
+					resultList.add(tempMap);
+				}
+				System.out.println("json배열의 값은?" + JSONArray.toJSONString(resultList));
+				return JSONArray.toJSONString(resultList);
+				
+			case "좋아한" :
+				
+				break;
+			case "만든" :
+				
+				break;
+			
+		}
+		
+		return "";
 	}
 	
 	
