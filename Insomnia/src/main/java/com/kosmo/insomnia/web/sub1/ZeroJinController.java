@@ -230,12 +230,10 @@ public class ZeroJinController {
 		return "sub1/Message";
 	}
 	
-	// 방구석 기타리스트 게시판 - read눌렀을 때 조회수 순으로 뿌려주기
+	// 방구석 기타리스트 게시판 - read눌렀을 때 높은 조회수 순으로 뿌려주기
 	@ResponseBody
 	@RequestMapping(value="/sub1/sort.ins", produces="text/html; charset=UTF-8")
 	public String readSort(@RequestParam Map map) throws Exception{
-		System.out.println("여기까지 오니");
-		
 		//비지니스 로직 호출
 		map.put("start", 1);
 		map.put("end", 10);
@@ -259,6 +257,32 @@ public class ZeroJinController {
 		return JSONArray.toJSONString(collections);
 	}
 	
+	// 방구석 기타리스트 게시판 - read눌렀을 때 낮은 조회수 순으로 뿌려주기
+	@ResponseBody
+	@RequestMapping(value="/sub1/sortAsc.ins", produces="text/html; charset=UTF-8")
+	public String readSortAsc(@RequestParam Map map) throws Exception{
+		//비지니스 로직 호출
+		map.put("start", 1);
+		map.put("end", 10);
+				
+		//서비스 호출
+		List<ListDTO> read = insService.readAsc(map);
+		List<Map> collections = new Vector<Map>();
+		for(ListDTO dto : read) {
+			Map record = new HashMap();
+			record.put("ap_no", dto.getAp_no());
+			record.put("ap_genre", dto.getAp_genre());
+			record.put("ap_title", dto.getAp_content());
+			record.put("name", dto.getName());
+			record.put("ap_visit", dto.getAp_visit());
+			record.put("ap_postdate", dto.getAp_postdate().toString());
+			collections.add(record);
+		}
+ 		
+		return JSONArray.toJSONString(collections);
+	}
+	
+	//----------------------------
 	//----------------------------
 	//----------------------------
 	//방구석 기타리스트 - reviews(댓글)

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/WEB-INF/views/my/isMember.jsp" %>
+<%@ include file="/WEB-INF/views/my/isMember.jsp"%>
 <link rel="stylesheet"
 	href="<c:url value='/vendor/css/bootstrap2.min.css'/>">
 <script src="<c:url value='/vendor/js/jquery2.js'/>"></script>
@@ -38,9 +38,11 @@
 				<div class="header-magic-line-inner clearfix">
 					<div id="site-logo" class="float-left">
 						<a href="<c:url value='/home.ins'/>" class="logo-main"> <img
-							class="zerojin" src="<c:url value='/resource/img/logo_5.png'/>" alt="logo">
+							class="zerojin" src="<c:url value='/resource/img/logo_5.png'/>"
+							alt="logo">
 						</a> <a href="<c:url value='/home.ins'/>" class="logo-stickky"> <img
-							class="zerojin" src="<c:url value='/resource/img/logo_5.png'/>" alt="logo">
+							class="zerojin" src="<c:url value='/resource/img/logo_5.png'/>"
+							alt="logo">
 						</a>
 					</div>
 
@@ -98,7 +100,7 @@
 				src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
 			<div class="div-form-login">
 				<h2 class="text-title">로그인</h2>
-				<form name="form-login" id="form-login" class="form-login"
+				<form name="form-login" id="form-login"  class="form-login"
 					action="<c:url value='/login.ins'/>">
 
 
@@ -185,7 +187,7 @@
 			</div>
 		</div>
 
-	<!-- 비 로그인시 보여줄 화면 끝-->
+		<!-- 비 로그인시 보여줄 화면 끝-->
 	</c:if>
 	<c:if test="${not result}">
 
@@ -296,13 +298,52 @@ body {
 	top: 68px;
 }
 
-.zerojin{
+.zerojin {
 	position: absolute;
 	top: 20px;
-	left : 20px;
-	
+	left: 20px;
+	margin-top: -20px;
+	margin-left: 80px;
+}
+
+select {
+	color: black;
+	height: 31px;
+	width: 100px;
+	margin-top: 4px;
+}
+
+option {
+	color: black;
+}
+
+#kyj {
+	position: absolute;
+	top: 200px;
 }
 </style>
+<script>
+function formCheck(frm) {
+    if (frm.ap_title.value == "") {
+        alert('제목을 입력해 주세요');
+//         frm.ap_title.focus();
+        $('#ap_title').css('display', 'block');
+        return false;
+    }
+    else if (frm.ap_genre.value == "") {
+        alert("장르를 선택해 주세요");
+//         frm.ap_content.focus();
+        $('#ap_genre').css('display', 'block');
+        return false;
+    }
+    else if (frm.ap_content.value == "") {
+        alert("내용을 입력해 주세요");
+        frm.ap_content.focus();
+        return false;
+    }
+    return true;
+}
+</script>
 </head>
 
 <body id="home-version-1" class="home-version-1" data-style="default">
@@ -310,11 +351,12 @@ body {
 		<!--===========================-->
 		<!--=           body          =-->
 		<!--===========================-->
-		<section class="single-product">
+		<section class="single-product"
+			style="margin-left: -30px; margin-top: -17px">
 			<div class="container">
 				<br> <br>
 				<!-- DETAILS 문구 -->
-				<footer id="footer-4">
+					<footer id="footer-4">
 					<div class="container">
 						<div class="d-flex justify-content-center row">
 							<div class="col-md-12">
@@ -334,9 +376,10 @@ body {
 				<!-- 뷰 -->
 				<div role="tabpanel" class="container">
 					<div class="row">
-						<div class="col-md-12">
-							<form class="form-horizontal" id="frm" method="post"
-								action="<c:url value='/sub1/write.ins'/>">
+						<div class="col-md-10" style="margin-left: -50px;">
+							<form class="form-horizontal" onsubmit="return formCheck(this)" id="frm" name="userinput" method="post"
+								action="<c:url value='/sub1/write.ins'/>"
+								style="margin-left: 158px">
 								<div class="form-group">
 									<label for="title" class="col-sm-2 control-label">제목</label>
 									<div class="col-sm-5">
@@ -344,66 +387,87 @@ body {
 											id="ap_title" placeholder="제목을 입력하세요" />
 									</div>
 								</div>
-
 								<div class="form-group">
-									<label for="content" class="col-sm-2 control-lable">내용</label>
+									<label for="title" class="col-sm-2 control-label">장르</label>
+									<div class="col-sm-5">
+										<select id="ap_genre" name="ap_genre">
+											<option value="">선택</option>
+											<option value="보컬">보컬</option>
+											<option value="기타/베이스">기타/베이스</option>
+											<option value="드럼">드럼</option>
+											<option value="댄스">댄스</option>
+											<option value="보컬">etc</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="content" class="col-sm-2 control-lable" id="kyj3"
+										style="left: 75px">내용</label>
 									<div class="col-sm-5">
 										<textarea rows="10" id="summernote" name="ap_content"
 											class="form-control" placeholder="내용을 입력하세요"></textarea>
 									</div>
 								</div>
+								<div class="form-group" style="margin-top: -15px">
+									<label for="title" class="col-sm-2 control-label">파일</label>
+									<div class="col-sm-5">
+										<input type="text" class="form-control" name="ap_file"
+											id="ap_file" placeholder="파일을 첨부하세요" />
+									</div>
+								</div>
 								<div class="row">
-									<div class="col-md-12 text-center">
+									<div class="col-md-12 text-center" style="margin-left: 75px;margin-top:15px">
 										<input type="submit" class="btn btn-info" value="등록" /> <a
 											href="<c:url value='/sub1/subcontent.ins'/>"
-											class="btn btn-success">취소</a>
+											class="btn btn-success" style="margin-left: 25px">취소</a>
 									</div>
 								</div>
 							</form>
 						</div>
 					</div>
 				</div>
+				<br> <br> <br> <br> <br>
 				<!-- /.row -->
 			</div>
 		</section>
 	</div>
-	<%@ include file="/WEB-INF/template/Footer.jsp" %>
+	<%@ include file="/WEB-INF/template/Footer.jsp"%>
 </body>
-	<script>
-		$('#summernote')
-				.summernote(
-						{
-							height : 200,
-							width : 550,
-							toolbar : [
-									[ 'style', [ 'style' ] ],
-									[
-											'style',
-											[ 'bold', 'italic', 'underline',
-													'clear' ] ],
-									[
-											'font',
-											[ 'strikethrough', 'superscript',
-													'subscript' ] ],
-									[ 'fontsize', [ 'fontsize' ] ],
-									[ 'color', [ 'color' ] ],
-									[ 'para', [ 'ul', 'ol', 'paragraph' ] ],
-									[ 'insert', [ 'picture', 'link', 'emoji' ] ]
+<script>
+	$('#summernote')
+			.summernote(
+					{
+						height : 300,
+						width : 700,
+						toolbar : [
+								[ 'style', [ 'style' ] ],
+								[
+										'style',
+										[ 'bold', 'italic', 'underline',
+												'clear' ] ],
+								[
+										'font',
+										[ 'strikethrough', 'superscript',
+												'subscript' ] ],
+								[ 'fontsize', [ 'fontsize' ] ],
+								[ 'color', [ 'color' ] ],
+								[ 'para', [ 'ul', 'ol', 'paragraph' ] ],
+								[ 'insert', [ 'picture', 'link', 'emoji' ] ]
 
-							],
-							placeholder : '내용을 입력해 주세요',
-							hint : {
-								words : [ '힌트1', '힌트2', '힌트3', '힌트3' ],
-								match : /\b(\w{1,})$/,
-								search : function(keyword, callback) {
-									callback($.grep(this.words, function(item) {
-										return item.indexOf(keyword) === 0;
-									}));
-								}
+						],
+						placeholder : '내용을 입력해 주세요',
+						hint : {
+							words : [ '힌트1', '힌트2', '힌트3', '힌트3' ],
+							match : /\b(\w{1,})$/,
+							search : function(keyword, callback) {
+								callback($.grep(this.words, function(item) {
+									return item.indexOf(keyword) === 0;
+								}));
 							}
-						});
-	</script>
-	<!-- /.product-tab-wrapper -->
-	<!-- /.container -->
-	<!-- /.single-product -->
-	<!-- Quick View -->
+						}
+					});
+</script>
+<!-- /.product-tab-wrapper -->
+<!-- /.container -->
+<!-- /.single-product -->
+<!-- Quick View -->

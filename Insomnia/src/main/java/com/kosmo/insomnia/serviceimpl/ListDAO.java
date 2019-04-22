@@ -73,9 +73,15 @@ public class ListDAO implements ListService {
 		return template.update("updateVisit",map);
 	}
 
-	//조회 순
+	//조회 높은순
 	@Override
 	public List<ListDTO> readDesc(Map map) {
 		return template.selectList("readDesc",map);
+	}
+	
+	//조회 낮은순
+	@Override
+	public List<ListDTO> readAsc(Map map) {
+		return template.selectList("readAsc",map);
 	}
 }

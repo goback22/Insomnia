@@ -30,6 +30,8 @@ public interface ListService {
 	//조회수
 	int updateVisitCount(Map map);
 	
-	//조회순으로 목록 뿌리기
+	//조회 높은 순으로 목록 뿌리기
 	List<ListDTO> readDesc(Map map);
+	//조회 낮은 순으로 목록 뿌리기
+	List<ListDTO> readAsc(Map map);
 }

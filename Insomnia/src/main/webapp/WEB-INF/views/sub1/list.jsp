@@ -6,15 +6,11 @@
 <!-- Meta Data -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- JQuery -->
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<!-- PayMoving js -->
-<script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
 
 <!-- Dependency Styles -->
 <link rel="stylesheet"
@@ -27,6 +23,25 @@
 	type="text/css">
 
 <style>
+/* 페이징 CSS */
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: white;
+    text-decoration: none;
+/*     background-color: #fff; */
+/*     border: 1px solid #ddd; */
+    font-size : 18px;
+}
+
+span{
+	color: red;
+	font-weight: bold;
+}
+
 element.style {
 	background-color: white;
 	color: white;
@@ -76,16 +91,15 @@ body {
 <script>
 	$(function() {
 		$('#read').click(function() {
-			console.log("read가 눌러지네요");
-
+			console.log($('#read').text());
+			if($('#read').text() == 'Read'){
 			$.ajax({
 				url : '<c:url value="/sub1/sort.ins"/>',
 // 				type : 'post',
 				dataType : 'json',
 				success : function(data){
 					showReadDescSort(data)
-				},
-				// seccess에 showReadDescSort, 라고만 적어줘도 되고 위처럼 적어줘도 됨
+				}, // seccess에 showReadDescSort, 라고만 적어줘도 되고 위처럼 적어줘도 됨
 				error : function(request, error) {
 					console.log('여긴 왜 들어가니');
 					console.log('상태코드:', request.status);
@@ -93,7 +107,9 @@ body {
 					console.log('에러:', error);
 				}//error			
 			});//ajax
+			}
 		});
+
 	})
 
 	var showReadDescSort = function(data) { 
@@ -135,8 +151,54 @@ body {
 			tableString += "</tr>";
 		});
 		
-		$('#readDesc').html(tableString);
+		$('#readSort').html(tableString);
+		$('#read').text("Read↑");
 	};
+	
+	//조회수 낮은순
+	var showReadAscSort = function(data) { 
+		console.log('서버로부터 받은 데이타:', data);
+		//틀
+		var tableString = '<tr style="height: 35px;" >'
+		tableString += '<th style="width: 7%; text-align: center;">No</th>'
+		tableString += '<th style="width: 9%; text-align: center;">Genre</th>'
+		tableString += '<th style="width: 54%; text-align: center;">Subject</th>'
+		tableString += '<th style="width: 10%; text-align: center;">Name</th>'
+		tableString += '<th style="width: 7%; text-align: center;"><a id="read">Read</a></th>'
+		tableString += '<th style="width: 13%; text-align: center;">Date</th>'
+		tableString += '</tr>';		
+		tableString += '<tr style="color: aqua;" >'; 
+		tableString += '<td style="text-align: center; padding-top: 10px;">·</td>'; 
+		tableString += '<td style="text-align: center; padding-top: 10px;">·</td>'; 
+		tableString += '<td style="text-align: left; padding-left: 10px; padding-top: 10px; font-weight: bold;"><a style="color: aqua;" href="<c:url value="/sub1/viewadmin.ins"/>" class="title">게시글 작성 예시</a></td>';
+		tableString += '<td style="text-align: center; padding-top: 10px; font-weight: bold;">관리자</td>';		
+		tableString += '<td style="text-align: center; padding-top: 10px;">·</td>'; 
+		tableString += '<td style="text-align: center; padding-top: 10px; font-weight: bold;">2019-04-15</td></tr>'; 
+		tableString += '<tr style="color: aqua;" >'; 
+		tableString += '<td style="text-align: center; padding-top: 10px;">·</td>'; 
+		tableString += '<td style="text-align: center; padding-top: 10px;">·</td>'; 
+		tableString += '<td style="text-align: left; padding-left: 10px; padding-top: 10px; font-weight: bold;"><a style="color: aqua;" class="title">첨부파일 업로드 시 주의사항</a></td>'; 
+		tableString += '<td style="text-align: center; padding-top: 10px; font-weight: bold;">관리자</td>'; 
+		tableString += '<td style="text-align: center; padding-top: 10px;">·</td>'; 
+		tableString += '<td style="text-align: center; padding-top: 10px; font-weight: bold;">2018-12-24</td>'; 
+		tableString += '</tr>'; 
+		//--
+		tableString += "<tr>"; 
+		$.each(data, function(index, element){ // 위에 dataType을 text로하고 JSON.parse(data)로 해도 된다.
+			tableString += "<td style='text-align: center; padding-top: 10px;'>"+element["ap_no"]+"</td>";
+			//tableString += "<td style='text-align: center; padding-top: 10px;'>"+(index+1)+"</td>";
+			tableString += "<td style='text-align: center; padding-top: 10px;'>"+element["ap_genre"]+"</td>";
+			tableString += "<td style='text-align: left; padding-left: 10px; padding-top: 10px; font-weight: bold;'><a style='color: white;' href='<c:url value='/sub1/view.ins?ap_no="+element["ap_no"]+"'/>' class='title'>"+element["ap_title"]+"</a></td>";
+			tableString += "<td style='text-align: center; padding-top: 10px;'>"+element["name"]+"</td>";
+			tableString += "<td style='text-align: center; padding-top: 10px;'>"+element["ap_visit"]+"</td>";
+			tableString += "<td style='text-align: center; padding-top: 10px;'>"+element["ap_postdate"]+"</td>";
+			tableString += "</tr>";
+		});
+		
+		$('#readSort').html(tableString);
+		$('#read').text("Read↓");
+	};
+	
 </script>
 </head>
 
@@ -158,7 +220,7 @@ body {
 				<footer id="footer-4">
 					<div class="container">
 						<div class="d-flex justify-content-center row">
-							<div class="col-xl-10">
+							<div class="col-xl-10"">
 								<div class="section-title style-four" id="ad">
 									<h2>R E C R U I T</h2>
 								</div>
@@ -181,13 +243,13 @@ body {
 									class="btn btn-success" style="margin-left: 16px;">돌아가기</a>
 							</h5>
 						</div>
-						<table class="table table-hover text-center" id="readDesc">
+						<table class="table table-hover text-center" id="readSort">
 							<tr style="height: 35px;" >
 								<th style="width: 7%; text-align: center;">No</th>
 								<th style="width: 9%; text-align: center;">Genre</th>
-								<th style="width: 54%; text-align: center;">Subject</th>
-								<th style="width: 10%; text-align: center;">Name</th>
-								<th style="width: 7%; text-align: center;"><a id="read">Read</a></th>
+								<th style="width: 52%; text-align: center;">Subject</th>
+								<th style="width: 9%; text-align: center;">Name</th>
+								<th style="width: 8%; text-align: center;" id="read"><a id="read">Read</a></th>
 								<th style="width: 13%; text-align: center;">Date</th>
 							</tr>
 							<c:if test="${empty list }" var="isEmpty" >
@@ -248,7 +310,7 @@ body {
 						<div class="row">
 							<!-- 페이지네이션 가운데 배치:text-center -->
 							<div class="col-md-12 text-center"
-								style="color: white; margin-left: 550px; margin-top: 10px">${pagingString}</div>
+								style="color: white; margin-left: 510px; margin-top: 10px">${pagingString}</div>
 						</div>
 
 
@@ -272,6 +334,7 @@ body {
 									class="btn btn-primary">검색</button>
 							</form>
 						</div>
+						
 					</div>
 				</div>
 				<br> <br>
