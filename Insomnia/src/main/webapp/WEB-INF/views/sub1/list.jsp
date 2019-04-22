@@ -87,6 +87,20 @@ body {
 .table td, .table th {
 	border-bottom: 1px solid gray;
 }
+
+th:after {
+    left: 16px;
+    width: 15px;
+    height: 4px;
+    bottom: -1px;
+}
+
+.table th:after {
+    left: 16px;
+    width: 15px;
+    height: 4px;
+    bottom: -1px;
+}
 </style>
 <script>
 	$(function() {
@@ -152,7 +166,7 @@ body {
 		});
 		
 		$('#readSort').html(tableString);
-		$('#read').text("Read↑");
+		$('#read').text("View↑");
 	};
 	
 	//조회수 낮은순
@@ -244,12 +258,12 @@ body {
 							</h5>
 						</div>
 						<table class="table table-hover text-center" id="readSort">
-							<tr style="height: 35px;" >
+							<tr class="details" style="height: 35px;" >
 								<th style="width: 7%; text-align: center;">No</th>
 								<th style="width: 9%; text-align: center;">Genre</th>
 								<th style="width: 52%; text-align: center;">Subject</th>
 								<th style="width: 9%; text-align: center;">Name</th>
-								<th style="width: 8%; text-align: center;" id="read"><a id="read">Read</a></th>
+								<th style="width: 8%; text-align: center;" id="read"><a id="read"><i class="fa fa-eye"></i> View</a></th>
 								<th style="width: 13%; text-align: center;">Date</th>
 							</tr>
 							<c:if test="${empty list }" var="isEmpty" >

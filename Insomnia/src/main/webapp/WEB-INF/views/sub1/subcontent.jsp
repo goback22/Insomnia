@@ -336,6 +336,11 @@ body {
 	background-image: url('../resource/img/sub1_A.jpg');
 }
 
+.tempImage{
+	height: 400px;
+	width: 275px;
+}
+
 .review-comments {
 	margin-top: -10px;
 }
@@ -412,6 +417,9 @@ body {
 <!-- 		<span class="wrap"></span> -->
 <!-- 	</a> -->
 
+	<!-- 로딩 -->
+	<div class="loader loader-bar-ping-pong is-active"></div>
+
 	<!-- 공지 시작 -->
 	<div class="notice-obt" id="notice-obt1">
 		<div class="notice-obt-close">×</div>
@@ -467,11 +475,14 @@ body {
 				<!-- /#footer -->
 
 				<div class="product-tab-wrapper">
-					<ul class="nav product-tabs" role="tablist" id="abd">
+					<ul class="nav product-tabs" role="tablist">
 						<li class="nav-item"><a class="nav-link active"
 							href="#profile" role="tab" data-toggle="tab">Description</a></li>
 						<li class="nav-item"><a class="nav-link" href="#references"
 							role="tab" data-toggle="tab">Reviews</a></li>
+						<li class="nav-item">
+							<a class="nav-link" href="#buzz" role="tab" data-toggle="tab">Q&A</a>
+						</li>
 					</ul>
 					<br>
 
@@ -528,11 +539,6 @@ body {
 											<div class="col-xl-10">
 												<div class="section-title style-four">
 													<h2>I&nbsp;N&nbsp;F&nbsp;O&nbsp;R&nbsp;M&nbsp;A&nbsp;T&nbsp;I&nbsp;O&nbsp;N</h2>
-												</div>
-												<div class="footer-three-bottom">
-													<div class="footer-three-left">
-														<a href="#"> </a>
-													</div>
 												</div>
 											</div>
 											<!-- /.col-xl- -->
@@ -643,6 +649,119 @@ body {
 									</div>
 								</div>
 								
+			<!-- 인기 프로젝트 뿌려주기 -->
+			<section class="section-padding-two artist-lineup" style="margin-top: 120px">
+			<div class="tim-container clearfix">
+				<div class="row">
+					<div class="section-title style-four">
+						<h2>R&nbsp;e&nbsp;l&nbsp;a&nbsp;t&nbsp;i&nbsp;v&nbsp;e&nbsp;&nbsp;P&nbsp;r&nbsp;o&nbsp;j&nbsp;e&nbsp;c&nbsp;t&nbsp;s</h2>
+						<p>There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some injected humour.</p>
+					</div>
+				</div>
+				<div style="margin-top: -50px;width: 120%;height: 400px;margin-left: -100px" class="swiper-container row" data-swiper-config='{ "loop": true, "prevButton":".swiper-button-prev", "nextButton": ".swiper-button-next", "speed": 700, "autoplay": "5000", "slidesPerView": 6, "spaceBetween": 0, "grabCursor": true,"breakpoints": { "1300": { "slidesPerView": 4 }, "767": { "slidesPerView": 3 }, "500": { "slidesPerView": 1 }}}'>
+					<ul class="artist-line-wrapper swiper-wrapper" >
+						<li class="artist-single clearfix swiper-slide">
+							<img src="../resource/img/a1.jpg" class="tempImage" alt="">
+							<div class="artist-single-content">
+								<ul>
+									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								</ul>
+								<h6>James Hetfield</h6>
+								<p>Band: Metallica</p>
+							</div>
+						</li>
+
+						<li class="artist-single clearfix swiper-slide">
+							<img src="../resource/img/a1.jpg" class="tempImage" alt="">
+							<div class="artist-single-content">
+								<ul>
+									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								</ul>
+								<h6>James Hetfield</h6>
+								<p>Band: Metallica</p>
+							</div>
+						</li>
+
+						<li class="artist-single clearfix swiper-slide">
+							<img src="../resource/img/a1.jpg" class="tempImage"alt="">
+							<div class="artist-single-content">
+								<ul>
+									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								</ul>
+								<h6>James Hetfield</h6>
+								<p>Band: Metallica</p>
+							</div>
+						</li>
+
+						<li class="artist-single clearfix swiper-slide">
+							<img src="../resource/img/a1.jpg" class="tempImage" alt="">
+							<div class="artist-single-content">
+								<ul>
+									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								</ul>
+								<h6>James Hetfield</h6>
+								<p>Band: Metallica</p>
+							</div>
+						</li>
+						<li class="artist-single clearfix swiper-slide">
+							<img src="../resource/img/a1.jpg" class="tempImage" alt="">
+							<div class="artist-single-content">
+								<ul>
+									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								</ul>
+								<h6>James Hetfield</h6>
+								<p>Band: Metallica</p>
+							</div>
+						</li>
+
+						<li class="artist-single clearfix swiper-slide">
+							<img src="../resource/img/a1.jpg" class="tempImage" alt="">
+							<div class="artist-single-content">
+								<ul>
+									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								</ul>
+								<h6>James Hetfield</h6>
+								<p>Band: Metallica</p>
+							</div>
+						</li>
+
+						<li class="artist-single clearfix swiper-slide">
+							<img src="../resource/img/a1.jpg" class="tempImage" alt="">
+							<div class="artist-single-content">
+								<ul>
+									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								</ul>
+								<h6>James Hetfield</h6>
+								<p>Band: Metallica</p>
+							</div>
+						</li>
+
+						<li class="artist-single clearfix swiper-slide">
+							<img src="../resource/img/a1.jpg" class="tempImage" alt="">
+							<div class="artist-single-content">
+								<ul>
+									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								</ul>
+								<h6>James Hetfield</h6>
+								<p>Band: Metallica</p>
+							</div>
+						</li>
+					</ul>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
+				</div>
+			</div>
+			<!-- /.tim-container -->
+		</section>
+								
 							<!-- =========================================================================================================== -->
 								
 								<div class="optionBtnBox">
@@ -734,6 +853,48 @@ body {
 								</div>
 							</div>
 							<!-- /.row -->
+						</div>
+						
+						<!-- 세번째 카테고리 : Q&A -->
+						<div role="tabpanel" class="tab-pane fade" id="buzz">
+							<table class="shop_attributes">
+								<tbody>
+									<tr>
+										<th>Weight</th>
+										<td class="product_weight">1.2 kg</td>
+									</tr>
+
+									<tr>
+										<th>Dimensions</th>
+										<td class="product_dimensions">38 x 28 x 15 cm</td>
+									</tr>
+
+									<tr>
+										<th>Color</th>
+										<td>
+											<p>Blue, Grey, Red</p>
+										</td>
+									</tr>
+									<tr>
+										<th>Size</th>
+										<td>
+											<p>32-36, 36-40, 40-46</p>
+										</td>
+									</tr>
+									<tr>
+										<th>Size</th>
+										<td>
+											<p>H: 38cm/15″ W: 28cm/11″ D: 15cm/6″</p>
+										</td>
+									</tr>
+									<tr>
+										<th>Details</th>
+										<td>
+											<p>Contrasting print, Adjustable shoulder straps, Grab handle</p>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
