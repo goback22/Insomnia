@@ -53,7 +53,40 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public int getTotalRecord(Map map) {
+		return dao.getTotalRecord(map);
+	}
+
+	@Override
+	public int getGenderCount(Map map) {
 		return 0;
+	}
+
+	@Override
+	public int getFemaleMember(String string) {
+		return dao.getFemaleMember(string);
+	}
+
+	@Override
+	public List<AdminDTO> selectNewMemberList(Map map) {
+		return dao.selectNewMemberList(map);
+	}
+
+	@Override
+	public int selectTodayNewMember(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectTodayNewMember(map);
+	}
+
+	@Override
+	public int selectYesterDayNewMember(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectYesterDayNewMember(map);
+	}
+
+	@Override
+	public int selectTwoDaysAgoNewMember(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectTwoDaysAgoNewMember(map);
 	}
 
 	

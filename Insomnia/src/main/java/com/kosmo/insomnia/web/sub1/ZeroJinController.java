@@ -71,9 +71,9 @@ public class ZeroJinController {
 	      session.setAttribute("login_user_phoneNb", record.getPhone());
 	      System.out.println(record.getPhone());
     	  
-    	  if(map.get("id").equals("admin")) {
-    		  return "/admin/AdminIndex";
-    	  }
+//    	  if(map.get("id").equals("admin")) {
+//    		  return "/admin/AdminIndex";
+//    	  }
       } else {
     	  model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
     	 /* return "forward:/loginErr/ajax.ins";*/

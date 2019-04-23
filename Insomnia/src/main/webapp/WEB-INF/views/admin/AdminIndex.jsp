@@ -11,9 +11,13 @@
 	<link href="<c:url value='/vendor/css/bootstrap-3.3.2.css'/>" rel="stylesheet"><!-- -3.3.2 -->
 	<script src="<c:url value='/vendor/js/jquery-3.3.1.js'/>"></script>
 	<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script><!-- min -->
+<%-- 	<script src="<c:url value='/vendor/js/admin_index_chart.js'/>"></script> --%>
 	<!--  -->
 	<link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>" rel="stylesheet">
-	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<link href="<c:url value='/vendor/css/admin_index_chart.css'/>" rel="stylesheet">
+	<script src="https://www.amcharts.com/lib/4/core.js"></script>
+	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
 	
 </head>
 <body>
@@ -30,9 +34,87 @@
 					<h1>전체보기 <small></small></h1>
 				</div>
 			</div>
+			
+			<!-- chart -->
+			<!-- canvasjs.com -->
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								전체회원(도넛형 남,여)
+							</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+							<!-- - -->
+								<div id="donutchart" style="width: 100%;height:100%;"></div>
+              				<!-- - -->
+							</section>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+							신규 가입회원(선or 막대,날짜)a
+							</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+								<div id="chart_div" style="width: 100%; height: 100%;"></div>
+							</section>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								band진행(보류중)
+							</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+								<div id="sub_chart" style="height: 100%;"></div>
+							</section>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								sub진행 or band진행 or 방문자수
+							</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+								 <div id="cntr"> 
+						            The number of visitors is : 
+						            <span>0</span>
+						        </div>
+								<script> 
+						            function counter_fn(){
+						                var counter = $('#cntr span').text(); // geting value from span
+						                var count = 0;
+						                count = parseInt(counter.value);//
+						                count = count+1;
+						                counter.innerHTML = parseInt(count);
+						           }
+						           window.onload = counter_fn;  
+						      	</script>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- chart end -->
+			
 			<!-- 회원관련 -->
 			<div class="row">
-				<div class="col-md-7">
+				<div class="col-md-11">
 				<!-- 전체 회원보기 -->
 					<div class="panel panel-primary">
 						<div class="panel-heading">
@@ -44,57 +126,37 @@
 							<section class="feed-item">
 								<table class="table table-hover">
 									<tr>
-										<th class="col-md-1 text-center">no</th>
-										<th class="col-md-1 text-center">id</th>
-										<th class="col-md-2 text-center">name</th>
-										<th class="col-md-2 text-center">email</th>
-										<th class="col-md-2 text-center">phone?</th>
-										<th class="text-center">회원구분</th>
-										<th class="col-md-1 text-center">정보공개</th>
+										<th class="col-md-1 text-center">ID</th>
+										<th class="col-md-2 text-center">NAME</th>
+										<th class="text-center">column1</th>
+										<th class="text-center">column2</th>
+										<th class="text-center">JOIN_DATE</th>
 									</tr>
 									<!-- DB에서 꺼내기 -->
-									<tr>
-										<td class="col-md-1 text-center">1</td>
-										<th class="col-md-1 text-center">id</th>
-										<td class="col-md-2 text-center">김길동</td>
-										<td class="text-center">kimkildong@navet.com</td>
-										<td class="col-md-2 text-center">010-1234-5678</td>
-										<td class="text-center">일반회원</td>
-										<td class="col-md-1 text-center">no</td>
-									</tr>
-									<tr>
-										<td class="col-md-1 text-center">2</td>
-										<th class="col-md-1 text-center">sejong</th>
-										<td class="col-md-2 text-center">세종</td>
-										<td class="col-md-3 text-center">sejong@sejong.kr</td>
-										<td class="col-md-2 text-center">010-1694-1732</td>
-										<td class="text-center">일반회원</td>
-										<td class="col-md-1 text-center">no</td>
-									</tr>
-									<tr>
-										<td class="col-md-1 text-center">3</td>
-										<th class="col-md-1 text-center">kimozzi</th>
-										<td class="col-md-2 text-center">기모찌</td>
-										<td class="col-md-3 text-center">kimozzi@naver.kr</td>
-										<td class="col-md-2 text-center">010-6969-6969</td>
-										<td class="text-center">방구석</td>
-										<td class="col-md-1 text-center">no</td>
-									</tr>
-									<tr>
-										<td class="col-md-1 text-center">4</td>
-										<th class="col-md-1 text-center">jhonjohn</th>
-										<td class="col-md-2 text-center">존레논</td>
-										<td class="col-md-3 text-center">jhon@beatles.eu</td>
-										<td class="col-md-2 text-center">00700-448-4775</td>
-										<td class="text-center">방구석</td>
-										<td class="col-md-1 text-center">no</td>
-									</tr>
+									<c:if test="${empty allMemberList }" var="isEmpty">
+										<tr>
+											<td colspan="5">등록된 게시물이 없어요</td>
+										</tr>
+									</c:if>
+									<c:if test="${not isEmpty }">
+										<c:forEach var="item" items="${allMemberList}" varStatus="loop">
+											<tr>
+												<td class="text-center viewDetail">${item.id}</td>
+												<td class="text-center viewDetail">${item.name}</td>
+												<td class="text-center viewDetail">일반1</td>
+												<td class="text-center viewDetail">일반2</td>
+												<td class="text-center viewDetail">${item.join_date}</td>
+											</tr>
+										</c:forEach>
+									</c:if>
+									
 									<!-- DB에서 꺼내기 끝 -->
 								</table>
 								<div class="" style="text-align: right;margin-right: 5px;">
 									<a href="<c:url value='/admin/allmember.ins'/>">more view</a></div>
 							</section>
 						</div>
+						
 					</div>
 					<!-- 전체회원보기 끝 -->
 					<!-- 신규회원 보기 -->
@@ -102,6 +164,49 @@
 						<div class="panel-heading">
 							<h3 class="panel-title">
 								신규회원 관리
+							</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+								<table class="table table-hover">
+									<tr>
+										<th class="col-md-2 text-center">ID</th>
+										<th class="col-md-2 text-center">NAME</th>
+										<th class="text-center">column1</th>
+										<th class="text-center">column2</th>
+										<th class="text-center">JOIN_DATE</th>
+									</tr>
+									<!-- DB에서 꺼내기 -->
+									<c:if test="${empty newMemberList }" var="isEmpty">
+										<tr>
+											<td colspan="6" align="center">등록된 게시물이 없어요</td>
+										</tr>
+									</c:if>
+										
+									<c:if test="${!isEmpty }">
+										<c:forEach items="${newMemberList }" var="item" varStatus="loop">
+											<tr class="view">
+												<td class="text-center">${item.id }</td>
+												<td class="text-center">${item.name }</td>
+												<td class="text-center">일반1</td>
+												<td class="text-center">일반2</td>
+												<td class="text-center">${item.join_date }</td>
+											</tr>
+										</c:forEach>
+									</c:if>
+									<!-- DB에서 꺼내기 끝 -->
+								</table>
+								<div class="" style="text-align: right;margin-right: 5px;">
+									<a href="<c:url value='/admin/newmember.ins'/>">more view</a></div>
+							</section>
+						</div>
+					</div>
+					<!-- 신규회원 보기 끝 -->
+					<!-- band member list -->
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								band회원 관리
 							</h3>
 						</div>
 						<div class="panel-body feed">
@@ -138,68 +243,11 @@
 									<!-- DB에서 꺼내기 끝 -->
 								</table>
 								<div class="" style="text-align: right;margin-right: 5px;">
-									<a href="<c:url value='/admin/newmember.ins'/>">more view</a></div>
+									<a href="<c:url value='/admin/maincontentmember.ins'/>">more view</a></div>
 							</section>
 						</div>
 					</div>
-					<!-- 신규회원 보기 끝 -->
-					
-				</div>
-				<div class="col-md-5">
-					<!-- 방구석회원 -->
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								방구석 회원
-							</h3>
-						</div>
-						<div class="panel-body feed">
-							<section class="feed-item">
-								<table class="table table-hover">
-									<tr>
-										<th class="col-md-1 text-center">no</th>
-										<th class="col-md-2 text-center">id</th>
-										<th class="col-md-2 text-center">name</th>
-										<th class="col-md-2 text-center">phone</th>
-										<th class="col-md-2 text-center">email</th>
-										
-										
-									</tr>
-									<!-- DB에서 꺼내기 -->
-									<tr>
-										<td class="text-center">1</td>
-										<td class="text-center">kimozzi</td>
-										<td class="text-center">기모찌</td>
-										<td class="text-center">010-6969-6969</td>
-										<td class="text-center">kimozzi@naver.kr</td>
-										
-									</tr>
-									<tr>
-										<td class="col-md-1 text-center">2</td>
-										<td class="col-md-2 text-center">jhonjohn</td>
-										<td class="col-md-3 text-center">jhon@beatles.eu</td>
-										<td class="col-md-2 text-center">00700-448-47752</td>
-										<td class="text-center">방구석</td>
-										
-									</tr>
-									<!-- DB에서 꺼내기 끝 -->
-								</table>
-								<div class="" style="text-align: right;margin-right: 5px;">
-									<a href="<c:url value='/admin/submember.ins'/>">more view</a></div>
-							</section>
-						</div>
-					</div>
-					<!-- 방구석 회원 끝 -->
-<!-- 					<div class="panel panel-primary"> -->
-<!-- 						<div class="panel-heading"> -->
-<!-- 							<h3 class="panel-title"> -->
-<!-- 								<i class="fa fa-bar-chart-o"></i>chart(옮길까 생각중) -->
-<!-- 							</h3> -->
-<!-- 						</div> -->
-<!-- 						<div class="panel-body"> -->
-<!-- 							<div id="chart_div" style="width: 100%; height: 500px;border: 1px solid red;"></div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
+					<!-- band member list -->
 				</div>
 			</div>
 			<!-- 회원관련 끝 -->
@@ -360,20 +408,6 @@
 						</div>
 					</div>
 				</div>
-				
-				
-				<!-- chart -->
-<!-- 				<div class="col-lg-5"> -->
-<!-- 					<div class="panel panel-primary"> -->
-<!-- 						<div class="panel-heading"> -->
-<!-- 							<h3 class="panel-title"> -->
-<!-- 								<i class="fa fa-magnet"></i>sub 관련 모금액? -->
-<!-- 							</h3> -->
-<!-- 						</div> -->
-<!-- 						<div id="sub_chart"></div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				<!-- chart end -->
 			</div>
 			<!-- sub content end -->
 			
@@ -439,63 +473,119 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+<!-- 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+<script type="text/javascript">
+$(function(){
+	//total member	
+	google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawAllMemberChart);
+    function drawAllMemberChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['gender', 'membercount'],
+        ['남자',	(${totalMemberCount}-${femaleMember})],
+        ['여자',	${femaleMember}]
+      ]);
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Month', '개인회원?', 'column2'	],
-          ['Jan',	100,		40		],
-          ['Feb',	117,		46		],
-          ['Mar',	66,			112		],
-          ['Apr',	103,      	54		],
-          ['May',	50,			100		]
-        ]);
+      var options = {
+        pieHole: 0.2,
+        'chartArea':{
+			  'width':'80%',
+			  'height':'80%'
+        },
+        legend: { 
+        	position: "left", 
+        	textStyle: { 
+        		fontSize: 14 
+        	} 
+        }
+        
+      };
 
-        var options = {
-          title: '음...',
-          hAxis: {title: 'Month',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0}
-        };
-
-        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
+      var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+      chart.draw(data, options);
       
-      
-      //sub chart
-      google.charts.setOnLoadCallback(drawBasic);
+    };
+	    
+//new member chart
+		//date
+		var today = new Date();
+		var dd = today.getDate();
+		var dd2ago = today.getDate()-2;
+		var mm = today.getMonth()+1; //January is 0
+		var yyyy = today.getFullYear();
+		if(dd<10) {
+		    dd='0'+dd
+		}
+		if(dd2ago<10) {
+			dd2ago='0'+dd2ago
+		}
+		var twodaysAgo = mm+'월'+dd2ago+"일";
+		today = yyyy+'-'+mm+'-'+dd;
 
-		function drawBasic() {
-		
-		      var data = google.visualization.arrayToDataTable([
-		        ['공연제목', '%'],
-		        ['홍대 놀자', 75],
-		        ['강변가요제', 44],
-		        ['전국 음악 자랑', 52],
-		        ['두유노김치', 67]
-		       
+		google.charts.load("current", {packages:["corechart"]});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+	    	var data = google.visualization.arrayToDataTable([
+	          ['Date', '신규회원'	],
+	          [twodaysAgo,  ${twodayagoMember}		],
+	          ['yesterday',  ${yesterdayMember}		],
+	          ['today',  ${todayMember}	]
+	        ]);
+	    	var options = {
+   	          curveType: 'function',
+   	          legend: 'none',
+			  lineWidth: 3,
+			  'chartArea':{
+				  'width':'80%',
+				  'height':'80%'
+			  },
+			  'hAxis':{
+				  'textStyle':{
+					  'fontSize':12
+				  }
+			  },
+			  'vAxis':{
+				  'textStyle':{
+					  'fontSize':12
+				  }
+			  }
+			  
+   	          
+   	        };
+
+		var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+		chart.draw(data,options);
+      };
+//band chart
+	google.charts.load('current', {packages: ['corechart', 'bar']});
+	google.charts.setOnLoadCallback(drawBandBasic);
+	function drawBandBasic() {
+		var firstBand = '1st';
+		var secondBand = '2nd';
+		var thirdBand = '3rd';
+		var data = google.visualization.arrayToDataTable([
+		        ['bandReward', 'reward1', 'reward2', 'reward3', 'reward4',
+		          { role: 'annotation' } ],
+		        [firstBand, 10, 24, 20, 32, ''],
+		        [secondBand, 16, 22, 23, 20, ''],
+		        [thirdBand, 28, 19, 29, 20, '']
 		      ]);
-		
-		      var options = {
-		        title: '방구석 기타리스트 공연 자금',
-		        chartArea: {width: '60%'},
-		        hAxis: {
-		          title: '수금량',
-		          minValue: 0
-		        },
-		        vAxis: {
-		          title: '공연명'
-		        }
+
+		      var suboptions = {
+		        width: 350,
+		        legend: { position: 'top', maxLines: 2 },
+		        bar: { groupWidth: '60%' },
+		        maintainAspectRatio: false,
+		        isStacked: true
 		      };
-		
 		      var chart = new google.visualization.BarChart(document.getElementById('sub_chart'));
-		
-		      chart.draw(data, options);
-		    }
-    </script>
+
+		      chart.draw(data, suboptions);
+		    };
+ 	
+});
+   
+</script>
 	
 </body>
 </html>
