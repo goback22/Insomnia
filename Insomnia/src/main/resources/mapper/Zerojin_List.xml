@@ -18,7 +18,7 @@
 	</select>
 	
 	<insert id="insInsert" parameterType="java.util.Map" >
-		INSERT INTO bgsapply(ap_no,ap_title,ap_content,id,ap_visit,ap_genre) VALUES(SEQ_bgsapply.NEXTVAL,#{ap_title, jdbcType=VARCHAR},#{ap_content,  jdbcType=VARCHAR},#{id,  jdbcType=VARCHAR}, default, #{ap_genre, jdbcType=VARCHAR})
+		INSERT INTO bgsapply(ap_no,ap_title,ap_content,id,ap_visit,ap_genre,ap_attachedfile) VALUES(SEQ_bgsapply.NEXTVAL,#{ap_title, jdbcType=VARCHAR},#{ap_content,  jdbcType=VARCHAR},#{id,  jdbcType=VARCHAR}, default, #{ap_genre, jdbcType=VARCHAR},#{ap_attachedfile, jdbcType=VARCHAR})
 	</insert>
 
 	<select id="insTotalCount" parameterType="java.util.Map" resultType="int">
@@ -33,7 +33,7 @@
 	</select>
 	
 	<update id="insUpdate" parameterType="java.util.Map">
-	UPDATE bgsapply SET ap_title =#{ap_title,  jdbcType=VARCHAR},ap_content=#{ap_content, jdbcType=VARCHAR} WHERE ap_no =#{ap_no, jdbcType=VARCHAR}
+	UPDATE bgsapply SET ap_title =#{ap_title,  jdbcType=VARCHAR},ap_content=#{ap_content, jdbcType=VARCHAR}, ap_attachedfile=#{ap_attachedfile, jdbcType=VARCHAR} WHERE ap_no =#{ap_no, jdbcType=VARCHAR}
 	</update>
 	
 	<delete id="insDelete" parameterType="java.util.Map">

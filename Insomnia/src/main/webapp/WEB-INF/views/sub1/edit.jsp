@@ -406,8 +406,9 @@ function formCheck(frm) {
 								<div class="form-group" style="margin-top: -15px">
 									<label for="title" class="col-sm-2 control-label">파일</label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" name="ap_title"
-											id="ap_title" placeholder="파일을 첨부하세요" />
+										<input type="file"  name="ap_attachedfile" id="ap_attachedfile" />
+										<p class="help-block">파일을 첨부하세요(기존 파일:${record.ap_attachedfile})</p>
+											
 									</div>
 								</div>
 								<div class="row">

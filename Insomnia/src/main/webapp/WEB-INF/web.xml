@@ -8,11 +8,12 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		/WEB-INF/spring/root-context.xml
+			/WEB-INF/spring/root-context.xml
 		</param-value>
 	</context-param>
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
 	</listener>
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
@@ -20,7 +21,8 @@
 		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -34,7 +36,8 @@
 	<!-- 한글 깨지는거 방지하기 위해 스프링에서 제공하는 필터 이용 -->
 	<filter>
 		<filter-name>CharacterEncoding</filter-name> <!-- filter-name은 임의로 -->
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
 		<init-param>
 			<!-- param-name과 param-value은 아래처럼 -->
 			<param-name>encoding</param-name><!--setEncoding()호출 -->
@@ -45,9 +48,9 @@
 		<filter-name>CharacterEncoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<welcome-file-list>
-		<welcome-file>home.ins</welcome-file>	
+		<welcome-file>home.ins</welcome-file>
 	</welcome-file-list>
 
 </web-app>

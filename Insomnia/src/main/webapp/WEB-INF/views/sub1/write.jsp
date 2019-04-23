@@ -326,19 +326,23 @@ option {
 function formCheck(frm) {
     if (frm.ap_title.value == "") {
         alert('제목을 입력해 주세요');
-//         frm.ap_title.focus();
-        $('#ap_title').css('display', 'block');
+        frm.ap_title.focus();
         return false;
     }
     else if (frm.ap_genre.value == "") {
         alert("장르를 선택해 주세요");
-//         frm.ap_content.focus();
+        frm.ap_genre.focus();
         $('#ap_genre').css('display', 'block');
         return false;
     }
     else if (frm.ap_content.value == "") {
-        alert("내용을 입력해 주세요");
+        alert("내용을 입력해주세요");
         frm.ap_content.focus();
+        return false;
+    }
+    else if (frm.ap_attachedfile.value == "") {
+        alert("파일을 첨부해주세요");
+        $('#ap_attachedfile').css('display', 'block');
         return false;
     }
     return true;
@@ -377,7 +381,8 @@ function formCheck(frm) {
 				<div role="tabpanel" class="container">
 					<div class="row">
 						<div class="col-md-10" style="margin-left: -50px;">
-							<form class="form-horizontal" onsubmit="return formCheck(this)" id="frm" name="userinput" method="post"
+						<!-- onsubmit="return formCheck(this)"  -->
+							<form class="form-horizontal"  enctype="multipart/form-data" id="frm" name="userinput" method="post"
 								action="<c:url value='/sub1/write.ins'/>"
 								style="margin-left: 158px">
 								<div class="form-group">
@@ -393,7 +398,8 @@ function formCheck(frm) {
 										<select id="ap_genre" name="ap_genre">
 											<option value="">선택</option>
 											<option value="보컬">보컬</option>
-											<option value="기타/베이스">기타/베이스</option>
+											<option value="기타">기타</option>
+											<option value="기타">밴드</option>
 											<option value="드럼">드럼</option>
 											<option value="댄스">댄스</option>
 											<option value="보컬">etc</option>
@@ -401,8 +407,7 @@ function formCheck(frm) {
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="content" class="col-sm-2 control-lable" id="kyj3"
-										style="left: 75px">내용</label>
+									<label for="content" class="col-sm-2 control-label">내용</label>
 									<div class="col-sm-5">
 										<textarea rows="10" id="summernote" name="ap_content"
 											class="form-control" placeholder="내용을 입력하세요"></textarea>
@@ -411,8 +416,9 @@ function formCheck(frm) {
 								<div class="form-group" style="margin-top: -15px">
 									<label for="title" class="col-sm-2 control-label">파일</label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" name="ap_file"
-											id="ap_file" placeholder="파일을 첨부하세요" />
+										<input type="file"  name="attachedfile" id="attachedfile" />
+										<p class="help-block">파일을 첨부하세요</p>
+											
 									</div>
 								</div>
 								<div class="row">

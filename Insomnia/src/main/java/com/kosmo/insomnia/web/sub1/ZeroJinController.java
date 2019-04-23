@@ -1,5 +1,6 @@
 package com.kosmo.insomnia.web.sub1;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,9 +31,11 @@ import com.kosmo.insomnia.service.BGSConcertService;
 import com.kosmo.insomnia.service.ListDTO;
 import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.serviceimpl.CommentServiceImpl;
+import com.kosmo.insomnia.serviceimpl.ListDAO;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 import com.kosmo.insomnia.web.sub1.PagingUtil;
+import com.oreilly.servlet.MultipartRequest;
 import com.sun.xml.internal.ws.server.ServiceDefinitionImpl;
 
 @Controller
@@ -152,18 +157,18 @@ public class ZeroJinController {
 		
 	// 방구석 기타리스트 게시판 - write폼으로 이동
 	@RequestMapping(value = "/sub1/write.ins", method = RequestMethod.GET)
-	public String write() throws Exception {
+	public String write() throws ServletException, IOException {
 		return "sub1/write";
 	}
 
 	// 방구석 기타리스트 게시판 - write처리
-	@RequestMapping(value = "/sub1/write.ins", method = RequestMethod.POST)
-	public String writeOk(@RequestParam Map map, HttpSession session) throws Exception {
+	@RequestMapping(value = "/sub1/write.ins", method= RequestMethod.POST)
+	public String writeOk(@RequestParam Map map, HttpSession session,HttpServletRequest req) throws IOException, ServletException{
 		// 서비스 호출
 		map.put("id", session.getAttribute("id")); // ☆
-
+		
 		insService.insert(map);
-
+		
 		return "forward:/sub1/list.ins";
 		//return "/sub1/list.tiles";로하면 안돼
 	}
@@ -181,7 +186,6 @@ public class ZeroJinController {
 		model.addAttribute("record", record);
 		
 		// System.out.println(record.getAp_content());
-
 		
 		// 이전 글
 		ListDTO prev = insService.prevSelectOne(map);
