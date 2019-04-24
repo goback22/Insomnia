@@ -2,6 +2,117 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<style>
+
+	/*===================로그인 후 회원화면=========================*/
+
+.user_top dd, .user_top dt {
+	
+	display: inline;
+	color: white;
+	font-size: 15px;
+}
+
+.afterLogin p, .afterLogin a {
+	color: white;
+	font-size: 15px;
+}
+
+
+.user_picture {
+	
+	width: 70px;
+	height: 50px;
+	border-radius: 100%;
+	margin-right: 20px;
+	margin-left: 10px;
+	margin-bottom: 5px;
+	
+}
+
+.benefit span, .benefit dt, .benefit dd, .benefit a {
+	font-size: 13px;
+	margin-left: 5px;
+}
+
+
+#logout {
+	font-size; 13px;
+	float: right;
+}
+
+
+.afterLogin img {
+	width: 30px;
+}
+
+table {
+	width: 279px;
+	text-align: center;
+}
+
+.user_middle table tr {
+	width: 279px;
+	text-align: center;
+}
+
+.user_middle table td  {
+	width: 25%;
+}
+
+.user_middle td a {
+	width: 100%;
+	text-align: center;
+	height: 100px;
+}
+
+
+.user_middle label {
+	color: white;
+	font-size: 15px;
+}
+
+
+.user_bottom li, .user_bottom ul {
+	width: 100%
+}
+
+.user_bottom img{
+	width: 20%
+}
+
+.user_bottom span{
+	width: 80%
+	text-align: center;
+}
+
+.profile_name {
+	color: orange;
+	font-size: 17px;
+}
+
+
+
+
+
+.user_top {	
+	
+	
+}
+
+.user_middle {
+	
+	
+}
+
+.user_bottom {
+	
+}
+	
+
+
+</style>
+
 
 <!-- 네비게이션 바 -->
 <div class="nav">
@@ -71,174 +182,76 @@
 
 	<!-- 여기부터 -->
 
-	<!-- 로그인/회원정보 페이지 시작 -->
-	<c:if test="${empty sessionScope.id}" var="result">
-		<!-- 비로그인 시 보여줄 화면 시작-->
-		<div class="offset-menu-two">
-			<a href="<c:url value='/#'/>" class="offset-closer"><img
-				src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
-			<div class="div-form-login">
-				<h2 class="text-title">로그인</h2>
-				<form name="form-login" id="form-login" class="form-login"
-					action="<c:url value='/login.ins'/>">
-
-
-					<div class="field">
-						<div class="input-login">
-							<input type="text" id="id" name="id" class="input-text"
-								placeholder="이메일 아이디">
-							<!-- 타입 email 에서 text로 -->
-						</div>
-<!-- 						<p id="emailError" class="error-text">이메일 형식이 올바르지 않습니다.</p> -->
-					</div>
-					<div class="field">
-						<div class="input-login">
-							<input type="password" id="password" name="password"
-								class="input-text" maxlength="17"
-								placeholder="비밀번호(영문, 숫자, 특수문자 포함 8자)">
-						</div>
-						<p id="loginError" class="error-text">Insomnia에 등록되지 않은 아이디거나, 아이디
-							또는 비밀번호가 회원정보와 일치하지 않습니다.</p>
-					</div>
-
-					<div class="login-action">
-						<label id="saveIdLabel" class="save"> <input
-							id="saveUserId" type="checkbox" title="아이디 저장" class="chkbox">
-							<span id="txtSaveId" class="wz text caption2">아이디 저장</span>
-						</label>
-						<p class="forgot">
-							<a class="wz text forgot_a" href="<c:url value='' />">아이디∙비밀번호
-								찾기<i class="icon chevron-right"></i>
-							</a>
-						</p>
-					</div>
-					<button type="submit" id="btnLogin" class="button-login">로그인</button>
-				</form>
-				<div class="separator">
-					<span class="text">또는</span>
-				</div>
-				<div class="social-login">
-					<button type="button" id="facebookLoginBtn" class="facebook">
-						<img class="icon"
-							src="<c:url value='/resource/img/f-ogo_RGB_HEX-58.png'/>" /> <i
-							class="facebook"></i>페이스북으로 로그인
-					</button>
-					<button type="button" id="custom-login-btn"
-						onclick="javascript:loginWithKakao()">
-						<img class="icon"
-							src="<c:url value='/resource/img/kakaolink_btn_medium.png'/>" />
-						<i class="kakao"></i>카카오
-					</button>
-					<!-- naverLoginBtn -->
-					<div id="naver_id_login">
-						<!-- <button type="button"> -->
-						<%-- <img class="icon"
-								src="<c:url value='/resource/img/naver_login_icon.png'/>" /> <i
-								class="naver"></i>네이버 --%>
-						<!-- </button> -->
-					</div>
-					<button type="button" id="googleLoginBtn">
-						<img class="icon"
-							src="<c:url value='/resource/img/icons8-google-48.png'/>" /> <i
-							class="google color"></i>구글
-					</button>
-					<button type="button" onclick="pageLoginByTwitter()">
-						<img class="icon"
-							src="<c:url value='/resource/img/Twitter_Logo_WhiteOnBlue.png'/>" />
-						<i class="twitter"></i>트위터
-					</button>
-				</div>
-				<div class="bottom-message">
-					<p class="text">
-						아직 계정이 없나요?&nbsp;&nbsp;<a
-							href="<c:url value='/register/term.ins'/>" data-return-url="">회원가입</a>
-					</p>
-				</div>
-
-				<img src="<c:url value='/resource/img/cat-eyes.jpg'/>"
-					class="cat_eye" />
-			</div>
-
-			<div class="offset-social-two">
-				<a href=""> <img src="<c:url value='/resource/img/logo_5.png'/>"
-					alt="">
-				</a>
-			</div>
-
+	<!-- 여기부터 -->
+			
+				<!-- 로그인 시 보여줄 화면 시작 -->
+				<div class="offset-menu-two">
+					<div class="afterLogin" style="margin-top: -370px">
+					<!-- 닫기 버튼 -->
+						<a href="<c:url value='/#'/>" class="offset-closer">
+							<img style="margin-left: 270px; margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
+						</a>
+					<!-- 네이버 로그인 display:none -->
+					<div id="naver_id_login" style="display: none;"></div>
+						
+					<!-- 사용자 계정정보 -->
+				
+	            	<div class="user_top">		<!-- 상단메뉴:div -->
+              			<!-- 프로필 이미지 -->
+                		<img class="user_picture" src="<c:url value='/upload/${record.profile_img}'/>"/>
+              			<!-- 사용자 이름 -->
+              			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${record.name}</span>님 환영합니다!</a>
+              			<!-- 쿠폰, 포인트 -->
+			             <dl class="c">
+			               <dt>쿠폰</dt>
+			               <dd><a href="javascript:void(0)"><span id="">0</span>장</a></dd>
+			               <dt>포인트</dt>
+			               <dd><a href="javascript:void(0)"><span id="">0</span>P</a></dd>
+			             </dl>
+            		</div>
+		            <table class="user_middle">	<!-- 중간메뉴:ul -->	<!-- ul이 1 칸 차지, li display : inline -->
+		              <tr>
+			              <td><a id="middle1" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_apple-music-2_2301791.png'/>"/></a></td>
+			              <td><a id="middle2" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_microphone_1055023.png'/>"/></a></td>
+			              <td><a id="middle3" href="javascript:void(0)" class=""><img src="<c:url value='/img/followers.png'/>"/></a></td>
+			              <td><a id="middle4" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_heart_289619.png'/>"/></a></td>
+			           </tr>
+			           <tr>
+		           		  <td><label for="middle1">리워드</label></td>
+		           		  <td><label for="middle2">마이페이지</label></td>
+		           		  <td><label for="middle3">초대하기</label></td>
+		           		  <td><label for="middle4">블라블라</label></td>
+			           		
+			           </tr>
+		            </table>
+		            
+		            <!-- display:none 끝 -->
+		            <%-- <ul class="user_bottom">		<!-- 하단메뉴 --> <!-- ul이 1칸 차지, li display: inline -->
+		              <li>
+		                <a id="" class="" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_mail_1055030.png'/>"/>
+		                  		<span class="">메시지</span>
+		                </a>
+		              </li>
+		              <li><a class="" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_humans_1216581.png'/>"/><span>친구 초대하기</span></a></li>
+		              <li><a class="" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_wrench_416405.png'/>"/><span>설정</span></a></li>
+		              <li><a class="" href="<c:url value='/logout.ins'/>"><img src="<c:url value='/img/exit.png'/>"/><span>로그아웃</span></a></li>
+		            </ul> --%>
+		            <a id="logout" href="<c:url value='/logout.ins'/>">로그아웃</a>
+            
+          		</div> <!-- afterLogin div 끝 -->
+						
+			<!-- 여기까지 -->
+						
+						
 		</div>
+				
+				<!-- 로그인 시 보여줄 화면 끝 -->
+			<!-- 로그인/회원정보 페이지 끝 -->
+			
 
 
-		<!-- 비 로그인시 보여줄 화면 끝-->
-	</c:if>
-	<c:if test="${not result}">
 
-		<script>
-			var isLogined = true;
-		</script>
-
-		<!-- 로그인 시 보여줄 화면 시작 -->
-		<div class="offset-menu-two">
-			<div class="afterLogin" style="margin-top: -370px">
-				<a href="<c:url value='/#'/>" class="offset-closer"> <img
-					style="margin-left: 270px; margin-top: -60px"
-					src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
-
-				<div id="naver_id_login" style="display: none;"></div>
-
-
-				<!-- 일반 로그인 시 보여줄 화면-->
-				<c:if test="${empty socialName}" var="socialResult">
-					<p style="font-weight: bold; font-size: 1.1em; color: white;">${id}님
-						안녕하세요!</p>
-				</c:if>
-				<!-- 일반 로그인 시 보여줄 화면 끝-->
-
-				<!-- 소셜 로그인 시 보여줄 화면 시작 -->
-				<c:if test="${not socialResult}">
-					<프로필 사진> <img src="${socialProfile}" />
-					<p style="font-weight: bold; font-size: 1.1em; color: orange;">${socialName}님
-						안녕하세요!</p>
-					<p style="font-weight: bold; font-size: 1.1em; color: orange;">${socialEmail}</br>로
-						이메일 인증을 진행하세요!
-					</p>
-					<p style="font-weight: bold; font-size: 1.1em; color: white;">
-						회원님의 생일이 </br> <i style="color: orange; font-size: 30px;">${socialBirth}</i>인가요?</br>
-						회원님의 생일에 특별한 혜택을 누려보세요.
-					</p>
-				</c:if>
-				<!-- 소셜 로그인 시 보여줄 화면 끝 -->
-
-
-				<a href="<c:url value='/menu/mypage.ins'/>" style="display: block;">마이페이지
-					이동</a> <a href="<c:url value='/menu/mypage/edit.ins'/>"
-					style="display: block;">개인정보 수정</a> <a
-					href="<c:url value='/logout.ins'/>" style="display: block;">로그아웃</a>
-
-				<img src="<c:url value='/resource/img/cat-eyes.jpg'/>"
-					class="cat_eye" />
-				<div class="offset-social-two">
-					<a href=""> <img
-						src="<c:url value='/resource/img/logo_5.png'/>" alt=""></a>
-				</div>
-			</div>
-		</div>
-		<!-- 로그인 시 보여줄 화면 끝 -->
-	</c:if>
-	<!-- 로그인/회원정보 페이지 끝 -->
-	<!-- 소셜 로그인 : 히든 폼 시작 -->
-
-
-	<form id="socialForm" action="<c:url value='/login/social.ins'/>"
-		method="POST" style="display: none;">
-		<input type="hidden" name="socialEmail" id="socialEmail" value="" />
-		<input type="hidden" name="socialName" id="socialName" value="" /> <input
-			type="hidden" name="socialProfile" id="socialProfile" value="" /> <input
-			type="hidden" name="socialBirth" id="socialBirth" value="" />
-	</form>
-
-	<!-- 소셜 로그인 : 히든 폼 끝 -->
-
-
+			<!-- 여기까지 -->
 
 	<!-- 여기까지 -->
 
@@ -248,6 +261,23 @@
 	<!--=============================-->
 	<!--=        Mobile Nav         =-->
 	<!--=============================-->
+	
+	<!-- hover 효과 -->
+		<script> 
+			$(function(){
+				
+				$('.afterLogin label, #logout').hover(function(){
+					
+					$(this).css('color', 'rgb(222, 255, 239)');
+					
+				}, function(){
+					$(this).css('color', 'white');
+				});
+				
+				
+			})
+			
+		</script>
 
 
 </div>

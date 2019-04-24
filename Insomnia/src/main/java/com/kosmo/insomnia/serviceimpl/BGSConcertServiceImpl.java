@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.kosmo.insomnia.service.BGSConcertDTO;
 import com.kosmo.insomnia.service.BGSConcertService;
 import com.kosmo.insomnia.service.ListDTO;
 
@@ -21,7 +22,15 @@ public class BGSConcertServiceImpl implements BGSConcertService {
 		return dao.selectList();
 	}
 
-	
-	
+	@Override
+	public List<BGSConcertDTO> selectMyList(Map map) {
+		return dao.selectMyList(map);
+	}
+
+	@Override
+	public int getCount(Map map) {
+		return dao.getCount(map);
+	}
+
 	
 }/////

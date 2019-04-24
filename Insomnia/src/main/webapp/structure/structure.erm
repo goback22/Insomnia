@@ -11,13 +11,8 @@
 	</page_setting>
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
-<<<<<<< HEAD
-	<x>1282</x>
-	<y>471</y>
-=======
-	<x>1433</x>
-	<y>861</y>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
+	<x>840</x>
+	<y>1494</y>
 	<default_color>
 		<r>255</r>
 		<g>255</g>
@@ -140,11 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2019-04-08 20:34:31</creation_date>
-<<<<<<< HEAD
-			<updated_date>2019-04-21 18:38:42</updated_date>
-=======
-			<updated_date>2019-04-19 11:30:53</updated_date>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
+			<updated_date>2019-04-23 19:12:33</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -595,22 +586,6 @@
 		</word>
 		<word>
 			<id>26</id>
-			<length>null</length>
-			<decimal>null</decimal>
-			<array>false</array>
-			<array_dimension>null</array_dimension>
-			<unsigned>false</unsigned>
-			<zerofill>false</zerofill>
-			<binary>false</binary>
-			<args></args>
-			<char_semantics>false</char_semantics>
-			<description></description>
-			<logical_name>콘서트 시간</logical_name>
-			<physical_name>consertDate</physical_name>
-			<type>date</type>
-		</word>
-		<word>
-			<id>27</id>
 			<length>3000</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -626,7 +601,7 @@
 			<type>varchar(n)</type>
 		</word>
 		<word>
-			<id>28</id>
+			<id>27</id>
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -640,6 +615,22 @@
 			<logical_name>CT_no</logical_name>
 			<physical_name>CT_no</physical_name>
 			<type>decimal</type>
+		</word>
+		<word>
+			<id>28</id>
+			<length>null</length>
+			<decimal>null</decimal>
+			<array>false</array>
+			<array_dimension>null</array_dimension>
+			<unsigned>false</unsigned>
+			<zerofill>false</zerofill>
+			<binary>false</binary>
+			<args></args>
+			<char_semantics>false</char_semantics>
+			<description></description>
+			<logical_name>콘서트 시간</logical_name>
+			<physical_name>C_concertDate</physical_name>
+			<type>date</type>
 		</word>
 		<word>
 			<id>29</id>
@@ -765,12 +756,28 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
+			<logical_name>콘서트 가격</logical_name>
+			<physical_name>C_price</physical_name>
+			<type>decimal</type>
+		</word>
+		<word>
+			<id>37</id>
+			<length>null</length>
+			<decimal>null</decimal>
+			<array>false</array>
+			<array_dimension>null</array_dimension>
+			<unsigned>false</unsigned>
+			<zerofill>false</zerofill>
+			<binary>false</binary>
+			<args></args>
+			<char_semantics>false</char_semantics>
+			<description></description>
 			<logical_name>C_Stars</logical_name>
 			<physical_name>C_Stars</physical_name>
 			<type>decimal</type>
 		</word>
 		<word>
-			<id>37</id>
+			<id>38</id>
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -786,7 +793,7 @@
 			<type>decimal</type>
 		</word>
 		<word>
-			<id>38</id>
+			<id>39</id>
 			<length>1000</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -802,7 +809,7 @@
 			<type>varchar(n)</type>
 		</word>
 		<word>
-			<id>39</id>
+			<id>40</id>
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -818,7 +825,7 @@
 			<type>decimal</type>
 		</word>
 		<word>
-			<id>40</id>
+			<id>41</id>
 			<length>2000</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -834,7 +841,7 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
-			<id>41</id>
+			<id>42</id>
 			<length>20</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -850,7 +857,7 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
-			<id>42</id>
+			<id>43</id>
 			<length>50</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -866,7 +873,7 @@
 			<type>varchar(n)</type>
 		</word>
 		<word>
-			<id>43</id>
+			<id>44</id>
 			<length>1</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -882,7 +889,7 @@
 			<type>nchar(n)</type>
 		</word>
 		<word>
-			<id>44</id>
+			<id>45</id>
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -898,7 +905,7 @@
 			<type>decimal</type>
 		</word>
 		<word>
-			<id>45</id>
+			<id>46</id>
 			<length>30</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -914,7 +921,7 @@
 			<type>varchar(n)</type>
 		</word>
 		<word>
-			<id>46</id>
+			<id>47</id>
 			<length>50</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -930,7 +937,7 @@
 			<type>varchar(n)</type>
 		</word>
 		<word>
-			<id>47</id>
+			<id>48</id>
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -946,7 +953,7 @@
 			<type>date</type>
 		</word>
 		<word>
-			<id>48</id>
+			<id>49</id>
 			<length>20</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -962,7 +969,7 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
-			<id>49</id>
+			<id>50</id>
 			<length>20</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -978,7 +985,7 @@
 			<type>varchar(n)</type>
 		</word>
 		<word>
-			<id>50</id>
+			<id>51</id>
 			<length>2</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -994,7 +1001,7 @@
 			<type>character(n)</type>
 		</word>
 		<word>
-			<id>51</id>
+			<id>52</id>
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -1010,7 +1017,7 @@
 			<type>decimal</type>
 		</word>
 		<word>
-			<id>52</id>
+			<id>53</id>
 			<length>2</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -1024,22 +1031,6 @@
 			<logical_name>무통장 시 입금 여부</logical_name>
 			<physical_name>non_bankbook_complete</physical_name>
 			<type>character(n)</type>
-		</word>
-		<word>
-			<id>53</id>
-			<length>null</length>
-			<decimal>null</decimal>
-			<array>false</array>
-			<array_dimension>null</array_dimension>
-			<unsigned>false</unsigned>
-			<zerofill>false</zerofill>
-			<binary>false</binary>
-			<args></args>
-			<char_semantics>false</char_semantics>
-			<description></description>
-			<logical_name>방구석결제일</logical_name>
-			<physical_name>pagydate</physical_name>
-			<type>date</type>
 		</word>
 		<word>
 			<id>54</id>
@@ -1069,9 +1060,9 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>전화번호</logical_name>
-			<physical_name>phone</physical_name>
-			<type>decimal</type>
+			<logical_name>방구석결제일</logical_name>
+			<physical_name>paydate</physical_name>
+			<type>date</type>
 		</word>
 		<word>
 			<id>56</id>
@@ -1101,9 +1092,9 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>작성일</logical_name>
-			<physical_name>postdate</physical_name>
-			<type>date</type>
+			<logical_name>전화번호</logical_name>
+			<physical_name>phone</physical_name>
+			<type>decimal</type>
 		</word>
 		<word>
 			<id>58</id>
@@ -1117,9 +1108,9 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>선호도</logical_name>
-			<physical_name>preferlate</physical_name>
-			<type>decimal</type>
+			<logical_name>작성일</logical_name>
+			<physical_name>postdate</physical_name>
+			<type>date</type>
 		</word>
 		<word>
 			<id>59</id>
@@ -1133,8 +1124,8 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>콘서트 가격</logical_name>
-			<physical_name>price</physical_name>
+			<logical_name>선호도</logical_name>
+			<physical_name>preferlate</physical_name>
 			<type>decimal</type>
 		</word>
 		<word>
@@ -1714,13 +1705,8 @@
 			<type>varchar(n)</type>
 		</word>
 		<word>
-<<<<<<< HEAD
-			<id>95</id>
-			<length>50</length>
-=======
 			<id>96</id>
-			<length>null</length>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
+			<length>50</length>
 			<decimal>null</decimal>
 			<array>false</array>
 			<array_dimension>null</array_dimension>
@@ -1732,7 +1718,7 @@
 			<description></description>
 			<logical_name>S_Album_cover</logical_name>
 			<physical_name>S_Album_cover</physical_name>
-			<type>varchar(n)</type>
+			<type>nvarchar(n)</type>
 		</word>
 		<word>
 			<id>97</id>
@@ -1882,7 +1868,7 @@
 			<connections>
 				<relation>
 					<id>0</id>
-					<source>4</source>
+					<source>5</source>
 					<target>0</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1945,7 +1931,7 @@
 				</normal_column>
 				<normal_column>
 					<id>1</id>
-					<referenced_column>16</referenced_column>
+					<referenced_column>20</referenced_column>
 					<relation>0</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2101,7 +2087,7 @@
 			<connections>
 				<relation>
 					<id>1</id>
-					<source>18</source>
+					<source>13</source>
 					<target>1</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2164,11 +2150,7 @@
 				</normal_column>
 				<normal_column>
 					<id>6</id>
-<<<<<<< HEAD
-					<referenced_column>116</referenced_column>
-=======
 					<referenced_column>59</referenced_column>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<relation>1</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2324,7 +2306,7 @@
 			<connections>
 				<relation>
 					<id>2</id>
-					<source>15</source>
+					<source>17</source>
 					<target>2</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2387,11 +2369,7 @@
 				</normal_column>
 				<normal_column>
 					<id>11</id>
-<<<<<<< HEAD
-					<referenced_column>88</referenced_column>
-=======
 					<referenced_column>103</referenced_column>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<relation>2</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2514,11 +2492,7 @@
 			<connections>
 				<relation>
 					<id>3</id>
-<<<<<<< HEAD
-					<source>12</source>
-=======
 					<source>14</source>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<target>3</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2540,11 +2514,7 @@
 				</relation>
 				<relation>
 					<id>4</id>
-<<<<<<< HEAD
-					<source>4</source>
-=======
 					<source>5</source>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<target>3</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2574,11 +2544,7 @@
 			<columns>
 				<normal_column>
 					<id>14</id>
-<<<<<<< HEAD
-					<referenced_column>56</referenced_column>
-=======
 					<referenced_column>71</referenced_column>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<relation>3</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2612,11 +2578,7 @@
 				</normal_column>
 				<normal_column>
 					<id>15</id>
-<<<<<<< HEAD
-					<referenced_column>16</referenced_column>
-=======
 					<referenced_column>20</referenced_column>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<relation>4</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2659,12 +2621,12 @@
 		</table>
 		<table>
 			<id>4</id>
-			<height>191</height>
-			<width>225</width>
+			<height>128</height>
+			<width>231</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>1678</x>
-			<y>626</y>
+			<x>2320</x>
+			<y>960</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -2672,7 +2634,7 @@
 			</color>
 			<connections>
 			</connections>
-			<physical_name>Band</physical_name>
+			<physical_name>Pay</physical_name>
 			<logical_name>새 테이블</logical_name>
 			<description></description>
 			<constraint></constraint>
@@ -2680,11 +2642,7 @@
 			<option></option>
 			<columns>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>26</word_id>
-=======
 					<word_id>62</word_id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<id>16</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2717,10 +2675,6 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>25</word_id>
-					<id>17</id>
-=======
 					<word_id>61</word_id>
 					<id>17</id>
 					<description></description>
@@ -2886,7 +2840,6 @@
 				<normal_column>
 					<word_id>24</word_id>
 					<id>21</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2918,13 +2871,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>23</word_id>
-					<id>18</id>
-=======
 					<word_id>22</word_id>
 					<id>22</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2956,13 +2904,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>17</word_id>
-					<id>19</id>
-=======
 					<word_id>16</word_id>
 					<id>23</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2994,13 +2937,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>22</word_id>
-					<id>20</id>
-=======
 					<word_id>21</word_id>
 					<id>24</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3032,13 +2970,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>24</word_id>
-					<id>21</id>
-=======
 					<word_id>23</word_id>
 					<id>25</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3079,7 +3012,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>5</id>
+			<id>6</id>
 			<height>107</height>
 			<width>170</width>
 				<font_name>맑은 고딕</font_name>
@@ -3094,8 +3027,8 @@
 			<connections>
 				<relation>
 					<id>5</id>
-					<source>4</source>
-					<target>5</target>
+					<source>5</source>
+					<target>6</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -3123,13 +3056,8 @@
 			<option></option>
 			<columns>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>16</word_id>
-					<id>22</id>
-=======
 					<word_id>15</word_id>
 					<id>26</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3161,8 +3089,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<id>23</id>
-					<referenced_column>16</referenced_column>
+					<id>27</id>
+					<referenced_column>20</referenced_column>
 					<relation>5</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3195,13 +3123,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
 					<word_id>47</word_id>
-					<id>24</id>
-=======
-					<word_id>46</word_id>
 					<id>28</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3242,7 +3165,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>6</id>
+			<id>7</id>
 			<height>107</height>
 			<width>221</width>
 				<font_name>맑은 고딕</font_name>
@@ -3257,8 +3180,8 @@
 			<connections>
 				<relation>
 					<id>6</id>
-					<source>14</source>
-					<target>6</target>
+					<source>16</source>
+					<target>7</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -3279,8 +3202,8 @@
 				</relation>
 				<relation>
 					<id>7</id>
-					<source>10</source>
-					<target>6</target>
+					<source>11</source>
+					<target>7</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -3308,13 +3231,8 @@
 			<option></option>
 			<columns>
 				<normal_column>
-<<<<<<< HEAD
 					<word_id>45</word_id>
-					<id>25</id>
-=======
-					<word_id>44</word_id>
 					<id>29</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3346,13 +3264,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<id>26</id>
-					<referenced_column>81</referenced_column>
-=======
 					<id>30</id>
 					<referenced_column>96</referenced_column>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<relation>6</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3385,13 +3298,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<id>27</id>
-					<referenced_column>46</referenced_column>
-=======
 					<id>31</id>
 					<referenced_column>49</referenced_column>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<relation>7</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3433,7 +3341,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>7</id>
+			<id>8</id>
 			<height>149</height>
 			<width>219</width>
 				<font_name>맑은 고딕</font_name>
@@ -3448,8 +3356,8 @@
 			<connections>
 				<relation>
 					<id>8</id>
-					<source>14</source>
-					<target>7</target>
+					<source>16</source>
+					<target>8</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -3477,13 +3385,8 @@
 			<option></option>
 			<columns>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>4</word_id>
-					<id>28</id>
-=======
 					<word_id>3</word_id>
 					<id>32</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3515,13 +3418,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<id>29</id>
-					<referenced_column>81</referenced_column>
-=======
 					<id>33</id>
 					<referenced_column>96</referenced_column>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<relation>8</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3554,13 +3452,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>2</word_id>
-					<id>30</id>
-=======
 					<word_id>1</word_id>
 					<id>34</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3592,13 +3485,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>1</word_id>
-					<id>31</id>
-=======
 					<word_id>0</word_id>
 					<id>35</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3630,13 +3518,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>3</word_id>
-					<id>32</id>
-=======
 					<word_id>2</word_id>
 					<id>36</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3677,7 +3560,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>8</id>
+			<id>9</id>
 			<height>149</height>
 			<width>221</width>
 				<font_name>맑은 고딕</font_name>
@@ -3692,35 +3575,8 @@
 			<connections>
 				<relation>
 					<id>9</id>
-<<<<<<< HEAD
-					<source>16</source>
-					<target>8</target>
-						<source_xp>-1</source_xp>
-						<source_yp>-1</source_yp>
-						<target_xp>-1</target_xp>
-						<target_yp>-1</target_yp>
-						<color>
-							<r>0</r>
-							<g>0</g>
-							<b>0</b>
-						</color>
-					<child_cardinality>1..n</child_cardinality>
-					<parent_cardinality>1</parent_cardinality>
-					<reference_for_pk>true</reference_for_pk>
-					<name></name>
-					<on_delete_action>RESTRICT</on_delete_action>
-					<on_update_action>RESTRICT</on_update_action>
-					<referenced_column>null</referenced_column>
-					<referenced_complex_unique_key>null</referenced_complex_unique_key>
-				</relation>
-				<relation>
-					<id>10</id>
-					<source>10</source>
-					<target>8</target>
-=======
 					<source>11</source>
 					<target>9</target>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -3748,13 +3604,8 @@
 			<option></option>
 			<columns>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>29</word_id>
-					<id>33</id>
-=======
-					<word_id>28</word_id>
+					<word_id>27</word_id>
 					<id>37</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3786,13 +3637,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>27</word_id>
-					<id>34</id>
-=======
-					<word_id>26</word_id>
+					<word_id>28</word_id>
 					<id>38</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3824,13 +3670,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>57</word_id>
-					<id>35</id>
-=======
-					<word_id>59</word_id>
+					<word_id>36</word_id>
 					<id>39</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3862,13 +3703,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<id>36</id>
-					<referenced_column>103</referenced_column>
-=======
 					<id>40</id>
 					<referenced_column>49</referenced_column>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<relation>9</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3900,43 +3736,6 @@
 						<decimal_size>0</decimal_size>
 					</sequence>
 				</normal_column>
-<<<<<<< HEAD
-				<normal_column>
-					<id>37</id>
-					<referenced_column>46</referenced_column>
-					<relation>10</relation>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>true</foreign_key>
-					<not_null>true</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-=======
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 			</columns>
 			<indexes>
 			</indexes>
@@ -3947,7 +3746,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>9</id>
+			<id>10</id>
 			<height>212</height>
 			<width>221</width>
 				<font_name>맑은 고딕</font_name>
@@ -3961,15 +3760,9 @@
 			</color>
 			<connections>
 				<relation>
-<<<<<<< HEAD
-					<id>11</id>
-					<source>10</source>
-					<target>9</target>
-=======
 					<id>10</id>
 					<source>14</source>
 					<target>10</target>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -3989,15 +3782,9 @@
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
 				<relation>
-<<<<<<< HEAD
-					<id>12</id>
-					<source>12</source>
-					<target>9</target>
-=======
 					<id>11</id>
 					<source>11</source>
 					<target>10</target>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -4025,13 +3812,8 @@
 			<option></option>
 			<columns>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>66</word_id>
-					<id>38</id>
-=======
 					<word_id>68</word_id>
 					<id>41</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4063,15 +3845,9 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<id>39</id>
-					<referenced_column>56</referenced_column>
-					<relation>12</relation>
-=======
 					<id>42</id>
 					<referenced_column>71</referenced_column>
 					<relation>10</relation>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4103,13 +3879,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<id>40</id>
-					<referenced_column>46</referenced_column>
-=======
 					<id>43</id>
 					<referenced_column>49</referenced_column>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<relation>11</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4176,160 +3947,12 @@
 				</normal_column>
 				<normal_column>
 					<word_id>67</word_id>
-					<id>41</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>varchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-<<<<<<< HEAD
-					<word_id>65</word_id>
-					<id>42</id>
-=======
-					<word_id>70</word_id>
-					<id>46</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-<<<<<<< HEAD
-					<word_id>69</word_id>
-					<id>43</id>
-=======
-					<word_id>93</word_id>
-					<id>47</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-<<<<<<< HEAD
-					<word_id>92</word_id>
-					<id>44</id>
-=======
-					<word_id>39</word_id>
-					<id>48</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-<<<<<<< HEAD
-				<normal_column>
-					<word_id>40</word_id>
 					<id>45</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>decimal</type>
+					<type>varchar(n)</type>
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
@@ -4355,41 +3978,8 @@
 						<decimal_size>0</decimal_size>
 					</sequence>
 				</normal_column>
-=======
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
-			</columns>
-			<indexes>
-			</indexes>
-			<complex_unique_key_list>
-			</complex_unique_key_list>
-			<table_properties>
-				<schema></schema>
-			</table_properties>
-		</table>
-		<table>
-			<id>10</id>
-			<height>149</height>
-			<width>221</width>
-				<font_name>맑은 고딕</font_name>
-				<font_size>9</font_size>
-			<x>1680</x>
-			<y>1875</y>
-			<color>
-				<r>128</r>
-				<g>128</g>
-				<b>192</b>
-			</color>
-			<connections>
-			</connections>
-			<physical_name>BGSConcert</physical_name>
-			<logical_name>콘서트</logical_name>
-			<description></description>
-			<constraint></constraint>
-			<primary_key_name></primary_key_name>
-			<option></option>
-			<columns>
 				<normal_column>
-					<word_id>14</word_id>
+					<word_id>70</word_id>
 					<id>46</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4400,8 +3990,8 @@
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
-					<not_null>true</not_null>
-					<primary_key>true</primary_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
 					<collation></collation>
@@ -4422,13 +4012,13 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>39</word_id>
+					<word_id>93</word_id>
 					<id>47</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>varchar(n)</type>
+					<type>decimal</type>
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
@@ -4455,46 +4045,13 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>35</word_id>
+					<word_id>40</word_id>
 					<id>48</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>varchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>31</word_id>
-					<id>49</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>varchar(n)</type>
+					<type>decimal</type>
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
@@ -4531,78 +4088,29 @@
 		</table>
 		<table>
 			<id>11</id>
-			<height>170</height>
+			<height>149</height>
 			<width>221</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>1657</x>
-			<y>1543</y>
+			<x>1680</x>
+			<y>1875</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
 				<b>192</b>
 			</color>
 			<connections>
-				<relation>
-					<id>13</id>
-					<source>10</source>
-					<target>11</target>
-						<source_xp>-1</source_xp>
-						<source_yp>-1</source_yp>
-						<target_xp>-1</target_xp>
-						<target_yp>-1</target_yp>
-						<color>
-							<r>0</r>
-							<g>0</g>
-							<b>0</b>
-						</color>
-					<child_cardinality>1..n</child_cardinality>
-					<parent_cardinality>1</parent_cardinality>
-					<reference_for_pk>true</reference_for_pk>
-					<name></name>
-					<on_delete_action>RESTRICT</on_delete_action>
-					<on_update_action>RESTRICT</on_update_action>
-					<referenced_column>null</referenced_column>
-					<referenced_complex_unique_key>null</referenced_complex_unique_key>
-				</relation>
-				<relation>
-					<id>14</id>
-					<source>12</source>
-					<target>11</target>
-						<source_xp>-1</source_xp>
-						<source_yp>-1</source_yp>
-						<target_xp>-1</target_xp>
-						<target_yp>-1</target_yp>
-						<color>
-							<r>0</r>
-							<g>0</g>
-							<b>0</b>
-						</color>
-					<child_cardinality>1..n</child_cardinality>
-					<parent_cardinality>1</parent_cardinality>
-					<reference_for_pk>true</reference_for_pk>
-					<name></name>
-					<on_delete_action>RESTRICT</on_delete_action>
-					<on_update_action>RESTRICT</on_update_action>
-					<referenced_column>null</referenced_column>
-					<referenced_complex_unique_key>null</referenced_complex_unique_key>
-				</relation>
 			</connections>
-			<physical_name>BGSReview</physical_name>
-			<logical_name>리뷰</logical_name>
+			<physical_name>BGSConcert</physical_name>
+			<logical_name>콘서트</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
 			<option></option>
 			<columns>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>73</word_id>
-					<id>50</id>
-=======
 					<word_id>13</word_id>
 					<id>49</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4634,9 +4142,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-=======
-					<word_id>38</word_id>
+					<word_id>39</word_id>
 					<id>50</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4670,10 +4176,7 @@
 				</normal_column>
 				<normal_column>
 					<word_id>34</word_id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<id>51</id>
-					<referenced_column>56</referenced_column>
-					<relation>14</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4682,8 +4185,8 @@
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
-					<foreign_key>true</foreign_key>
-					<not_null>true</not_null>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
@@ -4705,47 +4208,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-=======
 					<word_id>30</word_id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<id>52</id>
-					<referenced_column>46</referenced_column>
-					<relation>13</relation>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>true</foreign_key>
-					<not_null>true</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-<<<<<<< HEAD
-				<normal_column>
-					<word_id>28</word_id>
-					<id>53</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4776,74 +4240,6 @@
 						<decimal_size>0</decimal_size>
 					</sequence>
 				</normal_column>
-				<normal_column>
-					<word_id>56</word_id>
-					<id>54</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>55</word_id>
-					<id>55</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>date</type>
-					<constraint></constraint>
-					<default_value>&lt;현재일자&gt;</default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-=======
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 			</columns>
 			<indexes>
 			</indexes>
@@ -4855,23 +4251,21 @@
 		</table>
 		<table>
 			<id>12</id>
-			<height>338</height>
-			<width>235</width>
+			<height>170</height>
+			<width>221</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>1650</x>
-			<y>1068</y>
+			<x>1657</x>
+			<y>1543</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
 				<b>192</b>
 			</color>
 			<connections>
-<<<<<<< HEAD
-=======
 				<relation>
 					<id>12</id>
-					<source>11</source>
+					<source>14</source>
 					<target>12</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -4893,7 +4287,7 @@
 				</relation>
 				<relation>
 					<id>13</id>
-					<source>14</source>
+					<source>11</source>
 					<target>12</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -4913,28 +4307,22 @@
 					<referenced_column>null</referenced_column>
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 			</connections>
-			<physical_name>Members</physical_name>
-			<logical_name>회원</logical_name>
+			<physical_name>BGSReview</physical_name>
+			<logical_name>리뷰</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
 			<option></option>
 			<columns>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>46</word_id>
-					<id>56</id>
-=======
 					<word_id>74</word_id>
 					<id>53</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>varchar(n)</type>
+					<type>decimal</type>
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
@@ -4961,13 +4349,9 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>52</word_id>
-					<id>57</id>
-=======
 					<id>54</id>
 					<referenced_column>71</referenced_column>
-					<relation>13</relation>
+					<relation>12</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5001,7 +4385,7 @@
 				<normal_column>
 					<id>55</id>
 					<referenced_column>49</referenced_column>
-					<relation>12</relation>
+					<relation>13</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5033,9 +4417,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>27</word_id>
+					<word_id>26</word_id>
 					<id>56</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5067,18 +4450,13 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>50</word_id>
-					<id>58</id>
-=======
-					<word_id>58</word_id>
+					<word_id>59</word_id>
 					<id>57</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>varchar(n)</type>
+					<type>decimal</type>
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
@@ -5106,375 +4484,7 @@
 				</normal_column>
 				<normal_column>
 					<word_id>58</word_id>
-					<id>59</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>nvarchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>15</word_id>
-					<id>60</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>date</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>103</word_id>
-					<id>61</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-<<<<<<< HEAD
-					<word_id>75</word_id>
-					<id>62</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>nvarchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>41</word_id>
-					<id>63</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>nvarchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>49</word_id>
-					<id>64</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>nvarchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>54</word_id>
-					<id>65</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>11</word_id>
-					<id>66</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>nvarchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>13</word_id>
-					<id>67</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>76</word_id>
-					<id>68</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>nchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>44</word_id>
-					<id>69</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>nchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>48</word_id>
-					<id>70</id>
-=======
-					<word_id>57</word_id>
 					<id>58</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5482,39 +4492,6 @@
 					<type>date</type>
 					<constraint></constraint>
 					<default_value>&lt;현재일자&gt;</default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>42</word_id>
-					<id>71</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>nvarchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
 					<not_null>false</not_null>
@@ -5549,12 +4526,12 @@
 		</table>
 		<table>
 			<id>13</id>
-			<height>212</height>
-			<width>210</width>
+			<height>296</height>
+			<width>228</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>2045</x>
-			<y>816</y>
+			<x>2544</x>
+			<y>574</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -5562,40 +4539,8 @@
 			</color>
 			<connections>
 				<relation>
-<<<<<<< HEAD
-					<id>15</id>
-					<source>18</source>
-=======
 					<id>14</id>
-					<source>4</source>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
-					<target>13</target>
-						<source_xp>-1</source_xp>
-						<source_yp>-1</source_yp>
-						<target_xp>-1</target_xp>
-						<target_yp>-1</target_yp>
-						<color>
-							<r>0</r>
-							<g>0</g>
-							<b>0</b>
-						</color>
-					<child_cardinality>1</child_cardinality>
-					<parent_cardinality>0..1</parent_cardinality>
-					<reference_for_pk>true</reference_for_pk>
-					<name></name>
-					<on_delete_action>RESTRICT</on_delete_action>
-					<on_update_action>RESTRICT</on_update_action>
-					<referenced_column>null</referenced_column>
-					<referenced_complex_unique_key>null</referenced_complex_unique_key>
-				</relation>
-				<relation>
-<<<<<<< HEAD
-					<id>16</id>
-					<source>12</source>
-=======
-					<id>15</id>
 					<source>5</source>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<target>13</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -5615,9 +4560,29 @@
 					<referenced_column>null</referenced_column>
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
+				<relation>
+					<id>15</id>
+					<source>4</source>
+					<target>13</target>
+						<source_xp>-1</source_xp>
+						<source_yp>-1</source_yp>
+						<target_xp>-1</target_xp>
+						<target_yp>-1</target_yp>
+						<color>
+							<r>0</r>
+							<g>0</g>
+							<b>0</b>
+						</color>
+					<child_cardinality>1</child_cardinality>
+					<parent_cardinality>0..1</parent_cardinality>
+					<reference_for_pk>true</reference_for_pk>
+					<name></name>
+					<on_delete_action>RESTRICT</on_delete_action>
+					<on_update_action>RESTRICT</on_update_action>
+					<referenced_column>null</referenced_column>
+					<referenced_complex_unique_key>null</referenced_complex_unique_key>
+				</relation>
 			</connections>
-<<<<<<< HEAD
-=======
 			<physical_name>BandSubmit</physical_name>
 			<logical_name>새 테이블</logical_name>
 			<description></description>
@@ -5661,7 +4626,7 @@
 				<normal_column>
 					<id>60</id>
 					<referenced_column>20</referenced_column>
-					<relation>15</relation>
+					<relation>14</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5695,7 +4660,7 @@
 				<normal_column>
 					<id>61</id>
 					<referenced_column>16</referenced_column>
-					<relation>14</relation>
+					<relation>15</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5799,7 +4764,7 @@
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>decimal</type>
+					<type>nvarchar(n)</type>
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
@@ -6055,7 +5020,7 @@
 			<option></option>
 			<columns>
 				<normal_column>
-					<word_id>45</word_id>
+					<word_id>46</word_id>
 					<id>71</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6121,7 +5086,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>49</word_id>
+					<word_id>50</word_id>
 					<id>73</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6286,7 +5251,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>40</word_id>
+					<word_id>41</word_id>
 					<id>78</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6319,7 +5284,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>48</word_id>
+					<word_id>49</word_id>
 					<id>79</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6352,7 +5317,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>55</word_id>
+					<word_id>56</word_id>
 					<id>80</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6484,7 +5449,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>43</word_id>
+					<word_id>44</word_id>
 					<id>84</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6517,7 +5482,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>47</word_id>
+					<word_id>48</word_id>
 					<id>85</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6550,7 +5515,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>41</word_id>
+					<word_id>42</word_id>
 					<id>86</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6650,7 +5615,6 @@
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
 			</connections>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 			<physical_name>BandSubmit_Comment</physical_name>
 			<logical_name>새 테이블</logical_name>
 			<description></description>
@@ -6659,15 +5623,9 @@
 			<option></option>
 			<columns>
 				<normal_column>
-<<<<<<< HEAD
-					<id>72</id>
-					<referenced_column>116</referenced_column>
-					<relation>15</relation>
-=======
 					<id>87</id>
 					<referenced_column>59</referenced_column>
 					<relation>17</relation>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>refer</logical_name>
@@ -6699,11 +5657,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
 					<word_id>38</word_id>
-					<id>73</id>
-=======
-					<word_id>37</word_id>
 					<id>88</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6738,7 +5692,6 @@
 				<normal_column>
 					<word_id>31</word_id>
 					<id>89</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -6770,46 +5723,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>32</word_id>
-					<id>74</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value>0</default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<id>75</id>
-					<referenced_column>56</referenced_column>
-=======
 					<id>90</id>
 					<referenced_column>71</referenced_column>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<relation>16</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -6842,13 +5757,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
 					<word_id>37</word_id>
-					<id>76</id>
-=======
-					<word_id>36</word_id>
 					<id>91</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -6880,13 +5790,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>30</word_id>
-					<id>77</id>
-=======
 					<word_id>29</word_id>
 					<id>92</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -6918,13 +5823,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>36</word_id>
-					<id>78</id>
-=======
 					<word_id>35</word_id>
 					<id>93</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -6956,13 +5856,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>33</word_id>
-					<id>79</id>
-=======
 					<word_id>32</word_id>
 					<id>94</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -6994,13 +5889,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>34</word_id>
-					<id>80</id>
-=======
 					<word_id>33</word_id>
 					<id>95</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7041,7 +5931,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>14</id>
+			<id>16</id>
 			<height>191</height>
 			<width>235</width>
 				<font_name>맑은 고딕</font_name>
@@ -7055,15 +5945,9 @@
 			</color>
 			<connections>
 				<relation>
-<<<<<<< HEAD
-					<id>17</id>
-					<source>12</source>
-					<target>14</target>
-=======
 					<id>18</id>
 					<source>14</source>
 					<target>16</target>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -7091,13 +5975,8 @@
 			<option></option>
 			<columns>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>6</word_id>
-					<id>81</id>
-=======
 					<word_id>5</word_id>
 					<id>96</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7129,10 +6008,6 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>9</word_id>
-					<id>82</id>
-=======
 					<word_id>8</word_id>
 					<id>97</id>
 					<description></description>
@@ -7168,7 +6043,6 @@
 				<normal_column>
 					<word_id>4</word_id>
 					<id>98</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7200,53 +6074,12 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>5</word_id>
-					<id>83</id>
-=======
 					<word_id>6</word_id>
 					<id>99</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-<<<<<<< HEAD
-					<type>varchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>7</word_id>
-					<id>84</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-=======
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<type>date</type>
 					<constraint></constraint>
 					<default_value>&lt;현재일자&gt;</default_value>
@@ -7274,13 +6107,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>10</word_id>
-					<id>85</id>
-=======
 					<word_id>9</word_id>
 					<id>100</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7312,13 +6140,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>8</word_id>
-					<id>86</id>
-=======
 					<word_id>7</word_id>
 					<id>101</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7350,15 +6173,9 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<id>87</id>
-					<referenced_column>56</referenced_column>
-					<relation>17</relation>
-=======
 					<id>102</id>
 					<referenced_column>71</referenced_column>
 					<relation>18</relation>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7399,7 +6216,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>15</id>
+			<id>17</id>
 			<height>359</height>
 			<width>268</width>
 				<font_name>맑은 고딕</font_name>
@@ -7413,10 +6230,29 @@
 			</color>
 			<connections>
 				<relation>
-<<<<<<< HEAD
-					<id>18</id>
-=======
 					<id>19</id>
+					<source>4</source>
+					<target>17</target>
+						<source_xp>-1</source_xp>
+						<source_yp>-1</source_yp>
+						<target_xp>-1</target_xp>
+						<target_yp>-1</target_yp>
+						<color>
+							<r>0</r>
+							<g>0</g>
+							<b>0</b>
+						</color>
+					<child_cardinality>1..n</child_cardinality>
+					<parent_cardinality>1</parent_cardinality>
+					<reference_for_pk>true</reference_for_pk>
+					<name></name>
+					<on_delete_action>RESTRICT</on_delete_action>
+					<on_update_action>RESTRICT</on_update_action>
+					<referenced_column>null</referenced_column>
+					<referenced_complex_unique_key>null</referenced_complex_unique_key>
+				</relation>
+				<relation>
+					<id>20</id>
 					<source>14</source>
 					<target>17</target>
 						<source_xp>-1</source_xp>
@@ -7438,60 +6274,9 @@
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
 				<relation>
-					<id>20</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
-					<source>1</source>
-					<target>15</target>
-						<source_xp>-1</source_xp>
-						<source_yp>-1</source_yp>
-						<target_xp>-1</target_xp>
-						<target_yp>-1</target_yp>
-						<color>
-							<r>0</r>
-							<g>0</g>
-							<b>0</b>
-						</color>
-					<child_cardinality>1..n</child_cardinality>
-					<parent_cardinality>1</parent_cardinality>
-					<reference_for_pk>true</reference_for_pk>
-					<name></name>
-					<on_delete_action>RESTRICT</on_delete_action>
-					<on_update_action>RESTRICT</on_update_action>
-					<referenced_column>null</referenced_column>
-					<referenced_complex_unique_key>null</referenced_complex_unique_key>
-				</relation>
-				<relation>
-<<<<<<< HEAD
-					<id>19</id>
-					<source>17</source>
-					<target>15</target>
-						<source_xp>-1</source_xp>
-						<source_yp>-1</source_yp>
-						<target_xp>-1</target_xp>
-						<target_yp>-1</target_yp>
-						<color>
-							<r>0</r>
-							<g>0</g>
-							<b>0</b>
-						</color>
-					<child_cardinality>1..n</child_cardinality>
-					<parent_cardinality>1</parent_cardinality>
-					<reference_for_pk>true</reference_for_pk>
-					<name></name>
-					<on_delete_action>RESTRICT</on_delete_action>
-					<on_update_action>RESTRICT</on_update_action>
-					<referenced_column>null</referenced_column>
-					<referenced_complex_unique_key>null</referenced_complex_unique_key>
-				</relation>
-				<relation>
-					<id>20</id>
-					<source>12</source>
-					<target>15</target>
-=======
 					<id>21</id>
-					<source>4</source>
+					<source>1</source>
 					<target>17</target>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -7519,13 +6304,8 @@
 			<option></option>
 			<columns>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>84</word_id>
-					<id>88</id>
-=======
 					<word_id>85</word_id>
 					<id>103</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7557,15 +6337,9 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<id>89</id>
-					<referenced_column>56</referenced_column>
-					<relation>20</relation>
-=======
 					<id>104</id>
 					<referenced_column>71</referenced_column>
-					<relation>19</relation>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
+					<relation>20</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7597,13 +6371,9 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<id>90</id>
-=======
 					<id>105</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<referenced_column>5</referenced_column>
-					<relation>18</relation>
+					<relation>21</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7635,13 +6405,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>85</word_id>
-					<id>91</id>
-=======
 					<word_id>86</word_id>
 					<id>106</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7673,15 +6438,9 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<id>92</id>
-					<referenced_column>112</referenced_column>
-					<relation>19</relation>
-=======
 					<id>107</id>
 					<referenced_column>16</referenced_column>
-					<relation>21</relation>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
+					<relation>19</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7713,10 +6472,6 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>88</word_id>
-					<id>93</id>
-=======
 					<word_id>89</word_id>
 					<id>108</id>
 					<description></description>
@@ -7752,7 +6507,6 @@
 				<normal_column>
 					<word_id>91</word_id>
 					<id>109</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7884,77 +6638,7 @@
 				</normal_column>
 				<normal_column>
 					<word_id>90</word_id>
-<<<<<<< HEAD
-					<id>94</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value>0</default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>82</word_id>
-					<id>95</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>date</type>
-					<constraint></constraint>
-					<default_value>&lt;현재일자&gt;</default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>87</word_id>
-					<id>96</id>
-=======
 					<id>113</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -7986,46 +6670,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>91</word_id>
-					<id>97</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>89</word_id>
-					<id>98</id>
-=======
 					<word_id>84</word_id>
 					<id>114</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -8057,13 +6703,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>83</word_id>
-					<id>99</id>
-=======
 					<word_id>82</word_id>
 					<id>115</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -8096,230 +6737,7 @@
 				</normal_column>
 				<normal_column>
 					<word_id>81</word_id>
-					<id>100</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-<<<<<<< HEAD
-					<type>nvarchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>80</word_id>
-					<id>101</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-=======
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-<<<<<<< HEAD
-					<word_id>86</word_id>
-					<id>102</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-			</columns>
-			<indexes>
-			</indexes>
-			<complex_unique_key_list>
-			</complex_unique_key_list>
-			<table_properties>
-				<schema></schema>
-			</table_properties>
-		</table>
-		<table>
-			<id>16</id>
-			<height>233</height>
-			<width>209</width>
-				<font_name>맑은 고딕</font_name>
-				<font_size>9</font_size>
-			<x>1414</x>
-			<y>1480</y>
-			<color>
-				<r>128</r>
-				<g>128</g>
-				<b>192</b>
-			</color>
-			<connections>
-				<relation>
-					<id>21</id>
-					<source>12</source>
-					<target>16</target>
-						<source_xp>-1</source_xp>
-						<source_yp>-1</source_yp>
-						<target_xp>-1</target_xp>
-						<target_yp>-1</target_yp>
-						<color>
-							<r>0</r>
-							<g>0</g>
-							<b>0</b>
-						</color>
-					<child_cardinality>1..n</child_cardinality>
-					<parent_cardinality>1</parent_cardinality>
-					<reference_for_pk>true</reference_for_pk>
-					<name></name>
-					<on_delete_action>RESTRICT</on_delete_action>
-					<on_update_action>RESTRICT</on_update_action>
-					<referenced_column>null</referenced_column>
-					<referenced_complex_unique_key>null</referenced_complex_unique_key>
-				</relation>
-			</connections>
-			<physical_name>BGSPay</physical_name>
-			<logical_name>방구석결제</logical_name>
-			<description></description>
-			<constraint></constraint>
-			<primary_key_name></primary_key_name>
-			<option></option>
-			<columns>
-				<normal_column>
-					<word_id>61</word_id>
-					<id>103</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>true</not_null>
-					<primary_key>true</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<id>104</id>
-					<referenced_column>56</referenced_column>
-					<relation>21</relation>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>varchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>true</foreign_key>
-					<not_null>true</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>64</word_id>
-					<id>105</id>
+					<id>116</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -8351,340 +6769,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>51</word_id>
-					<id>106</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>date</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>68</word_id>
-					<id>107</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>varchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>12</word_id>
-					<id>108</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>varchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>0</word_id>
-					<id>109</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>53</word_id>
-					<id>110</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>43</word_id>
-					<id>111</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>varchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-			</columns>
-			<indexes>
-			</indexes>
-			<complex_unique_key_list>
-			</complex_unique_key_list>
-			<table_properties>
-				<schema></schema>
-			</table_properties>
-		</table>
-		<table>
-			<id>17</id>
-			<height>128</height>
-			<width>231</width>
-				<font_name>맑은 고딕</font_name>
-				<font_size>9</font_size>
-			<x>2320</x>
-			<y>960</y>
-			<color>
-				<r>128</r>
-				<g>128</g>
-				<b>192</b>
-			</color>
-			<connections>
-			</connections>
-			<physical_name>Pay</physical_name>
-			<logical_name>새 테이블</logical_name>
-			<description></description>
-			<constraint></constraint>
-			<primary_key_name></primary_key_name>
-			<option></option>
-			<columns>
-				<normal_column>
-					<word_id>60</word_id>
-					<id>112</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>true</not_null>
-					<primary_key>true</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>59</word_id>
-					<id>113</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>date</type>
-					<constraint></constraint>
-					<default_value>&lt;현재일자&gt;</default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>63</word_id>
-					<id>114</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>62</word_id>
-					<id>115</id>
-=======
 					<word_id>87</word_id>
 					<id>117</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -8726,12 +6812,12 @@
 		</table>
 		<table>
 			<id>18</id>
-			<height>296</height>
-			<width>228</width>
+			<height>264</height>
+			<width>230</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>2544</x>
-			<y>574</y>
+			<x>1414</x>
+			<y>1480</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -8740,11 +6826,7 @@
 			<connections>
 				<relation>
 					<id>22</id>
-<<<<<<< HEAD
-					<source>4</source>
-=======
-					<source>14</source>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
+					<source>9</source>
 					<target>18</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -8766,22 +6848,7 @@
 				</relation>
 				<relation>
 					<id>23</id>
-<<<<<<< HEAD
-					<source>17</source>
-					<target>18</target>
-						<source_xp>-1</source_xp>
-						<source_yp>-1</source_yp>
-						<target_xp>-1</target_xp>
-						<target_yp>-1</target_yp>
-						<color>
-							<r>0</r>
-							<g>0</g>
-							<b>0</b>
-						</color>
-					<child_cardinality>1</child_cardinality>
-					<parent_cardinality>0..1</parent_cardinality>
-=======
-					<source>9</source>
+					<source>14</source>
 					<target>18</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -8794,7 +6861,6 @@
 						</color>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<reference_for_pk>true</reference_for_pk>
 					<name></name>
 					<on_delete_action>RESTRICT</on_delete_action>
@@ -8803,21 +6869,16 @@
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
 			</connections>
-			<physical_name>BandSubmit</physical_name>
-			<logical_name>새 테이블</logical_name>
+			<physical_name>BGSPay</physical_name>
+			<logical_name>방구석결제</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
 			<option></option>
 			<columns>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>101</word_id>
-					<id>116</id>
-=======
 					<word_id>63</word_id>
 					<id>118</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -8849,19 +6910,14 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<id>117</id>
-					<referenced_column>16</referenced_column>
-=======
 					<id>119</id>
 					<referenced_column>71</referenced_column>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
-					<relation>22</relation>
+					<relation>23</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>decimal</type>
+					<type>varchar(n)</type>
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
@@ -8888,179 +6944,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<id>118</id>
-					<referenced_column>112</referenced_column>
-					<relation>23</relation>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>decimal</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>true</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>93</word_id>
-					<id>119</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>nvarchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>94</word_id>
-					<id>120</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>varchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>95</word_id>
-					<id>121</id>
-=======
 					<word_id>66</word_id>
 					<id>120</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>varchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>96</word_id>
-					<id>122</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>nvarchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>99</word_id>
-					<id>123</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -9092,13 +6977,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>98</word_id>
-					<id>124</id>
-=======
-					<word_id>53</word_id>
+					<word_id>55</word_id>
 					<id>121</id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -9130,9 +7010,6 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>97</word_id>
-=======
 					<word_id>11</word_id>
 					<id>122</id>
 					<description></description>
@@ -9166,7 +7043,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>56</word_id>
+					<word_id>57</word_id>
 					<id>123</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -9199,7 +7076,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>42</word_id>
+					<word_id>43</word_id>
 					<id>124</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -9232,8 +7109,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>50</word_id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
+					<word_id>51</word_id>
 					<id>125</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -9241,7 +7117,7 @@
 					<physical_name></physical_name>
 					<type>character(n)</type>
 					<constraint></constraint>
-					<default_value>0</default_value>
+					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
 					<not_null>true</not_null>
@@ -9266,46 +7142,12 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-<<<<<<< HEAD
-					<word_id>102</word_id>
-=======
-					<word_id>52</word_id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
+					<word_id>53</word_id>
 					<id>126</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-<<<<<<< HEAD
-					<type>date</type>
-					<constraint></constraint>
-					<default_value>&lt;현재일자&gt;</default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>100</word_id>
-=======
 					<type>character(n)</type>
 					<constraint></constraint>
 					<default_value></default_value>
@@ -9333,8 +7175,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>51</word_id>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
+					<word_id>52</word_id>
 					<id>127</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -9342,9 +7183,6 @@
 					<physical_name></physical_name>
 					<type>decimal</type>
 					<constraint></constraint>
-<<<<<<< HEAD
-					<default_value>0</default_value>
-=======
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
@@ -9372,7 +7210,7 @@
 				<normal_column>
 					<id>128</id>
 					<referenced_column>37</referenced_column>
-					<relation>23</relation>
+					<relation>22</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -9380,7 +7218,6 @@
 					<type>decimal</type>
 					<constraint></constraint>
 					<default_value></default_value>
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 					<auto_increment>false</auto_increment>
 					<foreign_key>true</foreign_key>
 					<not_null>true</not_null>

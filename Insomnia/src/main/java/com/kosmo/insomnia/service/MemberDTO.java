@@ -12,7 +12,7 @@ public class MemberDTO {
 	private String zip_code;
 	private String shipping_address;
 	private String description;
-	private String login_cahin;
+	private String login_chain;
 	private String phone;
 	private String bank_name;
 	private String bank_serial;
@@ -64,11 +64,11 @@ public class MemberDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getLogin_cahin() {
-		return login_cahin;
+	public String getLogin_chain() {
+		return login_chain;
 	}
 	public void setLogin_cahin(String login_cahin) {
-		this.login_cahin = login_cahin;
+		this.login_chain = login_cahin;
 	}
 	public String getPhone() {
 		return phone;

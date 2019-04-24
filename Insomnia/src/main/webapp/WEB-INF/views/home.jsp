@@ -2,37 +2,37 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
-body {
-	width: 100%;
-	background-color: #171717;
-}
-
-#site {
-	width: 100%;
-}
-
-/* ë°°ë */
-.banner {
-	width: 100%;
-}
-
-.banner-video {
-	width: 100%;
-}
-
-.queen {
-	width: 100%;
-}
-
-.banner-title {
-	font-family: 'Cormorant Garamond', serif;
-	border-bottom: 4px solid orange;
-	color: white;
-	position: absolute;
-	padding: 80px;
-	top: 300px;
-	margin-left: 27%;
-	font-size: 120px;
+	body {
+		width: 100%;
+		background-color: #171717;
+	}
+	
+	#site {
+		width: 100%;
+	}
+	
+	/* ë°°ë */
+	.banner {
+		width: 100%;
+	}
+	
+	.banner-video {
+		width: 100%;
+	}
+	
+	.queen {
+		width: 100%;
+	}
+	
+	.banner-title {
+		font-family: 'Cormorant Garamond', serif;
+		border-bottom: 4px solid orange;
+		color: white;
+		position: absolute;
+		padding: 80px;
+		top: 300px;
+		margin-left: 27%;
+		font-size: 120px;
 }
 </style>
 <!-- 로그인 처리 CSS -->
@@ -40,6 +40,12 @@ body {
 </head>
 
 <body style="background-color: black;">
+<div class="welcomeMessage" style="display:none;">${loginMessage}</div>
+<c:if test="${not empty loginMessage}">
+	<script>
+		alert($('.welcomeMessage').html());	
+	</script>
+</c:if>
 
 	<div id="site">
 
@@ -223,10 +229,22 @@ body {
 					<div id="naver_id_login" style="display: none;"></div>
 						
 					<!-- 사용자 계정정보 -->
-				
+					<%-- <div style="display:none;" id="hid">${record.login_chain }</div>
+					<script>
+						console.log("뭐야대체 " + $('#hid').html());
+					
+					</script> --%>
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
-              			<!-- 프로필 이미지 -->
-                		<img class="user_picture" src="<c:url value='/upload/${record.profile_img}'/>"/>
+	            		<c:if test="${empty record.login_chain}" var="isSocial">
+	              			<!-- 프로필 이미지:일반로그인 -->
+	                		<img class="user_picture" src="<c:url value='/upload/${record.profile_img}'/>"/>
+	                	</c:if>
+	                	<c:if test="${not isSocial}">
+	                		<!-- 프로필 이미지:소셜로그인 -->
+	                		<img class="user_picture" src="${record.profile_img}"/>
+                		</c:if>
+                		
+                		
               			<!-- 사용자 이름 -->
               			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${record.name}</span>님 환영합니다!</a>
               			<!-- 쿠폰, 포인트 -->
@@ -281,11 +299,12 @@ body {
 
 			<form id="socialForm" action="<c:url value='/login/social.ins'/>"
 				method="POST" style="display: none;">
-				<input type="hidden" name="socialId" id="socialId" value="" /> <input
-					type="hidden" name="socialEmail" id="socialEmail" value="" /> <input
-					type="hidden" name="socialName" id="socialName" value="" /> <input
-					type="hidden" name="socialProfile" id="socialProfile" value="" />
+				<input type="hidden" name="socialId" id="socialId" value="" />
+				<input type="hidden" name="socialEmail" id="socialEmail" value="" />
+				<input type="hidden" name="socialName" id="socialName" value="" />
+				<input type="hidden" name="socialProfile" id="socialProfile" value="" />
 				<input type="hidden" name="socialBirth" id="socialBirth" value="" />
+				<input type="hidden" name="socialSite" id="socialSite" value=""/>
 			</form>
 
 			<!-- 소셜 로그인 : 히든 폼 끝 -->
@@ -360,82 +379,45 @@ body {
 
 				$('#facebookLoginBtn')
 						.click(
-								function() {
+						function() {
 
-									FB
-											.login(function(response) {
-												if (response.status === 'connected') {
+							FB.login(function(response) {
+										if (response.status === 'connected') {
 
-													//확인용 alert()
-													alert('소셜 로그인에 성공했습니다.');
+									//확인용 alert()
+									//alert('소셜 로그인에 성공했습니다.'); 회원가입이면 최초 처리해야 되니까.
 
-													///이 부분에서 최초 로그인의 경우, 회원가입으로 진행, 
+									///이 부분에서 최초 로그인의 경우, 회원가입으로 진행, 
 
-													/////사용자 정보를 갖고 온다.
-													FB
-															.api(
-																	'/me',
-																	{
-																		locale : 'ko_KR'
-																	},
-																	{
-																		fields : 'id, name,email,birthday,picture'
-																	},
-																	function(
-																			response) {
-																		if (response
-																				&& !response.error) {
+									/////사용자 정보를 갖고 온다.
+									FB.api('/me', {locale : 'ko_KR'}, {fields : 'id, name,email,birthday,picture'},
+											function(response) {
+												if (response && !response.error) {
 
-																			console
-																					.log("받은 json 객체"
-																							+ JSON
-																									.stringify(response));
-																			$(
-																					'#socialId')
-																					.prop(
-																							'value',
-																							response.id);
-																			$(
-																					'#socialName')
-																					.prop(
-																							'value',
-																							response.name);
-																			$(
-																					'#socialEmail')
-																					.prop(
-																							'value',
-																							response.email);
-																			$(
-																					'#socialBirth')
-																					.prop(
-																							'value',
-																							response.birthday);
-																			$(
-																					'#socialProfile')
-																					.prop(
-																							'value',
-																							response.picture.data.url);
+													$('#socialId').prop('value', response.id);
+													$('#socialName').prop('value', response.name);
+													$('#socialEmail').prop('value', response.email);
+													$('#socialBirth').prop('value', response.birthday);
+													$('#socialProfile').prop('value', response.picture.data.url);
+													$('#socialSite').prop('value', 'facebook');
+													$('#socialForm').submit();
+													
 
-																			$(
-																					'#socialForm')
-																					.submit();
+												}//if블럭
+											});//함수의 인자인 함수(1급객체)
 
-																		}//if블럭
-																	});//함수의 인자인 함수(1급객체)
+										} else {
 
-												} else {
+											alert('로그인에 실패했습니다.');
 
-													alert('로그인에 실패했습니다.');
-
-												}
-											});
+										}
+									});
 
 								});
 
 			})
 
-			////현재 문제점 : 페이지 이동 후 돌아오면, 세션 영역에 저장된 이름은 화면에 표시되지만, 동적으로 받아오는 생일, 이메일, 사진은 표시되지 않는다. 한 번 회원가입 후에는 
-			//관련 정보를 DB에 저장해 둔 뒤, 추후 다시 로그인 하면, 그 때 정보를 업데이트 하는 식으로 수정해야 할 듯 하다.
+
 		</script>
 		<!-- 페이스북 로그인 끝 -->
 

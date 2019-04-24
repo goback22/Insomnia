@@ -11,6 +11,12 @@ public interface RewardService {
 	///조건을 만족하는 단 하나의 리워드 검색용
 	RewardDTO selectOne(Map map);
 	
+	//조건을 만족하는 전체 행 수 구하기
+	int getCount(Map map);
+	
+	//그냥 전체 행 수 구하기
+	int getTotalCount(Map map);
+	
 	///입력*수정*삭제용
 	int delete();
 	int insert();

@@ -42,4 +42,14 @@ public class RewardServiceImpl implements RewardService {
 		return dao.update();
 	}
 
+	@Override
+	public int getCount(Map map) {
+		return dao.getCount(map);
+	}
+
+	@Override
+	public int getTotalCount(Map map) {
+		return dao.getTotalCount(map);
+	}
+
 }

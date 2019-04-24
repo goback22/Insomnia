@@ -17,10 +17,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.ls.LSInput;
 
 import com.kosmo.insomnia.service.BGSConcertDTO;
@@ -97,14 +99,36 @@ public class ZeroJinController {
 
 	// 서브 프로젝트
 	@RequestMapping(value = "/sub1/subprojects.ins")
-	public String subprojects() throws Exception {
+	public String subprojects(HttpSession session, Map map, Model model) throws Exception {
+		
+		
+		///4월 22일 서기환 추가 : 오른쪽 개인정보 화면에 출력 위한 로직
+		
+		map.put("id", session.getAttribute("id"));
+		MemberDTO record = memberService.selectOne(map);
+		
+		record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+		model.addAttribute("record", record);
+		//여기까지
+		
 		return "/sub1/subprojects.tiles";
 	}
 	
 	// 서브 프로젝트 -> 방구석 기타리스트 
 	@RequestMapping(value = "/sub1/subcontent.ins")
-	public String subcontent(Model model) throws Exception {
+	public String subcontent(HttpSession session, Model model, Map map) throws Exception {
 		List<Map> product_List = bGSConcertService.selectList();
+		
+		
+		
+		///4월 22일 서기환 추가 : 오른쪽 개인정보 화면에 출력 위한 로직
+		
+		map.put("id", session.getAttribute("id"));
+		MemberDTO record = memberService.selectOne(map);
+		
+		record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+		model.addAttribute("record", record);
+		//여기까지
 		
 		model.addAttribute("bgs1", product_List.get(0));
 		model.addAttribute("bgs2", product_List.get(1));

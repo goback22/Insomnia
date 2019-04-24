@@ -68,7 +68,12 @@ body {
 										<a id="editImage">이미지 수정</a>
 									</c:if> --%>
 									<!-- ajax -->
-									<img class="profile-img2" src="<c:url value='/upload/${record.profile_img}'/>"/>
+									<c:if test="${empty record.login_chain}" var="isSocial">
+										<img class="profile-img2" src="<c:url value='/upload/${record.profile_img}'/>"/>
+									</c:if>
+									<c:if test="${not isSocial}">
+										<img class="profile-img2" src="${record.profile_img}"/>
+									</c:if>
 									<a id="editImage">${empty record.profile_img ? '이미지등록' : '이미지수정'}</a>
 									</dt>
 								</dl>
@@ -115,42 +120,56 @@ body {
 					</script>
 
 
-					<div class="mypage-project bg ">   <!-- 하단 부분 시작 -->
+					<div class="mypage-project bg">   <!-- 하단 부분 시작 -->
 						<div class="tab-list">
 							<ul id="historyTab">
-								<li class="active"><span>펀딩한</span></li> <!-- 결제 -->
-								<li><span>좋아한</span></li>	<!-- 좋아요 -->
-								<li><span>만든</span></li>	<!-- 밴드/방구석 -->
+								<li style="text-align:center;" class="active_click"><span>음반</span></li> <!-- 결제 -->
+								<li style="text-align:center;"><span>공연</span></li>
+								<li style="text-align:center;"><span>좋아한</span></li>	<!-- 좋아요 -->
 							</ul>
 						</div>
-						<div class="project-list">
+						<div class="project-list" style="text-align:center;">
 							<div class="top-area">
 
-								<div class="select-box icon-expand-more">
+								<!-- <div class="select-box icon-expand-more">
 									<select id="selectProjectType">
 										<option value="all" selected="selected">전체</option>
 										<option value="invest"'="">투자</option>
 										<option value="reward">리워드</option>
 									</select>
-								</div>
+								</div> -->
 							</div> <!-- top-area 끝 -->
 							
 							<!-- 실질적으로 내용 뿌려주는 부분 -->
-							<div id="projectCardList" class="card-list">
+							<div id="projectCardList" style="text-align:center;" class="card-list">
 								<!-- 내용이 없을 경우 -->
-								<c:if test="${empty record}" var="result">
-									<p id="emptyProjectText" style="display: block">만든 음악이
-										없습니다.</p>
+								<c:if test="${empty fundingRecords}" var="result">
+									<p id="emptyProjectText" style="display: block">펀딩한 음악이  <!-- ajax에서도 같은기능 구현해야 -->
+										없습니다.</p> <!-- 이거 효과줄라고 ajax에서 했는데, id라서 안 되네. class로 바꾸면 될래나? css때무네 -->
 								</c:if>
-								<!-- 내용이 있을 경우: 스크롤(혹은 페이징) + ajax -->
-								<!-- 밑에서 ajax로 갖고 오기는 하는데, 일단 처음 페이지 들어올 때도 떠 있기는 해야 되니까, 처음에도 갖고 와야됨 -->
+								<!-- 내용이 있을 경우 -->
 								<c:if test="${not result}">
-									<div class="historyValue"> <!-- 루프 -->
-									
+									<div class="historyValue" style="width:1000px; height:300px; margin:auto"> <!-- 루프 -->
+										<c:forEach items="${fundingRecords}" var="funding">
+										
+											<!-- 여기에 ajax랑 똑같은 UI 뜨게 -->
+											
+											
+											
+											<div class='historyDiv' style='display:inline-block; width:200px; height:300px; border:1px black solid; margin-top:0px; margin-left:30px;'>"
+												<p class='historyName' style='display:inline-block; width:100%; margin:0px;'>${funding.r_name}</p>
+												<img class='historyImg' style='width:90px; height:90px;'/> 
+												<p style='display:inline-block; width:100%; margin:0px;'>${funding.r_price}</p>
+												<p style='display:inline-block; width:100%; margin:0px;'>${funding.r_description}</p>
+												<p style='display:inline-block; width:100%; margin:0px;'>${funding.b_name}</p>&nbsp;<p style='display: inline-block; width:100%;'>${funding.bm_name}</p>
+											</div>"
+											 
+										</c:forEach>
 									</div>
 								</c:if>
 								
 							</div>  <!-- projectCardList 끝 -->
+							<div class="pagingDiv" style="text-align: center; margin:auto; width:1000px; margin-top:20px;">${pagingString}</div>
 						
 							
 						</div>  <!-- projectList 끝 -->
@@ -160,38 +179,12 @@ body {
 
 			</div>
 		</div>
+		<!--=========================-->
+		<!--=        footer         =-->
+		<!--=========================-->
+		
+		<!-- 스크립트 시작 -->
 
-
-		<!-- 여기까지 -->
-		
-		<!-- 이미지 프로필 수정 모달 -->
-		
-		<!-- <div id="imgModal" class="modal">
-		
-			<div class="modal-content">
-				<span class="close">&times;</span>
-				<label for="imgUpload">이미지 업로드</label>
-				<input type="file" name="imgUpload" size="3,145,728" id="imgUpload">  용량제한 3MB
-			</div>
-		</div> -->
-		
-		<!-- 모달 자바스크립트 -->
-		<!-- <script>
-		
-			$(function(){
-				
-				$('.editImage').click(function(){
-					$('#imgModal').css('display', 'block');
-				});
-				
-				$('.close').click(function(){
-					$('#imgModal').css('display', 'none');
-				});
-				
-			})
-		
-		</script> -->
-		<!-- 프로필 이미지 등록 -->
 		<script>
 		
 			$(function(){
@@ -271,9 +264,7 @@ body {
 		</script>
 		
 
-		<!--=========================-->
-		<!--=        footer         =-->
-		<!--=========================-->
+		
 	
 	<!--  -->	
 	<script>
@@ -281,22 +272,23 @@ body {
 	$(function(){
 		
 		$('.tab-list ul li').hover(function(){
-			//아 근데 hover 효과와 click 효과가 동일하니까 햇갈리네. hover 효과는 다른 걸로 주자. 파란 배경이나
-			/* $('.tab-list ul li').not($(this)).removeClass('active');
-			$(this).addClass('active'); */
 			
-		}, 
-		
-		function(){
-			
-		})
-		
-		$('.tab-list ul li').click(function(){
+			$('.tab-list ul li').not($(this)).removeClass('active');
 			$(this).addClass('active');
 		}, 
 		
 		function(){
-			$('.tab-list ul li').not($(this)).removeClass('active');
+			
+			$(this).removeClass('active');
+			
+		})/////////////
+		
+		$('.tab-list ul li').click(function(){
+			$(this).addClass('active_click');
+		}, 
+		
+		function(){
+			$('.tab-list ul li').not($(this)).removeClass('active_click');
 		})
 		
 	})
@@ -306,18 +298,24 @@ body {
 	<!-- 펀딩한, 좋아한, 만든 : ajax -->
 	<script>
 	
+	
+	var whichClick = "";
+	
 		$(function(){
 			
 			$('#historyTab li').click(function(){
 				
 				console.log("historyTab li가 클릭은 되니?");
-				console.log("컨트롤러의 switch문에 전달하는 값은? " + $('#historyTab li span').html());
-
+				console.log("컨트롤러의 switch문에 전달하는 값은? " + $(this).find('span').html());
+				
+				///밑에서 음반, 공연, 등 나눠주기 위한 용도
+				whichClick = $(this).find('span').html();
+				
 				$.ajax({
 					url : '<c:url value="/mypage/history.ins"/>',
 					type: 'post',
 					dataType : 'json',
-					data : {target:$('#historyTab li span').html()},
+					data : {target:$(this).find('span').html()},
 					success : function(data) {
 						console.log("ajax succFunction 실행 전 코드");
 						succFunction(data);
@@ -338,31 +336,73 @@ body {
 		function succFunction(data) {
 			//값 받아서 뿌려주기 projectCardList, div 1개로 돌려막기? 3개 생성?
 			console.log('succFunction이 받은 데이터' + data)
+			
+			
 			var listString = "";
-			///일단 리스트로
-			$.each(data, function(index, element){
-				listString += "<li>리워드 명: " + element["R_Name"] + ", 리워드 가격: " + element["R_Price"] + ", 리워드 명세: " + element["R_Description"] + ", 밴드이름: " + element["B_name"] + ", 곡이름: " + element["BM_name"] + "</li>"
-			});	
-			//이제 div로
-			var listString2 = "";
+			var pageString = "";
+			var isEmpty = false;
+			var emptyMessage = "";
 			$.each(data, function(index, element){
 				
-				listString2 += "<div class='historyDiv' style='display:inline; width:90px; border:1px black solid;'>";  //전체 div
-				listString2 += "<div class='historyDivName' style='display:inline; width:90px;'>" + element["R_Name"] + "</div>"; //이름 div
-				listString2 += "<div class='historyDivImg' style='display:inline; width:90px;'><img class='historyImg' src=''/></div>" //이미지 div  
-				listString2 += "<div class='historyDivInfo' style='display:inline; width:90px;'>"	//정보 div
+				if(element['noData'] != null) {
+					emptyMessage = "<p style='margin:auto; color:black;'>아직 "+element["which"]+" 상품이 없습니다.</p>";
+					isEmpty = true;
+					return;
+				}
+				 
+				if(element['pagingString'] != null) {
+					pageString = element['pagingString'];
+					return;  
+				}
+				console.log("$.each()에 어떤 값이?" + whichClick);
+				if(whichClick == "음반") {
 				
-				listString2 += "<span style=';'>"+element["R_Description"]+"</span><br/>";
-				listString2 += "<span style=''>"+element["R_Price"]+"</span>&npsp;";
-				listString2 += "<span>"+element["B_name"]+"</span>&npsp;<span>"+element["BM_name"]+"</span>";
-
-				listString2 += "</div>"  //정보 div 끝
+					listString += "<div class='historyDiv' style='display:inline-block; width:200px; height:300px; border:1px black solid; margin-top:0px; margin-left:30px;'>";  //전체 div
+					listString += "<p class='historyName' style='display:inline-block; width:100%; margin:0px;'>" + element["R_Name"] + "</p>"; 
+					listString += "<img class='historyImg' style='width:90px; height:90px;'/>"  
+	
+					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["R_Description"]+"</p>";
+					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["R_Price"]+"</p>";
+					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["B_name"]+"</p><p style='display: inline-block; width:100%;'>"+element["BM_name"]+"</p>";
+	
+					listString += "</div>"  //전체 div끝
+				}
 				
-				listString2 += "</div>"  //전체 div끝
+				if(whichClick == "공연") {
+					
+					listString += "<div class='historyDiv' style='display:inline-block; width:200px; height:300px; border:1px black solid; margin-top:0px; margin-left:30px;'>";  //전체 div
+					listString += "<p class='historyName' style='display:inline-block; width:100%; margin:0px;'>" + element["b_title"] + "</p>"; 
+					listString += "<img class='historyImg' style='width:90px; height:90px;'/>"  
+	
+					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["b_content"]+"</p>";
+					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["price_bgs"]+"</p>";
+					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["concertDate"]+"</p><p style='display: inline-block; width:100%;'>"+element["qty_bgs"]+"</p>";
+	
+					listString += "</div>"  //전체 div끝
+				}
 				
 			});
 			
-			$('.historyValue').html(listString2);
+
+			console.log("이게 비어서 문젠가? " + listString + " 장소는 " + whichClick);
+			
+			console.log("페이지스트링 " + pageString);
+			
+			$('.pagingDiv').html(pageString)
+			
+			
+			
+			if(isEmpty) {
+				$('.historyValue').html(emptyMessage);
+				$('.pagingDiv').html("");
+				return;
+			}
+			
+			$('.historyValue').html(listString);
+			
+			
+			
+			
 		}/////succFunction
 	
 	

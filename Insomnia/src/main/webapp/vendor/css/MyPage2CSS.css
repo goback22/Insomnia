@@ -338,6 +338,8 @@ em, i {
 .mypage-project .tab-list ul li {		/*각각의 펀딩한, 좋아한, 만든*/
     float: left;
     width: 33.33333%;
+    box-sizing: border-box;
+    height: 30px;
 }
 
 @media screen and (min-width: 960px)
@@ -358,9 +360,15 @@ em, i {
     text-decoration: none;
 }
 
-.mypage-project .tab-list ul li.active a {		/*활성화된 li 태그*/
+.active {		/*활성화된 li 태그*/
     color: #00BF99;
-    height: 47px;
+    /* height: 47px; */
+    border-bottom: 2px solid #00CCA3;
+}
+
+.active_click {		/*활성화된 li 태그*/
+    color: #4682B4;
+    /* height: 47px; */
     border-bottom: 2px solid #00CCA3;
 }
 
@@ -450,7 +458,8 @@ em, i {
     width: 100%;
 }
 
-#emptyProjectText {		/*만든 프로젝트가 없습니다*/
+/* #emptyProjectText {	 */	/*만든 프로젝트가 없습니다*/
+.emptyProjectText {
     display: none;
     padding: 80px 0;
     text-align: center;
@@ -529,6 +538,9 @@ em, i {
  	display: none;
  }
 
+.tab-list ul li:hover {
+	cursor: pointer;
+}
 
 
 

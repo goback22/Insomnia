@@ -42,5 +42,16 @@ public class RewardDAO implements RewardService {
 	public int update() {
 		return template.update("update_reward");
 	}
+	
+	//조건을 만족하는 행의 수 - 마이페이지에서 '내가' 구매한 리워드의 수를 위해.
+	@Override
+	public int getCount(Map map) {
+		return template.selectOne("getCount_reward", map);
+	}
+	//전체 행의 수 
+	@Override
+	public int getTotalCount(Map map) {
+		return template.selectOne("getTotalCount_reward", map);
+	}
 
 }
