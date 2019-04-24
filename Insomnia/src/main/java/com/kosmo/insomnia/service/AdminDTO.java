@@ -20,6 +20,9 @@ public class AdminDTO {
 	private String sms_recieve;
 	private String email_recieve;
 	private Date join_date;
+	private String gender;
+	private String is_activation;
+	private String activationkey;
 	//band
 	private String b_no;
 	private String b_name;
@@ -33,6 +36,24 @@ public class AdminDTO {
 	private String bm_liked;
 	
 	
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getIs_activation() {
+		return is_activation;
+	}
+	public void setIs_activation(String is_activation) {
+		this.is_activation = is_activation;
+	}
+	public String getActivationkey() {
+		return activationkey;
+	}
+	public void setActivationkey(String activationkey) {
+		this.activationkey = activationkey;
+	}
 	public String getB_no() {
 		return b_no;
 	}

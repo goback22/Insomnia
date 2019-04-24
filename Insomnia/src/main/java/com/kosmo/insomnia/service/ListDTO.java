@@ -11,6 +11,8 @@ public class ListDTO {
 	private String ap_remarks;
 	private String id;
 	private String ap_genre;
+	private String ap_attachedfile;
+
 	//★
 	private String name;
 	
@@ -74,5 +76,11 @@ public class ListDTO {
 	}
 	public void setAp_genre(String ap_genre) {
 		this.ap_genre = ap_genre;
+	}
+	public String getAp_attachedfile() {
+		return ap_attachedfile;
+	}
+	public void setAp_attachedfile(String ap_attachedfile) {
+		this.ap_attachedfile = ap_attachedfile;
 	}
 }

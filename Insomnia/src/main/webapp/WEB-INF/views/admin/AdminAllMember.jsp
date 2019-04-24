@@ -8,13 +8,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AdminAllMember.jsp</title>
-<link href="<c:url value='/vendor/css/bootstrap-3.3.2.css'/>"
-	rel="stylesheet">
+<link href="<c:url value='/vendor/css/bootstrap-3.3.2.css'/>" rel="stylesheet">
 <script src="<c:url value='/vendor/js/jquery-3.3.1.js'/>"></script>
 <script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script>
+<%-- <script src="<c:url value='/vendor/js/admin_index_chart.js'/>"></script> --%>
 <!--  -->
 <link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>" rel="stylesheet">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<link href="<c:url value='/vendor/css/admin_index_chart.css'/>" rel="stylesheet">
+
+
 </head>
 <body>
 	<div id="wrapper">
@@ -33,7 +37,7 @@
 			</div>
 			<!-- 회원관련 -->
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-9">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">회원 전체보기</h3>
@@ -60,9 +64,9 @@
 									<c:if test="${not isEmpty }">
 										<c:forEach var="item" items="${list}" varStatus="loop">
 											<!-- example1 -->
-											<tr class="view">
-												<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;1</td>
-												<td class="text-center viewDetail">${item.id}<b class="caret"></b></td>
+											<tr class="view">												
+												<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${totalMembers-(((nowPage-1)*pageSize)+loop.index)}</td>
+												<td class="text-center viewDetail">${item.id}</td>
 												<td class="text-center viewDetail">${item.name}</td>
 												<td class="text-center viewDetail">일반1</td>
 												<td class="text-center viewDetail">일반2</td>
@@ -80,13 +84,12 @@
 															<!-- first floor -->
 															<thead>
 																<tr>
-																	<th>NAME</th>
-																	<th>PASSWORD</th>
-																	<th>BIRTHDAY</th>
-																	<th>LOGIN_CHAIN</th>
-																	<th>SMS_RECIEVE</th>
-																	<th>EMAIL_RECIEVE</th>
-																	<th>PROFILE_IMAGE</th>
+																	<th class="col-md-1">NAME</th>
+																	<th class="col-md-1">PASSWORD</th>
+																	<th class="col-md-1">BIRTHDAY</th>
+																	<th class="col-md-1">GENDER</th>
+																	<th class="col-md-2">LOGIN_CHAIN</th>
+																	<th class="text-center">PROFILE_IMAGE</th>
 																</tr>
 															</thead>
 															<tbody>
@@ -94,27 +97,28 @@
 																	<td>${item.name}</td>
 																	<td>${item.password }</td>
 																	<td>${item.birthDay }</td>
+																	<td>${item.gender }</td>
 																	<td>${item.login_chain }</td>
+																	<td rowspan="3" class="text-center"><img style="width:50%;"src="<c:url value='/img/unnamed.jpg'/>" alt="등록된 이미지가 없습니다"></td>
+																</tr>
+															
+															<!-- second floor -->
+															
+																<tr>
+																	<th>IS_ACTIVATION</th>
+																	<th>미정</th>
+																	<th>SMS_RECIEVE</th>
+																	<th>EMAIL_RECIEVE</th>
+																	<th>DESCRIPTION</th>
+																</tr>
+															
+															
+																<tr>
+																	<td>${item.is_activation }</td>
+																	<td>미정</td>
 																	<td>${item.sms_recieve }</td>
 																	<td>${item.email_recieve }</td>
-																	<td rowspan="3"><img src="" alt="등록된 이미지가 없습니다"></td>
-																</tr>
-															</tbody>
-															<!-- second floor -->
-															<thead>
-																<tr>
-																	<th>미정</th>
-																	<th>미정</th>
-																	<th>미정</th>
-																	<th colspan="3">DESCRIPTION</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>미정</td>
-																	<td>미정</td>
-																	<td>미정</td>
-																	<td colspan="3">${item.description==null?"등록된 소개가 없습니다":item.description }</td>
+																	<td>${item.description==null?"등록된 소개가 없습니다":item.description }</td>
 																</tr>
 															</tbody>
 														</table>
@@ -134,23 +138,11 @@
 									<div class="btn btn-default">수락</div>
 									<div class="btn btn-default">거부</div>
 									<!-- 페이징 -->
-									<div class="text-center">
-										<ul class="pagination">
-											<li><a href="#" aria-label="Previous"> <span
-													aria-hidden="true">&laquo;</span>
-											</a></li>
-											<li><a href="#">1</a></li>
-											<li><a href="#">2</a></li>
-											<li><a href="#">3</a></li>
-											<li><a href="#">4</a></li>
-											<li><a href="#">5</a></li>
-											<li><a href="#" aria-label="Next"> <span
-													aria-hidden="true">&raquo;</span>
-											</a></li>
-										</ul>
-									</div>
+										 <jsp:include page="/WEB-INF/views/admin/template/AdminPagination.jsp" />
+<%-- 										 <div class="col-md-12 text-center">${pagingString}</div> --%>
 									<!-- 페이징 -->
 								</div>
+								
 								<!-- about checked end -->
 
 
@@ -159,9 +151,23 @@
 						</div>
 					</div>
 				</div>
-
 				<!-- 위에꺼 옆부분 -->
-
+				<div class="col-md-3">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								전체회원(도넛형 남,여)
+							</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+							<!-- - -->
+								<div id="donutchart" style="width: 100%;height:100%;"></div>
+              				<!-- - -->
+							</section>
+						</div>
+					</div>
+				</div>
 				<!-- 옆부분 끝 -->
 			</div>
 			<!-- 회원관련 끝 -->
@@ -173,8 +179,7 @@
 	</div>
 
 	<!-- checked about checkbox -->
-	<script type="text/javascript"
-		src="<c:url value='/vendor/js/admin_allchecked.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/vendor/js/admin_allchecked.js'/>"></script>
 	<script type="text/javascript">
 		$(".viewDetail").on("click", function() {//[o]
 // 		$("td.clk").on("click", function() {//[o]
@@ -182,9 +187,33 @@
 // 		$(".view").on("click", function() {
 			console.log("click");
 			console.log($(this));
-			$(this).parent().next(".fold").toggle(400);
+			$('.fold').hide(100);
+			$(this).parent().next(".fold").toggle(300);
 // 			$(this).next(".fold").toggle(400);
 		});
+	
+	
+	
+		google.charts.load("current", {packages:["corechart"]});
+	    google.charts.setOnLoadCallback(drawChart);
+	    function drawChart() {
+	      var data = google.visualization.arrayToDataTable([
+	        ['gender', 'membercount'],
+	        ['남자',	(${totalMemberCount}-${femaleMember})],
+	        ['여자',	${femaleMember}]
+	      ]);
+
+	      var options = {
+	        pieHole: 0.2
+	      };
+
+	      var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+	      chart.draw(data, options);
+	    }
+	
 	</script>
+	<!-- pagination -->
+	<script type="text/javascript" src="<c:url value='/vendor/js/admin_pagination.js'/>"></script>
+	
 </body>
 </html>

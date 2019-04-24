@@ -22,6 +22,11 @@ public class AdminDAO implements AdminService{
 	public List<AdminDTO> selectList(Map map) {
 		return template.selectList("adminMember",map);
 	}
+	@Override
+	public List<AdminDTO> selectNewMemberList(Map map) {
+		return template.selectList("adminNewMember",map);
+	}
+	
 	
 	@Override
 	public List<AdminDTO> selectBandList(Map map) {
@@ -55,9 +60,34 @@ public class AdminDAO implements AdminService{
 
 	@Override
 	public int getTotalRecord(Map map) {
+		return template.selectOne("totalMembers", map);
+	}
+
+	@Override
+	public int getGenderCount(Map map) {
 		return 0;
 	}
 
+	@Override
+	public int getFemaleMember(String string) {
+		return template.selectOne("femaleMember",string);
+	}
+	@Override
+	public int selectTodayNewMember(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectOne("todayNewMember",map);
+	}
+	@Override
+	public int selectYesterDayNewMember(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectOne("yesterdayNewMember",map);
+	}
+	@Override
+	public int selectTwoDaysAgoNewMember(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectOne("twoDayAgoMember",map);
+	}
+	
 	
 
 }

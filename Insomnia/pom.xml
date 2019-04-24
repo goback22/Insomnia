@@ -250,6 +250,12 @@
 	    <artifactId>commons-fileupload</artifactId>
 	    <version>1.4</version>
 	</dependency>
+	<!-- cos.jar -->
+	<dependency>
+          <groupId>servlets.com</groupId>
+          <artifactId>cos</artifactId>
+          <version>05Nov2002</version>
+      </dependency>
 		
 		<!-- 페이스북 API -->
 		<dependency>

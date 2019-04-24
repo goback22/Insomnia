@@ -72,5 +72,10 @@ public class ListServiceImpl implements ListService{
 	public List<ListDTO> readDesc(Map map) {
 		return dao.readDesc(map);
 	}
+	
+	@Override
+	public List<ListDTO> readAsc(Map map) {
+		return dao.readAsc(map);
+	}
 
 }//class

@@ -1,5 +1,6 @@
 package com.kosmo.insomnia.web.sub1;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -30,9 +33,11 @@ import com.kosmo.insomnia.service.BGSConcertService;
 import com.kosmo.insomnia.service.ListDTO;
 import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.serviceimpl.CommentServiceImpl;
+import com.kosmo.insomnia.serviceimpl.ListDAO;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 import com.kosmo.insomnia.web.sub1.PagingUtil;
+import com.oreilly.servlet.MultipartRequest;
 import com.sun.xml.internal.ws.server.ServiceDefinitionImpl;
 
 @Controller
@@ -68,9 +73,9 @@ public class ZeroJinController {
 	      session.setAttribute("login_user_phoneNb", record.getPhone());
 	      System.out.println(record.getPhone());
     	  
-    	  if(map.get("id").equals("admin")) {
-    		  return "/admin/AdminIndex";
-    	  }
+//    	  if(map.get("id").equals("admin")) {
+//    		  return "/admin/AdminIndex";
+//    	  }
       } else {
     	  model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
     	 /* return "forward:/loginErr/ajax.ins";*/
@@ -176,18 +181,18 @@ public class ZeroJinController {
 		
 	// 방구석 기타리스트 게시판 - write폼으로 이동
 	@RequestMapping(value = "/sub1/write.ins", method = RequestMethod.GET)
-	public String write() throws Exception {
-		return "/sub1/write.tiles";
+	public String write() throws ServletException, IOException {
+		return "sub1/write";
 	}
 
 	// 방구석 기타리스트 게시판 - write처리
-	@RequestMapping(value = "/sub1/write.ins", method = RequestMethod.POST)
-	public String writeOk(@RequestParam Map map, HttpSession session) throws Exception {
+	@RequestMapping(value = "/sub1/write.ins", method= RequestMethod.POST)
+	public String writeOk(@RequestParam Map map, HttpSession session,HttpServletRequest req) throws IOException, ServletException{
 		// 서비스 호출
 		map.put("id", session.getAttribute("id")); // ☆
-
+		
 		insService.insert(map);
-
+		
 		return "forward:/sub1/list.ins";
 		//return "/sub1/list.tiles";로하면 안돼
 	}
@@ -205,7 +210,6 @@ public class ZeroJinController {
 		model.addAttribute("record", record);
 		
 		// System.out.println(record.getAp_content());
-
 		
 		// 이전 글
 		ListDTO prev = insService.prevSelectOne(map);
@@ -237,7 +241,7 @@ public class ZeroJinController {
 		if (req.getMethod().equals("GET")) {
 			ListDTO record = insService.selectOne(map);
 			model.addAttribute("record", record);
-			return "/sub1/edit.tiles";
+			return "sub1/edit";
 		}
 
 		int sucFail = insService.update(map);
@@ -254,12 +258,10 @@ public class ZeroJinController {
 		return "sub1/Message";
 	}
 	
-	// 방구석 기타리스트 게시판 - read눌렀을 때 조회수 순으로 뿌려주기
+	// 방구석 기타리스트 게시판 - read눌렀을 때 높은 조회수 순으로 뿌려주기
 	@ResponseBody
 	@RequestMapping(value="/sub1/sort.ins", produces="text/html; charset=UTF-8")
 	public String readSort(@RequestParam Map map) throws Exception{
-		System.out.println("여기까지 오니");
-		
 		//비지니스 로직 호출
 		map.put("start", 1);
 		map.put("end", 10);
@@ -283,6 +285,32 @@ public class ZeroJinController {
 		return JSONArray.toJSONString(collections);
 	}
 	
+	// 방구석 기타리스트 게시판 - read눌렀을 때 낮은 조회수 순으로 뿌려주기
+	@ResponseBody
+	@RequestMapping(value="/sub1/sortAsc.ins", produces="text/html; charset=UTF-8")
+	public String readSortAsc(@RequestParam Map map) throws Exception{
+		//비지니스 로직 호출
+		map.put("start", 1);
+		map.put("end", 10);
+				
+		//서비스 호출
+		List<ListDTO> read = insService.readAsc(map);
+		List<Map> collections = new Vector<Map>();
+		for(ListDTO dto : read) {
+			Map record = new HashMap();
+			record.put("ap_no", dto.getAp_no());
+			record.put("ap_genre", dto.getAp_genre());
+			record.put("ap_title", dto.getAp_content());
+			record.put("name", dto.getName());
+			record.put("ap_visit", dto.getAp_visit());
+			record.put("ap_postdate", dto.getAp_postdate().toString());
+			collections.add(record);
+		}
+ 		
+		return JSONArray.toJSONString(collections);
+	}
+	
+	//----------------------------
 	//----------------------------
 	//----------------------------
 	//방구석 기타리스트 - reviews(댓글)

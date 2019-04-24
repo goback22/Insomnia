@@ -8,18 +8,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AdminNewMember.jsp</title>
-<link href="<c:url value='/vendor/css/bootstrap-3.3.2.css'/>"
-	rel="stylesheet">
-<!-- -3.3.2 -->
+<link href="<c:url value='/vendor/css/bootstrap-3.3.2.css'/>" rel="stylesheet"><!-- -3.3.2 -->
 <script src="<c:url value='/vendor/js/jquery-3.3.1.js'/>"></script>
-<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script>
-<!-- min -->
+<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script><!-- min -->
 <!--  -->
-<link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>"
-	rel="stylesheet">
-<link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>"
-	rel="stylesheet">
-
+<link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>" rel="stylesheet">
+<link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>" rel="stylesheet">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<link href="<c:url value='/vendor/css/admin_index_chart.css'/>" rel="stylesheet">
 
 </head>
 <body>
@@ -39,7 +35,7 @@
 			</div>
 			<!-- 회원관련 -->
 			<div class="row">
-				<div class="col-md-11">
+				<div class="col-md-9">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">회원 전체보기</h3>
@@ -141,30 +137,27 @@
 								<div class="btn btn-default checkeddelete">삭제</div>
 								<div class="btn btn-default">수락</div>
 								<div class="btn btn-default">거부</div>
-								<div align="center">페이징a</div>
+								<jsp:include page="/WEB-INF/views/admin/template/AdminPagination.jsp" />
 							</div>
 
 						</div>
 
 					</div>
 				</div>
-
-				<!--  -->
-				<!-- 				<div class="col-md-4"> -->
-				<!-- 					<div class="panel panel-primary"> -->
-				<!-- 						<div class="panel-heading"> -->
-				<!-- 							<h3 class="panel-title"> -->
-				<!-- 								회원 전체보기 -->
-				<!-- 							</h3> -->
-				<!-- 						</div> -->
-				<!-- 						<div class="panel-body feed"> -->
-				<!-- 							<section class="feed-item"> -->
-
-				<!-- 							</section> -->
-				<!-- 						</div> -->
-				<!-- 					</div> -->
-				<!-- 				</div> -->
-				<!--  -->
+				<div class="col-md-3">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+							신규 가입회원(선or 막대,날짜)
+							</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+								<div id="chart_div" style="width: 100%; height: 100%;"></div>
+							</section>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- 회원관련 끝 -->
 
@@ -175,13 +168,58 @@
 	</div>
 
 	<!-- checked about checkbox -->
-	<script type="text/javascript"
-		src="<c:url value='/vendor/js/admin_allchecked.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/vendor/js/admin_allchecked.js'/>"></script>
 	<script type="text/javascript">
 		$(".view").on("click", function() {
 			console.log("click");
 			$(this).next(".fold").toggle(300);
 		});
+		
+		//date
+		var today = new Date();
+		var dd = today.getDate();
+		var dd2ago = today.getDate()-2;
+		var mm = today.getMonth()+1; //January is 0
+		var yyyy = today.getFullYear();
+		if(dd<10) {
+		    dd='0'+dd
+		}
+		if(dd2ago<10) {
+			dd2ago='0'+dd2ago
+		}
+// 		if(mm<10) {
+// 		    mm='0'+mm
+// 		}
+		var twodaysAgo = mm+'월'+dd2ago+"일";
+		today = yyyy+'-'+mm+'-'+dd;
+		//new member chart
+// 		var twoDayMember=${twodayagoMember};
+// 		var yesterDayMember=${yesterdayMember};
+// 		var todayMember=${todayMember};
+
+	    google.charts.load("current", {packages:["corechart"]});
+	    google.charts.setOnLoadCallback(drawChart);
+	    function drawChart() {
+	        var data = google.visualization.arrayToDataTable([
+	          ['Date', '신규회원'	],
+	          [twodaysAgo,  ${twodayagoMember}		],
+	          ['yesterday',  ${yesterdayMember}		],
+	          ['today',  ${todayMember}	]
+	         
+	        ]);
+	        var options = {
+	       	          curveType: 'function',
+	       	          legend: 'none',
+	    			  lineWidth: 3,
+	    			  width:'100%',
+	    			  height:300
+	    			  
+	       	          
+	       	        };
+
+	        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+	        chart.draw(data,options);
+	      };
 	</script>
 </body>
 </html>

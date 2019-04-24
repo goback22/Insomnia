@@ -80,7 +80,7 @@
 													<thead>
 														<tr>
 															<th>B_NAME</th>
-															<th>BAND_MEMBER</th>
+															<th>BANDMEMBER</th>
 															<th colspan="4">B_DESCRIPTION</th>
 															<th>BI_IMAGE</th>
 														</tr>
@@ -88,7 +88,7 @@
 													<tbody>
 														<tr>
 															<td>${item.b_name }</td>
-															<td>머큐리<br/>링고스타<br/>스타크</br></td>
+															<td>BAND.NO<br/>BANDMAMBER.NO,ID<br/>MEMBERS.ID join<br/></td>
 															<td colspan="4">${item.b_description }</td>
 															<td rowspan="10" align="center">
 															<!-- ------------------------------- -->

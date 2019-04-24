@@ -62,4 +62,9 @@
 	<!-- <context:property-placeholder location="classpath:my/social.properties" 
 		/> -->
 
+	<!-- 멀티 파트 리퀘스트 -->
+<!-- 	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/> -->
+	 
+
+
 </beans>

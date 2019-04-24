@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/WEB-INF/views/my/isMember.jsp" %>
 
 <!-- aos 구동 -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -108,6 +109,7 @@ body {
 					<div class="row">
 						<div class="col-md-10">
 							<h5 class="comments-title">Application</h5>
+<%-- 							<input type="hidden" name="ap_no" value="${record.ap_no}"/> --%>
 							<table class="table table-hover text-center">
 								<tr style="height: 40px; display: none">
 									<td style="width: 10%;">No</td>
@@ -130,7 +132,7 @@ body {
 									<td style="text-align: left">${record.ap_content == null ? "" : record.ap_content}</td>
 								<tr>
 									<td style="height: 40px;">File</td>
-									<td class="B"></td>
+									<td class="B"><a href="<c:url value='/sub1/download.ins?filename=${record.ap_attachedfile}&no=${record.ap_no}'/>">${record.ap_attachedfile}</a></td>
 								</tr>
 								<tr style="border-bottom: none">
 									<td style="height: 40px;"> &nbsp;이전 글 <br> 다음 글 </td>
