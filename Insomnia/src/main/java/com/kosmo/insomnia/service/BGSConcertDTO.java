@@ -7,10 +7,9 @@ public class BGSConcertDTO {
 	private String b_content;
 	
 	//편의를 위해 추가 4월 23일 서기환 - 문제 소지시 말씀해 주세요.
-	private String concertDate;  //concertTimes 테이블
-	private String price;		//concertTimes 테이블
+	private String c_concertDate;  //concertTimes 테이블
+	private String c_price;		//concertTimes 테이블
 	private String qty;		//bgspay 테이블
-	
 	
 	
 	public String getBgsco_no() {
@@ -38,20 +37,18 @@ public class BGSConcertDTO {
 		this.b_content = b_content;
 	}
 	
-	
-	////추가한 게터*세터
-	
-	public String getConcertDate() {
-		return concertDate;
+	//추가
+	public String getC_concertDate() {
+		return c_concertDate;
 	}
-	public void setConcertDate(String concertDate) {
-		this.concertDate = concertDate;
+	public void setC_concertDate(String c_concertDate) {
+		this.c_concertDate = c_concertDate;
 	}
-	public String getPrice() {
-		return price;
+	public String getC_price() {
+		return c_price;
 	}
-	public void setPrice(String price) {
-		this.price = price;
+	public void setC_price(String c_price) {
+		this.c_price = c_price;
 	}
 	public String getQty() {
 		return qty;
@@ -61,6 +58,6 @@ public class BGSConcertDTO {
 	}
 	
 	
-	
+
 	
 }/////class(BGSConcertDTO)
