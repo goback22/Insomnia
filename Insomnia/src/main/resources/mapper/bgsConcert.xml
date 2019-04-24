@@ -6,7 +6,7 @@
 
 <mapper namespace="mapper.bgsConcert">
 	<select id="bGSConcertSelectList" resultType="java.util.Map">
-		select b.bgsco_no,c.c_consertdate,c.c_price,b.b_title,b.b_content from concerttimes c join bgsconcert b on c.bgsco_no = b.bgsco_no order by ct_no
+		select b.bgsco_no,c.c_concertdate,c.c_price,b.b_title,b.b_content from concerttimes c join bgsconcert b on c.bgsco_no = b.bgsco_no order by ct_no
 	</select>
 	
 
