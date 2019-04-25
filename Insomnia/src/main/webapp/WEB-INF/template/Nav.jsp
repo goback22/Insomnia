@@ -222,7 +222,7 @@
 		           		  <td><label for="middle1">리워드</label></td>
 		           		  <td><label for="middle2">마이페이지</label></td>
 		           		  <td><label for="middle3">초대하기</label></td>
-		           		  <td><label for="middle4">블라블라</label></td>
+		           		  <td><label for="middle4">마이페이지</label></td>
 			           		
 			           </tr>
 		            </table>

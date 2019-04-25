@@ -142,16 +142,17 @@ body {
 							
 							<!-- 실질적으로 내용 뿌려주는 부분 -->
 							<div id="projectCardList" style="text-align:center;" class="card-list">
+							<div class="historyValue" style="width:1500px; height:450px; margin:auto; text-align:center;"> <!-- 루프 -->
 								<!-- 내용이 없을 경우 -->
 								<c:if test="${empty fundingRecords}" var="result">
-									<div class="historyEmptyValue" style="width:1500px; height:450px; margin:auto; text-align:center;">
+									<!-- <div class="historyEmptyValue" style="width:1500px; height:450px; margin:auto; text-align:center;"> -->
 										<p id="emptyProjectText" style="display: block">펀딩한 음악이  <!-- ajax에서도 같은기능 구현해야 -->
 											없습니다.</p> <!-- 이거 효과줄라고 ajax에서 했는데, id라서 안 되네. class로 바꾸면 될래나? css때무네 -->
-									</div>
+									<!-- </div> -->
 								</c:if>
 								<!-- 내용이 있을 경우 -->
 								<c:if test="${not result}">
-									<div class="historyValue" style="width:1500px; height:450px; margin:auto; text-align:center;"> <!-- 루프 -->
+									
 										<c:forEach items="${fundingRecords}" var="funding">
 										
 											<!-- 여기에 ajax랑 똑같은 UI 뜨게 -->
@@ -165,8 +166,9 @@ body {
 											</div>
 											 
 										</c:forEach>
-									</div>
+									
 								</c:if>
+								</div>
 								
 							</div>  <!-- projectCardList 끝 -->
 							<div class="pagingDiv" style="text-align: center; margin:auto; width:1000px; margin-top:20px;">${pagingString}</div>
@@ -348,7 +350,7 @@ body {
 				
 				if(element['noData'] != null) {
 					//emptyMessage = "<p class='emptyMess'>아직 "+element["which"]+" 상품이 없습니다.</p>";
-					emptyMessage = "<div class='emptyMess'>아직 "+element["which"]+" 상품이 없습니다.</div>";
+					emptyMessage = "<p class=emptyMess>아직 "+element["which"]+" 상품이 없습니다.</p>";
 					isEmpty = true;
 					return;
 				}
@@ -401,19 +403,23 @@ body {
 			console.log("이게 비어서 문젠가? " + listString + " 장소는 " + whichClick);
 			
 			console.log("페이지스트링 " + pageString);
+			console.log('왜 엠프티 메세지 안뜨지?' + emptyMessage);
 			
 			$('.pagingDiv').html(pageString)
 			
 			
 			
 			if(isEmpty) {
-				$('.historyEmptyValue').html(emptyMessage);
+				/* $('.historyEmptyValue').css('display', 'none') */
+				$('.historyValue').html(emptyMessage);
+			/* 	$('.historyValue').css('display', 'block'); */
 				$('.pagingDiv').html("");
 				return;
 			}
 			
+		/* 	$('.historyValue').css('display', 'block'); */
 			$('.historyValue').html(listString);
-			
+			/* $('.historyEmptyValue').css('display', 'none') */
 			
 			
 			
