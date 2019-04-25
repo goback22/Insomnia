@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/WEB-INF/views/my/isMember.jsp" %>
 
 <link rel="stylesheet" type="text/css" href="http://www.superstari.co.kr/design/superstari/inc/15_re/demo-style.css" />
 <link rel="stylesheet" type="text/css" href="http://www.superstari.co.kr/design/superstari/inc/15_re/search_component.css" />
@@ -13,7 +14,11 @@
 <link rel="stylesheet" href="<c:url value='/vendor/css/PayCSS_1.css'/>" type="text/css">
 <link rel="stylesheet" href="<c:url value='/vendor/css/PayCSS_2.css'/>" type="text/css">
 <link rel="stylesheet" href="<c:url value='/vendor/css/PayCSS_3.css'/>" type="text/css">
+
+<!-- SubPay 동작을 위한 .js -->
 <script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
+<script src="<c:url value='/vendor/js/SubPay_Validation.js'/>"></script>
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -25,6 +30,12 @@
 <style>
 	.col-md-3{
 		padding-left: 79px;
+	}
+	.subpay_title_content{
+		width: 500px;
+		background-color: white;
+		border: none;
+		pointer-events: none;
 	}
 </style>
 </head>
@@ -39,8 +50,6 @@
 						<div class="page-body">
 							<form name="form1" id="order_form" action="<c:url value='/Pay/PayComplete.ins'/>" method="post">
 								
-								
-
 								<!-- ============================================================================================================== -->
 								<!-- ==================================================.tbl-order================================================== -->
 								<!-- ============================================================================================================== -->
@@ -86,8 +95,14 @@
 													</td>
 													<td>
 														<div class='tb-left'>
-															<a href='#'>${param.bgs1_title } </a><br/>
-															<a href="#">${param.bgs1_content}</a>
+															<!-- 나중에 이것들은 링크 달면됨. -->
+															<input type="hidden" name="subPay_Title" value="${param.bgs1_title }">
+															<input type="hidden" name="subPay_Content" value="${param.bgs1_content }">
+															<a href="#">
+																<input type="text" class="subpay_title_content" value="${param.bgs1_title }" disabled="disabled" style="border: none;">
+																<br/>
+																<input type="text" class="subpay_title_content" value="${param.bgs1_content }" disabled="disabled" style="width: 500px; border: none;">
+															</a>  
 														</div>
 													</td>
 													<td>
@@ -96,6 +111,7 @@
 															<input type='button' class='btn btn-info btn_plus' value='+'>
 															<input type='button' class='btn btn-info btn_minus' value='-''>
 														</div>
+														<input type="hidden" name="subPay_Item_Qty" value="${param.bgs1_qty }">
 													</td>
 													<td>
 														<div class='tb-right tb-bold tb-center'><span id="price_concert"></span>원</div>
@@ -133,44 +149,43 @@
 											<tbody>
 												<tr>
 													<th scope="row"><div class="txt-l">이름</div></th>
-													<td><input type="text" name="sender" form="order_form"
-														id="sender" class="MS_input_txt" value="${name }"></td>
+													<td>
+														<input type="text" name="sender_name" form="order_form" id="sender" class="MS_input_txt" value="${name }">
+													</td>
 												</tr>
 												<tr>
-													<th scope="row"><div class="txt-l">이메일</div></th>
+													<th scope="row">
+														<div class="txt-l">이메일</div>
+													</th>
 													<td>
-														<input type="text" name="email" form="order_form" id="email" value="${email_first }" class="MS_input_txt" maxlength="10" size="4">
+														<input type="text" name="email" form="order_form" id="email_1" value="${email_first }" class="MS_input_txt" maxlength="10" size="4" disabled="disabled"
+														style="background-color: white;">
 														@
-														<input type="text" name="email" form="order_form" id="email_self" value="" class="MS_input_txt" maxlength="10" size="4" style="display: none;">
-														<select name="email_change" class="choose_email">
-														<c:if test="${email_second eq 'naver.com'}">
+														<select name="email_change" class="choose_email_1" disabled="disabled">
+															<c:if test="${email_second eq 'naver.com'}">
 																<option value="0" selected="selected">naver.com</option>
 																<option value="1">daum.net</option>
 																<option value="2">nate.com</option>
 																<option value="3">google.com</option>
-																<option value="4" id="self_write">직접 입력</option>
-														</c:if>
-														<c:if test="${email_second eq 'daum.net'}">
+															</c:if>
+															<c:if test="${email_second eq 'daum.net'}">
 																<option value="0">naver.com</option>
 																<option value="1" selected="selected">daum.net</option>
 																<option value="2">nate.com</option>
 																<option value="3">google.com</option>
-																<option value="4" id="self_write">직접 입력</option>
-														</c:if>
-														<c:if test="${email_second eq 'nate.com'}">
-																<option value="0" selected="selected">naver.com</option>
+															</c:if>
+															<c:if test="${email_second eq 'nate.com'}">
+																<option value="0">naver.com</option>
 																<option value="1">daum.net</option>
 																<option value="2" selected="selected">nate.com</option>
 																<option value="3">google.com</option>
-																<option value="4" id="self_write">직접 입력</option>
-														</c:if>
-														<c:if test="${email_second eq 'google.com'}">
+															</c:if>
+															<c:if test="${email_second eq 'google.com'}">
 																<option value="0">naver.com</option>
 																<option value="1">daum.net</option>
 																<option value="2">nate.com</option>
 																<option value="3" selected="selected">google.com</option>
-																<option value="4" id="self_write">직접 입력</option>
-														</c:if>
+															</c:if>
 														</select>
 													</td>
 												</tr>
@@ -190,8 +205,8 @@
 									<h3>
 										예매 정보 
 										<label> 
-										<input type="checkbox" name="same" form="order_form" id="same" onclick="copydata()"> 
-											위 정보와 같음
+										<input type="checkbox" name="same" form="order_form" id="same"> 
+											    위 위 정보와 같음
 										</label>
 									</h3>
 									<div class="tbl-order">
@@ -205,31 +220,52 @@
 											</colgroup>
 											<tbody>
 												<tr>
-													<th scope="row"><div class="txt-l">이름</div></th>
-													<td colspan="3"><input type="text" name="receiver"
-														form="order_form" id="receiver" class="MS_input_txt"
-														value=""></td>
+													<th scope="row">
+														<div class="txt-l">이름</div>
+													</th>
+													<td colspan="3">
+														<input type="text" name="subPay_Name" form="order_form" id="receiver" class="MS_input_txt" value="">
+													</td>
 												</tr>
+												
 												<tr>
-													<th scope="row"><div class="txt-l">연락처 1</div></th>
-													<td><input type="text" name="emergency21"
-														form="order_form" id="emergency21" size="4" maxlength="4"
-														value="" class="MS_input_txt w60"> - <input
-														type="text" name="emergency22" form="order_form"
-														id="emergency22" size="4" maxlength="4"
-														class="MS_input_txt w60" value=""> - <input
-														type="text" name="emergency23" form="order_form"
-														id="emergency23" size="4" maxlength="4"
-														class="MS_input_txt w60" value=""></td>
+													<th scope="row">
+														<div class="txt-l">이메일</div>
+													</th>
+													<td>
+														<input type="text" name="subPay_Email1" form="order_form" value="" class="MS_input_txt" maxlength="10" size="4">
+														@
+														<input type="text" name="subPay_Email_Self" form="order_form" id="email_self" value="" class="MS_input_txt" maxlength="10" size="4" style="display: none;">
+														<select name="subPay_Email2" class="choose_email_2">
+															<option value="0" selected="selected">naver.com</option>
+															<option value="1">daum.net</option>
+															<option value="2">nate.com</option>
+															<option value="3">google.com</option>
+															<option value="4">직접 입력</option>
+														</select>
+													</td>
+												</tr>
+												
+												<tr>
+													<th scope="row">
+														<div class="txt-l">연락처</div>
+													</th>
+													<td>
+														<input type="text" name="subPay_Phone1" form="order_form" id="emergency21" size="4" maxlength="4" value="" class="MS_input_txt w60"> 
+														- 
+														<input type="text" name="subPay_Phone2" form="order_form" id="emergency22" size="4" maxlength="4" class="MS_input_txt w60" value="">
+														- 
+														<input type="text" name="subPay_Phone3" form="order_form" id="emergency23" size="4" maxlength="4" class="MS_input_txt w60" value="">
+													</td>
 												</tr>
 												
 												<tr>
 													<th scope="row">
 														<div class="txt-l">
-															주문 메세지<br> <span>(100자내외)</span>
+															주문 메세지<br><span>(100자내외)</span>
 														</div></th>
 													<td colspan="3">
-														<textarea name="message" form="order_form" id="message" cols="50" rows="5" class="MS_textarea"></textarea>
+														<textarea name="subPay_Message" form="order_form" id="message" cols="50" rows="5" class="MS_textarea"></textarea>
 													</td>
 												</tr>
 												
@@ -238,7 +274,7 @@
 														<div class="txt-l">무통장 입금자명</div>
 													</th>
 													<td colspan="3">
-														<input type="text" name="bankname" form="order_form" class="MS_input_txt" size="10" maxlength="40"> 
+														<input type="text" name="subPay_Bank_Name" form="order_form" class="MS_input_txt" size="10" maxlength="10"> 
 														<span class="MS_bankname_message"> (주문자와 같을경우 생략 가능)</span>
 													</td>
 												</tr>
@@ -247,8 +283,8 @@
 									</div>
 									<!-- .tbl-order -->
 
-									<h3>추가정보</h3>
-									<div class="tbl-order">
+									<h3 class="add_Info">추가정보</h3>
+									<div class="tbl-order tbl-add_Info">
 										<table>
 											<caption>추가정보</caption>
 											<colgroup>
@@ -257,23 +293,26 @@
 											</colgroup>
 											<tbody>
 												<tr>
-													<th scope="row"><div class="txt-l">무통장 환불 예금주</div></th>
-													<td><input type="text" name="order_add_info[1]"
-														form="order_form" class="MS_input_txt" size=""
-														maxlength=""></td>
+													<th scope="row">
+														<div class="txt-l">무통장 환불 예금주</div>
+													</th>
+													<td>
+														<input type="text" name="subPay_Refund_Name"form="order_form" class="MS_input_txt" size="" maxlength="">
+													</td>
 												</tr>
 												<tr>
 													<th scope="row"><div class="txt-l">무통장 환불 은행명</div></th>
-													<td><input type="text" name="order_add_info[2]"
-														form="order_form" class="MS_input_txt" size=""
-														maxlength=""></td>
+													<td>
+														<input type="text" name="subPay_Refund_BankName" form="order_form" class="MS_input_txt" size="" maxlength="">
+													</td>
 												</tr>
 												<tr>
-													<th scope="row"><div class="txt-l">무통장 환불 계좌</div></th>
-													<td><input type="text" name="order_add_info[3]"
-														form="order_form" class="MS_input_txt" size=""
-														maxlength=""><br>( 계좌번호 미기재 또는 오류시 기재한 계좌로
-														환불처리 )<br></td>
+													<th scope="row">
+														<div class="txt-l">무통장 환불 계좌</div>
+													</th>
+													<td>
+													<input type="text" name="subPay_Refund_BankAccount" form="order_form" class="MS_input_txt" placeholder="(-) 제외 계좌번호 입력."><br>
+													( 계좌번호 미기재 또는 오류시 기재한 계좌로 환불처리 )<br></td>
 												</tr>
 											</tbody>
 										</table>
@@ -295,9 +334,9 @@
 													<td>
 														<ul class="pay-method">
 															<li>
-															<input type="radio" class="chk-rdo" name="radio_paymethod" value="B" checked="checked">
+															<input type="radio" class="chk-rdo" name="subPay_orderWay" value="B" checked="checked">
 																무통장입금 <em><span class="op-bank-dc-price fc-red"></span></em>
-																<select name="pay_data" class="w280 MK_bank_select_list MK_pay_add_choice">
+																<select name="pay_data" class="w280 MK_bank_select_list MK_pay_add_choice" style="font-size: 11px; letter-spacing: 0;">
 																	<option value="">입금 계좌번호 선택(반드시 주문자 성함으로 입금)</option>
 																	<option value="신한 110-394-023184 (예금주:(주)Insomnia)">
 																		신한 110-394-023184 (예금주:(주)Insomnia)
@@ -305,11 +344,11 @@
 																</select>
 															</li>
 															<li>
-															<input type="radio" class="chk-rdo" name="radio_paymethod" value="C"> 
+															<input type="radio" class="chk-rdo" name="subPay_orderWay" value="C"> 
 																신용카드 <em><span class="op-card-dc-price fc-red"></span></em>
 															</li>
 															<li>
-																<input type="radio" class="chk-rdo" name="radio_paymethod" value="D"> 
+																<input type="radio" class="chk-rdo" name="subPay_orderWay" value="D"> 
 																휴대폰 결제 
 																<em><span class="op-hp-dc-price fc-red"></span></em>
 															</li>
@@ -344,7 +383,7 @@
 																	<script type="text/javascript" src="/js/check.js"></script>
 																	<div id="evidence_cashbill_data">
 																		<span id="cashbilltype"> 
-																			<select name="evidence_banktype" class="bank-type" onchange="togglecashbilltype(this.value)">
+																			<select style="font-size: 12px;" name="evidence_banktype" class="bank-type">
 																					<option value="0" selected="">핸드폰 번호</option>
 																					<option value="1">국세청 현금영수증 카드</option>
 																					<option value="2">사업자 번호</option>
@@ -593,11 +632,14 @@
 																<div style="margin-top: 5px;">* 동의하셔야 서비스를 이용하실 수
 																	있습니다.</div>
 																<div class="privercy-agree">
-																	<label><input type="radio"
-																		name="new_privacy_agree" value="Y"> 정보수집에
-																		동의합니다.</label> <label><input type="radio"
-																		name="new_privacy_agree" value="N" checked="">
-																		동의하지 않습니다.</label>
+																	<label>
+																		<input type="radio" name="new_privacy_agree" value="Y"> 
+																		정보수집에 동의합니다.
+																	</label> 
+																	<label>
+																		<input type="radio" name="new_privacy_agree" value="N" checked="checked">
+																		동의하지 않습니다.
+																	</label>
 																</div>
 															</div>
 														</div>
@@ -605,10 +647,12 @@
 												</tr>
 												<tr>
 													<th scope="row"><div class="txt-l">주문동의</div></th>
-													<td><label class="label"> <input
-															type="checkbox" id="pay_agree" name="pay_agree"
-															form="order_form"> 상기 결제정보를 확인하였으며, 구매진행에 동의합니다.
-													</label></td>
+													<td>
+													<label class="label"> 
+														<input type="checkbox" id="pay_agree" name="pay_agree" form="order_form"> 
+														상기 결제정보를 확인하였으며, 구매진행에 동의합니다.
+													</label>
+													</td>
 												</tr>
 											</tbody>
 										</table>
@@ -625,13 +669,17 @@
 											<thead>
 												<tr>
 													<th>최종 결제금액</th>
-													<td><strong class="price"><em><span
-																id="block_unit_dollar" style="display: none">$</span> 
-																<span id="op_total_price"></span></em> 
-																<script>
-																	$("#op_total_price").text(String(${param.bgs1_price}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
-																</script>
-																<span id="block_unit_won">원</span></strong> &nbsp;</td>
+													<td>
+														<strong class="price"><em>
+															<span id="block_unit_dollar" style="display:none;">$</span>
+															<span id="op_total_price"></span></em> 
+															<script> 
+																$("#op_total_price").text(String(${param.bgs1_price}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')); 
+															</script> 
+															<span id="block_unit_won">원</span>
+														</strong> &nbsp;
+														<input type="hidden" name="subPay_Final_payment_amount" value="">
+													</td>
 												</tr>
 
 											</thead>

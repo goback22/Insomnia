@@ -16,10 +16,26 @@
 	font-size: 30px;
 }
 
-.choose_email {
+.choose_email_1 {
 	width: 180px;
 	font-size: 17px;
 	font-family: "Roboto", "Noto Sans", sans-serif;
+	position:absolute;
+	margin: 2px;
+	margin-left: 5px;
+	height: 24px;
+	margin-top: 3px;
+}
+
+.choose_email_2 {
+	width: 180px;
+	font-size: 17px;
+	font-family: "Roboto", "Noto Sans", sans-serif;
+	position:absolute;
+	margin: 2px;
+	margin-left: 5px;
+	height: 24px;
+	margin-top: 3px;
 }
 
 #post_number {

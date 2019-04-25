@@ -6,7 +6,7 @@ input {     position: inherit; }
 #order .MS_input_txt { height:23px; line-height:23px; margin:0; padding:0 5px; }
 #order .container { border: 0; display: inline-block; position: relative; width: 180px; height: 25px; overflow: hidden; border: 1px solid #ddd; }
 #order .container select { position: absolute; top: -2px; left: -2px; background: #fff; }
-#order select { height: 25px; line-height: 25px; border: 1px solid #ddd; background: #fff; text-align: center; }
+#order select { height: 24px; line-height: 25px; border: 1px solid #ddd; background: #fff; text-align: center; font-size: 13px; letter-spacing: 2px;}
 #order .reserve-select select { width:180px; }
 #order input[type=text], 
 #order input[type=password] { width: 168px; height: 23px; line-height: 23px; padding: 0 5px; border: 1px solid #ddd; }
@@ -16,7 +16,7 @@ input {     position: inherit; }
 #order .w100 { width: 100px !important; }
 #order .w120 { width: 120px !important; }
 #order .w240 { width: 240px !important; }
-#order .w280 { width: 280px !important; }
+#order .w280 { width: 299px !important; }
 #order .fc-red { color: #f00; }
 #order .fc-gray { color: #888; }
 #order .mt-10 { margin-top: 10px; }

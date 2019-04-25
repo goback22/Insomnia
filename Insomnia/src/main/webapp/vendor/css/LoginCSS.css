@@ -333,24 +333,12 @@
 	width: 30px;
 }
 
-/* table {
-	width: 279px;
-	text-align: center;
-} */
-
-.user_middle {
-	
-	width: 279px;
-	text-align: center;
-	
-}
-
-.user_middle tr {  /*중간에 table 뺐다.*/
+.user_middle table tr {
 	width: 279px;
 	text-align: center;
 }
 
-.user_middle td  {
+.user_middle table td  {
 	width: 25%;
 }
 
@@ -363,7 +351,7 @@
 
 .user_middle label {
 	color: white;
-	font-size: 13px;
+	font-size: 15px;
 }
 
 

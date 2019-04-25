@@ -149,7 +149,7 @@ body {
 								</c:if>
 								<!-- 내용이 있을 경우 -->
 								<c:if test="${not result}">
-									<div class="historyValue" style="width:1000px; height:600px; margin:auto"> <!-- 루프 -->
+									<div class="historyValue" style="width:1000px; height:300px; margin:auto"> <!-- 루프 -->
 										<c:forEach items="${fundingRecords}" var="funding">
 										
 											<!-- 여기에 ajax랑 똑같은 UI 뜨게 -->
@@ -359,6 +359,7 @@ body {
 				}
 				console.log("$.each()에 어떤 값이?" + whichClick);
 				if(whichClick == "음반") {
+
 					
 					var imgSrc = element["S_Album_cover"];
 					var src = '<c:url value="/resource/img/'+imgSrc+'"/>';
@@ -369,12 +370,14 @@ body {
 					listString += "<p class='historyDesc'>"+element["R_Description"]+"</p>";
 					listString += "<p class='historyMusic'>"+element["BM_name"]+"</p>";
 					listString += "<p class='historyAuthor'>"+element["B_name"]+"</p><p class='historyPrice'>"+element["R_Price"]+"원</p>";
+
 	
 					listString += "</div>"  //전체 div끝
 				}
 				
 				if(whichClick == "공연") {
 					
+
 					//var imgSrc = element["S_Album_cover"];
 					var imgSrc = "yumicell.jpg";
 					var src = '<c:url value="/resource/img/'+imgSrc+'"/>';
@@ -387,6 +390,7 @@ body {
 					var qty = Number(element["qty_bgs"]);
 					var price = Number(element["price_bgs"]);
 					listString += "<p class='historyAuthor'>예매수량:"+element["qty_bgs"]+"장</p><p class='historyPrice'>"+(qty*price)+"원</p>";
+
 	
 					listString += "</div>"  //전체 div끝
 				}

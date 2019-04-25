@@ -359,7 +359,7 @@ $(document).ready(function() {
                             <div class="clearfix"></div>
     
     
-    
+    						<!-- ================================================ Main Content ===================================================== -->
                             <div class="comments-area">
     
                                 <div class="comment-inner">
@@ -501,14 +501,6 @@ $(document).ready(function() {
                                             <input placeholder="Name" id="author" name="author" type="text">
                                         </p>
     
-                                        <p class="comment-form-email">
-                                            <input placeholder="Email" id="email" name="email" type="text">
-                                        </p>
-    
-                                        <p class="comment-form-website">
-                                            <input placeholder="Your Web Site" id="website" name="website" type="text">
-                                        </p>
-    
                                         <p class="form-submit">
                                             <input name="submit" type="submit" id="submit" class="submit" value="Send Comment">
                                         </p>
@@ -516,7 +508,7 @@ $(document).ready(function() {
                                     </form>
                                 </div>
                             </div>
-                            <!-- /.comments-area -->
+                            <!-- ================================================ Main Content ===================================================== -->
                         </div>
                         <!-- /.col-lg-8 -->
                         <!-- ì½íí¸ ì¤ëª ë -->

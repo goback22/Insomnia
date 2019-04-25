@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="RewardDTO" type="com.kosmo.insomnia.service.RewardDTO"/>	
 		<typeAlias alias="CommentDTO" type="com.kosmo.insomnia.service.CommentDTO"/>	
 		<typeAlias alias="BGSConcertDTO" type="com.kosmo.insomnia.service.BGSConcertDTO"/>	
+		<typeAlias alias="BGSPayDTO" type="com.kosmo.insomnia.service.BGSPayDTO"/>	
 		<typeAlias alias="AdminDTO" type="com.kosmo.insomnia.service.AdminDTO"/>
 
 	</typeAliases>
@@ -26,6 +27,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mapper/sgh.xml" />
 		<mapper resource="mapper/bgsConcert.xml" />
 		<mapper resource="mapper/adminMember.xml" />
+		<mapper resource="mapper/bgsPay.xml" />
 	</mappers>
 	
 </configuration>
