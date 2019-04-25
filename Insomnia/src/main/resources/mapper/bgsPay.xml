@@ -6,7 +6,7 @@
 
 <mapper namespace="mapper.bgsPay">
 	<select id="subPayInsert" parameterType="java.util.Map">
-		insert into bgspay values(SEQ_BGS_PAY_NO.nextval,#{id},#{qty},sysdate,#{bank_name},#{phone},#{email},#{non_bankbook},#{non_bankbook_complete},#{non_bankbook_bank_name},#{non_bankbook_account_serial},1)
+		insert into bgspay values(SEQ_BGS_PAY_NO.nextval,#{id},#{qty},sysdate,#{bank_name},#{phone},#{email},#{non_bankbook},#{non_bankbook_complete},#{non_bankbook_bank_name},#{non_bankbook_account_serial},2)
 	</select>
 	
 

@@ -333,12 +333,16 @@
 	width: 30px;
 }
 
-.user_middle table tr {
+.user_middle {
+	letter-spacing: -2px;
+}
+
+.user_middle tr {
 	width: 279px;
 	text-align: center;
 }
 
-.user_middle table td  {
+.user_middle td  {
 	width: 25%;
 }
 
@@ -389,6 +393,28 @@
 
 .user_bottom {
 	
+}
+
+
+
+/*회원정보 란 수정*/
+
+img.user_picture {
+
+	width: 200px;
+	height: 200px;
+	margin: 0 auto;
+	display: block;
+	margin-bottom: 20px;
+
+}
+
+.user_top {
+    text-align: center;
+}
+
+.user_middle {
+    letter-spacing: -2px;
 }
 
 

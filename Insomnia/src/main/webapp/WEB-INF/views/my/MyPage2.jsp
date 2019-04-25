@@ -149,13 +149,11 @@ body {
 								</c:if>
 								<!-- 내용이 있을 경우 -->
 								<c:if test="${not result}">
-									<div class="historyValue" style="width:1000px; height:300px; margin:auto"> <!-- 루프 -->
+									<div class="historyValue" style="width:1500px; height:450px; margin:auto; text-align:center;"> <!-- 루프 -->
 										<c:forEach items="${fundingRecords}" var="funding">
 										
 											<!-- 여기에 ajax랑 똑같은 UI 뜨게 -->
-											
-											
-											<!-- dlfdfdfdf -->
+
 											<div class='historyDiv'>
 												<p class='historyName'>${funding.r_name}</p>
 												<img class='historyImg' src="<c:url value='/resource/img/${funding.s_album_cover}'/>"/> 

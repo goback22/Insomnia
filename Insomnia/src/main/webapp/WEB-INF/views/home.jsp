@@ -223,7 +223,7 @@
 					<div class="afterLogin" style="margin-top: -370px">
 					<!-- 닫기 버튼 -->
 						<a href="<c:url value='/#'/>" class="offset-closer">
-							<img style="margin-left: 270px; margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
+							<img style="margin-left: 270px; margin-top: -60px; width:15px; height:15px;" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
 						</a>
 					<!-- 네이버 로그인 display:none -->
 					<!-- <div id="naver_id_login" style="display: none;"></div> -->
@@ -237,7 +237,7 @@
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
 	            		<c:if test="${empty record.login_chain}" var="isSocial">
 	              			<!-- 프로필 이미지:일반로그인 -->
-	                		<img class="user_picture" src="<c:url value='/upload/${record.profile_img}'/>"/>
+	                		<img class="user_picture" src="<c:url value='/resource/img/${record.profile_img}'/>"/>
 	                	</c:if>
 	                	<c:if test="${not isSocial}">
 	                		<!-- 프로필 이미지:소셜로그인 -->
@@ -266,7 +266,7 @@
 		           		  <td><label for="middle1">리워드</label></td>
 		           		  <td><label for="middle2">마이페이지</label></td>
 		           		  <td><label for="middle3">초대하기</label></td>
-	    	           	  <td><label for="middle5">자유게시판</label></td>
+	    	           	  <td><label for="middle4">자유게시판</label></td>
 			           </tr>
 		            </table>
 		            
