@@ -223,7 +223,7 @@
 					<div class="afterLogin" style="margin-top: -370px">
 					<!-- 닫기 버튼 -->
 						<a href="javascript:return false;" class="offset-closer">
-							<img style="margin-left: 270px; margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
+							<img style="margin-left: 270px; margin-top: -60px; height:15px; width:15px;" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
 						</a>
 					<!-- 네이버 로그인 display:none -->
 					<div id="naver_id_login" style="display: none;"></div>
