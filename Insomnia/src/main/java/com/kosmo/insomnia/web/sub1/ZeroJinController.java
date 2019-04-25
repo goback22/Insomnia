@@ -390,6 +390,10 @@ public class ZeroJinController {
 			comment.put("CONTENT", comment.get("CONTENT").toString().replace("\r\n", "<br/>"));
 		}
 		
+//		comments.get("PROFILE_IMG")
+		
+//		System.out.println(comments.get("PROFILE_IMG").to);
+		
 		System.out.println(JSONArray.toJSONString(comments));
 		return JSONArray.toJSONString(comments);
 	}//list()

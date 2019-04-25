@@ -125,8 +125,13 @@
       tableString += "<article class='review-comment'>";
       $.each(JSON.parse(data),
          function(index, element) {
+    	  	var A = element['PROFILE_IMG'];
+    	  	console.log(A);
+    	  	var B = "<c:url value='/upload/" +A+ "'/>;"
+    	  	console.log(B);
             tableString += "<div class='user-avatar'>";
-            tableString += "<img src='<c:url value='/resource/img/commenttemp.jpg'/>'>";
+//             tableString += "<img src='<c:url value='/resource/img/commenttemp.jpg'/>'>";
+            tableString += "<img style='border-radius:50px;height:70px;width:70px;' src='" +B+ "'>";
             tableString += "</div>";
             tableString += "<div class='comment-content'>";
             tableString += "<h5 class='name'>"
@@ -584,71 +589,71 @@ body {
 								</div>
 
 								<!-- 지도 누르면 확대 -->
-								<section class="shop site-main">
-									<div class="tim-container">
-										<div class="row">
-											<div class="col-xl-9 col-lg-8 col-md-8">
-												<div class="product-top-menu"></div>
-												<div class="woocommerce columns-3 row">
-													<ul class="products product-two tim-product-view">
-														<li class="product product-two clearfix">
-															<div class="product-thumb">
-																<img src="<c:url value='/resource/img/aa3.jpg'/>"
-																	class="attachment-shop_catalog" alt="Product">
-																<span class="new">New!</span>
+<!-- 								<section class="shop site-main"> -->
+<!-- 									<div class="tim-container"> -->
+<!-- 										<div class="row"> -->
+<!-- 											<div class="col-xl-9 col-lg-8 col-md-8"> -->
+<!-- 												<div class="product-top-menu"></div> -->
+<!-- 												<div class="woocommerce columns-3 row"> -->
+<!-- 													<ul class="products product-two tim-product-view"> -->
+<!-- 														<li class="product product-two clearfix"> -->
+<!-- 															<div class="product-thumb"> -->
+<%-- 																<img src="<c:url value='/resource/img/aa3.jpg'/>" --%>
+<!-- 																	class="attachment-shop_catalog" alt="Product"> -->
+<!-- 																<span class="new">New!</span> -->
 
-																<div class="product-details">
-																	<a href="javascript:void(0);"
-																		class="btn-quickview trigger"><i class="tim-view"></i></a>
-																	<a href="#" class="blr"><i
-																		class="tim-heart-outline"></i></a> <a href="#"><i
-																		class="tim-shopping-cart-1"></i></a>
-																</div>
-															</div>
+<!-- 																<div class="product-details"> -->
+<!-- 																	<a href="javascript:void(0);" -->
+<!-- 																		class="btn-quickview trigger"><i class="tim-view"></i></a> -->
+<!-- 																	<a href="#" class="blr"><i -->
+<!-- 																		class="tim-heart-outline"></i></a> <a href="#"><i -->
+<!-- 																		class="tim-shopping-cart-1"></i></a> -->
+<!-- 																</div> -->
+<!-- 															</div> -->
 
-															<div class="product-details-content">
-																<h2 class="woocommerce-loop-product__title">Rocking Guitar</h2>
+<!-- 															<div class="product-details-content"> -->
+<!-- 																<h2 class="woocommerce-loop-product__title">Rocking Guitar</h2> -->
 
-																<span class="price"> <ins>
-																		<span class="woocommerce-Price-amount amount">
-																			<span class="woocommerce-Price-currencySymbol">$</span>
-																			600
-																		</span>
-																	</ins>
-																</span>
+<!-- 																<span class="price"> <ins> -->
+<!-- 																		<span class="woocommerce-Price-amount amount"> -->
+<!-- 																			<span class="woocommerce-Price-currencySymbol">$</span> -->
+<!-- 																			600 -->
+<!-- 																		</span> -->
+<!-- 																	</ins> -->
+<!-- 																</span> -->
 
-																<div class="product-description">
-																	<p>Lorem ipsum dolor sit amet, consectetur
-																		adipisicing elit. Quos ratione unde, possimus aliquid
-																		ab minima optio, reprehenderit iusto, magnam
-																		recusandae obcaecati distinctio quis? Earum harum iste
-																		illo obcaecati laborum suscipit</p>
+<!-- 																<div class="product-description"> -->
+<!-- 																	<p>Lorem ipsum dolor sit amet, consectetur -->
+<!-- 																		adipisicing elit. Quos ratione unde, possimus aliquid -->
+<!-- 																		ab minima optio, reprehenderit iusto, magnam -->
+<!-- 																		recusandae obcaecati distinctio quis? Earum harum iste -->
+<!-- 																		illo obcaecati laborum suscipit</p> -->
 
-																	<a href="#" class="add_to_cart_button"><i
-																		class="tim-shopping-cart-1"></i> Add To Cart</a>
-																</div>
-															</div> <!-- /.product-details-content -->
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
+<!-- 																	<a href="#" class="add_to_cart_button"><i -->
+<!-- 																		class="tim-shopping-cart-1"></i> Add To Cart</a> -->
+<!-- 																</div> -->
+<!-- 															</div> /.product-details-content -->
+<!-- 														</li> -->
+<!-- 													</ul> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
 
-									<!-- Quick View -->
-									<div class="modal quickview-wrapper">
-										<div class="quickview">
-											<div class="quickview-content">
-												<div class="row">
-													<div id="kyj" class="col-md-6 col-sm-6">
-													<img src="<c:url value='/resource/img/aa3.jpg'/>"
-																	class="attachment-shop_catalog" alt="Product">
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</section>
+<!-- 									Quick View -->
+<!-- 									<div class="modal quickview-wrapper"> -->
+<!-- 										<div class="quickview"> -->
+<!-- 											<div class="quickview-content"> -->
+<!-- 												<div class="row"> -->
+<!-- 													<div id="kyj" class="col-md-6 col-sm-6"> -->
+<%-- 													<img src="<c:url value='/resource/img/aa3.jpg'/>" --%>
+<!-- 																	class="attachment-shop_catalog" alt="Product"> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</section> -->
 
 
 								<!-- Concert Information -->
