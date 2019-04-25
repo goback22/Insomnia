@@ -3,6 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+<!-- Noto Sans KR Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+
+
+<link href="<c:url value='/vendor/css/content-reward.css'/>" rel="stylesheet" type="text/css">
+<link href="<c:url value='/vendor/css/content-wdetail.css'/>" rel="stylesheet" type="text/css">
+
+
+
+
+
+
        <style>
           
   
@@ -81,13 +93,15 @@
 }
 
 
-
-.floating-menu{
-   border:1px solid red; 
-   top:1px; 
-   left:1px;
-   position:absolute;
-}
+body{
+	font-family: 'Noto Sans KR', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	letter-spacing: -.02em;
+	color: rgba(0,0,0,.69);
+	line-height: 1.5em;
+	font-size: 15px;
+    font-weight: 400;
+    }
 
        </style>
 
@@ -100,22 +114,7 @@
     //////////////// ë°ë¼ë¤ëë jquery //////////////////
 
 
-$(document).ready(function() {
 
-	var currentPosition = parseInt($(".floating-menu").css("top")); 
-    $(window).scroll(function() { 
-
-        var position = $(window).scrollTop()+currentPosition; 
-
-    $(".floating-menu").stop().animate({
-        "top":position+"px"
-        },1000); 
-
-        });
-
-
-
-});
 
  
         
@@ -170,7 +169,7 @@ $(document).ready(function() {
 									There are many variations of passages of Lorem Ipsum availabe, but the majority have suffered alteration in some form by injected humour
 								</p>
 
-								<img src="<c:url value='/media/artist/2.png'/>" alt="Artist- Sing" class="sng">
+								<a href="<c:url value='/main/bandSubmit.ins'/>"><img src="<c:url value='/media/artist/2.png'/>" alt="Artist- Sing" class="sng"></a>
 							</div>
 						</div>
 						<!-- /.artist-details -->
@@ -184,6 +183,80 @@ $(document).ready(function() {
 		<!-- /#artist -->
 
 
+<!-- Music Player -->
+<!-- Music Player -->
+<!-- Music Player -->
+<!-- Music Player -->
+<!-- Music Player -->
+<section id="banner-one">
+			<div class="swiper-container banner-slider-two" data-swiper-config='{"loop": true, "effect": "slide", "prevButton":"#banner-nav-prev", "nextButton": "#banner-nav-next", "speed": 700, "autoplay": 500000, "paginationClickable": true}'>
+
+				<div class="header_player">
+					<div class="tim-container ">
+						
+							<!-- Audio Player -->
+						<div class="player-container">
+							<div class="current-tracks">
+								<div id="main_player" class="jp-jplayer">
+
+								</div>
+								<div id="nowPlaying">
+									<h3 class="track-name"></h3>
+									<span class="artist-name"></span>
+								</div>
+								<!-- #nowPlaying -->
+							</div>
+							<!-- /.current-tracks -->
+
+							<div id="header_player" class="jp-audio" role="application" aria-label="media player">
+								<div class="jp-type-playlist clearfix">
+									<div class="jp-gui jp-interface">
+										<div class="jp-controls">
+											<button class="jp-previous" tabindex="0"><i class="fa fa-backward"></i></button>
+											<button class="jp-play" tabindex="0"><i class="fa fa-play"></i></button>
+											<button class="jp-next" tabindex="0"><i class="fa fa-forward"></i></button>
+										</div>
+										<!-- Display the track inside player -->
+
+										<div class="jp-progress">
+											<div class="jp-seek-bar">
+												<div class="jp-play-bar"></div>
+											</div>
+										</div>
+
+										<div class="jp-duration" role="timer" aria-label="duration"></div>
+
+										<div class="vel-wrap">
+											<button class="jp-mute" tabindex="0"><i class="fa fa-volume-up"></i></button>
+
+											<div class="jp-volume-bar">
+												<div class="jp-volume-bar-value"></div>
+											</div>
+
+										</div>
+										<!-- /.vel-wrap -->
+
+										<button id="playlist-toggle" class=""><i class="fa fa-list"></i></button>
+
+										<!-- Playlist -->
+										<div class="jp-playlist">
+											<ul>
+												<li></li>
+											</ul>
+										</div>
+										<!-- PlayList END -->
+									</div><!-- class jp-gui jp-interface -->
+								</div><!-- class jp-type-playlist clearfix -->
+							</div><!-- class header-player -->
+						</div><!-- class player-container -->
+					</div>
+				</div>
+				<!-- /.header_player -->
+			</div>
+		</section>
+		<!-- /#banner-one -->
+		
+		<!-- MusicPlayer END -->
 
                     
 		<!--==============================-->
@@ -192,7 +265,7 @@ $(document).ready(function() {
         <div class="section">
 
 		<section class="show-archive">
-			<div class="container" style="margin-top:20%;">
+			<div class="container">
 				<div class="d-flex justify-content-center row">
 					<div class="col-xl-10">
 						<div class="section-title style-five">
@@ -359,7 +432,7 @@ $(document).ready(function() {
                             <div class="clearfix"></div>
     
     
-    						<!-- ================================================ Main Content ===================================================== -->
+    
                             <div class="comments-area">
     
                                 <div class="comment-inner">
@@ -487,7 +560,7 @@ $(document).ready(function() {
                                 </div>
                                 <!-- /.comment-inner -->
     
-                                <div id="respond" class="comment-respond">
+                                <div id="respond" class="comment-respond" style="margin-bottom:30px;">
                                     <h3 id="reply-title" class="comment-reply-title">
                                         Leave a comment
                                     </h3>
@@ -501,6 +574,14 @@ $(document).ready(function() {
                                             <input placeholder="Name" id="author" name="author" type="text">
                                         </p>
     
+                                        <p class="comment-form-email">
+                                            <input placeholder="Email" id="email" name="email" type="text">
+                                        </p>
+    
+                                        <p class="comment-form-website">
+                                            <input placeholder="Your Web Site" id="website" name="website" type="text">
+                                        </p>
+    
                                         <p class="form-submit">
                                             <input name="submit" type="submit" id="submit" class="submit" value="Send Comment">
                                         </p>
@@ -508,17 +589,84 @@ $(document).ready(function() {
                                     </form>
                                 </div>
                             </div>
-                            <!-- ================================================ Main Content ===================================================== -->
+                            <!-- /.comments-area -->
                         </div>
                         <!-- /.col-lg-8 -->
                         <!-- ì½íí¸ ì¤ëª ë -->
                         <!-- ì¬ì´ë ë¸ë ì¬ê¸° -->
-                        <div class="col-sm-offset-1 col-sm-3" style="border:1px solid green;">
-                            <div class="floating-menu">
-                                <a href="#" class=" tim-btn">Support it!</a>
-                            </div>
-                        </div>
-
+                        <div class="col-sm-offset-1 col-sm-3" style="margin-left:100px; margin-top:30px;">
+                            
+                            
+                            <!-- ------------------------------------------------------------------------------------------------------------------ -->
+                                								 <!-- S : 보상품 목록, 참여할 때 드리는 선물  -->
+                            <!-- ------------------------------------------------------------------------------------------------------------------ -->    								 
+                                								 
+                                								 
+			              <div id="campaign-rewards" style="position: relative; top:-50px;"></div>
+			              <div class="moveRewards">
+			              
+			                <div class="wd-ui-gift">
+			                  <h3 class="project-right-title">리워드 선택</h3>
+			                  
+			                  <!--  여기부터 리워드 리스트 시작 -->
+			                  
+			                  
+			                  <div class="rightinfo-reward-list" style="width:100%;" onclick="" >
+			                  <div class="top-info" style="width:100%">
+			                    <dl class="reward-info">
+			                      <dt>
+			                        179,000원 펀딩
+			                      </dt>
+			                      <dd>
+			                        <p class="reward-name">[슈퍼얼리버드] 루퍼 - NICK백팩</p>
+			                        <p>슈퍼얼리버드 NICK백팩을 리워드 할 수 있습니다.<br>45%할인 혜택<br>316,000원 -> 179,000원  <br><br>선착순 100명 한정<br><br>제품구성<br>+ NICK 백팩 (사이즈 S,M,L)<br>+ 고급 노트북파우치 무료 제공<br>+ SIM 카드 보관 파우치 (목걸이 포함) 무료 제공<br></p>
+			                      </dd>
+			                    </dl>
+			                    
+			                    <ul class="data-info">
+			                      <li class="shipping" style="width: 100%; margin-bottom: 5px;">배송비<em>4,500원</em></li>
+			                      <li class="date" style="width: 100%;">리워드 발송 시작일
+			                        <em>2019년 06월 초 (1~10일) 예정</em>
+			                      </li>
+			                    </ul>
+			                  </div>
+			                    <p class="hover-text">이 리워드 펀딩하기</p>
+			                  </div>
+			                  
+			                  
+			                  
+			                  <div class="rightinfo-reward-list" style="width:100%;" onclick="" >
+			                  <div class="top-info" style="width:100%">
+			                    <dl class="reward-info">
+			                      <dt>
+			                        179,000원 펀딩
+			                      </dt>
+			                      <dd>
+			                        <p class="reward-name">[슈퍼얼리버드] 루퍼 - NICK백팩</p>
+			                        <p>슈퍼얼리버드 NICK백팩을 리워드 할 수 있습니다.<br>45%할인 혜택<br>316,000원 -> 179,000원  <br><br>선착순 100명 한정<br><br>제품구성<br>+ NICK 백팩 (사이즈 S,M,L)<br>+ 고급 노트북파우치 무료 제공<br>+ SIM 카드 보관 파우치 (목걸이 포함) 무료 제공<br></p>
+			                      </dd>
+			                    </dl>
+			                    
+			                    <ul class="data-info">
+			                      <li class="shipping" style="width: 100%; margin-bottom: 5px;">배송비<em>4,500원</em></li>
+			                      <li class="date" style="width: 100%;">리워드 발송 시작일
+			                        <em>2019년 06월 초 (1~10일) 예정</em>
+			                      </li>
+			                    </ul>
+			               
+			                  </div>
+			                  
+			                    <p class="hover-text">이 리워드 펀딩하기</p>
+			                  </div>
+			                  
+			                  
+			              </div><!-- 여기 위에 추가시키면 리워드 늘어남 -->
+			            
+			              
+			              
+                        </div><!-- 와디즈 사이드 리워드 리스트 끝 -->
+					</div><!-- 사이드 리워드 리스트 -->
+					
 				</div><!-- row -->
          	</div>
         </div><!--site-->

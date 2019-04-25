@@ -1,48 +1,30 @@
 jQuery(document).ready(function($) {
   "use strict";
-
+  console.log("myplaylist.js start");
+  $.ajax({
+	  url:"/insomnia/music/loadMusicToHeaderPlayer.ins",
+	  type:'post',
+	  dataType:'json',
+	  success: function(data){
+		  console.log(data);
+		  loadMusicList(data);  
+	  },
+	  error:function(request, error){
+		console.log('상태코드:',request.status);
+		console.log('서버로부터 받은 HTML데이타 :',request.responseText);
+		console.log('에러:',error);	
+	  }
+  });
+  
+  function loadMusicList(data){
   /* Banner Player */
   $('#header_player').each(function() {
     var myPlaylist = new jPlayerPlaylist({
       jPlayer: "#main_player",
       cssSelectorAncestor: "#header_player"
-    }, [{
-        title: 'Happy Life',
-        artist: 'Derwood Spinks',
-        mp3: 'media/audio/happy_life.mp3',
-        poster: "media/audio/01.jpg",
-      },
-      {
-        title: 'King Magicians',
-        artist: 'Dan Mustaine',
-        mp3: 'media/audio/02.mp3',
-        poster: "media/audio/02.jpg",
-      },
-      {
-        title: 'Leaving it Behind',
-        artist: 'RZ Project',
-        mp3: 'media/audio/03.mp3',
-        poster: "media/audio/03.jpg"
-      },
-      {
-        title: 'Bloodborne',
-        artist: 'Chester Ray Banton',
-        mp3: 'media/audio/04.mp3',
-        poster: "media/audio/04.jpg"
-      },
-      {
-        title: 'When Spells',
-        artist: 'Dan Mustaine',
-        mp3: 'media/audio/05.mp3',
-        poster: "media/audio/05.jpg"
-      },
-      {
-        title: 'When Spells',
-        artist: 'Derwood Spinks',
-        mp3: 'media/audio/06.mp3',
-        poster: "media/audio/06.jpg"
-      }
-    ], {
+    },
+    data, 
+    {
       playlistOptions: {
         enableRemoveControls: true,
         html: '.play',
@@ -75,7 +57,7 @@ jQuery(document).ready(function($) {
         });
       });
   });
-
+}//function showMusicList
 
   new jPlayerPlaylist({
     jPlayer: "#jquery_jplayer_1",
