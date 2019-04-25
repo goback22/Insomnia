@@ -222,7 +222,7 @@
 				<div class="offset-menu-two">
 					<div class="afterLogin" style="margin-top: -370px">
 					<!-- 닫기 버튼 -->
-						<a href="<c:url value='/#'/>" class="offset-closer">
+						<a href="javascript:return false;" class="offset-closer">
 							<img style="margin-left: 270px; margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
 						</a>
 					<!-- 네이버 로그인 display:none -->
@@ -237,7 +237,7 @@
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
 	            		<c:if test="${empty record.login_chain}" var="isSocial">
 	              			<!-- 프로필 이미지:일반로그인 -->
-	                		<img class="user_picture" src="<c:url value='/upload/${record.profile_img}'/>"/>
+	                		<img class="user_picture" src="http://bitly.kr/5WfCr6"/>
 	                	</c:if>
 	                	<c:if test="${not isSocial}">
 	                		<!-- 프로필 이미지:소셜로그인 -->

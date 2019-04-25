@@ -633,11 +633,11 @@
 																	있습니다.</div>
 																<div class="privercy-agree">
 																	<label>
-																		<input type="radio" name="new_privacy_agree" value="Y"> 
+																		<input type="radio" class="sub_yes_agree" name="new_privacy_agree" value="Y"> 
 																		정보수집에 동의합니다.
 																	</label> 
 																	<label>
-																		<input type="radio" name="new_privacy_agree" value="N" checked="checked">
+																		<input type="radio" class="sub_no_agree" name="new_privacy_agree" value="N" checked="checked">
 																		동의하지 않습니다.
 																	</label>
 																</div>

@@ -178,7 +178,9 @@
 	        	</p>
 	        	<div style="margin-bottom: 20px;">
 		        	<button class="btn btn-info" style="font-size: 20px;">장바구니</button>
-		        	<button class="btn btn-success" style="margin: 10px;font-size: 20px;">목록으로</button>
+		        	<a href="<c:url value='/sub1/subprojects.ins'/>">
+		        		<button class="btn btn-success" style="margin: 10px;font-size: 20px;">목록으로</button>
+		        	</a>
 	        	</div>
 	       	</div>
        	

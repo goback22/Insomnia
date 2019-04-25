@@ -450,7 +450,7 @@ body {
       </div>
       <div class="button_area" style="margin-top: -45px">
          <input type='checkbox' name='chkbox' id='todaycloseyn' value='Y'>&nbsp;&nbsp;오늘
-         이 창을 열지 않음 &nbsp;&nbsp;<a href='' onclick="javascript:closeWin(1);"><B>[닫기]</B></a>
+         이 창을 열지 않음 &nbsp;&nbsp;<a href='javascript:return false;' onclick="javascript:closeWin(1);"><B>[닫기]</B></a>
       </div>
    </div>
    <!--  공지 끝 -->

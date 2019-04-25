@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -40,7 +42,7 @@ public class PayCompleteController {
 	
 	//결제 완료페이지]
 	@RequestMapping(value="/Pay/PayComplete.ins",method = RequestMethod.POST)
-	public String payComplete(@RequestParam Map map,Model model) throws Exception {
+	public String payComplete(@RequestParam Map map,Model model,HttpSession session) throws Exception {
 		//주문자 정보 - 이름]
 		model.addAttribute("sender_name", map.get("sender_name"));
 		
@@ -529,7 +531,7 @@ public class PayCompleteController {
 			
 			Map record = new HashMap();
 			//P_NO -> 결제번호]
-			record.put("id",send_Email); // 주문자 아이디]
+			record.put("id",session.getAttribute("id")); // 주문자 아이디]
 			record.put("qty",map.get("subPay_Item_Qty")); // 주문 수량]
 			//pagydate -> 주문 날짜]
 			record.put("bank_name", no_Bank_Name); // 무통장 입금자 명]
