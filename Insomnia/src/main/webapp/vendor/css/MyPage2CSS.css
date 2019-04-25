@@ -2,12 +2,6 @@
     box-sizing: border-box;
 }
 
-@font-face {
-	
-	font-family : Roboto
-	src : url(../../font/)
-}
-
 article, blockquote, body, dd, div, dl, dt, h1, h2, h3, h4, html, li, main, ol, p, section, table, tbody, td, th, thead, tr, ul {
     margin: 0;
     padding: 0;

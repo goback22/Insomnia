@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+
+
+.view{
+	cursor:pointer;
+}
+
+tr.fold {
+	display: none;
+      &.open { display:table-row; }
+}
+

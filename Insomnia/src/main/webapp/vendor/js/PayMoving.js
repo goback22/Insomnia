@@ -33,7 +33,7 @@ $(function(){
 		console.log("마이나스");
 		number_of_items--;
 		if(number_of_items<=0){
-			alert("한개 이상의 수량을 선택하세요.");
+			alert("한 개 이상의 수량을 선택하세요.");
 			return;
 		}
 		$("#qtyqty").val(number_of_items);
@@ -44,19 +44,27 @@ $(function(){
 	
 //===============================================================================
 	
-// ======= 주문자 정보(정보와 같음 클릭 시) -> 배송정보로 정보 이동 ============
-	$("#same").click(function(){
+// ======= 주문자 정보(정보와 같음 클릭 시) -> 예매정보로 정보 이동 ============
+	$(document).on("click","#same",function(){
 		if($(this).get(0).checked){
 			$("#receiver").val($("#sender").val());
 			$("#emergency21").val($("#emergency11").val());
 			$("#emergency22").val($("#emergency12").val());
 			$("#emergency23").val($("#emergency13").val());
+			$("input[name=subPay_Email1]").val($("#email_1").val())
+			var email_2 = $(".choose_email_1 option:selected").val();
+			$(".choose_email_2 option:selected").prop("selected",false);
+			$(".choose_email_2 option:eq(email_2)").prop("selected",true);
+			//$(".choose_email_2 option").val(email_2).attr("selected","selected");
 			
 		}else{
 			$("#receiver").val("");
 			$("#emergency21").val("");
 			$("#emergency22").val("");
 			$("#emergency23").val("");
+			$("input[name=subPay_Email1]").val("");
+			$(".choose_email_2 option:selected").prop("selected",false);
+			$(".choose_email_2 option:eq(0)").prop("selected",true);
 		}
 	});
 //===============================================================================
@@ -65,7 +73,7 @@ $(function(){
 	/*console.log($(".pay-method input[name='radio_paymethod']").val());*/
 	
 	var pay_Way = "B";
-	$("input[name='radio_paymethod']").click(function(){
+	$("input[name='subPay_orderWay']").click(function(){
 		pay_Way = $(this).val();
 		
 		$(".payment-info").each(function(){
@@ -78,35 +86,27 @@ $(function(){
 		case 'B':
 			$("#evidence").css("display","");
 	        $(".no_BankBook").css("display","");
+	        $(".add_Info").css("display","");
+	        $(".tbl-add_Info").css("display","");
 			break;
 		//======== 무통장 입금 ========
-			
-		//======== PAYCO ========
-		case 'PAYCO':
-			$("#evidence").css("display","none");
-	        $(".no_BankBook").css("display","none");
-			break;
-		//======== PAYCO ========
 		
 		//======== 신용카드 ========
 		case 'C':
 			$("#evidence").css("display","none");
 	        $(".no_BankBook").css("display","none");
+	        $(".add_Info").css("display","none");
+	        $(".tbl-add_Info").css("display","none");
 			break;
 		//======== 신용카드 ========
 		
 		//======== 휴대폰 결제 ========
-		case 'D':
-			$("#evidence").css("display","none");
-	        $(".no_BankBook").css("display","none");
-			break;
-		//======== 휴대폰 결제 ========
-			
-		//======== 카카오 페이 ========
 		default :
 			$("#evidence").css("display","none");
-        	$(".no_BankBook").css("display","none");
-		//======== 카카오 페이 ========
+	        $(".no_BankBook").css("display","none");
+	        $(".add_Info").css("display","none");
+	        $(".tbl-add_Info").css("display","none");
+		//======== 휴대폰 결제 ========
 		}
 	});	
 	
@@ -123,10 +123,11 @@ $(function(){
 //===============================================================================
 	
 //============================ 이메일 이벤트 처리 ===============================
-	$(".choose_email").change(function(){
+	$(document).on("change",".choose_email_2",function(){
 		console.log($(this).val());
-		console.log($(".choose_email option").length);
-		if($(this).val() == $(".choose_email option").length-1){
+		console.log($(".choose_email_2 option").length);
+		console.log($(".choose_email_1").attr("selected","selected").val());
+		if($(this).val() == $(".choose_email_2 option").length-1){
 			$("#email_self").css("display","");
 		}else{
 			$("#email_self").css("display","none");
@@ -181,11 +182,11 @@ $(function(){
 	var is_One = false;
 	var order_price;
 	
-	//가격 얻어오기용 변수]
-	var item_count;
+	//가격 얻어오기용 수량 변수]
+	var item_count = $(".item_Count").val();
 	
 	//수량에 따른 값 증가 - db저장용
-	var order_price_save;
+	var order_price_save = $("#op_total_price").text();
 	
 	//콤마 찍기 - 출력용
 	var order_price_print;
@@ -193,8 +194,11 @@ $(function(){
 	//전체 값 저장용]
 	var all_price_save = 0;
 	
+	var isComma = true;
+	
 	//============================= 플러스 =============================
 	$(this).on("click",".btn_plus",function(){
+		isComma = false;
 		//var item_count = $(".item_Count_"+값).text();
 		item_count = $(".item_Count").val();
 		
@@ -221,8 +225,8 @@ $(function(){
 	
 	//============================= 마이너스 =============================
 	$(this).on("click",".btn_minus",function(){
+		isComma = false;
 		item_count = $(".item_Count").val();
-		
 		
 		//초기 price(콤마 풀기)
 		if(!is_One){
@@ -233,6 +237,7 @@ $(function(){
 		item_count--;
 		if(item_count <= 0){
 			alert("한개 이상의 수량을 선택하세요.");
+			item_count = 1;
 			return;
 		}
 		
@@ -352,232 +357,360 @@ $(function(){
 	
 //===============================================================================
 
-//================================== 결제 방법 ==================================
-	$(document).on("click","#btn_order_ok",function() {
-		if(pay_Way == "C"){
-			var IMP = window.IMP; // 생략가능
-			IMP.init('imp11329087');
-			// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-			// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
-			IMP.request_pay({
-				// pg : 하나의 아임포트계정으로 여러 PG를 사용할 때 구분자
-				pg : 'payco', // version 1.1.0부터 지원.
-				/*
-				 'kakao':카카오페이,
-				 'html5_inicis':이니시스(웹표준결제)
-				 'nice':나이스페이
-				 'jtnet':제이티넷
-				 'uplus':LG유플러스
-				 'danal':다날
-				 'payco':페이코
-				 'syrup':시럽페이
-				 'paypal':페이팔
-				 */
-				
-				//pay_method : 결제수단
-				pay_method : 'card',
-				/*
-				 'samsung':삼성페이,
-				 'card':신용카드,
-				 'trans':실시간계좌이체,
-				 'vbank':가상계좌,
-				 'phone':휴대폰소액결제
-				 */
-				
-				//escrow : 에스크로 결제여부(default : false)
-				//escrow : 'true';
-			
-				//merchant_uid : 가맹점에서 생성/관리하는 고유 주문번호
-				merchant_uid : 'merchant_' + new Date().getTime(),
-				/*
-				 merchant_uid에 경우
-				 https://docs.iamport.kr/implementation/payment
-				 위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
-				 참고하세요.
-				 나중에 포스팅 해볼게요.
-				 */
-				//결제창에서 보여질 이름
-				name : $(".tb-left:eq(0)").text(),
-				//name : $(".tb-left:eq(0)").text(),
-				//결제할 금액
-				amount : 1000, 
-				//구매정보
-				buyer_email : 'iamport@siot.do',
-				buyer_name : '구매자이름',
-				buyer_tel : '010-1234-5678',
-				buyer_addr : '서울특별시 강남구 삼성동',
-				buyer_postcode : '123-456',
-				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
-			/*
-			 모바일 결제시,
-			 결제가 끝나고 랜딩되는 URL을 지정
-			 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
-			 */
-			}, function(rsp) {
-				console.log(rsp);
-				if (rsp.success) {
-					var msg = '결제가 완료되었습니다.';
-					msg += '고유ID : ' + rsp.imp_uid;
-					msg += '상점 거래ID : ' + rsp.merchant_uid;
-					msg += '결제 금액 : ' + rsp.paid_amount;
-					msg += '카드 승인번호 : ' + rsp.apply_num;
-				} else {
-					var msg = '결제에 실패하였습니다.';
-					msg += '에러내용 : ' + rsp.error_msg;
-					//location.href = "/insomnia/Pay/PayComplete.ins";
-				}
-				alert(msg);
-			});
-		}else if(pay_Way=="D"){
-			var IMP = window.IMP; // 생략가능
-			IMP.init('imp11329087');
-			// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-			// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
-			IMP.request_pay({
-				// pg : 하나의 아임포트계정으로 여러 PG를 사용할 때 구분자
-				pg : 'uplus', // version 1.1.0부터 지원.
-				/*
-				 'kakao':카카오페이,
-				 'html5_inicis':이니시스(웹표준결제)
-				 'nice':나이스페이
-				 'jtnet':제이티넷
-				 'uplus':LG유플러스
-				 'danal':다날
-				 'payco':페이코
-				 'syrup':시럽페이
-				 'paypal':페이팔
-				 */
-				
-				//pay_method : 결제수단
-				pay_method : 'phone',
-				/*
-				 'samsung':삼성페이,
-				 'card':신용카드,
-				 'trans':실시간계좌이체,
-				 'vbank':가상계좌,
-				 'phone':휴대폰소액결제
-				 */
-				
-				//escrow : 에스크로 결제여부(default : false)
-				//escrow : 'true';
-			
-				//merchant_uid : 가맹점에서 생성/관리하는 고유 주문번호
-				merchant_uid : 'merchant_' + new Date().getTime(),
-				/*
-				 merchant_uid에 경우
-				 https://docs.iamport.kr/implementation/payment
-				 위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
-				 참고하세요.
-				 나중에 포스팅 해볼게요.
-				 */
-				//결제창에서 보여질 이름
-				name : $(".tb-left:eq(0)").text(),
-				//name : $(".tb-left:eq(0)").text(),
-				//결제할 금액
-				amount : 100, 
-				//구매정보
-				buyer_email : 'iamport@siot.do',
-				buyer_name : '구매자이름',
-				buyer_tel : '010-1234-5678',
-				buyer_addr : '서울특별시 강남구 삼성동',
-				buyer_postcode : '123-456',
-				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
-			/*
-			 모바일 결제시,
-			 결제가 끝나고 랜딩되는 URL을 지정
-			 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
-			 */
-			}, function(rsp) {
-				console.log(rsp);
-				if (rsp.success) {
-					var msg = '결제가 완료되었습니다.';
-					msg += '고유ID : ' + rsp.imp_uid;
-					msg += '상점 거래ID : ' + rsp.merchant_uid;
-					msg += '결제 금액 : ' + rsp.paid_amount;
-					msg += '카드 승인번호 : ' + rsp.apply_num;
-				} else {
-					var msg = '결제에 실패하였습니다.';
-					msg += '에러내용 : ' + rsp.error_msg;
-					//location.href = "/insomnia/Pay/PayComplete.ins";
-				}
-				alert(msg);
-			});
-		}else{
-			var IMP = window.IMP; // 생략가능
-			IMP.init('imp11329087');
-			// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-			// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
-			IMP.request_pay({
-				// pg : 하나의 아임포트계정으로 여러 PG를 사용할 때 구분자
-				pg : 'nice', // version 1.1.0부터 지원.
-				/*
-				 'kakao':카카오페이,
-				 'html5_inicis':이니시스(웹표준결제)
-				 'nice':나이스페이
-				 'jtnet':제이티넷
-				 'uplus':LG유플러스
-				 'danal':다날
-				 'payco':페이코
-				 'syrup':시럽페이
-				 'paypal':페이팔
-				 */
-				
-				//pay_method : 결제수단
-				pay_method : 'trans',
-				/*
-				 'samsung':삼성페이,
-				 'card':신용카드,
-				 'trans':실시간계좌이체,
-				 'vbank':가상계좌,
-				 'phone':휴대폰소액결제
-				 */
-				
-				//escrow : 에스크로 결제여부(default : false)
-				//escrow : 'true';
-			
-				//merchant_uid : 가맹점에서 생성/관리하는 고유 주문번호
-				merchant_uid : 'merchant_' + new Date().getTime(),
-				/*
-				 merchant_uid에 경우
-				 https://docs.iamport.kr/implementation/payment
-				 위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
-				 참고하세요.
-				 나중에 포스팅 해볼게요.
-				 */
-				//결제창에서 보여질 이름
-				name : $(".tb-left:eq(0)").text(),
-				//name : $(".tb-left:eq(0)").text(),
-				//결제할 금액
-				amount : 20000, 
-				//구매정보
-				buyer_email : 'iamport@siot.do',
-				buyer_name : '구매자이름',
-				buyer_tel : '010-1234-5678',
-				buyer_addr : '서울특별시 강남구 삼성동',
-				buyer_postcode : '123-456',
-				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
-			/*
-			 모바일 결제시,
-			 결제가 끝나고 랜딩되는 URL을 지정
-			 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
-			 */
-			}, function(rsp) {
-				console.log(rsp);
-				if (rsp.success) {
-					var msg = '결제가 완료되었습니다.';
-					msg += '고유ID : ' + rsp.imp_uid;
-					msg += '상점 거래ID : ' + rsp.merchant_uid;
-					msg += '결제 금액 : ' + rsp.paid_amount;
-					msg += '카드 승인번호 : ' + rsp.apply_num;
-				} else {
-					var msg = '결제에 실패하였습니다.';
-					msg += '에러내용 : ' + rsp.error_msg;
-					//location.href = "/insomnia/Pay/PayComplete.ins";
-				}
-				alert(msg);
-			});
-		}
+//================================ 정보 동의 ====================================
+	var agree = "N";
+	$("input[name=new_privacy_agree]").click(function(){
+		agree = $(this).val();
 	});
+	
 //===============================================================================
+	
+	
+//================================ 유효성 검사 ==================================
+	
+	$(document).on("click","#btn_order_ok",function(){
+		//1. 주문리스트 제품]
+		console.log("체크 : "+$(".thumb input[type=checkbox]").prop("checked"));
+		if(pay_Way == 'B'){ // 체크한거가 무통장 일 때
+			if($(".thumb input[type=checkbox]").prop("checked") == false){
+				alert("하나 이상의 제품을 선택하세요!");
+				$(".order_list_checked").focus();
+				return;
+			}
+			//2. 예매 정보] - 이름
+			else if($("#receiver").val() == ""){
+				alert("이름을 입력하세요!");
+				$("#receiver").focus();
+				return;
+			}
+			//3. 예매 정보] - 이메일
+			else if($("#email_2").val() == ""){
+				alert("이메일을 입력하세요!");
+				$("#email_2").focus();
+				return;
+			}
+			//4. 예매 정보] - 연락처
+			else if($("#emergency21").val() == "" || $("#emergency22").val() == "" || $("#emergency23").val() == ""){
+				alert("연락처를 입력하세요!");
+				$("#emergency21").focus();
+				return;
+			}
+			//5. 무통장 환불 예금주]
+			else if($("input[name=subPay_Refund_Name]").val() == ""){
+				alert("환불 받을 예금주를 입력하세요!");
+				$("input[name=subPay_Refund_Name]").focus();
+				return;
+			}
+			//6. 무통장 환불 은행명]
+			else if($("input[name=subPay_Refund_BankName]").val() == ""){
+				alert("환불 받을 은행명을 입력하세요!");
+				$("input[name=subPay_Refund_BankName]").focus();
+				return;
+			}
+			//7. 무통장 환불 계좌번호]
+			else if($("input[name=subPay_Refund_BankAccount]").val() == ""){
+				alert("환불받을 계좌를 입력하세요!");
+				$("input[name=subPay_Refund_BankAccount]").focus();
+				return;
+			}
+			//8. 무통장 환불 계좌번호 (-)입력 시]
+			else if($("input[name=subPay_Refund_BankAccount]").val().indexOf("-") != -1){
+				alert("하이픈(-)를 제외한 계좌번호를 입력하세요!");
+				$("input[name=subPay_Refund_BankAccount]").focus();
+				return;
+			}
+			//9. 입금 계좌 선택]
+			else if($(".MK_pay_add_choice option:eq(0)").prop("selected") == true){
+				alert("입금 할 계좌를 선택하세요.")
+				return;
+			}
+			else if(agree == 'N'){
+				alert("정보수집에 동의해주세요.");
+				return;
+			}else if($("#pay_agree").prop("checked") == ""){
+				alert("구매 진행에 동의해주세요.");
+				return;
+			}
+		}else{// 체크한거가 그외 일 때
+			if($(".thumb input[type=checkbox]").prop("checked") == false){
+				alert("하나 이상의 제품을 선택하세요!");
+				$(".order_list_checked").focus();
+				return;
+			}
+			//2. 예매 정보] - 이름
+			else if($("#receiver").val() == ""){
+				alert("이름을 입력하세요!");
+				$("#receiver").focus();
+				return;
+			}
+			//3. 예매 정보] - 이메일
+			else if($("#email").val() == ""){
+				alert("이메일을 입력하세요!");
+				$("#email").focus();
+				return;
+			}
+			//4. 예매 정보] - 연락처
+			else if($("#emergency21").val() == "" || $("#emergency22").val() == "" || $("#emergency23").val() == ""){
+				alert("연락처를 입력하세요!");
+				$("#emergency21").focus();
+				return;
+			}
+			//2. 예매 정보] - 이름
+			else if($("#receiver").val() == ""){
+				alert("이름을 입력하세요!");
+				$("#receiver").focus();
+				return;
+			}
+			//2. 예매 정보] - 이름
+			else if($("#receiver").val() == ""){
+				alert("이름을 입력하세요!");
+				$("#receiver").focus();
+				return;
+			}	
+		}
+		console.log("서브밋");
+		if(isComma){
+			order_price_save = order_price_save.replace(/[^\d]+/g, '');
+			console.log("zZ");
+		}
+		console.log(order_price_save);
+		$("input[name=subPay_Final_payment_amount]").val(order_price_save);
+		$("input[name=subPay_Item_Qty]").val(item_count);
+		$("#order_form").submit();
+	});
+	
+	
+//===============================================================================
+	
+	
+//================================== 결제 방법 ==================================
+//	$(document).on("click","#btn_order_ok",function() {
+//		if(pay_Way == "C"){
+//			var IMP = window.IMP; // 생략가능
+//			IMP.init('imp11329087');
+//			// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+//			// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+//			IMP.request_pay({
+//				// pg : 하나의 아임포트계정으로 여러 PG를 사용할 때 구분자
+//				pg : 'payco', // version 1.1.0부터 지원.
+//				/*
+//				 'kakao':카카오페이,
+//				 'html5_inicis':이니시스(웹표준결제)
+//				 'nice':나이스페이
+//				 'jtnet':제이티넷
+//				 'uplus':LG유플러스
+//				 'danal':다날
+//				 'payco':페이코
+//				 'syrup':시럽페이
+//				 'paypal':페이팔
+//				 */
+//				
+//				//pay_method : 결제수단
+//				pay_method : 'card',
+//				/*
+//				 'samsung':삼성페이,
+//				 'card':신용카드,
+//				 'trans':실시간계좌이체,
+//				 'vbank':가상계좌,
+//				 'phone':휴대폰소액결제
+//				 */
+//				
+//				//escrow : 에스크로 결제여부(default : false)
+//				//escrow : 'true';
+//			
+//				//merchant_uid : 가맹점에서 생성/관리하는 고유 주문번호
+//				merchant_uid : 'merchant_' + new Date().getTime(),
+//				/*
+//				 merchant_uid에 경우
+//				 https://docs.iamport.kr/implementation/payment
+//				 위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+//				 참고하세요.
+//				 나중에 포스팅 해볼게요.
+//				 */
+//				//결제창에서 보여질 이름
+//				name : $(".tb-left:eq(0)").text(),
+//				//name : $(".tb-left:eq(0)").text(),
+//				//결제할 금액
+//				amount : 1000, 
+//				//구매정보
+//				buyer_email : 'iamport@siot.do',
+//				buyer_name : '구매자이름',
+//				buyer_tel : '010-1234-5678',
+//				buyer_addr : '서울특별시 강남구 삼성동',
+//				buyer_postcode : '123-456',
+//				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+//			/*
+//			 모바일 결제시,
+//			 결제가 끝나고 랜딩되는 URL을 지정
+//			 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+//			 */
+//			}, function(rsp) {
+//				console.log(rsp);
+//				if (rsp.success) {
+//					var msg = '결제가 완료되었습니다.';
+//					msg += '고유ID : ' + rsp.imp_uid;
+//					msg += '상점 거래ID : ' + rsp.merchant_uid;
+//					msg += '결제 금액 : ' + rsp.paid_amount;
+//					msg += '카드 승인번호 : ' + rsp.apply_num;
+//				} else {
+//					var msg = '결제에 실패하였습니다.';
+//					msg += '에러내용 : ' + rsp.error_msg;
+//					//location.href = "/insomnia/Pay/PayComplete.ins";
+//				}
+//				alert(msg);
+//			});
+//		}else if(pay_Way=="D"){
+//			var IMP = window.IMP; // 생략가능
+//			IMP.init('imp11329087');
+//			// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+//			// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+//			IMP.request_pay({
+//				// pg : 하나의 아임포트계정으로 여러 PG를 사용할 때 구분자
+//				pg : 'uplus', // version 1.1.0부터 지원.
+//				/*
+//				 'kakao':카카오페이,
+//				 'html5_inicis':이니시스(웹표준결제)
+//				 'nice':나이스페이
+//				 'jtnet':제이티넷
+//				 'uplus':LG유플러스
+//				 'danal':다날
+//				 'payco':페이코
+//				 'syrup':시럽페이
+//				 'paypal':페이팔
+//				 */
+//				
+//				//pay_method : 결제수단
+//				pay_method : 'phone',
+//				/*
+//				 'samsung':삼성페이,
+//				 'card':신용카드,
+//				 'trans':실시간계좌이체,
+//				 'vbank':가상계좌,
+//				 'phone':휴대폰소액결제
+//				 */
+//				
+//				//escrow : 에스크로 결제여부(default : false)
+//				//escrow : 'true';
+//			
+//				//merchant_uid : 가맹점에서 생성/관리하는 고유 주문번호
+//				merchant_uid : 'merchant_' + new Date().getTime(),
+//				/*
+//				 merchant_uid에 경우
+//				 https://docs.iamport.kr/implementation/payment
+//				 위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+//				 참고하세요.
+//				 나중에 포스팅 해볼게요.
+//				 */
+//				//결제창에서 보여질 이름
+//				name : $(".tb-left:eq(0)").text(),
+//				//name : $(".tb-left:eq(0)").text(),
+//				//결제할 금액
+//				amount : 100, 
+//				//구매정보
+//				buyer_email : 'iamport@siot.do',
+//				buyer_name : '구매자이름',
+//				buyer_tel : '010-1234-5678',
+//				buyer_addr : '서울특별시 강남구 삼성동',
+//				buyer_postcode : '123-456',
+//				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+//			/*
+//			 모바일 결제시,
+//			 결제가 끝나고 랜딩되는 URL을 지정
+//			 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+//			 */
+//			}, function(rsp) {
+//				console.log(rsp);
+//				if (rsp.success) {
+//					var msg = '결제가 완료되었습니다.';
+//					msg += '고유ID : ' + rsp.imp_uid;
+//					msg += '상점 거래ID : ' + rsp.merchant_uid;
+//					msg += '결제 금액 : ' + rsp.paid_amount;
+//					msg += '카드 승인번호 : ' + rsp.apply_num;
+//				} else {
+//					var msg = '결제에 실패하였습니다.';
+//					msg += '에러내용 : ' + rsp.error_msg;
+//					//location.href = "/insomnia/Pay/PayComplete.ins";
+//				}
+//				alert(msg);
+//			});
+//		}else{
+//			var IMP = window.IMP; // 생략가능
+//			IMP.init('imp11329087');
+//			// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+//			// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+//			IMP.request_pay({
+//				// pg : 하나의 아임포트계정으로 여러 PG를 사용할 때 구분자
+//				pg : 'nice', // version 1.1.0부터 지원.
+//				/*
+//				 'kakao':카카오페이,
+//				 'html5_inicis':이니시스(웹표준결제)
+//				 'nice':나이스페이
+//				 'jtnet':제이티넷
+//				 'uplus':LG유플러스
+//				 'danal':다날
+//				 'payco':페이코
+//				 'syrup':시럽페이
+//				 'paypal':페이팔
+//				 */
+//				
+//				//pay_method : 결제수단
+//				pay_method : 'trans',
+//				/*
+//				 'samsung':삼성페이,
+//				 'card':신용카드,
+//				 'trans':실시간계좌이체,
+//				 'vbank':가상계좌,
+//				 'phone':휴대폰소액결제
+//				 */
+//				
+//				//escrow : 에스크로 결제여부(default : false)
+//				//escrow : 'true';
+//			
+//				//merchant_uid : 가맹점에서 생성/관리하는 고유 주문번호
+//				merchant_uid : 'merchant_' + new Date().getTime(),
+//				/*
+//				 merchant_uid에 경우
+//				 https://docs.iamport.kr/implementation/payment
+//				 위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+//				 참고하세요.
+//				 나중에 포스팅 해볼게요.
+//				 */
+//				//결제창에서 보여질 이름
+//				name : $(".tb-left:eq(0)").text(),
+//				//name : $(".tb-left:eq(0)").text(),
+//				//결제할 금액
+//				amount : 20000, 
+//				//구매정보
+//				buyer_email : 'iamport@siot.do',
+//				buyer_name : '구매자이름',
+//				buyer_tel : '010-1234-5678',
+//				buyer_addr : '서울특별시 강남구 삼성동',
+//				buyer_postcode : '123-456',
+//				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+//			/*
+//			 모바일 결제시,
+//			 결제가 끝나고 랜딩되는 URL을 지정
+//			 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+//			 */
+//			}, function(rsp) {
+//				console.log(rsp);
+//				if (rsp.success) {
+//					var msg = '결제가 완료되었습니다.';
+//					msg += '고유ID : ' + rsp.imp_uid;
+//					msg += '상점 거래ID : ' + rsp.merchant_uid;
+//					msg += '결제 금액 : ' + rsp.paid_amount;
+//					msg += '카드 승인번호 : ' + rsp.apply_num;
+//				} else {
+//					var msg = '결제에 실패하였습니다.';
+//					msg += '에러내용 : ' + rsp.error_msg;
+//					//location.href = "/insomnia/Pay/PayComplete.ins";
+//				}
+//				alert(msg);
+//			});
+//		}
+//	});
+//===============================================================================
+	
+	
 	
 });

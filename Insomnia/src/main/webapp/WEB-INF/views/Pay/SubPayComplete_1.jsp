@@ -40,7 +40,7 @@
 		height: 750px;
 		border: 3px lightgray solid;
 		top : 100px;
-		left:  600px;
+		left: 599px;
 		z-index: -100;
 	}
 </style>
@@ -81,8 +81,8 @@
 																</th>
 																<td colspan="3">
 																<img src="<c:url value='/img/ticket.png'/>" alt="티켓이미지" style="width: 5%">
-																	<strong>[방구석 기타리스트1]</strong><br/>
-																	└ 방구석에서 기타만 치고있는 사람들을 위한 상품입니다.
+																	<strong>${subPay_Title }</strong><br/>
+																	└ ${subPay_Content }
 																</td>
 															</tr>
 															<tr>
@@ -90,7 +90,7 @@
 																	<div class="txt-l">수량</div>
 																</th>
 																<td colspan="3">
-																	1개
+																	${subPay_Item_Qty }개
 																</td>
 															</tr>
 															
@@ -99,7 +99,7 @@
 																	<div class="txt-l">결제방식</div>
 																</th>
 																<td colspan="3">
-																	무통장
+																	${subPay_orderWay }
 																</td>
 															</tr>
 															
@@ -108,7 +108,7 @@
 																	<div class="txt-l">무통장 입금자명</div>
 																</th>
 																<td colspan="3">
-																	이상근
+																	${subPay_Bank_Name }
 																</td>
 															</tr>
 															
@@ -117,7 +117,7 @@
 																	<div class="txt-l">무통장 환불계좌</div>
 																</th>
 																<td colspan="3">
-																	농협 15123134
+																	${subPay_Refund_BankName } : ${subPay_Refund_BankAccount } <small>_${subPay_Refund_Name }</small>
 																</td>
 															</tr>
 															
@@ -127,7 +127,7 @@
 																		주문메세지
 																	</div></th>
 																<td colspan="3">
-																	<textarea style="width: 70%;">꼭 받고싶습니다.</textarea>
+																	<textarea style="width: 70%; background-color: white;" disabled="disabled">${subPay_Message }</textarea>
 																</td>
 															</tr>
 															
@@ -136,8 +136,14 @@
 																	<div class="txt-l">총 결제금액</div>
 																</th>
 																<td colspan="3">
-																	<strong>20,000원</strong>
+																	<div style="display: contents; display: contents; font-weight: bold; font-size: large; color: orangered;" class="subPay_final_Money">
+																		${subPay_Final_payment_amount }
+																	</div>원
 																</td>
+																<script>
+																	var money = $(".subPay_final_Money").text();
+																	$(".subPay_final_Money").text(money.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+																</script>
 															</tr>
 															
 														</tbody>
@@ -160,11 +166,11 @@
 			
 			<div class="super_bottom_bot" style="padding-left: 10px;">
 				<p>
-					<strong>무통장 입금계좌</strong> : <span style="color: red;">신한은행 110-111-222233</span><small> (주)Insomnia</small>
+					<strong>무통장 입금계좌</strong> : <span style="color: red;">신한은행 110-394-023184</span><small> (주)Insomnia</small>
 				</p>
 				<br/>
 				<p>
-	        		고객님의 소중한 주문정보를 <strong>n_e_k_o3@naver.com</strong>로 발송해 드렸습니다.
+	        		고객님의 소중한 주문정보를 <strong>${subPay_Email1 }@${subPay_Email2 }</strong>로 발송해 드렸습니다.
 	        	</p>
 	        	<br/>
 	        	<p>

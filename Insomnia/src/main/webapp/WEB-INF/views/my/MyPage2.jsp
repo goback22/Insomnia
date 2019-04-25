@@ -149,7 +149,7 @@ body {
 								</c:if>
 								<!-- 내용이 있을 경우 -->
 								<c:if test="${not result}">
-									<div class="historyValue" style="width:1000px; height:600px; margin:auto"> <!-- 루프 -->
+									<div class="historyValue" style="width:1000px; height:300px; margin:auto"> <!-- 루프 -->
 										<c:forEach items="${fundingRecords}" var="funding">
 										
 											<!-- 여기에 ajax랑 똑같은 UI 뜨게 -->
@@ -356,25 +356,23 @@ body {
 				}
 				console.log("$.each()에 어떤 값이?" + whichClick);
 				if(whichClick == "음반") {
-					
-					var imgSrc = element["S_Album_cover"];
-					var src = '<c:url value="/resource/img/'+imgSrc+'"/>';
-					
-					listString += "<div class='historyDiv' style='display:inline-block; width:250px; height:450px; border:1px black solid; margin-left:20px; border:none;'>";  //전체 div
-					listString += "<p class='historyName' style='display:inline-block; width:100%; margin:0px; font-weight:bold'>" + element["R_Name"] + "</p>"; 
-					listString += "<img class='historyImg' style='width:100%; height:60%;' src='"+src+"' />"  
-					listString += "<p style='display:inline-block; width:100%; margin:0px; overflow:hidden; font-weight:bold; '>"+element["R_Description"]+"</p>";
-					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["BM_name"]+"</p>";
-					listString += "<p style='display:inline-block; width:50%; margin:0px; text-align:left;'>"+element["B_name"]+"</p><p style='display:inline-block; width:50%; text-align:right;'>"+element["R_Price"]+"원</p>";
+				
+					listString += "<div class='historyDiv' style='display:inline-block; width:200px; height:300px; border:1px black solid; margin-top:0px; margin-left:30px;'>";  //전체 div
+					listString += "<p class='historyName' style='display:inline-block; width:100%; margin:0px;'>" + element["R_Name"] + "</p>"; 
+					listString += "<img class='historyImg' style='width:90px; height:90px;'/>"  
+	
+					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["R_Description"]+"</p>";
+					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["R_Price"]+"</p>";
+					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["B_name"]+"</p><p style='display: inline-block; width:100%;'>"+element["BM_name"]+"</p>";
 	
 					listString += "</div>"  //전체 div끝
 				}
 				
 				if(whichClick == "공연") {
 					
-					listString += "<div class='historyDiv' style='display:inline-block; width:300px; height:400px; border:1px black solid; margin-top:0px; margin-left:30px;'>";  //전체 div
+					listString += "<div class='historyDiv' style='display:inline-block; width:200px; height:300px; border:1px black solid; margin-top:0px; margin-left:30px;'>";  //전체 div
 					listString += "<p class='historyName' style='display:inline-block; width:100%; margin:0px;'>" + element["b_title"] + "</p>"; 
-					listString += "<img class='historyImg' style='width:100%; height:90px;'/>"  
+					listString += "<img class='historyImg' style='width:90px; height:90px;'/>"  
 	
 					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["b_content"]+"</p>";
 					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["price_bgs"]+"</p>";

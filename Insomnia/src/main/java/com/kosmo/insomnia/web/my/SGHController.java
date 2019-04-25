@@ -365,8 +365,8 @@ public class SGHController {
 					tempMap.put("b_title", record.getB_title());
 					tempMap.put("b_place", record.getB_place());
 					tempMap.put("b_content", record.getB_content());
-					tempMap.put("concertDate", record.getConcertDate());
-					tempMap.put("price_bgs", record.getPrice());
+					tempMap.put("concertDate", record.getC_concertDate());
+					tempMap.put("price_bgs", record.getC_price());
 					tempMap.put("qty_bgs", record.getQty());
 					
 					resultList.add(tempMap);			

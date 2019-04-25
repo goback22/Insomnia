@@ -592,7 +592,7 @@ body {
                                        <div class="option-box option-box-blue">
                                           <div class="aa" style="display: contents">
                                              <div class="option-box-left" style="padding-top: 10px">
-                                                <div class="option-box-amount">${bgs1.C_CONSERTDATE}</div>
+                                                <div class="option-box-amount">${bgs1.C_CONCERTDATE}</div>
                                                 <div class="mt5" style="padding-top: 5px">
                                                    <span><strong>13석 남음</strong></span> <span
                                                       style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -643,7 +643,7 @@ body {
 
                                     <div class="option-box" style="margin-top: -25px;">
                                        <div class="option-box-left">
-                                          <div class="option-box-amount">${bgs2.C_CONSERTDATE}</div>
+                                          <div class="option-box-amount">${bgs2.C_CONCERTDATE}</div>
                                           <div class="mt5" style="padding-top: 5px">
                                              <strong class="font-pink">Sold out</strong> <span
                                                 style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;

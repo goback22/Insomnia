@@ -46,11 +46,6 @@
 	width: 30px;
 }
 
-table {
-	width: 279px;
-	text-align: center;
-}
-
 .user_middle table tr {
 	width: 279px;
 	text-align: center;
@@ -221,7 +216,6 @@ table {
 		           		  <td><label for="middle2">마이페이지</label></td>
 		           		  <td><label for="middle3">초대하기</label></td>
 		           		  <td><label for="middle4">블라블라</label></td>
-			           		
 			           </tr>
 		            </table>
 		            
