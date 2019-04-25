@@ -105,6 +105,8 @@
 
 </style>
 
+<link href="<c:url value='/vendor/css/LoginCSS.css'/>" rel="stylesheet" />
+
 
 <!-- 네비게이션 바 -->
 <div class="nav">
@@ -188,9 +190,9 @@
 				
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
               			<!-- 프로필 이미지 -->
-                		<img class="user_picture" src="<c:url value='/resource/img/${record.profile_img}'/>"/>
+                		<img class="user_picture" src="<c:url value='/resource/img/${loginRecord.profile_img}'/>"/>
               			<!-- 사용자 이름 -->
-              			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${record.name}</span>님 환영합니다!</a>
+              			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${loginRecord.name}</span>님 환영합니다!</a>
               			<!-- 쿠폰, 포인트 -->
 			             <dl class="c">
 			               <dt>쿠폰</dt>

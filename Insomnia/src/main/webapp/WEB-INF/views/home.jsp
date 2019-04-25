@@ -235,18 +235,18 @@
 					
 					</script> --%>
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
-	            		<c:if test="${empty record.login_chain}" var="isSocial">
+	            		<c:if test="${empty loginRecord.login_chain}" var="isSocial">
 	              			<!-- 프로필 이미지:일반로그인 -->
-	                		<img class="user_picture" src="<c:url value='/resource/img/${record.profile_img}'/>"/>
+	                		<img class="user_picture" src="<c:url value='/upload/${loginRecord.profile_img}'/>"/>
 	                	</c:if>
 	                	<c:if test="${not isSocial}">
 	                		<!-- 프로필 이미지:소셜로그인 -->
-	                		<img class="user_picture" src="${record.profile_img}"/>
+	                		<img class="user_picture" src="${loginRecord.profile_img}"/>
                 		</c:if>
                 		
                 		
               			<!-- 사용자 이름 -->
-              			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${record.name}</span>님 환영합니다!</a>
+              			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${loginRecord.name}</span>님 환영합니다!</a>
               			<!-- 쿠폰, 포인트 -->
 			             <dl class="c">
 			               <dt>쿠폰</dt>

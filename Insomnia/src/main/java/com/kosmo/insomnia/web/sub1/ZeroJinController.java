@@ -67,7 +67,7 @@ public class ZeroJinController {
 
     	  record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
     	  
-    	  model.addAttribute("record", record);
+    	  model.addAttribute("loginRecord", record);
 
     	  session.setAttribute("login_user_name", record.getName());
 	      session.setAttribute("login_user_phoneNb", record.getPhone());
