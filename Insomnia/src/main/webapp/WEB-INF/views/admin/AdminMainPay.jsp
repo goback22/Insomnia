@@ -44,20 +44,20 @@
 								<table class="table table-hover" id="membercheckbox">
 									<tr>
 										<th class="col-md-1"><input type="checkbox" value="all"/>&nbsp;&nbsp;no</th>
-										<th class="col-md-2 text-center">B_NAME</th>
-										<th class="col-md-2 text-center">TOTAL_PEOPLE</th>
-										<th class="col-md-2 text-center">P_TOTAL_ACCUMULATION</th>
-										<th class="col-md-2 text-center">P_COMPLETE_DATE</th>
+										<th class="col-md-2 text-center">BAND.b_name</th>
+										<th class="col-md-2 text-center">PAY.p_total_people</th>
+										<th class="col-md-2 text-center">PAY.P_TOTAL_ACCUMULATAION</th>
+										<th class="col-md-2 text-center">PAY.P_COMPLETE_DATE</th>
 										<!-- 삭제 버튼을 위한 한줄 -->
 									</tr>
 									<!-- DB에서 꺼내서~ each~~...tq -->
 									<!-- example1 -->
 									<tr class="view">
 										<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;1</td>
-										<td class="text-center viewDetail">진행중인 B_NAME</td>
-										<td class="text-center people">500</td>
-										<td class="text-center cur">4500</td>
-										<td class="text-center">2019-05-30</td>
+										<td class="text-center viewDetail">밴드이름</td>
+										<td class="text-center viewDetail people">결제한 사람 수150</td>
+										<td class="text-center viewDetail cur">모인돈 15000</td>
+										<td class="text-center viewDetail">2019-05-30</td>
 										
 									</tr>
 									<!-- 위의 detail -->
@@ -66,33 +66,34 @@
 									       <div class="fold-content">
 									         <table class="table table-bordered">
 									         	<!-- first floor -->
-									          <thead>
-									            <tr>
-									              <th>id</th>
-									              <th>r_name</th>
-									              <th>r_price</th>
-									              <th></th>
-									              <th>bank</th>
-									              <th>bank</th>
-									            </tr>
-									          </thead>
-									          <tbody>
-									            <tr>
-									              <td>abc@naver.com</td>
-									              <td>r_name content</td>
-									              <td class="cur">1000</td>
-									              <td></td>
-									              <td>우리은행</td>
-									              <td>123-45-67890</td>
-									            </tr>
-									         	<tr>
-									                <td>def@daum.net</td>
-									                <td>r_name content</td>
-									                <td class="cur">2000</td>
-									                <td></td>
-									                <td>신한은행</td>
-									                <td>987-65-4321</td>
-									              </tr>
+									         	
+												<thead>
+													<tr>
+														<th>MEMBERS.id</th>
+														<th>REWARD.R_NAME</th>
+														<th>REWARD.R_PRICE</th>
+														<th></th>
+														<th></th>
+														<th></th>
+													</tr>
+												</thead>
+												<tbody>
+										            <tr>
+														<td>abc@naver.com</td>
+														<td>r_name content</td>
+														<td class="cur">1000</td>
+														<td></td>
+														<td></td>
+														<td><div class="btn btn-success">상세보기</div></td>
+										            </tr>
+										         	<tr>
+										                <td>def@daum.net</td>
+										                <td>r_name content</td>
+										                <td class="cur">2000</td>
+										                <td></td>
+										                <td></td>
+										                <td><div class="btn btn-success">상세보기</div></td>
+													</tr>
 									            </tbody>
 									          </table>          
 									        </div>

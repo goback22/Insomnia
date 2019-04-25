@@ -112,12 +112,12 @@ public class AdminController {
 		List<AdminDTO> list = adminService.selectNewMemberList(map);
 		//가입날에 따른 사람 수
 		int todayMember = adminService.selectTodayNewMember(map);
-		int yesterday = adminService.selectYesterDayNewMember(map);
-		int twodaysAgo = adminService.selectTwoDaysAgoNewMember(map);
+		//int yesterday = adminService.selectYesterDayNewMember(map);
+		//int twodaysAgo = adminService.selectTwoDaysAgoNewMember(map);
 		
 		model.addAttribute("todayMember", todayMember);
-		model.addAttribute("yesterdayMember", yesterday);
-		model.addAttribute("twodayagoMember", twodaysAgo);
+		//model.addAttribute("yesterdayMember", yesterday);
+		//model.addAttribute("twodayagoMember", twodaysAgo);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("totalMemberCount", totalMembers);
 		model.addAttribute("pagingString", pagingString);
@@ -132,17 +132,11 @@ public class AdminController {
 	}
 	
 	//main
-	@RequestMapping(value="/admin/maincontentvote.ins")
-	public String mainContentVote() throws Exception {
-		return "/admin/AdminMainContentVote";
-	}
-	
 	@RequestMapping(value="/admin/maincontentmember.ins")
-	public String mainContentMember(Map mapBandList,Map musicList,Model model) throws Exception {
+	public String mainContentMember(Map map,Model model) throws Exception {
 		//band list
-		List<AdminDTO> list = adminService.selectBandList(mapBandList);
-		
-		
+		List<AdminDTO> list = adminService.selectBandList(map);
+		//bandmusic
 		List<AdminDTO> bandMusicAll = new Vector<AdminDTO>();
 		for(AdminDTO dto :list ) {
 			List<AdminDTO> bandMusicList = adminService.selectBandMusicList(dto.getB_name());
@@ -150,13 +144,16 @@ public class AdminController {
 				bandMusicAll.add(dto2);
 			}
 		}
-		
-		
-		
-		
+			
 		model.addAttribute("bandlist", list);
 		model.addAttribute("bandmusiclist", bandMusicAll);
 		return "/admin/AdminMainContentMember";
+	}
+	
+	@RequestMapping(value="/admin/maincontentsubmit.ins")
+	public String mainContentSubmit(Map map,Model model) throws Exception{
+		
+		return "/admin/AdminMainContentSubmit";
 	}
 	
 	//서브
@@ -169,5 +166,12 @@ public class AdminController {
 	@RequestMapping("/admin/paymain.ins")
 	public String payMain() throws Exception{
 		return "/admin/AdminMainPay";
+	}
+	
+	//member detail view
+	@RequestMapping(value="/admin/memberView.ins")
+	public String memberView(Map map,Model model) throws Exception{
+		
+		return "/admin/AdminMainMemberView";
 	}
 }/////////////

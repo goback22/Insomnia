@@ -6,6 +6,9 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+<meta HTTP-EQUIV="Page-exit" content="BlendTrans(Duration=1)" />
+<meta HTTP-EQUIV="Page-enter" content="BlendTrans(Duration=1)" />
+
 <!-- Dependency Styles -->
 <link rel="stylesheet"
 	href="dependencies/bootstrap/css/bootstrap.min.css" type="text/css">

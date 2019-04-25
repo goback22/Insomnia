@@ -2,10 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/WEB-INF/views/my/isMember.jsp" %>
+<meta HTTP-EQUIV="Page-exit" content="BlendTrans(Duration=1)" />
+<meta HTTP-EQUIV="Page-enter" content="BlendTrans(Duration=1)" />
 <link rel="stylesheet"
 	href="<c:url value='/vendor/css/bootstrap2.min.css'/>">
 <script src="<c:url value='/vendor/js/jquery2.js'/>"></script>
 <script src="<c:url value='/vendor/js/bootstrap2.min.js'/>"></script>
+
 
 
 <!-- 섬머노트 css,js -->
@@ -183,7 +186,7 @@
 					alt="">
 				</a>
 			</div>
-		</div>
+		</div>z
 
 	<!-- 비 로그인시 보여줄 화면 끝-->
 	</c:if>
@@ -323,21 +326,25 @@ option{
 function formCheck(frm) {
     if (frm.ap_title.value == "") {
         alert('제목을 입력해 주세요');
-//         frm.ap_title.focus();
-        $('#ap_title').css('display', 'block');
+        frm.ap_title.focus();
         return false;
     }
     else if (frm.ap_genre.value == "") {
         alert("장르를 선택해 주세요");
-//         frm.ap_content.focus();
+        frm.ap_genre.focus();
         $('#ap_genre').css('display', 'block');
         return false;
     }
     else if (frm.ap_content.value == "") {
-        alert("내용을 입력해 주세요");
+        alert("내용을 입력해주세요");
         frm.ap_content.focus();
         return false;
     }
+//     else if (frm.ap_attachedfile.value == "") {
+//         alert("파일을 첨부해주세요");
+//         $('#ap_attachedfile').css('display', 'block');
+//         return false;
+//     }
     return true;
 }
 </script>
@@ -373,7 +380,7 @@ function formCheck(frm) {
 				<div role="tabpanel" class="container">
 					<div class="row">
 						<div class="col-md-10" style="margin-left: -50px;">
-							<form class="form-horizontal" onsubmit="return formCheck(this)" id="frm" method="post"
+							<form class="form-horizontal" onsubmit="return formCheck(this)" enctype="multipart/form-data"  id="frm" method="post"
 								action="<c:url value='/sub1/edit.ins'/>" style="margin-left: 158px">
 								<div class="form-group">
 								 	<input type="hidden" name="ap_no" value="${record.ap_no}" /> 
@@ -389,7 +396,8 @@ function formCheck(frm) {
 										<select	id="ap_genre" name="ap_genre" >
 											<option value="" disabled selected>선택</option>
 											<option value="보컬">보컬</option>
-											<option value="기타/베이스">기타/베이스</option>
+											<option value="기타">기타</option>
+											<option value="베이스">베이스</option>
 											<option value="드럼">드럼</option>
 											<option value="댄스">댄스</option>
 											<option value="보컬">etc</option>
@@ -406,8 +414,8 @@ function formCheck(frm) {
 								<div class="form-group" style="margin-top: -15px">
 									<label for="title" class="col-sm-2 control-label">파일</label>
 									<div class="col-sm-5">
-										<input type="file"  name="ap_attachedfile" id="ap_attachedfile" />
-										<p class="help-block">파일을 첨부하세요(기존 파일:${record.ap_attachedfile})</p>
+										<input type="file" multiple="multiple" name="ap_attachedfile" id="ap_attachedfile" />
+										<p class="help-block" style="color:aqua;">기존 파일 : ${record.ap_attachedfile == null ? "등록된 파일이 없습니다" : record.ap_attachedfile}</p>
 											
 									</div>
 								</div>
@@ -465,6 +473,18 @@ function formCheck(frm) {
 								}
 							}
 						});
+		
+		$(function(){
+			$('#ap_attachedfile').change(function(){
+				$('.help-block').text('파일 첨부가 완료되었습니다.');
+			})
+			
+					$("#ap_attachedfile").change(function(){
+			$('.help-block').text("파일 첨부가 완료되었습니다.");
+		})
+			
+		})
+		
 	</script>
 	<!-- /.product-tab-wrapper -->
 	<!-- /.container -->

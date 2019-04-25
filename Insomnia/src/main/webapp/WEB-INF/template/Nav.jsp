@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -46,6 +46,11 @@
 	width: 30px;
 }
 
+/* table { */
+/* 	width: 279px; */
+/* 	text-align: center; */
+/* } */
+
 .user_middle table tr {
 	width: 279px;
 	text-align: center;
@@ -85,6 +90,9 @@
 	color: orange;
 	font-size: 17px;
 }
+
+
+
 
 
 .user_top {	
@@ -136,21 +144,23 @@
 					<div class="nav">
 						<ul class="group" id="header-menu-magic-line">
 
-							<li class="menu-item-has-children current_page_item">
-							<a href="<c:url value='/#'/>">HOME</a></li>
+							<li class="menu-item-has-children current_page_item"><a
+								href="<c:url value='/#'/>">HOME</a></li>
 
-							<li class="menu-item-has-children">
-							<a href="<c:url value='/main/mainproject.ins'/>">Funding</a>
+							<li class="menu-item-has-children"><a
+								href="<c:url value='/main/mainproject.ins'/>">Funding</a>
 							</li>
 
-							<li class="menu-item-has-children">
-							<a href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
+							<li class="menu-item-has-children"><a
+								href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
 
 							<%
 								if ("admin".equals(session.getAttribute("id")) || "ADMIN".equals(session.getAttribute("id"))) {
 							%>
 							<li class="menu-item-has-children"><a
 								href="<c:url value='/admin/index.ins'/>">Admin Page</a></li>
+							<li class="menu-item-has-children"><a
+								href="<c:url value ='/Pay/PayPage.ins'/>">PayPage(Test)</a></li>
 							<%
 								} else {
 							%>
@@ -173,15 +183,13 @@
 
 
 	<!-- 여기부터 -->
-
-	<!-- 여기부터 -->
 			
 				<!-- 로그인 시 보여줄 화면 시작 -->
 				<div class="offset-menu-two">
 					<div class="afterLogin" style="margin-top: -370px">
 					<!-- 닫기 버튼 -->
-						<a href="<c:url value='/#'/>" class="offset-closer">
-							<img style="margin-left: 270px; margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
+						<a href="javascript:return false;" class="offset-closer">
+							<img style="margin-left: 270px; margin-top: -60px; width:15px; height:15px;" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
 						</a>
 					<!-- 네이버 로그인 display:none -->
 					<div id="naver_id_login" style="display: none;"></div>
@@ -190,7 +198,9 @@
 				
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
               			<!-- 프로필 이미지 -->
-                		<img class="user_picture" src="<c:url value='/resource/img/${loginRecord.profile_img}'/>"/>
+
+                		<img class="user_picture" src="<c:url value='/upload/${loginRecord.profile_img}'/>"/>
+
               			<!-- 사용자 이름 -->
               			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${loginRecord.name}</span>님 환영합니다!</a>
               			<!-- 쿠폰, 포인트 -->
@@ -212,7 +222,8 @@
 		           		  <td><label for="middle1">리워드</label></td>
 		           		  <td><label for="middle2">마이페이지</label></td>
 		           		  <td><label for="middle3">초대하기</label></td>
-		           		  <td><label for="middle4">자유게시판</label></td>
+		           		  <td><label for="middle4">블라블라</label></td>
+			           		
 			           </tr>
 		            </table>
 		            
@@ -246,6 +257,7 @@
 
 	<!-- 여기까지 -->
 
+<!--로그인 처리-->
 
 
 

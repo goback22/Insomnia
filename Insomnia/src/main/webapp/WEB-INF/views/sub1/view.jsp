@@ -7,6 +7,9 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+<meta HTTP-EQUIV="Page-exit" content="BlendTrans(Duration=1)" />
+<meta HTTP-EQUIV="Page-enter" content="BlendTrans(Duration=1)" />
+
 <!-- Dependency Styles -->
 <link rel="stylesheet"
 	href="dependencies/bootstrap/css/bootstrap.min.css" type="text/css">
@@ -45,6 +48,11 @@ body {
 	background-attachment: fixed;
 }
 
+#kyj2{
+	color: white;
+	text-decoration: none;
+}
+
 .text1 {
 	color: white;
 	font-size: 24px;
@@ -73,7 +81,7 @@ body {
 	border-bottom: 1px solid gray;
 }
 </style>
-</head>
+</headd>
 
 <body id="home-version-1" class="home-version-1" data-style="default">
 	<div id="site">
@@ -111,8 +119,8 @@ body {
 					<div class="row">
 						<div class="col-md-10">
 							<h5 class="comments-title">Application</h5>
-<%-- 							<input type="hidden" name="ap_no" value="${record.ap_no}"/> --%>
 							<table class="table table-hover text-center">
+- 							<input type="hidden" name="ap_no" value="${record.ap_no}"/> 
 								<tr style="height: 40px; display: none">
 									<td style="width: 10%;">No</td>
 									<td class="B">${record.ap_no}</td>
@@ -134,7 +142,9 @@ body {
 									<td style="text-align: left">${record.ap_content == null ? "" : record.ap_content}</td>
 								<tr>
 									<td style="height: 40px;">File</td>
-									<td class="B"><a href="<c:url value='/sub1/download.ins?filename=${record.ap_attachedfile}&no=${record.ap_no}'/>">${record.ap_attachedfile}</a></td>
+									<td class="B" >
+									<a id="kyj2" href="<c:url value='/sub1/download.ins?filename=${record.ap_attachedfile}&no=${record.ap_no}'/>">${record.ap_attachedfile}</a>
+									</td>
 								</tr>
 								<tr style="border-bottom: none">
 									<td style="height: 40px;"> &nbsp;이전 글 <br> 다음 글 </td>
@@ -179,7 +189,6 @@ body {
 			}
 		};
 	</script>
-
 
 	<!-- Quick View -->
 	<div class="modal quickview-wrapper">

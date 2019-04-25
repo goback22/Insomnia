@@ -73,22 +73,21 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public int selectTodayNewMember(Map map) {
-		// TODO Auto-generated method stub
 		return dao.selectTodayNewMember(map);
 	}
 
 	@Override
 	public int selectYesterDayNewMember(Map map) {
-		// TODO Auto-generated method stub
 		return dao.selectYesterDayNewMember(map);
 	}
 
 	@Override
 	public int selectTwoDaysAgoNewMember(Map map) {
-		// TODO Auto-generated method stub
 		return dao.selectTwoDaysAgoNewMember(map);
 	}
 
+	
+	
 	
 
 	

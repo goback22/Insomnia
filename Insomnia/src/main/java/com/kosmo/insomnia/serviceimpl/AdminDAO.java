@@ -74,17 +74,14 @@ public class AdminDAO implements AdminService{
 	}
 	@Override
 	public int selectTodayNewMember(Map map) {
-		// TODO Auto-generated method stub
 		return template.selectOne("todayNewMember",map);
 	}
 	@Override
 	public int selectYesterDayNewMember(Map map) {
-		// TODO Auto-generated method stub
 		return template.selectOne("yesterdayNewMember",map);
 	}
 	@Override
 	public int selectTwoDaysAgoNewMember(Map map) {
-		// TODO Auto-generated method stub
 		return template.selectOne("twoDayAgoMember",map);
 	}
 	

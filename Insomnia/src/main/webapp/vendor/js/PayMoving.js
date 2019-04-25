@@ -1,4 +1,16 @@
 $(function(){
+	$(window).bind("pageshow", function (event) {
+		if (event.originalEvent.persisted) {
+			$(".sub_yes_agree").prop("checked","checked");
+			$("#pay_agree").prop("checked","");
+			console.log("1번");
+		}else {
+			$(".sub_no_agree").prop("checked","checked");
+			$("#pay_agree").prop("checked","");
+			console.log("2번");
+			
+		}
+	});
 	
 //=============================방구석기타리스트 BUY==============================
 

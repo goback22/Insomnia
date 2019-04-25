@@ -1,5 +1,6 @@
 package com.kosmo.insomnia.web.sub1;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.w3c.dom.ls.LSInput;
 
 import com.kosmo.insomnia.service.BGSConcertDTO;
@@ -73,9 +76,6 @@ public class ZeroJinController {
 	      session.setAttribute("login_user_phoneNb", record.getPhone());
 	      System.out.println(record.getPhone());
     	  
-//    	  if(map.get("id").equals("admin")) {
-//    		  return "/admin/AdminIndex";
-//    	  }
       } else {
     	  model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
     	 /* return "forward:/loginErr/ajax.ins";*/
@@ -83,7 +83,7 @@ public class ZeroJinController {
       return "home.tiles";
    }
    
- /*  ////로그인 ajax
+   /*  ////로그인 ajax
    @ResponseBody
    @RequestMapping(value="/loginErr/ajax.ins", produces="text/html; charset=UTF-8")
    public String loginErrAjax(Model model) throws Exception {
@@ -104,37 +104,14 @@ public class ZeroJinController {
 
 	// 서브 프로젝트
 	@RequestMapping(value = "/sub1/subprojects.ins")
-	public String subprojects(HttpSession session, Map map, Model model) throws Exception {
-		
-		
-		///4월 22일 서기환 추가 : 오른쪽 개인정보 화면에 출력 위한 로직
-		if(session.getAttribute("id") != null) {
-			map.put("id", session.getAttribute("id"));
-			MemberDTO record = memberService.selectOne(map);
-			
-			record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
-			model.addAttribute("record", record);
-		}
-		//여기까지
-		
+	public String subprojects() throws Exception {
 		return "/sub1/subprojects.tiles";
 	}
 	
 	// 서브 프로젝트 -> 방구석 기타리스트 
 	@RequestMapping(value = "/sub1/subcontent.ins")
-	public String subcontent(HttpSession session, Model model, Map map) throws Exception {
+	public String subcontent(Model model) throws Exception {
 		List<Map> product_List = bGSConcertService.selectList();
-		
-		
-		
-		///4월 22일 서기환 추가 : 오른쪽 개인정보 화면에 출력 위한 로직
-		
-		map.put("id", session.getAttribute("id"));
-		MemberDTO record = memberService.selectOne(map);
-		
-		record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
-		model.addAttribute("record", record);
-		//여기까지
 		
 		model.addAttribute("bgs1", product_List.get(0));
 		model.addAttribute("bgs2", product_List.get(1));
@@ -165,9 +142,10 @@ public class ZeroJinController {
 		
 		// 서비스 호출
 		List<ListDTO> list = insService.selectList(map);
+		
 		String pagingString = PagingUtil.pagingBootStrapStyle(totalRecordCount, pageSize, blockPage, nowPage,
 				req.getContextPath() + "/sub1/list.ins?");
-
+		
 		model.addAttribute("list", list);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("pageSize", pageSize);
@@ -186,31 +164,79 @@ public class ZeroJinController {
 		return "sub1/write";
 	}
 
-	// 방구석 기타리스트 게시판 - write처리
+	// 방구석 기타리스트 게시판 - write처리 및 파일업로드
 	@RequestMapping(value = "/sub1/write.ins", method= RequestMethod.POST)
-	public String writeOk(@RequestParam Map map, HttpSession session,HttpServletRequest req) throws IOException, ServletException{
+	public String writeOk(HttpServletRequest req, MultipartHttpServletRequest mtfRequest, @RequestParam Map map, HttpSession session) throws IOException, ServletException{
 		// 서비스 호출
 		map.put("id", session.getAttribute("id")); // ☆
 		
+		//★input=file은 name파라미터를 리퀘스트 영역에서 받을 수 없고 아래 형식에 따라 받아서 Map에 추가해줘야한다.
+		MultipartFile ap_attachedfile = mtfRequest.getFile("ap_attachedfile");
+
+		map.put("ap_attachedfile", ap_attachedfile.getOriginalFilename());
+		
+		System.out.println("map:"+map);
+		
 		insService.insert(map);
+		//System.out.println(insService.insert(map));
+		
+		
+		List<MultipartFile> fileList = mtfRequest.getFiles("ap_attachedfile");
+		//System.out.println("a:"+fileList);
+
+        //파일 저장 위치
+		String path = "D:\\KYJ\\UTIL\\Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp7\\wtpwebapps\\Insomnia\\upload\\bgslist\\";
+        
+        for (MultipartFile mf : fileList) {
+            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+            long fileSize = mf.getSize(); // 파일 사이즈
+            //System.out.println("originFileName : " + originFileName);
+            //System.out.println("fileSize : " + fileSize);
+
+            String safeFile = path + originFileName;
+            //System.out.println("???????:"+System.currentTimeMillis());
+            //System.out.println("safeFile:"+safeFile);
+            try {
+                mf.transferTo(new File(safeFile));
+                //System.out.println("try");
+            } catch (IllegalStateException e) {
+            	//System.out.println("catch");
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 		
 		return "forward:/sub1/list.ins";
 		//return "/sub1/list.tiles";로하면 안돼
 	}
 	
+	// 다운로드 처리
+	@RequestMapping(value = "/sub1/download.ins")
+	public void download(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//파라미터 받기]		
+		String no = req.getParameter("no");
+		//System.out.println("a:"+no);
+		String filename = req.getParameter("filename");
+		//System.out.println("b:"+filename);
+		
+		//다운로드 호출]
+		FileUtils.download(req,resp,"/Upload",filename);
+	}
+		
 	// 방구석 기타리스트 게시판  - view
 	@RequestMapping(value = "/sub1/view.ins")
 	public String view(@RequestParam Map map, Model model) throws Exception {
 		// 서비스 호출
 		ListDTO record = insService.selectOne(map);
 		
+		System.out.println("1:"+record.getAp_attachedfile()); //null
+		
 		// 데이타 저장 및 줄바꿈 처리
 		if(record.getAp_content() != null) {
 			record.setAp_content(record.getAp_content().replace("\r\n", "<br/>"));
 		}
 		model.addAttribute("record", record);
-		
-		// System.out.println(record.getAp_content());
 		
 		// 이전 글
 		ListDTO prev = insService.prevSelectOne(map);
@@ -234,16 +260,48 @@ public class ZeroJinController {
 	public String viewadmin() throws Exception {
 		return "/sub1/viewadmin.tiles";
 	}
-
-	// 방구석 기타리스트 게시판 - edit
-	@RequestMapping(value = "/sub1/edit.ins")
-	public String edit(@RequestParam Map map, HttpServletRequest req, Model model) throws Exception {
+	
+	// 방구석 기타리스트 게시판 - edit로 이동
+	@RequestMapping(value = "/sub1/edit.ins", method = RequestMethod.GET)
+	public String edit(@RequestParam Map map, Model model) throws Exception {
 		// edit 폼에 값을 뿌려주기 위한 record 설정
-		if (req.getMethod().equals("GET")) {
-			ListDTO record = insService.selectOne(map);
-			model.addAttribute("record", record);
-			return "sub1/edit";
+		ListDTO record = insService.selectOne(map);
+		model.addAttribute("record", record);
+		return "sub1/edit";
 		}
+
+	// 방구석 기타리스트 게시판 - edit처리 및 파일업로드
+	@RequestMapping(value = "/sub1/edit.ins", method = RequestMethod.POST)
+	public String edit(MultipartHttpServletRequest mtfRequest, @RequestParam Map map, HttpServletRequest req, Model model) throws Exception {
+		List<MultipartFile> fileList = mtfRequest.getFiles("ap_attachedfile");
+		//System.out.println("a:"+fileList);
+
+        //파일 저장 위치
+		String path = "D:\\KYJ\\UTIL\\Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp7\\wtpwebapps\\Insomnia\\upload\\bgslist\\";
+		
+		MultipartFile ap_attachedfile = mtfRequest.getFile("ap_attachedfile");
+
+		map.put("ap_attachedfile", ap_attachedfile.getOriginalFilename());
+        
+        for (MultipartFile mf : fileList) {
+            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+            long fileSize = mf.getSize(); // 파일 사이즈
+            //System.out.println("originFileName : " + originFileName);
+            //System.out.println("fileSize : " + fileSize);
+
+            String safeFile = path + originFileName;
+            //System.out.println("???????:"+System.currentTimeMillis());
+            //System.out.println("safeFile:"+safeFile);
+            try {
+                mf.transferTo(new File(safeFile));
+                //System.out.println("try");
+            } catch (IllegalStateException e) {
+            	//System.out.println("catch");
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
 		int sucFail = insService.update(map);
 		model.addAttribute("WHERE", "EDT");
@@ -318,7 +376,7 @@ public class ZeroJinController {
 	//코멘트 전체 목록 가져오기
 	@ResponseBody 
 	@RequestMapping(value="/sub1/memolist.ins", produces="text/html; charset=UTF-8")
-	public String list(@RequestParam Map map) throws Exception{
+	public String list(@RequestParam Map map,HttpServletRequest req) throws Exception{
 		//비지니스 로직 호출
 		map.put("start", 1);
 		map.put("end", 10);

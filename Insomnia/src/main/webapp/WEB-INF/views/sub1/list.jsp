@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/WEB-INF/views/my/isMember.jsp" %>
-
+<meta HTTP-EQUIV="Page-exit" content="BlendTrans(Duration=1)" />
+<meta HTTP-EQUIV="Page-enter" content="BlendTrans(Duration=1)" />
 <!-- Meta Data -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
