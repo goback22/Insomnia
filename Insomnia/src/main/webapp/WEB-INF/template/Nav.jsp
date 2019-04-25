@@ -137,23 +137,21 @@
 					<div class="nav">
 						<ul class="group" id="header-menu-magic-line">
 
-							<li class="menu-item-has-children current_page_item"><a
-								href="<c:url value='/#'/>">HOME</a></li>
+							<li class="menu-item-has-children current_page_item">
+							<a href="<c:url value='/#'/>">HOME</a></li>
 
-							<li class="menu-item-has-children"><a
-								href="<c:url value='/main/mainproject.ins'/>">Funding</a>
+							<li class="menu-item-has-children">
+							<a href="<c:url value='/main/mainproject.ins'/>">Funding</a>
 							</li>
 
-							<li class="menu-item-has-children"><a
-								href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
+							<li class="menu-item-has-children">
+							<a href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
 
 							<%
 								if ("admin".equals(session.getAttribute("id")) || "ADMIN".equals(session.getAttribute("id"))) {
 							%>
 							<li class="menu-item-has-children"><a
 								href="<c:url value='/admin/index.ins'/>">Admin Page</a></li>
-							<li class="menu-item-has-children"><a
-								href="<c:url value ='/Pay/PayPage.ins'/>">PayPage(Test)</a></li>
 							<%
 								} else {
 							%>

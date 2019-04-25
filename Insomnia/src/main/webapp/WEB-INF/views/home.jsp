@@ -81,7 +81,7 @@
 										href="<c:url value='/#'/>">HOME</a></li>
 
 
-									<li class="menu-item-has-children"><<a
+									<li class="menu-item-has-children"><a
 										href="<c:url value='/main/mainproject.ins'/>">Funding</a>
 									</li>
 
