@@ -144,8 +144,10 @@ body {
 							<div id="projectCardList" style="text-align:center;" class="card-list">
 								<!-- 내용이 없을 경우 -->
 								<c:if test="${empty fundingRecords}" var="result">
-									<p id="emptyProjectText" style="display: block">펀딩한 음악이  <!-- ajax에서도 같은기능 구현해야 -->
-										없습니다.</p> <!-- 이거 효과줄라고 ajax에서 했는데, id라서 안 되네. class로 바꾸면 될래나? css때무네 -->
+									<div class="historyEmptyValue" style="width:1500px; height:450px; margin:auto; text-align:center;">
+										<p id="emptyProjectText" style="display: block">펀딩한 음악이  <!-- ajax에서도 같은기능 구현해야 -->
+											없습니다.</p> <!-- 이거 효과줄라고 ajax에서 했는데, id라서 안 되네. class로 바꾸면 될래나? css때무네 -->
+									</div>
 								</c:if>
 								<!-- 내용이 있을 경우 -->
 								<c:if test="${not result}">
@@ -405,7 +407,7 @@ body {
 			
 			
 			if(isEmpty) {
-				$('.historyValue').html(emptyMessage);
+				$('.historyEmptyValue').html(emptyMessage);
 				$('.pagingDiv').html("");
 				return;
 			}
