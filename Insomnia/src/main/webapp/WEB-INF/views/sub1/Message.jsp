@@ -12,7 +12,7 @@
 	<c:otherwise>
 		<c:set var="successMsg" value="삭제 성공했어요"/>
 		<c:set var="failMsg" value="삭제 실패했어요"/>
-		<c:set var="successUrl" value="/sub1/subcontent.ins"/>	
+		<c:set var="successUrl" value="/sub1/list.ins"/>	
 	</c:otherwise>
 </c:choose>
 

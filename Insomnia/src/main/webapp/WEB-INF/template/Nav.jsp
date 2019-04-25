@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -46,6 +46,11 @@
 	width: 30px;
 }
 
+/* table { */
+/* 	width: 279px; */
+/* 	text-align: center; */
+/* } */
+
 .user_middle table tr {
 	width: 279px;
 	text-align: center;
@@ -85,6 +90,9 @@
 	color: orange;
 	font-size: 17px;
 }
+
+
+
 
 
 .user_top {	
@@ -134,21 +142,23 @@
 					<div class="nav">
 						<ul class="group" id="header-menu-magic-line">
 
-							<li class="menu-item-has-children current_page_item">
-							<a href="<c:url value='/#'/>">HOME</a></li>
+							<li class="menu-item-has-children current_page_item"><a
+								href="<c:url value='/#'/>">HOME</a></li>
 
-							<li class="menu-item-has-children">
-							<a href="<c:url value='/main/mainproject.ins'/>">Funding</a>
+							<li class="menu-item-has-children"><a
+								href="<c:url value='/main/mainproject.ins'/>">Funding</a>
 							</li>
 
-							<li class="menu-item-has-children">
-							<a href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
+							<li class="menu-item-has-children"><a
+								href="<c:url value='/sub1/subprojects.ins'/>">Sub Projects</a></li>
 
 							<%
 								if ("admin".equals(session.getAttribute("id")) || "ADMIN".equals(session.getAttribute("id"))) {
 							%>
 							<li class="menu-item-has-children"><a
 								href="<c:url value='/admin/index.ins'/>">Admin Page</a></li>
+							<li class="menu-item-has-children"><a
+								href="<c:url value ='/Pay/PayPage.ins'/>">PayPage(Test)</a></li>
 							<%
 								} else {
 							%>
@@ -171,14 +181,12 @@
 
 
 	<!-- 여기부터 -->
-
-	<!-- 여기부터 -->
 			
 				<!-- 로그인 시 보여줄 화면 시작 -->
 				<div class="offset-menu-two">
 					<div class="afterLogin" style="margin-top: -370px">
 					<!-- 닫기 버튼 -->
-						<a href="javascript:return false;" class="offset-closer">
+						<a href="<c:url value='/#'/>" class="offset-closer">
 							<img style="margin-left: 270px; margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
 						</a>
 					<!-- 네이버 로그인 display:none -->
@@ -188,9 +196,9 @@
 				
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
               			<!-- 프로필 이미지 -->
-                		<img class="user_picture" src="<c:url value='/upload/${record.profile_img}'/>"/>
+                		<img class="user_picture" src="<c:url value='/upload/${loginRecord.profile_img}'/>"/>
               			<!-- 사용자 이름 -->
-              			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${record.name}</span>님 환영합니다!</a>
+              			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${loginRecord.name}</span>님 환영합니다!</a>
               			<!-- 쿠폰, 포인트 -->
 			             <dl class="c">
 			               <dt>쿠폰</dt>
@@ -201,7 +209,7 @@
             		</div>
 		            <table class="user_middle">	<!-- 중간메뉴:ul -->	<!-- ul이 1 칸 차지, li display : inline -->
 		              <tr>
-			              <td style="margin-left: 9px;"><a id="middle1" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_apple-music-2_2301791.png'/>"/></a></td>
+			              <td><a id="middle1" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_apple-music-2_2301791.png'/>"/></a></td>
 			              <td><a id="middle2" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_microphone_1055023.png'/>"/></a></td>
 			              <td><a id="middle3" href="javascript:void(0)" class=""><img src="<c:url value='/img/followers.png'/>"/></a></td>
 			              <td><a id="middle4" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_heart_289619.png'/>"/></a></td>
@@ -210,7 +218,8 @@
 		           		  <td><label for="middle1">리워드</label></td>
 		           		  <td><label for="middle2">마이페이지</label></td>
 		           		  <td><label for="middle3">초대하기</label></td>
-		           		  <td><label for="middle4">자유게시판</label></td>
+		           		  <td><label for="middle4">블라블라</label></td>
+			           		
 			           </tr>
 		            </table>
 		            
@@ -244,7 +253,8 @@
 
 	<!-- 여기까지 -->
 
-
+<!--로그인 처리-->
+<link href="<c:url value='/vendor/css/LoginCSS.css'/>" rel="stylesheet" 
 
 
 	<!--=============================-->

@@ -12,7 +12,10 @@ public class ListDTO {
 	private String id;
 	private String ap_genre;
 	private String ap_attachedfile;
-
+	
+	//이거 추가해야 에러 안뜬다.
+	private String profile_img; 
+	
 	//★
 	private String name;
 	
@@ -82,5 +85,11 @@ public class ListDTO {
 	}
 	public void setAp_attachedfile(String ap_attachedfile) {
 		this.ap_attachedfile = ap_attachedfile;
+	}
+	public String getProfile_img() {
+		return profile_img;
+	}
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
 	}
 }

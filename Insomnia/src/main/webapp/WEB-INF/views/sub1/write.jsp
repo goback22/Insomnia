@@ -7,6 +7,8 @@
 <script src="<c:url value='/vendor/js/jquery2.js'/>"></script>
 <script src="<c:url value='/vendor/js/bootstrap2.min.js'/>"></script>
 
+<meta HTTP-EQUIV="Page-exit" content="BlendTrans(Duration=1)" />
+<meta HTTP-EQUIV="Page-enter" content="BlendTrans(Duration=1)" />
 
 <!-- 섬머노트 css,js -->
 <link rel="stylesheet"
@@ -100,7 +102,7 @@
 				src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
 			<div class="div-form-login">
 				<h2 class="text-title">로그인</h2>
-				<form name="form-login" id="form-login"  class="form-login"
+				<form name="form-login" id="form-login" class="form-login"
 					action="<c:url value='/login.ins'/>">
 
 
@@ -323,30 +325,27 @@ option {
 }
 </style>
 <script>
-function formCheck(frm) {
-    if (frm.ap_title.value == "") {
-        alert('제목을 입력해 주세요');
-        frm.ap_title.focus();
-        return false;
-    }
-    else if (frm.ap_genre.value == "") {
-        alert("장르를 선택해 주세요");
-        frm.ap_genre.focus();
-        $('#ap_genre').css('display', 'block');
-        return false;
-    }
-    else if (frm.ap_content.value == "") {
-        alert("내용을 입력해주세요");
-        frm.ap_content.focus();
-        return false;
-    }
-    else if (frm.ap_attachedfile.value == "") {
-        alert("파일을 첨부해주세요");
-        $('#ap_attachedfile').css('display', 'block');
-        return false;
-    }
-    return true;
-}
+	function formCheck(frm) {
+		if (frm.ap_title.value == "") {
+			alert('제목을 입력해 주세요');
+			frm.ap_title.focus();
+			return false;
+		} else if (frm.ap_genre.value == "") {
+			alert("장르를 선택해 주세요");
+			frm.ap_genre.focus();
+			$('#ap_genre').css('display', 'block');
+			return false;
+		} else if (frm.ap_content.value == "") {
+			alert("내용을 입력해주세요");
+			frm.ap_content.focus();
+			return false;
+		} else if (frm.ap_attachedfile.value == "") {
+			alert("파일을 첨부해주세요");
+			$('#ap_attachedfile').css('display', 'block');
+			return false;
+		}
+		return true;
+	}
 </script>
 </head>
 
@@ -360,7 +359,7 @@ function formCheck(frm) {
 			<div class="container">
 				<br> <br>
 				<!-- DETAILS 문구 -->
-					<footer id="footer-4">
+				<footer id="footer-4">
 					<div class="container">
 						<div class="d-flex justify-content-center row">
 							<div class="col-md-12">
@@ -381,9 +380,9 @@ function formCheck(frm) {
 				<div role="tabpanel" class="container">
 					<div class="row">
 						<div class="col-md-10" style="margin-left: -50px;">
-						<!-- onsubmit="return formCheck(this)"  -->
-							<form class="form-horizontal"  enctype="multipart/form-data" id="frm" name="userinput" method="post"
-								action="<c:url value='/sub1/write.ins'/>"
+							<form class="form-horizontal" onsubmit="return formCheck(this)"
+								enctype="multipart/form-data" id="frm" name="userinput"
+								method="post" action="<c:url value='/sub1/write.ins'/>"
 								style="margin-left: 158px">
 								<div class="form-group">
 									<label for="title" class="col-sm-2 control-label">제목</label>
@@ -416,13 +415,14 @@ function formCheck(frm) {
 								<div class="form-group" style="margin-top: -15px">
 									<label for="title" class="col-sm-2 control-label">파일</label>
 									<div class="col-sm-5">
-										<input type="file"  name="attachedfile" id="attachedfile" />
-										<p class="help-block">파일을 첨부하세요</p>
-											
+										<!-- multiple="multiple" -->
+										<input type="file" id="ap_attachedfile" name="ap_attachedfile" />
+										<p class="help-block" style="color: aqua">파일을 첨부하세요</p>
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-md-12 text-center" style="margin-left: 75px;margin-top:15px">
+									<div class="col-md-12 text-center"
+										style="margin-left: 75px; margin-top: 15px">
 										<input type="submit" class="btn btn-info" value="등록" /> <a
 											href="<c:url value='/sub1/subcontent.ins'/>"
 											class="btn btn-success" style="margin-left: 25px">취소</a>
@@ -472,6 +472,25 @@ function formCheck(frm) {
 							}
 						}
 					});
+
+	//파일 첨부 완료 시 텍스트 바꿔주기
+	$(function() {
+		$("#ap_attachedfile").change(function() {
+			$('.help-block').text("파일 첨부가 완료되었습니다.");
+		})
+	});
+
+	//F5키 막기
+	function noEvent() {
+		if (event.keyCode == 116) {
+			event.keyCode = 2;
+			return false;
+		} else if (event.ctrlKey
+				&& (event.keyCode == 78 || event.keyCode == 82)) {
+			return false;
+		}
+	}
+	document.onkeydown = noEvent;
 </script>
 <!-- /.product-tab-wrapper -->
 <!-- /.container -->

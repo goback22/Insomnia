@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/WEB-INF/views/my/isMember.jsp" %>
-
+<meta HTTP-EQUIV="Page-exit" content="BlendTrans(Duration=1)" />
+<meta HTTP-EQUIV="Page-enter" content="BlendTrans(Duration=1)" />
 <!-- Dependency Styles -->
 <link rel="stylesheet"
 	href="dependencies/bootstrap/css/bootstrap.min.css" type="text/css">
@@ -43,7 +44,10 @@ body {
 }
 </style>
 
+<script>
 
+
+</script>
 
 </head>
 
@@ -84,7 +88,7 @@ body {
 						<li><a href="" data-filter=".drum">Drum</a></li>
 						<li><a href="" data-filter=".guiter">Guiter</a></li>
 						<li><a href="" data-filter=".bass">Bass</a></li>
-						<li><a href="" data-filter=".piano">Piano</a></li>
+						<li><a href="" data-filter=".etc">etc</a></li>
 					</ul>
 
 					<div class="tim-isotope tim-isotope-2 wow fadeInUp"
@@ -93,17 +97,16 @@ body {
 							<li class="grid-sizer"></li>
 
 							<!-- 첫번째 목록 -->
-							<li class="tim-album-item grid-item bass piano guiter">
+							<li class="tim-album-item grid-item bass guiter">
 								<div class="tim-isotope-grid__img effect-active">
-									<img src="<c:url value='/resource/img/A.jpg'/>" alt="album thumb" />
+									<img src="<c:url value='/resource/img/I.jpg'/>" alt="album thumb" />
 								</div> <a class="popup-modal" href="<c:url value='/resource/img/A.jpg'/>"> <i
 									class="fa fa-picture-o"></i>
 							</a>
 								<div class="gallery_details_wrap">
 									<div class="gallery-info">
-										<a href="<c:url value='/sub1/subcontent.ins'/>"><h4 class="album-title">방구석
-												기타리스트</h4></a> <a href="<c:url value='/sub1/subcontent.ins'/>"><h5 class="artist-name">Guitarist
-												In the corner of a room</h5></a>
+									<h4 class="album-title">1</h4>
+										<h5 class="artist-name">Music on Night</h5>
 									</div>
 								</div>
 							</li>
@@ -125,7 +128,7 @@ body {
 							</li>
 
 							<!-- 세번째 목록 -->
-							<li class="tim-album-item grid-item piano">
+							<li class="tim-album-item grid-item ">
 								<div class="tim-isotope-grid__img">
 									<img src="<c:url value='/resource/img/H.jpg'/>" alt="album thumb" />
 								</div> <a class="popup-modal" href="<c:url value='/resource/img/H.jpg'/>"> <i
@@ -144,7 +147,7 @@ body {
 							<!-- 네번째 목록 -->
 							<li class="tim-album-item grid-item drum bass">
 								<div class="tim-isotope-grid__img">
-									<img src="<c:url value='/resource/img/E.jpg'/>" alt="album thumb" />
+									<img src="<c:url value='/resource/img/A.jpg'/>" alt="album thumb" />
 								</div> <a class="popup-modal" href="<c:url value='/resource/img/E.jpg'/>"> <i
 									class="fa fa-picture-o"></i>
 							</a>
@@ -209,7 +212,7 @@ body {
 							</li>
 
 							<!-- 여덟번째 목록 -->
-							<li class="tim-album-item grid-item guiter piano">
+							<li class="tim-album-item grid-item guiter ">
 								<div class="tim-isotope-grid__img">
 									<img src="<c:url value='/resource/img/J.jpg'/>" alt="album thumb" />
 								</div> <a class="popup-modal" href="<c:url value='/resource/img/J.jpg'/>"> <i
@@ -225,7 +228,7 @@ body {
 							</li>
 
 							<!-- 아홉번째 목록 -->
-							<li class="tim-album-item grid-item bass piano">
+							<li class="tim-album-item grid-item bass ">
 								<div class="tim-isotope-grid__img">
 									<img src="<c:url value='/resource/img/Q.jpg'/>" alt="album thumb" />
 								</div> <a class="popup-modal" href="<c:url value='/resource/img/Q.jpg'/>"> <i
@@ -242,7 +245,7 @@ body {
 							</li>
 
 							<!-- 열번째 목록 -->
-							<li class="tim-album-item grid-item guiter  drum">
+							<li class="tim-album-item grid-item guiter drum">
 								<div class="tim-isotope-grid__img">
 									<img src="<c:url value='/resource/img/H.jpg'/>" alt="album thumb" />
 								</div> <a class="popup-modal" href="<c:url value='/resource/img/H.jpg'/>"> <i
@@ -259,24 +262,26 @@ body {
 							</li>
 
 							<!-- 열한번째 목록 -->
-							<li class="tim-album-item grid-item bass drum">
+							<li class="tim-album-item grid-item etc drum">
 								<div class="tim-isotope-grid__img">
-									<img src="<c:url value='/resource/img/I.jpg'/>" alt="album thumb" />
+									<img src="<c:url value='/resource/img/E.jpg'/>" alt="album thumb" />
 								</div> <a class="popup-modal" href="<c:url value='/resource/img/I.jpg'/>"> <i
 									class="fa fa-picture-o"></i>
 							</a>
 
 								<div class="gallery_details_wrap">
 									<div class="gallery-info">
-										<h4 class="album-title">11</h4>
-										<h5 class="artist-name">Music on Night</h5>
+										<a href="<c:url value='/sub1/subcontent.ins'/>"><h4 class="album-title">방구석
+												기타리스트</h4></a> <a href="<c:url value='/sub1/subcontent.ins'/>"><h5 class="artist-name">Guitarist
+												In the corner of a room</h5></a>
+										
 
 									</div>
 								</div>
 							</li>
 
 							<!-- 열두번째 목록 -->
-							<li class="tim-album-item grid-item guiter bass">
+							<li class="tim-album-item grid-item guiter bass etc">
 								<div class="tim-isotope-grid__img">
 									<img src="<c:url value='/resource/img/U.jpg'/>" alt="album thumb" />
 								</div> <a class="popup-modal" href="<c:url value='/resource/img/U.jpg'/>"> <i
@@ -285,9 +290,11 @@ body {
 
 								<div class="gallery_details_wrap">
 									<div class="gallery-info">
+								
 										<h4 class="album-title">12</h4>
 										<h5 class="artist-name">Music on Night</h5>
 									</div>
+									
 								</div>
 							</li>
 
