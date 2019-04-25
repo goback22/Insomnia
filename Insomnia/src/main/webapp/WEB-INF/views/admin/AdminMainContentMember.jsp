@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AdminMainContentVote.jsp</title>
+<title>AdminMainContentMember.jsp</title>
 	<link href="<c:url value='/vendor/css/bootstrap-3.3.2.css'/>" rel="stylesheet">
 	<script src="<c:url value='/vendor/js/jquery-3.3.1.js'/>"></script>
 	<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script>
@@ -49,7 +50,7 @@
 									<th class="col-md-3 text-center">BM_TITLE</th>
 									<th class="col-md-1 text-center">column1</th>
 									<th class="col-md-1 text-center">b-LIKED</th>
-									<th class="col-md-2 text-center">main신청여부</th>
+									<th class="col-md-1 text-center">main신청여부</th>
 								</tr>
 								
 								<c:if test="${empty bandlist }" var="isEmpty">
@@ -66,10 +67,7 @@
 										<td class="text-center viewDetail">${item.bm_title }</td>
 										<td class="text-center viewDetail">column1</td>
 										<td class="text-center viewDetail">${item.b_liked }</td>
-										<td class="text-center">
-											<div class="btn btn-default apply">수정</div>
-											<div class="btn btn-default deny">삭제</div>
-										</td>
+										<td class="text-center">미신청</td>
 									</tr>
 									<!-- 위의 detail -->
 									<tr class="fold" style="background-color: #c8c8c8;">
@@ -92,19 +90,10 @@
 															<td colspan="4">${item.b_description }</td>
 															<td rowspan="10" align="center">
 															<!-- ------------------------------- -->
-																<img data-toggle="modal" data-target=".bi-image-modal" class="" style="height:30%;" src="<c:url value='/img/unnamed.jpg'/>" alt="등록된 이미지가 없습니다"> 
-																<!-- BI_IMAGE modal -->
-																<div class="modal bi-image-modal" tabindex="-1" role="dialog" style="padding-top:15%;">
-																	<div class="modal-dialog modal-md">
-																		<div class="modal-content">
-																			<h2>Band image table-image</h2>
-																			<table>
-																				
-																			</table>
-																		</div>
-																	</div>
-																</div> 
-																<!-- BI_IMAGE modal end -->
+																<img style="height:30%;" 
+																src="<c:url value='/img/unnamed.jpg'/>" 
+																alt="등록된 이미지가 없습니다"> 
+																
 															<!-- ------------------------------- -->
 															</td>
 														</tr>
@@ -121,30 +110,40 @@
 																<td>${bandMusic.bm_name }</td>
 																<td colspan="2">${bandMusic.bm_description }</td>
 															</tr>
+															
 															</c:if>
 														</c:forEach>
 													
 													</tbody>
 												</table>
 											</div>
+											<!-- 신청 여부에 따라 조건 -->
+											<div align="center">
+												<div class="btn btn-default apply">수락</div>
+												<div class="btn btn-default deny">거부</div>
+											</div>
 										</td>
+										
 									</tr>
+									
 									<!-- 위의 detail 끝 -->
 									</c:forEach>
 								</c:if>
+								
 							</table>
+							
 							<!-- table test end -->
 							<div>
 								<div class="btn btn-default checkeddelete">삭제</div>
-								<div class="btn btn-default">수락</div>
-								<div class="btn btn-default">거부</div>
-								<div align="center">페이징a</div>
+								
 							</div>
 						</section>
 					</div>
 				</div>
 			</div>
 			<!-- 첫번째 끝 -->
+			
+			
 			<!-- 오른쪽 시작 -->
 			
 <!-- 				<div class="col-md-4"> -->
@@ -246,7 +245,31 @@ function drawChart() {
 			.getElementById('personalchart'));
 	chart.draw(data, google.charts.Bar.convertOptions(options));
 }
-</script>
 
+
+</script>
+<script type="text/javascript">
+$('.deny').click(function(){
+	console.log("거부버튼");
+	//$(this).closest('tr').css("display","none");
+	if($(this).is($('.deny'))){
+		$(this).removeClass().addClass("btn btn-danger denied").html("거부됨");
+		$(this).prev().remove();
+	}
+	else{
+		$(this).removeClass().addClass("btn btn-default deny").html("거절");
+		
+	}
+	
+});
+var page = 'http://www.naver.com'
+$('.apply').click(function(){
+	console.log("수락버튼");
+	//$(this).closest('tr').css("display","none");
+//	$(this).removeClass().addClass("btn btn-success allpied").html("수락됨");
+	$(this).removeClass().addClass("btn btn-success allpied").html("").append('<a href="fsdfdf?no=${no}" style="color:white;">수락</a>');
+	$(this).next().remove();
+});
+</script>
 </body>
 </html>

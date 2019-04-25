@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script>
 $(function(){
-	$('.secondlevel').hide();
-	$('.firstlevel').click(function(){
-		$('.secondlevel').hide(500);
-		$(this).children().next().toggle();
-	});
+	//$('.secondlevel').hide();
+// 	$('.firstlevel').click(function(){
+// 		$('.secondlevel').hide(500);
+// 		$(this).children().next().toggle();
+// 	});
 });
 
 </script>
@@ -34,33 +34,32 @@ $(function(){
 						<ul class="secondlevel">
 							<li><a href="<c:url value='/admin/allmember.ins'/>">전체보기</a></li>
 							<li><a href="<c:url value='/admin/newmember.ins'/>">신규회원</a></li>
-							<li><a href="<c:url value='/admin/maincontentmember.ins'/>">main(band)목록</a></li>
-							<li><a href="<c:url value='/admin/subcontent.ins'/>">sub 목록</a></li>
+<%-- 							<li><a href="<c:url value='/admin/maincontentmember.ins'/>">main(band)목록</a></li> --%>
+<%-- 							<li><a href="<c:url value='/admin/subcontent.ins'/>">sub 목록</a></li> --%>
 						</ul>
 					</li>
 					<li class="firstlevel"><a href="#">main content<b class="caret"></b></a>
 					<!--  -->
 						<ul class="secondlevel">
 							<li><a href="<c:url value='/admin/maincontentmember.ins'/>">main(band)목록</a></li>
-							<li><a href="<c:url value='/admin/maincontentvote.ins'/>">main 신청 정보</a></li>
-							<li><a href="<c:url value='#'/>">진행중인 밴드목록</a></li>
-							<li><a href="<c:url value='#'/>">band bbs</a></li>
+							<li><a href="<c:url value='/admin/maincontentsubmit.ins'/>">진행중인 밴드목록</a></li>
+							<li><a href="<c:url value='#'/>">band bbs(not yet)</a></li>
 						</ul>
 					</li>
 					<li class="firstlevel"><a href="#">sub content?<b class="caret"></b></a>
 						<!--  -->
 						<ul class="secondlevel">
-							<li><a href="<c:url value='/admin/subcontent.ins'/>">sub 목록</a></li>
-							<li><a href="#">sub 신청 회원</a></li>
-							<li><a href="#">sub 공연정보</a></li>
-							<li><a href="#">sub bbs</a></li>
+							<li><a href="<c:url value='/admin/subcontent.ins'/>">sub 목록(not yet)</a></li>
+							<li><a href="#">sub 신청 회원(not yet)</a></li>
+							<li><a href="#">sub 공연정보(not yet)</a></li>
+							<li><a href="#">sub bbs(not yet)</a></li>
 						</ul>
 					</li>
 					<li class="firstlevel"><a href="#">결제관련<b class="caret"></b></a>
 						<!--  -->
 						<ul class="secondlevel">
 							<li><a href="<c:url value='/admin/paymain.ins'/>">main 결제</a></li>
-							<li><a href="#">sub 결제</a></li>
+							<li><a href="#">sub 결제(not yet)</a></li>
 						</ul>
 					</li>
 					<li><a href="#">etc</a></li>

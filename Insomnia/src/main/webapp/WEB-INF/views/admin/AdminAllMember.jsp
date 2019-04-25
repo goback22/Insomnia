@@ -4,13 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AdminAllMember.jsp</title>
-<link href="<c:url value='/vendor/css/bootstrap-3.3.2.css'/>" rel="stylesheet">
-<script src="<c:url value='/vendor/js/jquery-3.3.1.js'/>"></script>
-<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script>
+	<link href="<c:url value='/vendor/css/bootstrap-3.3.2.css'/>" rel="stylesheet">
+	<script src="<c:url value='/vendor/js/jquery-3.3.1.js'/>"></script>
+	<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script>
 <%-- <script src="<c:url value='/vendor/js/admin_index_chart.js'/>"></script> --%>
 <!--  -->
 <link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>" rel="stylesheet">
@@ -27,7 +27,6 @@
 		<!-- top sidebar end -->
 		<!-- main -->
 		<div id="page-wrapper">
-
 			<div class="row">
 				<div class="col-lg-12">
 					<h1>
@@ -123,9 +122,14 @@
 															</tbody>
 														</table>
 													</div>
+													<div align="center">
+														<div class="btn btn-success memberViewDetail" onclick="memberView()">상세보기</div>
+														
+													</div>
 												</td>
 											</tr>
 											<!-- 위의 detail 끝 -->
+											
 										</c:forEach>
 									</c:if>
 									
@@ -215,5 +219,13 @@
 	<!-- pagination -->
 	<script type="text/javascript" src="<c:url value='/vendor/js/admin_pagination.js'/>"></script>
 	
+	<script>
+		function memberView(){
+			//console.log("div memberView check");
+			location.href="<c:url value='/admin/memberView.ins'/>";
+			
+		};
+		
+	</script>
 </body>
 </html>

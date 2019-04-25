@@ -12,9 +12,12 @@ public interface AdminService {
 	int selectTodayNewMember(Map map);
 	int selectYesterDayNewMember(Map map);
 	int selectTwoDaysAgoNewMember(Map map);
-	
+	//bandlist
 	List<AdminDTO> selectBandList(Map map);
+	//band music
 	List<AdminDTO> selectBandMusicList(String string);
+	
+	
 	//상세보기
 	AdminDTO selectOne(Map map);
 	

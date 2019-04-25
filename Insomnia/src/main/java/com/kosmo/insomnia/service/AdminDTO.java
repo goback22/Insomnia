@@ -34,7 +34,16 @@ public class AdminDTO {
 	private String bm_name;
 	private String bm_description;
 	private String bm_liked;
+	//bandimage
+	private String image;
 	
+
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	
 	public String getGender() {
 		return gender;

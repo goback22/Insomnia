@@ -7,8 +7,9 @@
 <mapper namespace="mapper.adminMember">
 	<!-- members -->
 	<select id="adminMember" parameterType="java.util.Map" resultType="AdminDTO" >
-		SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.*,(SELECT COUNT(*) FROM members) FROM members M 
-		ORDER BY join_date DESC)T) WHERE R BETWEEN #{start} AND #{end}
+		SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.*,(SELECT COUNT(*) FROM members) FROM members M where id not in('admin')
+		ORDER BY join_date DESC)T) WHERE R BETWEEN #{start} AND #{end} 
+	
 	</select>
 	<!-- 전체 회원수  -->
 	<select id="totalMembers" parameterType="java.util.Map" resultType="int">
@@ -20,8 +21,9 @@
 	</select>
 	<!-- new Member -->
 	<select id="adminNewMember" parameterType="java.util.Map" resultType="AdminDTO">
-	SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.*,(SELECT COUNT(*) FROM members) FROM members M where to_char(join_date, 'yyyymmdd' ) between to_char(sysdate-2, 'yyyymmdd') and to_char(sysdate, 'yyyymmdd') ORDER BY join_date DESC)T) WHERE R BETWEEN #{start} AND #{end}
-<!-- 		select * from members  where to_char(join_date, 'yyyymmdd' ) between to_char(sysdate-2, 'yyyymmdd') and to_char(sysdate, 'yyyymmdd') -->
+	SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.*,(SELECT COUNT(*) FROM members) FROM members M where to_char(join_date, 'yyyymmdd' ) between to_char(sysdate, 'yyyymmdd') and to_char(sysdate, 'yyyymmdd') ORDER BY join_date DESC)T) WHERE R BETWEEN #{start} AND #{end}
+<!-- 	SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.*,(SELECT COUNT(*) FROM members) FROM members M where to_char(join_date, 'yyyymmdd' ) between to_char(sysdate, 'yyyymmdd') and to_char(sysdate-2, 'yyyymmdd') ORDER BY join_date DESC)T) WHERE R BETWEEN #{start} AND #{end} -->
+
 	</select>
 	<!-- today -->
 	<select id="todayNewMember" parameterType="java.util.Map" resultType="int">
@@ -42,5 +44,6 @@
 	<select id="adminMainMusicList" parameterType="java.lang.String" resultType="AdminDTO">
 		select B.b_no,BM.* from band B join bandmusic BM on B.b_no = BM.b_no where B.b_name=#{B.b_name}
 	</select>
+	
 	
 </mapper>

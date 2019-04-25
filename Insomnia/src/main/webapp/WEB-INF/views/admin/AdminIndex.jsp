@@ -114,7 +114,7 @@
 			
 			<!-- 회원관련 -->
 			<div class="row">
-				<div class="col-md-11">
+				<div class="col-md-6">
 				<!-- 전체 회원보기 -->
 					<div class="panel panel-primary">
 						<div class="panel-heading">
@@ -158,8 +158,10 @@
 						</div>
 						
 					</div>
+				</div>
 					<!-- 전체회원보기 끝 -->
 					<!-- 신규회원 보기 -->
+				<div class="col-md-6">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -201,44 +203,40 @@
 							</section>
 						</div>
 					</div>
-					<!-- 신규회원 보기 끝 -->
-					<!-- band member list -->
+				</div>
+				<!-- 신규회원 보기 끝 -->
+				<!-- band member list -->
+				<div class="col-md-6">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								band회원 관리
+								band list
 							</h3>
 						</div>
 						<div class="panel-body feed">
 							<section class="feed-item">
 								<table class="table table-hover">
 									<tr>
-										<th class="col-md-1 text-center">no</th>
-										<th class="col-md-1 text-center">id</th>
-										<th class="col-md-2 text-center">name</th>
-										<th class="col-md-2 text-center">email</th>
-										<th class="col-md-2 text-center">phone?</th>
-										<th class="text-center">회원구분</th>
-										<th class="col-md-1 text-center">정보공개</th>
+										<th class="text-center">no</th>
+										<th class="col-md-1 text-center">BAND.b_name</th>
+										<th class="text-center">BAND.bm_title</th>
+										<th class="text-center">BANDMUSIC.bm_name</th>
+										<th class="col-md-1 text-center">BAND.b_liked</th>
 									</tr>
 									<!-- DB에서 꺼내기 -->
 									<tr>
-										<td class="col-md-1 text-center">1</td>
-										<td class="col-md-1 text-center">newbee</td>
-										<td class="col-md-2 text-center">김뉴비</td>
-										<td class="text-center">newg@navet.com</td>
-										<td class="col-md-2 text-center">010-9234-5678</td>
-										<td class="text-center">일반회원</td>
-										<td class="col-md-1 text-center">no</td>
+										<td class="text-center">1</td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
 									</tr>
 									<tr>
-										<td class="col-md-1 text-center">2</td>
-										<td class="col-md-1 text-center">newthing</td>
-										<td class="col-md-2 text-center">이신상</td>
-										<td class="col-md-3 text-center">sinsangg@sejong.kr</td>
-										<td class="col-md-2 text-center">010-8888-8888</td>
-										<td class="text-center">방구석</td>
-										<td class="col-md-1 text-center">yes</td>
+										<td class="text-center">2</td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
 									</tr>
 									<!-- DB에서 꺼내기 끝 -->
 								</table>
@@ -249,6 +247,53 @@
 					</div>
 					<!-- band member list -->
 				</div>
+				
+				<!-- band submit -->
+				<div class="col-md-6">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								진행중인 밴드목록
+							</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+								<table class="table table-hover">
+									<tr>
+										<th class="text-center">no</th>
+										<th class="col-md-1 text-center">BAND.b_name</th>
+										<th class="col-md-1 text-center">BAND.bm_title</th>
+										<th class="text-center">BANDSUBMIT.s_submit_date</th>
+										<th class="text-center">BANDSUBMIT.s_goal_deadline</th>
+										
+									</tr>
+									<!-- DB에서 꺼내기 -->
+									<tr>
+										<td class="text-center">1</td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
+										
+									</tr>
+									<tr>
+										<td class="text-center">2</td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
+										
+									</tr>
+									<!-- DB에서 꺼내기 끝 -->
+								</table>
+								<div class="" style="text-align: right;margin-right: 5px;">
+									<a href="<c:url value='/admin/maincontentsubmit.ins'/>">more view</a></div>
+							</section>
+						</div>
+					</div>
+					<!-- band member list -->
+				</div>
+				<!--  -->
 			</div>
 			<!-- 회원관련 끝 -->
 			<!-- main content -->
