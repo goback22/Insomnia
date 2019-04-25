@@ -1,0 +1,178 @@
+@font-face {
+	font-family : 'Roboto';
+	src: url('Roboto-ThinItalic-webfont.eot');
+    src: url('Roboto-ThinItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Roboto-ThinItalic-webfont.woff') format('woff'),
+         url('Roboto-ThinItalic-webfont.ttf') format('truetype'),
+         url('Roboto-ThinItalic-webfont.svg#RobotoThinItalic') format('svg'); (under the Apache Software License).
+}
+
+.allWrap input {
+	text-rendering: auto;
+	letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-align: start;
+    font: 400 13.3333px Arial;
+}
+
+#editEmailBtn, #editAuthBtn{
+	text-rendering: auto;
+	align-items: flex-start;
+	letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    font: 400 13.3333px Arial;
+}
+
+
+.allWrap {
+	width: 360px;
+	/* height: 695px; */
+	padding: 75px 20px 35px;
+	margin: 0 auto;
+}
+
+.welcomeText {
+	width:100%;
+	color:#4A4A4A;
+	font-size:20px;
+}
+
+#editPassword {
+	width: 100%;
+	box-sizing: border-box;
+	border : 1px solid #e4e4e4;
+	color: #4A4A4A;
+	height:46px;
+	margin-bottom: 10px;
+}
+
+#confirmPassword {
+	width: 100%;
+	box-sizing: border-box;
+	border : 1px solid #e4e4e4;
+	color: #4A4A4A;
+	height:46px;
+	margin-bottom: 10px;
+}
+
+#editEmail {
+	width: 73%;
+	box-sizing: border-box;
+	border : 1px solid #e4e4e4;
+	color: #4A4A4A;
+	height:46px;
+	margin-bottom: 10px;
+}
+
+#editPhone {
+	width: 73%;
+	box-sizing: border-box;
+	border : 1px solid #e4e4e4;
+	color: #4A4A4A;
+	height:46px;
+	margin-bottom: 10px;
+	
+}
+
+#editEmailBtn {
+	display:inline-block;
+	width:25%;
+	background-color: #8C8881;
+	font-size: 13px;
+	color:white;
+	height:46px;
+	line-height:46px;
+	/* margin-bottom: 10px; */
+	border:none;
+	cursor:pointer;
+	text-align:center;
+	margin-top: 0px;
+	outline:0;
+	
+}
+
+#editAuthBtn {
+	
+	display:inline-block;
+	width:25%;
+	background-color: #8C8881;
+	font-size: 13px;
+	color:white;
+	height:46px;
+	line-height:46px;
+	margin-bottom: 10px;
+	border:none;
+	cursor:pointer;
+	text-align:center;
+	margin-top: 0px;
+	outline:0;
+	
+}
+
+.addr1, .addr2, .addr4, .addr5 {
+	
+	width: 100%;
+	box-sizing: border-box;
+	border : 1px solid #e4e4e4;
+	color: #4A4A4A;
+	height:46px;
+	margin-bottom: 10px;
+	
+}
+
+
+
+.title1 {
+	
+	color:#4A4A4A;
+	display:inline-block;
+	font-size:15px;
+	
+}
+
+.title2 {
+	color:#4A4A4A;
+	width:100%;
+	font-size:15px;
+}
+
+.marketingDiv {
+	text-align:center;
+	
+}
+
+#setMarketingEmail {
+	margin:0px;
+	margin-right:10px;
+}
+
+#setMarketingSMS {
+	margin:0px;
+	margin-left:10px;
+}
+
+.helpInfo {
+	color : rgba(0, 0, 0, 0.54);
+	font-size:13px;
+}
+
+#editSubmitBtn {
+	width: 100%;
+	background-color:#50E3C2;
+	font-size:15px;
+	cursor:pointer;
+	color:white;
+	text-align:center;
+	outline:0;
+	height: 42px;
+	line-height: 42px;
+}
+
+
+

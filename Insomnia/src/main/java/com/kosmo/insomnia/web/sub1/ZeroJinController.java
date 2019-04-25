@@ -108,12 +108,13 @@ public class ZeroJinController {
 		
 		
 		///4월 22일 서기환 추가 : 오른쪽 개인정보 화면에 출력 위한 로직
-		
-		map.put("id", session.getAttribute("id"));
-		MemberDTO record = memberService.selectOne(map);
-		
-		record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
-		model.addAttribute("record", record);
+		if(session.getAttribute("id") != null) {
+			map.put("id", session.getAttribute("id"));
+			MemberDTO record = memberService.selectOne(map);
+			
+			record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+			model.addAttribute("record", record);
+		}
 		//여기까지
 		
 		return "/sub1/subprojects.tiles";

@@ -11,7 +11,6 @@ public class BGSConcertDTO {
 	private String c_price;		//concertTimes 테이블
 	private String qty;		//bgspay 테이블
 	
-	
 	public String getBgsco_no() {
 		return bgsco_no;
 	}

@@ -46,10 +46,6 @@
 	width: 30px;
 }
 
-table {
-	width: 279px;
-	text-align: center;
-}
 
 .user_middle table tr {
 	width: 279px;
@@ -90,9 +86,6 @@ table {
 	color: orange;
 	font-size: 17px;
 }
-
-
-
 
 
 .user_top {	

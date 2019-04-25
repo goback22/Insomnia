@@ -100,7 +100,7 @@ body {
 
 
 
-									<a href="javascript:void(0)"
+									<a href="<c:url value='/menu/mypage/edit.ins'/>"
 										class="wz button btn-edit">프로필 편집</a>
 
 								</div>
@@ -155,14 +155,14 @@ body {
 											<!-- 여기에 ajax랑 똑같은 UI 뜨게 -->
 											
 											
-											
-											<div class='historyDiv' style='display:inline-block; width:200px; height:300px; border:1px black solid; margin-top:0px; margin-left:30px;'>"
-												<p class='historyName' style='display:inline-block; width:100%; margin:0px;'>${funding.r_name}</p>
-												<img class='historyImg' style='width:90px; height:90px;'/> 
-												<p style='display:inline-block; width:100%; margin:0px;'>${funding.r_price}</p>
-												<p style='display:inline-block; width:100%; margin:0px;'>${funding.r_description}</p>
-												<p style='display:inline-block; width:100%; margin:0px;'>${funding.b_name}</p>&nbsp;<p style='display: inline-block; width:100%;'>${funding.bm_name}</p>
-											</div>"
+											<!-- dlfdfdfdf -->
+											<div class='historyDiv'>
+												<p class='historyName'>${funding.r_name}</p>
+												<img class='historyImg' src="<c:url value='/resource/img/${funding.s_album_cover}'/>"/> 
+												<p class="historyDesc">${funding.r_description}</p>  
+												<p class="historyMusic">${funding.bm_name}</p>  
+												<p class="historyAuthor">${funding.b_name}</p><p class="historyPrice">${funding.r_price}원</p>
+											</div>
 											 
 										</c:forEach>
 									</div>
@@ -283,14 +283,14 @@ body {
 			
 		})/////////////
 		
+		///클릭했을 때.
 		$('.tab-list ul li').click(function(){
-			$(this).addClass('active_click');
-		}, 
-		
-		function(){
+			
 			$('.tab-list ul li').not($(this)).removeClass('active_click');
-		})
+			$(this).addClass('active_click');
+		});
 		
+
 	})
 	
 	</script>
@@ -329,6 +329,8 @@ body {
 					
 				});///////$.ajax
 				
+				$('.historyDiv *').trigger("create")
+				
 			});//////click 이벤트
 			
 		})///////제이쿼리 진입점
@@ -345,7 +347,8 @@ body {
 			$.each(data, function(index, element){
 				
 				if(element['noData'] != null) {
-					emptyMessage = "<p style='margin:auto; color:black;'>아직 "+element["which"]+" 상품이 없습니다.</p>";
+					//emptyMessage = "<p class='emptyMess'>아직 "+element["which"]+" 상품이 없습니다.</p>";
+					emptyMessage = "<div class='emptyMess'>아직 "+element["which"]+" 상품이 없습니다.</div>";
 					isEmpty = true;
 					return;
 				}
@@ -360,25 +363,30 @@ body {
 					var imgSrc = element["S_Album_cover"];
 					var src = '<c:url value="/resource/img/'+imgSrc+'"/>';
 					
-					listString += "<div class='historyDiv' style='display:inline-block; width:250px; height:450px; border:1px black solid; margin-left:20px; border:none;'>";  //전체 div
-					listString += "<p class='historyName' style='display:inline-block; width:100%; margin:0px; font-weight:bold'>" + element["R_Name"] + "</p>"; 
-					listString += "<img class='historyImg' style='width:100%; height:60%;' src='"+src+"' />"  
-					listString += "<p style='display:inline-block; width:100%; margin:0px; overflow:hidden; font-weight:bold; '>"+element["R_Description"]+"</p>";
-					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["BM_name"]+"</p>";
-					listString += "<p style='display:inline-block; width:50%; margin:0px; text-align:left;'>"+element["B_name"]+"</p><p style='display:inline-block; width:50%; text-align:right;'>"+element["R_Price"]+"원</p>";
+					listString += "<div class='historyDiv'>";  //전체 div
+					listString += "<p class='historyName'>" + element["R_Name"] + "</p>"; 
+					listString += "<img class='historyImg' src='"+src+"' />"  
+					listString += "<p class='historyDesc'>"+element["R_Description"]+"</p>";
+					listString += "<p class='historyMusic'>"+element["BM_name"]+"</p>";
+					listString += "<p class='historyAuthor'>"+element["B_name"]+"</p><p class='historyPrice'>"+element["R_Price"]+"원</p>";
 	
 					listString += "</div>"  //전체 div끝
 				}
 				
 				if(whichClick == "공연") {
 					
-					listString += "<div class='historyDiv' style='display:inline-block; width:300px; height:400px; border:1px black solid; margin-top:0px; margin-left:30px;'>";  //전체 div
-					listString += "<p class='historyName' style='display:inline-block; width:100%; margin:0px;'>" + element["b_title"] + "</p>"; 
-					listString += "<img class='historyImg' style='width:100%; height:90px;'/>"  
-	
-					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["b_content"]+"</p>";
-					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["price_bgs"]+"</p>";
-					listString += "<p style='display:inline-block; width:100%; margin:0px;'>"+element["concertDate"]+"</p><p style='display: inline-block; width:100%;'>"+element["qty_bgs"]+"</p>";
+					//var imgSrc = element["S_Album_cover"];
+					var imgSrc = "yumicell.jpg";
+					var src = '<c:url value="/resource/img/'+imgSrc+'"/>';
+					
+					listString += "<div class='historyDiv'>";  //전체 div
+					listString += "<p class='historyName'>" + element["b_title"] + "</p>"; 
+					listString += "<img class='historyImg' src='"+src+"'/>"  
+					listString += "<p class='historyDesc'>"+element["b_content"]+"</p>";
+					listString += "<p class='historyMusic'>"+element["concertDate"]+"</p>";
+					var qty = Number(element["qty_bgs"]);
+					var price = Number(element["price_bgs"]);
+					listString += "<p class='historyAuthor'>예매수량:"+element["qty_bgs"]+"장</p><p class='historyPrice'>"+(qty*price)+"원</p>";
 	
 					listString += "</div>"  //전체 div끝
 				}
