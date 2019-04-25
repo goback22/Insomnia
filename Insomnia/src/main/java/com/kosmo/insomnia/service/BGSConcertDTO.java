@@ -8,9 +8,11 @@ public class BGSConcertDTO {
 	private String b_content;
 	
 	//편의를 위해 추가 4월 23일 서기환 - 문제 소지시 말씀해 주세요.
-    private String c_concertDate;  //concertTimes 테이블
-    private String c_price;      //concertTimes 테이블
-    private String qty;      //bgspay 테이블
+
+	private String c_concertDate;  //concertTimes 테이블
+	private String c_price;		//concertTimes 테이블
+	private String qty;		//bgspay 테이블
+
 	
 	public String getBgsco_no() {
 		return bgsco_no;

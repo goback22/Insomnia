@@ -87,9 +87,6 @@
 }
 
 
-
-
-
 .user_top {	
 	
 	
@@ -191,7 +188,7 @@
 				
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
               			<!-- 프로필 이미지 -->
-                		<img class="user_picture" src="http://bitly.kr/dNA4ZP"/>
+                		<img class="user_picture" src="<c:url value='/upload/${record.profile_img}'/>"/>
               			<!-- 사용자 이름 -->
               			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${record.name}</span>님 환영합니다!</a>
               			<!-- 쿠폰, 포인트 -->
@@ -213,7 +210,7 @@
 		           		  <td><label for="middle1">리워드</label></td>
 		           		  <td><label for="middle2">마이페이지</label></td>
 		           		  <td><label for="middle3">초대하기</label></td>
-		           		  <td><label for="middle4">블라블라</label></td>
+		           		  <td><label for="middle4">자유게시판</label></td>
 			           </tr>
 		            </table>
 		            

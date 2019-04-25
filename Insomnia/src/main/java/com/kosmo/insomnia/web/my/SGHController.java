@@ -106,7 +106,7 @@ public class SGHController {
 	@RequestMapping("/menu/mypage/edit.ins")
 	public String mypage_edit() throws Exception {
 		
-		return "my/MemberEdit.tiles";
+		return "my/MemberEdit2.tiles";
 	}
 	
 	
@@ -153,17 +153,28 @@ public class SGHController {
 		String socialEmail = map.get("socialEmail").toString();
 		String socialProfile = map.get("socialProfile").toString();
 		String socialBirth = map.get("socialBirth").toString();
+		String socialSite = map.get("socialSite").toString();
 		
+		if(socialSite == "kakao") {
+			
+			map.put("socialBirth", null);
+			map.put("socialEmail", null);
+			
+		}
+		System.out.println("카카오 소셜 이름은? " + socialName);
+		System.out.println("카카오 소셜 사이트는? " + socialSite);
 		
 		//생일 처리
 		/*String[] birthArr = socialBirth.split("/");
 		socialBirth = String.format("%s년 %s월 %s일", birthArr[2], birthArr[0], birthArr[1]);*/
 		//지정한 월이 부적합합니다. 오류. String타입으로 저장해야 하지만, 뿌려줄 때만 이렇게 바꿔서 뿌려주고 저장할 때는 Date형식으로 저장하자.
-		String[] birthArr = socialBirth.split("/");
-		String year = birthArr[2].substring(2);
-		socialBirth = year + "/" + birthArr[0] + "/" + birthArr[1];
-		map.put("socialBirth", socialBirth);
 		
+		if(socialSite != "kakao") {
+			String[] birthArr = socialBirth.split("/");
+			String year = birthArr[2].substring(2);
+			socialBirth = year + "/" + birthArr[0] + "/" + birthArr[1];
+			map.put("socialBirth", socialBirth);
+		}
 		
 		//DB에 저장
 		boolean isRegistered = memberService.socialRegister(map);  //map에 담긴 정보:아이디, 이름, 이메일, 사진, 생일

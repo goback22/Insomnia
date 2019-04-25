@@ -170,19 +170,19 @@
 									class="facebook"></i>페이스북으로 로그인
 							</button>
 							<button type="button" id="custom-login-btn"
-								onclick="javascript:loginWithKakao()">
+								onclick="javascript:void(0)">
 								<img class="icon"
 									src="<c:url value='/resource/img/kakaolink_btn_medium.png'/>" />
 								<i class="kakao"></i>카카오
 							</button>
 							<!-- naverLoginBtn -->
-							<div id="naver_id_login" style="width: 201px; height: 48px;">
-								<!-- <button type="button"> -->
-								<%-- <img class="icon"
+							<!-- <div id="naver_id_login" style="width: 201px; height: 48px;"> -->
+							<button type="button">
+								<img class="icon"
 								src="<c:url value='/resource/img/naver_login_icon.png'/>" /> <i
-								class="naver"></i>네이버 --%>
-								<!-- </button> -->
-							</div>
+								class="naver"></i>네이버
+								</button>
+							
 							<button type="button" id="googleLoginBtn">
 								<img class="icon"
 									src="<c:url value='/resource/img/icons8-google-48.png'/>" /> <i
@@ -222,11 +222,12 @@
 				<div class="offset-menu-two">
 					<div class="afterLogin" style="margin-top: -370px">
 					<!-- 닫기 버튼 -->
+
 						<a href="javascript:return false;" class="offset-closer">
-							<img style="margin-left: 270px; margin-top: -60px" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
+							<img style="margin-left: 270px; margin-top: -60px; width:15px; height:15px;" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
 						</a>
 					<!-- 네이버 로그인 display:none -->
-					<div id="naver_id_login" style="display: none;"></div>
+					<!-- <div id="naver_id_login" style="display: none;"></div> -->
 						
 					<!-- 사용자 계정정보 -->
 					<%-- <div style="display:none;" id="hid">${record.login_chain }</div>
@@ -237,7 +238,7 @@
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
 	            		<c:if test="${empty record.login_chain}" var="isSocial">
 	              			<!-- 프로필 이미지:일반로그인 -->
-	                		<img class="user_picture" src="http://bitly.kr/5WfCr6"/>
+	                		<img class="user_picture" src="<c:url value='/upload/${record.profile_img}'/>"/>
 	                	</c:if>
 	                	<c:if test="${not isSocial}">
 	                		<!-- 프로필 이미지:소셜로그인 -->
@@ -266,7 +267,7 @@
 		           		  <td><label for="middle1">리워드</label></td>
 		           		  <td><label for="middle2">마이페이지</label></td>
 		           		  <td><label for="middle3">초대하기</label></td>
-	    	           	  <td><label for="middle5">자유게시판</label></td>
+	    	           	  <td><label for="middle4">자유게시판</label></td>
 			           </tr>
 		            </table>
 		            
@@ -420,7 +421,7 @@
 		</script>
 		<!-- 페이스북 로그인 끝 -->
 
-		<!-- 네이버 로그인 시작 -->
+		<!--  네이버 로그인 시작 
 		<script type="text/javascript"
 			src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 			charset="utf-8"></script>
@@ -433,9 +434,9 @@
 			naver_id_login.setState(state);
 			naver_id_login.setPopup();
 			naver_id_login.init_naver_id_login();
-		</script>
+		</script> -->
 
-		<script>
+		<!-- <script>
 			// 접근 토큰 값 출력
 			/* alert(naver_id_login.oauthParams.access_token); */
 
@@ -448,8 +449,10 @@
 				alert(naver_id_login.getProfileData('nickname'));
 				alert(naver_id_login.getProfileData('age'));
 			}
-		</script>
+		</script> -->
 		<!-- 네이버 로그인 끝 -->
+		
+		
 		<!-- 아이디 저장 시작(쿠키) -->
 		<script>
 			$(function() {

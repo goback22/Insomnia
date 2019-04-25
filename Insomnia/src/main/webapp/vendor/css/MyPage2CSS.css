@@ -2,6 +2,13 @@
     box-sizing: border-box;
 }
 
+@font-face {
+	font-family : Roboto;
+	src : 	local(Roboto),
+			url(../fonts/Roboto-Regular.ttf);
+} 
+
+
 article, blockquote, body, dd, div, dl, dt, h1, h2, h3, h4, html, li, main, ol, p, section, table, tbody, td, th, thead, tr, ul {
     margin: 0;
     padding: 0;
@@ -540,6 +547,109 @@ em, i {
 
 .tab-list ul li:hover {
 	cursor: pointer;
+}
+
+
+/*===========================ajax css========================*/
+
+.historyDiv {
+	display:inline-block; 
+	width:270px; 
+	height:450px; 
+	border:1px black solid; 
+	margin-left:20px; 
+	border-bottom: 1px solid #DADCE0;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	
+}
+
+.historyName {
+	color: #4A4A4A;
+	contrast(8.34);
+	display:inline-block; 
+	width:100%; 
+	/* margin:0px;  */
+	font-weight:bold;
+	font-size: 17px;
+	margin-bottom: 10px;	
+	text-align: right;
+}
+
+.historyImg {
+	width: 100%;
+	height: 60%;
+	border-top: 1px solid #DADCE0;
+	border-bottom: 1px solid #DADCE0;
+	border-left: 1px solid #DADCE0;
+	border-right: 1px solid #DADCE0;
+}
+
+.historyDesc {
+	color: #1D2129;
+	contrast(16.13);
+	display:inline-block; 
+	width:100%; 
+	/* margin:0px;  */
+	overflow:hidden; 
+	font-weight:bold;
+	margin-top: 5px;
+	margin-bottom:0px;
+	height: 50px;
+	font-size: 18px;
+	text-align:center;
+	padding-top: 10px;
+	/* line-height:50px; */
+	border-left: 1px solid #DADCE0;
+	border-right: 1px solid #DADCE0;
+	
+	
+}
+
+.historyMusic {
+	color: #90949C;
+	contrast(19.19);
+	display:inline-block; 
+	width:100%; 
+	margin:0px;
+	border-left: 1px solid #DADCE0;
+	border-right: 1px solid #DADCE0;
+	
+}
+
+.historyAuthor {
+	color: #90949C;
+	contrast(19.19);
+	display:inline-block; 
+	width:50%; 
+	margin:0px; 
+	text-align:left;
+	border-left: 1px solid #DADCE0;
+	padding: none;
+	padding-left:10px;
+	
+
+}
+
+.historyPrice {
+	display:inline-block; 
+	width:50%; 
+	text-align:right;
+	border-right: 1px solid #DADCE0;
+	padding: none;
+	padding-right:10px;
+	color: #90949C;
+	
+}
+
+.emptyMess {
+	padding: 80px 0;
+    text-align: center;
+    line-height: 24px;
+    letter-spacing: -0.5;
+    font-size: 17px;
+    color: #44484B;
 }
 
 

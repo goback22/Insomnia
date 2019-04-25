@@ -6,13 +6,13 @@
 
 <mapper namespace="mapper.sgh">
 
-	<!-- 소셜 회원가입 -->
+	<!-- 소셜 로그인 -->
 	<select id="isSocialMember" parameterType="java.util.Map" resultType="int">
 		select count(*) from members where id=#{socialId}
 	</select>
 	
 	
-	<!-- 소셜 로그인 -->
+	<!-- 소셜 회원가입 -->
 	<insert id="socialRegister" parameterType="java.util.Map">
 		insert into members(id, email, name, profile_img, birthday, join_date, login_chain, phone) 
 		values(#{socialId}, #{socialEmail}, #{socialName}, #{socialProfile}, #{socialBirth}, sysdate, #{socialSite}, 010)
