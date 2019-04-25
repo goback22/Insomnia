@@ -50,13 +50,13 @@
 	<div id="site">
 
 		<!-- 네비게이션 바 -->
-		<div class="nav">
+		<div class="nav loginAllDiv">
 
 			<!--=========================-->
 			<!--=        Navbar         =-->
 			<!--=========================-->
 			<header class="header header-magic-line">
-				<div class="header-inner">
+				<div class="header-inner ">
 					<div class="tim-container clearfix">
 						<div class="header-magic-line-inner clearfix">
 							<div id="site-logo" class="float-left">
@@ -142,7 +142,7 @@
 										class="input-text" maxlength="17"
 										placeholder="비밀번호(영문, 숫자, 특수문자 포함 8자)">
 								</div>
-								<p id="loginError" class="error-text">Insomnia에 등록되지 않은 아이디거나,</br>
+								<p id="loginError" class="error-text">Insomnia에 등록되지 않은 아이디거나,<br/>
 									비밀번호가 회원정보와 일치하지 않습니다.</p>
 							</div>
 
@@ -170,25 +170,25 @@
 									class="facebook"></i>페이스북으로 로그인
 							</button>
 							<button type="button" id="custom-login-btn"
-								onclick="javascript:loginWithKakao()">
+								onclick="javascript:void(0)">
 								<img class="icon"
 									src="<c:url value='/resource/img/kakaolink_btn_medium.png'/>" />
 								<i class="kakao"></i>카카오
 							</button>
 							<!-- naverLoginBtn -->
-							<div id="naver_id_login" style="width: 201px; height: 48px;">
-								<!-- <button type="button"> -->
-								<%-- <img class="icon"
+							<!-- <div id="naver_id_login" style="width: 201px; height: 48px;"> -->
+							<button type="button">
+								<img class="icon"
 								src="<c:url value='/resource/img/naver_login_icon.png'/>" /> <i
-								class="naver"></i>네이버 --%>
-								<!-- </button> -->
-							</div>
+								class="naver"></i>네이버
+								</button>
+							
 							<button type="button" id="googleLoginBtn">
 								<img class="icon"
 									src="<c:url value='/resource/img/icons8-google-48.png'/>" /> <i
 									class="google color"></i>구글
 							</button>
-							<button type="button" onclick="pageLoginByTwitter()">
+							<button type="button" onclick="javascript:void(0)">
 								<img class="icon"
 									src="<c:url value='/resource/img/Twitter_Logo_WhiteOnBlue.png'/>" />
 								<i class="twitter"></i>트위터
@@ -213,9 +213,9 @@
 
 				</div>
 
-
-				<!-- 비 로그인시 보여줄 화면 끝-->
 			</c:if>
+				<!-- 비 로그인시 보여줄 화면 끝-->
+			
 			<c:if test="${not result}">
 
 				<!-- 로그인 시 보여줄 화면 시작 -->
@@ -421,7 +421,7 @@
 		</script>
 		<!-- 페이스북 로그인 끝 -->
 
-		<!-- 네이버 로그인 시작 -->
+		<!-- 네이버 로그인 시작 
 		<script type="text/javascript"
 			src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 			charset="utf-8"></script>
@@ -450,7 +450,7 @@
 				alert(naver_id_login.getProfileData('age'));
 			}
 		</script>
-		<!-- 네이버 로그인 끝 -->
+		네이버 로그인 끝 -->
 		<!-- 아이디 저장 시작(쿠키) -->
 		<script>
 			$(function() {

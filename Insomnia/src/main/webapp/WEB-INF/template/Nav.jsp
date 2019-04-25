@@ -117,13 +117,13 @@
 
 
 <!-- 네비게이션 바 -->
-<div class="nav">
+<div class="nav loginAllDiv">
 
 	<!--=========================-->
 	<!--=        Navbar         =-->
 	<!--=========================-->
 	<header class="header header-magic-line">
-		<div class="header-inner">
+		<div class="header-inner loginAllDiv" >
 			<div class="tim-container clearfix">
 				<div class="header-magic-line-inner clearfix">
 					<div id="site-logo" class="float-left">

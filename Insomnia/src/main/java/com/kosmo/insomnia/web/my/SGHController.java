@@ -126,7 +126,7 @@ public class SGHController {
 			
 			//정보 가져오기
 			MemberDTO record = memberService.selectOne(map);
-			model.addAttribute("record", record);
+			model.addAttribute("loginRecord", record);
 			
 			String message = record.getName() + "님 환영합니다!";
 			model.addAttribute("loginMessage", message);
@@ -193,7 +193,7 @@ public class SGHController {
 			socialBirth = String.format("%s년 %s월 %s일", birthArr[2], birthArr[0], birthArr[1]);*/
 			//나중에 생일 출력해주는 데서 써먹자. 이대로 record.setXXX(socialBirth) 해주면 될 듯
 			
-			model.addAttribute("record", record);
+			model.addAttribute("loginRecord", record);
 			String message = "INSOMNIA에 가입하신 것을 진심으로 축하합니다.<br/> INSOMNIA의 다양한 상품과 이벤트를 즐기시려면 마이페이지에서 추가정보를 입력해주세요.";
 			model.addAttribute("loginMessage", message);
 						
