@@ -85,10 +85,10 @@ body {
 					<ul
 						class="tim-isotope-filter album-filter-button album-filter-button-two">
 						<li class="current"><a href="" data-filter="*">All</a></li>
-						<li><a href="" data-filter=".drum">Drum</a></li>
+						<li><a href="" data-filter=".drum">Vocal</a></li>
 						<li><a href="" data-filter=".guiter">Guiter</a></li>
-						<li><a href="" data-filter=".bass">Bass</a></li>
-						<li><a href="" data-filter=".etc">etc</a></li>
+						<li><a href="" data-filter=".etc">Band</a></li>
+						<li><a href="" data-filter=".bass">Etc</a></li>
 					</ul>
 
 					<div class="tim-isotope tim-isotope-2 wow fadeInUp"

@@ -122,14 +122,6 @@ img {
   max-width: 100%;
 }
 
-.tim-container-box {
-  width: 1200px;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 @media (min-width: 1600px) {
   .tim-container {
     padding: 0 6.5%;
@@ -5996,31 +5988,7 @@ nav#accordian {
 }
 
 .live-ticket-count .countdown {
-  max-width: 500px;
-}
-
-.live-ticket-count .countdown .CountdownContent {
-  display: inline-block;
-  height: 93px;
-  width: 104px;
-  font-size: 36px;
-  font-weight: 600;
-  color: #fff;
-  font-family: "Changa", sans-serif;
-  text-align: center;
-  position: relative;
-  background-image: url("../../media/background/1.png");
-  background-size: contain;
-  margin-right: 20px;
-  background-repeat: no-repeat;
-  padding: 24px 0;
-}
-
-.live-ticket-count .countdown .CountdownContent .CountdownLabel {
-  display: block;
-  text-align: center;
-  font-size: 16px;
-  font-family: "Roboto", sans-serif;
+/*   max-width: 500px; */
 }
 
 @media (min-width: 1200px) and (max-width: 1440px) {

@@ -58,6 +58,8 @@
 	<!-- 리소스파일(.properties) 사용을 위한 설정 -->
 	<context:property-placeholder
 		location="classpath:memo/memo.properties" />
+		
+		<context:property-placeholder location="classpath:memo/memo.properties"/>
 
 	<!-- <context:property-placeholder location="classpath:my/social.properties" 
 		/> -->
