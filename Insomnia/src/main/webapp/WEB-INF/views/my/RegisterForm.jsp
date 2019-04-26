@@ -175,9 +175,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 						<div class="renew_input_box gender_chk">
 							<!-- 이름입력 -->
 							<strong>이름(필수)</strong>
-							<p class="nofix_name">서기환</p>
-							<input type="hidden" id="user_nm" name="user_nm" value="서기환"
-								required="required">
+							<input type="text" id="user_nm" name="user_nm" value="서기환"	required="required">
 							<!-- 성별입력 -->
 							<div class="user_gender">
 								<a class="male on">남</a> <a class="female">여</a> 

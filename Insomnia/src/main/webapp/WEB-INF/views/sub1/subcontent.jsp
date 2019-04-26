@@ -596,21 +596,21 @@ body {
 											<br>
 											<p
 												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 70px;">"
-												환상적인 퍼모먼스? "</p>
+												Fantastic Performance? "</p>
 
 											<!-- section2 -->
 											<div class="section section2" data-aos="fade-down"></div>
 											<br>
 											<p
 												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 830px;">"
-												거대한 콘서트장? "</p>
+												Big ConcertHall? "</p>
 
 											<!-- section3 -->
 											<div class="section section3" data-aos="slide-up"></div>
 											<br>
 											<p
 												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 120px;">"
-												수 많은 악기? "</p>
+												a lot of Instruments? "</p>
 										</div>
 									</div>
 								</div>
@@ -712,9 +712,9 @@ body {
 															<div class="option-box-left" style="padding-top: 10px">
 																<div class="option-box-amount">${bgs1.C_CONCERTDATE}</div>
 																<div class="mt5" style="padding-top: 5px">
-																	<span><strong>13석 남음</strong></span> <span
-																		style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
-																		12석 판매</span>
+																	<span><strong>52석 남음</strong></span> <span
+																		style="color:white">&nbsp;&nbsp;|&nbsp;&nbsp;
+																		248석 판매</span>
 																</div>
 															</div>
 															<form action="<c:url value='/Pay/PayPage.ins'/>"
@@ -951,10 +951,9 @@ body {
 																	<span class="post-date">2018-12-25</span>
 																</div>
 																<p>
-																	Description says it's water proof. This isn't really
-																	the case, but then again I guess it's obvious from the
-																	title of the product.<br> Overall very happy that
-																	I purchased this jacked, plus I got a discount!
+																	처음엔 프로들의 공연도 아닌데 티켓 값이 너무 비싼 거 아닌가 생각했는데 
+																	공연을 보고 그런 생각을 한 제가 창피할 정도였습니다.
+																	<br> 오늘 공연을 한 젊은이들이 언젠가 성공할 거라 믿어 의심치 않습니다.!
 																</p>
 															</div>
 														</article>
@@ -976,10 +975,10 @@ body {
 																	<span class="post-date">2018-12-25</span>
 																</div>
 																<p>
-																	Description says it's water proof. This isn't really
-																	the case, but then again I guess it's obvious from the
-																	title of the product.<br> Overall very happy that
-																	I purchased this jacked, plus I got a discount!
+																	자식들이 방구석 기타리스트라는 공연을 보러가자길래 처음엔 기대를 안하고 갔으나,
+																	생각보다 공연자들의 실력이 너무 우수했고 감동적이였습니다.
+																	많지 않았을 시간동안<br> 그들이 그 정도의 합을 맞췄다는게 믿겨지지 않네요!
+																	다음 공연에는 어떤 참가자들이 어떤 공연을 할 지 너무 기대됩니다.
 																</p>
 															</div>
 														</article>

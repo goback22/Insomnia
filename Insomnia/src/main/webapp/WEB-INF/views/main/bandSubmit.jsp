@@ -11,6 +11,11 @@
 <link rel="stylesheet" href="<c:url value='/vendor/css/app.css'/>" type="text/css">
 
 
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
 <!-- 제목 폰트 -->
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
 <!-- 배너 폰트 -->
