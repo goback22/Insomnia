@@ -593,21 +593,21 @@ body {
 											<br>
 											<p
 												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 70px;">"
-												환상적인 퍼모먼스? "</p>
+												Fantastic Performance? "</p>
 
 											<!-- section2 -->
 											<div class="section section2" data-aos="fade-down"></div>
 											<br>
 											<p
 												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 830px;">"
-												거대한 콘서트장? "</p>
+												Big ConcertHall? "</p>
 
 											<!-- section3 -->
 											<div class="section section3" data-aos="slide-up"></div>
 											<br>
 											<p
 												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 120px;">"
-												수 많은 악기? "</p>
+												a lot of Instruments? "</p>
 										</div>
 									</div>
 								</div>
@@ -709,9 +709,9 @@ body {
 															<div class="option-box-left" style="padding-top: 10px">
 																<div class="option-box-amount">${bgs1.C_CONCERTDATE}</div>
 																<div class="mt5" style="padding-top: 5px">
-																	<span><strong>148석 남음</strong></span> <span
+																	<span><strong>52석 남음</strong></span> <span
 																		style="opacity: 0.5;color:white">&nbsp;&nbsp;|&nbsp;&nbsp;
-																		152석 판매</span>
+																		248석 판매</span>
 																</div>
 															</div>
 															<form action="<c:url value='/Pay/PayPage.ins'/>"
