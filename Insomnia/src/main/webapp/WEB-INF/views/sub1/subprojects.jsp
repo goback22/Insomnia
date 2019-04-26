@@ -133,7 +133,7 @@ body {
 							<!-- 세번째 목록 -->
 							<li class="tim-album-item grid-item bass">
 								<div class="tim-isotope-grid__img">
-									<img style="height: 360px" src="<c:url value='/resource/img/ear.jpg'/>" alt="album thumb" />
+									<img style="height: 320px" src="<c:url value='/resource/img/ear.jpg'/>" alt="album thumb" />
 								</div> <a class="popup-modal" href="<c:url value='/resource/img/ear.jpg'/>"> <i
 									class="fa fa-picture-o"></i>
 							</a>
