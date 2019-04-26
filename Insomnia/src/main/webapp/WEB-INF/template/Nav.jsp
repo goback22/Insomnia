@@ -159,8 +159,8 @@
 							%>
 							<li class="menu-item-has-children"><a
 								href="<c:url value='/admin/index.ins'/>">Admin Page</a></li>
-							<li class="menu-item-has-children"><a
-								href="<c:url value ='/Pay/PayPage.ins'/>">PayPage(Test)</a></li>
+<!-- 							<li class="menu-item-has-children"><a -->
+<%-- 								href="<c:url value ='/Pay/PayPage.ins'/>">PayPage(Test)</a></li> --%>
 							<%
 								} else {
 							%>

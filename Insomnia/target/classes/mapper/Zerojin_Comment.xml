@@ -6,7 +6,9 @@
 
 <mapper namespace="mapper.Zerojin_Comment">
    <select id="commentSelectList" parameterType="java.util.Map" resultType="java.util.Map">
-   SELECT m.id,content,name,postdate,r_no,stars, profile_img FROM BGSREVIEW m JOIN members b ON m.id=b.id order by r_no desc
+
+   SELECT m.id,content,name,postdate,r_no,stars,profile_img FROM BGSREVIEW m JOIN members b ON m.id=b.id order by r_no desc
+
    </select>
    
    <insert id="commentInsert" parameterType="java.util.Map" >

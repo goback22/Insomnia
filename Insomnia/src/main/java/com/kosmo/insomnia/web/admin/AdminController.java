@@ -112,12 +112,12 @@ public class AdminController {
 		List<AdminDTO> list = adminService.selectNewMemberList(map);
 		//가입날에 따른 사람 수
 		int todayMember = adminService.selectTodayNewMember(map);
-		//int yesterday = adminService.selectYesterDayNewMember(map);
-		//int twodaysAgo = adminService.selectTwoDaysAgoNewMember(map);
+		int yesterday = adminService.selectYesterDayNewMember(map);
+		int twodaysAgo = adminService.selectTwoDaysAgoNewMember(map);
 		
 		model.addAttribute("todayMember", todayMember);
-		//model.addAttribute("yesterdayMember", yesterday);
-		//model.addAttribute("twodayagoMember", twodaysAgo);
+		model.addAttribute("yesterdayMember", yesterday);
+		model.addAttribute("twodayagoMember", twodaysAgo);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("totalMemberCount", totalMembers);
 		model.addAttribute("pagingString", pagingString);

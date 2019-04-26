@@ -52,7 +52,7 @@ body {
 							<div class="myinfo-content">
 								<dl>
 									<dd>
-										<p class="nickname">${record.name}</p>
+										<p class="nickname">${loginRecord.name}</p>
 										<p class="accnttype">개인 회원</p>
 										<p class="otherinfo"></p>
 									</dd>
@@ -68,13 +68,13 @@ body {
 										<a id="editImage">이미지 수정</a>
 									</c:if> --%>
 									<!-- ajax -->
-									<c:if test="${empty record.login_chain}" var="isSocial">
-										<img class="profile-img2" src="<c:url value='/upload/${record.profile_img}'/>"/>
+									<c:if test="${empty loginRecord.login_chain}" var="isSocial">
+										<img class="profile-img2" src="<c:url value='/upload/${loginRecord.profile_img}'/>"/>
 									</c:if>
 									<c:if test="${not isSocial}">
-										<img class="profile-img2" src="${record.profile_img}"/>
+										<img class="profile-img2" src="${loginRecord.profile_img}"/>
 									</c:if>
-									<a id="editImage">${empty record.profile_img ? '이미지등록' : '이미지수정'}</a>
+									<a id="editImage">${empty loginRecord.profile_img ? '이미지등록' : '이미지수정'}</a>
 									</dt>
 								</dl>
 								<p style="display:hidden" id="imgSrc"></p>

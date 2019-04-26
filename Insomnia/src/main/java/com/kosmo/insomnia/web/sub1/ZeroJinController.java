@@ -20,6 +20,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -104,7 +105,13 @@ public class ZeroJinController {
 
 	// 서브 프로젝트
 	@RequestMapping(value = "/sub1/subprojects.ins")
-	public String subprojects() throws Exception {
+	public String subprojects(Model model, Map map, HttpSession session) throws Exception {
+	
+	map.put("id", session.getAttribute("id"));
+	MemberDTO record = memberService.selectOne(map);
+  	 record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+  	 model.addAttribute("loginRecord", record);
+		
 		return "/sub1/subprojects.tiles";
 	}
 	
@@ -115,7 +122,9 @@ public class ZeroJinController {
 		
 		
 		map.put("id", session.getAttribute("id"));
+		
 		MemberDTO record = memberService.selectOne(map);
+		record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
 		model.addAttribute("loginRecord", record);
 		
 		
@@ -133,7 +142,7 @@ public class ZeroJinController {
 		
 	// 방구석 기타리스트 게시판
 	@RequestMapping(value = "/sub1/list.ins")
-	public String list(Model model, @RequestParam Map map, HttpServletRequest req,
+	public String list(Model model, @RequestParam Map map, HttpServletRequest req, HttpSession session,
 			@RequestParam(required = false, defaultValue = "1") int nowPage) throws Exception {
 		int totalRecordCount = insService.getTotalRecord(map);
 
@@ -151,6 +160,13 @@ public class ZeroJinController {
 		
 		String pagingString = PagingUtil.pagingBootStrapStyle(totalRecordCount, pageSize, blockPage, nowPage,
 				req.getContextPath() + "/sub1/list.ins?");
+		
+		//서기환 추가
+		map.put("id", session.getAttribute("id"));
+	  MemberDTO record = memberService.selectOne(map);
+  	  record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+  	  model.addAttribute("loginRecord", record);
+		
 		
 		model.addAttribute("list", list);
 		model.addAttribute("nowPage", nowPage);
@@ -172,9 +188,14 @@ public class ZeroJinController {
 
 	// 방구석 기타리스트 게시판 - write처리 및 파일업로드
 	@RequestMapping(value = "/sub1/write.ins", method= RequestMethod.POST)
-	public String writeOk(HttpServletRequest req, MultipartHttpServletRequest mtfRequest, @RequestParam Map map, HttpSession session) throws IOException, ServletException{
+	public String writeOk(Model model, HttpServletRequest req, MultipartHttpServletRequest mtfRequest, @RequestParam Map map, HttpSession session) throws IOException, ServletException{
 		// 서비스 호출
 		map.put("id", session.getAttribute("id")); // ☆
+		
+	MemberDTO record = memberService.selectOne(map);
+  	  record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+  	  
+  	  model.addAttribute("loginRecord", record);
 		
 		//★input=file은 name파라미터를 리퀘스트 영역에서 받을 수 없고 아래 형식에 따라 받아서 Map에 추가해줘야한다.
 		MultipartFile ap_attachedfile = mtfRequest.getFile("ap_attachedfile");
@@ -232,7 +253,15 @@ public class ZeroJinController {
 		
 	// 방구석 기타리스트 게시판  - view
 	@RequestMapping(value = "/sub1/view.ins")
-	public String view(@RequestParam Map map, Model model) throws Exception {
+	public String view(@RequestParam Map map, Model model, HttpSession session) throws Exception {
+		
+		map.put("id", session.getAttribute("id"));
+		MemberDTO loginrecord = memberService.selectOne(map);
+  	  	loginrecord.setProfile_img(loginrecord.getProfile_img() == null ? "profile_none.jpg" : loginrecord.getProfile_img());
+  	  
+  	  	model.addAttribute("loginRecord", loginrecord);
+		
+		
 		// 서비스 호출
 		ListDTO record = insService.selectOne(map);
 		
@@ -263,13 +292,26 @@ public class ZeroJinController {
 	
 	// 방구석 기타리스트 게시판 - view 공지사항으로 이동
 	@RequestMapping(value = "/sub1/viewadmin.ins", method = RequestMethod.GET)
-	public String viewadmin() throws Exception {
+	public String viewadmin(Model model, Map map, HttpSession session) throws Exception {
+		
+		map.put("id", session.getAttribute("id"));
+	 MemberDTO record = memberService.selectOne(map);
+  	  record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+  	  model.addAttribute("loginRecord", record);
+		
 		return "/sub1/viewadmin.tiles";
 	}
 	
 	// 방구석 기타리스트 게시판 - edit로 이동
 	@RequestMapping(value = "/sub1/edit.ins", method = RequestMethod.GET)
-	public String edit(@RequestParam Map map, Model model) throws Exception {
+	public String edit(@RequestParam Map map, Model model, HttpSession session ) throws Exception {
+		
+	  map.put("id", session.getAttribute("id"));
+	  MemberDTO loginrecord = memberService.selectOne(map);
+  	  loginrecord.setProfile_img(loginrecord.getProfile_img() == null ? "profile_none.jpg" : loginrecord.getProfile_img());
+  	  model.addAttribute("loginRecord", loginrecord);
+		
+		
 		// edit 폼에 값을 뿌려주기 위한 record 설정
 		ListDTO record = insService.selectOne(map);
 		model.addAttribute("record", record);
@@ -278,9 +320,14 @@ public class ZeroJinController {
 
 	// 방구석 기타리스트 게시판 - edit처리 및 파일업로드
 	@RequestMapping(value = "/sub1/edit.ins", method = RequestMethod.POST)
-	public String edit(MultipartHttpServletRequest mtfRequest, @RequestParam Map map, HttpServletRequest req, Model model) throws Exception {
+	public String edit(HttpSession session, MultipartHttpServletRequest mtfRequest, @RequestParam Map map, HttpServletRequest req, Model model) throws Exception {
 		List<MultipartFile> fileList = mtfRequest.getFiles("ap_attachedfile");
 		//System.out.println("a:"+fileList);
+		
+		map.put("id", session.getAttribute("id"));
+		 MemberDTO loginrecord = memberService.selectOne(map);
+	  	  loginrecord.setProfile_img(loginrecord.getProfile_img() == null ? "profile_none.jpg" : loginrecord.getProfile_img());
+	  	  model.addAttribute("loginRecord", loginrecord);
 
         //파일 저장 위치
 		String path = "D:\\KYJ\\UTIL\\Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp7\\wtpwebapps\\Insomnia\\upload\\bgslist\\";
@@ -395,6 +442,10 @@ public class ZeroJinController {
 			//엔터 값
 			comment.put("CONTENT", comment.get("CONTENT").toString().replace("\r\n", "<br/>"));
 		}
+		
+//		comments.get("PROFILE_IMG")
+		
+//		System.out.println(comments.get("PROFILE_IMG").to);
 		
 		System.out.println(JSONArray.toJSONString(comments));
 		return JSONArray.toJSONString(comments);

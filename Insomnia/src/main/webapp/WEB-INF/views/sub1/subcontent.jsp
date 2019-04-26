@@ -125,11 +125,16 @@
       tableString += "<article class='review-comment'>";
       $.each(JSON.parse(data),
          function(index, element) {
+    	  	var A = element['PROFILE_IMG'];
+    	  	console.log(A);
+    	  	var B = "<c:url value='/upload/" +A+ "'/>;"
+    	  	console.log(B);
             tableString += "<div class='user-avatar'>";
-            var imgSrc = element["PROFILE_IMG"];
-            var src = '<c:url value="/upload/'+imgSrc+'"/>';
-            
-            tableString += "<img src='" +src+ "'/>'>";
+
+
+//             tableString += "<img src='<c:url value='/resource/img/commenttemp.jpg'/>'>";
+            tableString += "<img style='border-radius:50px;height:70px;width:70px;' src='" +B+ "'>";
+
             tableString += "</div>";
             tableString += "<div class='comment-content'>";
             tableString += "<h5 class='name'>"
@@ -191,7 +196,7 @@
          if($('#submitComment').val() == '수정') {
             ($('#submitComment')).val('등록')   ;
          }
-      })
+      });
    }
    
    //오늘 하루 그만보기
@@ -429,6 +434,39 @@ body {
 .notice-obt-bottom {
 	text-align: right;
 }
+
+.live-ticket-count .countdown .CountdownContent {
+	display: inline-block;
+	height: 110px;
+	width: 120px;
+	font-size: 76px;
+	font-weight: 600;
+	color: red;
+	font-family: "Changa", sans-serif;
+	text-align: center;
+	position: relative;
+	background-image: url("../../media/background/1.png");
+	background-size: contain;
+	margin-right: 20px;
+	background-repeat: no-repeat;
+	padding: 24px 0;
+}
+
+.live-ticket-count .countdown .CountdownContent .CountdownLabel {
+	display: block;
+	text-align: center;
+	font-size: 16px;
+	font-family: "Roboto", sans-serif;
+	padding-top: 15px;
+}
+
+.tim-container-box {
+	width: 1200px;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+}
 </style>
 </head>
 
@@ -521,14 +559,14 @@ body {
 										<div class="tim-container"
 											style="margin-top: -40px; margin-left: -15px">
 											<p
-												style="color: black; font-weight: 600; font-size: 3em; margin-left: 330px;">By
+												style="color: black; font-weight: 600; font-size: 3em; margin-left: 360px; width: 1000px">By
 												the Beginning of Concert...</p>
 											<div class="row">
 												<div class="col-lg-8">
 													<div class="live-ticket">
 														<div class="live-ticket-count">
 															<div
-																style="width: 1000px; height: 150px; margin-left: 290px"
+																style="width: 1000px; height: 150px; margin-left: 382px"
 																class="countdown" data-count-year="2019"
 																data-count-month="6" data-count-day="2"></div>
 														</div>
@@ -544,11 +582,11 @@ body {
 									<!-- 타이머 끝 -->
 
 									<p
-										style="margin-left: 360px; color: black; font-weight: 600; height: 220px; font-size: 2.5em; border-bottom: 3px solid aqua">
+										style="margin-left: 390px; color: black; font-weight: 600; height: 220px; font-size: 2.5em; border-bottom: 3px solid aqua">
 										<br> <br> <br> <br> <br> <br>'
-										밴드 공연 '하면 무엇이 떠오르십니까?<br> <br> <br> <br> <br>
+										'밴드 공연'하면 어떤 것이 떠오르십니까?<br> <br> <br> <br>
 										<br> <br> <br> <br> <br> <br> <br>
-										<br>
+										<br> <br>
 									<p>
 									<div class="col-md-12 col-sm-6" style="margin-top: 50px">
 										<div class="quickview-slider" style="margin-top: 300px">
@@ -558,114 +596,60 @@ body {
 											<br>
 											<p
 												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 70px;">"
-												Fantastic Performance? "</p>
+												환상적인 퍼모먼스? "</p>
 
 											<!-- section2 -->
 											<div class="section section2" data-aos="fade-down"></div>
 											<br>
 											<p
 												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 830px;">"
-												Big Concert hall? "</p>
+												거대한 콘서트장? "</p>
 
 											<!-- section3 -->
 											<div class="section section3" data-aos="slide-up"></div>
 											<br>
 											<p
 												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 120px;">"
-												a lot of Instruments? "</p>
+												수 많은 악기? "</p>
 										</div>
 									</div>
 								</div>
 
 
-								<div
-									style="border-bottom: 2px solid black; width: 1500px; height: 200px;">
-								</div>
 								<div>
-									<br> <br> <br> <br> <br> <br> <br>
+
 									<br> <br> <br>
 								</div>
 
-								<!-- 지도 누르면 확대 -->
-								<section class="shop site-main">
-									<div class="tim-container">
-										<div class="row">
-											<div class="col-xl-9 col-lg-8 col-md-8">
-												<div class="product-top-menu"></div>
-												<div class="woocommerce columns-3 row">
-													<ul class="products product-two tim-product-view">
-														<li class="product product-two clearfix">
-															<div class="product-thumb">
-																<img src="<c:url value='/resource/img/aa3.jpg'/>"
-																	class="attachment-shop_catalog" alt="Product">
-																<span class="new">New!</span>
-
-																<div class="product-details">
-																	<a href="javascript:void(0);"
-																		class="btn-quickview trigger"><i class="tim-view"></i></a>
-																	<a href="#" class="blr"><i
-																		class="tim-heart-outline"></i></a> <a href="#"><i
-																		class="tim-shopping-cart-1"></i></a>
-																</div>
-															</div>
-
-															<div class="product-details-content">
-																<h2 class="woocommerce-loop-product__title">Rocking Guitar</h2>
-
-																<span class="price"> <ins>
-																		<span class="woocommerce-Price-amount amount">
-																			<span class="woocommerce-Price-currencySymbol">$</span>
-																			600
-																		</span>
-																	</ins>
-																</span>
-
-																<div class="product-description">
-																	<p>Lorem ipsum dolor sit amet, consectetur
-																		adipisicing elit. Quos ratione unde, possimus aliquid
-																		ab minima optio, reprehenderit iusto, magnam
-																		recusandae obcaecati distinctio quis? Earum harum iste
-																		illo obcaecati laborum suscipit</p>
-
-																	<a href="#" class="add_to_cart_button"><i
-																		class="tim-shopping-cart-1"></i> Add To Cart</a>
-																</div>
-															</div> <!-- /.product-details-content -->
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<!-- Quick View -->
-									<div class="modal quickview-wrapper">
-										<div class="quickview">
-											<div class="quickview-content">
-												<div class="row">
-													<div id="kyj" class="col-md-6 col-sm-6">
-													<img src="<c:url value='/resource/img/aa3.jpg'/>"
-																	class="attachment-shop_catalog" alt="Product">
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</section>
-
 
 								<!-- Concert Information -->
-								<section id="event-about" style="margin-top: -200px;">
+								<section id="event-about" style="margin-top: 100px;">
 									<div class="container">
 										<div class="row">
 											<div class="col-lg-6">
 												<div class="event-thumb">
-													<img style="width: 632px; height: 250px"
+													<img style="width: 605px; height: 250px"
 														src="https://cdn.wadiz.kr/ft/images/green001/2018/0313/20180313155451433_84.jpg/wadiz/format/jpg/quality/80/optimize"
-														class="fr-fic fr-dib"> <img
-														style="width: 632px; height: 400px"
-														src="https://cdn.wadiz.kr/ft/images/green001/2018/0313/20180313155519079_84.png/wadiz/format/jpg/quality/80/optimize"
 														class="fr-fic fr-dib">
+													<div id="map" style="width: 605px; height: 400px;"></div>
+													<script type="text/javascript"
+														src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c32fad4a1c57880bfba793d4634c4d7"></script>
+													<script>
+							                           var container = document
+							                                 .getElementById('map');
+							                           var options = {
+							                              center : new daum.maps.LatLng(
+							                                    33.450701, 126.570667),
+							                              level : 3
+							                           };
+							
+							                           var map = new daum.maps.Map(container,
+							                                 options);
+							                        </script>
+													<!-- 약도 -->
+<!-- 													<img style="width: 605px; height: 400px" -->
+<!-- 														src="https://cdn.wadiz.kr/ft/images/green001/2018/0313/20180313155519079_84.png/wadiz/format/jpg/quality/80/optimize" -->
+<!-- 														class="fr-fic fr-dib"> -->
 												</div>
 											</div>
 											<!-- /.col-lg-6 -->
@@ -674,7 +658,8 @@ body {
 												<div class="event-content"
 													style="width: 600px; height: 440px; margin-left: 10px; line-height: 35px">
 													<h2 style="text-transform: none;">
-														<span style="font-size: 0.9em">공연 정보 및 일시</span>
+														<span style="font-size: 0.9em"><br> <br>
+															<br> <br> <br> <br>공연 정보 및 일시</span>
 													</h2>
 
 													<div class="event-details">
@@ -706,22 +691,6 @@ body {
 								</section>
 
 
-								<!-- 지도 API -->
-								<div id="map" style="width: 500px; height: 400px;"></div>
-								<script type="text/javascript"
-									src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c32fad4a1c57880bfba793d4634c4d7"></script>
-								<script>
-                           var container = document
-                                 .getElementById('map');
-                           var options = {
-                              center : new daum.maps.LatLng(
-                                    33.450701, 126.570667),
-                              level : 3
-                           };
-
-                           var map = new daum.maps.Map(container,
-                                 options);
-                        </script>
 
 								<!-- =========================================================================================================== -->
 								<!-- buy 폼 -->
@@ -741,7 +710,7 @@ body {
 													<div class="option-box option-box-blue">
 														<div class="aa" style="display: contents">
 															<div class="option-box-left" style="padding-top: 10px">
-																<div class="option-box-amount">${bgs1.C_CONSERTDATE}</div>
+																<div class="option-box-amount">${bgs1.C_CONCERTDATE}</div>
 																<div class="mt5" style="padding-top: 5px">
 																	<span><strong>13석 남음</strong></span> <span
 																		style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -792,7 +761,7 @@ body {
 
 												<div class="option-box" style="margin-top: -25px;">
 													<div class="option-box-left">
-														<div class="option-box-amount">${bgs2.C_CONSERTDATE}</div>
+														<div class="option-box-amount">${bgs2.C_CONCERTDATE}</div>
 														<div class="mt5" style="padding-top: 5px">
 															<strong class="font-pink">Sold out</strong> <span
 																style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -813,6 +782,7 @@ body {
 										</div>
 									</div>
 								</div>
+
 
 								<!-- 인기 프로젝트 뿌려주기 -->
 								<section class="section-padding-two artist-lineup"

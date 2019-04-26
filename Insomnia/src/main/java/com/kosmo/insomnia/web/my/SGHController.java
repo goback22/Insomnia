@@ -72,7 +72,7 @@ public class SGHController {
 		System.out.println("갖고온 이름은? " + record.getName());
 		
 		//반환한 레코드 객체(1명) 모델에 담아서 반환
-		model.addAttribute("record", record);
+		model.addAttribute("loginRecord", record);
 		
 		/////처음 로딩시 펀딩한(이게 제일 앞이니까) 목록을 보여주어야.
 		//페이징을 위한 로직
@@ -321,7 +321,7 @@ public class SGHController {
 				///json을 위해 선언한 list를 바깥으로 꺼냄
 				
 				////값이 없을 때
-				if(records == null) {
+				if(records.size() == 0) {
 					blankMap.put("noData", "noData");
 					blankMap.put("which", "음반");
 					resultList.add(blankMap);
