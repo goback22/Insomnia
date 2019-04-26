@@ -126,7 +126,10 @@
       $.each(JSON.parse(data),
          function(index, element) {
             tableString += "<div class='user-avatar'>";
-            tableString += "<img src='<c:url value='/resource/img/commenttemp.jpg'/>'>";
+            var imgSrc = element["PROFILE_IMG"];
+            var src = '<c:url value="/upload/'+imgSrc+'"/>';
+            
+            tableString += "<img src='" +src+ "'/>'>";
             tableString += "</div>";
             tableString += "<div class='comment-content'>";
             tableString += "<h5 class='name'>"

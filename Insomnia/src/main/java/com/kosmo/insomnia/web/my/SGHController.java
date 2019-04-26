@@ -356,14 +356,16 @@ public class SGHController {
 				///방구석 공연 값 얻어오기
 				List<BGSConcertDTO> records =  bgsService.selectMyList(dismap);
 				
+				System.out.println("왜 방구석 records가 null이 아니냐? " + records);
 				///json을 위해 선언한 list를 바깥으로 꺼냄
 				
 				///값이 없을 때 
-				if(records == null) {
+				if(records.size() == 0) {
 					
 					blankMap.put("noData", "noData");
 					blankMap.put("which", "공연");
 					resultList.add(blankMap);
+					System.out.println("값이 없을 때 공연일 때 " + JSONArray.toJSONString(resultList));
 					return JSONArray.toJSONString(resultList);
 				}
 				

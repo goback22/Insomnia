@@ -143,31 +143,31 @@ body {
 							<!-- 실질적으로 내용 뿌려주는 부분 -->
 							<div id="projectCardList" style="text-align:center;" class="card-list">
 							<div class="historyValue" style="width:1500px; height:450px; margin:auto; text-align:center;"> <!-- 루프 -->
-								<!-- 내용이 없을 경우 -->
-								<c:if test="${empty fundingRecords}" var="result">
-									<!-- <div class="historyEmptyValue" style="width:1500px; height:450px; margin:auto; text-align:center;"> -->
-										<p id="emptyProjectText" style="display: block">펀딩한 음악이  <!-- ajax에서도 같은기능 구현해야 -->
-											없습니다.</p> <!-- 이거 효과줄라고 ajax에서 했는데, id라서 안 되네. class로 바꾸면 될래나? css때무네 -->
-									<!-- </div> -->
-								</c:if>
-								<!-- 내용이 있을 경우 -->
-								<c:if test="${not result}">
-									
-										<c:forEach items="${fundingRecords}" var="funding">
+									<!-- 내용이 없을 경우 -->
+									<c:if test="${empty fundingRecords}" var="result">
+										<!-- <div class="historyEmptyValue" style="width:1500px; height:450px; margin:auto; text-align:center;"> -->
+											<p id="emptyProjectText" style="display: block">펀딩한 음악이  <!-- ajax에서도 같은기능 구현해야 -->
+												없습니다.</p> <!-- 이거 효과줄라고 ajax에서 했는데, id라서 안 되네. class로 바꾸면 될래나? css때무네 -->
+										<!-- </div> -->
+									</c:if>
+									<!-- 내용이 있을 경우 -->
+									<c:if test="${not result}">
 										
-											<!-- 여기에 ajax랑 똑같은 UI 뜨게 -->
-
-											<div class='historyDiv'>
-												<p class='historyName'>${funding.r_name}</p>
-												<img class='historyImg' src="<c:url value='/resource/img/${funding.s_album_cover}'/>"/> 
-												<p class="historyDesc">${funding.r_description}</p>  
-												<p class="historyMusic">${funding.bm_name}</p>  
-												<p class="historyAuthor">${funding.b_name}</p><p class="historyPrice">${funding.r_price}원</p>
-											</div>
-											 
-										</c:forEach>
-									
-								</c:if>
+											<c:forEach items="${fundingRecords}" var="funding">
+											
+												<!-- 여기에 ajax랑 똑같은 UI 뜨게 -->
+	
+												<div class='historyDiv'>
+													<p class='historyName'>${funding.r_name}</p>
+													<img class='historyImg' src="<c:url value='/resource/img/${funding.s_album_cover}'/>"/> 
+													<p class="historyDesc">${funding.r_description}</p>  
+													<p class="historyMusic">${funding.bm_name}</p>  
+													<p class="historyAuthor">${funding.b_name}</p><p class="historyPrice">${funding.r_price}원</p>
+												</div>
+												 
+											</c:forEach>
+										
+									</c:if>
 								</div>
 								
 							</div>  <!-- projectCardList 끝 -->
@@ -350,7 +350,7 @@ body {
 				
 				if(element['noData'] != null) {
 					//emptyMessage = "<p class='emptyMess'>아직 "+element["which"]+" 상품이 없습니다.</p>";
-					emptyMessage = "<p class=emptyMess>아직 "+element["which"]+" 상품이 없습니다.</p>";
+					emptyMessage = "<p>아직 "+element["which"]+" 상품이 없습니다.</p>";
 					isEmpty = true;
 					return;
 				}

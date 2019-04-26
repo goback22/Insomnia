@@ -18,6 +18,7 @@
 		text-decoration: none;
 		/* color: black; */
 		color: white;
+		
 	}
 	
 	.loginAllDiv button {
@@ -344,6 +345,7 @@
 
 .user_middle td  {
 	width: 25%;
+	cursor: pointer;
 }
 
 .user_middle td a {
@@ -356,6 +358,12 @@
 .user_middle label {
 	color: white;
 	font-size: 15px;
+	cursor: pointer;
+}
+
+.user_middle img {
+	
+	cursor: pointer;
 }
 
 
