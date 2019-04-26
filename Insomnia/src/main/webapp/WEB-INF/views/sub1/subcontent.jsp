@@ -710,7 +710,7 @@ body {
 																<div class="option-box-amount">${bgs1.C_CONCERTDATE}</div>
 																<div class="mt5" style="padding-top: 5px">
 																	<span><strong>52석 남음</strong></span> <span
-																		style="opacity: 0.5;color:white">&nbsp;&nbsp;|&nbsp;&nbsp;
+																		style="color:white">&nbsp;&nbsp;|&nbsp;&nbsp;
 																		248석 판매</span>
 																</div>
 															</div>
