@@ -185,7 +185,8 @@ public class ZeroJinController {
 		//System.out.println("a:"+fileList);
 
         //파일 저장 위치
-		String path = "D:\\KYJ\\UTIL\\Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp7\\wtpwebapps\\Insomnia\\upload\\bgslist\\";
+		String path = mtfRequest.getServletContext().getRealPath("/upload/content/sub/");
+		System.out.println("path:"+path);
         
         for (MultipartFile mf : fileList) {
             String originFileName = mf.getOriginalFilename(); // 원본 파일 명
@@ -194,8 +195,8 @@ public class ZeroJinController {
             //System.out.println("fileSize : " + fileSize);
 
             String safeFile = path + originFileName;
-            //System.out.println("???????:"+System.currentTimeMillis());
-            //System.out.println("safeFile:"+safeFile);
+//            String safeFile = originFileName;
+            System.out.println("safeFile:"+safeFile);
             try {
                 mf.transferTo(new File(safeFile));
                 //System.out.println("try");
@@ -221,7 +222,8 @@ public class ZeroJinController {
 		//System.out.println("b:"+filename);
 		
 		//다운로드 호출]
-		FileUtils.download(req,resp,"/Upload",filename);
+		//밑에 한줄 대소문자 가린다.
+		FileUtils.download(req,resp,"/upload/content/sub",filename);
 	}
 		
 	// 방구석 기타리스트 게시판  - view
@@ -277,7 +279,7 @@ public class ZeroJinController {
 		//System.out.println("a:"+fileList);
 
         //파일 저장 위치
-		String path = "D:\\KYJ\\UTIL\\Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp7\\wtpwebapps\\Insomnia\\upload\\bgslist\\";
+		String path = mtfRequest.getServletContext().getRealPath("/upload/content/sub/");
 		
 		MultipartFile ap_attachedfile = mtfRequest.getFile("ap_attachedfile");
 

@@ -1,4 +1,4 @@
-https://www.google.com/recaptcha/admin/create<%@ page language="java"
+<%@ page language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 리캡챠 -->
@@ -166,7 +166,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java"
 					<strong class="find_mem_ttl">회원가입</strong>
 				</div>
 				<!-- <c:url value='/register/complete.ins'/> -->
-				<form id="frm" method="post" action="<c:url value='/register.ins'/>">
+				<form id="frm" method="post" action="<c:url value='/register.ins'/>" onsubmit="return submitUserForm();">
 					<!-- 섹션1: 아이디, 비번, 비번확인 -->
 					<section class="renew_joinform_v2">
 						<!-- 머릿말 -->
@@ -227,7 +227,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java"
 						<div class="renew_input_box gender_chk">
 							<!-- 이름입력 -->
 							<strong>이름(필수)</strong> <input type="text" id="user_nm"
-								name="user_nm" value="서기환" required="required">
+								name="user_nm" value="" required="required">
 							<!-- 성별입력 -->
 							<div class="user_gender">
 								<a class="male on">남</a> <a class="female">여</a> <input
@@ -410,6 +410,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java"
 
 					<!-- 리캡차 -->
 					<div style="margin-left: 810px" id="html_element"></div>
+					<div id="g-recaptcha-error"></div>
 
 					<!-- 로그인버튼 -->
 					<div class="btnSubmit_div">
@@ -424,17 +425,6 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java"
 				 -->
 				</form>
 			</fieldset>
-
-			<!-- 여기까지 -->
-			<!-- 리캡차(나는 로봇이 아닙니다.) -->
-<!-- 			<form action="" method="get"> -->
- 				
-<!-- 				버튼 -->
-<!-- 				        <input type="submit" value="Submit"> -->
-<!-- 			</form> -->
-			<!-- JSON String 찍어보기 -->
-			<%--     <%=responseBody != null ? responseBody.toString() : ""%> --%>
-			<!--  리캡차 끝 -->
 
 		</section>
 
@@ -748,3 +738,21 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java"
 	<!--=========================-->
 	<!--=        footer         =-->
 	<!--=========================-->
+	
+	
+<script>
+//리캡차 유효성 검증
+function submitUserForm() {
+    var response = grecaptcha.getResponse();
+    console.log(response.length);
+    if(response.length == 0) {
+        document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;margin-left:880px;">로봇 방지를 체크해주세요.</span>';
+        return false;
+    }
+    return true;
+}
+ 
+function verifyCaptcha() {
+    document.getElementById('g-recaptcha-error').innerHTML = '';
+}
+</script>
