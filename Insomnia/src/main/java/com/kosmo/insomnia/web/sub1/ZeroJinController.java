@@ -34,10 +34,12 @@ import org.w3c.dom.ls.LSInput;
 import com.kosmo.insomnia.service.BGSConcertDTO;
 import com.kosmo.insomnia.service.BGSConcertService;
 import com.kosmo.insomnia.service.ListDTO;
+import com.kosmo.insomnia.service.MainCommentService;
 import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.serviceimpl.CommentServiceImpl;
 import com.kosmo.insomnia.serviceimpl.ListDAO;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
+import com.kosmo.insomnia.serviceimpl.MainCommentServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 import com.kosmo.insomnia.web.sub1.PagingUtil;
 import com.oreilly.servlet.MultipartRequest;
@@ -56,6 +58,10 @@ public class ZeroJinController {
 	
 	@Resource
 	private MemberServiceImpl memberService;
+	
+	//메인 코멘트용
+	@Resource(name="mainCommentService")
+	private MainCommentServiceImpl mainCommentService;
 	
    // 로그인
    @RequestMapping(value = "/login.ins")
@@ -80,6 +86,7 @@ public class ZeroJinController {
     	  model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
     	 /* return "forward:/loginErr/ajax.ins";*/
       }
+      
       return "home.tiles";
    }
    
@@ -115,6 +122,7 @@ public class ZeroJinController {
 		
 		model.addAttribute("bgs1", product_List.get(0));
 		model.addAttribute("bgs2", product_List.get(1));
+		
 		return "/sub1/subcontent.tiles";
 	}
 
@@ -128,7 +136,7 @@ public class ZeroJinController {
 	// 방구석 기타리스트 게시판
 	@RequestMapping(value = "/sub1/list.ins")
 	public String list(Model model, @RequestParam Map map, HttpServletRequest req,
-			@RequestParam(required = false, defaultValue = "1") int nowPage) throws Exception {
+		@RequestParam(required = false, defaultValue = "1") int nowPage) throws Exception {
 		int totalRecordCount = insService.getTotalRecord(map);
 
 		// 전체 페이지수]
@@ -137,6 +145,7 @@ public class ZeroJinController {
 		// 시작 및 끝 ROWNUM구하기]
 		int start = (nowPage - 1) * pageSize + 1;
 		int end = nowPage * pageSize;
+		
 		map.put("start", start);
 		map.put("end", end);
 		
@@ -185,7 +194,8 @@ public class ZeroJinController {
 		//System.out.println("a:"+fileList);
 
         //파일 저장 위치
-		String path = "D:\\KYJ\\UTIL\\Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp7\\wtpwebapps\\Insomnia\\upload\\bgslist\\";
+		String path = mtfRequest.getServletContext().getRealPath("/upload/content/sub/");
+		System.out.println("path:"+path);
         
         for (MultipartFile mf : fileList) {
             String originFileName = mf.getOriginalFilename(); // 원본 파일 명
@@ -194,8 +204,8 @@ public class ZeroJinController {
             //System.out.println("fileSize : " + fileSize);
 
             String safeFile = path + originFileName;
-            //System.out.println("???????:"+System.currentTimeMillis());
-            //System.out.println("safeFile:"+safeFile);
+//            String safeFile = originFileName;
+            System.out.println("safeFile:"+safeFile);
             try {
                 mf.transferTo(new File(safeFile));
                 //System.out.println("try");
@@ -205,7 +215,7 @@ public class ZeroJinController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }//for
 		
 		return "forward:/sub1/list.ins";
 		//return "/sub1/list.tiles";로하면 안돼
@@ -221,7 +231,8 @@ public class ZeroJinController {
 		//System.out.println("b:"+filename);
 		
 		//다운로드 호출]
-		FileUtils.download(req,resp,"/Upload",filename);
+		//밑에 한줄 대소문자 가린다.
+		FileUtils.download(req,resp,"/upload/content/sub",filename);
 	}
 		
 	// 방구석 기타리스트 게시판  - view
@@ -277,7 +288,7 @@ public class ZeroJinController {
 		//System.out.println("a:"+fileList);
 
         //파일 저장 위치
-		String path = "D:\\KYJ\\UTIL\\Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp7\\wtpwebapps\\Insomnia\\upload\\bgslist\\";
+		String path = mtfRequest.getServletContext().getRealPath("/upload/content/sub/");
 		
 		MultipartFile ap_attachedfile = mtfRequest.getFile("ap_attachedfile");
 
@@ -306,6 +317,7 @@ public class ZeroJinController {
 		int sucFail = insService.update(map);
 		model.addAttribute("WHERE", "EDT");
 		model.addAttribute("SUCFAIL", sucFail);
+		
 		return "sub1/Message";
 	}
 
@@ -314,62 +326,10 @@ public class ZeroJinController {
 	public String delete(@RequestParam Map map, Model model) throws Exception {
 		int sucFail = insService.delete(map);
 		model.addAttribute("SUCFAIL", sucFail);
+		
 		return "sub1/Message";
 	}
 	
-	// 방구석 기타리스트 게시판 - read눌렀을 때 높은 조회수 순으로 뿌려주기
-	@ResponseBody
-	@RequestMapping(value="/sub1/sort.ins", produces="text/html; charset=UTF-8")
-	public String readSort(@RequestParam Map map) throws Exception{
-		//비지니스 로직 호출
-		map.put("start", 1);
-		map.put("end", 10);
-				
-		//서비스 호출
-		List<ListDTO> read = insService.readDesc(map);
-		List<Map> collections = new Vector<Map>();
-		for(ListDTO dto : read) {
-			Map record = new HashMap();
-			record.put("ap_no", dto.getAp_no());
-			record.put("ap_genre", dto.getAp_genre());
-			record.put("ap_title", dto.getAp_content());
-			record.put("name", dto.getName());
-			record.put("ap_visit", dto.getAp_visit());
-			record.put("ap_postdate", dto.getAp_postdate().toString());
-			collections.add(record);
-		}
- 		
-		System.out.println("??:"+JSONArray.toJSONString(collections));
-		
-		return JSONArray.toJSONString(collections);
-	}
-	
-	// 방구석 기타리스트 게시판 - read눌렀을 때 낮은 조회수 순으로 뿌려주기
-	@ResponseBody
-	@RequestMapping(value="/sub1/sortAsc.ins", produces="text/html; charset=UTF-8")
-	public String readSortAsc(@RequestParam Map map) throws Exception{
-		//비지니스 로직 호출
-		map.put("start", 1);
-		map.put("end", 10);
-				
-		//서비스 호출
-		List<ListDTO> read = insService.readAsc(map);
-		List<Map> collections = new Vector<Map>();
-		for(ListDTO dto : read) {
-			Map record = new HashMap();
-			record.put("ap_no", dto.getAp_no());
-			record.put("ap_genre", dto.getAp_genre());
-			record.put("ap_title", dto.getAp_content());
-			record.put("name", dto.getName());
-			record.put("ap_visit", dto.getAp_visit());
-			record.put("ap_postdate", dto.getAp_postdate().toString());
-			collections.add(record);
-		}
- 		
-		return JSONArray.toJSONString(collections);
-	}
-	
-	//----------------------------
 	//----------------------------
 	//----------------------------
 	//방구석 기타리스트 - reviews(댓글)
@@ -427,6 +387,67 @@ public class ZeroJinController {
 	public String delete(@RequestParam Map map) throws Exception{
 		//서비스 호출]
 		commentService.delete(map);
+		
+		return "";
+	}//	
+	
+	/*-----------------------------------------
+	-------------------------------------------*/
+	
+	//메인 코멘트
+	//목록 처리
+	@ResponseBody
+	@RequestMapping(value="/main/memolist.ins",produces="text/html; charset=UTF-8")
+	public String mainCommentlist(@RequestParam Map map,HttpServletRequest req) throws Exception{
+		//비지니스 로직 호출
+		map.put("start", 1);
+		map.put("end", 10);
+		
+		//서비스 호출]
+		List<Map> comments= mainCommentService.selectList(map);
+		System.out.println("comments:"+comments);
+		//System.out.println("comments.get(0):"+comments.get(0)); // {C_POST_DATE=2019-04-29 08:58:38.0, PROFILE_IMG=Z.jpg, C_CONTENT=밴드서브밋 코맨트 내용3, ID=kim@naver.com, NAME=김길동, BSC_NO=3}
+		
+		for(Map comment:comments) {
+			comment.put("C_POST_DATE", comment.get("C_POST_DATE").toString().substring(0,10));
+			//엔터 값
+			comment.put("C_CONTENT", comment.get("C_CONTENT").toString().replace("\r\n", "<br/>"));
+		}
+		
+		System.out.println("잘 들어가니?:"+JSONArray.toJSONString(comments));
+		
+		return JSONArray.toJSONString(comments);
+	}//list()	
+	
+	//코멘트 입력처리]
+	@ResponseBody 
+	@RequestMapping(value="/main/memowrite.ins",produces="text/html; charset=UTF-8")
+	public String mainCommentWrite(@RequestParam Map map,HttpSession session) throws Exception{
+		//서비스 호출]
+		//한줄 댓글 작성자 아이디 맵에 설정
+		map.put("id", session.getAttribute("id"));
+		
+		mainCommentService.insert(map);
+		
+		return map.get("bsc_no").toString();
+	}//write
+	
+	//코멘트 수정처리]
+	@ResponseBody
+	@RequestMapping(value="/main/memoedit.ins",produces="text/html; charset=UTF-8")
+	public String mainCommentUpdate(@RequestParam Map map) throws Exception{
+		//서비스 호출]
+		mainCommentService.update(map);
+		
+		return "";
+	}//
+	
+	//삭제 처리]
+	@ResponseBody
+	@RequestMapping(value="/main/memodelete.ins",produces="text/html; charset=UTF-8")
+	public String mainCommentDelete(@RequestParam Map map) throws Exception{
+		//서비스 호출]
+		mainCommentService.delete(map);
 		
 		return "";
 	}//	

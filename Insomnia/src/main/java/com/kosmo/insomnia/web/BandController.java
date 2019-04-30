@@ -34,7 +34,6 @@ public class BandController {
 		return "main/createNewBand.tiles";
 	}///goToCreateNewBand
 	
-	
 	@ResponseBody
 	@RequestMapping("/band/uploadCover.ins")
 	public String setProfileImg(@RequestParam Map map, MultipartHttpServletRequest mhsr, Model model, MultipartRequest multipartRequest) throws Exception {
