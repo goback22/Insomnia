@@ -22,7 +22,7 @@
 	    //댓글 작성
 	    $('#submit').click(function() {
 	       if ($(this).val() == 'Send Comment') {
-	    	  //console.log('SEND COMMENT가 인식됩니다.')
+	    	  //console.log('SEND COMMENT가 인식됩니다.');
 	          var action = "<c:url value='/main/memowrite.ins'/>";
 
 	          if($('#c_content').val() == ''){
@@ -47,7 +47,7 @@
 
 	             //입력 댓글 클리어 및 포커스 주기
 	             $('#c_content').val('');
-	             $('#about').focus();
+	             //$('#about').focus();
 
 	             //글 수정후 등록버튼으로 다시 교체하기
 	             if($('#submit').val()=='EDIT COMMENT'){
@@ -120,9 +120,10 @@
 			tableString += "</div>";
 			tableString += "</article>";
 			tableString += "</li>";
-				});
+		});//each
 
 		console.log("tableString:"+tableString);
+		
 		//리스트 뿌려주기
 		$('#commentWrite').html(tableString);
 		
@@ -164,16 +165,11 @@
 	            ($('#submit')).val('Send Comment');
 	         }
 	      })
-		
-		
 	}//successAjax
 </script>
 
-
-
 <style>
 
-/* iframe을 숨기기 위한 css*/
 #if {
 	width: 0px;
 	height: 0px;
@@ -584,9 +580,8 @@ body {
 										class="fa fa-eye"></i>125</a>
 								</div>
 								<!-- /.blog-count-details -->
-								 <a href="" id="about" class="btn btn-success" style="margin-left: 40px;">작성</a>											
 											
-								<ul id="about" class="shared-link float-right">
+								<ul class="shared-link float-right">
 									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
 									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
 									<li><a href="#"><i class="fa fa-instagram"></i></a></li>

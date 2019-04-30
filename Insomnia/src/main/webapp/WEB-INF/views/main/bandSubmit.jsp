@@ -97,11 +97,18 @@ body {
 body {
 	font-famaily: 'Nanum Gothic Coding', monospace;
 }
+
+.b_name{
+	color:black;
+}
+
+.b_description{
+	color:black;
+}
 </style>
 
 
 <script>
-	//////////////// ë°ë¼ë¤ëë jquery //////////////////
 </script>
 
 </head>
