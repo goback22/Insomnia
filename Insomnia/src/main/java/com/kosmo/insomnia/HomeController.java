@@ -24,9 +24,6 @@ import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 @Controller
 public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	
 	@Resource(name="memberService")
 	private MemberServiceImpl memberService;
@@ -34,16 +31,6 @@ public class HomeController {
 	//로그인 폼으로 이동, 혹은 홈 화면으로 이동
 	@RequestMapping(value = "/home.ins", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, Map map, HttpSession session) {
-		/*
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		*/
 		if(session.getAttribute("id") != null) {
 			
 			map.put("id", session.getAttribute("id"));

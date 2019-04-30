@@ -52,13 +52,4 @@
 	UPDATE bgsapply SET ap_visit = ap_visit+1 WHERE ap_no =#{ap_no,  jdbcType=VARCHAR} 
 	</update>
 	
-	<select id="readDesc" parameterType="java.util.Map" resultType="ListDTO">
-	SELECT * FROM (SELECT T.*, ROWNUM R FROM (SELECT O.*,name FROM bgsapply O JOIN members M ON O.id=M.id
-	ORDER BY ap_visit DESC) T) WHERE R BETWEEN #{start} AND #{end}
-	</select>
-	
-	<select id="readAsc" parameterType="java.util.Map" resultType="ListDTO">
-	SELECT * FROM (SELECT T.*, ROWNUM R FROM (SELECT O.*,name FROM bgsapply O JOIN members M ON O.id=M.id
-	ORDER BY ap_visit ASC) T) WHERE R BETWEEN #{start} AND #{end}
-	</select>
 </mapper>
