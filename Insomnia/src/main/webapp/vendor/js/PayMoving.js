@@ -1,4 +1,33 @@
 $(function(){
+	
+	//===================================스테파니쌤=====================================
+	// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
+	var floatPosition = parseInt($(".ads_aside").css('top'));
+	// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+
+	$(window).scroll(function() {
+		// 현재 스크롤 위치를 가져온다.
+		var scrollTop = $(window).scrollTop();
+		var newPosition = scrollTop + floatPosition + "px";
+
+		$(".ads_aside").stop().animate({
+			"top" : newPosition
+		}, 1000);
+		if(pay_Way == 'B' && scrollTop + floatPosition >= 1513){
+			$(".ads_aside").stop().animate({
+				"top" : 1513+"px"
+			},1000)
+		}else if(pay_Way == 'D' && scrollTop + floatPosition >= 1073){
+			$(".ads_aside").stop().animate({
+				"top" : 1073+"px"
+			},1000)
+		}
+		console.log(scrollTop + floatPosition);
+
+	}).scroll();
+	//===================================스테파니쌤=====================================
+
+	//===============================새로고침, 뒤로가기=================================
 	$(window).bind("pageshow", function (event) {
 		if (event.originalEvent.persisted) {
 			$(".sub_yes_agree").prop("checked","checked");
@@ -11,8 +40,9 @@ $(function(){
 			
 		}
 	});
+	//===============================새로고침, 뒤로가기=================================
 	
-//=============================방구석기타리스트 BUY==============================
+	//=============================방구석기타리스트 BUY==============================
 
 	$(document).on("click",".aa",function(){
 		$("input[name=bgs1_qty]").val($("#qtyqty").val());
@@ -22,9 +52,9 @@ $(function(){
 	});
 	
 	
-//===============================================================================
-	
-//============================= 결제창 들어가기 전 +,- ==========================
+	//===============================================================================
+		
+	//============================= 결제창 들어가기 전 +,- ==========================
 	var number_of_items = $("#qtyqty").val();
 	var price;
 	var isOne = false;
@@ -133,17 +163,32 @@ $(function(){
 	});
 	
 //===============================================================================
-	
+	var full_email1;
+	var full_email2 = "naver.com";
+	var full_email;
 //============================ 이메일 이벤트 처리 ===============================
 	$(document).on("change",".choose_email_2",function(){
 		console.log($(this).val());
 		console.log($(".choose_email_2 option").length);
 		console.log($(".choose_email_1").attr("selected","selected").val());
+		full_email1 = $("input[name=subPay_Email1]").val()+"@";
 		if($(this).val() == $(".choose_email_2 option").length-1){
 			$("#email_self").css("display","");
+			full_email+=$("input[name=subPay_Email_Self]").val();
 		}else{
 			$("#email_self").css("display","none");
+			if($(this).val() == 0){
+				full_email2="naver.com";
+			}else if($(this).val() == 1){
+				full_email2="daum.net";
+			}else if($(this).val() == 2){
+				full_email2="nate.com";
+			}else{
+				full_email2="goggle.com";
+			}
+			
 		}
+		full_email = full_email1+full_email2;
 	});
 //===============================================================================	
 	
@@ -376,120 +421,209 @@ $(function(){
 	});
 	
 //===============================================================================
-	
+
+$("#asmr").hover(function(){
+	$("#asmr").css("backgroundColor","#ececec");
+	$("#asmr").css("color","black");
+},function(){
+	$("#asmr").css("backgroundColor","black");
+	$("#asmr").css("color","white");
+})
+
+$("#asmr2").hover(function(){
+	$("#asmr2").css("backgroundColor","black");
+	$("#asmr2").css("color","white");
+},function(){
+	$("#asmr2").css("backgroundColor","#ececec");
+	$("#asmr2").css("color","black");
+})
 	
 //================================ 유효성 검사 ==================================
-	
-	$(document).on("click","#btn_order_ok",function(){
-		//1. 주문리스트 제품]
-		console.log("체크 : "+$(".thumb input[type=checkbox]").prop("checked"));
-		if(pay_Way == 'B'){ // 체크한거가 무통장 일 때
-			if($(".thumb input[type=checkbox]").prop("checked") == false){
-				alert("하나 이상의 제품을 선택하세요!");
-				$(".order_list_checked").focus();
-				return;
-			}
-			//2. 예매 정보] - 이름
-			else if($("#receiver").val() == ""){
-				alert("이름을 입력하세요!");
-				$("#receiver").focus();
-				return;
-			}
-			//3. 예매 정보] - 이메일
-			else if($("#email_2").val() == ""){
-				alert("이메일을 입력하세요!");
-				$("#email_2").focus();
-				return;
-			}
-			//4. 예매 정보] - 연락처
-			else if($("#emergency21").val() == "" || $("#emergency22").val() == "" || $("#emergency23").val() == ""){
-				alert("연락처를 입력하세요!");
-				$("#emergency21").focus();
-				return;
-			}
-			//5. 무통장 환불 예금주]
-			else if($("input[name=subPay_Refund_Name]").val() == ""){
-				alert("환불 받을 예금주를 입력하세요!");
-				$("input[name=subPay_Refund_Name]").focus();
-				return;
-			}
-			//6. 무통장 환불 은행명]
-			else if($("input[name=subPay_Refund_BankName]").val() == ""){
-				alert("환불 받을 은행명을 입력하세요!");
-				$("input[name=subPay_Refund_BankName]").focus();
-				return;
-			}
-			//7. 무통장 환불 계좌번호]
-			else if($("input[name=subPay_Refund_BankAccount]").val() == ""){
-				alert("환불받을 계좌를 입력하세요!");
-				$("input[name=subPay_Refund_BankAccount]").focus();
-				return;
-			}
-			//8. 무통장 환불 계좌번호 (-)입력 시]
-			else if($("input[name=subPay_Refund_BankAccount]").val().indexOf("-") != -1){
-				alert("하이픈(-)를 제외한 계좌번호를 입력하세요!");
-				$("input[name=subPay_Refund_BankAccount]").focus();
-				return;
-			}
-			//9. 입금 계좌 선택]
-			else if($(".MK_pay_add_choice option:eq(0)").prop("selected") == true){
-				alert("입금 할 계좌를 선택하세요.")
-				return;
-			}
-			else if(agree == 'N'){
-				alert("정보수집에 동의해주세요.");
-				return;
-			}else if($("#pay_agree").prop("checked") == ""){
-				alert("구매 진행에 동의해주세요.");
-				return;
-			}
-		}else{// 체크한거가 그외 일 때
-			if($(".thumb input[type=checkbox]").prop("checked") == false){
-				alert("하나 이상의 제품을 선택하세요!");
-				$(".order_list_checked").focus();
-				return;
-			}
-			//2. 예매 정보] - 이름
-			else if($("#receiver").val() == ""){
-				alert("이름을 입력하세요!");
-				$("#receiver").focus();
-				return;
-			}
-			//3. 예매 정보] - 이메일
-			else if($("#email").val() == ""){
-				alert("이메일을 입력하세요!");
-				$("#email").focus();
-				return;
-			}
-			//4. 예매 정보] - 연락처
-			else if($("#emergency21").val() == "" || $("#emergency22").val() == "" || $("#emergency23").val() == ""){
-				alert("연락처를 입력하세요!");
-				$("#emergency21").focus();
-				return;
-			}
-			//2. 예매 정보] - 이름
-			else if($("#receiver").val() == ""){
-				alert("이름을 입력하세요!");
-				$("#receiver").focus();
-				return;
-			}
-			//2. 예매 정보] - 이름
-			else if($("#receiver").val() == ""){
-				alert("이름을 입력하세요!");
-				$("#receiver").focus();
-				return;
-			}	
+//결제 완료 변수]
+var isComplete;
+$(document).on("click",".btn_order_ok",function(){
+	//1. 주문리스트 제품]
+	console.log("체크 : "+$(".thumb input[type=checkbox]").prop("checked"));
+	if(pay_Way == 'B'){ // 체크한거가 무통장 일 때
+		if($(".thumb input[type=checkbox]").prop("checked") == false){
+			alert("하나 이상의 제품을 선택하세요!");
+			$(".order_list_checked").focus();
+			return;
 		}
-		console.log("서브밋");
-		if(isComma){
-			order_price_save = order_price_save.replace(/[^\d]+/g, '');
-			console.log("zZ");
+		//2. 예매 정보] - 이름
+		else if($("#receiver").val() == ""){
+			alert("이름을 입력하세요!");
+			$("#receiver").focus();
+			return;
 		}
-		console.log(order_price_save);
-		$("input[name=subPay_Final_payment_amount]").val(order_price_save);
-		$("input[name=subPay_Item_Qty]").val(item_count);
+		//3. 예매 정보] - 이메일
+		else if($("#email_2").val() == ""){
+			alert("이메일을 입력하세요!");
+			$("#email_2").focus();
+			return;
+		}
+		//4. 예매 정보] - 연락처
+		else if($("#emergency21").val() == "" || $("#emergency22").val() == "" || $("#emergency23").val() == ""){
+			alert("연락처를 입력하세요!");
+			$("#emergency21").focus();
+			return;
+		}
+		//5. 무통장 환불 예금주]
+		else if($("input[name=subPay_Refund_Name]").val() == ""){
+			alert("환불 받을 예금주를 입력하세요!");
+			$("input[name=subPay_Refund_Name]").focus();
+			return;
+		}
+		//6. 무통장 환불 은행명]
+		else if($("input[name=subPay_Refund_BankName]").val() == ""){
+			alert("환불 받을 은행명을 입력하세요!");
+			$("input[name=subPay_Refund_BankName]").focus();
+			return;
+		}
+		//7. 무통장 환불 계좌번호]
+		else if($("input[name=subPay_Refund_BankAccount]").val() == ""){
+			alert("환불받을 계좌를 입력하세요!");
+			$("input[name=subPay_Refund_BankAccount]").focus();
+			return;
+		}
+		//8. 무통장 환불 계좌번호 (-)입력 시]
+		else if($("input[name=subPay_Refund_BankAccount]").val().indexOf("-") != -1){
+			alert("하이픈(-)를 제외한 계좌번호를 입력하세요!");
+			$("input[name=subPay_Refund_BankAccount]").focus();
+			return;
+		}
+		//편의를 위한 else if]
+		else if($("input[name=subPay_Refund_BankAccount]").val() == ""){
+			return;
+		}
+		//9. 입금 계좌 선택]
+		else if($(".MK_pay_add_choice option:eq(0)").prop("selected") == true){
+			alert("입금 할 계좌를 선택하세요.")
+			return;
+		}
+		else if(agree == 'N'){
+			alert("정보수집에 동의해주세요.");
+			return;
+		}else if($("#pay_agree").prop("checked") == ""){
+			alert("구매 진행에 동의해주세요.");
+			return;
+		}
+		isComplete = true;
+	}
+	// =============================== 휴대폰 결제 ===============================
+	else if(pay_Way=="D"){// 체크한거가 그외 일 때
+		if($(".thumb input[type=checkbox]").prop("checked") == false){
+			alert("하나 이상의 제품을 선택하세요!");
+			$(".order_list_checked").focus();
+			return;
+		}
+		//2. 예매 정보] - 이름
+		else if($("#receiver").val() == ""){
+			alert("이름을 입력하세요!");
+			$("#receiver").focus();
+			return;
+		}
+		//3. 예매 정보] - 이메일
+		else if($("#email").val() == ""){
+			alert("이메일을 입력하세요!");
+			$("#email").focus();
+			return;
+		}
+		//4. 예매 정보] - 연락처
+		else if($("#emergency21").val() == "" || $("#emergency22").val() == "" || $("#emergency23").val() == ""){
+			alert("연락처를 입력하세요!");
+			$("#emergency21").focus();
+			return;
+		}
+		$.ajax({
+			url: "/insomnia/Pay/PayInsert.ins",
+			dataType : 'json',
+			data : $('#order_form').serialize(),
+			success : function(data){
+				successPay(data["p_no"]);
+				
+			},
+			error: function(data){
+				console.log("에러 : "+data);
+			}
+			
+		})
+		
+	}///////
+	// =============================== 휴대폰 결제 ===============================
+	console.log("버튼 클릭 후 isComplete"+isComplete);
+	if(isComma){
+		order_price_save = order_price_save.replace(/[^\d]+/g, '');
+	}
+	$("input[name=subPay_Final_payment_amount]").val(order_price_save);
+	$("input[name=subPay_Item_Qty]").val(item_count);
+	if(isComplete){
 		$("#order_form").submit();
+	}
+});
+
+var successPay = function(data){
+	var IMP = window.IMP; // 생략가능
+	IMP.init('imp11329087');
+	// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+	IMP.request_pay({
+		// pg : 하나의 아임포트계정으로 여러 PG를 사용할 때 구분자
+		pg : 'danal',
+		pay_method : 'phone',
+		//merchant_uid : 가맹점에서 생성/관리하는 고유 주문번호
+		merchant_uid : 'merchant_' + data,
+		/*
+		 merchant_uid에 경우
+		 https://docs.iamport.kr/implementation/payment
+		 위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+		 참고하세요.
+		 나중에 포스팅 해볼게요.
+		 */
+		//결제창에서 보여질 이름
+		name : $(".subpay_title_content").val(),
+		//결제할 금액
+		amount : order_price_save, 
+		//구매정보
+		buyer_email : full_email,
+		buyer_name : $("#receiver").val(),
+		buyer_tel : $("input[name=subPay_Phone1]").val() +"-"+ $("input[name=subPay_Phone2]").val() +"-"+ $("input[name=subPay_Phone3]").val(),
+		m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+	/*
+	 모바일 결제시,
+	 결제가 끝나고 랜딩되는 URL을 지정
+	 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+	 */
+	}, function(rsp) {
+		console.log(rsp);
+		if (rsp.success) {
+			var msg = '결제가 완료되었습니다.';
+			msg += '고유ID : ' + rsp.imp_uid;
+			msg += '상점 거래ID : ' + rsp.merchant_uid;
+			msg += '결제 금액 : ' + rsp.paid_amount;
+			msg += '카드 승인번호 : ' + rsp.apply_num;
+			isComplete = true;
+		} else {
+			var msg = '결제에 실패하였습니다.';
+			msg += '에러내용 : ' + rsp.error_msg;
+			isComplete = false;
+			$.ajax({
+				url: "/insomnia/Pay/PayCancle.ins",
+				success:function(){
+					console.log("성공");
+				},
+				error:function(){
+					console.log("실패");
+				}
+			})
+			isComplete = false;
+		}
+		alert(msg);
+		if(isComplete){
+			$("#order_form").submit();
+		}
 	});
+}
 	
 	
 //===============================================================================
@@ -571,39 +705,17 @@ $(function(){
 //				}
 //				alert(msg);
 //			});
-//		}else if(pay_Way=="D"){
+//		}
+//		//휴대폰 결제 시]
+//		else if(pay_Way=="D"){
 //			var IMP = window.IMP; // 생략가능
 //			IMP.init('imp11329087');
 //			// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 //			// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 //			IMP.request_pay({
 //				// pg : 하나의 아임포트계정으로 여러 PG를 사용할 때 구분자
-//				pg : 'uplus', // version 1.1.0부터 지원.
-//				/*
-//				 'kakao':카카오페이,
-//				 'html5_inicis':이니시스(웹표준결제)
-//				 'nice':나이스페이
-//				 'jtnet':제이티넷
-//				 'uplus':LG유플러스
-//				 'danal':다날
-//				 'payco':페이코
-//				 'syrup':시럽페이
-//				 'paypal':페이팔
-//				 */
-//				
-//				//pay_method : 결제수단
-//				pay_method : 'phone',
-//				/*
-//				 'samsung':삼성페이,
-//				 'card':신용카드,
-//				 'trans':실시간계좌이체,
-//				 'vbank':가상계좌,
-//				 'phone':휴대폰소액결제
-//				 */
-//				
-//				//escrow : 에스크로 결제여부(default : false)
-//				//escrow : 'true';
-//			
+//				pg : 'uplus', 
+//				pay_method : 'phone',			
 //				//merchant_uid : 가맹점에서 생성/관리하는 고유 주문번호
 //				merchant_uid : 'merchant_' + new Date().getTime(),
 //				/*
@@ -645,84 +757,9 @@ $(function(){
 //				}
 //				alert(msg);
 //			});
-//		}else{
-//			var IMP = window.IMP; // 생략가능
-//			IMP.init('imp11329087');
-//			// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-//			// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
-//			IMP.request_pay({
-//				// pg : 하나의 아임포트계정으로 여러 PG를 사용할 때 구분자
-//				pg : 'nice', // version 1.1.0부터 지원.
-//				/*
-//				 'kakao':카카오페이,
-//				 'html5_inicis':이니시스(웹표준결제)
-//				 'nice':나이스페이
-//				 'jtnet':제이티넷
-//				 'uplus':LG유플러스
-//				 'danal':다날
-//				 'payco':페이코
-//				 'syrup':시럽페이
-//				 'paypal':페이팔
-//				 */
-//				
-//				//pay_method : 결제수단
-//				pay_method : 'trans',
-//				/*
-//				 'samsung':삼성페이,
-//				 'card':신용카드,
-//				 'trans':실시간계좌이체,
-//				 'vbank':가상계좌,
-//				 'phone':휴대폰소액결제
-//				 */
-//				
-//				//escrow : 에스크로 결제여부(default : false)
-//				//escrow : 'true';
-//			
-//				//merchant_uid : 가맹점에서 생성/관리하는 고유 주문번호
-//				merchant_uid : 'merchant_' + new Date().getTime(),
-//				/*
-//				 merchant_uid에 경우
-//				 https://docs.iamport.kr/implementation/payment
-//				 위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
-//				 참고하세요.
-//				 나중에 포스팅 해볼게요.
-//				 */
-//				//결제창에서 보여질 이름
-//				name : $(".tb-left:eq(0)").text(),
-//				//name : $(".tb-left:eq(0)").text(),
-//				//결제할 금액
-//				amount : 20000, 
-//				//구매정보
-//				buyer_email : 'iamport@siot.do',
-//				buyer_name : '구매자이름',
-//				buyer_tel : '010-1234-5678',
-//				buyer_addr : '서울특별시 강남구 삼성동',
-//				buyer_postcode : '123-456',
-//				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
-//			/*
-//			 모바일 결제시,
-//			 결제가 끝나고 랜딩되는 URL을 지정
-//			 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
-//			 */
-//			}, function(rsp) {
-//				console.log(rsp);
-//				if (rsp.success) {
-//					var msg = '결제가 완료되었습니다.';
-//					msg += '고유ID : ' + rsp.imp_uid;
-//					msg += '상점 거래ID : ' + rsp.merchant_uid;
-//					msg += '결제 금액 : ' + rsp.paid_amount;
-//					msg += '카드 승인번호 : ' + rsp.apply_num;
-//				} else {
-//					var msg = '결제에 실패하였습니다.';
-//					msg += '에러내용 : ' + rsp.error_msg;
-//					//location.href = "/insomnia/Pay/PayComplete.ins";
-//				}
-//				alert(msg);
-//			});
 //		}
 //	});
 //===============================================================================
-	
 	
 	
 });

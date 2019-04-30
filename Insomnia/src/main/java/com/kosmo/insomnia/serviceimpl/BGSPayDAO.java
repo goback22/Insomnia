@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kosmo.insomnia.service.BGSPayDTO;
 import com.kosmo.insomnia.service.BGSPayService;
 
 @Repository("bGSPayDAO")
@@ -25,7 +26,12 @@ public class BGSPayDAO implements BGSPayService{
 
 		@Override
 		public int delete(Map map) {
-			return 0;
+			return template.delete("subPayDelete",map);
+		}/////
+
+		@Override
+		public BGSPayDTO selectOne(Map map) {
+			return template.selectOne("subPaySelectOne",map);
 		}/////
 	
 }/////class

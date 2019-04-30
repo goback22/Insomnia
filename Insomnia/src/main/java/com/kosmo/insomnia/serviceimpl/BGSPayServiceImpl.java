@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.kosmo.insomnia.service.BGSPayDTO;
 import com.kosmo.insomnia.service.BGSPayService;
 import com.kosmo.insomnia.service.ListDTO;
 
@@ -23,7 +24,12 @@ public class BGSPayServiceImpl implements BGSPayService {
 
 	@Override
 	public int delete(Map map) {
-		return 0;
+		return dao.delete(map);
 	}/////삭제]
+
+	@Override
+	public BGSPayDTO selectOne(Map map) {
+		return dao.selectOne(map);
+	}/////검색]
 	
 }/////class

@@ -17,7 +17,6 @@
 
 <!-- SubPay 동작을 위한 .js -->
 <script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
-<script src="<c:url value='/vendor/js/SubPay_Validation.js'/>"></script>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -26,7 +25,9 @@
 <!-- ============= 아임포트 ============== -->
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
+<!-- ============= Jquery Validation =============-->
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="<c:url value='/vendor/js/jquery.validate.min.js'/>"></script>
 <style>
 	.col-md-3{
 		padding-left: 79px;
@@ -37,7 +38,76 @@
 		border: none;
 		pointer-events: none;
 	}
+	
+	#asmr{
+		height: 51px;
+		position: relative;
+		background-repeat: no-repeat;
+		background-position: right 0;
+		float: left;
+		color: #fff;
+		font-weight: 700;
+		padding: 0 15px 2px;
+		padding-left: 15px;
+		margin: 20px 0;
+		border: 0;
+		cursor: pointer;
+		z-index: 5;
+		width: 16%;
+		border-radius: 10px;
+		background-color: black;
+		font-size: 26px;
+		text-align: center;
+		padding-left: 16px;
+		margin-left: 438px;
+	}
+	
+	#asmr2{
+		height: 52px;
+		float: left;
+		color: black;
+		font-weight: 700;
+		padding: 0 15px 2px;
+		padding-left: 15px;
+		margin: 19px 0;
+		margin-left: 0px;
+		border: 0;
+		cursor: pointer;
+		width: 16%;
+		border-radius: 10px;
+		background-color: #ececec;
+		font-size: 26px;
+		text-align: center;
+		padding-left: 16px;
+		margin-left: 13px;
+	}
+	
+	.error {
+    	border: 2px;
+		border-color: lightcoral;
+		border-style: outset;
+	}
+	
+	.valid {
+	    border: 2px solid #ddd;
+	}
+	
+	#docs {
+	    display: block;
+	    position: fixed;
+	    bottom: 0;
+	    right: 0;
+	}
+	
+	.ads_aside{
+		float: inline-end;
+	    position: absolute;
+	    display: inline;
+	    margin-left: 1400px;
+	    width: 16%;
+	}
 </style>
+
 </head>
 <body id="home-version-1" class="home-version-1" data-style="default">
 	<div id="site">
@@ -49,7 +119,6 @@
 					<div id="order">
 						<div class="page-body">
 							<form name="form1" id="order_form" action="<c:url value='/Pay/PayComplete.ins'/>" method="post">
-								
 								<!-- ============================================================================================================== -->
 								<!-- ==================================================.tbl-order================================================== -->
 								<!-- ============================================================================================================== -->
@@ -62,6 +131,13 @@
 										</a>
 									</div>
 								</div>
+								<aside>
+									<div class="ads_aside">
+										<a href="https://studysearch.co.kr/ayl/ggmm2?gclid=Cj0KCQjwnpXmBRDUARIsAEo71tTeFBcMZcBqXDxNOKi3MP9X45XQ2bkt49OVcKFYWmqOI6UCK0aKw58aAnujEALw_wcB" data-original-click-url="https://www.googleadservices.com/pagead/aclk?sa=L&amp;ai=C_zVlEp_GXOiBAZj5rQT97YjgB6vg459W-pWQm6sIxZzN1LAQEAEgiv_CKGCbg-mEnCmgAYa4sbgDyAECqQJUv32iYaUNPqgDAcgDyQSqBPMBT9C9-iCe8Giy4pz7YqO1ExGj9iK8VRqWh-3HgqT3AfT4Qivncsl4xcGlegqjMicjMtzv_FnYuA-OTz1ZpM_Qm1epOE6Ocv5xdumR0IkLD3Vd5g4BMmqI68WSUgi884VLfy1mzqa08milasnQDUTh2VPyj6NP99QkxV5rZkk91P2W7j0sBSrskltGtBSYgOtiEPF1RWo0IVHtgdHYfW0Jycg7PL9IHthMHYhJfz6A1ELqZIhz6ZINsaKODbgalrIMUEn9YSyLxvuCTCHQ5snkPFk4fzIYG4ZEl6NMu8CnBNp_wpw3KawpOpLfZGogrmL1a0nakAYBoAYCgAfix85HiAcBkAcCqAeOzhuoB9XJG6gH4NMbqAe6BqgH2csbqAfPzBuoB6a-G9gHAdIIBggAEAIYCrEJP61ueB1ROOSACgHYEww&amp;ae=1&amp;num=1&amp;cid=CAMSeQClSFh3B1_oIy5-HMEMTPZpPxE7V8Zff9QeoQAz23pZHyzu9cn7YJxhqjnL3t62WV-cdhx7lTvY5rw64KDy2v1LeFKe0GXO1lYzdbkFAIzN-qtW4oGc8r1hTwF4ZXu6DgtwEZuhJo3yewNLY0ppthpW-6QcwSQS21Y&amp;sig=AOD64_2lCu-CWrTDqJ9hp7y-ip_PgpjMFg&amp;client=ca-pub-9184491641313822&amp;adurl=https://studysearch.co.kr/ayl/ggmm2%3Fgclid%3DCj0KCQjwnpXmBRDUARIsAEo71tTeFBcMZcBqXDxNOKi3MP9X45XQ2bkt49OVcKFYWmqOI6UCK0aKw58aAnujEALw_wcB">
+											<img src="https://tpc.googlesyndication.com/simgad/904511498948388870?sqp=4sqPyQQrQikqJwhfEAEdAAC0QiABKAEwCTgDQPCTCUgAUAFYAWBfcAJ4AcUBLbKdPg&amp;rs=AOga4qleeKK2sSlVeVNOE1kKQ0YviuNkSA" border="0" width="160" alt="" class="img_ad">
+										</a>
+									</div>
+								</aside>
 									<legend>주문리스트</legend>
 									<h3>주문리스트</h3>
 									<div class="tbl-order">
@@ -244,6 +320,8 @@
 															<option value="4">직접 입력</option>
 														</select>
 													</td>
+													<td>
+													</td>
 												</tr>
 												
 												<tr>
@@ -297,13 +375,13 @@
 														<div class="txt-l">무통장 환불 예금주</div>
 													</th>
 													<td>
-														<input type="text" name="subPay_Refund_Name"form="order_form" class="MS_input_txt" size="" maxlength="">
+														<input type="text" name="subPay_Refund_Name" form="order_form" class="MS_input_txt">
 													</td>
 												</tr>
 												<tr>
 													<th scope="row"><div class="txt-l">무통장 환불 은행명</div></th>
 													<td>
-														<input type="text" name="subPay_Refund_BankName" form="order_form" class="MS_input_txt" size="" maxlength="">
+														<input type="text" name="subPay_Refund_BankName" form="order_form" class="MS_input_txt">
 													</td>
 												</tr>
 												<tr>
@@ -688,13 +766,13 @@
 									<!-- .tbl-pay -->
 
 									<div id="paybutton">
-										<input type="button" id="btn_order_ok" class="btn btn-success btn_FontSize" style="margin-right: 5px;" value="주문하기"/>
-										<a href="javascript:order_cancel('cancel')">
-											<button id="btn_order_cancle" class="btn btn-default btn_FontSize" style="margin-left: 5px">주문취소</button>
-										</a>
+										<input type="button" id="asmr" class="btn_order_ok" value="주문하기">
+										<!-- <input type="button" id="btn_order_ok" class="btn btn-success btn_FontSize" style="margin-right: 5px;" value="주문하기"/> -->
+										<input type="button" id="asmr2" value="주문취소">
 									</div>
 								</fieldset>
 							</form>
+							<a id="docs" href="http://docs.jquery.com/Plugins/Validation" target="_blank">Validation Documentation</a>
 						</div>
 						<!-- .page-body -->
 					</div>
@@ -711,7 +789,4 @@
 	        	이 콘텐츠는 콘텐츠 산업 진흥법에 따라 최초 제작일로부터 5년간 보호됩니다.
         	</span>
        	</div>
-
-
 	</div>
-	

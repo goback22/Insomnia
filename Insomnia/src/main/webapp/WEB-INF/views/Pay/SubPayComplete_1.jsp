@@ -72,7 +72,7 @@
 																	<div class="txt-l">결제번호</div>
 																</th>
 																<td colspan="3">
-																	결제번호(123124124-12314-124124)
+																	결제번호(merchant_${p_no })
 																</td>
 															</tr>
 															<tr>
