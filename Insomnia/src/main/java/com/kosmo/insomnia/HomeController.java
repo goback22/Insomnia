@@ -50,9 +50,11 @@ public class HomeController {
 			
 			MemberDTO record = memberService.selectOne(map);
 			
-			record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
-			
-			model.addAttribute("record", record);
+			if(record != null) {
+				
+				record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+				model.addAttribute("record", record);
+			}
 			
 		}
 		

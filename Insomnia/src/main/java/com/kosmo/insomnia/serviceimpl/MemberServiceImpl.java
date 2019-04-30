@@ -32,6 +32,11 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDTO selectOne(Map map) {
 		return dao.selectOne(map);
 	}
+	
+	@Override
+	public int update(Map map) {
+		return dao.update(map);
+	}
 
 	@Override
 	public int delete(Map map) {
@@ -45,7 +50,7 @@ public class MemberServiceImpl implements MemberService{
 	
 
 	@Override
-	public int update(Map map) {
+	public int updateProfile(Map map) {
 		return dao.update(map);
 	}
 	
@@ -64,6 +69,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int checkSignup(String id) {
 		return dao.checkSignup(id);
+	}
+
+	@Override
+	public int socialUpdate(Map map) {
+		return dao.socialUpdate(map);
 	}
 
 	

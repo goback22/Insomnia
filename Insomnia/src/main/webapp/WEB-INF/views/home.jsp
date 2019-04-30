@@ -41,11 +41,33 @@
 
 <body style="background-color: black;">
 <div class="welcomeMessage" style="display:none;">${loginMessage}</div>
-<c:if test="${not empty loginMessage}">
+<c:if test='${loginMessage eq "new"}'>
 	<script>
-		alert($('.welcomeMessage').html());	
+		//alert($('.welcomeMessage').html());
+		$(function(){
+			$('.social-welcome-div').css('display', 'block');
+		})
+		
 	</script>
 </c:if>
+
+	<!-- 소셜 로그인 모달 -->
+	
+	<div class="social-welcome-div">
+		<div class="social-content-div">
+			<!-- <button class="close-btn" title="닫기">x</button> -->
+			<div class="social-content">
+				<div class="social-info-title">소셜 계정 회원가입 안내</div>
+				<div class="social-info">INSOMNIA 가입을 진심으로 축하합니다.<br/>원활한 사이트 이용을 위해 추가정보를 입력해주세요.</div>
+			</div>
+			<div class="social-btn-div">
+				<form class="social-div-form" action="<c:url value='/registerSocial/form.ins'/>" method="post">
+					<button class="social-btn">확인</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	
 
 	<div id="site">
 
@@ -153,7 +175,7 @@
 									id="txtSaveId" class="wz text caption2">아이디 저장</span>
 								</label>
 								<p class="forgot">
-									<a class="wz text forgot_a" href="<c:url value='' />">아이디∙비밀번호
+									<a class="wz text forgot_a" href="<c:url value='/find/findId.ins'/>">아이디∙비밀번호
 										찾기<i class="icon chevron-right"></i>
 									</a>
 								</p>
@@ -170,18 +192,20 @@
 									class="facebook"></i>페이스북으로 로그인
 							</button>
 							<button type="button" id="custom-login-btn"
-								onclick="javascript:void(0)">
+								onclick="javascript:loginWithKakao();">
 								<img class="icon"
 									src="<c:url value='/resource/img/kakaolink_btn_medium.png'/>" />
 								<i class="kakao"></i>카카오
 							</button>
 							<!-- naverLoginBtn -->
-							<!-- <div id="naver_id_login" style="width: 201px; height: 48px;"> -->
+							<!-- <div id="naver_id_login"> -->
+							<div id="naverIdLogin"></div>
+							<!-- 
 							<button type="button">
 								<img class="icon"
 								src="<c:url value='/resource/img/naver_login_icon.png'/>" /> <i
 								class="naver"></i>네이버
-								</button>
+								</button>  -->
 							
 							<button type="button" id="googleLoginBtn">
 								<img class="icon"
@@ -226,7 +250,8 @@
 							<img style="margin-left: 270px; margin-top: -60px; height:15px; width:15px;" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
 						</a>
 					<!-- 네이버 로그인 display:none -->
-					<div id="naver_id_login" style="display: none;"></div>
+					<!-- <div id="naver_id_login" style="display: none;"></div> -->
+					<div id="naverIdLogin"></div>
 						
 					<!-- 사용자 계정정보 -->
 					<%-- <div style="display:none;" id="hid">${loginRecord.login_chain }</div>
@@ -306,6 +331,7 @@
 				<input type="hidden" name="socialProfile" id="socialProfile" value="" />
 				<input type="hidden" name="socialBirth" id="socialBirth" value="" />
 				<input type="hidden" name="socialSite" id="socialSite" value=""/>
+				<input type="hidden" name="socialGender" id="socialGender" value=""/>
 			</form>
 
 			<!-- 소셜 로그인 : 히든 폼 끝 -->
@@ -388,18 +414,20 @@
 									//확인용 alert()
 									//alert('소셜 로그인에 성공했습니다.'); 회원가입이면 최초 처리해야 되니까.
 
-									///이 부분에서 최초 로그인의 경우, 회원가입으로 진행, 
+									///이 부분에서 최초 로그인의 경우, 회원가입으로 진행,
 
 									/////사용자 정보를 갖고 온다.
-									FB.api('/me', {locale : 'ko_KR'}, {fields : 'id, name,email,birthday,picture'},
+									FB.api('/me', {locale : 'ko_KR'}, {fields : 'id, name, email, birthday, picture'},
 											function(response) {
 												if (response && !response.error) {
-
+													alert("성별도 출력되나?" + response.gender);
+													
 													$('#socialId').prop('value', response.id);
 													$('#socialName').prop('value', response.name);
 													$('#socialEmail').prop('value', response.email);
 													$('#socialBirth').prop('value', response.birthday);
 													$('#socialProfile').prop('value', response.picture.data.url);
+													$('#socialGender').prop('value', response.gender);
 													$('#socialSite').prop('value', 'facebook');
 													$('#socialForm').submit();
 													
@@ -422,19 +450,29 @@
 		</script>
 		<!-- 페이스북 로그인 끝 -->
 
-		<!-- 네이버 로그인 시작 
-		<script type="text/javascript"
-			src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
-			charset="utf-8"></script>
+		<!-- 네이버 로그인 시작  1.기본설정-->
+		<!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script> -->
+		<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 		<script>
-			var naver_id_login = new naver_id_login("baw69zHb2FPVPqvEd5sl",
-					"https://localhost:8080/insomnia/");
-			var state = naver_id_login.getUniqState();
-			naver_id_login.setButton("white", 2, 40);
-			naver_id_login.setDomain("https://localhost:8080/insomnia/");
-			naver_id_login.setState(state);
-			naver_id_login.setPopup();
-			naver_id_login.init_naver_id_login();
+			
+			var naverLogin = new naver.LoginWithNaverId({
+				
+				clientId:"baw69zHb2FPVPqvEd5sl",
+				callbackUrl:"https://localhost:8080/insomnia/",
+				isPopup:true,
+				loginButton:{color:"green", type:2, height:60}
+			});
+			
+			naverLogin.init();
+			
+			
+			/* naver_id_login.setPopup();
+			naver_id_login.init_naver_id_login(); */
+		</script>
+		
+		<!-- 네이버 로그인2 : 로그인 버튼 조정 -->
+		<script>
+		
 		</script>
 
 		<script>
@@ -451,7 +489,9 @@
 				alert(naver_id_login.getProfileData('age'));
 			}
 		</script>
-		네이버 로그인 끝 -->
+		<!--네이버 로그인 끝 -->
+		
+		
 		<!-- 아이디 저장 시작(쿠키) -->
 		<script>
 			$(function() {
@@ -580,9 +620,21 @@
 				
 			})
 		
+		</script>
 		
-		
-		
+		<script>
+			$(function(){
+				$('.social-btn').click(function(){
+					//location.href("<c:url value='/registerSocial/form.ins'/>");
+					$('.social-div-form').submit();
+				});
+				
+				/* $('.close-btn').click(function(){
+					$('.social-welcome-div').css('display', 'none');
+				}); */
+				
+			})
+			
 		</script>
 		
 		
