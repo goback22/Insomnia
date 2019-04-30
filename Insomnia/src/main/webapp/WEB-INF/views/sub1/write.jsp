@@ -7,13 +7,11 @@
 <script src="<c:url value='/vendor/js/jquery2.js'/>"></script>
 <script src="<c:url value='/vendor/js/bootstrap2.min.js'/>"></script>
 
-<meta HTTP-EQUIV="Page-exit" content="BlendTrans(Duration=1)" />
-<meta HTTP-EQUIV="Page-enter" content="BlendTrans(Duration=1)" />
-
 <!-- 섬머노트 css,js -->
 <link rel="stylesheet"
 	href="<c:url value='/vendor/css/summernote.css'/>" type="text/css">
 <script src="<c:url value='/vendor/js/summernote.js'/>"></script>
+
 <!-- 섬머노트 awesome css,js -->
 <link rel="stylesheet"
 	href="<c:url value='/vendor/css/summernote-ext-emoji-ajax.css'/>"

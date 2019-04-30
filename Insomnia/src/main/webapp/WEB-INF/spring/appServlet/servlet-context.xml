@@ -21,7 +21,6 @@
 	</bean>
 	<mvc:default-servlet-handler />
 
-
 	<!-- tiles사용을 위한 bean등록 -->
 	<bean
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
@@ -36,9 +35,7 @@
 	<bean
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="order" value="0" />
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles3.TilesView" />
-
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
 	</bean>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
+<!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
+
+<mapper namespace="mapper.Zerojin_MainComment">
+   <select id="mainCommentSelectList" parameterType="java.util.Map" resultType="java.util.Map">
+   SELECT m.id,c_content,b.name,c_post_date,b.profile_img,bsc_no FROM BANDSUBMIT_COMMENT m JOIN members b ON m.id=b.id order by bsc_no desc
+   </select>
+   
+   <insert id="mainCommentInsert" parameterType="java.util.Map" >
+   insert into BANDSUBMIT_COMMENT(bsc_no,c_content,c_post_date,id) values(SEQ_BSC_NO.nextval,#{c_content, jdbcType=VARCHAR},default,#{id, jdbcType=VARCHAR})
+   </insert>
+   
+   <update id="mainCommentUpdate" parameterType="java.util.Map">
+   UPDATE BANDSUBMIT_COMMENT SET c_content=#{c_content} WHERE bsc_no =#{bsc_no, jdbcType=VARCHAR}   
+   </update>
+   
+   <delete id="mainCommentDelete" parameterType="java.util.Map">
+   DELETE FROM BANDSUBMIT_COMMENT WHERE bsc_no =#{bsc_no, jdbcType=VARCHAR}   
+   </delete>
+</mapper>
+

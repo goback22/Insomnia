@@ -1,5 +1,6 @@
 package com.kosmo.insomnia.service;
 
+//방구석 기타리스트 댓글
 public class CommentDTO {
 	//멤버 변수
 	private String r_no;

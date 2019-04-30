@@ -1,7 +1,43 @@
-https://www.google.com/recaptcha/admin/create<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java"
+	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 리캡챠 -->
+<%@ page import="java.net.*, java.io.*"%>
+<%
+	// 생성된 토큰 받음
+	String g_recaptcha_response = request.getParameter("g-recaptcha-response");
+	System.out.println(g_recaptcha_response);
 
+	// 토큰과 보안키를 가지고 성공 여부를 확인 함
+	HttpURLConnection conn = (HttpURLConnection) new URL("https://www.google.com/recaptcha/api/siteverify")
+			.openConnection();
+	String params = "secret=6Lc5UaAUAAAAAPwTOPm-kYurYOC0w879V2pAmhVc" + "&response=" + g_recaptcha_response;
+	conn.setRequestMethod("POST");
+	conn.setDoOutput(true);
+	DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+	wr.writeBytes(params);
+	wr.flush();
+	wr.close();
+
+	// 결과코드 확인(200 : 성공)
+	int responseCode = conn.getResponseCode();
+	StringBuffer responseBody = new StringBuffer();
+	if (responseCode == 200) {
+		// 데이터 추출
+		BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+		BufferedReader reader = new BufferedReader(new InputStreamReader(bis));
+		String line;
+		while ((line = reader.readLine()) != null) {
+			responseBody.append(line);
+		}
+		bis.close();
+
+		// JSON으로 변환 하여야 하지만 기본 모듈에서 처리하기위하여 아래와 같이 진행 합니다
+		//         if(responseBody.toString().indexOf("\"success\": true") > -1){
+		//             out.println("인증 완료했습니다.");
+		//         }
+	} //if
+%>
 <!-- 
 	<link rel="stylesheet" href="<c:url value='/vendor/css/RegisterFormCSS.css'/>"/>
  -->
@@ -20,6 +56,22 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 	rel="stylesheet">
 <link href="<c:url value='/vendor/css/RegisterTerm-style_util.css'/>"
 	rel="stylesheet">
+
+<!-- 리캡챠 -->
+<script
+	src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+	async defer></script>
+<script type="text/javascript">
+	var correctCaptcha = function(response) {
+		console.log();
+	};
+	var onloadCallback = function() {
+		grecaptcha.render('html_element', {
+			'sitekey' : '6Lc5UaAUAAAAABPecBqTzb2Dr0jSIqLwIixteaDp',
+			'callback' : correctCaptcha
+		});
+	};
+</script>
 
 
 <!-- 스타벅스 회원가입폼 -->
@@ -114,7 +166,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 					<strong class="find_mem_ttl">회원가입</strong>
 				</div>
 				<!-- <c:url value='/register/complete.ins'/> -->
-				<form id="frm" method="post" action="<c:url value='/register.ins'/>">
+				<form id="frm" method="post" action="<c:url value='/register.ins'/>" onsubmit="return submitUserForm();">
 					<!-- 섹션1: 아이디, 비번, 비번확인 -->
 					<section class="renew_joinform_v2">
 						<!-- 머릿말 -->
@@ -128,8 +180,8 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 							<div class="inner-btn-input">
 								<label for="email" class="hid">e-mail</label> <input
 									class="input-email" type="text" name="email" id="email"
-									placeholder="E-mail을 입력하세요." required="required"> 
-								<select	id="portal" name="portal">
+									placeholder="E-mail을 입력하세요." required="required"> <select
+									id="portal" name="portal">
 									<option value="naver.com">naver.com</option>
 									<option value="daum.com">daum.com</option>
 									<option value="nate.com">nate.com</option>
@@ -174,12 +226,12 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 					<section class="renew_joinform_v2">
 						<div class="renew_input_box gender_chk">
 							<!-- 이름입력 -->
-							<strong>이름(필수)</strong>
-							<input type="text" id="user_nm" name="user_nm" value="서기환"	required="required">
+							<strong>이름(필수)</strong> <input type="text" id="user_nm"
+								name="user_nm" value="" required="required">
 							<!-- 성별입력 -->
 							<div class="user_gender">
-								<a class="male on">남</a> <a class="female">여</a> 
-								<input type="hidden" id="gender" name="gender" value="M">
+								<a class="male on">남</a> <a class="female">여</a> <input
+									type="hidden" id="gender" name="gender" value="M">
 							</div>
 						</div>
 						<!-- 생년월일 입력 -->
@@ -312,14 +364,17 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 						</div>
 						<!-- 주소 입력 -->
 						<div class="renew_input_box addr_chk">
-							<strong>주소(필수)</strong> 
-							<input name="zip_code" type="text" id="sample4_postcode" placeholder="우편번호" > <input type="button"
-								onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-							<input name="roadAddress" type="text" id="sample4_roadAddress" placeholder="도로명주소">
-							<input name="jibunAddress" type="text" id="sample4_jibunAddress" placeholder="지번주소">
-							<span id="guide" style="color: #999; display: none"></span> 
-							<input name="detailAddress"	type="text" id="sample4_detailAddress" placeholder="상세주소">
-							<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+							<strong>주소(필수)</strong> <input name="zip_code" type="text"
+								id="sample4_postcode" placeholder="우편번호"> <input
+								type="button" onclick="sample4_execDaumPostcode()"
+								value="우편번호 찾기"><br> <input name="roadAddress"
+								type="text" id="sample4_roadAddress" placeholder="도로명주소">
+							<input name="jibunAddress" type="text" id="sample4_jibunAddress"
+								placeholder="지번주소"> <span id="guide"
+								style="color: #999; display: none"></span> <input
+								name="detailAddress" type="text" id="sample4_detailAddress"
+								placeholder="상세주소"> <input type="text"
+								id="sample4_extraAddress" placeholder="참고항목">
 						</div>
 						<p class="limit_txt addr_txt" id="birth_txt">주소를 입력해주세요.</p>
 
@@ -334,10 +389,11 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 
 						<!-- 휴대폰 번호 입력 -->
 						<div class="renew_input_box phone_chk">
-							<strong>휴대폰 번호(필수)</strong> 
-							<input class="input_phone_num"	type="text" value="010" id="phone3" readonly="readonly" /> 
-							<input	class="input_phone_num" type="text" name="phone1" id="phone1" required /> - 
-							<input class="input_phone_num" type="text" name="phone2" id="phone2" required />
+							<strong>휴대폰 번호(필수)</strong> <input class="input_phone_num"
+								type="text" value="010" id="phone3" readonly="readonly" /> <input
+								class="input_phone_num" type="text" name="phone1" id="phone1"
+								required /> - <input class="input_phone_num" type="text"
+								name="phone2" id="phone2" required />
 							<p class="limit_txt phone_txt" id="phone_txt">휴대폰 번호를 입력해주세요.</p>
 						</div>
 					</section>
@@ -352,9 +408,14 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 					<!-- 마케팅 정보 수신동의 히든타입으로 넘기기 -->
 					<input type="hidden" name="advertise" value="${advertise}">
 
+					<!-- 리캡차 -->
+					<div style="margin-left: 810px" id="html_element"></div>
+					<div id="g-recaptcha-error"></div>
+
 					<!-- 로그인버튼 -->
 					<div class="btnSubmit_div">
-						<input id="btnSubmit" class="btn btn-success" type="button" value="가입하기"/>
+						<input id="btnSubmit" style="margin-top: 25px" class="btn btn-success" type="button"
+							value="가입하기" />
 					</div>
 					<h1>${$authmsg}</h1>
 					<!-- 
@@ -365,41 +426,38 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 				</form>
 			</fieldset>
 
-			<!-- 여기까지 -->
-
 		</section>
+
+
 	</div>
 	<!-- site다이브 끝 -->
 
 
 	<script>
-	
 		$(function() {
-			
-			
-		
-			
-			///아이디 중복검사
-			$('#checkbtn').on('click',function() {
-				$.ajax({
-					type : 'POST',
-					url : '/insomnia/checkSignup.ins',
-					data : {
-						"id" : $('#email').val() + "@" + $('#portal').val()
-					},
-					success : function(data) {
-						if ($.trim(data) == 0) {
-							$('#checkMsg').html(
-									'<p style="color:blue">사용가능</p>');
-						} else {
-							$('#checkMsg').html(
-									'<p style="color:red">사용불가능</p>');
-						}
-					}
-				}); //end ajax    
-			}); //end on    
 
-			
+			///아이디 중복검사
+			$('#checkbtn').on(
+					'click',
+					function() {
+						$.ajax({
+							type : 'POST',
+							url : '/insomnia/checkSignup.ins',
+							data : {
+								"id" : $('#email').val() + "@"
+										+ $('#portal').val()
+							},
+							success : function(data) {
+								if ($.trim(data) == 0) {
+									$('#checkMsg').html(
+											'<p style="color:blue">사용가능</p>');
+								} else {
+									$('#checkMsg').html(
+											'<p style="color:red">사용불가능</p>');
+								}
+							}
+						}); //end ajax    
+					}); //end on    
 
 			///1] 키 입력시 검증 메서드 호출
 			$('input').bind('keyup', function() {
@@ -680,3 +738,21 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 	<!--=========================-->
 	<!--=        footer         =-->
 	<!--=========================-->
+	
+	
+<script>
+//리캡차 유효성 검증
+function submitUserForm() {
+    var response = grecaptcha.getResponse();
+    console.log(response.length);
+    if(response.length == 0) {
+        document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;margin-left:880px;">로봇 방지를 체크해주세요.</span>';
+        return false;
+    }
+    return true;
+}
+ 
+function verifyCaptcha() {
+    document.getElementById('g-recaptcha-error').innerHTML = '';
+}
+</script>

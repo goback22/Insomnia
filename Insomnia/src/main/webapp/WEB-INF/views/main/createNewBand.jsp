@@ -308,9 +308,7 @@ body{
 				<div id="third-back" class="second-step-btn-back">뒤로</div>
 				<div id="third-next" class="second-step-btn-next">다음 : 밴드 이름 입력</div>
 			</div>	 	        
-		</div><!-- third-step END -->
-		
-		
+		</div><!-- third-step END -->				
 	
 			<!-- forth step 밴드 이름 등록 -->
 			<div class="first-step col-sm-3">
@@ -337,9 +335,6 @@ body{
 	var index = 0; //id값을 구분하기 위해 붙여놓은 인덱스(시퀀스)
 	
 	$(function(){
-		
-		
-		
 		$("#first-next").on("click", function(){
 			$(".main_progress").css("margin-left", "-100%");
 		});//$(.first-next).onCLick

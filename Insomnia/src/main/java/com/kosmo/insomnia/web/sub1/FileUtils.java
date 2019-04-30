@@ -55,8 +55,8 @@ public class FileUtils {
 		try {
 			//2]파일이 저장된 서버의 물리적 경로 얻기]
 			//강제로 잡아줌
-			String saveDirectory = "D:\\KYJ\\UTIL\\Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp7\\wtpwebapps\\Insomnia\\upload\\bgslist";		
-			System.out.println("adwasd:"+saveDirectory);
+			String saveDirectory = request.getServletContext().getRealPath(uploadDir); //여기까지만해주고 컨트롤러에서 쓸때 그쪽에서 경로를 잡아준다.	
+			System.out.println("saveDirectory:"+saveDirectory);
 			//3]파일 크기를 얻기 위한 파일 객체 생성
 			//  -다운로드시 프로그래스바를 표시하기 위함. 
 			//System.out.println(saveDirectory+File.separator+filename);
