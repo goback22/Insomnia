@@ -47,7 +47,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.sun.xml.internal.ws.server.ServiceDefinitionImpl;
 
 @Controller
-public class ZeroJinController {
+public class ZeroJinController_Sub {
 	@Resource(name = "insService")
 	private ListServiceImpl insService;
 	
@@ -445,65 +445,5 @@ public class ZeroJinController {
 		
 		return "";
 	}//	
-	
-	/*-----------------------------------------
-	-------------------------------------------*/
-	
-	//메인 코멘트
-	//목록 처리
-	@ResponseBody
-	@RequestMapping(value="/main/memolist.ins",produces="text/html; charset=UTF-8")
-	public String mainCommentlist(@RequestParam Map map,HttpServletRequest req) throws Exception{
-		//비지니스 로직 호출
-		map.put("start", 1);
-		map.put("end", 10);
 		
-		//서비스 호출]
-		List<Map> comments= mainCommentService.selectList(map);
-		System.out.println("comments:"+comments);
-		//System.out.println("comments.get(0):"+comments.get(0)); // {C_POST_DATE=2019-04-29 08:58:38.0, PROFILE_IMG=Z.jpg, C_CONTENT=밴드서브밋 코맨트 내용3, ID=kim@naver.com, NAME=김길동, BSC_NO=3}
-		
-		for(Map comment:comments) {
-			comment.put("C_POST_DATE", comment.get("C_POST_DATE").toString().substring(0,10));
-			//엔터 값
-			comment.put("C_CONTENT", comment.get("C_CONTENT").toString().replace("\r\n", "<br/>"));
-		}
-		
-		System.out.println("잘 들어가니?:"+JSONArray.toJSONString(comments));
-		
-		return JSONArray.toJSONString(comments);
-	}//list()	
-	
-	//코멘트 입력처리]
-	@ResponseBody 
-	@RequestMapping(value="/main/memowrite.ins",produces="text/html; charset=UTF-8")
-	public String mainCommentWrite(@RequestParam Map map,HttpSession session) throws Exception{
-		//서비스 호출]
-		//한줄 댓글 작성자 아이디 맵에 설정
-		map.put("id", session.getAttribute("id"));
-		
-		mainCommentService.insert(map);
-		
-		return map.get("bsc_no").toString();
-	}//write
-	
-	//코멘트 수정처리]
-	@ResponseBody
-	@RequestMapping(value="/main/memoedit.ins",produces="text/html; charset=UTF-8")
-	public String mainCommentUpdate(@RequestParam Map map) throws Exception{
-		//서비스 호출]
-		mainCommentService.update(map);
-		
-		return "";
-	}//
-	
-	//삭제 처리]
-	@ResponseBody
-	@RequestMapping(value="/main/memodelete.ins",produces="text/html; charset=UTF-8")
-	public String mainCommentDelete(@RequestParam Map map) throws Exception{
-		//서비스 호출]
-		mainCommentService.delete(map);
-		
-		return "";
-	}//	
-}
+}//class

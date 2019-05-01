@@ -16,15 +16,12 @@ public class LoginServiceDAO implements LoginService{
 	@Resource(name = "template")
 	private SqlSessionTemplate template;
 
-
 	@Override
-	public void create(Map map) {
-		
+	public void create(Map map) {		
 	}
 
 	@Override
 	public void insertUser(Map map) {
-		
 		template.insert("memberInsert", map);
 		
 	}
@@ -44,9 +41,6 @@ public class LoginServiceDAO implements LoginService{
 
 	@Override
 	public boolean checkSignup(String id) {
-		
 		return false;
 	}
-	
-	
 }

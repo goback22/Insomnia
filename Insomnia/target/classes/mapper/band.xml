@@ -17,8 +17,6 @@
 		INSERT INTO band(b_no, b_name, ct_no, b_album_cover, b_liked) values(seq_band.nextval, #{band_name},#{select_category},#{coverName}, 0)
 	</insert>
 	
-	
-	
 	<select id="isMember_createNewBand" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT id FROM members where id=#{id}
 	</select>
