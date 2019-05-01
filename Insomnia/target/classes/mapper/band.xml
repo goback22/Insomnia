@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
+<!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
+
+<mapper namespace="mapper.band">
+	<select id="isBandMember" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandMemberDTO">
+		SELECT b_name FROM bandMember where id=#{id}
+	</select>
+	
+	<select id="getMemberProfileImg" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT profile_img FROM members where id=#{id}
+	</select>
+	
+	<insert id="addNewBand" parameterType="java.util.Map">
+		INSERT INTO band(b_no, b_name, ct_no, b_album_cover, b_liked) values(seq_band.nextval, #{band_name},#{select_category},#{coverName}, 0)
+	</insert>
+	
+	
+	
+	<select id="isMember_createNewBand" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT id FROM members where id=#{id}
+	</select>
+	
+	<select id="getB_noByB_name" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandDTO">
+		SELECT b_no FROM band where b_name=#{b_name}
+	</select>
+	
+	<insert id="addNewBandMember" parameterType="java.util.Map">
+		INSERT INTO bandMember(id, b_name) values(#{id},#{b_name})
+	</insert>
+	
+	<select id="isExistBand" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT b_name FROM band where b_name=#{b_name}
+	</select>
+	
+	<select id="getBandDTOByB_name" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandDTO">
+		SELECT b_no, b_name, b_description, b_album_cover, bm_title, b_liked, ct_no FROM band where b_name=#{b_name}
+	</select>
+	
+	<select id="getBandSubmitWaitingDTOList" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandSubmitWaitingDTO">
+		SELECT sw_no, b_no, sw_banner, sw_short_description, sw_long_description, sw_image_1, sw_image_2, sw_image_3
+			sw_youtube, sw_content, sw_postdate FROM bandsubmitWaiting WHERE b_no = #{b_no}
+	</select>
+	
+	<select id="getBandImgDTOList" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandImgDTO">
+		SELECT bi_no, b_no, image FROM bandImg WHERE b_no = #{b_no}
+	</select>
+	
+	<select id="getTotalBandImg" parameterType="java.lang.String" resultType="int">
+		SELECT count(*) FROM bandImg WHERE b_no = #{b_no}
+	</select>
+	
+	<insert id="addBandImg" parameterType="java.util.Map">
+		INSERT INTO bandImg(bi_no, b_no, image) values(seq_bandImg.nextval, #{b_no}, #{newFileName})
+	</insert>
+	
+	<select id="isExistBandImg" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT image FROM bandImg WHERE image = #{fileName}
+	</select>
+	
+	<select id="getPlayList" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandMusicDTO">
+		SELECT bm_no, b_no, bm_name, bm_description, bm_liked, ct_no, bm_filename FROM bandMusic WHERE b_no = #{b_no}
+	</select>
+	
+	<select id="getTotalBandMusic" parameterType="java.lang.String" resultType="int">
+		SELECT count(*) FROM bandMusic WHERE b_no = #{b_no}
+	</select>
+	
+	<insert id="addBandMusic" parameterType="com.kosmo.insomnia.service.BandMusicDTO">
+		INSERT INTO bandMusic(bm_no, b_no, bm_name, bm_description, bm_liked, ct_no, bm_filename) 
+		values(seq_bandMusic.nextval, #{b_no}, #{bm_name},#{bm_description},#{bm_liked},#{ct_no}, #{bm_filename})
+	</insert>
+	
+</mapper>

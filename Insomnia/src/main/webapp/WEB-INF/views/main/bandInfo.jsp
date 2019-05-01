@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!-- Noto Sans KR Fonts -->
@@ -381,7 +382,19 @@ li {
     padding-bottom: 5px;
     display: inline-block;
     text-align: center;
-    width: 33%;
+    width: 24%;
+}
+.tab-details .details li:nth-child(1){
+	width:25%;
+}
+.tab-details .details li:nth-child(2){
+	width:13%;
+}
+.tab-details .details li:nth-child(3){
+	width:55%;
+}
+.tab-details .details li:nth-child(4){
+	width:5%;
 }
 .tabs-filter {
     margin: 0;
@@ -405,7 +418,7 @@ li {
 }
 .songs-details li {
     display: inline-block;
-    width: 33%;
+    width: 100%;
     text-align: center;
     font-size: 16px;
     font-weight: 500;
@@ -448,11 +461,22 @@ li {
 	margin-right:20px;
 }
 
+#upload_band_music_description{
+	margin: 20px 0 0 8px;
+    width: 450px;
+    padding: 16px;
+    border: 1px solid rgb(230, 234, 237);
+}
+
 </style>
 
 
 </head>
 <body>
+
+<script>
+	var playList = new Array(); //playList를 저장하기 위한 배열
+</script>
 
 	<div class="root_div">
 
@@ -464,20 +488,24 @@ li {
 
 
 		<!-- 아직 등록된 밴드가 없는 아이디일 경우 -->
+		<c:if test="${isBandMember == false}">
 		
-<div class="no_have_band">
-	<div class="no_band_header"></div>
-	<div class="no_band_header_cover">
-		<h2> 아직 등록한 밴드가 없으시군요? </h2><br/>
-		<h4> 밴드를 등록하고 INSOMNIA의 크라우드 펀딩에 도전해 보세요</h4>
-	</div>
-	<div class="no_band_header_div">
-		<div class="no_band_header_btn">밴드 등록하기</div>
-	</div>
-</div>
+			<div class="no_have_band">
+				<div class="no_band_header"></div>
+				<div class="no_band_header_cover">
+					<h2> 아직 등록한 밴드가 없으시군요? </h2><br/>
+					<h4> 밴드를 등록하고 INSOMNIA의 크라우드 펀딩에 도전해 보세요</h4>
+				</div>
+				<div class="no_band_header_div">
+					<div class="no_band_header_btn">밴드 등록하기</div>
+				</div>
+			</div>
+		
+		</c:if>
   
 		<!-- 아직 등록된 밴드가 없는 아이디일 경우 끝 -->
 		<!-- 등록된 밴드가 있는 아이디일 경우 시작 -->
+		<c:if test="${isBandMember == true }">
 
 		<div class="have_band">
 
@@ -493,13 +521,13 @@ li {
 								<div class="myinfo-content">
 									<dl>
 										<dd>
-											<p class="nickname" style="font-weight: 600">임한결${record.name}</p>
+											<p class="nickname" style="font-weight: 600">${record.b_name}</p>
 											<p class="accnttype">등록된 밴드</p>
 											<p class="otherinfo"></p>
 										</dd>
 										<dt style="padding-right: 100px;">
 											<img class="profile-img2"
-												src="<c:url value='/upload/band/cover/default_band_profile_img.jpg'/>" />
+												src="<c:url value='/upload/band/cover/${record.b_album_cover}'/>" />
 										</dt>
 									</dl>
 									<p style="display: hidden" id="imgSrc"></p>
@@ -512,7 +540,7 @@ li {
 									<ul class="activity-list">
 										<li><strong class="count">0</strong><span>펀딩</span></li>
 										<li><a href="javascript:void(0)"><strong
-												class="count">0</strong><em>좋아요</em></a></li>
+												class="count">${record.b_liked}</strong><em>좋아요</em></a></li>
 										<li><a href="javascript:void(0)"><strong
 												class="count">0</strong><em>팔로워</em></a></li>
 									</ul>
@@ -556,7 +584,7 @@ li {
 							<div class="tab-list">
 								<div class="insert-underbar-div">
 									<ul id="historyTab">
-										<li class="active"><span id="card-funding" style="color: rgba(0,0,0,.84); border-bottom:none;">펀딩한</span></li>
+										<li class="active" style='border-bottom:none;'><span id="card-funding" style="color: rgba(0,0,0,.84); border-bottom:none;">펀딩한</span></li>
 										<!-- 결제 -->
 										<li><span id="card-gallery">갤러리</span></li>
 										<!-- 좋아요 -->
@@ -572,15 +600,6 @@ li {
 
 								<!-- 실질적으로 내용 뿌려주는 부분 -->
 								<div id="projectCardList" class="card-list col-sm-4">
-									<!-- 내용이 없을 경우 -->
-									<!-- 
-									<c:if test="${empty record}" var="result">
-										<p id="emptyProjectText" style="display: block">펀딩한 내역이
-											없습니다.</p>
-									</c:if>
-									 -->
-									<!-- 내용이 있을 경우: 스크롤(혹은 페이징) + ajax -->
-									<!-- 밑에서 ajax로 갖고 오기는 하는데, 일단 처음 페이지 들어올 때도 떠 있기는 해야 되니까, 처음에도 갖고 와야됨 -->
 									<c:if test="${not result}">
 										<div class="historyValue">
 											<!-- 루프 -->
@@ -592,6 +611,8 @@ li {
 									<!-- -------------------------------펀딩한 내역을 등록하는 다이브--------------------------------------- -->
 									<ul>
 										<!-- S : 전체 리스트 -->
+										 <!-- div 예제
+										  
 										<li>
 											<div class="project-card">
 											<a href="<c:url value='/main/content.ins'/>">
@@ -599,7 +620,6 @@ li {
 													<em class="project-img"></em>
 													<div id="test" class="progressbar-wrap">
 														<dl>
-															<!-- 달성상태를 나타내는 span태그  -->
 															<dt>
 																<span style="width: 745%"></span>
 															</dt>
@@ -620,6 +640,8 @@ li {
 												</div>
 											</div>
 										</li>
+
+										 -->
 										<!-- E : 전체 리스트 -->
 									</ul>
 									<!-- -------------------------------펀딩한 내역을 등록하는 다이브 끝------------------------------------ -->
@@ -637,6 +659,8 @@ li {
 									<div class="lightgallery-div">
 										<div class="lightgallery-center-div">
 										<!-- 여기부터 이미지 추가 -->
+										
+										<!-- 
 											<div class="lightgallery" id="lightgallery">
 											    <a href="<c:url value='/upload/temp/a.jpg'/>">
 											        <img class="thumbnail" src="<c:url value='/upload/temp/a.jpg'/>" />										  
@@ -684,6 +708,8 @@ li {
 											        <img class="thumbnail" src="<c:url value='/upload/temp/f.jpg'/>" />										  
 											    </a>
 											</div>
+											
+											 -->
 										<!-- 여기부터 이미지 추가 끝 -->
 										
 										<!-- 새로운 이미지를 등록하는 다이브 -->
@@ -774,6 +800,7 @@ li {
 														<ul class="details">
 															<li>Title</li>
 															<li>Type</li>
+															<li>Description</li>
 															<li>play</li>
 														</ul>
 													</div>
@@ -783,7 +810,26 @@ li {
 														<ul id="music-list" class="tim-filter-items tabs-filter grid">
 															<li class="grid-sizer"></li>
 															
+															
+																<c:forEach items="${playList}"  var="playList" varStatus="status" >
+																	<li class="tim-songs-items grid-item ${playList.ct_name_css }">
+																		<ul class="songs-details">
+																			<li style="width:25%">${playList.bm_name}</li>
+																			<li style="width:13%">${playList.ct_name}</li>
+																			<li style="width:55%">${playList.bm_description}</li>
+																			<li style="width:5%" id="${playList.bm_filename}" title="${status.index}" onclick="javascript:playSwitch(this);">play</li>
+																		</ul>
+																	</li>
+																	
+																	<!-- 오디오객체 생성 -->
+																	<script>
+																		playList[${status.index}] = new Audio("<c:url value='/upload/band/music/${playList.bm_filename}'/>");
+																	</script>
+																</c:forEach>
+															
+															
 															<!-- 리스트 추가 시작 -->
+															<!-- 			리스트 추가 예제
 															<li class="tim-songs-items grid-item rock-metal dance-electronic">
 																<ul class="songs-details">
 																	<li>smells like teen spirit</li>
@@ -839,12 +885,11 @@ li {
 																	<li>play</li>
 																</ul>
 															</li>
+															 -->
 															<!-- 리스트 추가 END -->
 															<!-- 새로운 넘버를 추가하는 div --> <!-- 밴드 멤버 본인만 보여줘야 한다. -->
 															<li id="add-music-li" class="tim-songs-items grid-item" data-toggle="modal" data-target="#modal-upload-music">
 																<ul class="songs-details">
-																	<li><img style="width:22px;" src="<c:url value='/resource/img/plus-button.png'/>"></li>
-																	<li><img style="width:22px;" src="<c:url value='/resource/img/plus-button.png'/>"></li>
 																	<li><img style="width:22px;" src="<c:url value='/resource/img/plus-button.png'/>"></li>
 																</ul>
 															</li>
@@ -895,6 +940,7 @@ li {
 							                  	<!-- 업로드할 파일 -->
 							                  	<input style="width:80px;" type="file" id="upload_band_music" name="upload_band_music">
 						                  	</div>
+						                  	<input type="text" placeholder="곡 설명"  id="upload_band_music_description" name="upload_band_music_description">
 						               </form>
 						                  <br/><br/>
 						                  <p style="color:gray;">
@@ -930,7 +976,7 @@ li {
 		</div>
 
 		<!-- 등록된 밴드가 있는 아이디일 경우 끝 -->
-
+		</c:if><!-- 등록된 밴드가 있는 아이디일 경우 c:if태그 끝 -->
 
 
 
@@ -939,7 +985,8 @@ li {
 	<script>
 
 
-		console.log("version 95asd");
+		console.log("version 107");
+		
 		$(function() {
 			$.ajaxSetup({type:'post'});
 			
@@ -983,7 +1030,8 @@ li {
 								enctype: 'multipart/form-data',
 								dataType:'text',
 								success:function(data){
-									var path ="<c:url value='/upload/temp/"+data+"'/>";
+									var path ="<c:url value='/upload/band/img/"+data+"'/>";
+									console.log(data);
 									addBandImg(path);
 								},//success
 								error : function(request,error){
@@ -1024,7 +1072,92 @@ li {
 			
 			
 			
+			////////////////////////////////////////////// 서브밋된 내역이 있는지 검사하는 ajax와 다이브 추가
+			
+			showSubmitList();
+			showGalleryList();
+			
 		});//window.onload
+		
+		
+		////////////////////////////////////////////// bandInfo 내역이 있는지 검사하는 ajax와 다이브 추가
+		////// sumbit내역
+		function showSubmitList(){
+			var bandNo = '${record.b_no}';
+			var jsonB_no = {'b_no' : bandNo};
+			
+			$.ajax({
+				url : '<c:url value="/band/getBandSubmitWaitingList.ins"/>',
+				data : jsonB_no,
+				dataType : 'json',
+				success : function(data){
+					createSubmitDiv(data);},
+				error:function(request, error){
+					console.log('상태코드:',request.status);
+					console.log('서버로부터 받은 HTML데이타 :',request.responseText);
+					console.log('에러:',error);}
+			});//$.ajax
+		}///showSubmitList
+		
+		function createSubmitDiv(data){
+			console.log(data);
+			$.each(data, function(idx, element){
+				//펀딩대기중인 내역이 없음을 반환했을경우
+				if(element['isExist'] == 'F'){
+					var emptySubmit = '<p id="emptyProjectText" style="display: block">펀딩한 내역이 없습니다.</p>';
+					$('#projectCardList').html(emptySubmit);
+				}//if
+				
+				//펀딩 대기중인 내역이 있을 경우
+				else{
+					
+				}//else
+			})///each
+		}//createSubmitDiv
+		
+		///// gallery내역
+		function showGalleryList(){
+			var bandNo = '${record.b_no}';
+			var jsonB_no = {'b_no' : bandNo};
+			
+			$.ajax({
+				url : '<c:url value="/band/getBandImgList.ins"/>',
+				data : jsonB_no,
+				dataType:'json',
+				success:function(data){
+					createGalleryDiv(data);},
+				error:function(request, error){
+					console.log('상태코드:',request.status);
+					console.log('서버로부터 받은 HTML데이타 :',request.responseText);
+					console.log('에러:',error);}
+			});//#.ajax
+		}///showGalleryList
+		
+		function createGalleryDiv(data){
+			console.log(data);
+			//다이브 초기화
+			$(".lightgallery-center-div").html("");
+			//추가 버튼 생성
+			var addDiv = '<div data-toggle="modal" data-target="#modal-upload-img" class="plus-image" style="width:287px; height:287px; text-align:center; padding-top:125px; margin:0 0 20px 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.5); display:inline-block;">';
+			addDiv += '<img style="width:30px; height:30px;" src="/insomnia/resource/img/plus-button.png"/></div>';
+			$.each(data, function(idx, element){
+				if(element['isExist'] == 'F'){ //갤러리에 등록된 이미지가 없을때
+					return;
+				}//if
+				else{ //있을 때
+					var beforeString = $(".lightgallery-center-div").html(); 
+					var afterString = '<div class="lightgallery" id="lightgallery">';
+					afterString += ' <a href="/insomnia/upload/band/img/'+ element['image'] + '">';
+					afterString += '<img class="thumbnail" src="/insomnia/upload/band/img/' + element['image'] + '"/></a></div>';
+					$(".lightgallery-center-div").html(beforeString + afterString);
+				}
+			});//$.each
+			//추가버튼 마지막으로 붙임
+			var beforeString = $(".lightgallery-center-div").html();
+			$(".lightgallery-center-div").html(beforeString + addDiv);
+		}//createGalleryDiv
+		
+		
 		
 		//////////////////////////////////////////////플러스 버튼을 클릭해 새로운 밴드 이미지 등록
 		function addBandImg(path){
@@ -1049,31 +1182,27 @@ li {
 		///////////////////////////////////////////////// 플러스 버튼을 클릭해 새로운 밴드 음악 등록
 		function addBandMusic(data){
 			console.log("addBandMusic fn START data : " + data);
-			$.each(data, function(index, element){
-				
-				console.log(element['title'] + " : " + element['category']);
-				//음악 추가 버튼 제거
-				$("#add-music-li").remove();
-				
-				var beforeString = $("#music-list").html();
-				
-				var afterString = '<li class="tim-songs-items grid-item '+element['category']+'"><ul class="songs-details">';
-				afterString += '<li>'+element['title']+'</li>';
-				afterString += '<li>'+element['category']+'</li>';
-				afterString += '<li>play</li></ul></li>';
-				
-				var addDiv = '<li id="add-music-li" class="tim-songs-items grid-item" data-toggle="modal" data-target="#modal-upload-music">';
-				addDiv += '<ul class="songs-details"><li><img style="width:22px;" src="/insomnia/resource/img/plus-button.png"></li>';
-				addDiv += '<li><img style="width:22px;" src="/insomnia/resource/img/plus-button.png"></li>';
-				addDiv += '<li><img style="width:22px;" src="/insomnia/resource/img/plus-button.png"></li></ul></li>';
-				
-				//음악 리스트 다시로드
-				$("#music-list").html(beforeString + afterString + addDiv);
-				console.log($("#music-list").html());
-				console.log("재등록 완료");
-				
-				
-			});//$.each
-		}///addBandMusic
-		///////////////////////////////////////////////// 플러스 버튼을 클릭해 새로운 밴드 음악 등록 끝
+			window.location.reload();}
+		
+		
+		// 플레이버튼 클릭하여 플레이
+		function playSwitch(obj){
+			//해당 객체의 파일 이름을 얻어온다. / 현재 상태를 얻어옴
+			var status = $(obj).html();
+			var fileName = $(obj).attr("id");
+			var varName = $(obj).attr("title");
+			switch(status){
+			case 'play': 
+				playList[varName].play()
+				$(obj).html("stop");
+				break;
+			case 'stop': 
+				playList[varName].pause();
+				playList[varName].currentTime = 0;
+				$(obj).html("play");
+				break;
+			}//switch
+		}//fn playSwitch
+
+			
 	</script>

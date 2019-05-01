@@ -30,6 +30,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mapper/adminMember.xml" />
 		<mapper resource="mapper/bgsPay.xml" />
 		<mapper resource="mapper/Zerojin_MainComment.xml" />
+		<mapper resource="mapper/band.xml"/>
 	</mappers>
 	
 </configuration>
