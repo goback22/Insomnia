@@ -119,7 +119,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 			<!-- 여기부터 -->
 
 			<fieldset>
-				<legend class="hid">회원가입폼</legend>
+				<legend class="hid">소셜회원 추가정보 입력</legend>
 
 				<div class="find_mem_ttl_div">
 					<strong class="find_mem_ttl">회원가입</strong>

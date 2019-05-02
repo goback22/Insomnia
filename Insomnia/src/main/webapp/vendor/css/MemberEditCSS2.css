@@ -33,7 +33,7 @@
 .allWrap {
 	width: 360px;
 	/* height: 695px; */
-	padding: 75px 20px 35px;
+	padding: 30px 20px 35px;
 	margin: 0 auto;
 }
 
@@ -174,5 +174,36 @@
 	line-height: 42px;
 }
 
+/* #editEmail {
+	width: 100%;
+	box-sizing: border-box;
+	border : 1px solid #e4e4e4;
+	color: #4A4A4A;
+	height:46px;
+	margin-bottom: 10px;	
+}
 
+#editEmail:after {
+	clear:both;
+} */
+
+
+.addrTitle {
+	display:inline-block;
+	width: 120px;
+	float:left;
+}
+
+.addrBtn {
+	display:inline-block;
+	width:100px;
+	float:right;
+	font-size: 15px;
+	cursor:pointer;
+}
+
+.addrBtn:after {
+	clear : both;
+	content:"";
+}
 

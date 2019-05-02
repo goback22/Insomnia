@@ -69,7 +69,7 @@ body {
 									</c:if> --%>
 									<!-- ajax -->
 									<c:if test="${empty loginRecord.login_chain}" var="isSocial">
-										<img class="profile-img2" src="<c:url value='/upload/${loginRecord.profile_img}'/>"/>
+										<img class="profile-img2" src="<c:url value='/upload/member/profile/${loginRecord.profile_img}'/>"/>
 									</c:if>
 									<c:if test="${not isSocial}">
 										<img class="profile-img2" src="${loginRecord.profile_img}"/>

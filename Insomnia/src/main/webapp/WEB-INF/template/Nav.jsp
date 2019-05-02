@@ -199,7 +199,7 @@
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
               			<!-- 프로필 이미지 -->
 
-                		<img class="user_picture" src="<c:url value='/upload/${loginRecord.profile_img}'/>"/>
+                		<img class="user_picture" src="<c:url value='/upload/member/profile/${loginRecord.profile_img}'/>"/>
 
               			<!-- 사용자 이름 -->
               			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${loginRecord.name}</span>님 환영합니다!</a>
@@ -214,7 +214,7 @@
 		            <table class="user_middle">	<!-- 중간메뉴:ul -->	<!-- ul이 1 칸 차지, li display : inline -->
 		              <tr>
 			              <td><a id="middle1" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_apple-music-2_2301791.png'/>"/></a></td>
-			              <td><a id="middle2" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_microphone_1055023.png'/>"/></a></td>
+			              <td><a id="middle2" href="<c:url value='/menu/mypage.ins'/>" class=""><img src="<c:url value='/img/iconfinder_microphone_1055023.png'/>"/></a></td>
 			              <td><a id="middle3" href="javascript:void(0)" class=""><img src="<c:url value='/img/followers.png'/>"/></a></td>
 			              <td><a id="middle4" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_heart_289619.png'/>"/></a></td>
 			           </tr>

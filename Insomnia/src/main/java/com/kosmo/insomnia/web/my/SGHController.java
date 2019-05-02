@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.annotation.Resource;
@@ -104,7 +105,33 @@ public class SGHController {
 	}
 	
 	@RequestMapping("/menu/mypage/edit.ins")
-	public String mypage_edit() throws Exception {
+	public String mypage_edit(Model model, Map map, HttpSession session) throws Exception {
+		
+		map.put("id", session.getAttribute("id"));
+		MemberDTO editRecord = memberService.selectOne(map);
+		
+		String address = editRecord.getShipping_address();
+		System.out.println("비아 주소 : " + address );
+		if(address != null) {
+			
+			StringTokenizer tkz = new StringTokenizer(address, "^");
+			
+			//String[] addArr = address.split("");
+			//System.out.println("첫번째: " + addArr[0]);
+			//System.out.println("두번째: " + addArr[1]);
+			
+			/*model.addAttribute("road", addArr[0]);
+			model.addAttribute("road", addArr[1]);
+			model.addAttribute("road", addArr[2]);*/
+			
+			model.addAttribute("road", tkz.nextToken());
+			model.addAttribute("jibun", tkz.nextToken());
+			model.addAttribute("detail", tkz.nextToken());
+			
+		}
+		
+		model.addAttribute("editRecord", editRecord);
+		
 		
 		return "my/MemberEdit2.tiles";
 	}
@@ -234,7 +261,7 @@ public class SGHController {
 	@RequestMapping(value="/edit/profileImgAjax.ins", produces="text/html; charset=UTF-8")  //한글깨짐 방지
 	public String editProfileImgAjax(@RequestParam Map map, MultipartHttpServletRequest mhsr, Model model, Map dismap, HttpSession session, MultipartRequest multipartRequest) throws Exception {
 		
-		String physicalPath = mhsr.getServletContext().getRealPath("/upload");
+		String physicalPath = mhsr.getServletContext().getRealPath("/upload/member/profile");
 		//MultipartFile upload = mhsr.getFile("imgUpload");
 		MultipartFile upload = multipartRequest.getFile("imgUpload");
 		
@@ -248,7 +275,7 @@ public class SGHController {
 		dismap.put("profile_img", newFileName);
 		dismap.put("id", session.getAttribute("id"));
 		
-		memberService.update(dismap);
+		memberService.updateProfile(dismap);	
 		
 		return newFileName;
 	
@@ -417,7 +444,7 @@ public class SGHController {
 	////아이디 찾기 결과 화면
 	@ResponseBody
 	@RequestMapping("/find/findIdAjax.ins")
-	public String findIdAjax(@RequestParam Map map, HttpSession session) throws Exception {
+	public String findIdAjax(@RequestParam Map map, HttpSession session, Model model) throws Exception {
 		
 		String id = map.get("findId").toString();
 		
@@ -425,11 +452,12 @@ public class SGHController {
 		boolean isMember = memberService.checkSignup(id) == 1 ? true : false;
 		
 		
+		
 		if(isMember) {
-			return "memberOk";
+			return "memberOk" + "^" + id;
 		}
 		
-		return "memberNo";
+		return "memberNo" + "^" + id;
 		
 	}////아이디 이메일로 전송시키는 기능 추가해야.
 	
@@ -542,6 +570,9 @@ public class SGHController {
 		
 		return "home.tiles";
 	}
+	
+	/////회원정보 수정
+	
 	
 	
 	

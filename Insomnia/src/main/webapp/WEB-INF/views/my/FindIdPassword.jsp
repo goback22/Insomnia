@@ -46,7 +46,7 @@
 					<p class="idInfo">기억하고 계신 이메일 계정을 입력하세요.<br/> 가입여부를 확인해 드립니다.</p>
 					<form class="idForm">
 						<div class="findIdDiv">
-							<input type="email" name="findId" id="findId" placeholder="이메일 계정">
+							<input type="email" name="findId" id="findId" placeholder="이메일 계정">  <!-- 이 값을 result에서 -->
 							<em class="idErr">이메일 형식이 올바르지 않습니다.</em>
 						</div>
 						<a class="findIdBtn">확인</a>
@@ -54,13 +54,16 @@
 				</div>
 				<div class="id-result">
 					<div class="result-id-info">
-						<p class="foundId">rlghkso@naver.com</p>
+						<p class="foundId"></p>
 						<p class="joinedId idInfo">회원으로 등록된 계정입니다.<br/> 해당 이메일로 로그인하시고 INSOMNIA를 이용하세요.</p>
 						<p class="notJoinedId idInfo">INSOMNIA에 등록되지 않은 계정입니다. 이메일로 <p>
 					</div>
 					<div class="result-id-btns">
-						<a class="goToRegister" href="">회원가입하기</a>
-						<a class="goToLogin" href="">로그인</a>
+						<a class="goToRegister" href="<c:url value='/register/term.ins'/>">회원가입하기</a>
+						<form action="" method="POST" id="loginRetryForm">
+							<input type="password" placeholder="비밀번호를 입력하세요."/>
+						</form>
+						<a class="goToLogin" href="<c:url value='/login.ins'/>">로그인</a>
 						<a class="goToCheck" href="">등록한 이메일로 계정 정보 발송하기</a>
 					</div>
 				</div>
@@ -79,7 +82,6 @@
 				</div>
 				<div class="pass-result">
 					<p class="passInfo">등록된 이메일로 링크가 발송되었습니다.<br/>링크를 클릭 후 비밀번호를 다시 설정해 주세요.</p>
-				
 				</div>
 				
 				
@@ -143,8 +145,11 @@
 					data : $('.idForm').serialize(),
 					success:function(data){
 						
+						var dataArr = data.split("^");
+						console.log("dataArr[0]의 값은: " + dataArr[0]);
+						$('.foundId').html(dataArr[1]);
 						
-						if(data == 'memberOk') {
+						if(dataArr[0] == 'memberOk') {
 							$('.id-check').css('display', 'none');
 							$('.id-result').css('display', 'block');
 							$('.joinedId').css('display', 'block');
@@ -160,6 +165,7 @@
 							$('.joinedId').css('display', 'none');
 							$('.goToRegister').css('display', 'block')
 							$('.goToCheck').css('display', 'block')
+							$('#loginRetryForm').css('display', 'none');
 							$('.goToLogin').css('display', 'none');
 							
 							

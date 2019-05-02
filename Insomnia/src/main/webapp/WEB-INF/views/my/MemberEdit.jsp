@@ -36,7 +36,7 @@ body {
 				<div class="find_mem_ttl_div">
 					<strong class="find_mem_ttl">개인정보 수정</strong>
 				</div>
-				<form id="frm">
+				<form id="editFrm" action="" method="POST">
 					<section class="renew_joinform_v2">
 						
 						<div class="find_mem_sally">
