@@ -36,8 +36,10 @@ public class HomeController {
 			map.put("id", session.getAttribute("id"));
 			
 			MemberDTO record = memberService.selectOne(map);
+			model.addAttribute("loginRecord", record);
+			record.setProfile_img(record.getProfile_img());
 			
-			record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+			System.out.println("왜 안들어가냐:"+record.getProfile_img());
 			
 			model.addAttribute("record", record);
 			

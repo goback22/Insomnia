@@ -115,6 +115,60 @@
 
 <link href="<c:url value='/vendor/css/LoginCSS.css'/>" rel="stylesheet" />
 
+<!-- aws s3 사용을 위한 js -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+
+<script>
+$(function(){
+	//===================== aws s3 사용을 위한 설정] =====================
+	var albumBucketName = 'insomnia4';
+	var bucketRegion = 'ap-northeast-2';
+	var IdentityPoolId = 'ap-northeast-2:739cd73f-a436-49af-b47e-58f780f27ebe';
+	var albumName = "cover_Image";
+	AWS.config.update({
+	  region: bucketRegion,
+	  credentials: new AWS.CognitoIdentityCredentials({
+	    IdentityPoolId: IdentityPoolId
+	  })
+	});
+	
+	var s3 = new AWS.S3({
+		  apiVersion: '2006-03-01',
+		  params: {Bucket: albumBucketName}
+	});		
+	
+	//===================== aws s3 사용을 위한 설정] =====================
+	var albumPhotosKey = encodeURIComponent(albumName) + '/';
+	s3.listObjects({Prefix: albumPhotosKey}, function(err, data) {
+	  if (err) {
+	    return alert('There was an error viewing your album: ' + err.message);
+	  }
+	  // 'this' references the AWS.Response instance that represents the response
+	  var href = this.request.httpRequest.endpoint.href;
+	  var bucketUrl = href + albumBucketName + '/';
+	  var photoKey;
+	  var photoUrl;
+	  var photos = data.Contents.map(function(photo) {
+		    photoKey = 'cover_Image/${id}_cover_Img.jpg';
+		    photoUrl = bucketUrl + encodeURIComponent(photoKey);
+	  });
+	  console.log("photoUrl : "+photoUrl);
+	  $(".mypage_1").click(function(){
+		  $.ajax({
+			 url: "<c:url value='/menu/mypage3.ins'/>",
+			 type: 'post',
+			 dataType: 'text',
+			 data: 'photoUrl='+photoUrl,
+			 success: function(data){
+				 location.href = "<c:url value='/menu/mypage.ins?url="+data+"'/>";
+			 },
+			 error: function(){
+			 }
+		  });
+	  })
+	})
+})
+</script>
 
 <!-- 네비게이션 바 -->
 <div class="nav loginAllDiv">
@@ -145,7 +199,7 @@
 						<ul class="group" id="header-menu-magic-line">
 
 							<li class="menu-item-has-children current_page_item"><a
-								href="<c:url value='/#'/>">HOME</a></li>
+								href="<c:url value='/home.ins'/>">HOME</a></li>
 
 							<li class="menu-item-has-children"><a
 								href="<c:url value='/main/mainproject.ins'/>">Funding</a>
@@ -157,16 +211,16 @@
 							<%
 								if ("admin".equals(session.getAttribute("id")) || "ADMIN".equals(session.getAttribute("id"))) {
 							%>
-							<li class="menu-item-has-children"><a
-								href="<c:url value='/admin/index.ins'/>">Admin Page</a></li>
+							<li class="menu-item-has-children">
+							<a href="<c:url value='/admin/index.ins'/>" id="adminpage">Admin Page</a></li>
 <!-- 							<li class="menu-item-has-children"><a -->
 <%-- 								href="<c:url value ='/Pay/PayPage.ins'/>">PayPage(Test)</a></li> --%>
 							<%
 								} else {
 							%>
 
-							<li class="menu-item-has-children"><a
-								href="<c:url value='/menu/mypage.ins'/>">My Page</a></li>
+							<li class="menu-item-has-children">
+							<a href="<c:url value='/menu/mypage.ins'/>" class="mypage_1">My Page</a></li>
 							<%
 								}
 							%>
@@ -199,7 +253,7 @@
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
               			<!-- 프로필 이미지 -->
 
-                		<img class="user_picture" src="<c:url value='/upload/${loginRecord.profile_img}'/>"/>
+                		<img class="user_picture" src="https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/${loginRecord.profile_img}"/>
 
               			<!-- 사용자 이름 -->
               			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${loginRecord.name}</span>님 환영합니다!</a>

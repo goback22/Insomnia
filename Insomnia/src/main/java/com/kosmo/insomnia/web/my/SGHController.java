@@ -50,9 +50,20 @@ public class SGHController {
 	@Resource(name="bGSConcertService")
 	private BGSConcertServiceImpl bgsService;
 	
+	@ResponseBody
+	@RequestMapping("/menu/mypage3.ins")
+	public String myyyyy(@RequestParam Map map1) {
+		System.out.println("map" + map1);
+		System.out.println("sadasdMap" + map1.get("photoUrl"));
+		
+		return map1.get("photoUrl").toString();
+	}
+	
 	/////마이페이지 이동
 	@RequestMapping("/menu/mypage.ins")
-	public String mypage(HttpSession session, Map map, Model model, @RequestParam(required=false, defaultValue="1") int nowPage) throws Exception {
+	public String mypage(@RequestParam Map map1, HttpSession session, Map map, Model model, @RequestParam(required=false, defaultValue="1") int nowPage) throws Exception {
+		System.out.println("들어오니?:"+map1.get("url"));
+		model.addAttribute("kyj", map1.get("url"));
 		
 		//세션에 저장된 아이디값 구하기
 		String id = session.getAttribute("id") == null ? null : session.getAttribute("id").toString();
@@ -98,7 +109,8 @@ public class SGHController {
 		model.addAttribute("pagingString", pagingString);
 		System.out.println("fundingRecords는?" + fundingRecords);
 		
-		
+		MemberDTO record2 = memberService.selectOne(map);
+		model.addAttribute("loginRecord", record2);
 		
 		return "my/MyPage2.tiles";
 	}
@@ -238,25 +250,15 @@ public class SGHController {
 	
 	@ResponseBody  //요거 꼭 붙여야 됨
 	@RequestMapping(value="/edit/profileImgAjax.ins", produces="text/html; charset=UTF-8")  //한글깨짐 방지
-	public String editProfileImgAjax(@RequestParam Map map, MultipartHttpServletRequest mhsr, Model model, Map dismap, HttpSession session, MultipartRequest multipartRequest) throws Exception {
+	public String editProfileImgAjax(@RequestParam Map map, Map dismap, HttpSession session) throws Exception {
 		
-		String physicalPath = mhsr.getServletContext().getRealPath("/upload");
-		//MultipartFile upload = mhsr.getFile("imgUpload");
-		MultipartFile upload = multipartRequest.getFile("imgUpload");
-		
-		String newFileName = FileUpDownUtils.getNewFileName(physicalPath, upload.getOriginalFilename());///upload가 null인듯
-		File file = new File(physicalPath + File.separator + newFileName);
-		
-		System.out.println("newFileName은? " + newFileName);
-		
-		upload.transferTo(file);
-		
-		dismap.put("profile_img", newFileName);
+		String profile_img = map.get("fileName").toString();
+		dismap.put("profile_img", profile_img);
 		dismap.put("id", session.getAttribute("id"));
 		
 		memberService.update(dismap);
 		
-		return newFileName;
+		return profile_img;
 	
 	}	
 	
