@@ -10,11 +10,6 @@
 <!-- Noto Sans KR Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
 
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-
 	<!-- ajaxForm을 사용하기 위한 최신자 제이쿼리 -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.js"></script>
@@ -294,7 +289,7 @@ body{
 					<div class="profile-image">
 						<img class="image-member" src="<c:url value='/upload/member/profile/default_profile_img.jpg'/>">
 					</div>
-					<div class="profile-id" id="memberNameSelf">insomnia</div>
+					<div class="profile-id" id="memberNameSelf">${sessionScope.id}</div>
 				</div>
 			</div>
 			
@@ -308,7 +303,9 @@ body{
 				<div id="third-back" class="second-step-btn-back">뒤로</div>
 				<div id="third-next" class="second-step-btn-next">다음 : 밴드 이름 입력</div>
 			</div>	 	        
-		</div><!-- third-step END -->				
+		</div><!-- third-step END -->
+		
+		
 	
 			<!-- forth step 밴드 이름 등록 -->
 			<div class="first-step col-sm-3">
@@ -329,12 +326,17 @@ body{
 </div><!-- root_div -->
 
 <script>
-	console.log("version 60");
+	console.log("version 77");
 	
 	var coverName = ""; //사진을 등록하기 위해 이미지파일의 이름을 저장해둔 변수
 	var index = 0; //id값을 구분하기 위해 붙여놓은 인덱스(시퀀스)
+	var bandMembers = $('.profile-id').text() + ' '; //등록할 밴드 멤버를 가지고있을 변수
+	
 	
 	$(function(){
+		
+		
+		
 		$("#first-next").on("click", function(){
 			$(".main_progress").css("margin-left", "-100%");
 		});//$(.first-next).onCLick
@@ -350,6 +352,7 @@ body{
 			$(".main_progress").css("margin-left", "-100%");
 		});//$(second-step-btn-back).onClick
 		$("#third-next").on("click", function(){
+			console.log(bandMembers);
 			$(".main_progress").css("margin-left", "-300%");
 		});//$(second-step-btn-back).onClick
 		
@@ -358,13 +361,28 @@ body{
 		});
 		
 		/////////////////////////////////////////////////////////// 밴드 입력폼 validate 이후 info페이지로 이동 START
-		$("#band-complete").on("click", function(){
+		$("#band-complete").on("click",function(){
 			if(validate()){ //밴드 폼을 모두 입력했을경우
-				location.href="<c:url value='/band/bandInfo.ins'/>";
-			}//
+				//폼객체를 만들어서 submit시킴
+				var select_category = $('.select_category').val();
+				var band_name = $('.band-name-input').val()
+				var params = {select_category, coverName, bandMembers, band_name};
+				
+				var form = document.createElement('form');
+				form.setAttribute('method', 'post');
+				form.setAttribute('action', '<c:url value="/band/bandInfo.ins"/>');
+				for(var key in params){
+					var hiddenField = document.createElement('input');
+					hiddenField.setAttribute('type', 'hidden');
+					hiddenField.setAttribute('name', key);
+					hiddenField.setAttribute("value", params[key]);
+					form.appendChild(hiddenField);
+				}//for
+			document.body.appendChild(form);
+			form.submit();
+			}//if
 			else{
-				console.log("validate 실패");
-			}
+				console.log("validate 실패");}
 		});//$(second-step-btn-next).onClick
 		
 		var validate = function(){
@@ -381,6 +399,14 @@ body{
 				alert("밴드 이름을 결정하세요.");
 				return false;
 			}
+			
+			//밴드이름 중복 확인
+			var bandName =  $('.band-name-input').val();
+			if(isExistBand(bandName)=="T"){
+				alert('중복된 밴드 이름입니다.');
+				return false;
+			}//이미 존재하는 밴드이름
+			
 			return true;
 		};//function validate()
 		/////////////////////////////////////////////////////////// 밴드 입력폼 validate 이후 info페이지로 이동 END
@@ -398,7 +424,7 @@ body{
 						dataType:'text',
 						success:function(data){
 							coverName = data;
-							var path ="<c:url value='/upload/temp/cover/"+data+"'/>";
+							var path ="<c:url value='/upload/band/cover/"+data+"'/>";
 							$("#bandCover").attr("src",path);
 						},//success
 						error : function(request,error){
@@ -417,9 +443,37 @@ body{
 	});//window.onload();
 	
 	
+	
+	function isExistBand(bandName){
+		var jsonBandName = {'bandName' : bandName};
+		var flag = "T"; // 밴드 중복이름 체크용 플래그
+		
+		$.ajax({
+			url : '<c:url value="/band/isExistBand.ins"/>',
+			async:false,
+			data : jsonBandName,
+			dataType : 'text',
+			success:function(data){
+				if(data == "T"){
+					flag = "T";
+				}
+				else {
+					flag = "F";}
+			},
+			error: function(request, error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타 :',request.responseText);
+				console.log('에러:',error);}
+		});///$.ajax
+		
+		return flag;
+	};///fn isExistBand
+	
+	
 	function searchMember(){
 		var inputVal = $("#input-search-member").val();
 		var inputData = {"searchId" : inputVal};
+		var resultMembers = '';
 		
 		$.ajax({
 			url:'<c:url value="/band/searchMember.ins"/>',
@@ -429,6 +483,7 @@ body{
 				loadMember(data);
 			},
 			error : function(request, error){
+				$("#input-search-member").val('찾는 멤버가 없습니다.');
 				console.log("상태코드 : " , request.status);
 				console.log("서버로부터 받은 HTML데이터 : " , request.reponseText);
 				console.log("에러", error)
@@ -439,24 +494,43 @@ body{
 	};//searchMember
 	
 	
+	
 	function loadMember(data){
 		
-		//만약 찾는 멤버가 없을경우도 만들어줘야한다.
-		
 		console.log(data);
+		var searchMemberFlag = true;
 		var currentString = $('.select-member-div').html();
-		var resultString = "";
+		var resultString = '';
 		$.each(data, function(idx, element){
+			//찾는 멤버가 이미 등록된 경우
+			var id = element['id'];
+			$('.profile-id').each(function(){
+				if($(this).text() == id){
+					searchMemberFlag = false;
+					return;
+				}//있으면
+			});///.profile-id function
+			if(searchMemberFlag == false) //이미 등록한 멤버라면
+				return;
+			
+			//현재 등록된 멤버들을 넘겨줄 bandMembers설정
+			bandMembers += element['id'] + ' ';
+			
 			resultString += '<div id="'+index+'" class="profile-wrap '+index+'"><div class="profile-image">';
 			resultString += '<img class="cancel-member '+index+'" src="/insomnia/resource/img/cancel-gray.png" id="'+index+'" onclick="javascript:deleteMember(this)">';
 			resultString += '<img class="image-member" src="/insomnia/upload/member/profile/'+element['profile']+'">';
 			resultString += '</div><div class="profile-id" id="memberName_'+index+'">'+element['id']+'</div></div>';
 			index++;
+
 		});
 		$('.select-member-div').html(currentString + resultString);
-		
+
 		//input내용 없애자
-		$("#input-search-member").val("");
+		if(searchMemberFlag == false)
+			$("#input-search-member").val("이미 등록된 멤버");
+		else 
+			$("#input-search-member").val("");
+		
 	}//loadMemeber fn
 	
 	
@@ -468,6 +542,10 @@ body{
 		console.log(imgObj);
 		var currentIndex = $(imgObj).attr("id");
 		console.log(currentIndex);
+		
+		//현재 등록된 멤버들을 넘겨줄 bandMembers설정
+		var currentId = $('#memberName_' + currentIndex).text();
+		bandMembers = bandMembers.replace(currentId, '');
 		$("div[id='"+currentIndex+"']").remove();
 	};//deleteMember fn (img Obj)
 	

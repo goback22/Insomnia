@@ -24,6 +24,7 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public void create(Map map) {
 		dao.insertUser(map);// 회원가입 DAO
+		
 		String key = new TempKey().getKey(50, false);// 인증키 생성
 		dao.createAuthKey(map.get("id").toString(), key);
 		
@@ -41,9 +42,6 @@ public class LoginServiceImpl implements LoginService {
 		}
 
 	}
-	
-
-
 
 	@Override
 	public void createAuthKey(String user_emial, String user_authcode) {

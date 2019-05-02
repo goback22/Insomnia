@@ -1,0 +1,105 @@
+package com.kosmo.insomnia.serviceimpl;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.kosmo.insomnia.service.BandDTO;
+import com.kosmo.insomnia.service.BandImgDTO;
+import com.kosmo.insomnia.service.BandMemberDTO;
+import com.kosmo.insomnia.service.BandMusicDTO;
+import com.kosmo.insomnia.service.BandService;
+import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
+
+@Repository
+public class BandDAO implements BandService {
+
+	@Resource(name = "template")
+	private SqlSessionTemplate template;
+	
+	@Override
+	public List<BandMemberDTO> isMemberBand(String id) {
+		return template.selectList("isBandMember", id);
+	}//isMemberBand
+	
+	@Override
+	public String getMemberProfile(String id) {
+		return template.selectOne("getMemberProfileImg", id);
+	}//getMemberProfile
+	
+	@Override
+	public void addNewBand(Map map) {
+		template.insert("addNewBand", map);
+	}///addNewBand
+	
+	@Override
+	public boolean isMember(String id) {
+		return template.selectOne("isMember_createNewBand", id) == null ? false : true;
+	}//isMember
+	
+	@Override
+	public String getB_noByB_name(String b_name) {
+		return template.selectOne("getB_noByB_name", b_name);
+	}//getB_noBy_name
+	
+	@Override
+	public int addNewBandMember(Map bandMember) {
+		return template.insert("addNewBandMember", bandMember);
+	}//addNewBandMember
+	
+	@Override
+	public boolean isExistBand(String b_name) {
+		List<BandDTO> result = template.selectList("isExistBand", b_name);
+		return result.size() == 0 ? false : true;
+	}//isExistBand
+	
+	@Override
+	public BandDTO getBandDTOByB_name(String id) {
+		return template.selectOne("getBandDTOByB_name", id);
+	}//getBandDTOById
+	
+	@Override
+	public List<BandSubmitWaitingDTO> getBandSubmitWaitingDTO(String b_no) {
+		return template.selectList("getBandSubmitWaitingDTOList", b_no);
+	}///getBandSubmitWatingDTO
+	
+	@Override
+	public List<BandImgDTO> getBandImgDTO(String b_no) {
+		return template.selectList("getBandImgDTOList", b_no);
+	}//getBandImgDTO
+	
+	@Override
+	public int getTotalBandImg(String b_no) {
+		return template.selectOne("getTotalBandImg", b_no);
+	}///getTotalBandImg
+	
+	@Override
+	public int addBandImg(Map map) {
+		return template.insert("addBandImg", map);
+	}//addBandImg
+	
+	@Override
+	public String isExistBandImg(String newFileName) {
+		System.out.println(newFileName);
+		return template.selectOne("isExistBandImg", newFileName);
+	}//isExistBandImg
+	
+	@Override
+	public List<BandMusicDTO> getPlayList(String b_no) {
+		return template.selectList("getPlayList", b_no);
+	}//getPlayList
+	
+	@Override
+	public int getTotalBandMusic(String b_no) {
+		return template.selectOne("getTotalBandMusic", b_no);
+	}///getTotalBandMusic
+	
+	@Override
+	public int addBandMusic(BandMusicDTO dto) {
+		return template.insert("addBandMusic", dto);
+	}//addBandMusic
+}// class BandDAO
