@@ -130,8 +130,11 @@
     	  	var B = "<c:url value='/upload/" +A+ "'/>;"
     	  	console.log(B);
             tableString += "<div class='user-avatar'>";
+
+
 //             tableString += "<img src='<c:url value='/resource/img/commenttemp.jpg'/>'>";
             tableString += "<img style='border-radius:50px;height:70px;width:70px;' src='" +B+ "'>";
+
             tableString += "</div>";
             tableString += "<div class='comment-content'>";
             tableString += "<h5 class='name'>"
@@ -193,7 +196,7 @@
          if($('#submitComment').val() == '수정') {
             ($('#submitComment')).val('등록')   ;
          }
-      })
+      });
    }
    
    //오늘 하루 그만보기

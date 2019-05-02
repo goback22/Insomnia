@@ -83,7 +83,7 @@ public class SGHController {
 		System.out.println("갖고온 이름은? " + record.getName());
 		
 		//반환한 레코드 객체(1명) 모델에 담아서 반환
-		model.addAttribute("record", record);
+		model.addAttribute("loginRecord", record);
 		
 		/////처음 로딩시 펀딩한(이게 제일 앞이니까) 목록을 보여주어야.
 		//페이징을 위한 로직
@@ -140,8 +140,7 @@ public class SGHController {
 			MemberDTO record = memberService.selectOne(map);
 			model.addAttribute("loginRecord", record);
 			
-			String message = record.getName() + "님 환영합니다!";
-			model.addAttribute("loginMessage", message);
+			model.addAttribute("loginMessage", "old");
 			
 			return "home.tiles";
 		} else {   					 	 //최초 접속시 회원가입 처리
@@ -157,45 +156,40 @@ public class SGHController {
 	@RequestMapping("/register/social.ins")
 	public String socialRegister(@RequestParam Map map, Model model, HttpSession session) throws Exception {
 		
-		//여기나 아님 저 밑에 중간 부분에서 추가 정보 띄울 수도 있겠다.
 		
-		///현재 사용자의 SNS계정 정보 가져오기
-		String socialId = map.get("socialId").toString();  //굳이 socialId로 한 이유. 일반 회원의 id랑 이름 겹칠까봐
-		String socialName = map.get("socialName").toString();
-		String socialEmail = map.get("socialEmail").toString();
-		String socialProfile = map.get("socialProfile").toString();
 		String socialBirth = map.get("socialBirth").toString();
 		String socialSite = map.get("socialSite").toString();
 		
-		if(socialSite == "kakao") {
-			
-			map.put("socialBirth", null);
-			map.put("socialEmail", null);
-			
-		}
-		System.out.println("카카오 소셜 이름은? " + socialName);
-		System.out.println("카카오 소셜 사이트는? " + socialSite);
-		
-		//생일 처리
-		/*String[] birthArr = socialBirth.split("/");
-		socialBirth = String.format("%s년 %s월 %s일", birthArr[2], birthArr[0], birthArr[1]);*/
-		//지정한 월이 부적합합니다. 오류. String타입으로 저장해야 하지만, 뿌려줄 때만 이렇게 바꿔서 뿌려주고 저장할 때는 Date형식으로 저장하자.
-		
-		if(socialSite != "kakao") {
+		///생일 출력 형식 지정하기
+		String[] birthArr = socialBirth.split("/");
+		//socialBirth = String.format("%s년 %s월 %s일", birthArr[2], birthArr[0], birthArr[1]);*/
+
+		///오라클 형식으로 입력하기
+		/*if(!socialSite.equals("kakao")) {
 			String[] birthArr = socialBirth.split("/");
 			String year = birthArr[2].substring(2);
 			socialBirth = year + "/" + birthArr[0] + "/" + birthArr[1];
 			map.put("socialBirth", socialBirth);
+		}*/
+		
+		if(!socialSite.equals("kakao")) {
+			
+			socialBirth = birthArr[2] + "/" + birthArr[0] + "/" + birthArr[1];
+			map.put("socialBirth", socialBirth);
+			System.out.println("페이스북 새로운 소셜벌스는 " + socialBirth);
+			
 		}
 		
+		map.put("id", map.get("socialId"));
+		
 		//DB에 저장
-		boolean isRegistered = memberService.socialRegister(map);  //map에 담긴 정보:아이디, 이름, 이메일, 사진, 생일
+		boolean isRegistered = memberService.socialRegister(map);  
 		
 		//저장에 성공했다면
 		if(isRegistered) {
 			
 			//로그인 처리
-			session.setAttribute("id", socialId);
+			session.setAttribute("id", map.get("socialId"));
 			//현재 로그인한 사용자의 정보 가져오는 dao 메서드 사용 예정
 			
 			map.put("id", session.getAttribute("id"));
@@ -206,8 +200,8 @@ public class SGHController {
 			//나중에 생일 출력해주는 데서 써먹자. 이대로 record.setXXX(socialBirth) 해주면 될 듯
 			
 			model.addAttribute("loginRecord", record);
-			String message = "INSOMNIA에 가입하신 것을 진심으로 축하합니다.<br/> INSOMNIA의 다양한 상품과 이벤트를 즐기시려면 마이페이지에서 추가정보를 입력해주세요.";
-			model.addAttribute("loginMessage", message);
+			//String message = "INSOMNIA에 가입하신 것을 진심으로 축하합니다.\r\n INSOMNIA의 다양한 상품과 이벤트를 즐기시려면 마이페이지에서 추가정보를 입력해주세요.";
+			model.addAttribute("loginMessage", "new");
 						
 		} else { //실패했다면
 			model.addAttribute("socialRegisterErr", "소셜 회원가입에 실패했습니다.");
@@ -358,6 +352,7 @@ public class SGHController {
 				///방구석 공연 값 얻어오기
 				List<BGSConcertDTO> records =  bgsService.selectMyList(dismap);
 				
+				System.out.println("왜 방구석 records가 null이 아니냐? " + records);
 				///json을 위해 선언한 list를 바깥으로 꺼냄
 				
 				///값이 없을 때 
@@ -366,6 +361,7 @@ public class SGHController {
 					blankMap.put("noData", "noData");
 					blankMap.put("which", "공연");
 					resultList.add(blankMap);
+					System.out.println("값이 없을 때 공연일 때 " + JSONArray.toJSONString(resultList));
 					return JSONArray.toJSONString(resultList);
 				}
 				
@@ -411,6 +407,143 @@ public class SGHController {
 		
 
 	}//////////////json으로 구매한 목록들 뿌려주기
+	
+	////아이디 비밀번호 찾기 페이지 이동
+	
+	@RequestMapping("/find/findId.ins")
+	public String findIdPage() throws Exception {
+		
+		return "my/FindIdPassword.tiles";
+	}
+	
+	////아이디 찾기 결과 화면
+	@ResponseBody
+	@RequestMapping("/find/findIdAjax.ins")
+	public String findIdAjax(@RequestParam Map map, HttpSession session) throws Exception {
+		
+		String id = map.get("findId").toString();
+		
+		System.out.println("아이디 찾기 입력값은?" + id);
+		boolean isMember = memberService.checkSignup(id) == 1 ? true : false;
+		
+		
+		if(isMember) {
+			return "memberOk";
+		}
+		
+		return "memberNo";
+		
+	}////아이디 이메일로 전송시키는 기능 추가해야.
+	
+	////비밀번호 찾기 결과 화면
+	@ResponseBody
+	@RequestMapping("/find/findPwdAjax.ins")
+	public String findPwdAjax(@RequestParam Map map, HttpSession session) throws Exception {
+		
+		String id = map.get("findPass").toString();
+		boolean isMember = memberService.checkSignup(id) == 1 ? true : false;
+		
+		return "";
+	}
+	
+	@RequestMapping("/registerSocial/form.ins")
+	public String registerFormSocial(Model model, Map map, Map recordMap, HttpSession session) throws Exception {
+		
+		map.put("id", session.getAttribute("id"));
+		MemberDTO record = memberService.selectOne(map);
+		
+		//String[] birthArr = record.getBirthDay().split("/");
+		
+		/*model.addAttribute("birthYear", "20" + birthArr[0] + "년");
+		
+		
+		model.addAttribute("birthMonth", birthArr[1].substring(1, 2)  + "월"); 
+		model.addAttribute("birthDay", birthArr[2] + "일"); */
+		
+		String[] emailArr, birthArr;
+		String emailBack;
+		
+		System.out.println("로그인 체인은?" + record.getLogin_chain());
+		if(!record.getLogin_chain().equals("kakao")) {
+			
+			emailArr = record.getEmail().split("@");
+			birthArr = record.getBirthDay().substring(0, 10).split("-");
+			
+			/*if(Integer.parseInt(birthArr[0]) <= 19) {   /////NumberFormatException
+				birthArr[0] = birthArr[0];
+			} else {
+				birthArr[0] = "19" + birthArr[0];
+			}*/
+			System.out.println("처리전 이메일 백의 값은?" + emailArr[1]); 
+			
+			emailBack = emailArr[1];
+			if(!(emailBack.equals("naver.com") || emailBack.equals("daum.net") || emailBack.equals("nate.com") || emailBack.equals("google.com") || emailBack.equals("hanmail.net") )) {
+				emailBack = "직접입력";
+			}
+			
+			System.out.println("가입과정에서 emailBack의 값은?" + emailBack);
+			
+			recordMap.put("emailFront", emailArr[0]);
+			recordMap.put("emailBack", emailBack);
+			System.out.println("처리후 year: " + birthArr[0]);
+			recordMap.put("birthYear", birthArr[0]);
+			recordMap.put("birthMonth", birthArr[1]);
+			recordMap.put("birthDay", birthArr[2]);
+
+		}
+		
+		
+		recordMap.put("name", record.getName());
+		recordMap.put("gender", record.getGender());
+		
+		
+		
+		model.addAttribute("recordMap", recordMap);
+		
+		
+		
+		return "my/RegisterFormSocial.tiles";
+	}
+	
+	@RequestMapping("/registerSocial/update.ins")
+	public String registerUpdateSocial(@RequestParam Map map, Map recordMap, Model model, HttpSession session) throws Exception {
+		
+		//아이디로 저장되는 이메일을 이메일 항목에 저장함에 유의
+		
+		//record.put("id", map.get("email").toString()+"@"+map.get("portal").toString());
+		//record.put("password", map.get("user_pwd").toString());
+		//record.put("name", map.get("user_nm").toString());
+		
+		recordMap.put("gender", map.get("gender").toString());
+		
+		
+		recordMap.put("zip_code", map.get("zip_code").toString());
+		recordMap.put("address",
+				"R:" + map.get("roadAddress") == null ? ""
+						: map.get("roadAddress").toString() + " J:" + map.get("jibunAddress") == null ? ""
+								: map.get("jibunAddress").toString() + " D:" + map.get("detailAddress") == null ? ""
+										: map.get("detailAddress").toString());
+		recordMap.put("phone", "010" + map.get("phone1").toString() + map.get("phone2").toString());
+		//recordMap.put("sms_recieve", map.get("advertise") == null ? "F" : "T");
+		System.out.println("연결된 주소값은? " + recordMap.get("address"));
+		System.out.println("컨트롤러 생일 : " + map.get("birth_year") + " " + map.get("birth_month") + " " + map.get("birth_flag"));
+		recordMap.put("birthday", map.get("birth_year").toString() + "/" + map.get("birth_month").toString() + "/"
+				+ map.get("birth_day").toString());
+		recordMap.put("birth_flag", map.get("birth_flag"));
+		
+		recordMap.put("email", map.get("email")+"@"+map.get("portal").toString());
+		
+		int flag = memberService.socialUpdate(recordMap);
+		
+		recordMap.put("id", session.getAttribute("id"));
+		
+		MemberDTO loginRecord = memberService.selectOne(recordMap);
+		
+		model.addAttribute("loginRecord", loginRecord);
+		
+		
+		return "home.tiles";
+	}
 	
 	
 	

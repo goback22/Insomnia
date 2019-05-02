@@ -21,6 +21,7 @@ public class MemberDTO {
 	private Date join_date;
 	private String is_activation;
 	private String activation_key;
+	private String email;
 	
 	public String getId() {
 		return id;
@@ -124,6 +125,17 @@ public class MemberDTO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public void setLogin_chain(String login_chain) {
+		this.login_chain = login_chain;
+	}
+	
+	
 	
 	
 	

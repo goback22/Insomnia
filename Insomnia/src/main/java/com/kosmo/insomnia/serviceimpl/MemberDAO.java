@@ -35,6 +35,12 @@ public class MemberDAO implements MemberService {
 	}
 
 	@Override
+	public int update(Map map) {
+		return template.update("update_member", map);
+	}
+	
+	
+	@Override
 	public int delete(Map map) {
 		return 0;
 	}
@@ -46,8 +52,8 @@ public class MemberDAO implements MemberService {
 	
 	
 	@Override
-	public int update(Map map) {
-		return template.update("update_Member", map);
+	public int updateProfile(Map map) {
+		return template.update("update_Profile", map);
 	}
 	
 	//소셜 로그인
@@ -64,6 +70,12 @@ public class MemberDAO implements MemberService {
 	@Override
 	public int checkSignup(String id) {
 		return template.selectOne("checkIdDuple",id);
+	}
+
+
+	@Override
+	public int socialUpdate(Map map) {
+		return template.update("update_social", map);
 	}
 
 	

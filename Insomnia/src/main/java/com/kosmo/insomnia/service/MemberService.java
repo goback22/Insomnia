@@ -17,13 +17,20 @@ public interface MemberService {
 	int insert(Map map);
 	int update(Map map);
 	
+	//사진 등록
+	int updateProfile(Map map);
+		
 	//소셜 로그인
 	boolean isSocialMember(Map map);
 	
 	//소셜 회원가입
 	boolean socialRegister(Map map);
 	
+	//소셜 추가정보
+	int socialUpdate(Map map);
+	
 	//아이디 중복확인
 	int checkSignup(String id);
+	
 	
 }

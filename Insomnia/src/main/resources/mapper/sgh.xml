@@ -11,12 +11,17 @@
 		select count(*) from members where id=#{socialId}
 	</select>
 	
-	
 	<!-- 소셜 회원가입 -->
 	<insert id="socialRegister" parameterType="java.util.Map">
-		insert into members(id, email, name, profile_img, birthday, join_date, login_chain, phone) 
-		values(#{socialId}, #{socialEmail}, #{socialName}, #{socialProfile}, #{socialBirth}, sysdate, #{socialSite}, 010)
+		insert into members(id, email, name, gender, profile_img, birthday, join_date, login_chain, phone) 
+		values(#{socialId}, #{socialEmail}, #{socialName}, #{socialGender}, #{socialProfile}, #{socialBirth}, sysdate, #{socialSite}, 010)
 	</insert>
+	
+	<!-- 소셜 추가정보 입력 -->
+	<update id="update_social" parameterType="java.util.Map">
+		update members set email=#{email}, zip_code=#{zip_code}, shipping_address=#{address}, phone=#{phone}, birthday=#{birthday}
+	
+	</update>
 	
 	<!-- 회원 1인의 정보 갖고오기 -->
 	<select id="selectOne_Member" parameterType="java.util.Map" resultType="MemberDTO">
@@ -24,7 +29,7 @@
 	</select>
 	
 	<!-- 회원의 프로필 사진을 등록/수정 -->
-	<update id="update_Member" parameterType="java.util.Map">
+	<update id="update_Profile" parameterType="java.util.Map">
 		update members set profile_img = #{profile_img} where id = #{id}
 	</update>
 	
