@@ -1,8 +1,11 @@
 package com.kosmo.insomnia.web.my;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +13,8 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +22,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +42,7 @@ import com.kosmo.insomnia.serviceimpl.BGSConcertServiceImpl;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 import com.kosmo.insomnia.serviceimpl.RewardServiceImpl;
+import com.kosmo.insomnia.util.login.MailHandler;
 import com.kosmo.insomnia.web.sub1.PagingUtil;
 
 @SessionAttributes("id")
@@ -50,6 +57,9 @@ public class SGHController {
 	
 	@Resource(name="bGSConcertService")
 	private BGSConcertServiceImpl bgsService;
+	
+	@Inject
+	private JavaMailSender mailSender;
 	
 	/////마이페이지 이동
 	@RequestMapping("/menu/mypage.ins")
@@ -436,7 +446,15 @@ public class SGHController {
 	////아이디 비밀번호 찾기 페이지 이동
 	
 	@RequestMapping("/find/findId.ins")
-	public String findIdPage() throws Exception {
+	public String findIdPage(@RequestParam Map map, Model model) throws Exception {
+		
+		///최초 이동시가 아닌, 이메일 링크 클릭 후 이동 시 필요한 정보들
+		if(map.get("q") != null) {
+			//model.addAttribute("givenEmail", map.get("foundId"));
+			model.addAttribute("fromEmailLink", "fromEmailLink"); 
+		}
+		
+		
 		
 		return "my/FindIdPassword.tiles";
 	}
@@ -461,7 +479,7 @@ public class SGHController {
 		
 	}////아이디 이메일로 전송시키는 기능 추가해야.
 	
-	////비밀번호 찾기 결과 화면
+	////비밀번호 찾기 결과 화면  /////////////////////////이거 뭐하는 컨트롤러?
 	@ResponseBody
 	@RequestMapping("/find/findPwdAjax.ins")
 	public String findPwdAjax(@RequestParam Map map, HttpSession session) throws Exception {
@@ -572,6 +590,248 @@ public class SGHController {
 	}
 	
 	/////회원정보 수정
+	@ResponseBody
+	@RequestMapping("/find/passwordByEmail.ins")
+	public String findPasswordEmail(@RequestParam Map map, Model model) throws Exception {
+		
+		String email = map.get("findPass").toString();
+		
+		try {
+			MailHandler sendMail = new MailHandler(mailSender);
+			sendMail.setSubject("INSOMNIA 비밀번호 찾기 링크입니다.");
+			
+			Date current = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(EEE) hh:mm");
+			String currentStr = format.format(current);
+			
+			String message;
+			//여기부터
+			message = "<div style=\"max-width: 595px; margin: 0 auto\">\r\n" + 
+					"		<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n" + 
+					"			style=\"max-width: 595px; width: 100%; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif; background-color: #fff; -webkit-text-size-adjust: 100%; text-align: left\">\r\n" + 
+					"			<!-- Header -->\r\n" + 
+					"			<tbody>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td height=\"30\"></td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td style=\"padding-right: 27px; padding-left: 21px\">\r\n" + 
+					"						<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n" + 
+					"							<tbody>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td style=\"\" width=\"61\"><img\r\n" + 
+					"										src=\"ㅇㄹㅇㄹㅇ이미지링크 aws 서버에서 갖고오기ㄹㅇㄹㅇㄹㅇㄹ\"\r\n" + 
+					"										alt=\"Insomnia\" width=\"61\"></td>\r\n" + 
+					"									<td style=\"padding-left: 5px\"><img\r\n" + 
+					"										src=\"http://static.naver.com/common/ems/nid_dm/nid_201412.gif\"\r\n" + 
+					"										alt=\"회원정보\" width=\"42\"></td>\r\n" + 
+					"								</tr>\r\n" + 
+					"							</tbody>\r\n" + 
+					"						</table>\r\n" + 
+					"					</td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td height=\"13\"></td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td\r\n" + 
+					"						style=\"padding-right: 27px; padding-left: 18px; line-height: 34px; font-size: 29px; color: #424240; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"						새로운 비밀번호를<br>\r\n" + 
+					"					<span style=\"color: #1ec800\">설정하시겠습니까?</span>\r\n" + 
+					"					</td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td height=\"22\"></td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td height=\"1\" style=\"background-color: #e5e5e5;\"></td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<!-- //Header -->\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td\r\n" + 
+					"						style=\"padding-top: 24px; padding-right: 27px; padding-bottom: 32px; padding-left: 20px\">\r\n" + 
+					"						<table align=\"left\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n" + 
+					"							width=\"100%\"\r\n" + 
+					"							style=\"font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"							<tbody>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td height=\"6\"></td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr style=\"display: none;\">\r\n" + 
+					"									<td\r\n" + 
+					"										style=\"padding: 9px 15px 10px; background-color: #f4f4f4; font-size: 14px; color: #000; line-height: 24px; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"										이 메일은 아띠(rlgh****)의 비상 연락처에 등록된 메일 주소로 발송되었습니다. 본인의 네이버 계정이\r\n" + 
+					"										아니라면 <a href=\"#\" target=\"_blank\"\r\n" + 
+					"										style=\"color: #009e25; text-decoration: underline\"\r\n" + 
+					"										rel=\"noreferrer noopener\"><span style=\"color: #009E25\">여기에서\r\n" + 
+					"												수정</span></a>하세요. 해당 페이지는 <strong>별도의 로그인을 요구하지 않습니다. 또한 주소창에\r\n" + 
+					"											[NAVER Corp.]와 자물쇠 마크</strong>가 있으니 꼭 확인하세요.\r\n" + 
+					"									</td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr style=\"display: none;\">\r\n" + 
+					"									<td height=\"24\"></td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td\r\n" + 
+					"										style=\"font-size: 14px; color: #696969; line-height: 24px; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"										회원님의 아이디 <span style=\"color: #009E25\">" + email +"</span><strong>로\r\n" + 
+					"											비밀번호 요청이 수신되었습니다.</strong><br> 아래의 로그인이 회원님의 활동이 맞는지 확인해주세요.<br>\r\n" + 
+					"										회원님의 활동이 아니라면, 관리자에게 문의해 주시기 바랍니다.\r\n" + 
+					"									</td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td height=\"24\"></td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td\r\n" + 
+					"										style=\"font-size: 14px; color: #696969; line-height: 24px; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"										<table cellpadding=\"0\" cellspacing=\"0\"\r\n" + 
+					"											style=\"width: 100%; margin: 0; padding: 0\">\r\n" + 
+					"											<tbody>\r\n" + 
+					"												<tr>\r\n" + 
+					"													<td height=\"23\"\r\n" + 
+					"														style=\"font-weight: bold; color: #000; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"														로그인 정보</td>\r\n" + 
+					"												</tr>\r\n" + 
+					"												<tr>\r\n" + 
+					"													<td height=\"2\" style=\"background: #424240\"></td>\r\n" + 
+					"												</tr>\r\n" + 
+					"												<tr>\r\n" + 
+					"													<td height=\"20\"></td>\r\n" + 
+					"												</tr>\r\n" + 
+					"												<tr>\r\n" + 
+					"													<td>\r\n" + 
+					"														<table cellpadding=\"0\" cellspacing=\"0\"\r\n" + 
+					"															style=\"width: 100%; margin: 0; padding: 0\">\r\n" + 
+					"															<tbody>\r\n" + 
+					"																<tr>\r\n" + 
+					"																	<td width=\"110\"\r\n" + 
+					"																		style=\"padding-bottom: 5px; color: #696969; line-height: 23px; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"																		시간</td>\r\n" + 
+					"																	<td\r\n" + 
+					"																		style=\"padding-bottom: 5px; color: #000; line-height: 23px; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"																		" + currentStr + "</td>\r\n" + 
+					"																</tr>\r\n" + 
+					"																<tr>\r\n" + 
+					"																	<td width=\"110\"\r\n" + 
+					"																		style=\"padding-bottom: 5px; color: #696969; line-height: 23px; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"																		위치</td>\r\n" + 
+					"																	<td\r\n" + 
+					"																		style=\"padding-bottom: 5px;; color: #000; line-height: 23px; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"																		대한민국 (211.251.220.133)</td>\r\n" + 
+					"																</tr>\r\n" + 
+					"																<tr>\r\n" + 
+					"																	<td width=\"110\"\r\n" + 
+					"																		style=\"padding-bottom: 5px; color: #696969; line-height: 23px; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"																		기기</td>\r\n" + 
+					"																	<td\r\n" + 
+					"																		style=\"padding-bottom: 5px;; color: #000; line-height: 23px; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"																		웹브라우저</td>\r\n" + 
+					"																</tr>\r\n" + 
+					"															</tbody>\r\n" + 
+					"														</table>\r\n" + 
+					"													</td>\r\n" + 
+					"												</tr>\r\n" + 
+					"												<tr>\r\n" + 
+					"													<td height=\"20\"></td>\r\n" + 
+					"												</tr>\r\n" + 
+					"												<tr>\r\n" + 
+					"													<td height=\"1\" style=\"background: #d5d5d5\"></td>\r\n" + 
+					"												</tr>\r\n" + 
+					"											</tbody>\r\n" + 
+					"										</table>\r\n" + 
+					"									</td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td height=\"24\"></td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td\r\n" + 
+					"										style=\"font-size: 14px; color: #696969; line-height: 24px; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"										<strong>회원님이 비밀번호를 요청하셨나요?<br> 새로운 비밀번호를 설정하시려면\r\n" + 
+					"											[비밀번호 설정]을 눌러주세요.\r\n" + 
+					"									</strong>\r\n" + 
+					"									</td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td\r\n" + 
+					"										style=\"height: 34px; font-size: 14px; color: #696969; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"										<a\r\n" + 
+					"										href=\"http://localhost:8080/insomnia/find/findId.ins?q=link\"\r\n" + 
+					"										style=\"display: inline-block; padding: 10px 10px 10px; margin-top: 10px; background-color: #08a600; color: #fff; text-align: center; text-decoration: none;\"\r\n" + 
+					"										target=\"_blank\" rel=\"noreferrer noopener\">비밀번호 설정</a> <a\r\n" + 
+					"										href=\"https://localhost:8080/insomnia/관리자문의 컨트롤러  ㅇㄹㅇㄹ\"\r\n" + 
+					"										style=\"display: inline-block; padding: 10px 60px 10px; margin-top: 10px; background-color: #8e8e8e; color: #fff; text-align: center; text-decoration: none;\"\r\n" + 
+					"										target=\"_blank\" rel=\"noreferrer noopener\">관리자 문의</a>\r\n" + 
+					"									</td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td height=\"24\"></td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td\r\n" + 
+					"										style=\"font-size: 14px; color: #696969; line-height: 24px; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"										보다 자세한 내용은 아이디 도용에 대한 <a href=\"http://naver.me/GsdVn7dq\"\r\n" + 
+					"										target=\"_blank\"\r\n" + 
+					"										style=\"text-decoration: underline; color: #009e25\"\r\n" + 
+					"										rel=\"noreferrer noopener\">도움말</a>을 확인 해주시기 바랍니다.<br> 더욱\r\n" + 
+					"										편리한 서비스를 제공하기 위해 항상 최선을 다하겠습니다.\r\n" + 
+					"									</td>\r\n" + 
+					"								</tr>\r\n" + 
+					"							</tbody>\r\n" + 
+					"						</table>\r\n" + 
+					"					</td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<!-- footer -->\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td\r\n" + 
+					"						style=\"padding-top: 26px; padding-left: 21px; padding-right: 21px; padding-bottom: 13px; background: #f9f9f9; font-size: 12px; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif; color: #696969; line-height: 17px\">\r\n" + 
+					"						본 메일은 발신전용 입니다. INSOMNIA 서비스관련 궁금하신 사항은 INSOMNIA <a\r\n" + 
+					"						href=\"https://help.naver.com/support/alias/membership/p.membership/p.membership_26.naver\"\r\n" + 
+					"						style=\"color: #696969; font-weight: bold; text-decoration: underline\"\r\n" + 
+					"						rel=\"noreferrer noopener\" target=\"_blank\">고객센터</a>에 문의하세요.\r\n" + 
+					"					</td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td\r\n" + 
+					"						style=\"padding-left: 21px; padding-right: 21px; padding-bottom: 57px; background: #f9f9f9; font-size: 12px; font-family: Helvetica; color: #696969; line-height: 17px\">\r\n" + 
+					"						Copyright ⓒ <strong>INSOMNIA</strong> Corp. All Rights Reserved.\r\n" + 
+					"					</td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<!-- //footer -->\r\n" + 
+					"			</tbody>\r\n" + 
+					"		</table>\r\n" + 
+					"	</div>";
+		
+			//여기까지
+			sendMail.setText(message);
+			sendMail.setFrom("admin@insomnia.com", "INSOMNIA 개인정보 관리 담당자");
+			sendMail.setTo(email);
+			sendMail.send();
+			
+			// model.addAttribute("mailSucFail", "yes");
+			return "sendSuccess";
+			
+				
+		} catch (MessagingException | UnsupportedEncodingException e) {
+			// model.addAttribute("mailSucFail", "no");
+			e.printStackTrace();
+			
+			return "sendFail";
+		}
+		
+		//return "home.tiles";
+	}
+	
+	/////비밀번호 새로 설정하는 링크 
+	@RequestMapping("/find/newPassword.ins")
+	public String insertNewPassword(@RequestParam Map map, Model model) throws Exception {
+		
+		
+		//memberService.changePassword();
+		
+		return "home.tiles";
+	}
 	
 	
 	

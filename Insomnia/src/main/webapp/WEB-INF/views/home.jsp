@@ -37,6 +37,8 @@
 </style>
 <!-- 로그인 처리 CSS -->
 <link href="<c:url value='/vendor/css/LoginCSS.css'/>" rel="stylesheet" />
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 
 <body style="background-color: black;">
@@ -49,6 +51,18 @@
 		})
 		
 	</script>
+</c:if>
+
+<c:if test='${mailSucFail eq "yes"}'>
+	<script>
+		alert("비밀번호 설정 링크가 발송되었습니다. 메일을 확인해주세요.");
+	</script>
+</c:if>
+<c:if test='${mailSucFail eq "no"}'>
+	<script>
+		alert("메일 발송이 실패했습니다. 메일을 다시 확인해주세요.");
+	</script>
+	
 </c:if>
 
 	<!-- 소셜 로그인 모달 -->
@@ -197,15 +211,11 @@
 									src="<c:url value='/resource/img/kakaolink_btn_medium.png'/>" />
 								<i class="kakao"></i>카카오
 							</button>
-							<!-- naverLoginBtn -->
-							<!-- <div id="naver_id_login"> -->
-							<div id="naverIdLogin"></div>
-							<!-- 
-							<button type="button">
-								<img class="icon"
-								src="<c:url value='/resource/img/naver_login_icon.png'/>" /> <i
-								class="naver"></i>네이버
-								</button>  -->
+							<div id="naver_id_login"></div>
+							
+							<button type="button" id="forNaverLogin">
+								<img class="icon" src="<c:url value='/resource/img/naver_login_icon.png'/>" /> <i class="naver"></i>네이버
+							</button>
 							
 							<button type="button" id="googleLoginBtn">
 								<img class="icon"
@@ -249,9 +259,8 @@
 						<a href="javascript:return false;" class="offset-closer">
 							<img style="margin-left: 270px; margin-top: -60px; height:15px; width:15px;" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
 						</a>
-					<!-- 네이버 로그인 display:none -->
-					<!-- <div id="naver_id_login" style="display: none;"></div> -->
-					<div id="naverIdLogin"></div>
+					<div style="display:none;">
+							<div id="naver_id_login"></div></div>
 						
 					<!-- 사용자 계정정보 -->
 					<%-- <div style="display:none;" id="hid">${loginRecord.login_chain }</div>
@@ -449,48 +458,55 @@
 
 		</script>
 		<!-- 페이스북 로그인 끝 -->
-
+		
+		<!-- 네이버 로그인 위한 이벤트 전달 -->
+		<script>
+			$(function(){
+				$('#forNaverLogin').click(function(){
+					$('#naver_id_login').trigger('click');
+					console.log('네이버 클릭 이벤트 전달하는 곳으로 들어오는지?');
+					var naverClicked = "yes";
+				});
+			})
+		</script>
 		<!-- 네이버 로그인 시작  1.기본설정-->
-		<!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script> -->
-		<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+		
+		
 		<script>
 			
-			var naverLogin = new naver.LoginWithNaverId({
-				
-				clientId:"baw69zHb2FPVPqvEd5sl",
-				callbackUrl:"https://localhost:8080/insomnia/",
-				isPopup:true,
-				loginButton:{color:"green", type:2, height:60}
-			});
+			var naver_id_login = new naver_id_login("baw69zHb2FPVPqvEd5sl", "http://localhost:8080/insomnia/");
+		  	var state = naver_id_login.getUniqState();
+		  	naver_id_login.setButton("white", 2,40);
+		  	naver_id_login.setDomain("http://localhost:8080/insomnia/");
+		  	naver_id_login.setState(state);
+		  	naver_id_login.setPopup();
+		  	naver_id_login.init_naver_id_login();
 			
-			naverLogin.init();
-			
-			
-			/* naver_id_login.setPopup();
-			naver_id_login.init_naver_id_login(); */
 		</script>
 		
 		<!-- 네이버 로그인2 : 로그인 버튼 조정 -->
+	
 		<script>
 		
-		</script>
-
-		<script>
-			// 접근 토큰 값 출력
-			/* alert(naver_id_login.oauthParams.access_token); */
-
-			// 네이버 사용자 프로필 조회
-			naver_id_login.get_naver_userprofile("naverSignInCallback()");
-
-			// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-			function naverSignInCallback() {
-				alert(naver_id_login.getProfileData('email'));
-				alert(naver_id_login.getProfileData('nickname'));
-				alert(naver_id_login.getProfileData('age'));
-			}
+			 //var naver_id_login = new naver_id_login("baw69zHb2FPVPqvEd5sl", "http://localhost:8080/insomnia/");
+			  // 접근 토큰 값 출력
+			 alert(naver_id_login.oauthParams.access_token);
+			  // 네이버 사용자 프로필 조회
+			  naver_id_login.get_naver_userprofile("naverSignInCallback()");
+			  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+			  function naverSignInCallback() {
+			    alert(naver_id_login.getProfileData('email'));
+			    alert(naver_id_login.getProfileData('nickname'));
+			    alert(naver_id_login.getProfileData('age'));
+			  }
+		
 		</script>
 		<!--네이버 로그인 끝 -->
 		
+		
+		
+		
+		</script>
 		
 		<!-- 아이디 저장 시작(쿠키) -->
 		<script>
