@@ -15,7 +15,6 @@
 
 <script>
 	$(function() {
-		
 		//페이지 뿌리기
 		showComments();
 		
@@ -37,6 +36,12 @@
 	       if ($(this).val() == 'Edit Comment') {
 	          var action = "<c:url value='/main/memoedit.ins'/>";
 	          console.log('액션 찍힘');
+	       }
+	       
+	       //Reply Commit 누를 때
+	       if($(this).val() == 'Reply Comment') {
+		          var action = "<c:url value='/main/memoedit.ins'/>";
+		          console.log('액션 찍힘');
 	       }
 
 	       $.ajax({
@@ -119,7 +124,7 @@
             + '&nbsp&nbsp[삭제]' + "</span>";
 			tableString += "</div>";
 			tableString += "<div class='reply'>";
-			tableString += "<a class='comment-reply-link' href='#'><i class='fa fa-reply'></i>Reply</a>";
+			tableString += "<a class='comment-reply-link' href='#kyj'><i class='fa fa-reply'></i>Reply</a>";
 			tableString += "</div>";
 			tableString += "</article>";
 			tableString += "</li>";
@@ -168,6 +173,12 @@
 	            ($('#submit')).val('Send Comment');
 	         }
 	      })
+	      
+	      //Reply아이콘 누를 때
+	  	  $('.comment-reply-link').click(function() {
+			$('#submit').val('Reply Comment');
+		  })
+		  
 	}//successAjax
 </script>
 
@@ -672,7 +683,7 @@ body {
 												<!-- .comment-meta -->
 
 												<div class="comment-content">
-													<p>Amet, consectetur adipisicing elit, sed do eiusmod
+													<p id="kyj">Amet, consectetur adipisicing elit, sed do eiusmod
 														tempor incididunt ut labore et dolore magna tunit aliqad
 														minim veniam, quis nostrud exercitation ullamco labori.</p>
 												</div>

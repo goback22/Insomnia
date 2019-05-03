@@ -687,7 +687,6 @@ li {
 													<a style="text-decoration: none"
 														href="<c:url value='/main/content.ins'/>"> <span
 														id="wait"><br>
-														
 														<br>
 														<br>
 														<br>

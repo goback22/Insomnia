@@ -235,6 +235,27 @@ body {
 }
 </style>
 </head>
+<script>
+function getNumber(obj){
+    
+    var num01;
+    var num02;
+    num01 = obj.value;
+    num02 = num01.replace(/\D/g,""); //숫자가 아닌것을 제거, 
+                                     //즉 [0-9]를 제외한 문자 제거; /[^0-9]/g 와 같은 표현
+    num01 = setComma(num02); //콤마 찍기
+    obj.value =  num01;
+
+}
+function setComma(n) {
+    var reg = /(^[+-]?\d+)(\d{3})/;   // 정규식
+    n += '';                          // 숫자를 문자열로 변환         
+    while (reg.test(n)) {
+       n = n.replace(reg, '$1' + ',' + '$2');
+    }         
+    return n;
+}
+</script>
 
 <body>
 	<div class="root_div">
@@ -269,7 +290,7 @@ body {
 				<!-- 계좌번호 -->
 				<div class="div_select_category">
 					<span style="font-size: 1.1em">계좌 번호&nbsp;&nbsp;&nbsp;</span> <input
-						type="text" id="s_account_serial" name="s_account_serial"
+						type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" id="s_account_serial" name="s_account_serial"
 						placeholder="계좌 입력(하이푼 제외)" />
 				</div>
 
@@ -281,26 +302,20 @@ body {
 			<!-- first-step -->
 
 			<div class="second-step col-sm-6">
-				<h1>목표 및 누적 금액, 마감 시간을 선택해주세요</h1>
+				<h1>목표 금액과 마감 일을 선택해주세요</h1>
 
 				<!-- 목표금액 -->
 				<div>
 					<span style="font-size: 1.1em">목표 금액&nbsp;&nbsp;&nbsp;</span> <input
-						type="text" id="s_goal_price" name="s_goal_price"
+						type="text" id="s_goal_price" onchange="getNumber(this);" onkeyup="getNumber(this);" name="s_goal_price"
 						placeholder="목표금액 입력" />
-				</div>
-
-				<!-- 누적금액 -->
-				<div>
-					<span style="font-size: 1.1em">누적 금액&nbsp;&nbsp;&nbsp;</span> <input
-						type="text" id="s_goal_accumulation" name="s_goal_accumulation"
-						placeholder="누적금액 입력" />
+					<span>원</span>
 				</div>
 				
 				<!-- 마감시간 -->
 				<div>
-					<span style="font-size: 1.1em">마감 시간&nbsp;&nbsp;&nbsp;</span> <input
-						type="text" id="s_goal_deadline" name="s_goal_deadline"
+					<span style="font-size: 1.1em">마감일&nbsp;&nbsp;&nbsp;</span> <input
+						type="text" id="s_goal_deadline" name="s_goal_deadline" 
 						placeholder="마감시간 선택" />
 				</div>
 
