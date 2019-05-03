@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -12,6 +12,166 @@
 	rel="stylesheet" type="text/css">
 <link href="<c:url value='/vendor/css/content-wdetail.css'/>"
 	rel="stylesheet" type="text/css">
+
+<script>
+	$(function() {
+		//페이지 뿌리기
+		showComments();
+		
+	    //댓글 작성
+	    $('#submit').click(function() {
+	    	//Send Commit 누를 때
+	       if ($(this).val() == 'Send Comment') {
+	    	  //console.log('SEND COMMENT가 인식됩니다.');
+	          var action = "<c:url value='/main/memowrite.ins'/>";
+	          if($('#c_content').val() == ''){
+	         		alert('내용을 입력해주세요');
+	         		$('#c_content').focus();
+	         		return false;
+	         	}//if
+	       }//if
+	       //Edit Commit 누를 때
+	       if ($(this).val() == 'Edit Comment') {
+	          var action = "<c:url value='/main/memoedit.ins'/>";
+	          console.log('액션 찍힘');
+	       }
+	       
+	       //Reply Commit 누를 때
+	       if($(this).val() == 'Reply Comment') {
+		          var action = "<c:url value='/main/memoedit.ins'/>";
+		          console.log('액션 찍힘');
+	       }
+	       $.ajax({
+	          url : action,
+	          data : $('#commentform').serialize(),
+	          dataType : 'text',
+	          type : 'post',
+	          success : function() {
+	             //등록 후 현재 모든 댓글 뿌려주기
+	             showComments();
+	             //입력 댓글 클리어 및 포커스 주기
+	             $('#c_content').val('');
+	             //$('#about').focus();
+	             //글 수정후 등록버튼으로 다시 교체하기
+	             if($('#submit').val()=='EDIT COMMENT'){
+	                $('#submit').val('SEND COMMENT');
+	             }
+	          },
+	          error : function(request, error) {
+	             console.log('상태코드:', request.status);
+	             console.log('서버로부터 받은 HTML데이타 :', request.responseText);
+	             console.log('에러:', error);
+	          }
+	       });
+	    })
+	})//function
+	//리스트
+	var showComments = function() { // ★ajax를 함수로 감싸서 리스트를 뿌릴 때 쓰기
+		$.ajax({
+			url : '<c:url value="/main/memolist.ins"/>',
+			dataType : 'json',
+			success : successAjax,
+			error : function(request, error) {
+				console.log('왜 에러로 들어오니');
+				console.log('상태코드:', request.status);
+				console.log('서버로부터 받은 HTML데이타 :', request.responseText);
+				console.log('에러:', error);
+			}
+		});
+	};//showComments
+	var successAjax = function(data) {
+		/*JSON배열을 출력할때는 $.each(data,function(index,index에 따른 요소값){}); 사용]
+		data : 서버로부터 전송받은 데이타(JSON배열타입)
+		index : JSON배열의 인덱스(0부터 시작)   
+		index에 따른 요소 값 : JSON 배열에서 하나씩 꺼내온거를 담은 인자      
+		 */
+		console.log('successAjax로 들어왔어요');
+		console.log('서버로부터 받은 데이타:', data);
+			
+		var tableString = "";
+		$.each(data, function(index, element) {
+			var A = element['PROFILE_IMG'];
+			var B = "<c:url value='/upload/" +A+ "'/>;"
+			console.log(B);
+			
+			tableString += "<li>"
+			tableString += "<article class='comment-body'>";
+			tableString += "<footer class='comment-meta'>";
+			tableString += "<div class='comment-author'>";
+			tableString += "<div class='author-thumb'>";
+			tableString += "<img style='border-radius:50px;height:100px;width:100px;' alt='' src=' " +B+ "' class='avatar'>";
+			tableString += "</div>";
+			tableString += "<div class='author-name'>";
+			tableString += "<a href='#' style='font-weight:600;font-size:1.2em' class='url'>" + element['NAME'] + "</a>";
+			tableString += "<div class='comment-metadata'>";
+			tableString += "<a href='#'>" + element['C_POST_DATE'] + "</a>";
+			tableString += "</div>";
+			tableString += "</div>";
+			tableString += "</div>";
+			tableString += "</footer>";
+			tableString += "<div class='comment-content'>";
+			tableString += "<span>" + element['C_CONTENT'] + "</span>";
+			tableString += "<a href='#HH' class='commentEdit' title='"+element['BSC_NO']+"' style='color:black;font-size:0.8em;'>" + '&nbsp&nbsp[수정]' + "<span id='asd' style='display:none;'>"
+            + element['C_CONTENT'] + "</span></a>"
+      		tableString += "<span class='commentDelete' title='"+element['BSC_NO']+"' style='color:black;font-size:0.8em;cursor:pointer'>"
+            + '&nbsp&nbsp[삭제]' + "</span>";
+			tableString += "</div>";
+			tableString += "<div class='reply'>";
+			tableString += "<a class='comment-reply-link' href='#kyj'><i class='fa fa-reply'></i>Reply</a>";
+			tableString += "</div>";
+			tableString += "</article>";
+			tableString += "</li>";
+		});//each
+		console.log("tableString:"+tableString);
+		
+		//리스트 뿌려주기
+		$('#commentWrite').html(tableString);
+		
+		 //코멘트 수정]
+	      $('.commentEdit').click(function(){
+	         console.log('클릭한 댓글의 키(bsc_no):',$(this).attr('title'));
+	         
+	         //클릭한 제목으로 텍스트박스 값 설정
+	         $('#c_content').val($(this).children().eq(0).html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
+	         $('#submit').val('Edit Comment');
+	         
+	         //form의 hidden속성중 name="cno"값 설정
+	         $('input[name=bsc_no]').val($(this).attr('title'));
+	      });
+		
+	      //코멘트 삭제 
+	      $('.commentDelete').click(function() {
+	         console.log($('.commentDelete').attr('title'));
+	         $.ajax({
+	            url : '<c:url value="/main/memodelete.ins"/>',
+	            data : {
+	               bsc_no : $('.commentDelete').attr('title')
+	            },
+	            dataType : 'text',
+	            type : 'post',
+	            success : showComments(),
+	            error : function(request, error) {
+	               console.log('상태코드:', request.status);
+	               console.log('서버로부터 받은 HTML데이타 :', request.responseText);
+	               console.log('에러:', error);
+	            }
+	         });
+	      });
+	      
+	      //수정으로 돼있다면 등록으로 바꾸기
+	      $('#submit').click(function(){
+	         if($('#submit').val() == 'Edit Comment') {
+	            ($('#submit')).val('Send Comment');
+	         }
+	      })
+	      
+	      //Reply아이콘 누를 때
+	  	  $('.comment-reply-link').click(function() {
+			$('#submit').val('Reply Comment');
+		  })
+		  
+	}//successAjax
+</script>
 
 <style>
 
@@ -339,6 +499,134 @@ body {
 					</article>
 					<div class="clearfix"></div>
 
+
+
+					<div class="comments-area">
+
+						<div class="comment-inner">
+							<div class="reply-title">
+								<h3>Comment</h3>
+							</div>
+							
+							<ul class="comment-list" id="commentWrite">
+							<!-- 이 곳에 ajax로 뿌려준다 -->
+							</ul>
+
+							<ul class="comment-list">
+
+								<li class="comment">
+									<article class="comment-body">
+										<footer class="comment-meta">
+											<div class="comment-author">
+												<div class="author-thumb">
+													<img alt="" src="<c:url value='/media/blog/10.jpg'/>"
+														class="avatar">
+												</div>
+												<div class="author-name">
+													<a href="#" class="url">John Doe</a>
+
+													<div class="comment-metadata">
+														<a href="#"> 14 Mar, 2018 at 7:57 am </a>
+													</div>
+													<!-- .comment-metadata -->
+												</div>
+											</div>
+											<!-- .comment-author -->
+
+
+											<div class="reply">
+												<a class="comment-reply-link" href="#"><i
+													class="fa fa-reply"></i>Reply</a>
+											</div>
+										</footer>
+										<!-- .comment-meta -->
+
+										<div class="comment-content">
+											<p>Amet, consectetur adipisicing elit, sed do eiusmod
+												tempor incididunt ut labore et dolore magna tunit aliqad
+												minim veniam, quis nostrud exercitation ullamco labori.</p>
+										</div>
+										<!-- .comment-content -->
+
+
+									</article> <!-- .comment-body -->
+
+									<ul class="children">
+										<li class="comment">
+											<article class="comment-body">
+												<footer class="comment-meta">
+													<div class="comment-author">
+														<div class="author-thumb">
+															<img alt="" src="<c:url value='/media/blog/11.jpg'/>"
+																class="avatar">
+														</div>
+
+														<div class="author-name">
+															<a href="#" id="HH" class="url">Jane Bloggs</a>
+															<div class="comment-metadata">
+																<a href="#">March 14, 2013 at 8:01 am</a>
+															</div>
+															<!-- .comment-metadata -->
+														</div>
+													</div>
+													<!-- .comment-author -->
+												</footer>
+												<!-- .comment-meta -->
+
+												<div class="comment-content">
+													<p id="kyj">Amet, consectetur adipisicing elit, sed do eiusmod
+														tempor incididunt ut labore et dolore magna tunit aliqad
+														minim veniam, quis nostrud exercitation ullamco labori.</p>
+												</div>
+												<!-- .comment-content -->
+
+												<div class="reply">
+													<a class="comment-reply-link" href="#"><i
+														class="fa fa-reply"></i>Reply</a>
+												</div>
+											</article> <!-- .comment-body -->
+										</li>
+										<!-- #comment-## -->
+									</ul> <!-- .children -->
+
+								</li>
+								<!-- #comment-## -->
+
+								<!-- #comment-## -->
+							</ul>
+						</div>
+						<!-- /.comment-inner -->
+
+						<div id="respond" class="comment-respond"
+							style="margin-bottom: 30px;">
+							<h3 id="reply-title" class="comment-reply-title">Leave a
+								comment</h3>
+							<form id="commentform" class="comment-form" target="param">
+								<!-- 수정 삭제용 피라미터 -->
+								<input type="hidden" name="bsc_no" />
+								<p class="comment-form-comment">
+									<textarea placeholder="Your Comment*" id="c_content"
+										name="c_content"></textarea>
+								</p>
+
+								<p class="comment-form-author">
+									<input placeholder="Name" id="name" name="name" type="hidden">
+								</p>
+
+								<p class="comment-form-email">
+									<input placeholder="Email" id="email" name="email" type="hidden">
+								</p>
+
+								<p class="form-submit">
+									<input name="submit" type="submit" id="submit" class="submit"
+										value="Send Comment">
+								</p>
+								<!-- iframe 설정 -->
+								<iframe id="if" name="param"></iframe>
+							</form>
+						</div>
+					</div>
+					<!-- /.comments-area -->
 				</div>
 				<!-- /.col-lg-8 -->
 				<div class="col-sm-offset-1 col-sm-3"

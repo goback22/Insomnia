@@ -13,6 +13,7 @@ import com.kosmo.insomnia.service.BandMemberDTO;
 import com.kosmo.insomnia.service.BandMusicDTO;
 import com.kosmo.insomnia.service.BandService;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
+import com.kosmo.insomnia.service.RewardWaitingDTO;
 
 @Service("bandService")
 public class BandServiceImpl implements BandService{
@@ -104,5 +105,29 @@ public class BandServiceImpl implements BandService{
 		return dao.addBandMusic(dto);
 	}//addBandMusic
 	
+	@Override
+	public int addBandSubmitWaiting(BandSubmitWaitingDTO dto) {
+		return dao.addBandSubmitWaiting(dto);
+	}//addBandSubmitWaiting
+	
+	@Override
+	public int addRewardWaiting(RewardWaitingDTO dto) {
+		return dao.addRewardWaiting(dto);
+	}///rewardWaiting
+	
+	@Override
+	public List<BandMusicDTO> getListBandMusicDTO(String b_no) {
+		return dao.getListBandMusicDTO(b_no);
+	}///getListbandMusciDTO
+	
+	@Override
+	public List<RewardWaitingDTO> getListRewardWaitingDTO(String sw_no) {
+		return dao.getListRewardWaitingDTO(sw_no);
+	}//getListRewardWaitingDTO
+	
+	@Override
+	public List<BandDTO> allBand() {
+		return dao.allBand();
+	}//allBand
 	
 }//class BandServiceImpl

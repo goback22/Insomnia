@@ -56,15 +56,4 @@ public class HomeController {
 		return "home.tiles";
 	}///home
 	
-	//메인 프로젝트
-	@RequestMapping(value="/main/mainproject.ins")
-	public String mainproject() {
-		return "/main/mainproject.tiles";
-	}
-	
-	//메인 프로젝트 - 컨텐트
-	@RequestMapping(value="/main/content.ins")
-	public String content() {
-		return "/main/content.tiles";
-	}
 }//classs
