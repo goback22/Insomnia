@@ -9,7 +9,7 @@
 		insert into bgspay values(seq_bgs_pay_no.nextval,#{id},#{qty},sysdate,#{bank_name},#{phone},#{email},#{non_bankbook},#{non_bankbook_complete},#{non_bankbook_bank_name},#{non_bankbook_account_serial},1)
 	</insert>
 	<select id="subPaySelectOne" parameterType="java.util.Map" resultType="BGSPayDTO">
-		select p_no from bgspay where p_no = (select max(p_no) from bgspay where id=#{email})
+		select p_no from bgspay where p_no = (select max(p_no) from bgspay where email=#{email})
 	</select>
 	<delete id="subPayDelete" parameterType="java.util.Map">
 		delete from bgspay where id=#{email} and p_no = (select max(p_no) from bgspay where id=#{email})

@@ -62,8 +62,19 @@ public class SGHController {
 	/////마이페이지 이동
 	@RequestMapping("/menu/mypage.ins")
 	public String mypage(@RequestParam Map map1, HttpSession session, Map map, Model model, @RequestParam(required=false, defaultValue="1") int nowPage) throws Exception {
+		Map map2 = new HashMap();
+		map2.put("id", session.getAttribute("id"));
+		String img = memberService.selectOne(map2).getProfile_img();
 		System.out.println("들어오니?:"+map1.get("url"));
-		model.addAttribute("kyj", map1.get("url"));
+		int length = map1.get("url").toString().lastIndexOf("/");
+		String img_default = map1.get("url").toString().substring(0,length+1);
+		System.out.println("기본 path : "+img_default);
+		
+		if(img.trim().equals("default_cover_img.jpg")) {
+			model.addAttribute("img", img_default+"default_cover_img.jpg");
+		}else {
+			model.addAttribute("img", map1.get("url"));
+		}
 		
 		//세션에 저장된 아이디값 구하기
 		String id = session.getAttribute("id") == null ? null : session.getAttribute("id").toString();
@@ -247,10 +258,11 @@ public class SGHController {
 	public String editProfileImgAjax(@RequestParam Map map, Map dismap, HttpSession session) throws Exception {
 		
 		String profile_img = map.get("fileName").toString();
+		System.out.println("profile_img : "+profile_img);
 		dismap.put("profile_img", profile_img);
 		dismap.put("id", session.getAttribute("id"));
 		
-		memberService.update(dismap);
+		memberService.updateProfile(dismap);
 		
 		return profile_img;
 	

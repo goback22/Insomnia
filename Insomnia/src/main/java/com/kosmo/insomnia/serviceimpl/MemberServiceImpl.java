@@ -51,7 +51,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int updateProfile(Map map) {
-		return dao.update(map);
+		return dao.updateProfile(map);
 	}
 	
 	//소셜 로그인-서기환, 4월 15일
