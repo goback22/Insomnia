@@ -35,6 +35,7 @@ import org.w3c.dom.ls.LSInput;
 import com.kosmo.insomnia.service.BGSConcertDTO;
 import com.kosmo.insomnia.service.BGSConcertService;
 import com.kosmo.insomnia.service.ListDTO;
+import com.kosmo.insomnia.service.MainCommentDTO;
 import com.kosmo.insomnia.service.MainCommentService;
 import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.serviceimpl.CommentServiceImpl;
@@ -96,10 +97,14 @@ public class ZeroJinController_Main {
 	
 	//코멘트 수정처리]
 	@ResponseBody
-	@RequestMapping(value="/main/memoeit.ins",produces="text/html; charset=UTF-8")
+	@RequestMapping(value="/main/memoedit.ins",produces="text/html; charset=UTF-8")
 	public String mainCommentUpdate(@RequestParam Map map) throws Exception{
+		System.out.println("여기 들어오나요?");
+		
 		//서비스 호출]
 		mainCommentService.update(map);
+		
+		System.out.println("여기 들어오나요??");
 		
 		return "";
 	}//
@@ -121,5 +126,29 @@ public class ZeroJinController_Main {
 		
 		return "/main/writeAdditional.tiles";
 	}
+	
+//	//Reply Comment
+//	@ResponseBody
+//	@RequestMapping(value="/main/replyWrite.ins",produces="text/html; charset=UTF-8") 
+//	public String replyWrite(@RequestParam Map map,HttpSession session,Model model) throws Exception{
+//		MainCommentDTO record = mainCommentService.selectOne(map);
+//		System.out.println("map.get(\"bsc_no\"):"+map.get("bsc_no"));
+//		System.out.println("record.toString():"+record.toString());
+//		
+//		System.out.println("답글 컨트롤러 왔습니다.");
+//		
+//		map.put("id", session.getAttribute("id"));
+//		map.put("c_refer", record.getC_refer().toString());
+//		map.put("c_step", record.getC_step().toString());
+//		map.put("c_depth", record.getC_depth().toString());
+//		
+//		System.out.println("Map:"+map);
+//		
+//		//서비스 호출
+//		mainCommentService.reply(map);
+//		System.out.println("여기까지 오냐?");
+//	
+//		return map.get("bsc_no").toString();
+//	}
 	
 }//class

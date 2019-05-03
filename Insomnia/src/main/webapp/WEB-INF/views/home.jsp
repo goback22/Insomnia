@@ -307,7 +307,7 @@ $(function(){
 						</a>
 					<!-- 네이버 로그인 display:none -->
 					<!-- <div id="naver_id_login" style="display: none;"></div> -->
-					<div id="naverIdLogin"></div>
+<!-- 					<div id="naverIdLogin"></div> -->
 						
 					<!-- 사용자 계정정보 -->
 					<%-- <div style="display:none;" id="hid">${loginRecord.login_chain }</div>
