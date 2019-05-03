@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -53,6 +54,7 @@ public class AdminController {
 		int yesterday = adminService.selectYesterDayNewMember(map);
 		int twodaysAgo = adminService.selectTwoDaysAgoNewMember(map);
 		
+		
 		model.addAttribute("newMemberList", newMemberList);
 		model.addAttribute("todayMember", todayMember);
 		model.addAttribute("yesterdayMember", yesterday);
@@ -67,7 +69,11 @@ public class AdminController {
 	
 	//전체 회원보기
 	@RequestMapping(value="/admin/allmember.ins")
-	public String allMember(HttpServletRequest req,Map map,Model model,@RequestParam(required=false,defaultValue="1") int nowPage) throws Exception {
+	public String allMember(HttpServletRequest req,
+							Map map,
+							Model model,
+							@RequestParam(required=false,defaultValue="1") int nowPage
+							) throws Exception {
 		//총 회원수
 		int totalMembers = adminService.getTotalRecord(map);
 		
@@ -87,8 +93,10 @@ public class AdminController {
 		//전체 회원 보이기
 		List<AdminDTO> allMemberList = adminService.selectList(map);
 		
+				
 		model.addAttribute("nowPage", nowPage);
-		model.addAttribute("totalMemberCount", totalMembers);
+		model.addAttribute("pageSize",pageSize);
+		model.addAttribute("totalMemberCount", totalMembers);//
 		model.addAttribute("femaleMember", femaleMembers);
 		model.addAttribute("list", allMemberList);
 		model.addAttribute("pagingString", pagingString);
@@ -126,11 +134,6 @@ public class AdminController {
 		return "/admin/AdminNewMember";
 	}
 	
-	@RequestMapping(value="/admin/submember.ins")
-	public String subMember()throws Exception {
-		return "/admin/AdminSubMember";
-	}
-	
 	//main
 	@RequestMapping(value="/admin/maincontentmember.ins")
 	public String mainContentMember(Map map,Model model) throws Exception {
@@ -144,7 +147,10 @@ public class AdminController {
 				bandMusicAll.add(dto2);
 			}
 		}
-			
+		//bandmember
+		List<AdminDTO> bandMember = adminService.selectBandMember(map);
+		
+		model.addAttribute("bandMember", bandMember);
 		model.addAttribute("bandlist", list);
 		model.addAttribute("bandmusiclist", bandMusicAll);
 		return "/admin/AdminMainContentMember";
@@ -168,10 +174,20 @@ public class AdminController {
 		return "/admin/AdminMainPay";
 	}
 	
+	//pay
+	@RequestMapping("/admin/paysub.ins")
+	public String paySub() throws Exception{
+		return "/admin/AdminSubPay";
+	}
+	
 	//member detail view
 	@RequestMapping(value="/admin/memberView.ins")
-	public String memberView(Map map,Model model) throws Exception{
-		
+	public String memberView(@RequestParam String id,Map map,Model model) throws Exception{
+		System.out.println("id넘어가는지 확인 :"+id);
+		AdminDTO list = adminService.selectOne(id);//lee@naver.com:ClassCastException,kim@naver.com:TooManyResultsException
+		System.out.println(list);
+		model.addAttribute("id", id);
+		model.addAttribute("memberView", list);
 		return "/admin/AdminMainMemberView";
 	}
 }/////////////

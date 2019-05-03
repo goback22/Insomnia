@@ -61,13 +61,13 @@ $(function(){
 	//2 밑에 삭제버튼 클릭시
 //	$('table').next('div').click(function(){
 	$('.checkeddelete').click(function(){	
-		console.log("전체삭제");
+		console.log("선택삭제버튼");
 		if($(':checkbox:first').is(':checked')){
-			$(':checkbox[name=allmember]').each(function(){
-			var tr_value = $(this).val();
-            var tr=$("tr[data-tr_value='"+tr_value+"']");
-            tr.remove();
-			});
+//			$(':checkbox[name=allmember]').each(function(){
+//				var tr_value = $(this).val();
+//	            var tr=$("tr[data-tr_value='"+tr_value+"']");
+//	            tr.remove();
+//			});
 			$(':checkbox:first').prop('checked',false);
 			
 		}

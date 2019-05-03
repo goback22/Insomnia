@@ -50,7 +50,7 @@
 }
 
 #active li ul {
-	list-style: none;
+/* 	list-style: none; */
 }
 #active li ul li {
 	padding-bottom: 15px;
@@ -58,14 +58,9 @@
 #active li ul li a{
 	color:#ffffff;
 }
-/* #active li ul li a:hover { */
-/* 	color:#ffffff; */
-/* 	font-weight: bolder; */
-/* 	font-size: 1.2em; */
-/* } */
-/* #active li:hover{ */
-/* 	color:#ffffff; */
-/* } */
+/**/
+
+/**/
 #page-wrapper {
 	padding:50px 20px 0 240px;
 	/* 	background-color: #060606; */

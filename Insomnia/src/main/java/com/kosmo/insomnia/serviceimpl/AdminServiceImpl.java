@@ -31,9 +31,10 @@ public class AdminServiceImpl implements AdminService{
 		return dao.selectBandMusicList(string);
 	}
 	
+	//member 상세보기
 	@Override
-	public AdminDTO selectOne(Map map) {
-		return dao.selectOne(map);
+	public AdminDTO selectOne(String string) {
+		return dao.selectOne(string);
 	}
 
 	@Override
@@ -84,6 +85,12 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int selectTwoDaysAgoNewMember(Map map) {
 		return dao.selectTwoDaysAgoNewMember(map);
+	}
+
+	@Override
+	public List<AdminDTO> selectBandMember(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectBandMember(map);
 	}
 
 	

@@ -16,10 +16,11 @@ public interface AdminService {
 	List<AdminDTO> selectBandList(Map map);
 	//band music
 	List<AdminDTO> selectBandMusicList(String string);
-	
+	//bandmember
+	List<AdminDTO> selectBandMember(Map map);
 	
 	//상세보기
-	AdminDTO selectOne(Map map);
+	AdminDTO selectOne(String string);
 	
 	
 	//입력/수정/삭제용]
