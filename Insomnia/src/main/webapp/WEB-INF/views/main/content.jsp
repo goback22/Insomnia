@@ -21,6 +21,7 @@
 		
 	    //댓글 작성
 	    $('#submit').click(function() {
+	    	//Send Commit 누를 때
 	       if ($(this).val() == 'Send Comment') {
 	    	  //console.log('SEND COMMENT가 인식됩니다.');
 	          var action = "<c:url value='/main/memowrite.ins'/>";
@@ -32,8 +33,10 @@
 	         	}//if
 	       }//if
 
-	       else{//수정
+	       //Edit Commit 누를 때
+	       if ($(this).val() == 'Edit Comment') {
 	          var action = "<c:url value='/main/memoedit.ins'/>";
+	          console.log('액션 찍힘');
 	       }
 
 	       $.ajax({

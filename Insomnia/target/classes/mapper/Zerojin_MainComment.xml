@@ -10,7 +10,7 @@
    </select>
    
    <insert id="mainCommentInsert" parameterType="java.util.Map" >
-   insert into BANDSUBMIT_COMMENT(bsc_no,c_content,c_post_date,id) values(SEQ_BSC_NO.nextval,#{c_content, jdbcType=VARCHAR},default,#{id, jdbcType=VARCHAR})
+   insert into BANDSUBMIT_COMMENT(bsc_no,c_content,c_post_date,id) values(SEQ_BANDSUBMIT_COMMENT.nextval,#{c_content, jdbcType=VARCHAR},default,#{id, jdbcType=VARCHAR})
    </insert>
    
    <update id="mainCommentUpdate" parameterType="java.util.Map">

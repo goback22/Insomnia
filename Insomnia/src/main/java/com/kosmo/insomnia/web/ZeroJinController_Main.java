@@ -96,10 +96,14 @@ public class ZeroJinController_Main {
 	
 	//코멘트 수정처리]
 	@ResponseBody
-	@RequestMapping(value="/main/memoeit.ins",produces="text/html; charset=UTF-8")
+	@RequestMapping(value="/main/memoedit.ins",produces="text/html; charset=UTF-8")
 	public String mainCommentUpdate(@RequestParam Map map) throws Exception{
+		System.out.println("여기 들어오나요?");
+		
 		//서비스 호출]
 		mainCommentService.update(map);
+		
+		System.out.println("여기 들어오나요??");
 		
 		return "";
 	}//
