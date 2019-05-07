@@ -93,12 +93,14 @@ body {
 									<dt>
 									<!-- ajax -->
 									<c:if test="${empty record.login_chain}" var="isSocial">
-										<img class="profile-img2" src="${kyj}"/>
+
+										<img class="profile-img2" src="${img }"/>
 
 									</c:if>
 
 									<c:if test="${not isSocial}">
-										<img class="profile-img2" src='${kyj}'/>
+
+										<img class="profile-img2" src='${loginRecord.profile_img }'/>
 									</c:if>
 									<div class="filebox"> 
 										<label for="imgUpload1">프로필 변경</label> 
@@ -300,6 +302,9 @@ body {
 							    $('.profile-img2').prop('src', photoUrl); // 이미지 변경
 							    
 							  });
+						}
+						,error:function(data){
+							console.log("에러다!!");
 						}
 					});
 				});

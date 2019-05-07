@@ -309,7 +309,7 @@
 														<div class="txt-l">이메일</div>
 													</th>
 													<td>
-														<input type="text" name="subPay_Email1" form="order_form" value="" class="MS_input_txt" maxlength="25" size="4">
+														<input type="text" id="email_2" name="subPay_Email1" form="order_form" value="" class="MS_input_txt" maxlength="25" size="4">
 														@
 														<input type="text" name="subPay_Email_Self" form="order_form" id="email_self" value="" class="MS_input_txt" maxlength="10" size="4" style="display: none;">
 														<select name="subPay_Email2" class="choose_email_2">

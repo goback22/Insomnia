@@ -17,6 +17,8 @@
 		INSERT INTO band(b_no, b_name, ct_no, b_album_cover, b_liked) values(seq_band.nextval, #{band_name},#{select_category},#{coverName}, 0)
 	</insert>
 	
+	
+	
 	<select id="isMember_createNewBand" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT id FROM members where id=#{id}
 	</select>
@@ -38,8 +40,8 @@
 	</select>
 	
 	<select id="getBandSubmitWaitingDTOList" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandSubmitWaitingDTO">
-		SELECT sw_no, b_no, sw_banner, sw_short_description, sw_long_description, sw_image_1, sw_image_2, sw_image_3
-			sw_youtube, sw_content, sw_postdate FROM bandsubmitWaiting WHERE b_no = #{b_no}
+		SELECT sw_no, b_no, sw_banner, sw_short_description, sw_long_description, sw_image_1, sw_image_2, sw_image_3,
+			sw_youtube, sw_youtube_title, sw_content, sw_postdate, sw_isAccept FROM bandsubmitWaiting WHERE b_no = #{b_no}
 	</select>
 	
 	<select id="getBandImgDTOList" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandImgDTO">
@@ -70,5 +72,28 @@
 		INSERT INTO bandMusic(bm_no, b_no, bm_name, bm_description, bm_liked, ct_no, bm_filename) 
 		values(seq_bandMusic.nextval, #{b_no}, #{bm_name},#{bm_description},#{bm_liked},#{ct_no}, #{bm_filename})
 	</insert>
+	
+	<insert id="addBandSubmitWaiting" parameterType="com.kosmo.insomnia.service.BandSubmitWaitingDTO">
+		INSERT INTO BandSubmitWaiting(sw_no, b_no, sw_banner, sw_short_description, sw_long_description, sw_image_1, sw_image_2, sw_image_3, sw_youtube, sw_content, sw_postdate, sw_youtube_title) 
+		VALUES(seq_bandSubmitWaiting.nextval, #{b_no},#{sw_banner},#{sw_short_description},#{sw_long_description},#{sw_image_1},#{sw_image_2},#{sw_image_3},#{sw_youtube},#{sw_content},sysdate, #{sw_youtube_title})
+	</insert>
+	
+	<insert id="addRewardWaiting" parameterType="com.kosmo.insomnia.service.RewardWaitingDTO">
+		INSERT INTO RewardWaiting(rw_no, sw_no, rw_price, rw_name, rw_description)
+		VALUES(seq_RewardWaiting.nextval, #{sw_no},#{rw_price},#{rw_name},#{rw_description})
+	</insert>
+	
+	<select id="getListBandMusicDTO" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandMusicDTO">
+		SELECT bm_no, b_no, bm_name, bm_description, bm_liked, ct_no, bm_filename FROM BandMusic WHERE b_no = #{b_no}
+	</select>
+	
+	<select id="getListRewardWaitingDTO" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.RewardWaitingDTO">
+		SELECT rw_no, sw_no, rw_price, rw_name, rw_description FROM RewardWaiting WHERE sw_no = #{sw_no}
+	</select>
+	
+	<select id="allBand" resultType="com.kosmo.insomnia.service.BandDTO">
+		SELECT b_no, b_name, b_description, b_album_cover, bm_title, b_liked, ct_no FROM Band
+	</select>
+	
 	
 </mapper>

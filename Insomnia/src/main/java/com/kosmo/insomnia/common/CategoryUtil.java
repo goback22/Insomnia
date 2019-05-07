@@ -3,7 +3,9 @@ package com.kosmo.insomnia.common;
 import java.util.List;
 import java.util.Vector;
 
+import com.kosmo.insomnia.service.BandDTO;
 import com.kosmo.insomnia.service.BandMusicDTO;
+import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
 
 public class CategoryUtil {
 
@@ -68,6 +70,74 @@ public class CategoryUtil {
 		}///switch
 		return dto;
 	}///convertCt_name_cssToCt_no
+	
+	
+	public static BandDTO setCt_nameInBandDTO(BandDTO dto) {
+		switch(dto.getCt_no()) {
+		case "1": 
+			dto.setCt_name("포크·팝");
+			dto.setCt_name_css("folk-pop");
+			break;
+		case "2": 
+			dto.setCt_name("재즈·클래식");
+			dto.setCt_name_css("jazz-classic");
+			break;
+		case "3": 
+			dto.setCt_name("힙합");
+			dto.setCt_name_css("hiphop");
+			break;
+		case "4": 
+			dto.setCt_name("댄스·일렉트로닉");
+			dto.setCt_name_css("dance-electronic");
+			break;
+		case "5": 
+			dto.setCt_name("락·메탈");
+			dto.setCt_name_css("rock-metal");
+			break;
+		case "6": 
+			dto.setCt_name("국악");
+			dto.setCt_name_css("traditional");
+			break;
+		}//switch
+		return dto;
+	}//setCt)nameInBandDTO
+	
+	public static BandSubmitWaitingDTO setCt_noInBandSubmitWaitingDTO(BandSubmitWaitingDTO dto, String ct_no) {
+		switch(ct_no) {
+		case "1": 
+			dto.setCt_no(ct_no);
+			dto.setCt_name("포크·팝");
+			dto.setCt_name_css("folk-pop");
+			break;
+		case "2":
+			dto.setCt_no(ct_no);
+			dto.setCt_name("재즈·클래식");
+			dto.setCt_name_css("jazz-classic");
+			break;
+		case "3": 
+			dto.setCt_no(ct_no);
+			dto.setCt_name("힙합");
+			dto.setCt_name_css("hiphop");
+			break;
+		case "4": 
+			dto.setCt_no(ct_no);
+			dto.setCt_name("댄스·일렉트로닉");
+			dto.setCt_name_css("dance-electronic");
+			break;
+		case "5": 
+			dto.setCt_no(ct_no);
+			dto.setCt_name("락·메탈");
+			dto.setCt_name_css("rock-metal");
+			break;
+		case "6": 
+			dto.setCt_no(ct_no);
+			dto.setCt_name("국악");
+			dto.setCt_name_css("traditional");
+			break;
+		}//switch
+		return dto;
+	}////setCt_noInBandSubmitWaitingDTO
+	
 	
 	
 	//ct_no 값을 가진 DTO를 저장한 List를 입력해 ct_name과 ct_name_css를 채워서 반환

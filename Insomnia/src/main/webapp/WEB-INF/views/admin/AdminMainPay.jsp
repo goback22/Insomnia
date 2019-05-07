@@ -15,6 +15,8 @@
 	<link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>" rel="stylesheet">
 	<link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>" rel="stylesheet">
 	<link href="<c:url value='/vendor/css/admin_jqbar.css'/>" rel="stylesheet">
+	
+	
 </head>
 <body>
 
@@ -154,30 +156,9 @@
 								</table>
 								
 								<!-- about checked -->
-								<div>
-									<div class="btn btn-default checkeddelete">삭제</div>
-									<div class="btn btn-default">수락</div>
-									<div class="btn btn-default">거부</div>
+								<div align="center">
 									<!-- 페이징 -->
-									<div class="text-center">
-										<ul class="pagination">
-										    <li>
-										      <a href="#" aria-label="Previous">
-										        <span aria-hidden="true">&laquo;</span>
-										      </a>
-										    </li>
-										    <li><a href="#">1</a></li>
-										    <li><a href="#">2</a></li>
-										    <li><a href="#">3</a></li>
-										    <li><a href="#">4</a></li>
-										    <li><a href="#">5</a></li>
-										    <li>
-										      <a href="#" aria-label="Next">
-										        <span aria-hidden="true">&raquo;</span>
-										      </a>
-										    </li>
-										</ul>
-									</div>
+									paging area
 									<!-- 페이징 -->
 								</div>
 								<!-- about checked end -->
@@ -198,14 +179,29 @@
 							</h3>
 						</div>
 						<div class="bars" align="center">
+<!-- 							<div id="sub_chart" style="height: 100%;"></div> -->
 							<div id="bar-1"></div>
+							
 						</div>
 					</div>
 				</div>
 				<!-- chart end -->
 			</div>
 			<!--  -->
-			
+			<div class="col-sm-3">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							band진행(보류중)
+						</h3>
+					</div>
+					<div class="panel-body feed">
+						<section class="feed-item">
+							<div id="sub_chart" style="height: 100%;"></div>
+						</section>
+					</div>
+				</div>
+			</div>
 			
 			
 			
@@ -232,5 +228,28 @@ let showAllOne = "진행중인 band name";
 </script>
 <%-- <script src="<c:url value='/vendor/js/admin_chart_test.js'/>" type="text/javascript"></script> --%>
 
+<script type="text/javascript">
+//band chart
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawBandBasic);
+function drawBandBasic() {
+	var firstBand = '1st';
+	var data = google.visualization.arrayToDataTable([
+	        ['bandReward', 'reward1', 'reward2', 'reward3', 'reward4',
+	          { role: 'annotation' } ],
+	        [firstBand, 10, 24, 20, 32, '']
+	      ]);
+	      var suboptions = {
+	        width: 350,
+	        legend: { position: 'top', maxLines: 2 },
+	        bar: { groupWidth: '60%' },
+	        maintainAspectRatio: false,
+	        isStacked: true
+	      };
+	      var chart = new google.visualization.BarChart(document.getElementById('sub_chart'));
+	      chart.draw(data, suboptions);
+	    };
+});
+</script>
 </body>
 </html>

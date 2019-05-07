@@ -39,8 +39,8 @@ public class AdminDAO implements AdminService{
 	}
 
 	@Override
-	public AdminDTO selectOne(Map map) {
-		return null;
+	public AdminDTO selectOne(String string) {
+		return template.selectOne("memberDetailView",string);
 	}
 
 	@Override
@@ -83,6 +83,11 @@ public class AdminDAO implements AdminService{
 	@Override
 	public int selectTwoDaysAgoNewMember(Map map) {
 		return template.selectOne("twoDayAgoMember",map);
+	}
+	@Override
+	public List<AdminDTO> selectBandMember(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectList("bandMember",map);
 	}
 	
 	

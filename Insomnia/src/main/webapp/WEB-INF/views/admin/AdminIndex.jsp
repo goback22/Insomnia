@@ -42,14 +42,13 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								전체회원(도넛형 남,여)
+								전체회원(남성 여성)
 							</h3>
 						</div>
 						<div class="panel-body feed">
 							<section class="feed-item">
-							<!-- - -->
-								<div id="donutchart" style="width: 100%;height:100%;"></div>
-              				<!-- - -->
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
+								<canvas id="canvas"></canvas>
 							</section>
 						</div>
 					</div>
@@ -58,7 +57,7 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-							신규 가입회원(선or 막대,날짜)a
+							신규 가입회원(오늘 어제 그제)
 							</h3>
 						</div>
 						<div class="panel-body feed">
@@ -82,33 +81,23 @@
 						</div>
 					</div>
 				</div>
+				
+				<!--  -->
 				<div class="col-sm-3">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								sub진행 or band진행 or 방문자수
+								test
 							</h3>
 						</div>
 						<div class="panel-body feed">
 							<section class="feed-item">
-								 <div id="cntr"> 
-						            The number of visitors is : 
-						            <span>0</span>
-						        </div>
-								<script> 
-						            function counter_fn(){
-						                var counter = $('#cntr span').text(); // geting value from span
-						                var count = 0;
-						                count = parseInt(counter.value);//
-						                count = count+1;
-						                counter.innerHTML = parseInt(count);
-						           }
-						           window.onload = counter_fn;  
-						      	</script>
+								 <div id="fourdonutchart" style="height: 100%;"></div>
 							</section>
 						</div>
 					</div>
 				</div>
+				<!--  -->
 			</div>
 			<!-- chart end -->
 			
@@ -205,7 +194,12 @@
 					</div>
 				</div>
 				<!-- 신규회원 보기 끝 -->
-				<!-- band member list -->
+				
+				
+			</div>
+			<!-- 회원관련 끝 -->
+			<div class="row">
+			<!-- band member list -->
 				<div class="col-md-6">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
@@ -245,9 +239,9 @@
 							</section>
 						</div>
 					</div>
-					<!-- band member list -->
+					
 				</div>
-				
+				<!-- band member list -->
 				<!-- band submit -->
 				<div class="col-md-6">
 					<div class="panel panel-primary">
@@ -291,11 +285,11 @@
 							</section>
 						</div>
 					</div>
-					<!-- band member list -->
 				</div>
-				<!--  -->
-			</div>
-			<!-- 회원관련 끝 -->
+				<!-- band submit list -->
+			</div>	
+			<!-- main band end -->
+			
 			<!-- main content -->
 			<div class="row">
 				<div class="col-lg-9">
@@ -521,63 +515,68 @@
 <!-- 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
 <script type="text/javascript">
 $(function(){
-	//total member	
-	google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawAllMemberChart);
-    function drawAllMemberChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['gender', 'membercount'],
-        ['남자',	(${totalMemberCount}-${femaleMember})],
-        ['여자',	${femaleMember}]
-      ]);
-
-      var options = {
-        pieHole: 0.2,
-        'chartArea':{
-			  'width':'80%',
-			  'height':'80%'
-        },
-        legend: { 
-        	position: "left", 
-        	textStyle: { 
-        		fontSize: 14 
-        	} 
-        }
-        
-      };
-
-      var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-      chart.draw(data, options);
-      
-    };
+	//member chart
+	var ctx = document.getElementById("canvas");
+	var data = {
+	    datasets: [{
+	        data: [
+	        	Math.round((${totalMemberCount}-${femaleMember})/${totalMemberCount}*100), 
+	        	Math.round(${femaleMember}/${totalMemberCount}*100)
+	        ],
+	        backgroundColor: [
+	            "#333EDA",
+	            "#DE083D"
+	        ],
+	        label: 'My dataset' // for legend
+	    }],
+	    labels: [
+	        "남성회원 : "+(${totalMemberCount}-${femaleMember})+" 명",
+	        "여성회원 : "+${femaleMember}+" 명"
+	    ]
+	};
+	var pieChart = new Chart(ctx, {
+	    type: 'pie',
+	    data: data,
+	    options: {
+	        tooltips: {
+	            callbacks: {
+	                label: function(tooltipItems, data) {
+	                    return data.labels[tooltipItems.index] + 
+	                    " : " + 
+	                    data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] +
+	                    ' %';
+	                }
+	            }
+	        }
+	    }
+	});
 	    
 //new member chart
-		//date
-		var today = new Date();
-		var dd = today.getDate();
-		var dd2ago = today.getDate()-2;
-		var mm = today.getMonth()+1; //January is 0
-		var yyyy = today.getFullYear();
-		if(dd<10) {
-		    dd='0'+dd
+		//그제
+		var nowDate = new Date();
+		var twoagoDate = nowDate.getTime() - (2*24*60*60*1000);
+		nowDate.setTime(twoagoDate);
+		var twoagoMonth = nowDate.getMonth()+1;
+		var twoagoDay = nowDate.getDate();
+		if(twoagoMonth < 10){
+			twoagoMonth = "0"+twoagoMonth;
 		}
-		if(dd2ago<10) {
-			dd2ago='0'+dd2ago
-		}
-		var twodaysAgo = mm+'월'+dd2ago+"일";
-		today = yyyy+'-'+mm+'-'+dd;
-
+		if(twoagoDay < 10){
+			twoagoDay = "0"+twoagoDay;
+		}		
+		var resultDate = twoagoMonth+"월 "+twoagoDay+"일";
+		
 		google.charts.load("current", {packages:["corechart"]});
 		google.charts.setOnLoadCallback(drawChart);
 		function drawChart() {
 	    	var data = google.visualization.arrayToDataTable([
 	          ['Date', '신규회원'	],
-	          [twodaysAgo,  ${twodayagoMember}		],
+	          [resultDate,  ${twodayagoMember}		],
 	          ['yesterday',  ${yesterdayMember}		],
 	          ['today',  ${todayMember}	]
 	        ]);
 	    	var options = {
-   	          curveType: 'function',
+	    	  displayAnnotations: true,
    	          legend: 'none',
 			  lineWidth: 3,
 			  'chartArea':{
@@ -586,14 +585,18 @@ $(function(){
 			  },
 			  'hAxis':{
 				  'textStyle':{
-					  'fontSize':12
+					  'fontSize':14
 				  }
 			  },
 			  'vAxis':{
 				  'textStyle':{
-					  'fontSize':12
+					  'fontSize':14
 				  }
-			  }
+			  },
+			  animation:{
+	            duration: 1000,
+	            startup: true
+	          }
 			  
    	          
    	        };
@@ -602,6 +605,9 @@ $(function(){
 		chart.draw(data,options);
       };
 //band chart
+
+	var divlength = $('#sub_chart').width();
+	
 	google.charts.load('current', {packages: ['corechart', 'bar']});
 	google.charts.setOnLoadCallback(drawBandBasic);
 	function drawBandBasic() {
@@ -617,11 +623,16 @@ $(function(){
 		      ]);
 
 		      var suboptions = {
-		        width: 350,
+		        width: divlength,
 		        legend: { position: 'top', maxLines: 2 },
 		        bar: { groupWidth: '60%' },
 		        maintainAspectRatio: false,
-		        isStacked: true
+		        isStacked: true,
+			  animation:{
+		            duration: 1000,
+		            easing: 'linear',
+		            startup: true
+		          }
 		      };
 		      var chart = new google.visualization.BarChart(document.getElementById('sub_chart'));
 
@@ -629,7 +640,36 @@ $(function(){
 		    };
  	
 });
-   
+//4th chart
+
+		var male = ${totalMemberCount}-${femaleMember};
+		var female = ${femaleMember};
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'members'],
+          ['남성:'+male+' 명',${totalMemberCount}-${femaleMember}],
+          ['여성:'+female+' 명',${femaleMember}]
+        ]);
+
+        var options = {
+          pieHole: 0.4,
+        'chartArea':{
+			  'width':'80%',
+			  'height':'80%'
+        },
+        legend:{
+        	position:'left',
+        	textStyle: { 
+        		fontSize: 15
+        	}
+        }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('fourdonutchart'));
+        chart.draw(data, options);
+      }
 </script>
 	
 </body>

@@ -1,8 +1,10 @@
+/*
+
 jQuery(document).ready(function($) {
-  "use strict";
-  console.log("myplaylist.js start");
+  var b_no = "${record.b_no}";
+  
   $.ajax({
-	  url:"/insomnia/music/loadMusicToHeaderPlayer.ins",
+	  url:"<c:url value='/band/loadPlayList.ins'/>",
 	  type:'post',
 	  dataType:'json',
 	  success: function(data){
@@ -17,7 +19,7 @@ jQuery(document).ready(function($) {
   });
   
   function loadMusicList(data){
-  /* Banner Player */
+
   $('#header_player').each(function() {
     var myPlaylist = new jPlayerPlaylist({
       jPlayer: "#main_player",
@@ -141,3 +143,5 @@ jQuery(document).ready(function($) {
   });
 
 });
+
+*/

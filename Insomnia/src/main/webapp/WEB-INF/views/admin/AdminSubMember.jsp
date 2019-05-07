@@ -43,25 +43,21 @@
 							<section class="feed-item">
 								<table class="table table-hover" id="membercheckbox">
 									<tr>
-										<th class="col-md-1"><input type="checkbox" value="all"/>&nbsp;&nbsp;no</th>
-										<th class="col-md-1 text-center">id</th>
-										<th class="col-md-2 text-center">name</th>
-										<th class="col-md-2 text-center">email</th>
-										<th class="text-center">kind?(persol/company)</th>
-										<th class="col-md-1 text-center">성별</th>
-										<th class="col-md-1 text-center">방구석</th>
+<!-- 										<th class="col-md-1"><input type="checkbox" value="all"/>&nbsp;&nbsp;no</th> -->
+										<th class="col-md-1 text-center">BGSCONCERT.bsgco_no</th>
+										<th class="col-md-2 text-center">BGSCONCERT.b_title</th>
+										<th class="text-center">BGSCONCERT.b_content</th>
+										<th class="col-md-2 text-center">BGSCONCERT.b_place</th>
 										<!-- 삭제 버튼을 위한 한줄 -->
 									</tr>
 									<!-- DB에서 꺼내서~ each~~...tq -->
 									<tr class="view">
-										<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;1</td>
-										<td class="text-center">kimkildong@navet.com</td>
-										<td class="text-center">김길동</td>
-										<td class="text-center">kimkildong@navet.com</td>
-										<td class="text-center">개인회원</td>
-										<th class="text-center">남</th>
-										<th class="text-center">x</th>
-										<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
+<!-- 										<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;1</td> -->
+										<td>1</td>
+										<td class="text-center">방구석 제목</td>
+										<td class="text-center">방구석 내용</td>
+										<td class="text-center">방구석 장소</td>
+<!-- 										<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td> -->
 									</tr>
 									<!-- 위의 detail -->
 									<tr class="fold" style="background-color:#c8c8c8;">
@@ -119,24 +115,14 @@
 									      </td>
 										</tr>
 										<!-- 위의 detail 끝 -->
-									<tr>
-										<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;2</td>
-										<td class="text-center">email@naver.com</td>
-										<td class="text-center">김사랑</td>
-										<td class="text-center">email@naver.com</td>
-										<td class="text-center">방구석</td>
-										<th class=" text-center">남</th>
-										<th class="text-center">yes</th>
-										<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-									</tr>
 									<!-- DB에서 꺼내기 끝 -->
 								</table>
 							</section>
 							
 							<div>
 								<div class="btn btn-default checkeddelete">삭제</div>
-								<div class="btn btn-default">수락</div>
-								<div class="btn btn-default">거부</div>
+								<div class="btn btn-default checkedapply">수락</div>
+								<div class="btn btn-default checkdeny">거부</div>
 								<div align="center">페이징a</div>
 							</div>
 							
@@ -161,5 +147,6 @@ $(".view").on("click", function(){
 	$(this).next(".fold").toggle();
 });
 </script>
+
 </body>
 </html>

@@ -22,8 +22,6 @@ $(function(){
 				"top" : 1073+"px"
 			},1000)
 		}
-		console.log(scrollTop + floatPosition);
-
 	}).scroll();
 	//===================================스테파니쌤=====================================
 
@@ -174,7 +172,8 @@ $(function(){
 		full_email1 = $("input[name=subPay_Email1]").val()+"@";
 		if($(this).val() == $(".choose_email_2 option").length-1){
 			$("#email_self").css("display","");
-			full_email+=$("input[name=subPay_Email_Self]").val();
+			full_email2 = $("input[name=subPay_Email_Self]").val();
+			console.log('zdzsd');
 		}else{
 			$("#email_self").css("display","none");
 			if($(this).val() == 0){
@@ -189,6 +188,7 @@ $(function(){
 			
 		}
 		full_email = full_email1+full_email2;
+		console.log("풀 이메일 : "+full_email)
 	});
 //===============================================================================	
 	
@@ -440,10 +440,9 @@ $("#asmr2").hover(function(){
 	
 //================================ 유효성 검사 ==================================
 //결제 완료 변수]
-var isComplete;
+var isComplete = false;
 $(document).on("click",".btn_order_ok",function(){
 	//1. 주문리스트 제품]
-	console.log("체크 : "+$(".thumb input[type=checkbox]").prop("checked"));
 	if(pay_Way == 'B'){ // 체크한거가 무통장 일 때
 		if($(".thumb input[type=checkbox]").prop("checked") == false){
 			alert("하나 이상의 제품을 선택하세요!");
@@ -524,15 +523,22 @@ $(document).on("click",".btn_order_ok",function(){
 			return;
 		}
 		//3. 예매 정보] - 이메일
-		else if($("#email").val() == ""){
+		else if($("#email_2").val() == ""){
 			alert("이메일을 입력하세요!");
-			$("#email").focus();
+			$("#email_2").focus();
 			return;
 		}
 		//4. 예매 정보] - 연락처
 		else if($("#emergency21").val() == "" || $("#emergency22").val() == "" || $("#emergency23").val() == ""){
 			alert("연락처를 입력하세요!");
 			$("#emergency21").focus();
+			return;
+		}
+		else if(agree == 'N'){
+			alert("정보수집에 동의해주세요.");
+			return;
+		}else if($("#pay_agree").prop("checked") == ""){
+			alert("구매 진행에 동의해주세요.");
 			return;
 		}
 		$.ajax({
@@ -544,7 +550,7 @@ $(document).on("click",".btn_order_ok",function(){
 				
 			},
 			error: function(data){
-				console.log("에러 : "+data);
+				console.log("에러다아아아 : "+data);
 			}
 			
 		})
@@ -598,14 +604,14 @@ var successPay = function(data){
 		console.log(rsp);
 		if (rsp.success) {
 			var msg = '결제가 완료되었습니다.';
-			msg += '고유ID : ' + rsp.imp_uid;
-			msg += '상점 거래ID : ' + rsp.merchant_uid;
-			msg += '결제 금액 : ' + rsp.paid_amount;
-			msg += '카드 승인번호 : ' + rsp.apply_num;
+//			msg += '고유ID : ' + rsp.imp_uid;
+//			msg += '상점 거래ID : ' + rsp.merchant_uid;
+//			msg += '결제 금액 : ' + rsp.paid_amount;
+//			msg += '카드 승인번호 : ' + rsp.apply_num;
 			isComplete = true;
 		} else {
 			var msg = '결제에 실패하였습니다.';
-			msg += '에러내용 : ' + rsp.error_msg;
+//			msg += '에러내용 : ' + rsp.error_msg;
 			isComplete = false;
 			$.ajax({
 				url: "/insomnia/Pay/PayCancle.ins",

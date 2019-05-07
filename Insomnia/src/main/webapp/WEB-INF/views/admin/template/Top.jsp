@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+
+</style>
 <script>
 $(function(){
-	//$('.secondlevel').hide();
-// 	$('.firstlevel').click(function(){
-// 		$('.secondlevel').hide(500);
-// 		$(this).children().next().toggle();
-// 	});
+	
+	
 });
 
 </script>
@@ -26,7 +26,7 @@ $(function(){
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<!-- side -->
 				<ul id="active" class="nav navbar-nav side-nav">
-					<li class="selected"><a href="<c:url value='/admin/index.ins'/>">관리자 메인</a>
+					<li class="firstlevel"><a href="<c:url value='/admin/index.ins'/>">관리자 메인</a>
 						
 					</li>	
 					<li class="firstlevel"><a href="#">회원관리<b class="caret"></b></a>
@@ -49,9 +49,7 @@ $(function(){
 					<li class="firstlevel"><a href="#">sub content?<b class="caret"></b></a>
 						<!--  -->
 						<ul class="secondlevel">
-							<li><a href="<c:url value='/admin/subcontent.ins'/>">sub 목록(not yet)</a></li>
-							<li><a href="#">sub 신청 회원(not yet)</a></li>
-							<li><a href="#">sub 공연정보(not yet)</a></li>
+							<li><a href="<c:url value='/admin/subcontent.ins'/>">sub 목록 & 신청회원보기</a></li>
 							<li><a href="#">sub bbs(not yet)</a></li>
 						</ul>
 					</li>
@@ -59,7 +57,7 @@ $(function(){
 						<!--  -->
 						<ul class="secondlevel">
 							<li><a href="<c:url value='/admin/paymain.ins'/>">main 결제</a></li>
-							<li><a href="#">sub 결제(not yet)</a></li>
+							<li><a href="<c:url value='/admin/paysub.ins'/>">sub 결제(ing)</a></li>
 						</ul>
 					</li>
 					<li><a href="#">etc</a></li>

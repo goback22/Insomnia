@@ -13,15 +13,65 @@ public class BandSubmitWaitingDTO {
 	private String sw_image_2;
 	private String sw_image_3;
 	private String sw_youtube;
+	private String sw_youtube_title;
 	private String sw_content;
 	private String sw_postDate;
+	private String sw_isAccept;
+	
+	//편의상 추가
+	private String ct_name;
+	private String ct_no;
+	private String ct_name_css;
+	private String b_name;
+	private String sw_youtube_thumbnail;
 	
 	
 	
 	
-	
+	public String getB_name() {
+		return b_name;
+	}
+	public String getSw_youtube_thumbnail() {
+		return sw_youtube_thumbnail;
+	}
+	public void setSw_youtube_thumbnail(String sw_youtube_thumbnail) {
+		this.sw_youtube_thumbnail = sw_youtube_thumbnail;
+	}
+	public String getSw_isAccept() {
+		return sw_isAccept;
+	}
+	public void setSw_isAccept(String sw_isAccept) {
+		this.sw_isAccept = sw_isAccept;
+	}
+	public void setB_name(String b_name) {
+		this.b_name = b_name;
+	}
+	public String getSw_youtube_title() {
+		return sw_youtube_title;
+	}
+	public void setSw_youtube_title(String sw_youtube_title) {
+		this.sw_youtube_title = sw_youtube_title;
+	}
 	public String getIsExist() {
 		return isExist;
+	}
+	public String getCt_name() {
+		return ct_name;
+	}
+	public void setCt_name(String ct_name) {
+		this.ct_name = ct_name;
+	}
+	public String getCt_no() {
+		return ct_no;
+	}
+	public void setCt_no(String ct_no) {
+		this.ct_no = ct_no;
+	}
+	public String getCt_name_css() {
+		return ct_name_css;
+	}
+	public void setCt_name_css(String ct_name_css) {
+		this.ct_name_css = ct_name_css;
 	}
 	public void setIsExist(String isExist) {
 		this.isExist = isExist;
@@ -92,5 +142,6 @@ public class BandSubmitWaitingDTO {
 	public void setSw_postDate(String sw_postDate) {
 		this.sw_postDate = sw_postDate;
 	}
+	
 	
 }//class

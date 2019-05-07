@@ -350,10 +350,16 @@ $(function(){
 						<a href="javascript:return false;" class="offset-closer">
 							<img style="margin-left: 270px; margin-top: -60px; height:15px; width:15px;" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
 						</a>
+<<<<<<< HEAD
 						<!-- 방법1 -->
 					<div id="naver_id_login" style="display:none;"></div>
 					<!-- 방법2 -->
 					<!-- <div id="naverIdLogin"></div> -->
+=======
+					<!-- 네이버 로그인 display:none -->
+					<!-- <div id="naver_id_login" style="display: none;"></div> -->
+<!-- 					<div id="naverIdLogin"></div> -->
+>>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 						
 					<!-- 사용자 계정정보 -->
 					<%-- <div style="display:none;" id="hid">${loginRecord.login_chain }</div>
@@ -385,13 +391,17 @@ $(function(){
 		            <table class="user_middle">	<!-- 중간메뉴:ul -->	<!-- ul이 1 칸 차지, li display : inline -->
 		              <tr>
 			              <td><a id="middle1" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_apple-music-2_2301791.png'/>"/></a></td>
+<<<<<<< HEAD
 			              <td><a id="middle2" href="<c:url value='/menu/mypage.ins'/>" class=""><img src="<c:url value='/img/iconfinder_microphone_1055023.png'/>"/></a></td>
+=======
+			              <td class="mypage_1"><a id="middle2" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_microphone_1055023.png'/>"/></a></td>
+>>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 			              <td><a id="middle3" href="javascript:void(0)" class=""><img src="<c:url value='/img/followers.png'/>"/></a></td>
 			              <td><a id="middle4" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_heart_289619.png'/>"/></a></td>
 			           </tr>
 			           <tr>
 		           		  <td><label for="middle1">리워드</label></td>
-		           		  <td><label for="middle2">마이페이지</label></td>
+		           		  <td class="mypage_1"><label for="middle2">마이페이지</label></td>
 		           		  <td><label for="middle3">초대하기</label></td>
 		           		  <td><label for="middle4">블라블라</label></td>
 			           		
@@ -723,9 +733,13 @@ $(function(){
 					location.href="<c:url value=''/>";
 				});
 				
+<<<<<<< HEAD
 				$('.user_middle td:nth-child(2)').click(function(){
 					location.href="<c:url value='/menu/mypage3.ins'/>";
 				});
+=======
+				
+>>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 				
 				$('.user_middle td:nth-child(3)').click(function(){
 					location.href="<c:url value=''/>";

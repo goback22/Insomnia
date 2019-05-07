@@ -41,9 +41,19 @@
 	<select id="adminMainMember" parameterType="java.util.Map" resultType="AdminDTO">
 		select * from band
 	</select>
+	<!-- bandmember -->
+	<select id="bandMember" parameterType="java.util.Map" resultType="AdminDTO">
+		select B.*,M.name
+		from members M
+		join bandmember BM on BM.id=M.id
+		join band B on B.b_name = BM.b_name
+	</select>
 	<select id="adminMainMusicList" parameterType="java.lang.String" resultType="AdminDTO">
 		select B.b_no,BM.* from band B join bandmusic BM on B.b_no = BM.b_no where B.b_name=#{B.b_name}
 	</select>
 	
-	
+	<!-- member detail view -->
+	<select id="memberDetailView" parameterType="java.lang.String" resultType="AdminDTO">
+		select * from members where id = #{id}
+	</select>
 </mapper>

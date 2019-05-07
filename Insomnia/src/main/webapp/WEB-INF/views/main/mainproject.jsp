@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="/WEB-INF/views/my/isMember.jsp" %>
+
 
        <style>
           
@@ -39,7 +41,7 @@
         padding:150px;
     }
     .section1{               /* ë°ë¼ë / í¬í¬ */
-        background-image:url('../resource/img/boat.jpg');    
+        background-image:url('../resource/img/main-folk.jpg');    
         background-size:cover;
         background-position:left center;
         height:100%;
@@ -47,28 +49,28 @@
         
     }
     .section2{               /* ì¬ì¦ */
-        background-image:url('../resource/img/jazz.jpg');
+        background-image:url('../resource/img/main-jazz.jpg');
         background-size:cover;
         background-position:top center;
         height:100%;
         background-attachment:fixed;
     }
     .section3{               /* íí© */
-        background-image:url('../resource/img/mic.jpg');
+        background-image:url('../resource/img/main-hiphop.jpg');
         background-size:cover;
         background-position:left center;
         height:100%;
         background-attachment:fixed;
     }
     .section4{               /* ëì¤ */
-        background-image:url('../resource/img/dance.jpg');
+        background-image:url('../resource/img/main-dance.jpg');
         background-size:cover;
         background-position:top center;
         height:100%;
         background-attachment:fixed;
     }
     .section5{               /* ë½ / ë©í */
-        background-image:url('../resource/img/rock.jpg');
+        background-image:url('../resource/img/main-rock.jpg');
         background-size:cover;
         background-position: left center;
         height:100%;
@@ -88,6 +90,16 @@
         box-shadow: 9px 9px 20px -2px rgba(0,0,0,0.4);
     }
 
+.DIV{
+	display:inline-block;
+	position:relative;
+	background-position: center;
+	bandground-repeat: no-repeat;
+	background-size:cover;
+	transition-property: width, height;
+    transition-duration: 0.2s, 0.2s;
+    transition-timing-function:ease-in-out;
+}
     
         /*****************************ì¤í¬ë¡¤ CSS****************************/
 
@@ -100,6 +112,7 @@
     transition: transform 1.0s ease, opacity 1.0s ease;
     transform: translate(0,-10px);
     opacity: 0.0;
+    
 }
 .fromBottomIn{
     transition: transform 1.0s ease, opacity 1.0s ease;
@@ -169,57 +182,27 @@
 
         
 $(function(){
-        ///////////////////////////////////////////////////////////////////////////
-        ////////////////////////////// ì»¨íì¸  div ìì±íê¸° /////////////////////////
+       
+    		$('.DIV').each(function(){
+    		    var w = $(this).width();
+    		    var h = $(this).height();
+    		    $(this).hover(function(){
+    		    $(this).css('transition-property', 'width, height');
+    		    $(this).css('transition-duration', '0.2s, 0.2s');
+    		    $(this).css('transition-timing-function', 'ease-in-out');
+    		    $(this).css('width',w*1.3);
+    		    $(this).css('height',h*1.3);
+    		    },function(){
+    		    $(this).css('width',w);
+    		    $(this).css('height',h);
+    		    });
+
+        });//window.onload
         
-        var seCount = 6;
-        var count = Math.round(Math.random()*5) + 20; // ì¹´íê³ ë¦¬ë³ divê°ì ì¤ì  20~30
-        var wh = (Math.round(Math.random()*100) + 100) + 'px';// divì í¬ê¸° ì¤ì  100~200
-        var color = Math.round(Math.random()*255); // rgbê° ì¤ì ì ìí           0~255
-        var m = Math.round(Math.random()*50)+ 'px';// marginê° 
-        
-
-        
-        
-        for(var i=1; i-1 < seCount; i++){
-
-            var resultString = "";
-
-            for(var j=0; j < count; j++){
-            wh = (Math.round(Math.random()*200) + 50) + 'px';
-            var red = Math.round(Math.random()*255);
-            var green = Math.round(Math.random()*255);
-            var blue = Math.round(Math.random()*255);
-            mt = Math.round(Math.random()*100)+ 'px ';// marginê° 
-            mr = Math.round(Math.random()*100)+ 'px ';// marginê° 
-            ml = Math.round(Math.random()*100)+ 'px ';// marginê° 
-            mb = Math.round(Math.random()*100)+ 'px ';// marginê° 
-
-            resultString = resultString + "<a href='/insomnia/main/content.ins'>"
-            resultString = resultString + "<div class='DIV box-shadow'  data-scroll='toggle(.scaleUpIn, .scaleDownOut)' style='width:"+wh+"; height:"+wh+";background-color:rgb("+red+","+green+","+blue+");display:inline-block; display:inline-block; position:relative; margin:"+mt+mr+ml+mb+";'></div></a>";
-            }     
-
-            $('.section'+i).html(resultString);
-            $('.DIV').each(function(){
-                var w = $(this).width();
-                var h = $(this).height();
-                $(this).hover(function(){
-                $(this).css('transition-property', 'width, height');
-                $(this).css('transition-duration', '0.2s, 0.2s');
-                $(this).css('transition-timing-function', 'ease-in-out');
-                $(this).css('width',w*1.3);
-                $(this).css('height',h*1.3);
-                },function(){
-                $(this).css('width',w);
-                $(this).css('height',h);
-                });
-            });
-
-        }///for
 
         ///////////////////////////////////////////////////////////////////////////
         ////////////////////////////// ìê¸° ë°ê¿ì£¼ë JQuery ////////////////////////
-
+		/*
             $(window).scroll(function(){
                 var ins = $('.instruments');
                
@@ -240,7 +223,7 @@ $(function(){
                     ins.css('left','20px');
                 }
             })
-
+		*/
             /////////////////////////////////////////////////////////////////////////////
             
        });///ready     
@@ -270,12 +253,78 @@ $(function(){
             
 
             <!--  음악 카테고리별 섹션 section -->
-            <div class="sec section1" id="ballad"></div> <!-- Ballad / Fork -->
-            <div class="sec section2" id="jazz"></div> <!-- Jazz / Classic -->
-            <div class="sec section3" id="hiphop"></div> <!-- Hip Hop -->
-            <div class="sec section4" id='dance'></div> <!-- Dance -->
-            <div class="sec section5" id="rock"></div> <!-- Rock / Metal -->
-            <div class="sec section6" id="korea"></div> <!-- Korea -->
+            <div class="sec section1" id="ballad">
+            	<c:forEach items="${folk }" var="folk">
+            		<a href='/insomnia/main/content.ins'>
+			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
+			        	 style="width:${folk.wh}; 
+			        	 height:${folk.wh}; 
+			        	 margin:${folk.mt} ${folk.mr} ${folk.mb} ${folk.ml};
+			        	background-image:url(/insomnia/upload/band/cover/${folk.b_album_cover});">
+			        	</div>
+			        </a>
+            	</c:forEach>
+            </div> <!-- Ballad / Fork -->
+            <div class="sec section2" id="jazz">
+            	<c:forEach items="${jazz }" var="jazz">
+            		<a href='/insomnia/main/content.ins'>
+			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
+			        	 style="width:${jazz.wh}; 
+			        	 height:${jazz.wh}; 
+			        	 margin:${jazz.mt} ${jazz.mr} ${jazz.mb} ${jazz.ml};
+			        	background-image:url(/insomnia/upload/band/cover/${jazz.b_album_cover});">
+			        	</div>
+			        </a>
+            	</c:forEach>
+            </div> <!-- Jazz / Classic -->
+            <div class="sec section3" id="hiphop">
+            	<c:forEach items="${hiphop }" var="hiphop">
+            		<a href='/insomnia/main/content.ins'>
+			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
+			        	 style="width:${hiphop.wh};
+			        	 height:${hiphop.wh}; 
+			        	 margin:${hiphop.mt} ${hiphop.mr} ${hiphop.mb} ${hiphop.ml};
+			        	background-image:url(/insomnia/upload/band/cover/${hiphop.b_album_cover});">
+			        	</div>
+			        </a>
+            	</c:forEach>
+            </div> <!-- Hip Hop -->
+            <div class="sec section4" id='dance'>
+            	<c:forEach items="${dance }" var="dance">
+            		<a href='/insomnia/main/content.ins'>
+			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
+			        	 style="width:${dance.wh}; 
+			        	 height:${dance.wh}; 
+			        	 margin:${dance.mt} ${dance.mr} ${dance.mb} ${dance.ml};
+			        	background-image:url(/insomnia/upload/band/cover/${dance.b_album_cover});">
+			        	</div>
+			        </a>
+            	</c:forEach>
+            </div> <!-- Dance -->
+            <div class="sec section5" id="rock">
+            	<c:forEach items="${rock }" var="rock">
+            		<a href='/insomnia/main/content.ins'>
+			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
+			        	 style="width:${rock.wh}; 
+			        	 height:${rock.wh}; 
+			        	 margin:${rock.mt} ${rock.mr} ${rock.mb} ${rock.ml};
+			        	background-image:url(/insomnia/upload/band/cover/${rock.b_album_cover});">
+			        	</div>
+			        </a>
+            	</c:forEach>
+            </div> <!-- Rock / Metal -->
+            <div class="sec section6" id="korea">
+            	<c:forEach items="${traditional }" var="traditional">
+            		<a href='/insomnia/main/content.ins'>
+			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
+			        	 style="width:${traditional.wh}; 
+			        	 height:${folk.wh}; 
+			        	 margin:${traditional.mt} ${traditional.mr} ${traditional.mb} ${traditional.ml};
+			        	background-image:url(/insomnia/upload/band/cover/${traditional.b_album_cover});">
+			        	</div>
+			        </a>
+            	</c:forEach>
+            </div> <!-- Korea -->
         </div><!-- section -->
                 </div>
          

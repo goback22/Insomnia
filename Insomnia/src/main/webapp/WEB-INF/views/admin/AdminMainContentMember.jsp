@@ -1,7 +1,7 @@
+<%@page import="com.kosmo.insomnia.serviceimpl.AdminDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,6 +60,7 @@
 								</c:if>
 								<c:if test="${not isEmpty }">
 								<c:forEach items="${bandlist }" var="item" varStatus="loop">
+								
 									<tr data-tr_value="1" class="view">
 										<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;1</td>
 										<td class="text-center viewDetail" style="cursor:pointer;">${item.b_name }</td>
@@ -79,16 +80,24 @@
 														<tr>
 															<th>B_NAME</th>
 															<th>BANDMEMBER</th>
-															<th colspan="4">B_DESCRIPTION</th>
+															<th colspan="2">B_DESCRIPTION</th>
 															<th>BI_IMAGE</th>
 														</tr>
 													</thead>
 													<tbody>
+													
 														<tr>
 															<td>${item.b_name }</td>
-															<td>BAND.NO<br/>BANDMAMBER.NO,ID<br/>MEMBERS.ID join<br/></td>
-															<td colspan="4">${item.b_description }</td>
-															<td rowspan="10" align="center">
+															<td>
+																<c:forEach items="${bandMember }" var="bandMember" varStatus="loop">
+ 																	<%-- ${bandMember.b_name==item.b_name?bandMember.name:"" } --%>
+																	<c:if test="${item.b_name==bandMember.b_name }" var="isMember">
+																		${bandMember.name }<br/>
+																	</c:if>
+																</c:forEach>
+															</td>
+															<td colspan="2">${item.b_description }</td>
+															<td rowspan="3" align="center">
 															<!-- ------------------------------- -->
 																<img style="height:30%;" 
 																src="<c:url value='/img/unnamed.jpg'/>" 
@@ -102,16 +111,17 @@
 													
 														<c:forEach items="${bandmusiclist }" var="bandMusic" varStatus="loopBM">
 															<c:if test="${item.b_no == bandMusic.b_no }" var="isSame">
-															<tr>
-																<th>BM_NAME</th>
-																<th colspan="2">BM_DESCRIPTION</th>
-															</tr>
-															<tr>
-																<td>${bandMusic.bm_name }</td>
-																<td colspan="2">${bandMusic.bm_description }</td>
-															</tr>
-															
+																<tr>
+																	<th>BM_NAME</th>
+																	<th colspan="2">BM_DESCRIPTION</th>
+																</tr>
+																
+																<tr>
+																	<td>${bandMusic.bm_name }</td>
+																	<td colspan="2">${bandMusic.bm_description }</td>
+																</tr>
 															</c:if>
+															
 														</c:forEach>
 													
 													</tbody>
@@ -127,6 +137,7 @@
 									</tr>
 									
 									<!-- 위의 detail 끝 -->
+									
 									</c:forEach>
 								</c:if>
 								

@@ -94,9 +94,10 @@ public class BandController {
 		model.addAttribute("record", record);
 		
 		//session 설정
-		//session에 b_no 넣어두기
+		//session에 b_no / b_name 넣어두기
 		BandDTO bandDto = bandService.getBandDTOByB_name(b_name);
 		session.setAttribute("b_no", bandDto.getB_no());
+		session.setAttribute("b_name", b_name);
 		
 		
 		//PlayList 목록 Map에 넣어 반환
@@ -115,6 +116,19 @@ public class BandController {
 		}
 		//있으면 모델객체에 넣어 반환한다.
 		model.addAttribute("playList", playList);
+		
+		
+		//BandSubmitWaiting이 있으면 dto를 반환한다.
+		//세션에서 b_no얻어오기 
+		String b_no = session.getAttribute("b_no").toString();
+		List<BandSubmitWaitingDTO> waiting = bandService.getBandSubmitWaitingDTO(b_no);
+		//b_name 추가  //category 추가
+		for(BandSubmitWaitingDTO dto : waiting) {
+			dto.setB_name(b_name);
+			CategoryUtil.setCt_noInBandSubmitWaitingDTO(dto, record.getCt_no().toString());
+		}//for
+		
+		model.addAttribute("waiting", waiting);
 		
 		return "main/bandInfo.tiles";
 	}///geToBandInfoPage
