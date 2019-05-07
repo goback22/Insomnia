@@ -59,11 +59,26 @@
            		alert('내용을 입력해주세요');
            		return false;
            	}//if
+           	
+           	if($('.rating').hide()){
+           		$('.rating').show();
+            	$('#frm').css('margin-top','0px');
+           	}
          }//if
          
-         else{//수정
-            var action = "<c:url value='/sub1/memoedit.ins'/>";
-         }
+	       //Edit Commit 누를 때
+	       if ($(this).val() == '수정') {
+	          var action = "<c:url value='/sub1/memoedit.ins'/>";
+	          $('.rating').show();
+	       }
+	       
+	       //Reply Commit 누를 때
+	       if($(this).val() == '답변') {
+	          var action = "<c:url value='/sub1/replywrite.ins'/>";
+	          
+	          $('.rating').show();
+	          $('#frm').css('margin-top','0px');
+	       }
 
          $.ajax({
             url : action,
@@ -79,9 +94,9 @@
                $('#about').focus();
                
                //글 수정후 등록버튼으로 다시 교체하기
-               if($('#submitComment').val()=='수정'){
-                  $('#submitComment').val('등록');
-               }
+//                if($('#submitComment').val()=='수정'){
+//                   $('#submitComment').val('등록');
+//                }
             },
             error : function(request, error) {
                console.log('상태코드:', request.status);
@@ -121,43 +136,62 @@
        */
       console.log('서버로부터 받은 데이타:', data);
 
-      var tableString = "<li>";
-      tableString += "<article class='review-comment'>";
+      var tableString = "";
       $.each(JSON.parse(data),
          function(index, element) {
-    	  	var A = element['PROFILE_IMG'];
-    	  	console.log(A);
-    	  	var B = "<c:url value='/upload/" +A+ "'/>;"
-    	  	console.log(B);
+    	  	var B = 70;
+      		tableString += "<li>";
+      		tableString += "<article style='margin-left:"+B*element['DEPTH']+"px' class='review-comment'>";
+    	    var A = "https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/" + element['PROFILE_IMG'] + "";
+//     	  	var A = element['PROFILE_IMG'];
+//     	  	console.log(A);
+//     	  	var B = "<c:url value='/upload/" +A+ "'/>;"
+//     	  	console.log(B);
             tableString += "<div class='user-avatar'>";
-
-
 //             tableString += "<img src='<c:url value='/resource/img/commenttemp.jpg'/>'>";
-            tableString += "<img style='border-radius:50px;height:70px;width:70px;' src='" +B+ "'>";
+            tableString += "<img style='border-radius:50px;height:70px;width:70px;' src='" +A+ "'>";
 
             tableString += "</div>";
             tableString += "<div class='comment-content'>";
             tableString += "<h5 class='name'>"
                   + element['NAME'] + "</h5>";
             tableString += "<div class='comment-meta'>";
+            if(element['DEPTH'] == '0'){
             tableString += "<div class='star-rating_"+element['STARS']+"'>";
             tableString += "<span>Rated <strong class='rating'>5.00</strong>out of 5</span>";
             tableString += "</div>";
+            }
             tableString += "<span class='post-date'>"
                   + element['POSTDATE'] + "</span>";
             tableString += "</div>";
-            tableString += "<span>" + element['CONTENT']
-                  + "</span>"
+            tableString += "<span>" + element['CONTENT'] + "</span>"
+            if('${sessionScope.id}' == element	['ID']){
             tableString += "<a href='#HH' class='commentEdit' title='"+element['R_NO']+"' style='color:white;font-size:0.8em;'>" + '&nbsp&nbsp[수정]' + "<span id='asd' style='display:none;'>"
                   + element['CONTENT'] + "</span></a>"
             tableString += "<span class='commentDelete' title='"+element['R_NO']+"' style='color:white;font-size:0.8em;cursor:pointer'>"
                   + '&nbsp&nbsp[삭제]' + "</span>";
+            }//if
+            tableString += "<span>" + '&nbsp;&nbsp;&nbsp;&nbsp;' + "</span>"
+            tableString += "<a style='text-decoration:none;color:black;font-weight:600;' class='commentReply' title='"+element['R_NO']+"' href='#HH'><i class='fa fa-reply'></i>Reply</a>";
+            tableString += "<div>" + '<br>' + "</div>"
             tableString += "</div>";
+	      	tableString += "</article>";
+      		tableString += "</li>";
          });
-      tableString += "</article>";
-      tableString += "</li>";
       //리스트 뿌려주기
       $('#comments').html(tableString);
+      
+		//답글
+		$('.commentReply').click(function() {
+			$('.rating').hide();
+			$('#frm').css('margin-top','-20px');
+			
+			console.log('클릭한 댓글의 키(답글):' + $(this).attr('title'));
+			//form의 hidden속성중 name="cno"값 설정
+			$('input[name=r_no]').val($(this).attr('title'));
+	
+			$('#submitComment').val('답변');
+		})//
       
       //코멘트 수정]
       $('.commentEdit').click(function(){
@@ -173,13 +207,12 @@
 
       //코멘트 삭제 
       $('.commentDelete').click(function() {
-         console.log($('.commentDelete').attr('title'));
+        //form의 hidden속성중 name="bsc_no"값 설정
+		$('input[name=r_no]').val($(this).attr('title'));
 
          $.ajax({
             url : '<c:url value="/sub1/memodelete.ins"/>',
-            data : {
-               r_no : $('.commentDelete').attr('title')
-            },
+            data : $('#frm').serialize(),
             dataType : 'text',
             type : 'post',
             success : showComments(),
@@ -191,12 +224,26 @@
          });
       });
       
+	  //수정으로 돼있다면 등록으로 바꾸기
+	  $('#submitComment').click(function() {
+			if ($('#submitComment').val() == '수정') {
+				($('#submitComment')).val('등록');
+			}
+      })
+      
+	  $('#submitComment').click(function() {
+			if ($('#submitComment').val() == '답변') {
+				($('#submitComment')).val('등록');
+			}
+      })
+      
       //작성 버튼 눌렀을 때 수정으로 돼있다면 등록으로 바꾸기
       $('#about').click(function(){
          if($('#submitComment').val() == '수정') {
             ($('#submitComment')).val('등록')   ;
          }
-      });
+      })
+	  
    }
    
    //오늘 하루 그만보기
@@ -784,130 +831,6 @@ body {
 								</div>
 
 
-								<!-- 인기 프로젝트 뿌려주기 -->
-								<section class="section-padding-two artist-lineup"
-									style="margin-top: 120px">
-									<div class="tim-container clearfix">
-										<div class="row">
-											<div class="section-title style-four">
-												<h2>
-													<span style="color: black">Relative</span>&nbsp;&nbsp;Projects
-												</h2>
-												<p>There are many variations of passages of Lorem Ipsum
-													available but the majority have suffered alteration in some
-													injected humour.</p>
-											</div>
-										</div>
-										<div
-											style="margin-top: -50px; width: 120%; height: 360px; margin-left: -100px"
-											class="swiper-container row"
-											data-swiper-config='{ "loop": true, "prevButton":".swiper-button-prev", "nextButton": ".swiper-button-next", "speed": 700, "autoplay": "5000", "slidesPerView": 6, "spaceBetween": 0, "grabCursor": true,"breakpoints": { "1300": { "slidesPerView": 4 }, "767": { "slidesPerView": 3 }, "500": { "slidesPerView": 1 }}}'>
-											<ul class="artist-line-wrapper swiper-wrapper">
-												<li class="artist-single clearfix swiper-slide"><img
-													src="<c:url value='/resource/img/A.jpg'/>"
-													class="tempImage" alt="">
-													<div class="artist-single-content">
-														<ul>
-															<li><a href="#"><i class="fa fa-facebook"
-																	aria-hidden="true"></i></a></li>
-															<li><a href="#"><i class="fa fa-twitter"
-																	aria-hidden="true"></i></a></li>
-														</ul>
-														<h6>James Hetfield</h6>
-														<p>Band: Metallica</p>
-													</div></li>
-
-												<li class="artist-single clearfix swiper-slide"><img
-													src="<c:url value='/resource/img/J.jpg'/>"
-													class="tempImage" alt="">
-													<div class="artist-single-content">
-														<ul>
-															<li><a href="#"><i class="fa fa-facebook"
-																	aria-hidden="true"></i></a></li>
-															<li><a href="#"><i class="fa fa-twitter"
-																	aria-hidden="true"></i></a></li>
-														</ul>
-														<h6>James Hetfield</h6>
-														<p>Band: Metallica</p>
-													</div></li>
-
-												<li class="artist-single clearfix swiper-slide"><img
-													src="<c:url value='/resource/img/U.jpg'/>"
-													class="tempImage" alt="">
-													<div class="artist-single-content">
-														<ul>
-															<li><a href="#"><i class="fa fa-facebook"
-																	aria-hidden="true"></i></a></li>
-															<li><a href="#"><i class="fa fa-twitter"
-																	aria-hidden="true"></i></a></li>
-														</ul>
-														<h6>James Hetfield</h6>
-														<p>Band: Metallica</p>
-													</div></li>
-
-												<li class="artist-single clearfix swiper-slide"><img
-													src="<c:url value='/resource/img/Q.jpg'/>"
-													class="tempImage" alt="">
-													<div class="artist-single-content">
-														<ul>
-															<li><a href="#"><i class="fa fa-facebook"
-																	aria-hidden="true"></i></a></li>
-															<li><a href="#"><i class="fa fa-twitter"
-																	aria-hidden="true"></i></a></li>
-														</ul>
-														<h6>James Hetfield</h6>
-														<p>Band: Metallica</p>
-													</div></li>
-
-												<li class="artist-single clearfix swiper-slide"><img
-													src="<c:url value='/resource/img/O.jpg'/>"
-													class="tempImage" alt="">
-													<div class="artist-single-content">
-														<ul>
-															<li><a href="#"><i class="fa fa-facebook"
-																	aria-hidden="true"></i></a></li>
-															<li><a href="#"><i class="fa fa-twitter"
-																	aria-hidden="true"></i></a></li>
-														</ul>
-														<h6>James Hetfield</h6>
-														<p>Band: Metallica</p>
-													</div></li>
-
-												<li class="artist-single clearfix swiper-slide"><img
-													src="<c:url value='/resource/img/F.jpg'/>"
-													class="tempImage" alt="">
-													<div class="artist-single-content">
-														<ul>
-															<li><a href="#"><i class="fa fa-facebook"
-																	aria-hidden="true"></i></a></li>
-															<li><a href="#"><i class="fa fa-twitter"
-																	aria-hidden="true"></i></a></li>
-														</ul>
-														<h6>James Hetfield</h6>
-														<p>Band: Metallica</p>
-													</div></li>
-
-												<li class="artist-single clearfix swiper-slide"><img
-													src="<c:url value='/resource/img/H.jpg'/>"
-													class="tempImage" alt="">
-													<div class="artist-single-content">
-														<ul>
-															<li><a href="#"><i class="fa fa-facebook"
-																	aria-hidden="true"></i></a></li>
-															<li><a href="#"><i class="fa fa-twitter"
-																	aria-hidden="true"></i></a></li>
-														</ul>
-														<h6>James Hetfield</h6>
-														<p>Band: Metallica</p>
-													</div></li>
-
-											</ul>
-											<div class="swiper-button-next"></div>
-											<div class="swiper-button-prev"></div>
-										</div>
-									</div>
-									<!-- /.tim-container -->
-								</section>
 
 								<!-- =========================================================================================================== -->
 
@@ -935,7 +858,7 @@ body {
 														<!-- ajax로 아래에 코멘트 목록 뿌리기 -->
 													</li>
 													<li>
-														<article class="review-comment">
+														<article class="review-comment" style="margin-top: 10px;margin-bottom: 0px;">
 															<div class="user-avatar">
 																<img src="<c:url value='/resource/img/catcat.jpg'/>"
 																	style="height: 70px" alt="cat">
@@ -951,15 +874,15 @@ body {
 																	<span class="post-date">2018-12-25</span>
 																</div>
 																<p>
-																	처음엔 프로들의 공연도 아닌데 티켓 값이 너무 비싼 거 아닌가 생각했는데 
-																	공연을 보고 그런 생각을 한 제가 창피할 정도였습니다.
-																	<br> 오늘 공연을 한 젊은이들이 꼭 성공하길 바랍니다.
+																	처음엔 프로들의 공연도 아닌데 티켓 값이 너무 비싼 거 아닌가 생각했는데 공연을 보고 <br> 
+																	그런 생각을 한 제가 창피할 정도였습니다. 다음 공연이 기대되네요!
+																	
 																</p>
 															</div>
 														</article>
 													</li>
 													<li>
-														<article class="review-comment">
+														<article class="review-comment" style="margin-left: 75px">
 															<div class="user-avatar">
 																<img src="<c:url value='/resource/img/dogdog.jpg'/>"
 																	style="height: 70px" alt="cat">
@@ -967,18 +890,11 @@ body {
 															<div class="comment-content">
 																<h5 class="name">나문희</h5>
 																<div class="comment-meta">
-																	<div class="star-rating" id="HH">
-																		<span>Rated <strong class="rating">5.00</strong>
-																			out of 5
-																		</span>
-																	</div>
 																	<span class="post-date">2018-12-25</span>
 																</div>
 																<p>
-																	자식들이 방구석 기타리스트라는 공연을 보러가자길래 처음엔 기대를 안하고 갔으나,
-																	생각보다 공연자들의 실력이 너무 우수했고 감동적이였습니다. <br>
-																	많지 않았을 시간동안 그들이 그 정도의 합을 맞췄다는게 믿겨지지 않네요!
-																	다음 공연에는 어떤 참가자들이 어떤 공연을 할 지 너무 기대됩니다.
+																	공감합니다. 자식들이 방구석 기타리스트라는 공연을 보러가자길래 처음엔 기대를 안하고 갔으나<br>
+																	생각보다 공연자들의 실력이 너무 우수했고 감동적이였습니다.
 																</p>
 															</div>
 														</article>
@@ -995,6 +911,11 @@ body {
 									<div style="margin-left: -15px">
 										<h5 class="comments-title">Write</h5>
 										<form id="frm" method="post" target="param">
+											<!-- 원본글의 REFER/STEP/DEPTH 설정 -->
+											<input type="hidden" name="refer" value="${record.refer}" />
+											<input type="hidden" name="step" value="${record.step}" />
+											<input type="hidden" name="depth" value="${record.depth}" />
+											
 											<ul class="rating">
 												<li class="rating-title">Leave A Rating</li>&nbsp;&nbsp;
 												<li class="star"><i class="fa fa-star"></i></li>
@@ -1005,8 +926,9 @@ body {
 
 											</ul>
 											<!-- 수정 및 삭제용 파라미터 -->
-											<input type="hidden" name="r_no" /> <input type="hidden"
-												name="name" class="form-fname form-element large"
+											<input type="hidden" name="r_no" />
+											
+											 <input type="hidden" name="name" class="form-fname form-element large"
 												placeholder="Name" style="width: 250px">&nbsp;&nbsp;
 											<br> <br>
 											<textarea name="content" id="content" class="form-message"

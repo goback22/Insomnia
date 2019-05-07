@@ -13698,7 +13698,7 @@ ul.products li.product-two .ajax_add_to_cart i {
 }
 
 .review-list .review-comment {
-  margin-bottom: 20px;
+  margin-bottom: -10px;
 }
 
 .review-list .review-comment .user-avatar {
@@ -13729,7 +13729,7 @@ ul.products li.product-two .ajax_add_to_cart i {
 }
 
 .review-list .review-comment .comment-content .comment-meta {
-  margin-bottom: 10px;
+  margin-bottom: 3px;
 }
 
 .review-list .review-comment .comment-content .comment-meta .star-rating li {
