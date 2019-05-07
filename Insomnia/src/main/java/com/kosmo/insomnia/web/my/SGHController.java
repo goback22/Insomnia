@@ -61,9 +61,22 @@ public class SGHController {
 	@Inject
 	private JavaMailSender mailSender;
 	
+	@ResponseBody
+	@RequestMapping("/menu/mypage3.ins")
+	public String myyyyy(@RequestParam Map map1) {
+		System.out.println("map" + map1);
+		System.out.println("sadasdMap" + map1.get("photoUrl"));
+		
+		return map1.get("photoUrl").toString();
+	}
+
+	
 	/////마이페이지 이동
 	@RequestMapping("/menu/mypage.ins")
-	public String mypage(HttpSession session, Map map, Model model, @RequestParam(required=false, defaultValue="1") int nowPage) throws Exception {
+	public String mypage(@RequestParam Map map1, HttpSession session, Map map, Model model, @RequestParam(required=false, defaultValue="1") int nowPage) throws Exception {
+		System.out.println("들어오니?:"+map1.get("url"));
+		
+		model.addAttribute("kyj", map1.get("url"));
 		
 		//세션에 저장된 아이디값 구하기
 		String id = session.getAttribute("id") == null ? null : session.getAttribute("id").toString();
@@ -109,7 +122,8 @@ public class SGHController {
 		model.addAttribute("pagingString", pagingString);
 		System.out.println("fundingRecords는?" + fundingRecords);
 		
-		
+		MemberDTO record2 = memberService.selectOne(map);
+		model.addAttribute("loginRecord", record2);
 		
 		return "my/MyPage2.tiles";
 	}
@@ -197,7 +211,8 @@ public class SGHController {
 			map.put("socialBirth", socialBirth);
 		}*/
 		
-		if(!socialSite.equals("kakao")) {
+		
+		if(!socialSite.equals("kakao") && !socialSite.equals("naver")) {
 			
 			socialBirth = birthArr[2] + "/" + birthArr[0] + "/" + birthArr[1];
 			map.put("socialBirth", socialBirth);
@@ -269,8 +284,9 @@ public class SGHController {
 	
 	@ResponseBody  //요거 꼭 붙여야 됨
 	@RequestMapping(value="/edit/profileImgAjax.ins", produces="text/html; charset=UTF-8")  //한글깨짐 방지
-	public String editProfileImgAjax(@RequestParam Map map, MultipartHttpServletRequest mhsr, Model model, Map dismap, HttpSession session, MultipartRequest multipartRequest) throws Exception {
+	public String editProfileImgAjax(@RequestParam Map map, Map dismap, HttpSession session) throws Exception {
 		
+/*<<<<<<< HEAD
 		String physicalPath = mhsr.getServletContext().getRealPath("/upload/member/profile");
 		//MultipartFile upload = mhsr.getFile("imgUpload");
 		MultipartFile upload = multipartRequest.getFile("imgUpload");
@@ -283,11 +299,15 @@ public class SGHController {
 		upload.transferTo(file);
 		
 		dismap.put("profile_img", newFileName);
+=======*/
+		
+		String profile_img = map.get("fileName").toString();
+		dismap.put("profile_img", profile_img);
 		dismap.put("id", session.getAttribute("id"));
 		
 		memberService.updateProfile(dismap);	
 		
-		return newFileName;
+		return profile_img;
 	
 	}	
 	
@@ -370,7 +390,7 @@ public class SGHController {
 					tempMap.put("R_Description", record.getR_description());
 					tempMap.put("B_name", record.getB_name());
 					tempMap.put("BM_name", record.getBm_name());
-					tempMap.put("S_Album_cover", record.getS_album_cover());
+					tempMap.put("S_Album_cover", record.getSw_image_1());
 					
 					resultList.add(tempMap);
 				}
@@ -504,22 +524,23 @@ public class SGHController {
 		model.addAttribute("birthMonth", birthArr[1].substring(1, 2)  + "월"); 
 		model.addAttribute("birthDay", birthArr[2] + "일"); */
 		
-		String[] emailArr, birthArr;
+		String[] emailArr = new String[2];
+		String[] birthArr = new String[3];
 		String emailBack;
 		
 		System.out.println("로그인 체인은?" + record.getLogin_chain());
+		
+		if(!record.getLogin_chain().equals("kakao") && !record.getLogin_chain().equals("naver")) {
+			
+			birthArr = record.getBirthDay().substring(0, 10).split("-");
+		}
+		
 		if(!record.getLogin_chain().equals("kakao")) {
+		
 			
 			emailArr = record.getEmail().split("@");
-			birthArr = record.getBirthDay().substring(0, 10).split("-");
 			
-			/*if(Integer.parseInt(birthArr[0]) <= 19) {   /////NumberFormatException
-				birthArr[0] = birthArr[0];
-			} else {
-				birthArr[0] = "19" + birthArr[0];
-			}*/
-			System.out.println("처리전 이메일 백의 값은?" + emailArr[1]); 
-			
+				
 			emailBack = emailArr[1];
 			if(!(emailBack.equals("naver.com") || emailBack.equals("daum.net") || emailBack.equals("nate.com") || emailBack.equals("google.com") || emailBack.equals("hanmail.net") )) {
 				emailBack = "직접입력";
@@ -533,6 +554,8 @@ public class SGHController {
 			recordMap.put("birthYear", birthArr[0]);
 			recordMap.put("birthMonth", birthArr[1]);
 			recordMap.put("birthDay", birthArr[2]);
+			
+			System.out.println("네이버의 이메일 프론트는? " + emailArr[0]);
 
 		}
 		
@@ -541,8 +564,8 @@ public class SGHController {
 		recordMap.put("gender", record.getGender());
 		
 		
-		
 		model.addAttribute("recordMap", recordMap);
+		model.addAttribute("record", record);
 		
 		
 		
@@ -584,6 +607,7 @@ public class SGHController {
 		MemberDTO loginRecord = memberService.selectOne(recordMap);
 		
 		model.addAttribute("loginRecord", loginRecord);
+		model.addAttribute("social_complete", "yes");
 		
 		
 		return "home.tiles";

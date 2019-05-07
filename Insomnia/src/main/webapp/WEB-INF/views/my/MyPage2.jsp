@@ -5,6 +5,8 @@
 
 <script src="http://malsup.github.com/jquery.form.js"></script> 
 
+<!-- aws s3 사용을 위한 js -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
 
 <!-- Site Stylesheet -->
 <link rel="stylesheet" href="<c:url value='/vendor/css/MyPage2CSS.css'/>" />
@@ -25,11 +27,43 @@ body {
 	
 } 
 </style>
+<style>
+	.filebox label { 
+		display: inline-block;
+		padding: .5em .75em;
+		color: #999;
+		font-size: inherit;
+		line-height: normal;
+		vertical-align: middle;
+		background-color: #fdfdfd;
+		cursor: pointer;
+		border: 1px solid #ebebeb;
+	    border-bottom-color: rgb(235, 235, 235);
+		border-bottom-color: #e2e2e2;
+		border-radius: .25em;
+		width: 103px;
+		margin-top: 7px;
+	} 
+	
+	.filebox input[type="file"] {
+		 /* 파일 필드 숨기기 */ 
+		 position: absolute; 
+		 width: 1px; 
+		 height: 1px; 
+		 padding: 0; 
+		 margin: -1px; 
+		 overflow: hidden; 
+		 clip:rect(0,0,0,0); 
+		 border: 0; 
+	 }
+
+</style>
 
 </head>
 
 <body id="home-version-1" class="home-version-1" data-style="default">
 	<div id="site" >
+	
 		<!--=========================-->
 		<!--=        Navbar         =-->
 		<!--=========================-->
@@ -57,30 +91,24 @@ body {
 										<p class="otherinfo"></p>
 									</dd>
 									<dt>
-									<!-- 비 ajax : 새로고침 된다. -->
-									<%-- <c:if test="${empty record.profile_img}" var="isExistProfile">
-										<em class="profile-img"
-											style="background-image: url(https://www.wadiz.kr/wwwwadiz/green001/sns_profile_pics/20190304205851548_59178389.jpg);"></em>
-										<a id="editImage">이미지 등록</a>
-									</c:if>
-									<c:if test="${not isExistProfile}">
-										<img class="profile-img" src="<c:url value='/upload/${fileName}'/>"> <!-- DB에서 갖고오자! -->
-										<a id="editImage">이미지 수정</a>
-									</c:if> --%>
 									<!-- ajax -->
-									<c:if test="${empty loginRecord.login_chain}" var="isSocial">
-										<img class="profile-img2" src="<c:url value='/upload/member/profile/${loginRecord.profile_img}'/>"/>
+									<c:if test="${empty record.login_chain}" var="isSocial">
+										<img class="profile-img2" src="${kyj}"/>
+
 									</c:if>
+
 									<c:if test="${not isSocial}">
-										<img class="profile-img2" src="${loginRecord.profile_img}"/>
+										<img class="profile-img2" src='${kyj}'/>
 									</c:if>
-									<a id="editImage">${empty loginRecord.profile_img ? '이미지등록' : '이미지수정'}</a>
+									<div class="filebox"> 
+										<label for="imgUpload1">프로필 변경</label> 
+										<input type="file" id="imgUpload1" name="imgUpload1" accept="image/*">
+									</div>
+
 									</dt>
 								</dl>
 								<p style="display:hidden" id="imgSrc"></p>
-								<form id="imgForm" action="<c:url value='/edit/profileImg.ins'/>" method="POST" enctype="multipart/form-data">
-										<input type="file" id="imgUpload" name="imgUpload" accept="image/*">
-								</form>
+								<!-- <input type="file" id="imgUpload" name="imgUpload" accept="image/*"> -->
 								<ul class="activity-list">
 									<li><strong class="count">0</strong><span>펀딩</span></li>
 									<li><a href="javascript:void(0)"> <strong
@@ -129,16 +157,6 @@ body {
 							</ul>
 						</div>
 						<div class="project-list" style="text-align:center;">
-							<div class="top-area">
-
-								<!-- <div class="select-box icon-expand-more">
-									<select id="selectProjectType">
-										<option value="all" selected="selected">전체</option>
-										<option value="invest"'="">투자</option>
-										<option value="reward">리워드</option>
-									</select>
-								</div> -->
-							</div> <!-- top-area 끝 -->
 							
 							<!-- 실질적으로 내용 뿌려주는 부분 -->
 							<div id="projectCardList" style="text-align:center;" class="card-list">
@@ -185,22 +203,35 @@ body {
 		<!--=        footer         =-->
 		<!--=========================-->
 		
+		<form>
+			<div class="s3_id" style="display: none;">${id }</div>
+		</form>
+		
 		<!-- 스크립트 시작 -->
 
 		<script>
-		
-			$(function(){
-				
-				console.log("콘솔에 찍어본 c:url 주소" + $('.profile-img2').prop('src'));
-				
-				$.ajaxSetup({type:'post'});
-				
-				$('#editImage').click(function(){
-					$('#imgUpload').trigger('click');
+		$(function(){
+				//===================== aws s3 사용을 위한 설정] =====================
+				var albumBucketName = 'insomnia4';
+				var bucketRegion = 'ap-northeast-2';
+				var IdentityPoolId = 'ap-northeast-2:739cd73f-a436-49af-b47e-58f780f27ebe';
+				var albumName = "cover_Image";
+				AWS.config.update({
+				  region: bucketRegion,
+				  credentials: new AWS.CognitoIdentityCredentials({
+				    IdentityPoolId: IdentityPoolId
+				  })
 				});
 				
-				$('#imgUpload').change(function(){
-					
+				var s3 = new AWS.S3({
+					  apiVersion: '2006-03-01',
+					  params: {Bucket: albumBucketName}
+				});		
+				
+				//===================== aws s3 사용을 위한 설정] =====================				
+				$.ajaxSetup({type:'post'});
+				
+				$('#imgUpload1').change(function(){
 					
 					var extensionPos = $(this).val().lastIndexOf('.')+1;
 					var extension = $(this).val().substring(extensionPos);
@@ -221,48 +252,59 @@ body {
 					/* var form = new FormData($('#imgForm'));  */ //자바스크립트 객체의 인자로 제이쿼리 객체 넣어도 되나?
 					
 					if(uploadOk) {
-						//방법1.  
-						//$('#imgForm').submit();
-						//방법2.
-						$('#imgForm').ajaxForm({
-							
-							url : '<c:url value="/edit/profileImgAjax.ins"/>',
-							enctype: 'multipart/form-data',
-							dataType : 'text',	
-							success : function(data){
-								
-								
-								var pos = $('.profile-img2').prop('src').indexOf("/upload");
-								var srcStr = $('.profile-img2').prop('src').substring(0, pos+7) + "/";
-								
-								/* console.log("데이터 " + data);
-								console.log("post "  + pos);
-								console.log("srcStr " + srcStr);
-								
-								 console.log("내가 조합한 주소" + srcStr + data); */
-								$('.profile-img2').prop('src', srcStr + data);
-								
-								if($('.editImage').html() == '이미지등록') {
-									$('.editImage').html('이미지수정');
-								}
-								
-							},
-							error : function(request,error){
-								console.log('상태코드:',request.status);
-								console.log('서버로부터 받은 HTML데이타 :',request.responseText);
-								console.log('에러:',error);	
-								
-							}
-							
-						});///$.ajaxForm(); */
+						var files = document.getElementById('imgUpload1').files;
+						console.log("files : "+files);
+				  		console.log("files.length : "+files.length);
+						if (!files.length) {
+						    return alert('Please choose a file to upload first.');
+						}
+				    	var file = files[0];
+						console.log("file : "+file)
+						var file_length = file.name.lastIndexOf('.')+1;
 						
-						$('#imgForm').submit();
-						
-					}
+					    var fileName = '${id }' + '_cover_Img.jpg';
+					    console.log(fileName);
+						var albumPhotosKey = encodeURIComponent(albumName) + '/';
+						console.log(albumName);
+						var photoKey = albumPhotosKey + fileName;
+						s3.upload({
+					      Key: photoKey,
+					      Body: file,
+					      ACL: 'public-read'
+						}, function(err, data) {
+							if (err) { 
+								return alert('There was an error uploading your photo: ', err.message); 
+								} 
+						  }); 
+						}
+					$.ajax({
+						url: '<c:url value="/edit/profileImgAjax.ins"/>',
+						dataType: 'text',
+						data: 'fileName='+fileName,
+						success: function(data){
+							 var albumPhotosKey = encodeURIComponent(albumName) + '/';
+							  s3.listObjects({Prefix: albumPhotosKey}, function(err, data) {
+							    if (err) {
+							      return alert('There was an error viewing your album: ' + err.message);
+							    }
+							    // 'this' references the AWS.Response instance that represents the response
+							    var href = this.request.httpRequest.endpoint.href;
+							    var bucketUrl = href + albumBucketName + '/';
+							    var photoKey;
+							    var photoUrl;
+							    var photos = data.Contents.map(function(photo) {
+								    photoKey = 'cover_Image/${id}_cover_Img.jpg';
+								    photoUrl = bucketUrl + encodeURIComponent(photoKey);
+							    });
+							    
+							    $('.profile-img2').prop('src', photoUrl); // 이미지 변경
+							    
+							  });
+						}
+					});
 				});
-				
-			})
-		
+						
+			});
 		</script>
 		
 
@@ -350,7 +392,7 @@ body {
 				
 				if(element['noData'] != null) {
 					//emptyMessage = "<p class='emptyMess'>아직 "+element["which"]+" 상품이 없습니다.</p>";
-					emptyMessage = "<p>아직 "+element["which"]+" 상품이 없습니다.</p>";
+					emptyMessage = "<p style='font-size:17px;'>아직 "+element["which"]+" 상품이 없습니다.</p>";
 					isEmpty = true;
 					return;
 				}
@@ -412,6 +454,7 @@ body {
 			if(isEmpty) {
 				/* $('.historyEmptyValue').css('display', 'none') */
 				$('.historyValue').html(emptyMessage);
+				$('.historyValue').css('padding-top', '80px');
 			/* 	$('.historyValue').css('display', 'block'); */
 				$('.pagingDiv').html("");
 				return;
@@ -419,6 +462,7 @@ body {
 			
 		/* 	$('.historyValue').css('display', 'block'); */
 			$('.historyValue').html(listString);
+			$('.historyValue').css('padding-top', '0px');
 			/* $('.historyEmptyValue').css('display', 'none') */
 			
 			

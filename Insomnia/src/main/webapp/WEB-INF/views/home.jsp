@@ -37,20 +37,89 @@
 </style>
 <!-- 로그인 처리 CSS -->
 <link href="<c:url value='/vendor/css/LoginCSS.css'/>" rel="stylesheet" />
+
+<!-- 네아로 방법1. -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!-- 네아로 방법2 -->
+<!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script> -->
+
+
+
+<!-- aws s3 사용을 위한 js -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+
+<script>
+$(function(){
+	//===================== aws s3 사용을 위한 설정] =====================
+	var albumBucketName = 'insomnia4';
+	var bucketRegion = 'ap-northeast-2';
+	var IdentityPoolId = 'ap-northeast-2:739cd73f-a436-49af-b47e-58f780f27ebe';
+	var albumName = "cover_Image";
+	AWS.config.update({
+	  region: bucketRegion,
+	  credentials: new AWS.CognitoIdentityCredentials({
+	    IdentityPoolId: IdentityPoolId
+	  })
+	});
+	
+	var s3 = new AWS.S3({
+		  apiVersion: '2006-03-01',
+		  params: {Bucket: albumBucketName}
+	});		
+	
+	//===================== aws s3 사용을 위한 설정] =====================
+	var albumPhotosKey = encodeURIComponent(albumName) + '/';
+	s3.listObjects({Prefix: albumPhotosKey}, function(err, data) {
+	  if (err) {
+	    return alert('There was an error viewing your album: ' + err.message);
+	  }
+	  // 'this' references the AWS.Response instance that represents the response
+	  var href = this.request.httpRequest.endpoint.href;
+	  var bucketUrl = href + albumBucketName + '/';
+	  var photoKey;
+	  var photoUrl;
+	  var photos = data.Contents.map(function(photo) {
+		    photoKey = 'cover_Image/${id}_cover_Img.jpg';
+		    photoUrl = bucketUrl + encodeURIComponent(photoKey);
+	  });
+	  console.log("photoUrl : "+photoUrl);
+	  $(".mypage_1").click(function(){
+		  $.ajax({
+			 url: "<c:url value='/menu/mypage3.ins'/>",
+			 type: 'post',
+			 dataType: 'text',
+			 data: 'photoUrl='+photoUrl,
+			 success: function(data){
+				 location.href = "<c:url value='/menu/mypage.ins?url="+data+"'/>";
+			 },
+			 error: function(){
+			 }
+		  });
+	  })
+	})
+})
+</script>
+
 </head>
 
 <body style="background-color: black;">
 <div class="welcomeMessage" style="display:none;">${loginMessage}</div>
 <c:if test='${loginMessage eq "new"}'>
 	<script>
-		//alert($('.welcomeMessage').html());
 		$(function(){
 			$('.social-welcome-div').css('display', 'block');
 		})
-		
 	</script>
+</c:if>
+<c:if test='${social_complete eq "yes"}'>
+
+	<script>
+		$(function(){
+			$('.social-welcome-complete-div').css('display', 'block');
+		})
+	</script>
+
 </c:if>
 
 <c:if test='${mailSucFail eq "yes"}'>
@@ -65,7 +134,7 @@
 	
 </c:if>
 
-	<!-- 소셜 로그인 모달 -->
+	<!-- 소셜 로그인 모달1 : 추가정보 입력 유도 -->
 	
 	<div class="social-welcome-div">
 		<div class="social-content-div">
@@ -78,6 +147,20 @@
 				<form class="social-div-form" action="<c:url value='/registerSocial/form.ins'/>" method="post">
 					<button class="social-btn">확인</button>
 				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 소셜 로그인 모달2 : 추가정보 입력 완료 -->
+	<div class="social-welcome-complete-div">
+		<div class="social-content-div">
+			<!-- <button class="close-btn" title="닫기">x</button> -->
+			<div class="social-content">
+				<div class="social-info-title">INSOMNIA 가입이 완료되었습니다.</div>
+				<div class="social-info">추가정보가 모두 입력되었습니다.<br/>INSOMNIA의 다채로운 리워드를 즐겨보세요.</div>
+			</div>
+			<div class="social-btn-div">
+					<span class="social-btn-complete">확인</span>
 			</div>
 		</div>
 	</div>
@@ -114,7 +197,7 @@
 								<ul class="group" id="header-menu-magic-line">
 
 									<li class="menu-item-has-children current_page_item"><a
-										href="<c:url value='/#'/>">HOME</a></li>
+										href="<c:url value='/home.ins'/>">HOME</a></li>
 
 
 									<li class="menu-item-has-children"><a
@@ -129,14 +212,14 @@
 										if ("admin".equals(session.getAttribute("id")) || "ADMIN".equals(session.getAttribute("id"))) {
 									%>
 									<li class="menu-item-has-children"><a
-										href="<c:url value='/admin/index.ins'/>">Admin Page</a></li>
+										href="<c:url value='/admin/index.ins'/>" id="adminpage">Admin Page</a></li>
 <!-- 									<li class="menu-item-has-children"><a -->
 <%-- 										href="<c:url value ='/Pay/PayPage.ins'/>">PayPage(Test)</a></li> --%>
 									<%
 										} else {
 									%>
-									<li class="menu-item-has-children"><a
-										href="<c:url value='/menu/mypage.ins'/>">My Page</a></li>
+									<li class="menu-item-has-children">
+									<a href="<c:url value='/menu/mypage.ins'/>" class="mypage_1">My Page</a></li>
 									<%
 										}
 									%>
@@ -206,27 +289,33 @@
 									class="facebook"></i>페이스북으로 로그인
 							</button>
 							<button type="button" id="custom-login-btn"
-								onclick="javascript:loginWithKakao();">
+								onclick="javascript:loginWithKakao();" style="width:104.95px; height:40px; border-radius:4px;">
 								<img class="icon"
 									src="<c:url value='/resource/img/kakaolink_btn_medium.png'/>" />
 								<i class="kakao"></i>카카오
 							</button>
-							<div id="naver_id_login"></div>
+							<!-- 방법1 -->
+							<!-- <div id="naver_id_login" style="display:none;"></div> -->
+							<!-- 방법2 -->
+						<!-- 	<div id="naverIdLogin"></div> -->
 							
-							<button type="button" id="forNaverLogin">
+							
+							<%-- <button type="button" id="forNaverLogin">
 								<img class="icon" src="<c:url value='/resource/img/naver_login_icon.png'/>" /> <i class="naver"></i>네이버
-							</button>
+							</button> --%>
 							
-							<button type="button" id="googleLoginBtn">
+							<%-- <button type="button" id="googleLoginBtn">
 								<img class="icon"
 									src="<c:url value='/resource/img/icons8-google-48.png'/>" /> <i
 									class="google color"></i>구글
-							</button>
-							<button type="button" onclick="javascript:void(0)">
+							</button> --%>
+							<%-- <button type="button" onclick="javascript:void(0)">
 								<img class="icon"
 									src="<c:url value='/resource/img/Twitter_Logo_WhiteOnBlue.png'/>" />
 								<i class="twitter"></i>트위터
-							</button>
+							</button> --%>
+							<div id="naver_id_login"></div>
+							
 						</div>
 						<div class="bottom-message">
 							<p class="text">
@@ -234,7 +323,7 @@
 									href="<c:url value='/register/term.ins'/>" data-return-url="">회원가입</a>
 							</p>
 						</div>
-
+						
 						<img src="<c:url value='/resource/img/cat-eyes.jpg'/>"
 							class="cat_eye" />
 					</div>
@@ -244,6 +333,8 @@
 							src="<c:url value='/resource/img/logo_5.png'/>" alt="">
 						</a>
 					</div>
+					
+					
 
 				</div>
 
@@ -259,8 +350,10 @@
 						<a href="javascript:return false;" class="offset-closer">
 							<img style="margin-left: 270px; margin-top: -60px; height:15px; width:15px;" src="<c:url value='/resource/img/offset-cross2.png'/>" alt="">
 						</a>
-					<div style="display:none;">
-							<div id="naver_id_login"></div></div>
+						<!-- 방법1 -->
+					<div id="naver_id_login" style="display:none;"></div>
+					<!-- 방법2 -->
+					<!-- <div id="naverIdLogin"></div> -->
 						
 					<!-- 사용자 계정정보 -->
 					<%-- <div style="display:none;" id="hid">${loginRecord.login_chain }</div>
@@ -271,7 +364,7 @@
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
 	            		<c:if test="${empty loginRecord.login_chain}" var="isSocial">
 	              			<!-- 프로필 이미지:일반로그인 -->
-	                		<img class="user_picture" src="<c:url value='/upload/member/profile/${loginRecord.profile_img}'/>"/>
+	                		<img class="user_picture" src="https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/${loginRecord.profile_img}"/>
 	                	</c:if>
 	                	<c:if test="${not isSocial}">
 	                		<!-- 프로필 이미지:소셜로그인 -->
@@ -306,18 +399,18 @@
 		            </table>
 		            
 		            <!-- display:none 끝 -->
-		            <%-- <ul class="user_bottom">		<!-- 하단메뉴 --> <!-- ul이 1칸 차지, li display: inline -->
-		              <li>
-		                <a id="" class="" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_mail_1055030.png'/>"/>
-		                  		<span class="">메시지</span>
-		                </a>
-		              </li>
-		              <li><a class="" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_humans_1216581.png'/>"/><span>친구 초대하기</span></a></li>
-		              <li><a class="" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_wrench_416405.png'/>"/><span>설정</span></a></li>
-		              <li><a class="" href="<c:url value='/logout.ins'/>"><img src="<c:url value='/img/exit.png'/>"/><span>로그아웃</span></a></li>
-		            </ul> --%>
 		            <a id="logout" href="<c:url value='/logout.ins'/>">로그아웃</a>
 		            <a href="<c:url value='band/bandInfo.ins'/>">밴드관리</a>
+		            
+		            <div onclick="test1();">공유하기</div>
+		            <div id="result">결과</div>
+		            
+		            <script>
+		            
+		           
+		            
+		            </script>
+		         		
             
           		</div> <!-- afterLogin div 끝 -->
 						
@@ -429,7 +522,7 @@
 									FB.api('/me', {locale : 'ko_KR'}, {fields : 'id, name, email, birthday, picture'},
 											function(response) {
 												if (response && !response.error) {
-													alert("성별도 출력되나?" + response.gender);
+													//alert("성별도 출력되나?" + response.gender);
 													
 													$('#socialId').prop('value', response.id);
 													$('#socialName').prop('value', response.name);
@@ -454,7 +547,7 @@
 								});
 
 			})
-
+			
 
 		</script>
 		<!-- 페이스북 로그인 끝 -->
@@ -463,9 +556,9 @@
 		<script>
 			$(function(){
 				$('#forNaverLogin').click(function(){
-					$('#naver_id_login').trigger('click');
-					console.log('네이버 클릭 이벤트 전달하는 곳으로 들어오는지?');
-					var naverClicked = "yes";
+					//$('#naver_id_login').trigger('click');
+					//document.getElementById('naver_id_login').click();
+					//setTimeout(function(){ $('#naver_id_login').click()}, 100);
 				});
 			})
 		</script>
@@ -473,32 +566,41 @@
 		
 		
 		<script>
-			
+			////방법1.
 			var naver_id_login = new naver_id_login("baw69zHb2FPVPqvEd5sl", "http://localhost:8080/insomnia/");
 		  	var state = naver_id_login.getUniqState();
 		  	naver_id_login.setButton("white", 2,40);
 		  	naver_id_login.setDomain("http://localhost:8080/insomnia/");
 		  	naver_id_login.setState(state);
-		  	naver_id_login.setPopup();
+		  	/* naver_id_login.setPopup(); */
 		  	naver_id_login.init_naver_id_login();
-			
+		  	
+
 		</script>
 		
 		<!-- 네이버 로그인2 : 로그인 버튼 조정 -->
 	
 		<script>
-		
-			 //var naver_id_login = new naver_id_login("baw69zHb2FPVPqvEd5sl", "http://localhost:8080/insomnia/");
-			  // 접근 토큰 값 출력
-			 alert(naver_id_login.oauthParams.access_token);
-			  // 네이버 사용자 프로필 조회
-			  naver_id_login.get_naver_userprofile("naverSignInCallback()");
+			///방법1.
+			 naver_id_login.get_naver_userprofile("naverSignInCallback()");
 			  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
 			  function naverSignInCallback() {
-			    alert(naver_id_login.getProfileData('email'));
-			    alert(naver_id_login.getProfileData('nickname'));
-			    alert(naver_id_login.getProfileData('age'));
-			  }
+				  
+				  	//opener.top.location.href="http://localhost:8080/insomnia/";
+				  	//self.close();
+			    
+				  	$('#socialId').prop('value', naver_id_login.getProfileData('id'));
+					$('#socialName').prop('value', naver_id_login.getProfileData('name'));
+					$('#socialEmail').prop('value', naver_id_login.getProfileData('email'));
+					$('#socialBirth').prop('value', naver_id_login.getProfileData('birthday'));
+					$('#socialProfile').prop('value', naver_id_login.getProfileData('profile_image'));
+					$('#socialGender').prop('value', naver_id_login.getProfileData('gender'));
+					$('#socialSite').prop('value', 'naver');
+					///닉네임도 있다. age랑
+					$('#socialForm').submit();
+			  } 
+			  
+			  
 		
 		</script>
 		<!--네이버 로그인 끝 -->
@@ -622,7 +724,7 @@
 				});
 				
 				$('.user_middle td:nth-child(2)').click(function(){
-					location.href="<c:url value='/menu/mypage.ins'/>";
+					location.href="<c:url value='/menu/mypage3.ins'/>";
 				});
 				
 				$('.user_middle td:nth-child(3)').click(function(){
@@ -649,9 +751,17 @@
 					$('.social-welcome-div').css('display', 'none');
 				}); */
 				
+				$('.social-btn-complete').click(function(){
+					$('.social-welcome-complete-div').css('display', 'none');
+					
+				});
 			})
 			
+			
+			
 		</script>
+		
+	
 		
 		
 		

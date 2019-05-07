@@ -13,7 +13,8 @@ public class RewardDTO {
 	//편의를 위해 추가
 	private String b_name;  //리워드를 준비한 밴드 이름
 	private String bm_name; //리워드로 준비한 노래 이름
-	private String s_album_cover;
+	private String sw_image_1;  //리워드 앨범 커버
+	
 	
 	//게터*세터
 	public String getR_no() {
@@ -58,11 +59,11 @@ public class RewardDTO {
 	public void setBm_name(String bm_name) {
 		this.bm_name = bm_name;
 	}
-	public String getS_album_cover() {
-		return s_album_cover;
+	public String getSw_image_1() {
+		return sw_image_1;
 	}
-	public void setS_album_cover(String s_album_cover) {
-		this.s_album_cover = s_album_cover;
+	public void setSw_image_1(String sw_image_1) {
+		this.sw_image_1 = sw_image_1;
 	}
 	
 }

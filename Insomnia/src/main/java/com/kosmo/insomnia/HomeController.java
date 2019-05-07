@@ -31,6 +31,7 @@ public class HomeController {
 	//로그인 폼으로 이동, 혹은 홈 화면으로 이동
 	@RequestMapping(value = "/home.ins", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, Map map, HttpSession session) {
+		
 		if(session.getAttribute("id") != null) {
 			
 			map.put("id", session.getAttribute("id"));
@@ -39,9 +40,13 @@ public class HomeController {
 			
 			if(record != null) {
 				
-				record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+				model.addAttribute("loginRecord", record);
+				record.setProfile_img(record.getProfile_img());		
 				model.addAttribute("record", record);
+				//record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+				//model.addAttribute("record", record);
 			}
+
 			
 		}
 		

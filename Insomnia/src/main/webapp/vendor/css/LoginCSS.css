@@ -48,7 +48,7 @@
 		vertical-align: middle;
 		color: rgba(0, 0, 0, .84);
 		font-family: Roboto, Noto Sans KR, -apple-system, Dotum, sans-serif;
-		font-size: 17px;
+		font-size: 14px;
 		font-weight: 300;
 		box-sizing: border-box;
 		/* -webkit-appearance: none;
@@ -227,6 +227,7 @@
 		color: rgba(0, 0, 0, .87);
 		font-size: 15px;
 		width: 130px;
+		cursor:pointer;
 	}
 	
 	#facebookLoginBtn {
@@ -439,8 +440,7 @@ img.user_picture {
     /* background: #fff; */
     width: 100%;
     min-height: 100%;
-    text-align: center;
-    
+    text-align: center;  
 }
 
 .social-content-div {
@@ -532,6 +532,51 @@ img.user_picture {
     -webkit-appearance: none;
     margin-right:20px;
     
+}
+
+.social-welcome-complete-div {
+	
+	display:none;
+	z-index:9999999;
+	background: none;
+	position: absolute;
+    top: 0;
+    left: 0;
+    /* background: #fff; */
+    width: 100%;
+    min-height: 100%;
+    text-align: center;  
+	
+}
+
+.social-btn-complete {
+	
+	float: right;
+	background-color: #00cca3;
+    color: #fff;
+    border-color: #00cca3;
+    display: inline-block;
+    padding-top: .07em;
+    text-decoration: none;
+    transition-property: background-color,border-color,color,opacity;
+    transition-duration: .2s;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 0;
+    cursor: pointer;
+    padding: 0 1.41176em;
+    height: 48px;
+    vertical-align: middle;
+    text-decoration: none;
+    line-height: 48px;
+    color: rgba(0,0,0,.54);
+    font-size: 17px;
+    font-weight: 400;
+    box-sizing: border-box!important;
+    -webkit-appearance: none;
+    margin-right:20px;
+    
+	
+	
 }
 
 

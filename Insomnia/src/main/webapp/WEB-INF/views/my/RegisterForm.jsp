@@ -247,7 +247,7 @@ input #user_nm {
 							<!-- 이름입력 -->
 							<strong>이름(필수)</strong>
 							<input type="text" id="user_nm" name="user_nm" value="" required="required">
-							<p class="limit_txt name_txt" id="name_txt">주소를 입력해주세요.</p>
+							<p class="limit_txt name_txt" id="name_txt">이름을 입력해주세요.</p>
 							<!-- 성별입력 -->
 							<div class="user_gender">
 								<a class="male">남</a> <a class="female">여</a> <input
@@ -390,7 +390,7 @@ input #user_nm {
 							<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 							<input name="roadAddress" type="text" id="sample4_roadAddress" placeholder="도로명주소">
 							<input name="jibunAddress" type="text" id="sample4_jibunAddress" placeholder="지번주소">
-							<span id="guide" style="color: #999; display: none"></span>
+							<!-- <span id="guide" style="color: #999; display: none"></span> -->
 							<input name="detailAddress" type="text" id="sample4_detailAddress" placeholder="상세주소"> <input type="text" id="sample4_extraAddress" placeholder="참고항목">
 							<p class="limit_txt addr_txt" id="addr_txt">주소를 입력해주세요.</p>
 						</div>
