@@ -48,9 +48,9 @@
 									<th class="col-md-1 text-center">B_NAME</th>
 									<th class="col-md-2 text-center">column1</th>
 									<th class="col-md-3 text-center">BM_TITLE</th>
-									<th class="col-md-1 text-center">column1</th>
 									<th class="col-md-1 text-center">b-LIKED</th>
 									<th class="col-md-1 text-center">main신청여부</th>
+									<th class="col-md-1 text-center">작성 글 보기</th>
 								</tr>
 								
 								<c:if test="${empty bandlist }" var="isEmpty">
@@ -66,9 +66,9 @@
 										<td class="text-center viewDetail" style="cursor:pointer;">${item.b_name }</td>
 										<td class="text-center viewDetail">column1</td>
 										<td class="text-center viewDetail">${item.bm_title }</td>
-										<td class="text-center viewDetail">column1</td>
 										<td class="text-center viewDetail">${item.b_liked }</td>
 										<td class="text-center">미신청</td>
+										<td class="text-center"><a class="btn btn-default" href="<c:url value='/admin/allmember.ins?b_no=${item.b_no}'/>">글보기</a></td>
 									</tr>
 									<!-- 위의 detail -->
 									<tr class="fold" style="background-color: #c8c8c8;">
@@ -153,43 +153,6 @@
 				</div>
 			</div>
 			<!-- 첫번째 끝 -->
-			
-			
-			<!-- 오른쪽 시작 -->
-			
-<!-- 				<div class="col-md-4"> -->
-<!-- 					<div class="panel panel-primary"> -->
-<!-- 						<div class="panel-heading"> -->
-<!-- 							<h3 class="panel-title">band image</h3> -->
-<!-- 						</div> -->
-<!-- 						<div class="panel-body feed"> -->
-<!-- 							<section class="feed-item"> -->
-								
-<!-- 							</section> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-			
-			<!-- 오른쪽 끝 -->
-			<!-- chart -->
-<!-- 			<div class="col-md-4" name="chart"> -->
-<!-- 				<div class="panel panel-primary">  -->
-<!-- 					<div class="panel-heading"> -->
-<!-- 						<h3 class="panel-title"> -->
-<!-- 							진행중인 chart -->
-<!-- 						</h3> -->
-<!-- 					</div> -->
-<!-- 					<div class="bars"> -->
-<!-- 						<div id="bar-1"></div> -->
-<!-- 						<div id="bar-2"></div> -->
-<!-- 						<div id="bar-3"></div> -->
-<!-- 						<div id="bar-4"></div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-			<!-- chart? end -->
-			
-			
 			
 		</div>		
 	</div>
@@ -282,5 +245,6 @@ $('.apply').click(function(){
 	$(this).next().remove();
 });
 </script>
+
 </body>
 </html>

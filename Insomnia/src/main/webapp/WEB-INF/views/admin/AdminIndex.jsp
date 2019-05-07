@@ -45,7 +45,7 @@
 								전체회원(남성 여성)
 							</h3>
 						</div>
-						<div class="panel-body feed">
+						<div class="panel-body feed" style="height:230px;">
 							<section class="feed-item">
 							<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
 								<canvas id="canvas"></canvas>
@@ -548,7 +548,11 @@ $(function(){
 	                }
 	            }
 	        }
-	    }
+	    },
+	    'chartArea':{
+			  'width':'100%',
+			  'height':'100%'
+		  }
 	});
 	    
 //new member chart

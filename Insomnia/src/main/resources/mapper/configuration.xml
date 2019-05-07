@@ -17,7 +17,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="BGSPayDTO" type="com.kosmo.insomnia.service.BGSPayDTO"/>	
 		<typeAlias alias="AdminDTO" type="com.kosmo.insomnia.service.AdminDTO"/>
 		<typeAlias alias="MainCommentDTO" type="com.kosmo.insomnia.service.MainCommentDTO"/>
-
+		<typeAlias alias="AdminMemberPayDTO" type="com.kosmo.insomnia.service.AdminMemberPayDTO"/>
+		<typeAlias alias="AdminSubDTO" type="com.kosmo.insomnia.service.AdminSubDTO"/>
 	</typeAliases>
 	
 	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 -->	

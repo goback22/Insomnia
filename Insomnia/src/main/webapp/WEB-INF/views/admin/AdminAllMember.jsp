@@ -117,7 +117,15 @@
 															<tbody>
 																<tr>
 																	<td>${item.name}</td>
-																	<td>${item.password }</td>
+																	<td>
+<%-- 																	${item.password==null?item.login_chain:item.password } --%>
+																		<c:if test="${item.password==null }" var="password">
+																			${item.login_chain }으로 가입
+																		</c:if>
+																		<c:if test="${!password }">
+																			${item.password }
+																		</c:if>
+																	</td>
 																	<td>${item.birthDay }</td>
 																	<td>${item.gender }</td>
 																	<td>${item.login_chain==null?"홈페이지 통해서 로그인":item.login_chain }</td>
