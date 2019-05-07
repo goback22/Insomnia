@@ -196,36 +196,8 @@ $(function(){
     		    $(this).css('width',w);
     		    $(this).css('height',h);
     		    });
-
-        });//window.onload
+        	});//each        
         
-
-        ///////////////////////////////////////////////////////////////////////////
-        ////////////////////////////// ìê¸° ë°ê¿ì£¼ë JQuery ////////////////////////
-		/*
-            $(window).scroll(function(){
-                var ins = $('.instruments');
-               
-                if($(this).scrollTop() >= ($('.section3').position().top - 500)){
-                    ins.css('transition-property', 'left');
-                    ins.css('transition-duration', '1s');
-                    ins.css('transition-timing-function', 'ease-in-out');
-                    ins.css('left','-3660px');
-                }else if($(this).scrollTop() >= ($('.section2').position().top - 500)){
-                    ins.css('transition-property', 'left');
-                    ins.css('transition-duration', '1s');
-                    ins.css('transition-timing-function', 'ease-in-out');
-                    ins.css('left','-1978px');}
-                else{
-                    ins.css('transition-property', 'left');
-                    ins.css('transition-duration', '1s');
-                    ins.css('transition-timing-function', 'ease-in-out');
-                    ins.css('left','20px');
-                }
-            })
-		*/
-            /////////////////////////////////////////////////////////////////////////////
-            
        });///ready     
 
        
@@ -255,7 +227,7 @@ $(function(){
             <!--  음악 카테고리별 섹션 section -->
             <div class="sec section1" id="ballad">
             	<c:forEach items="${folk }" var="folk">
-            		<a href='/insomnia/main/content.ins'>
+            		<a href='/insomnia/band/bandInfo.ins?b_no=${folk.b_no }'>
 			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
 			        	 style="width:${folk.wh}; 
 			        	 height:${folk.wh}; 
@@ -267,7 +239,7 @@ $(function(){
             </div> <!-- Ballad / Fork -->
             <div class="sec section2" id="jazz">
             	<c:forEach items="${jazz }" var="jazz">
-            		<a href='/insomnia/main/content.ins'>
+            		<a href='/insomnia/band/bandInfo.ins?b_no=${jazz.b_no }'>
 			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
 			        	 style="width:${jazz.wh}; 
 			        	 height:${jazz.wh}; 
@@ -279,7 +251,7 @@ $(function(){
             </div> <!-- Jazz / Classic -->
             <div class="sec section3" id="hiphop">
             	<c:forEach items="${hiphop }" var="hiphop">
-            		<a href='/insomnia/main/content.ins'>
+            		<a href='/insomnia/band/bandInfo.ins?b_no=${hiphop.b_no }'>
 			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
 			        	 style="width:${hiphop.wh};
 			        	 height:${hiphop.wh}; 
@@ -291,7 +263,7 @@ $(function(){
             </div> <!-- Hip Hop -->
             <div class="sec section4" id='dance'>
             	<c:forEach items="${dance }" var="dance">
-            		<a href='/insomnia/main/content.ins'>
+            		<a href='/insomnia/band/bandInfo.ins?b_no=${dance.b_no }'>
 			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
 			        	 style="width:${dance.wh}; 
 			        	 height:${dance.wh}; 
@@ -303,7 +275,7 @@ $(function(){
             </div> <!-- Dance -->
             <div class="sec section5" id="rock">
             	<c:forEach items="${rock }" var="rock">
-            		<a href='/insomnia/main/content.ins'>
+            		<a href='/insomnia/band/bandInfo.ins?b_no=${rock.b_no }'>
 			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
 			        	 style="width:${rock.wh}; 
 			        	 height:${rock.wh}; 
@@ -315,7 +287,7 @@ $(function(){
             </div> <!-- Rock / Metal -->
             <div class="sec section6" id="korea">
             	<c:forEach items="${traditional }" var="traditional">
-            		<a href='/insomnia/main/content.ins'>
+            		<a href='/insomnia/band/bandInfo.ins?b_no=${traditional.b_no }'>
 			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
 			        	 style="width:${traditional.wh}; 
 			        	 height:${folk.wh}; 
@@ -343,4 +315,17 @@ $(function(){
         document.addEventListener('DOMContentLoaded', function(){
         var trigger = new ScrollTrigger();
         });
+        
+        
+        function goBandInfoGET(b_no){
+        	alert("goBandInfoGET : " + b_no);
+        	var form = document.createElement("form");
+        	form.action ="/insomnia/band/bandInfo.ins?b_no="+b_no;
+        	form.method = "GET";
+        	document.body.appendChild(form);
+        	form.submit();
+        }//goBandInfoGET
+        
+        
+        
         </script>

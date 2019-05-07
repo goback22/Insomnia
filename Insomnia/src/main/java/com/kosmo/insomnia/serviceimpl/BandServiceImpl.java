@@ -12,8 +12,10 @@ import com.kosmo.insomnia.service.BandImgDTO;
 import com.kosmo.insomnia.service.BandMemberDTO;
 import com.kosmo.insomnia.service.BandMusicDTO;
 import com.kosmo.insomnia.service.BandService;
+import com.kosmo.insomnia.service.BandSubmitDTO;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
 import com.kosmo.insomnia.service.RewardWaitingDTO;
+import com.kosmo.insomnia.service.SeqDTO;
 
 @Service("bandService")
 public class BandServiceImpl implements BandService{
@@ -37,6 +39,11 @@ public class BandServiceImpl implements BandService{
 	}//addNewBand
 	
 	@Override
+	public BandDTO getBandDTOByB_no(String b_no) {
+		return dao.getBandDTOByB_no(b_no);
+	}//getBandDTOByNB_no
+	
+	@Override
 	public boolean isMember(String id) {
 		return dao.isMember(id);
 	}//is Member
@@ -57,8 +64,8 @@ public class BandServiceImpl implements BandService{
 	}//isExistBand
 	
 	@Override
-	public BandDTO getBandDTOByB_name(String id) {
-		return dao.getBandDTOByB_name(id);
+	public BandDTO getBandDTOByB_name(String b_name) {
+		return dao.getBandDTOByB_name(b_name);
 	}///getBandDTOById
 	
 	@Override
@@ -129,5 +136,35 @@ public class BandServiceImpl implements BandService{
 	public List<BandDTO> allBand() {
 		return dao.allBand();
 	}//allBand
+	
+	@Override
+	public int acceptBandSubmitWaiting(String b_no) {
+		return dao.acceptBandSubmitWaiting(b_no);
+	}//acceptBandSubmitWaiting
+	
+	@Override
+	public int completeBandSubmitWaiting(String sw_no) {
+		return dao.completeBandSubmitWaiting(sw_no);
+	}//completeBandSubmitWaiting
+	
+	@Override
+	public int addBandSubmit(BandSubmitDTO dto) {
+		return dao.addBandSubmit(dto);
+	}//addBandSubmit
+	
+	@Override
+	public BandSubmitDTO getBandSubmitDTO(String sw_no) {
+		return dao.getBandSubmitDTO(sw_no);
+	}//beanSubmitDTO
+	
+	@Override
+	public int getSeq_band(SeqDTO dto) {
+		return dao.getSeq_band(dto);
+	}//getSeq_band
+	
+	@Override
+	public BandSubmitDTO getBandSubmitDTOByS_no(String s_no) {
+		return dao.getBandSubmitDTOByS_no(s_no);
+	}//getBandSubmitDTOByS_no
 	
 }//class BandServiceImpl

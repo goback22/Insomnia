@@ -104,8 +104,198 @@ body {
 	font-weight: 400;
 }
 
+.funding-now{
+	background-color:white;
+	transition: background-color 0.6s;
+}
+
+.funding-now:hover{
+	background-color:rgb(151, 255, 234);
+}
+
+.count-entirety{
+	padding:0px 10px;
+	display:-webkit-inline-box;
+}
+.support-now{
+	background-color:white;
+	width:320px;
+	padding:0 20px;
+	width:280px;
+	text-align:center;
+}
+.support-in{
+	display:-webkit-inline-box;
+	margin-bottom:0;
+}
+.band-info{
+	background-color:white;
+}
+
+
 
 </style>
+
+
+<script>
+	$(function() {
+		//페이지 뿌리기
+		showComments();
+		
+	    //댓글 작성
+	    $('#submit').click(function() {
+	    	//Send Commit 누를 때
+	       if ($(this).val() == 'Send Comment') {
+	    	  //console.log('SEND COMMENT가 인식됩니다.');
+	          var action = "<c:url value='/main/memowrite.ins'/>";
+	          if($('#c_content').val() == ''){
+	         		alert('내용을 입력해주세요');
+	         		$('#c_content').focus();
+	         		return false;
+	         	}//if
+	       }//if
+	       //Edit Commit 누를 때
+	       if ($(this).val() == 'Edit Comment') {
+	          var action = "<c:url value='/main/memoedit.ins'/>";
+	          console.log('액션 찍힘');
+	       }
+	       
+	       //Reply Commit 누를 때
+	       if($(this).val() == 'Reply Comment') {
+		          var action = "<c:url value='/main/memoedit.ins'/>";
+		          console.log('액션 찍힘');
+	       }
+	       $.ajax({
+	          url : action,
+	          data : $('#commentform').serialize(),
+	          dataType : 'text',
+	          type : 'post',
+	          success : function() {
+	             //등록 후 현재 모든 댓글 뿌려주기
+	             showComments();
+	             //입력 댓글 클리어 및 포커스 주기
+	             $('#c_content').val('');
+	             //$('#about').focus();
+	             //글 수정후 등록버튼으로 다시 교체하기
+	             if($('#submit').val()=='EDIT COMMENT'){
+	                $('#submit').val('SEND COMMENT');
+	             }
+	          },
+	          error : function(request, error) {
+	             console.log('상태코드:', request.status);
+	             console.log('서버로부터 받은 HTML데이타 :', request.responseText);
+	             console.log('에러:', error);
+	          }
+	       });
+	    })
+	})//function
+	//리스트
+	var showComments = function() { // ★ajax를 함수로 감싸서 리스트를 뿌릴 때 쓰기
+		$.ajax({
+			url : '<c:url value="/main/memolist.ins"/>',
+			dataType : 'json',
+			success : successAjax,
+			error : function(request, error) {
+				console.log('왜 에러로 들어오니');
+				console.log('상태코드:', request.status);
+				console.log('서버로부터 받은 HTML데이타 :', request.responseText);
+				console.log('에러:', error);
+			}
+		});
+	};//showComments
+	var successAjax = function(data) {
+		/*JSON배열을 출력할때는 $.each(data,function(index,index에 따른 요소값){}); 사용]
+		data : 서버로부터 전송받은 데이타(JSON배열타입)
+		index : JSON배열의 인덱스(0부터 시작)   
+		index에 따른 요소 값 : JSON 배열에서 하나씩 꺼내온거를 담은 인자      
+		 */
+		console.log('successAjax로 들어왔어요');
+		console.log('서버로부터 받은 데이타:', data);
+			
+		var tableString = "";
+		$.each(data, function(index, element) {
+			var A = element['PROFILE_IMG'];
+			var B = "<c:url value='/upload/" +A+ "'/>;"
+			console.log(B);
+			
+			tableString += "<li>"
+			tableString += "<article class='comment-body'>";
+			tableString += "<footer class='comment-meta'>";
+			tableString += "<div class='comment-author'>";
+			tableString += "<div class='author-thumb'>";
+			tableString += "<img style='border-radius:50px;height:100px;width:100px;' alt='' src=' " +B+ "' class='avatar'>";
+			tableString += "</div>";
+			tableString += "<div class='author-name'>";
+			tableString += "<a href='#' style='font-weight:600;font-size:1.2em' class='url'>" + element['NAME'] + "</a>";
+			tableString += "<div class='comment-metadata'>";
+			tableString += "<a href='#'>" + element['C_POST_DATE'] + "</a>";
+			tableString += "</div>";
+			tableString += "</div>";
+			tableString += "</div>";
+			tableString += "</footer>";
+			tableString += "<div class='comment-content'>";
+			tableString += "<span>" + element['C_CONTENT'] + "</span>";
+			tableString += "<a href='#HH' class='commentEdit' title='"+element['BSC_NO']+"' style='color:black;font-size:0.8em;'>" + '&nbsp&nbsp[수정]' + "<span id='asd' style='display:none;'>"
+            + element['C_CONTENT'] + "</span></a>"
+      		tableString += "<span class='commentDelete' title='"+element['BSC_NO']+"' style='color:black;font-size:0.8em;cursor:pointer'>"
+            + '&nbsp&nbsp[삭제]' + "</span>";
+			tableString += "</div>";
+			tableString += "<div class='reply'>";
+			tableString += "<a class='comment-reply-link' href='#kyj'><i class='fa fa-reply'></i>Reply</a>";
+			tableString += "</div>";
+			tableString += "</article>";
+			tableString += "</li>";
+		});//each
+		console.log("tableString:"+tableString);
+		
+		//리스트 뿌려주기
+		$('#commentWrite').html(tableString);
+		
+		 //코멘트 수정]
+	      $('.commentEdit').click(function(){
+	         console.log('클릭한 댓글의 키(bsc_no):',$(this).attr('title'));
+	         
+	         //클릭한 제목으로 텍스트박스 값 설정
+	         $('#c_content').val($(this).children().eq(0).html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
+	         $('#submit').val('Edit Comment');
+	         
+	         //form의 hidden속성중 name="cno"값 설정
+	         $('input[name=bsc_no]').val($(this).attr('title'));
+	      });
+		
+	      //코멘트 삭제 
+	      $('.commentDelete').click(function() {
+	         console.log($('.commentDelete').attr('title'));
+	         $.ajax({
+	            url : '<c:url value="/main/memodelete.ins"/>',
+	            data : {
+	               bsc_no : $('.commentDelete').attr('title')
+	            },
+	            dataType : 'text',
+	            type : 'post',
+	            success : showComments(),
+	            error : function(request, error) {
+	               console.log('상태코드:', request.status);
+	               console.log('서버로부터 받은 HTML데이타 :', request.responseText);
+	               console.log('에러:', error);
+	            }
+	         });
+	      });
+	      
+	      //수정으로 돼있다면 등록으로 바꾸기
+	      $('#submit').click(function(){
+	         if($('#submit').val() == 'Edit Comment') {
+	            ($('#submit')).val('Send Comment');
+	         }
+	      })
+	      
+	      //Reply아이콘 누를 때
+	  	  $('.comment-reply-link').click(function() {
+			$('#submit').val('Reply Comment');
+		  })
+		  
+	}//successAjax
+</script>
 
 </head>
 
@@ -338,6 +528,140 @@ body {
 
 					</article>
 					<div class="clearfix"></div>
+					
+					
+					<c:if test="${isSubmit == 'T'}"><!-- submit이 완료된 상태에서만 보이는 댓글창if -->
+							<!-- 댓글 뿌려주는 곳 -->
+							
+							<div class="comments-area">
+		
+								<div class="comment-inner">
+									<div class="reply-title">
+										<h3>Comment</h3>
+									</div>
+									
+									<ul class="comment-list" id="commentWrite">
+									<!-- 이 곳에 ajax로 뿌려준다 -->
+									</ul>
+		
+									<ul class="comment-list">
+		
+										<li class="comment">
+											<article class="comment-body">
+												<footer class="comment-meta">
+													<div class="comment-author">
+														<div class="author-thumb">
+															<img alt="" src="<c:url value='/media/blog/10.jpg'/>"
+																class="avatar">
+														</div>
+														<div class="author-name">
+															<a href="#" class="url">John Doe</a>
+		
+															<div class="comment-metadata">
+																<a href="#"> 14 Mar, 2018 at 7:57 am </a>
+															</div>
+															<!-- .comment-metadata -->
+														</div>
+													</div>
+													<!-- .comment-author -->
+		
+		
+													<div class="reply">
+														<a class="comment-reply-link" href="#"><i
+															class="fa fa-reply"></i>Reply</a>
+													</div>
+												</footer>
+												<!-- .comment-meta -->
+		
+												<div class="comment-content">
+													<p>Amet, consectetur adipisicing elit, sed do eiusmod
+														tempor incididunt ut labore et dolore magna tunit aliqad
+														minim veniam, quis nostrud exercitation ullamco labori.</p>
+												</div>
+												<!-- .comment-content -->
+		
+		
+											</article> <!-- .comment-body -->
+		
+											<ul class="children">
+												<li class="comment">
+													<article class="comment-body">
+														<footer class="comment-meta">
+															<div class="comment-author">
+																<div class="author-thumb">
+																	<img alt="" src="<c:url value='/media/blog/11.jpg'/>"
+																		class="avatar">
+																</div>
+		
+																<div class="author-name">
+																	<a href="#" id="HH" class="url">Jane Bloggs</a>
+																	<div class="comment-metadata">
+																		<a href="#">March 14, 2013 at 8:01 am</a>
+																	</div>
+																	<!-- .comment-metadata -->
+																</div>
+															</div>
+															<!-- .comment-author -->
+														</footer>
+														<!-- .comment-meta -->
+		
+														<div class="comment-content">
+															<p id="kyj">Amet, consectetur adipisicing elit, sed do eiusmod
+																tempor incididunt ut labore et dolore magna tunit aliqad
+																minim veniam, quis nostrud exercitation ullamco labori.</p>
+														</div>
+														<!-- .comment-content -->
+		
+														<div class="reply">
+															<a class="comment-reply-link" href="#"><i
+																class="fa fa-reply"></i>Reply</a>
+														</div>
+													</article> <!-- .comment-body -->
+												</li>
+												<!-- #comment-## -->
+											</ul> <!-- .children -->
+		
+										</li>
+										<!-- #comment-## -->
+		
+										<!-- #comment-## -->
+									</ul>
+								</div>
+								<!-- /.comment-inner -->
+		
+								<div id="respond" class="comment-respond"
+									style="margin-bottom: 30px;">
+									<h3 id="reply-title" class="comment-reply-title">Leave a
+										comment</h3>
+									<form id="commentform" class="comment-form" target="param">
+										<!-- 수정 삭제용 피라미터 -->
+										<input type="hidden" name="bsc_no" />
+										<p class="comment-form-comment">
+											<textarea placeholder="Your Comment*" id="c_content"
+												name="c_content"></textarea>
+										</p>
+		
+										<p class="comment-form-author">
+											<input placeholder="Name" id="name" name="name" type="hidden">
+										</p>
+		
+										<p class="comment-form-email">
+											<input placeholder="Email" id="email" name="email" type="hidden">
+										</p>
+		
+										<p class="form-submit">
+											<input name="submit" type="submit" id="submit" class="submit"
+												value="Send Comment">
+										</p>
+										<!-- iframe 설정 -->
+										<iframe id="if" name="param"></iframe>
+									</form>
+								</div>
+							</div>
+							<!-- /.comments-area -->
+							
+							<!-- 댓글 뿌려주는 곳 END -->
+					</c:if><!-- submit이 완료된 상태에서만 보이는 댓글창if -->
 
 				</div>
 				<!-- /.col-lg-8 -->
@@ -352,11 +676,28 @@ body {
 					<div class="moveRewards">
 
 						<div class="wd-ui-gift">
+							
+							<h3 class="project-right-title">밴드 정보</h3>		
+							<div class="rightinfo-reward-list band-info" style="padding:20px;">
+								<dl style="display:-webkit-inline-box; margin-bottom:0;">
+									<dt>
+										<a href="<c:url value='/band/bandInfo.ins?b_no=${band.b_no }'/>">
+											<img src="<c:url value='/upload/band/cover/${band.b_album_cover}'/>" style="border-radius: 50%; width:80px; height:80px; margin-right:20px;">
+										</a>
+									</dt>
+									<dd>
+										<p style="font-weight:bold;font-size:20px;">${band.b_name }</p>
+										<p>${band.b_description }밴드설명!</p>
+									</dd>
+								</dl>
+							</div>
+						
 							<h3 class="project-right-title">리워드 선택</h3>
 
 							<!--  여기부터 리워드 리스트 시작 -->
+					
 
-							<c:forEach items="${rewardList }" var="rewardList">
+							<c:forEach items="${rewardList }" var="rewardList"> <!-- 리스트 뿌려주는 foreach문 시작 -->
 							
 								<div class="rightinfo-reward-list" style="width: 100%;"
 									onclick="">
@@ -374,75 +715,31 @@ body {
 										<ul class="data-info">
 											<li class="shipping" style="width: 100%; margin-bottom: 5px;">배송비<em>4,500원</em></li>
 										</ul>
+										<div class="reward-count-box" style="font-size:10px;color:#929292;text-align:center;">
+											<div class="up count-entirety" onclick="javascript:up(this);">△</div>
+											<div class="reward-count count-entirety" style="font-size:12px;" id="${rewardList.rw_no }">0</div>
+											<div class="down count-entirety" onclick="javascript:down(this);">▽</div>
+										</div>
 									</div>
 									<p class="hover-text">이 리워드 펀딩하기</p>
 								</div>
 								
-							</c:forEach>
+							</c:forEach> <!-- 리스트 뿌려주는 foreach문 END -->
 							
-							<!-- 펀딩 예제
-							<div class="rightinfo-reward-list" style="width: 100%;"
-								onclick="">
-								<div class="top-info" style="width: 100%">
-									<dl class="reward-info">
-										<dt>179,000원 펀딩</dt>
-										<dd>
-											<p class="reward-name">[슈퍼얼리버드] 루퍼 - NICK백팩</p>
-											<p>
-												슈퍼얼리버드 NICK백팩을 리워드 할 수 있습니다.<br>45%할인 혜택<br>316,000원
-												-> 179,000원 <br> <br>선착순 100명 한정<br> <br>제품구성<br>+
-												NICK 백팩 (사이즈 S,M,L)<br>+ 고급 노트북파우치 무료 제공<br>+ SIM
-												카드 보관 파우치 (목걸이 포함) 무료 제공<br>
-											</p>
-										</dd>
-									</dl>
-
-									<ul class="data-info">
-										<li class="shipping" style="width: 100%; margin-bottom: 5px;">배송비<em>4,500원</em></li>
-										<li class="date" style="width: 100%;">리워드 발송 시작일 <em>2019년
-												06월 초 (1~10일) 예정</em>
-										</li>
-									</ul>
-								</div>
-								<p class="hover-text">이 리워드 펀딩하기</p>
+							<!-- 후원하기 입력창 추가 -->
+							<div class="rightinfo-reward-list support-now">
+								<p class="support-in">후원하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><input type="text" class="support-in" style="width:160px; height:60px; border:none;"><p class="support-in">&nbsp;원</p>
 							</div>
-
-
-
-							<div class="rightinfo-reward-list" style="width: 100%;"
-								onclick="">
-								<div class="top-info" style="width: 100%">
-									<dl class="reward-info">
-										<dt>179,000원 펀딩</dt>
-										<dd>
-											<p class="reward-name">[슈퍼얼리버드] 루퍼 - NICK백팩</p>
-											<p>
-												슈퍼얼리버드 NICK백팩을 리워드 할 수 있습니다.<br>45%할인 혜택<br>316,000원
-												-> 179,000원 <br> <br>선착순 100명 한정<br> <br>제품구성<br>+
-												NICK 백팩 (사이즈 S,M,L)<br>+ 고급 노트북파우치 무료 제공<br>+ SIM
-												카드 보관 파우치 (목걸이 포함) 무료 제공<br>
-											</p>
-										</dd>
-									</dl>
-
-									<ul class="data-info">
-										<li class="shipping" style="width: 100%; margin-bottom: 5px;">배송비<em>4,500원</em></li>
-										<li class="date" style="width: 100%;">리워드 발송 시작일 <em>2019년
-												06월 초 (1~10일) 예정</em>
-										</li>
-									</ul>
-
-								</div>
-
-								<p class="hover-text">이 리워드 펀딩하기</p>
+							<!-- 후원하기 입력창 추가 끝 -->
+							
+							<!-- 펀딩하기 버튼 추가 -->
+							<div class="rightinfo-reward-list funding-now"
+									onclick=""
+									style="text-align:center; padding:20px; width:88%;"
+									>
+								<p style="margin-bottom:0;">펀딩하기!</p>	
 							</div>
-
-
-						</div>
-						--> 
-						<!-- 여기 위에 추가시키면 리워드 늘어남 -->
-
-
+							<!-- 펀딩하기 버튼 추가 끝 -->
 
 					</div>
 					<!-- 와디즈 사이드 리워드 리스트 끝 -->
@@ -497,6 +794,19 @@ body {
      });
 	
 	
+	
+	
+	/////////////////////////////////리워드 리스트 up down누르면 수량변경
+	
+	function up(obj){
+		$(obj).next().text(parseInt($(obj).next().text()) + 1);
+	}//up(obj)
+	
+	function down(obj){
+		if(parseInt($(obj).prev().text()) == 0){} // 0 이라면 숫자가 밑으로 내려가지 않는다.
+		else
+			$(obj).prev().text(parseInt($(obj).prev().text()) - 1);
+	}//down(obj)
 	
 	
 	

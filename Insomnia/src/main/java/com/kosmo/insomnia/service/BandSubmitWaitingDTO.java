@@ -17,6 +17,7 @@ public class BandSubmitWaitingDTO {
 	private String sw_content;
 	private String sw_postDate;
 	private String sw_isAccept;
+	private String sw_isComplete;
 	
 	//편의상 추가
 	private String ct_name;
@@ -25,11 +26,64 @@ public class BandSubmitWaitingDTO {
 	private String b_name;
 	private String sw_youtube_thumbnail;
 	
+	//밴드 펀딩이 완료된 경우 한방에 보내버리자
+	private String s_no;
+	private String s_goal_price;
+	private String s_goal_accumulation;
+	private String s_goal_deadline;
+	private String s_liked;
+	
+	//계산해서 직접 넣어주는 변수
+	private String comma_Accumulation;
 	
 	
 	
+	
+	
+	public String getComma_Accumulation() {
+		return comma_Accumulation;
+	}
+	public void setComma_Accumulation(String comma_Accumulation) {
+		this.comma_Accumulation = comma_Accumulation;
+	}
+	public String getS_no() {
+		return s_no;
+	}
+	public void setS_no(String s_no) {
+		this.s_no = s_no;
+	}
+	public String getS_goal_deadline() {
+		return s_goal_deadline;
+	}
+	public void setS_goal_deadline(String s_goal_deadline) {
+		this.s_goal_deadline = s_goal_deadline;
+	}
+	public String getS_liked() {
+		return s_liked;
+	}
+	public void setS_liked(String s_liked) {
+		this.s_liked = s_liked;
+	}
 	public String getB_name() {
 		return b_name;
+	}
+	public String getSw_isComplete() {
+		return sw_isComplete;
+	}
+	public void setSw_isComplete(String sw_isComplete) {
+		this.sw_isComplete = sw_isComplete;
+	}
+	public String getS_goal_price() {
+		return s_goal_price;
+	}
+	public void setS_goal_price(String s_goal_price) {
+		this.s_goal_price = s_goal_price;
+	}
+	public String getS_goal_accumulation() {
+		return s_goal_accumulation;
+	}
+	public void setS_goal_accumulation(String s_goal_accumulation) {
+		this.s_goal_accumulation = s_goal_accumulation;
 	}
 	public String getSw_youtube_thumbnail() {
 		return sw_youtube_thumbnail;

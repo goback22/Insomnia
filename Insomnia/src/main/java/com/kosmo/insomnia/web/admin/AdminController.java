@@ -1,4 +1,4 @@
-package com.kosmo.insomnia.web.admin;
+﻿package com.kosmo.insomnia.web.admin;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kosmo.insomnia.service.AdminDTO;
 import com.kosmo.insomnia.service.AdminSubDTO;
 import com.kosmo.insomnia.serviceimpl.AdminServiceImpl;
+import com.kosmo.insomnia.serviceimpl.BandServiceImpl;
 
 
 @Controller
@@ -27,6 +28,10 @@ public class AdminController {
 	
 	@Resource(name="adminService")
 	private AdminServiceImpl adminService;
+
+	//임한결 추가 2019 05 05 어린이날 - 수락버튼 실제동작 처리
+	@Resource(name="bandService")
+	private BandServiceImpl bandService;
 	
 	@Value("${ADMINPAGESIZE}")
 	private int pageSize;
@@ -242,5 +247,17 @@ public class AdminController {
 		model.addAttribute("succFail", succFail);
 		return "/admin/Message";
 	}
+
+	///////////////////////////////////////// 임한결 추가 2019 05 05 어린이날 - 수락버튼으로 실제 서브밋으로 가도록 처리
+	@ResponseBody
+	@RequestMapping(value="/admin/acceptBandSubmitWaiting.ins", produces="text/html; charset=UTF-8")
+	public String applyBandSubmitWaiting(@RequestParam Map map, Model model) throws Exception{
+		String b_no = map.get("b_no").toString();
+		int affected = bandService.acceptBandSubmitWaiting(b_no);
+		if(affected == 1)
+			return "T";
+		else 
+			return "F";
+	}//applyBandSubmitwaiting
 		
 }/////////////

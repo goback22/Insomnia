@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kosmo.insomnia.common.CategoryUtil;
 import com.kosmo.insomnia.service.BandDTO;
 import com.kosmo.insomnia.service.BandMusicDTO;
+import com.kosmo.insomnia.service.BandSubmitDTO;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
 import com.kosmo.insomnia.service.RewardWaitingDTO;
 import com.kosmo.insomnia.serviceimpl.BandServiceImpl;
@@ -40,15 +42,40 @@ public class BandContentController {
 	
 	//메인 프로젝트 - 컨텐트
 	@RequestMapping(value="/main/content.ins")
-	public String content(@RequestParam Map params, HttpSession session, Model model) {
-		
+	public String content(@RequestParam Map params, HttpSession session, Model model, ServletRequest request) {
 		////////////////////////////////////////////////////////////////////////세션에서 필요한 정보얻기
-		String b_no = session.getAttribute("b_no").toString();
-		String b_name = session.getAttribute("b_name").toString();
-		String id = session.getAttribute("id").toString();
+		String b_no = null;
+		String b_name = null;
+		//아이디는 세션값에서 가져와서 현제 s_no를 가진 id와 비교한후 제 3자 처리
+		String id = session.getAttribute("id").toString(); 
+		String s_no = null;
 		
+		///자신의 밴드submit 내용인지 판별하는 flag
+
+		//case1 : sw_no가 넘어올 경우 - bandSubmitWaiting화면을 보여준다. //댓글 없음
+		//case2 : s_no가 넘어올 경우 - bandSubmit화면을 보여준다. //댓글 있음
 		
+		boolean isMine = true; //자신의 bandSubmit이라고 초기화 한다.
 		
+		//파라미터값을 넘겨받는 여부에 따라 보여주는 내용을 달리한다. //s_no 일 경우
+		try {
+			s_no = request.getParameter("s_no").toString();
+		}catch(Exception e) {System.out.println("s_no가 파라미터값을 넘겨받지 않았을 경우 try catch처리");}
+		
+
+		
+		if(s_no == null) {//파라미터 없이 밴드info로 들어 올 때
+			b_no = session.getAttribute("b_no").toString();
+			b_name = session.getAttribute("b_name").toString();
+			model.addAttribute("isSubmit", "F"); ///submit인지 submitWaiting인지 판별하는 속성값
+		}///if
+		else {//파라미터를 같이 넘겨받을 때 (funding)으로 접근한 경우
+			BandSubmitDTO bandSubmitDto = bandService.getBandSubmitDTOByS_no(s_no);
+			b_no = bandSubmitDto.getB_no();
+			BandDTO bandDto = bandService.getBandDTOByB_no(b_no);
+			b_name = bandDto.getB_name();
+			model.addAttribute("isSubmit","T");
+		}///else
 		
 		////////////////////////////////////////////////////////////////BandSubmitWaitingDTO 얻어서 반환
 		List<BandSubmitWaitingDTO> records =  bandService.getBandSubmitWaitingDTO(b_no);
@@ -94,15 +121,16 @@ public class BandContentController {
 		String url = record.getSw_youtube();
 		String inputUrl = url.substring(url.indexOf("watch?v=")+8);
 		String thUrl = "http://img.youtube.com/vi/" + inputUrl + "/mqdefault.jpg";
-		System.out.println("url : " +url);
-		System.out.println("inputUrl : " +inputUrl);
-		System.out.println("thUrl : " +thUrl);
 		record.setSw_youtube_thumbnail(thUrl);
 		
 		//모델에 넣고 반환
 		model.addAttribute("record", record);
 		
 		
+		
+		/////////////////////////////////////////////////////////////////////밴드 정보를 뿌려주기 위해 BandDTO반환
+		BandDTO band = bandService.getBandDTOByB_no(b_no);
+		model.addAttribute("band", band);
 		
 		
 		//////////////////////////////////////////////////////////////////////밴드가 등록한 음악 얻기
@@ -117,19 +145,24 @@ public class BandContentController {
 		
 		///////////////////////////////////////////////////////////////////////밴드가 등록한 리워드 얻기
 		List<RewardWaitingDTO> rewardList =  bandService.getListRewardWaitingDTO(record.getSw_no().toString());
+		//리워드 액수 1000단위 콤마찍어 저장한다.
+		for(RewardWaitingDTO dto : rewardList) {
+			dto.setRw_price(String.format("%,d", Long.parseLong(dto.getRw_price())));
+		}//for
 		model.addAttribute("rewardList", rewardList);
+		
 		
 		
 		//세션에 저장
 		session.setAttribute("b_no", b_no);
 		session.setAttribute("b_name", b_name);
+		//id값을 session에 넘겨줘야 댓글 입력이 가능하다.
 		session.setAttribute("id", id);
 		return "/main/content.tiles";
 	}///content
 	
 	
 	
-
 	
 	
 	///밴드별 BandMusicDTO 받아와서 제이썬객체로 변환후 넘겨주기
@@ -171,7 +204,6 @@ public class BandContentController {
 	//메인 프로젝트
 	@RequestMapping(value="/main/mainproject.ins")
 	public String mainproject(@RequestParam Map params, HttpSession session, Model model) {
-		System.out.println("mainproject시작 : " + params.toString());
 		
 		//모든 밴드의 필요한 정보를 가져온다.
 		List<BandDTO> beforeAllBand = bandService.allBand();

@@ -1,4 +1,4 @@
-<%@page import="com.kosmo.insomnia.serviceimpl.AdminDAO"%>
+﻿<%@page import="com.kosmo.insomnia.serviceimpl.AdminDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -131,6 +131,7 @@
 											<div align="center">
 												<div class="btn btn-default apply">수락</div>
 												<div class="btn btn-default deny">거부</div>
+												<div hidden="hidden" class="b_no">${item.b_no }</div>
 											</div>
 										</td>
 										
@@ -241,9 +242,34 @@ $('.apply').click(function(){
 	console.log("수락버튼");
 	//$(this).closest('tr').css("display","none");
 //	$(this).removeClass().addClass("btn btn-success allpied").html("수락됨");
-	$(this).removeClass().addClass("btn btn-success allpied").html("").append('<a href="fsdfdf?no=${no}" style="color:white;">수락</a>');
-	$(this).next().remove();
-});
+
+	//임한결 추가 2019 05 05 어린이날
+	//수락버튼 누르면 실제로 bandSUbmit으로 등록되게 처리
+	var where = $(this);
+	var b_no = $(this).next().next().text();
+	var json = { 'b_no' : b_no }
+	console.log("b_no : " +b_no);
+	$.ajax({
+		url: '<c:url value="/admin/acceptBandSubmitWaiting.ins"/>',
+		data : json,
+		dataType: 'text',
+		type:'post',
+		success:function(data){
+			setAccept(where);
+		},error:function(error, request){
+			console.log(error);
+			console.log(error.status);
+			alert("error");
+		}//error
+	});//ajax
+});///aplly onClick
+
+	function setAccept(where){
+		console.log(where);
+
+		$(where).removeClass().addClass("btn btn-success allpied").html("").append('<a href="fsdfdf?no=${no}" style="color:white;">수락</a>');
+		$(where).next().remove();
+	}///setAccept
 </script>
 
 </body>
