@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -66,27 +68,32 @@ public class ZeroJinController_Sub {
 	
    // 로그인
    @RequestMapping(value = "/login.ins")
-   public String login(HttpSession session, Model model, @RequestParam Map map) throws Exception {
+   public String login(HttpSession session, Model model, @RequestParam Map map, Authentication auth) throws Exception {
 	   
-      boolean flag = insService.isMember(map);
-      
-      if(flag) {
-    	  session.setAttribute("id", map.get("id"));
+      //boolean flag = insService.isMember(map);
+	   
+	   UserDetails authenticated = (UserDetails)auth.getPrincipal();
+	   
+      //if(flag) {
+    	  //session.setAttribute("id", map.get("id"));
+	   
+	   	  map.put("id", authenticated.getUsername());
     	  
     	  MemberDTO record = memberService.selectOne(map);
 
-    	  record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+    	  //record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
     	  
     	  model.addAttribute("loginRecord", record);
-
+    	  
+    	  session.setAttribute("id", authenticated.getUsername());
     	  session.setAttribute("login_user_name", record.getName());
 	      session.setAttribute("login_user_phoneNb", record.getPhone());
 	      System.out.println(record.getPhone());
     	  
-      } else {
-    	  model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
+     // } else {
+    	  //model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
     	 /* return "forward:/loginErr/ajax.ins";*/
-      }
+    //  }
       
       return "home.tiles";
    }
