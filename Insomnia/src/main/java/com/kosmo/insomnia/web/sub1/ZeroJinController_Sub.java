@@ -66,14 +66,14 @@ public class ZeroJinController_Sub {
    @RequestMapping(value = "/login.ins")
    public String login(HttpSession session, Model model, @RequestParam Map map, Authentication auth) throws Exception {
 	   
-      //boolean flag = insService.isMember(map);
+      boolean flag = insService.isMember(map);
 	   
-	   UserDetails authenticated = (UserDetails)auth.getPrincipal();
+	   //UserDetails authenticated = (UserDetails)auth.getPrincipal();
 	   
-      //if(flag) {
-    	  //session.setAttribute("id", map.get("id"));
+      if(flag) {
+    	  session.setAttribute("id", map.get("id"));
 	   
-	   	  map.put("id", authenticated.getUsername());
+	   	  //map.put("id", authenticated.getUsername());
     	  
     	  MemberDTO record = memberService.selectOne(map);
 
@@ -81,15 +81,15 @@ public class ZeroJinController_Sub {
     	  
     	  model.addAttribute("loginRecord", record);
     	  
-    	  session.setAttribute("id", authenticated.getUsername());
+    	  //session.setAttribute("id", authenticated.getUsername());
     	  session.setAttribute("login_user_name", record.getName());
 	      session.setAttribute("login_user_phoneNb", record.getPhone());
 	      System.out.println(record.getPhone());
     	  
-     // } else {
-    	  //model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
+     } else {
+    	  model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
     	 /* return "forward:/loginErr/ajax.ins";*/
-    //  }
+    }
       
       return "home.tiles";
    }
