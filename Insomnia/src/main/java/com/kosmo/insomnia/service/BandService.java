@@ -14,7 +14,8 @@ public interface BandService {
 	//3] Band테이블에 새로운 밴드 등록
 	void addNewBand(Map map);
 	
-	//4] BandMember 테이블에 만든 밴드의 
+	//4] b_no로 BandDTO 가져오기
+	BandDTO getBandDTOByB_no(String b_no);
 	
 	//5] 회원인지 여부판단 //없는 회원인 경우 null을 반환한다.
 	boolean isMember(String id);
@@ -73,5 +74,23 @@ public interface BandService {
 	
 	//22] 모든 밴드의 정보 DTO가져오기
 	List<BandDTO> allBand();
+	
+	//23] b_no로 밴드 accept하기
+	int acceptBandSubmitWaiting(String b_no);
+	
+	//24] bandSubmitWaiting 완료
+	int completeBandSubmitWaiting(String sw_no);
+	
+	//25] bandSubmit 등록
+	int addBandSubmit(BandSubmitDTO dto);
+	
+	//26] bandSubmit DTO 가져오기
+	BandSubmitDTO getBandSubmitDTO(String sw_no);
+	
+	//27] seq_band의 현재 시퀀스 currval을 가져오기
+	int getSeq_band(SeqDTO dto);
+	
+	//28] bandSubmitDTO를 s_no값으로 가져오기
+	BandSubmitDTO getBandSubmitDTOByS_no(String s_no);
 	
 }//interface BadnService

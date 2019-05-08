@@ -42,8 +42,8 @@
 	
 	<!-- 마이페이지에서 펀딩한 리워드 목록 가져오기 -->  <!-- 수정해야 -->
 	<select id="selectList_reward" parameterType="java.util.Map" resultType="RewardDTO">
+
 		select * from (select t.*, rownum r from (select r_no, r_price, r_name, s_no, r_description, b_name, bm_name, sw_image_1 from (select r.*, bm_name, b_name, sw_image_1 from reward r join safepay s on r.r_no = s.r_no
-		
 		join bandsubmit bs on bs.s_no = r.s_no
 		join bandsubmitwaiting bsw on bsw.sw_no = bs.sw_no
 		join band b on b.b_no = bs.b_no
@@ -55,6 +55,7 @@
 	
 	<!-- 마이페이지 리워드, 페이징 위한 갯수 구하기 -->  <!-- 수정해야 -->
 	<select id="getCount_reward" parameterType="java.util.Map" resultType="int">
+
 	  select count(*) from (select r.*, bm_name , b_name from reward r join safepay s on r.r_no = s.r_no
 		join bandsubmit bs on bs.s_no = r.s_no
 		join band b on b.b_no = bs.b_no

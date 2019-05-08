@@ -1,6 +1,5 @@
 package com.kosmo.insomnia.web;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,6 +9,8 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -37,6 +38,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.kosmo.insomnia.service.BandDTO;
+import com.kosmo.insomnia.service.BandSubmitDTO;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
 import com.kosmo.insomnia.service.RewardWaitingDTO;
 import com.kosmo.insomnia.serviceimpl.BandServiceImpl;
@@ -52,13 +54,10 @@ public class BandSubmitController {
 	//bandSubmt.jsp로 넘어갈때
 	@RequestMapping("/main/bandSubmit.ins")
 	public String toBandSubmit(@RequestParam Map params, HttpSession session, Model model) {
-		//파라미터값 뭐있는지 확인
-		System.out.println(params.toString());
 		//세션에 있는 값 넘겨받는다.
 		String b_name = session.getAttribute("b_name").toString();
 		String b_no = session.getAttribute("b_no").toString();
 		String id = session.getAttribute("id").toString();
-		System.out.println("b_name : "+b_name + ", b_no : " +b_no+", id : " +id);
 		
 		//필요한 DTO객체 얻기 / bandDTO
 		BandDTO bandDto = bandService.getBandDTOByB_name(b_name);
@@ -82,8 +81,11 @@ public class BandSubmitController {
 		MultipartFile upload = multipartRequest.getFile("upload_profile");
 		String newFileName = upload.getOriginalFilename();
 		
+		String b_name = session.getAttribute("b_name").toString();
+		String b_no = bandService.getB_noByB_name(b_name);
+		
 		//파일 이름과 경로 재설정 b_name.jpg
-		newFileName = session.getAttribute("b_name")+newFileName.substring(newFileName.lastIndexOf("."));
+		newFileName = b_no+newFileName.substring(newFileName.lastIndexOf("."));
 		File file = new File(physicalPath + File.separator + newFileName);
 		
 		//밴드 프로필, 배너 업로드
@@ -105,8 +107,10 @@ public class BandSubmitController {
 			MultipartFile upload = multipartRequest.getFile(names.next());
 			String newFileName = upload.getOriginalFilename();
 			
+			String b_no = bandService.getB_noByB_name(session.getAttribute("b_name").toString());
+			
 			//파일 경로, 객체 이름 재설정 : bName_index.jpg 후 업로드
-			newFileName = session.getAttribute("b_name")+"_"+index+newFileName.substring(newFileName.lastIndexOf("."));
+			newFileName = b_no+"_"+index+newFileName.substring(newFileName.lastIndexOf("."));
 			File file = new File(physicalPath + File.separator + newFileName);
 			upload.transferTo(file);
 			
@@ -163,22 +167,22 @@ public class BandSubmitController {
 		String contentPath = session.getServletContext().getRealPath("/upload/content/main/sw_content");
 		String contentDescription = dto.getSw_content();
 		
-		File file = new File(longPath, b_name+".txt");
+		File file = new File(longPath, b_no+".txt");
 		if(!file.exists())
 			file.createNewFile();
 		OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(file));
 		osw.write(longDescription);
 		osw.close();
 		
-		file = new File(contentPath, b_name+ ".txt");
+		file = new File(contentPath, b_no+ ".txt");
 		if(!file.exists())
 			file.createNewFile();
 		osw = new OutputStreamWriter(new FileOutputStream(file));
 		osw.write(contentDescription);
 		osw.close();
 		
-		dto.setSw_long_description(b_name+".txt");
-		dto.setSw_content(b_name + ".txt");
+		dto.setSw_long_description(b_no+".txt");
+		dto.setSw_content(b_no + ".txt");
 		
 		//dto객체를 db에 등록한다.
 		int affected = bandService.addBandSubmitWaiting(dto);
@@ -207,4 +211,23 @@ public class BandSubmitController {
 		else
 			return "FAIL"; 
 	}//addRewardWaiting
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/bandsubmit/writeAdditionalComplete.ins", produces="text/html; charset=UTF-8")
+	public String writeAdditionalComplete(BandSubmitDTO dto, HttpSession session, Model model) throws Exception{
+		//bandSubmitWaiting complete
+		int isComplete = bandService.completeBandSubmitWaiting(dto.getSw_no());
+		if(isComplete != 1) 
+			return "F";
+		
+		//insert into bandSubmit
+		//콤마빼고 다시 dto세팅
+		dto.setS_goal_price(dto.getS_goal_price().replaceAll(",", ""));
+		int affected = bandService.addBandSubmit(dto);
+		if(affected == 1)
+			return "T";
+		else
+			return "F";
+	}///writeAdditionalComplete
 }//class

@@ -31,7 +31,7 @@ body {
 .space_for_nav {
 	background-color: black;
 	width: 100%;
-	height: 84px;
+	height: 96px;
 }
 
 .root_div {
@@ -328,18 +328,32 @@ function setComma(n) {
 			<!-- second-step END -->
 
 		</div>
-		<!-- main_progress -->
-	</div>
-	<!-- root_div -->
+		
+	</div><!-- main_progress -->
+	
+		<!-- 파라미터를 위한 hidden div -->
+		<div class="b_no" hidden="hidden">${param.b_no }</div>
+		<div class="sw_no" id="sw_no" hidden="hidden">${param.sw_no}</div>
+	
+	</div><!-- root_div -->
+	
 
 	<script>
-		console.log("version 60");
+		console.log("version 61");
 
 		var coverName = ""; //사진을 등록하기 위해 이미지파일의 이름을 저장해둔 변수
 		var index = 0; //id값을 구분하기 위해 붙여놓은 인덱스(시퀀스)
 
 		$(function() {
+			
+			$.ajaxSetup({
+				type : 'post'
+			});
+			
+			$("#s_goal_deadline").datepicker();
+			
 			$("#first-next").on("click", function() {
+				console.log("#first-next call");
 				$(".main_progress").css("margin-left", "-100%");
 			});//$(.first-next).onCLick
 
@@ -350,141 +364,76 @@ function setComma(n) {
 			/////////////////////////////////////////////////////////// 밴드 입력폼 validate 이후 info페이지로 이동 START
 			$("#second-next").on("click", function() {
 				if (validate()) { //밴드 폼을 모두 입력했을경우 // true이므로
-					location.href = "<c:url value='/band/bandInfo.ins'/>";
-				}
+					var s_account_bank = $("#s_account_bank").val();
+					var s_account_serial = $("#s_account_serial").val();
+					var s_goal_price = $("#s_goal_price").val();
+					var s_goal_deadline = $("#s_goal_deadline").val();
+					var b_no = $(".b_no").text();
+					var sw_no  = $("#sw_no").text();
+					
+					var json = {
+						's_account_bank' : s_account_bank,
+						's_account_serial' : s_account_serial,
+						's_goal_price' : s_goal_price,
+						's_goal_deadline' : s_goal_deadline,
+						'b_no' : b_no,
+						'sw_no' : sw_no
+					};
+					
+					$.ajax({
+						url: '<c:url value="/bandsubmit/writeAdditionalComplete.ins"/>',
+						data : json,
+						dataType : 'text',
+						success:function(data){
+							showCompleteMsg(data);
+						},
+						error:function(error, request){
+							console.log('에러 메세지 : '+ error);
+							alert("error");
+						}
+					});//ajax
+					//location.href = "<c:url value='/band/bandInfo.ins'/>";
+				}//true
 
 				else {
 					console.log("validate 실패");
 				}
 			});//$(second-step-btn-next).onClick
 
-			var validate = function() {
-							console.log("fn validate");
-							if($("#s_account_bank").val() == null){
-								alert("은행을 선택해주세요.");
-								return false;
-							}
-							else if ($("#s_account_serial").val() == "")  {
-								alert("계좌 번호를 입력하세요.");
-								return false;
-							}
-							else if ($("#s_goal_price").val() == "")  {
-								alert("목표 금액을 입력하세요.");
-								return false;
-							}
-							else if ($("#s_goal_accumulation").val() == "")  {
-								alert("누적 금액을 입력하세요.");
-								return false;
-							}
-							else if ($("#s_goal_deadline").val() == "")  {
-								alert("마감일을 선택하세요.");
-								return false;
-							}
-							
-							return true;
-			};//function validate()
-			/////////////////////////////////////////////////////////// 밴드 입력폼 validate 이후 info페이지로 이동 END
+		
 
-			$.ajaxSetup({
-				type : 'post'
-			});
+		});//jqury function
+		
+		var validate = function() {
+			console.log("fn validate");
+			if($("#s_account_bank").val() == null){
+				alert("은행을 선택해주세요.");
+				return false;
+			}
+			else if ($("#s_account_serial").val() == "")  {
+				alert("계좌 번호를 입력하세요.");
+				return false;
+			}
+			else if ($("#s_goal_price").val() == "")  {
+				alert("목표 금액을 입력하세요.");
+				return false;
+			}
+			else if ($("#s_goal_deadline").val() == "")  {
+				alert("마감일을 선택하세요.");
+				return false;
+			}
+			
+			return true;
+		};//function validate()
+		
+		function showCompleteMsg(data){
+			if(data == "T"){
+				alert("펀딩 성공!");
+				location.href="<c:url value='/band/bandInfo.ins'/>";
+			}else{
+				alert("펀딩 실패 ㅠㅠ");
+			}
+		};//showCompleteMsg
+/////////////////////////////////////////////////////////// 밴드 입력폼 validate 이후 info페이지로 이동 END
 
-			$("#setBandCover")
-					.on(
-							"click",
-							function() {
-								var uploadOk = confirm('이미지를 앨범 커버로 등록하시겠습니까?');
-								if (uploadOk) {
-									$("#frm_cover")
-											.ajaxForm(
-													{
-														url : '<c:url value="/band/uploadCover.ins"/>',
-														enctype : 'multipart/form-data',
-														dataType : 'text',
-														success : function(data) {
-															coverName = data;
-															var path = "<c:url value='/upload/temp/cover/"+data+"'/>";
-															$("#bandCover")
-																	.attr(
-																			"src",
-																			path);
-														},//success
-														error : function(
-																request, error) {
-															console
-																	.log(
-																			'상태코드:',
-																			request.status);
-															console
-																	.log(
-																			'서버로부터 받은 HTML데이타 :',
-																			request.responseText);
-															console.log('에러:',
-																	error);
-														}
-													});//frm_cover.ajaxForm
-
-									$("#frm_cover").submit();
-								}//if uploadOk
-							});//$("#setBandCover").on("click")
-		});//window.onload();
-
-		function searchMember() {
-			var inputVal = $("#input-search-member").val();
-			var inputData = {
-				"searchId" : inputVal
-			};
-
-			$.ajax({
-				url : '<c:url value="/band/searchMember.ins"/>',
-				data : inputData,
-				dataType : 'json',
-				success : function(data) {
-					loadMember(data);
-				},
-				error : function(request, error) {
-					console.log("상태코드 : ", request.status);
-					console.log("서버로부터 받은 HTML데이터 : ", request.reponseText);
-					console.log("에러", error)
-				}//error
-			});//ajax
-
-			//$("#frm-search-member").submit();
-		};//searchMember
-
-		function loadMember(data) {
-
-			//만약 찾는 멤버가 없을경우도 만들어줘야한다.
-
-			console.log(data);
-			var currentString = $('.select-member-div').html();
-			var resultString = "";
-			$.each(data,function(idx, element) {
-					resultString += '<div id="'+index+'" class="profile-wrap '+index+'"><div class="profile-image">';
-					resultString += '<img class="cancel-member '
-							+ index
-							+ '" src="/insomnia/resource/img/cancel-gray.png" id="'
-							+ index
-							+ '" onclick="javascript:deleteMember(this)">';
-					resultString += '<img class="image-member" src="/insomnia/upload/member/profile/'+element['profile']+'">';
-					resultString += '</div><div class="profile-id" id="memberName_'+index+'">'
-							+ element['id'] + '</div></div>';
-					index++;
-			});
-			$('.select-member-div').html(currentString + resultString);
-
-			//input내용 없애자
-			$("#input-search-member").val("");
-		}//loadMemeber fn
-
-		function deleteMember(imgObj) {
-			console.log(imgObj);
-			var currentIndex = $(imgObj).attr("id");
-			console.log(currentIndex);
-			$("div[id='" + currentIndex + "']").remove();
-		};//deleteMember fn (img Obj)
-
-		$(function() {
-			$("#s_goal_deadline").datepicker();
-		});
 	</script>

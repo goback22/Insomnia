@@ -44,18 +44,22 @@
 						<div class="panel-body feed">
 							<section class="feed-item">
 								<table class="table table-hover" id="membercheckbox">
+								
 									<tr>
 										<th class="col-md-2 text-center">BGSCONCERT.b_title</th>
+										<th class="col-md-3 text-center">CONCERTTIMES.c_concertdate</th>
+										<th class="col-md-3 text-center">BGSCONCERT.b_place</th>
 										<th class="text-center">BGSCONCERT.b_content</th>
-										<th class="col-md-2 text-center">BGSCONCERT.b_place</th>
-										<th class="col-md-2 text-center">CONCERTTIMES.c_concertdate</th>
 									</tr>
 									<!-- DB에서 꺼내서~ each~~...tq -->
+									<c:forEach items="${subList }" var="subList" varStatus="loop">
+									<!-- subList.bgsco_no -->
+									<c:if test="${subList.bgsco_no==1 }" var="bgsco_no_1">
 									<tr class="view">
-										<td class="text-center">방구석 제목</td>
-										<td class="text-center">방구석 내용</td>
-										<td class="text-center">방구석 장소</td>
-										<td class="text-center">방구석 날짜</td>
+										<td class="text-center">${subList.b_title }</td>
+										<td class="text-center">${subList.c_concertdate }</td>
+										<td class="text-center">${subList.b_place }</td>
+										<td class="text-center">${subList.b_content }</td>
 									</tr>
 									<!-- 위의 detail -->
 									<tr class="fold" style="background-color:#c8c8c8;">
@@ -65,148 +69,28 @@
 									         	<!-- first floor -->
 									          <thead>
 									            <tr>
-													<th><input type="checkbox" value="all"/>&nbsp;&nbsp;no</th>
-													<th class="col-md-1">MEMBERS.id</th>
-													<th class="col-md-2">BGSAPPLY.ap_title</th>
-													<th>BGSAPPLY.ap_content</th>
-													<th class="col-md-1">BGSAPPLY.ap_postdate</th>
-													<th class="col-md-1">BGSAPPLY.ap_genre</th>
-													<th class="col-md-2">apply/deny</th>
+									            	
+													<th class='text-center'><input type="checkbox" value="all"/></th>
+													<th>no</th>
+													<th class="col-md-1">ID</th>
+													<th class="col-md-3">제목</th>
+													<th class="col-md-3">내용</th>
+													<th class="col-md-1">등록일</th>
+													<th class="col-md-1">장르</th>
+													<th>apply/deny</th>
 									            </tr>
 									          </thead>
 									          <%-- 				<c:if 없을때 없다고 표시하기1/2> --%>
-									          
-									          
-									          
-									        <tbody>
-												<tr>
-													<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;1</td>
-													<td>oin members</td>
-													<td>BGSAPPLY</td>
-													<td>BGSAPPLY</td>
-													<td>2111</td>
-													<td>aBGSAPPLY</td>
-													<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
+												<tbody class="submember">
 												
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;2</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2018</td>
-												<td>zBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
-												
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;3</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2019</td>
-												<td>hBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;3</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2019</td>
-												<td>hBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;3</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2019</td>
-												<td>hBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;3</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2019</td>
-												<td>hBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;3</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2019</td>
-												<td>hBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;3</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2019</td>
-												<td>hBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;3</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2019</td>
-												<td>hBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;3</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2019</td>
-												<td>hBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;3</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2019</td>
-												<td>hBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;3</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2019</td>
-												<td>hBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;3</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2019</td>
-												<td>hBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
-												<tr>
-												<td><input type="checkbox" name="allmember"/>&nbsp;&nbsp;3</td>
-												<td>join members</td>
-												<td>BGSAPPLY</td>
-												<td>BGSAPPLY</td>
-												<td>2019</td>
-												<td>hBGSAPPLY</td>
-												<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td>
-												</tr>
+<!-- 												<tr> -->
+<!-- 													<td ><input type="checkbox" name="allmember"/>&nbsp;&nbsp;1</td> -->
+<!-- 													<td>oin members</td> -->
+<!-- 													<td>BGSAPPLY</td> -->
+<!-- 													<td>2111</td> -->
+<!-- 													<td>aBGSAPPLY</td> -->
+<!-- 													<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td> -->
+<!-- 												</tr> -->
 												
 												</tbody>
 									          </table>          
@@ -219,7 +103,11 @@
 									      </td>
 									    </tr>
 										<!-- 위의 detail 끝 -->
+									</c:if>
+									</c:forEach>	
 									<!-- DB에서 꺼내기 끝 -->
+									
+									
 								</table>
 							</section>
 						</div>
@@ -278,31 +166,7 @@
 		</div>
 		
 	</div>
-<script>
 
-
-//수락,거부 버튼
-$('.apply').click(function(){
-	//console.log("apply single");
-	$(this).closest('tr').remove();
-	var applytable = "<tr>"
-		applytable += 	"<td>id</td>"
-		applytable +=	"<td>genre</td>"
-		applytable +=	"<td>apply single button</td>"
-		applytable +="</tr>"
-	$('.apply-table').append(applytable);
-});
-$('.deny').click(function(){
-	$(this).closest('tr').remove();
-	var denytable = "<tr>"
-		denytable += 	"<td>id</td>"
-		denytable +=	"<td>genre</td>"
-		denytable +=	"<td>deny single button</td>"
-		denytable +="</tr>"
-	$('.deny-table').append(denytable);
-});
-
-</script>
 
 <!-- checked about checkbox -->
 <script>
@@ -351,23 +215,99 @@ $('.checkeddelete').click(function(){
 
 //선택 거부
 
-//toggle
+//세부 정보 table toggle
 $(".view").on("click", function(){
 	console.log("click");
 	$(this).next(".fold").toggle(500);
+	
 });
-</script>
-<script type="text/javascript">
+$(function(){
+	$.ajax({
+		url:"<c:url value='/admin/submember.ins'/>",
+		dataType:'json',
+		success:function(data){
+			firstSubSubmitMembers(data)
+		},
+		error:function(request,error){
+			console.log('상태코드:',request.status);
+			console.log('서버로 부터 받은 HTML데이터:',request.responseText);
+			console.log('에러:',error);
+		}
+	});
 	
+	function firstSubSubmitMembers(data){
+		//console.log(data);
+		var tableString;
+		var id;
+		var ap_no;
+		$.each(data,function(index,element){
+			//index = element["ap_no"];
+			
+			id = element["id"];
+			ap_no = element["ap_no"];
+			
+			tableString += "<tr>";
+			tableString +=		"<td class='text-center'><input type='checkbox' name='allmember'/></td>";
+			tableString +=		"<td class='text-center'></td>";
+			tableString +=		"<td class='col-md-1'>"+id+"${hireAp_no.ap_no},${isSame}</td>";
+			tableString +=		"<td class='col-md-3'>"+element["ap_title"]+"</td>";
+			tableString +=		"<td class='col-md-3'>"+element["ap_content"]+"</td>";
+			tableString +=		"<td class='col-md-1'>"+element['ap_postdate'].substring(0,10)+"</td>";//
+			tableString +=		"<td class='col-md-1'>"+element["ap_genre"]+"</td>";
+			tableString +=		"<td class='text-center'>"
+			tableString +=			"<div value='"+ap_no+"' class='btn btn-default apply' onclick='applyButton(this)'>수락</div>"
+			tableString += 			"<div class='btn btn-default deny' onclick='denyButton()'>거부</div>"
+			tableString +=		"</td>";
+			tableString += "</tr>";
+			
+			
+			
+		});
+		$('.submember').html(tableString);
+		
+		//sub detail view table
+		var t = $('.example').DataTable( {
+	        "columnDefs": [ {
+	            "searchable": false,
+	            "orderable": false,
+	            "targets": 0
+	        } ],
+	        "order": [[ 1, 'asc' ]]
+	    } );
+	 
+	    t.on( 'order.dt search.dt', function () {
+	        t.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+	            cell.innerHTML = i+1;
+	        } );
+	    } ).draw();
+		
+	};
 	
+
+});
+function applyButton(info){
+    //var thisId = $(info).attr("value");
+    var thisap_no = $(info).attr("value");
+    //console.log(thisId);
+	console.log(thisap_no);
+    
+    $.ajax({
+    	url:"<c:url value='/admin/submemberApplySingle.ins?ap_no="+thisap_no+"'/>",
+    	dataType:"json",
+    	success:function(data){
+    		console.log(data);
+    	},
+    	error:function(request,error){
+			console.log('상태코드:',request.status);
+			console.log('에러:',error);
+		}
+    });
+};
+function denyButton(){
+	console.log("deny single button");
+	
+};
 </script>
 
-
-<script>
-//sub detail view table
-$(document).ready(function() {
-    $('.example').DataTable();
-} );
-</script>
 </body>
 </html>

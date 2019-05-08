@@ -15,6 +15,9 @@
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.js"></script>
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery.migrate/jquery-migrate-3.0.0.min.js"></script>
 	<script src="http://malsup.github.com/jquery.form.js"></script> 
+	
+	<!-- 모달 띄우기 위한 bootstrap css -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 
 <style>
@@ -34,7 +37,7 @@ body{
 .space_for_nav {
 	background-color: black;
 	width: 100%;
-	height: 84px;
+	height: 96px;
 }
 .root_div{
 	width:100%;
@@ -194,6 +197,17 @@ body{
 	font-size:larger;
 }
 
+.band-description-input{
+    margin-top: 50px;
+    width: 450px;
+    height: 55px;
+    padding: 16px;
+	border: 1px solid rgb(230, 234, 237);
+	text-align:center;
+	font-weight:600;
+	font-size:larger;
+}
+
 </style>
 
 </head>
@@ -226,6 +240,10 @@ body{
 	              <option value="6">국악</option>
 	          </select>
 	        </div><!-- select div -->
+	        
+	        <p style="margin-top:120px;">등록하는 밴드는 어떤 밴드인가요? 설명을 적어주세요</p>
+	        <input class="band-description-input" type="text">
+			
 	        
 	        <div class="first-step-btn-div">
 				<div id="first-next" class="first-step-btn">다음 : 밴드 커버 선택</div>
@@ -365,8 +383,9 @@ body{
 			if(validate()){ //밴드 폼을 모두 입력했을경우
 				//폼객체를 만들어서 submit시킴
 				var select_category = $('.select_category').val();
-				var band_name = $('.band-name-input').val()
-				var params = {select_category, coverName, bandMembers, band_name};
+				var band_name = $('.band-name-input').val();
+				var b_description = $('.band-description-input').val();
+				var params = {select_category, coverName, bandMembers, band_name, b_description};
 				
 				var form = document.createElement('form');
 				form.setAttribute('method', 'post');
@@ -496,7 +515,6 @@ body{
 	
 	
 	function loadMember(data){
-		
 		console.log(data);
 		var searchMemberFlag = true;
 		var currentString = $('.select-member-div').html();

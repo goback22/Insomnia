@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String id = request.getParameter("id");
-	System.out.println("넘어오는 id:"+id);
+	//System.out.println("넘어오는 id:"+id);
 	
 	String fouc = "1";
 	request.setAttribute("fouc", fouc);
@@ -78,15 +78,15 @@
 													</tr>
 													<tr>	
 														<td>${memberView.phone }</td>
-														<td>${memberView.bank_name }</td>
-														<td>${memberView.bank_serial }</td>
+														<td>${memberView.bank_name==null?"등록된 은행이 없습니다":memberView.bank_name }</td>
+														<td>${memberView.bank_serial==null?"등록된 계좌가 없습니다":memberView.bank_serial }</td>
 													</tr>
 													<tr>
 														<th colspan="2">MEMBERS.shipping_address</th>
 														<th>3333333</th>
 													</tr>
 													<tr>	
-														<td colspan="2">${memberView.shipping_address }</td>
+														<td colspan="2">${memberView.shipping_address==null?"등록된 주소가 없습니다":memberView.shipping_address }</td>
 														<td>3333333</td>
 													</tr>
 												</table>
@@ -108,13 +108,15 @@
 														<th>SAFEPAY.shipping_address</th>
 														<th>SAFEPAY.sp_phone</th>
 													</tr>
+													
+													<c:forEach items="${memberViewPay }" var="memberPay" varStatus="loop">
 													<tr>
-														<td class="viewDetail">112</td>
-														<td class="viewDetail">2019-04-29</td>
-														<td class="viewDetail">aasdads</td>
-														<td class="viewDetail">asdaadsa</td>
-														<td class="viewDetail">seoul aagu</td>
-														<td class="viewDetail">010-2215-4477</td>
+														<td class="viewDetail">${memberPay.sp_no }</td>
+														<td class="viewDetail">${memberPay.sp_date }</td>
+														<td class="viewDetail">${memberPay.sp_recipient }</td>
+														<td class="viewDetail">${memberPay.sp_depositor }</td>
+														<td class="viewDetail">${memberPay.shipping_address }</td>
+														<td class="viewDetail">${memberpay.sp_phone }</td>
 													</tr>
 													<!-- 위의 detail -->
 													<tr class="fold" style="background-color: #c8c8c8;">
@@ -134,12 +136,12 @@
 																		</tr>
 																	
 																		<tr>
-																			<td>리워드이름</td>
-																			<td>개당 가격</td>
-																			<td>그 리워드갯수</td>
-																			<td>총 가격</td>
-																			<td>결제시 은행</td>
-																			<td>결제시 계좌</td>
+																			<td>${memberPay.r_name }</td>
+																			<td>${memberPay.r_price }</td>
+																			<td>${memberPay.sp_reward_qty }</td>
+																			<td class="cur">${memberPay.r_price * memberPay.sp_reward_qty }</td>
+																			<td>${memberPay.sp_bank_name }</td>
+																			<td>${memberPay.sp_account_serial }</td>
 																			
 																		</tr>
 																	
@@ -147,6 +149,8 @@
 															</div>
 														</td>
 													</tr>
+													</c:forEach>
+													
 													<!-- 위의 detail 끝 -->
 												</table>
 											</div>
@@ -155,7 +159,6 @@
 								</div>
 								<div align="center">
 <!-- 									<div class="btn btn-success" onclick="memberList()"> 돌아가기 </div> -->
-<%-- 									<a class="btn btn-success" href="<c:url value='/admin/allmember.ins?fouc=1'/>">돌아가기</a> --%>
 									<a class="btn btn-success" href="<c:url value='/admin/allmember.ins?fouc=1'/>">돌아가기</a>
 								</div>
 								<!--  -->
@@ -178,13 +181,13 @@
 			
 			setTimeout(function(){
 				//history.back();
-				location.href="<c:url value='/admin/allmember.ins?'/>"
+				location.href="<c:url value='/admin/allmember.ins?fouc=1'/>"
 		    },1000);
 			
 		};
 		
 		$(".viewDetail").on("click", function() {//[o]
-			$('.fold').hide(100);
+			//$('.fold').hide(100);
 			$(this).parent().next(".fold").toggle(300);
 		});
 		

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
 
 <!-- Noto Sans KR Fonts -->
@@ -448,6 +449,7 @@ li {
 
 #kyjImage{
    opacity: 0.7;
+   margin-left:40px;
 }
 
 #kyjImage:hover{
@@ -532,6 +534,17 @@ li {
 
 <script>
 	var playList = new Array(); //playList를 저장하기 위한 배열
+	
+	//1000단위로 콤마찍기
+	function setComma(obj, n) {
+	    var reg = /(^[+-]?\d+)(\d{3})/;   // 정규식
+	    n += '';                          // 숫자를 문자열로 변환         
+	    while (reg.test(n)) {
+	       n = n.replace(reg, '$1' + ',' + '$2');
+	    }         
+	    $(obj).text(n+"원 달성");
+	    console.log(n);
+	}
 </script>
 
 	<div class="root_div">
@@ -544,7 +557,7 @@ li {
 
 
 		<!-- 아직 등록된 밴드가 없는 아이디일 경우 -->
-		<c:if test="${isBandMember == false}">
+		<c:if test="${isBandMember == 'F'}">
 		
 			<div class="no_have_band">
 				<div class="no_band_header"></div>
@@ -561,7 +574,7 @@ li {
   
 		<!-- 아직 등록된 밴드가 없는 아이디일 경우 끝 -->
 		<!-- 등록된 밴드가 있는 아이디일 경우 시작 -->
-		<c:if test="${isBandMember == true }">
+		<c:if test="${isBandMember == 'T' }">
 
 		<div class="have_band">
 
@@ -595,8 +608,12 @@ li {
 									</form>
 									<ul class="activity-list">
 										<li><strong class="count">0</strong><span>펀딩</span></li>
-										<li><a href="javascript:void(0)"><strong
-												class="count">${record.b_liked}</strong><em>좋아요</em></a></li>
+																										<!-- 기환쓰 좋아요 처리할 부분임당~ -->
+										<li><a href="javascript:void(0)"
+											<c:if test="${thirdLook == 'T'}"> onclick="likeBand();" </c:if>
+										>
+										<!-- 밴드 좋아요 처리 -->
+										<strong class="count">${record.b_liked}</strong><em>좋아요</em></a></li>
 										<li><a href="javascript:void(0)"><strong
 												class="count">0</strong><em>팔로워</em></a></li>
 									</ul>
@@ -613,8 +630,10 @@ li {
 										</li>
 										<li>
 											<div class="btn-wrap">
+											<c:if test="${thirdLook !=  'T'}">
 												<a href="<c:url value='/main/bandSubmit.ins'/>"
 													class="wz button btn-edit">펀딩 시작!</a>
+											</c:if>
 											</div>
 										</li>
 									</ul>
@@ -665,42 +684,11 @@ li {
 
 									<!-- -------------------------------펀딩한 내역을 등록하는 다이브--------------------------------------- -->
 									<ul>
-										<!-- S : 전체 리스트 -->
-										 <!-- 펀딩된 다이브 예제
-										  
-										<li>
-											<div class="project-card">
-											<a href="<c:url value='/main/content.ins'/>">
-												<div class="card-img-section">
-													<em class="project-img"></em>
-													<div id="test" class="progressbar-wrap">
-														<dl>
-															<dt>
-																<span style="width: 745%"></span>
-															</dt>
-															<dd>
-																<span class="percent">745%</span> <span class="amount">7,455,700원
-																	달성</span>
-															</dd>
-														</dl>
-													</div>
-												</div>	
-											</a>
-												<div class="card-info-section">
-													<h4>INSOMNIA FOREVER</h4>
-													<h5>insomnia</h5>
-													<div class="card-category">
-														<span class="category">락·메탈</span>
-													</div>
-												</div>
-											</div>
-										</li>
-										 -->
-										<!-- E : 전체 리스트 -->
-										
-										
 										
 										<c:forEach items="${waiting}"  var="waiting"  varStatus="waitingStatus">
+											<c:if test="${waiting.sw_isComplete != 'T' }" var="isComplete"><!-- bandSubmit이 완료되지 않았을때(신청중) -->
+											<c:if test="${thirdLook != 'T'}">
+											
 												   <li >
 					                                 <div class="project-card">
 					                                    <div class="card-img-section" style="opacity: 0.4; background-image: url(/insomnia/upload/content/main/banner/${waiting.sw_banner});">
@@ -718,7 +706,7 @@ li {
 					                                    <div class="card-info-section">
 					                                       <h4>${waiting.sw_short_description } 
 					                                      	 <c:if test="${waiting.sw_isAccept == 'T'}">
-					                                      	 <a id="kyjImage" href="<c:url value='/main/writeAdditional.ins'/>"><img class="kyj" id="exclamationmark" src="<c:url value='/resource/img/exclamation-mark.png'/>" /></a>
+					                                      	 <a id="kyjImage" href="<c:url value='/main/writeAdditional.ins?b_no=${waiting.b_no}&sw_no=${waiting.sw_no}'/>"><img class="kyj" id="exclamationmark" src="<c:url value='/resource/img/exclamation-mark.png'/>" /></a>
 					                                      	 </c:if>
 					                                       </h4>
 					                                       <h5>${waiting.b_name }</h5>
@@ -728,36 +716,43 @@ li {
 					                                    </div>
 					                                 </div>
 					                              </li>
+					                              
+					                          </c:if>
+					                          </c:if>
+					                          
+					                          
+					                          <c:if test="${!isComplete}"><!-- bandsubmit이 완료된 상태일때  -->					                            
+													<li>
+														<div class="project-card">
+														<a href="<c:url value='/main/content.ins?s_no=${waiting.s_no }'/>">
+															<div class="card-img-section" style="background-image: url(/insomnia/upload/content/main/banner/${waiting.sw_banner});">
+																<em class="project-img"></em>
+																<div id="test" class="progressbar-wrap">
+																<c:set var="result" value="${(waiting.s_goal_accumulation / waiting.s_goal_price)*100}"/>
+																	<dl>
+																		<dt>
+																			<span style="width: ${result-(result%1)}%"></span>
+																		</dt>
+																		<dd>
+																			<span class="percent">${result-(result%1)}%</span> 
+																			<span class="amount">${waiting.comma_Accumulation }원 달성</span>
+																		</dd>
+																	</dl>
+																</div>
+															</div>	
+														</a>
+															<div class="card-info-section">
+																<h4>${waiting.sw_short_description }</h4>
+																<h5>${waiting.b_name }</h5>
+																<div class="card-category">
+																	<span class="category">${waiting.ct_name }</span>
+																</div>
+															</div>
+														</div>
+													</li>
+					                          </c:if><!-- 펀딩내역끝 -->
 										</c:forEach>
-										
-										
-										<!-- 
-										   <li >
-			                                 <div class="project-card">
-			                                    <div class="card-img-section" style="opacity: 0.4">
-			                                       <a style="text-decoration: none"
-			                                          href="<c:url value='/main/content.ins'/>"> <span
-			                                          id="wait"><br>
-			                                          
-			                                          <br>
-			                                          <br>
-			                                          <br>
-			                                          <span style="margin-left: 70px">신 청 중</span></span>
-			                                       </a>
-			                                       <div id="test" class="progressbar-wrap"></div>
-			                                    </div>
-			                                    <div class="card-info-section">
-			                                       <h4>Stop Krunker.io <a id="kyjImage" href="<c:url value='/main/writeAdditional.ins'/>"><img class="kyj" id="exclamationmark" src="<c:url value='/resource/img/exclamation-mark.png'/>" /></a></h4>
-			                                       <h5>insomnia</h5>
-			                                       <div class="card-category">
-			                                          <span class="category">힙합/랩</span>
-			                                       </div>
-			                                    </div>
-			                                 </div>
-			                              </li>
-										
-										 -->
-										<!-- 신청중 다이브 예제 끝 -->
+
 									</ul>
 									<!-- -------------------------------펀딩한 내역을 등록하는 다이브 끝------------------------------------ -->
 						
@@ -781,56 +776,16 @@ li {
 											        <img class="thumbnail" src="<c:url value='/upload/temp/a.jpg'/>" />										  
 											    </a>
 											</div>
-											
-											<div class="lightgallery" id="lightgallery">
-											    <a href="<c:url value='/upload/band/img/1.jpg'/>">
-											        <img class="thumbnail" src="<c:url value='/upload/band/img/1.jpg'/>" />										  
-											    </a>
-											</div>
-											
-											<div class="lightgallery" id="lightgallery">
-											    <a href="<c:url value='/upload/band/img/2.png'/>">
-											        <img class="thumbnail" src="<c:url value='/upload/band/img/2.png'/>" />										  
-											    </a>
-											</div>
-											
-											<div class="lightgallery" id="lightgallery">
-											    <a href="<c:url value='/upload/temp/b.jpg'/>">
-											        <img class="thumbnail" src="<c:url value='/upload/temp/b.jpg'/>" />										  
-											    </a>
-											</div>
-											
-											<div class="lightgallery" id="lightgallery">
-											    <a href="<c:url value='/upload/temp/c.jpg'/>">
-											        <img class="thumbnail" src="<c:url value='/upload/temp/c.jpg'/>" />										  
-											    </a>
-											</div>
-											
-											<div class="lightgallery" id="lightgallery">
-											    <a href="<c:url value='/upload/temp/d.jpg'/>">
-											        <img class="thumbnail" src="<c:url value='/upload/temp/d.jpg'/>" />										  
-											    </a>
-											</div>
-											
-											<div class="lightgallery" id="lightgallery">
-											    <a href="<c:url value='/upload/temp/e.jpg'/>">
-											        <img class="thumbnail" src="<c:url value='/upload/temp/e.jpg'/>" />										  
-											    </a>
-											</div>
-											
-											<div class="lightgallery" id="lightgallery">
-											    <a href="<c:url value='/upload/temp/f.jpg'/>">
-											        <img class="thumbnail" src="<c:url value='/upload/temp/f.jpg'/>" />										  
-											    </a>
-											</div>
-											
+
 											 -->
 										<!-- 여기부터 이미지 추가 끝 -->
 										
 										<!-- 새로운 이미지를 등록하는 다이브 -->
-										<div data-toggle="modal" data-target="#modal-upload-img" class="plus-image" style="display:inline-block; width:287px; height:287px; text-align:center; padding-top:125px; margin:0 0 20px 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.5);">
-										    <img style="width:30px; height:30px;" src="<c:url value='/resource/img/plus-button.png'/>" />
-										</div>
+										<c:if test="${thirdLook != 'T'}">
+											<div data-toggle="modal" data-target="#modal-upload-img" class="plus-image" style="display:inline-block; width:287px; height:287px; text-align:center; padding-top:125px; margin:0 0 20px 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.5);">
+											    <img style="width:30px; height:30px;" src="<c:url value='/resource/img/plus-button.png'/>" />
+											</div>
+										</c:if>
 										<!-- 새로운 이미지를 등록하는 다이브 끝 -->
 										</div>
 									</div>
@@ -953,61 +908,16 @@ li {
 																</ul>
 															</li>
 															
-															<li class="tim-songs-items grid-item rock-metal dance%electronic folk-pop">
-																<ul class="songs-details">
-																	<li>Bohemian Rhapsody</li>
-																	<li>Rock</li>
-																	<li>play</li>
-																</ul>
-															</li>
-															
-															<li class="tim-songs-items grid-item rock-metal dance%electronic jazz-classic">
-																<ul class="songs-details">
-																	<li>Paranoid Android</li>
-																	<li>Rock</li>
-																	<li>play</li>
-																</ul>
-															</li>
-															
-															<li class="tim-songs-items grid-item jazz-classical dance-electronic">
-																<ul class="songs-details">
-																	<li>My foolish heart</li>
-																	<li>jazz</li>
-																	<li>play</li>
-																</ul>
-															</li>
-															
-															<li class="tim-songs-items grid-item traditional folk&pop">
-																<ul class="songs-details">
-																	<li>서용석류 태평소 시나위</li>
-																	<li>traditional</li>
-																	<li>play</li>
-																</ul>
-															</li>
-															
-															<li class="tim-songs-items grid-item hiphop dance-electronic ">
-																<ul class="songs-details">
-																	<li>Lose yourself</li>
-																	<li>Rap</li>
-																	<li>play</li>
-																</ul>
-															</li>
-															
-															<li class="tim-songs-items grid-item dance-electronic ">
-																<ul class="songs-details">
-																	<li>Harder, Better, Faster, Stronger</li>
-																	<li>Rap</li>
-																	<li>play</li>
-																</ul>
-															</li>
 															 -->
 															<!-- 리스트 추가 END -->
 															<!-- 새로운 넘버를 추가하는 div --> <!-- 밴드 멤버 본인만 보여줘야 한다. -->
-															<li id="add-music-li" class="tim-songs-items grid-item" data-toggle="modal" data-target="#modal-upload-music">
-																<ul class="songs-details">
-																	<li><img style="width:22px;" src="<c:url value='/resource/img/plus-button.png'/>"></li>
-																</ul>
-															</li>
+															<c:if test="${thirdLook != 'T'}">
+																<li id="add-music-li" class="tim-songs-items grid-item" data-toggle="modal" data-target="#modal-upload-music">
+																	<ul class="songs-details">
+																		<li><img style="width:22px;" src="<c:url value='/resource/img/plus-button.png'/>"></li>
+																	</ul>
+																</li>
+															</c:if>
 															<!-- 새로운 넘버를 추가하는 div 끝 -->
 															
 														</ul>
@@ -1098,7 +1008,9 @@ li {
 	</div>
 	<!-- root_div -->
 	<script>
-		console.log("version 109");
+		console.log("version 1010");
+		console.log("isMember : ${isBandMember}");
+		console.log("thirdLook : ${thirdLook}");
 		
 		$(function() {
 			$.ajaxSetup({type:'post'});
@@ -1248,23 +1160,46 @@ li {
 			//다이브 초기화
 			$(".lightgallery-center-div").html("");
 			//추가 버튼 생성
-			var addDiv = '<div data-toggle="modal" data-target="#modal-upload-img" class="plus-image" style="width:287px; height:287px; text-align:center; padding-top:125px; margin:0 0 20px 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.5); display:inline-block;">';
-			addDiv += '<img style="width:30px; height:30px;" src="/insomnia/resource/img/plus-button.png"/></div>';
-			$.each(data, function(idx, element){
-				if(element['isExist'] == 'F'){ //갤러리에 등록된 이미지가 없을때
-					return;
-				}//if
-				else{ //있을 때
-					var beforeString = $(".lightgallery-center-div").html(); 
-					var afterString = '<div class="lightgallery" id="lightgallery">';
-					afterString += ' <a href="/insomnia/upload/band/img/'+ element['image'] + '">';
-					afterString += '<img class="thumbnail" src="/insomnia/upload/band/img/' + element['image'] + '"/></a></div>';
-					$(".lightgallery-center-div").html(beforeString + afterString);
-				}
-			});//$.each
-			//추가버튼 마지막으로 붙임
-			var beforeString = $(".lightgallery-center-div").html();
-			$(".lightgallery-center-div").html(beforeString + addDiv);
+			if(${thirdLook != 'T'}){
+				var addDiv = '<div data-toggle="modal" data-target="#modal-upload-img" class="plus-image" style="width:287px; height:287px; text-align:center; padding-top:125px; margin:0 0 20px 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.5); display:inline-block;">';
+				addDiv += '<img style="width:30px; height:30px;" src="/insomnia/resource/img/plus-button.png"/></div>';
+				$.each(data, function(idx, element){
+					if(element['isExist'] == 'F'){ //갤러리에 등록된 이미지가 없을때
+						var emptyString = '<p id="emptyProjectText" style="display: block">갤러리가 비었습니다.</p>';
+						$("#card-list-gallery").html(emptyString);
+						return;
+					}//if
+					else{ //있을 때
+						var beforeString = $(".lightgallery-center-div").html(); 
+						var afterString = '<div class="lightgallery" id="lightgallery">';
+						afterString += ' <a href="/insomnia/upload/band/img/'+ element['image'] + '">';
+						afterString += '<img class="thumbnail" src="/insomnia/upload/band/img/' + element['image'] + '"/></a></div>';
+						$(".lightgallery-center-div").html(beforeString + afterString);
+					}
+				});//$.each
+				//추가버튼 마지막으로 붙임
+				var beforeString = $(".lightgallery-center-div").html();
+				$(".lightgallery-center-div").html(beforeString + addDiv);
+			}//if 자신의 밴드일 경우
+			else{
+				$.each(data, function(idx, element){
+					if(element['isExist'] == 'F'){ //갤러리에 등록된 이미지가 없을때
+						var emptyString = '<p id="emptyProjectText" style="display: block">갤러리가 비었습니다.</p>';
+						$("#card-list-gallery").html(emptyString);
+						return;
+					}//if
+					else{ //있을 때
+						var beforeString = $(".lightgallery-center-div").html(); 
+						var afterString = '<div class="lightgallery" id="lightgallery">';
+						afterString += ' <a href="/insomnia/upload/band/img/'+ element['image'] + '">';
+						afterString += '<img class="thumbnail" src="/insomnia/upload/band/img/' + element['image'] + '"/></a></div>';
+						$(".lightgallery-center-div").html(beforeString + afterString);
+					}
+				});//$.each
+				//추가버튼 마지막으로 붙임
+				var beforeString = $(".lightgallery-center-div").html();
+				$(".lightgallery-center-div").html(beforeString);
+			}//자신의 밴드가 아닐 경우
 		}//createGalleryDiv
 		
 		
@@ -1313,5 +1248,13 @@ li {
 				break;
 			}//switch
 		}//fn playSwitch
+		
+		
+		/*
+		////////// 밴드 좋아요 처리
+		function likeBand(){
+			
+		}////밴드 좋아요 처리
+		*/
 			
 	</script>

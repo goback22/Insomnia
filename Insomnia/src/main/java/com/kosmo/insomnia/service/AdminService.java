@@ -7,7 +7,17 @@ public interface AdminService {
 
 	//전체보기
 	List<AdminDTO> selectList(Map map);//전체회원보기
+	//전체회원 성별
+	int getGenderCount(Map map);
+	//여성회원
+	int getFemaleMember(String string);
+	//상세보기
+	AdminDTO selectOne(String string);
+	//member detail
+	List<AdminDTO> selectMemberViewPay(String string);
+	
 	List<AdminDTO> selectNewMemberList(Map map);//그제 어제 오늘 가입한 사람
+	
 	//신규 가입자 사람 수(3일)
 	int selectTodayNewMember(Map map);
 	int selectYesterDayNewMember(Map map);
@@ -19,9 +29,11 @@ public interface AdminService {
 	//bandmember
 	List<AdminDTO> selectBandMember(Map map);
 	
-	//상세보기
-	AdminDTO selectOne(String string);
-	
+	//subList
+	List<AdminSubDTO> selectSubList(Map map);
+	List<AdminSubDTO> selectSubMemberList(Map map);
+	int insertBgshire(String string);
+	List<AdminSubDTO> selectHire(Map map);
 	
 	//입력/수정/삭제용]
 	int delete(Map map);
@@ -31,8 +43,5 @@ public interface AdminService {
 	//천제 레코드
 	int getTotalRecord(Map map);
 	
-	//전체회원 성별
-	int getGenderCount(Map map);
-	//여성회원
-	int getFemaleMember(String string);
+	
 }

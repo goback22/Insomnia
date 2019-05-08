@@ -11,4 +11,12 @@ public interface CommentService {
 	void insert(Map map);
 	void delete(Map map);
 	void update(Map map);
+	
+	//정보 가져오기
+	CommentDTO selectOne(Map map);
+	
+	void reply(Map map);
+	
+	//댓글에 자식 댓글이 있는 지 확인하기
+	boolean isChild(Map map);
 }

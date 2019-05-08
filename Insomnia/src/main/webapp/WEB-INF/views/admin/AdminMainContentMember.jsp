@@ -1,4 +1,4 @@
-<%@page import="com.kosmo.insomnia.serviceimpl.AdminDAO"%>
+﻿<%@page import="com.kosmo.insomnia.serviceimpl.AdminDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -48,9 +48,9 @@
 									<th class="col-md-1 text-center">B_NAME</th>
 									<th class="col-md-2 text-center">column1</th>
 									<th class="col-md-3 text-center">BM_TITLE</th>
-									<th class="col-md-1 text-center">column1</th>
 									<th class="col-md-1 text-center">b-LIKED</th>
 									<th class="col-md-1 text-center">main신청여부</th>
+									<th class="col-md-1 text-center">작성 글 보기</th>
 								</tr>
 								
 								<c:if test="${empty bandlist }" var="isEmpty">
@@ -66,9 +66,9 @@
 										<td class="text-center viewDetail" style="cursor:pointer;">${item.b_name }</td>
 										<td class="text-center viewDetail">column1</td>
 										<td class="text-center viewDetail">${item.bm_title }</td>
-										<td class="text-center viewDetail">column1</td>
 										<td class="text-center viewDetail">${item.b_liked }</td>
 										<td class="text-center">미신청</td>
+										<td class="text-center"><a class="btn btn-default" href="<c:url value='/admin/allmember.ins?b_no=${item.b_no}'/>">글보기</a></td>
 									</tr>
 									<!-- 위의 detail -->
 									<tr class="fold" style="background-color: #c8c8c8;">
@@ -131,6 +131,7 @@
 											<div align="center">
 												<div class="btn btn-default apply">수락</div>
 												<div class="btn btn-default deny">거부</div>
+												<div hidden="hidden" class="b_no">${item.b_no }</div>
 											</div>
 										</td>
 										
@@ -153,43 +154,6 @@
 				</div>
 			</div>
 			<!-- 첫번째 끝 -->
-			
-			
-			<!-- 오른쪽 시작 -->
-			
-<!-- 				<div class="col-md-4"> -->
-<!-- 					<div class="panel panel-primary"> -->
-<!-- 						<div class="panel-heading"> -->
-<!-- 							<h3 class="panel-title">band image</h3> -->
-<!-- 						</div> -->
-<!-- 						<div class="panel-body feed"> -->
-<!-- 							<section class="feed-item"> -->
-								
-<!-- 							</section> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-			
-			<!-- 오른쪽 끝 -->
-			<!-- chart -->
-<!-- 			<div class="col-md-4" name="chart"> -->
-<!-- 				<div class="panel panel-primary">  -->
-<!-- 					<div class="panel-heading"> -->
-<!-- 						<h3 class="panel-title"> -->
-<!-- 							진행중인 chart -->
-<!-- 						</h3> -->
-<!-- 					</div> -->
-<!-- 					<div class="bars"> -->
-<!-- 						<div id="bar-1"></div> -->
-<!-- 						<div id="bar-2"></div> -->
-<!-- 						<div id="bar-3"></div> -->
-<!-- 						<div id="bar-4"></div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-			<!-- chart? end -->
-			
-			
 			
 		</div>		
 	</div>
@@ -278,9 +242,35 @@ $('.apply').click(function(){
 	console.log("수락버튼");
 	//$(this).closest('tr').css("display","none");
 //	$(this).removeClass().addClass("btn btn-success allpied").html("수락됨");
-	$(this).removeClass().addClass("btn btn-success allpied").html("").append('<a href="fsdfdf?no=${no}" style="color:white;">수락</a>');
-	$(this).next().remove();
-});
+
+	//임한결 추가 2019 05 05 어린이날
+	//수락버튼 누르면 실제로 bandSUbmit으로 등록되게 처리
+	var where = $(this);
+	var b_no = $(this).next().next().text();
+	var json = { 'b_no' : b_no }
+	console.log("b_no : " +b_no);
+	$.ajax({
+		url: '<c:url value="/admin/acceptBandSubmitWaiting.ins"/>',
+		data : json,
+		dataType: 'text',
+		type:'post',
+		success:function(data){
+			setAccept(where);
+		},error:function(error, request){
+			console.log(error);
+			console.log(error.status);
+			alert("error");
+		}//error
+	});//ajax
+});///aplly onClick
+
+	function setAccept(where){
+		console.log(where);
+
+		$(where).removeClass().addClass("btn btn-success allpied").html("").append('<a href="fsdfdf?no=${no}" style="color:white;">수락</a>');
+		$(where).next().remove();
+	}///setAccept
 </script>
+
 </body>
 </html>

@@ -39,7 +39,6 @@ public class AdminDTO {
 	private String image;
 	
 	
-
 	public String getEmail() {
 		return email;
 	}
