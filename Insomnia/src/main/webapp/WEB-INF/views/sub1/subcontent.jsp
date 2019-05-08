@@ -678,25 +678,11 @@ body {
 													<img style="width: 605px; height: 250px"
 														src="https://cdn.wadiz.kr/ft/images/green001/2018/0313/20180313155451433_84.jpg/wadiz/format/jpg/quality/80/optimize"
 														class="fr-fic fr-dib">
-													<div id="map" style="width: 605px; height: 400px;"></div>
-													<script type="text/javascript"
-														src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c32fad4a1c57880bfba793d4634c4d7"></script>
-													<script>
-							                           var container = document
-							                                 .getElementById('map');
-							                           var options = {
-							                              center : new daum.maps.LatLng(
-							                                    33.450701, 126.570667),
-							                              level : 3
-							                           };
-							
-							                           var map = new daum.maps.Map(container,
-							                                 options);
-							                        </script>
-													<!-- 약도 -->
-<!-- 													<img style="width: 605px; height: 400px" -->
-<!-- 														src="https://cdn.wadiz.kr/ft/images/green001/2018/0313/20180313155519079_84.png/wadiz/format/jpg/quality/80/optimize" -->
-<!-- 														class="fr-fic fr-dib"> -->
+													<!-- 길찾기-->
+													<a href="http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446"><img style="width: 605px; height: 400px"
+														src="https://cdn.wadiz.kr/ft/images/green001/2018/0313/20180313155519079_84.png/wadiz/format/jpg/quality/80/optimize"
+														class="fr-fic fr-dib">
+													</a>
 												</div>
 											</div>
 											<!-- /.col-lg-6 -->
@@ -725,7 +711,7 @@ body {
 													<h4></h4>
 													<p></p>
 
-													<!-- 													<a href="#" class="tim-btn">Buy Tickets</a> -->
+													<!-- <a href="#" class="tim-btn">Buy Tickets</a> -->
 
 												</div>
 												<!-- /.event-content -->
@@ -837,6 +823,9 @@ body {
 								<div class="optionBtnBox">
 									<div class="optionStepBtn">다음단계</div>
 								</div>
+								
+								<!-- 웹채팅 -->
+								<input type="button" onclick="showPopup();" style="width: 100px;height: 100px"/>
 							</div>
 						</div>
 
@@ -1346,3 +1335,10 @@ body {
 	color: #e43a90;
 }
 </style>
+<!-- 웹 채팅 -->
+<script>
+function showPopup() {
+//     window.open("/insomnia/123.jsp", "방구석 채팅!", "width=400, height=600, left=100, top=50");
+     window.open("<c:url value='/bgsChat.jsp'/>", "방구석 채팅!", "width=400, height=600, left=100, top=50");
+}
+</script>
