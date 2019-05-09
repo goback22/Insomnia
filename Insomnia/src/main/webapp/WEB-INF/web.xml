@@ -53,8 +53,8 @@
 		<welcome-file>home.ins</welcome-file>
 	</welcome-file-list>
 	
-	<!-- 스프링 시큐리티 주석 처리
-	<filter>
+	
+	<!-- <filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
@@ -67,10 +67,25 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/spring/root-context.xml
-			/WEB-INF/spring/security/security-context.xml        
+			/WEB-INF/spring/security/security-context.xml     
 		</param-value>
 	</context-param> 
 	 -->
+	
+	<!--  <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>my-secure-app</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+ 
+    
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint> -->
+    
+   
+    
 	
 
 </web-app>

@@ -10,6 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +30,13 @@ import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	
+	/*@Autowired
+	private FacebookConnectionFactory connectionFactory;
+	
+	@Autowired
+	private OAuth2Parameters oAuth2Parameters;*/
+	
 	@Resource(name="memberService")
 	private MemberServiceImpl memberService;
 	
@@ -32,23 +44,27 @@ public class HomeController {
 	@RequestMapping(value = "/home.ins", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, Map map, HttpSession session) {
 		
+		////페이스북 로그인
+		//OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
+        //String facebook_url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, oAuth2Parameters);
+        
+		
+		
 		if(session.getAttribute("id") != null) {
 			
 			map.put("id", session.getAttribute("id"));
-			
 			MemberDTO record = memberService.selectOne(map);
 			
 			if(record != null) {
-				
 				model.addAttribute("loginRecord", record);
-				record.setProfile_img(record.getProfile_img());		
-				model.addAttribute("record", record);
-				//record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
-				//model.addAttribute("record", record);
-			}
-
+				//record.setProfile_img(record.getProfile_img());		
+				model.addAttribute("record", record);	
+			}	
 			
-		}
+		}/////if문
+		
+		//model.addAttribute("facebook_url", facebook_url);
+        //System.out.println("/facebook" + facebook_url);
 		
 		
 		return "home.tiles";

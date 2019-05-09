@@ -137,8 +137,8 @@
     margin-top: 2px;
 }
 
-input #user_nm {
-    margin-left: 20px;
+#user_nm {
+   margin-left:40px;
 }
 
 .email_chk {
@@ -152,6 +152,17 @@ input #user_nm {
     line-height: 1.6;
     margin-top: 15px;
 }
+
+/* .user_name {
+    border: none;
+    border-radius: 3px;
+    float: right;
+    margin-left: 2%;
+    overflow: hidden;
+    width: 70%;
+    text-align:center;
+
+} */
 </style>
 
 <script>
@@ -208,9 +219,10 @@ input #user_nm {
 									<option value="google.com">google.com</option>
 								</select>
 								<button type="button" class="btn btn-success" id="checkbtn">중복확인</button>
-								<p class="limit_txt email_txt" id="email_txt">이메일을 입력해주세요.</p>
+								
 								
 							</div>
+							<p class="limit_txt email_txt" id="email_txt">이메일을 입력해주세요.</p>
 							<div id="checkMsg" class="" style="display:block;"></div>
 							<!-- 버튼이 들어간 input태그  -->
 						</div>
@@ -247,7 +259,6 @@ input #user_nm {
 							<!-- 이름입력 -->
 							<strong>이름(필수)</strong>
 							<input type="text" id="user_nm" name="user_nm" value="" required="required">
-							<p class="limit_txt name_txt" id="name_txt">이름을 입력해주세요.</p>
 							<!-- 성별입력 -->
 							<div class="user_gender">
 								<a class="male">남</a> <a class="female">여</a> <input
@@ -408,7 +419,7 @@ input #user_nm {
 						<!-- 휴대폰 번호 입력 -->
 						<div class="renew_input_box phone_chk">
 							<strong>휴대폰 번호(필수)</strong> <input class="input_phone_num"
-								type="text" value="010" id="phone3" readonly="readonly" /> <input
+								type="text" value="010" id="phone3" readonly="readonly" />- <input
 								class="input_phone_num" type="text" name="phone1" id="phone1"
 								required /> - <input class="input_phone_num" type="text"
 								name="phone2" id="phone2" required />
@@ -533,12 +544,12 @@ input #user_nm {
 			});
 
 		})/////////제이쿼리 진입점
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///입력값 검증 메서드
 		function validateForm(which) {
 
 			//플래그 변수 선언
-			var flag = 2;
+			var flag = 1;
 
 			//정규식 변수 선언
 			/* var regID = /^[^a-z]|[^a-z0-9]+|^([a-z]+|[0-9]+)$/i; */
@@ -563,7 +574,7 @@ input #user_nm {
 			} else {
 				$('#email_txt').html('');
 				$('#email_txt').css('display', 'none');
-				flag++; //플래그 = 1
+				flag++; //플래그 = 2
 			}
 			 
 
@@ -581,7 +592,7 @@ input #user_nm {
 			} else {
 				$('#user_pwd_txt').html('');
 				$('#user_pwd_txt').css('display', 'none');
-				flag++; //플래그 = 2
+				flag++; //플래그 = 3
 				/* console.log(flag); */
 			}
 
@@ -599,7 +610,7 @@ input #user_nm {
 				$('#user_pwd_chk_txt').html('비밀번호가 일치합니다.');
 				$('#user_pwd_chk_txt').css('color', 'green');
 				$('#user_pwd_chk_txt').css('display', 'block');
-				flag++; //플래그 = 3
+				flag++; //플래그 = 4
 				/* console.log(flag); */
 			}
 
@@ -615,7 +626,7 @@ input #user_nm {
 			} else {
 				$('#birth_txt').html('');
 				$('#birth_txt').css('display', 'none');
-				flag++; //플래그 = 4
+				flag++; //플래그 = 5
 				/* console.log(flag); */
 			}
 
@@ -628,7 +639,7 @@ input #user_nm {
 			} else {
 				$('#gender_txt').html("");
 				$('#gender_txt').css('display', 'none');
-				flag++; //플래그 = 5
+				flag++; //플래그 = 6
 				/* console.log(flag); */
 			}
 
@@ -646,7 +657,7 @@ input #user_nm {
 			} else {
 				$('#phone_txt').html('');
 				$('#phone_txt').css('display', 'none');
-				flag++; //플래그 = 6
+				flag++; //플래그 = 7
 				/* console.log(flag); */
 			}
 
@@ -660,27 +671,28 @@ input #user_nm {
 			} else {
 				$('#addr_txt').html("");
 				$('#addr_txt').css('display', 'none')  ////addClass해야 되나?
-				flag++;  //플래그 = 7
+				flag++;  //플래그 = 8
 				/* console.log(flag + "주소 유효성 확인")  //7 */
 			}
 			
 			//8] 이름 검증 추가
-			if($('user_nm').val() == '') {
-				$('#name_txt').html('이름을 입력하세요.');
-				$('#name_txt').css('display', 'block');
+			if($('#user_nm').val() == '') {
+				/* $('#name_txt').html('이름을 입력하세요.');
+				$('#name_txt').css('display', 'block'); */
 			} else {
-				$('#name_txt').html('');
-				$('#name_txt').css('display', 'none');
-				flag++;
+				/* $('#name_txt').html('');
+				$('#name_txt').css('display', 'none'); */
+				flag++;  //9
 			}
 
-			if (flag >= 8)
+			if (flag >= 9)
 				return true;
 			else
 				return false;
 
 		}////validateFormd
 
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		function validateKeyup(which) {
 
 			//정규식 변수 선언
@@ -691,7 +703,7 @@ input #user_nm {
 			var pwdValue = $('#user_pwd').val();
 			var pwdChkValue = $('#user_pwd_chk').val();
 
-			if (which == $('#user_id')[0]) {
+			if (which == $('#user_id')[0]) {     //////아이디
 
 				if(idValue.indexOf("@") != -1) {	
 					$('#id_chk_txt').html('아이디는 @와 도메인 주소를 제외한 부분만 입력하세요.');
@@ -706,7 +718,7 @@ input #user_nm {
 
 				}
 
-			} else if (which == $('#user_pwd')[0]) {
+			} else if (which == $('#user_pwd')[0]) {   ////비번
 
 				if (pwdValue.length == 0) {
 
@@ -724,7 +736,7 @@ input #user_nm {
 
 				}
 
-			} else if (which == $('#user_pwd_chk')[0]) {
+			} else if (which == $('#user_pwd_chk')[0]) {   //////비번확인
 
 				//3]비밀번호 동일성 검증
 				if (pwdChkValue.length == 0) {
@@ -742,14 +754,25 @@ input #user_nm {
 					$('#user_pwd_chk_txt').css('display', 'block');
 				}
 
-			} else if (which == $('select').not('#portal')[0]) {
+			} else if (which == $('select').not('#portal')[0]) {    ///////////////생년월일.  근데 포탈도 해야 된다.
+				
+				
 
 				
 
-			} else if (which == $('#gender')[0]) {
-
+			} else if (which == $('#gender')[0]) {  ///////성별
 				
+				if($('#gender').val() == '') {
+					$('.gender_txt').html('성별을 선택해주세요.');
+					$('.gender_txt').css('display', 'block')
+					
+				} else {
+					$('.gender_txt').html("");
+					$('.gender_txt').css('display', 'none')
+					
+				}
 
+			
 			} else if (which == $('#sample4_postcode')[0]) {
 
 				if($('#sample4_postcode').val() == '') {
@@ -762,7 +785,7 @@ input #user_nm {
 					
 				}
 
-			} else if (which == $('#phone1') || which == $('#phone2')) {
+			} else if (which == $('#phone1')[0] || which == $('#phone2')[0]) {
 
 				if ($('#phone1').val() == '' || $('#phone2').val() == '') {
 					$('#phone_txt').html('휴대전화를 입력해주세요.');
@@ -780,14 +803,14 @@ input #user_nm {
 
 			} else {
 				
-				if($('user_nm').val() == '') {
+				/* if($('user_nm').val() == '') {
 					$('#name_txt').html('이름을 입력하세요.');
 					$('#name_txt').css('display', 'block');
 				} else {
 					$('#name_txt').html('');
 					$('#name_txt').css('display', 'none');
-					flag++;
-				}
+					
+				} */
 			}
 
 		}
@@ -807,8 +830,11 @@ function submitUserForm() {
     if(response.length == 0) {
         document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;margin-left:880px;">로봇 방지를 체크해주세요.</span>';
         return false;
-    }
-    return true;
+    } 
+    	document.getElementById('g-recaptcha-error').style.display = 'none';
+    	return true;
+    
+   
 }
  
 function verifyCaptcha() {

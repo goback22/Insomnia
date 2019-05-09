@@ -22,10 +22,22 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.social.MissingAuthorizationException;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.User;
+import org.springframework.social.facebook.api.UserOperations;
+import org.springframework.social.facebook.api.impl.FacebookTemplate;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -61,6 +73,14 @@ public class SGHController {
 	@Inject
 	private JavaMailSender mailSender;
 	
+	/*@Autowired
+	private FacebookConnectionFactory connectionFactory;
+	
+	@Autowired
+	private OAuth2Parameters oAuth2Parameters;*/
+	
+	//////////////////////////////////////////의존성 주입////////////////////////////////////////////
+	
 	@ResponseBody
 	@RequestMapping("/menu/mypage3.ins")
 	public String myyyyy(@RequestParam Map map1) {
@@ -74,69 +94,73 @@ public class SGHController {
 	/////마이페이지 이동
 	@RequestMapping("/menu/mypage.ins")
 	public String mypage(@RequestParam Map map1, HttpSession session, Map map, Model model, @RequestParam(required=false, defaultValue="1") int nowPage) throws Exception {
-		Map map2 = new HashMap();
-		map2.put("id", session.getAttribute("id"));
-		String img = memberService.selectOne(map2).getProfile_img();
-		System.out.println("들어오니?:"+map1.get("url"));
-
-		int length = map1.get("url").toString().lastIndexOf("/");
-		String img_default = map1.get("url").toString().substring(0,length+1);
-		System.out.println("기본 path : "+img_default);
 		
-		if(img.trim().equals("default_cover_img.jpg")) {
-			model.addAttribute("img", img_default+"default_cover_img.jpg");
-		}else {
-			model.addAttribute("img", map1.get("url"));
-		}
-
+		if(session.getAttribute("id") != null) {
+			Map map2 = new HashMap();
+			map2.put("id", session.getAttribute("id"));
+			String img = memberService.selectOne(map2).getProfile_img();
+			System.out.println("들어오니?:"+map1.get("url"));
+	
+			int length = map1.get("url").toString().lastIndexOf("/");
+			String img_default = map1.get("url").toString().substring(0,length+1);
+			System.out.println("기본 path : "+img_default);
+			if(img.trim().equals("default_cover_img.jpg")) {
+				model.addAttribute("img", img_default+"default_cover_img.jpg");
+			}else {
+				model.addAttribute("img", map1.get("url"));
+			}
 		
-		//세션에 저장된 아이디값 구하기
-		String id = session.getAttribute("id") == null ? null : session.getAttribute("id").toString();
-		if(id == null) {
-			return "my/MyPage2.tiles";
-		}
 		
-		System.out.println("저장된 id는 " + id);
-		
-		//서비스 객체가 쓸 map객체
-		map.put("id", id);
-		//서비스 객체를 통해 DTO객체 받기
-		MemberDTO record = memberService.selectOne(map);
-		
-		record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
-		 
-		System.out.println("갖고온 이름은? " + record.getName());
-		
-		//반환한 레코드 객체(1명) 모델에 담아서 반환
-		model.addAttribute("loginRecord", record);
-		
-		/////처음 로딩시 펀딩한(이게 제일 앞이니까) 목록을 보여주어야.
-		//페이징을 위한 로직
-		
-		//전체 레코드수
-		int totalRecordCount = rewardService.getCount(map); //map은 검색용 혹시 에러나면 지우기 null 들어갈 테니
-		//한 페이지에서 보여줄 div 수
-		int pageSize = 4;  //나중에 .properties로?
-		//페이징 수
-		int blockPage = 5;
-		//전체 페이지수
-		int totalPage = (int)Math.ceil(((double)totalRecordCount/pageSize));
-		
-		int start = (nowPage-1)*pageSize + 1;
-		int end = nowPage*pageSize;
-		map.put("start", start);
-		map.put("end", end);
-		
-		String pagingString = PagingUtilSGH.pagingText(totalRecordCount, pageSize, blockPage, nowPage, "/mypage/history.ins?");
-		
-		List<RewardDTO> fundingRecords = rewardService.selectList(map);
-		model.addAttribute("fundingRecords", fundingRecords);
-		model.addAttribute("pagingString", pagingString);
-		System.out.println("fundingRecords는?" + fundingRecords);
-		
-		MemberDTO record2 = memberService.selectOne(map);
-		model.addAttribute("loginRecord", record2);
-		
+			//세션에 저장된 아이디값 구하기
+			String id = session.getAttribute("id") == null ? null : session.getAttribute("id").toString();
+			if(id == null) {
+				return "my/MyPage2.tiles";
+			}
+			
+			System.out.println("저장된 id는 " + id);
+			
+			//서비스 객체가 쓸 map객체
+			map.put("id", id);
+			//서비스 객체를 통해 DTO객체 받기
+			MemberDTO record = memberService.selectOne(map);
+			if(record == null) 
+				return "my/MyPage2.tiles";
+			
+			//record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+			 
+			System.out.println("갖고온 이름은? " + record.getName());
+			
+			//반환한 레코드 객체(1명) 모델에 담아서 반환
+			model.addAttribute("loginRecord", record);
+			
+			/////처음 로딩시 펀딩한(이게 제일 앞이니까) 목록을 보여주어야.
+			//페이징을 위한 로직
+			
+			//전체 레코드수
+			int totalRecordCount = rewardService.getCount(map); //map은 검색용 혹시 에러나면 지우기 null 들어갈 테니
+			//한 페이지에서 보여줄 div 수
+			int pageSize = 4;  //나중에 .properties로?
+			//페이징 수
+			int blockPage = 5;
+			//전체 페이지수
+			int totalPage = (int)Math.ceil(((double)totalRecordCount/pageSize));
+			
+			int start = (nowPage-1)*pageSize + 1;
+			int end = nowPage*pageSize;
+			map.put("start", start);
+			map.put("end", end);
+			
+			String pagingString = PagingUtilSGH.pagingText(totalRecordCount, pageSize, blockPage, nowPage, "/mypage/history.ins?");
+			
+			List<RewardDTO> fundingRecords = rewardService.selectList(map);
+			model.addAttribute("fundingRecords", fundingRecords);
+			model.addAttribute("pagingString", pagingString);
+			System.out.println("fundingRecords는?" + fundingRecords);
+			
+			MemberDTO record2 = memberService.selectOne(map);
+			model.addAttribute("loginRecord", record2);
+			
+		}  //// != null
 		return "my/MyPage2.tiles";
 	}
 	
@@ -872,6 +896,56 @@ public class SGHController {
 		
 		return "home.tiles";
 	}
+	
+	
+	/*@RequestMapping(value = "/facebookSignInCallback", method = { RequestMethod.GET, RequestMethod.POST })
+    public String facebookSignInCallback(@RequestParam String code) throws Exception {
+ 
+        try {
+             String redirectUri = oAuth2Parameters.getRedirectUri();
+            System.out.println("Redirect URI : " + redirectUri);
+            System.out.println("Code : " + code);
+ 
+            OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
+            AccessGrant accessGrant = oauthOperations.exchangeForAccess(code, redirectUri, null);
+            String accessToken = accessGrant.getAccessToken();
+            System.out.println("AccessToken: " + accessToken);
+            Long expireTime = accessGrant.getExpireTime();
+        
+            
+            if (expireTime != null && expireTime < System.currentTimeMillis()) {
+                accessToken = accessGrant.getRefreshToken();
+                //logger.info("accessToken is expired. refresh token = {}", accessToken);
+            };
+            
+        
+            Connection<Facebook> connection = connectionFactory.createConnection(accessGrant);
+            Facebook facebook = connection == null ? new FacebookTemplate(accessToken) : connection.getApi();
+            UserOperations userOperations = facebook.userOperations();
+            
+            try
+ 
+            {            
+                String [] fields = { "id", "email",  "name"};
+                User userProfile = facebook.fetchObject("me", User.class, fields);
+                System.out.println("유저이메일 : " + userProfile.getEmail());
+                System.out.println("유저 id : " + userProfile.getId());
+                System.out.println("유저 name : " + userProfile.getName());
+                
+            } catch (MissingAuthorizationException e) {
+                e.printStackTrace();
+                System.out.println("오류다.오류다.");
+            }
+ 
+        
+        } catch (Exception e) {
+ 
+            e.printStackTrace();
+ 
+        }
+        return "home.tiles";
+ 
+    }*/
 	
 	
 	

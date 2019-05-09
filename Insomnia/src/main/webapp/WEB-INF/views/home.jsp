@@ -219,7 +219,7 @@ $(function(){
 										} else {
 									%>
 									<li class="menu-item-has-children">
-									<a href="<c:url value='/menu/mypage.ins'/>" class="mypage_1">My Page</a></li>
+									<a href="javascript:return false" class="mypage_1">My Page</a></li>
 									<%
 										}
 									%>
@@ -288,33 +288,23 @@ $(function(){
 									src="<c:url value='/resource/img/f-ogo_RGB_HEX-58.png'/>" /> <i
 									class="facebook"></i>페이스북으로 로그인
 							</button>
-							<button type="button" id="custom-login-btn"
-								onclick="javascript:loginWithKakao();" style="width:104.95px; height:40px; border-radius:4px;">
-								<img class="icon"
+							<div id="naver_id_login"></div>
+							<button type="button" id="custom-login-btn" style="float:right; width:104.95px; height:40px; border-radius:4px;"
+								onclick="javascript:loginWithKakao();">
+								<img class="icon" 
 									src="<c:url value='/resource/img/kakaolink_btn_medium.png'/>" />
 								<i class="kakao"></i>카카오
 							</button>
-							<!-- 방법1 -->
-							<!-- <div id="naver_id_login" style="display:none;"></div> -->
-							<!-- 방법2 -->
-						<!-- 	<div id="naverIdLogin"></div> -->
+						<hr/>
+						<%-- <a href="${facebook_url}">
+							<button class="btn btn-primary btn-round" style="width: 100%">
+	                             <i class="fa fa-facebook" aria-hidden="true"></i>
+	                            	 스프링 소셜 페이스북 테스트
+	                        </button>
+                        </a>  --%>
+						
+
 							
-							
-							<%-- <button type="button" id="forNaverLogin">
-								<img class="icon" src="<c:url value='/resource/img/naver_login_icon.png'/>" /> <i class="naver"></i>네이버
-							</button> --%>
-							
-							<%-- <button type="button" id="googleLoginBtn">
-								<img class="icon"
-									src="<c:url value='/resource/img/icons8-google-48.png'/>" /> <i
-									class="google color"></i>구글
-							</button> --%>
-							<%-- <button type="button" onclick="javascript:void(0)">
-								<img class="icon"
-									src="<c:url value='/resource/img/Twitter_Logo_WhiteOnBlue.png'/>" />
-								<i class="twitter"></i>트위터
-							</button> --%>
-							<div id="naver_id_login"></div>
 							
 						</div>
 						<div class="bottom-message">
@@ -394,8 +384,8 @@ $(function(){
 			           <tr>
 		           		  <td><label for="middle1">리워드</label></td>
 		           		  <td class="mypage_1"><label for="middle2">마이페이지</label></td>
-		           		  <td><label for="middle3">초대하기</label></td>
-		           		  <td><label for="middle4">블라블라</label></td>
+		           		  <td><label for="middle3">링크공유</label></td>
+		           		  <td><label for="middle4">FAQ</label></td>
 			           		
 			           </tr>
 		            </table>
@@ -404,8 +394,7 @@ $(function(){
 		            <a id="logout" href="<c:url value='/logout.ins'/>">로그아웃</a>
 		            <a href="<c:url value='band/bandInfo.ins'/>">밴드관리</a>
 		            
-		            <div onclick="test1();">공유하기</div>
-		            <div id="result">결과</div>
+		           <!--  <div id="result">결과</div> -->
 		            
 		            <script>
 		            
@@ -508,8 +497,7 @@ $(function(){
 
 			$(function() {
 
-				$('#facebookLoginBtn')
-						.click(
+				$('#facebookLoginBtn').click(
 						function() {
 
 							FB.login(function(response) {
@@ -544,13 +532,13 @@ $(function(){
 											alert('로그인에 실패했습니다.');
 
 										}
-									});
+									}); 
 
-								});
+								});//////페이스북 로그인 버튼 클릭
+								
 
-			})
+			})/////페이스북 제이쿼리 진입점
 			
-
 		</script>
 		<!-- 페이스북 로그인 끝 -->
 		

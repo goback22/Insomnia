@@ -5,9 +5,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 	
-	<!--  
-	<security:http auto-config="true" use-expressions="true">
 	
+	<!-- <security:http auto-config="true" use-expressions="true">
+		
+		<security:intercept-url pattern="/**" requires-channel="https" access="permitAll"/>
 		<security:intercept-url pattern="/**" access="permitAll"/>	
 		<security:intercept-url pattern="/sub1/**" access="hasRole('USER')"/>
 		<security:intercept-url pattern="/menu/**" access="hasRole('USER')"/>
@@ -20,7 +21,7 @@
 			                username-parameter="id"
 			                password-parameter="password" />
 	
-		<security:csrf disabled="true"/>
+		<security:csrf disabled="false"/>
 		<security:session-management invalid-session-url="/home.ins">
 			<security:concurrency-control max-sessions="1" expired-url="/home.ins"/>
 		</security:session-management>
@@ -37,7 +38,7 @@
 		           
 		       />
 		  </security:authentication-provider>
- 	</security:authentication-manager>
- 	-->
-
+ 	</security:authentication-manager> -->
+ 	
+ 	
 </beans>

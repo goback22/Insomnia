@@ -220,7 +220,7 @@ $(function(){
 							%>
 
 							<li class="menu-item-has-children">
-							<a href="<c:url value='/menu/mypage.ins'/>" class="mypage_1">My Page</a></li>
+							<a href="" class="mypage_1">My Page</a></li>
 							<%
 								}
 							%>
