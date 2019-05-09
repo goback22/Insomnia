@@ -1498,7 +1498,7 @@ CUSTOM CSS
 }	
 	
 .arrow {
-    border: solid #c9c8cb;
+/*     border: solid #c9c8cb; */
     border-width: 0 2px 2px 0;
     display: inline-block;
     padding: 7px;

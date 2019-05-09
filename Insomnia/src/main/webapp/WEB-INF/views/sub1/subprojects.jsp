@@ -10,8 +10,7 @@
 <link rel="stylesheet" href="<c:url value='/vendor/css/subcontent.css'/>">
 <script src="<c:url value='/vendor/js/subcontent.js'/>"></script>
 
-<meta name="description"
-	content="Specialising in lifestyle, interiors, 360 and aerial photography and videography, Clorova work across a range of advertising, editorial, pr and corporate clients in Bali and Jakarta.">
+<meta name="description" content="Specialising in lifestyle, interiors, 360 and aerial photography and videography, Clorova work across a range of advertising, editorial, pr and corporate clients in Bali and Jakarta.">
 
 <link rel="apple-touch-icon" sizes="57x57" href="<c:url value='/resource/img/apple-icon-57x57.png'/>">
 <link rel="apple-touch-icon" sizes="60x60" href="<c:url value='/resource/img/apple-icon-60x60.png'/>">
@@ -54,7 +53,7 @@
 <meta name="twitter:image"
 	content="<c:url value='clorova-banner.jpg'/>" />
 <meta name="twitter:creator" content="@Clorova" />
-
+<!-- 
 <script>
 	(function(i, s, o, g, r, a, m) {
 		i['GoogleAnalyticsObject'] = r;
@@ -71,7 +70,7 @@
 	ga('create', 'UA-20462557-7', 'auto');
 	ga('send', 'pageview');
 </script>
-
+ -->
 <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body class=" ">

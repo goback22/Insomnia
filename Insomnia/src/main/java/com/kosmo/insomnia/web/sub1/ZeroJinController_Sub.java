@@ -116,6 +116,7 @@ public class ZeroJinController_Sub {
 	// 서브 프로젝트
 	@RequestMapping(value = "/sub1/subprojects.ins")
 	public String subprojects(Model model, Map map, HttpSession session) throws Exception {
+		
 		if(session.getAttribute("id") != null) {
 			map.put("id", session.getAttribute("id"));
 			
@@ -321,8 +322,8 @@ public class ZeroJinController_Sub {
 	@RequestMapping(value = "/sub1/viewadmin.ins", method = RequestMethod.GET)
 	public String viewadmin(Model model, Map map, HttpSession session) throws Exception {
 		
-		map.put("id", session.getAttribute("id"));
-	 MemberDTO record = memberService.selectOne(map);
+ 	  map.put("id", session.getAttribute("id"));
+	  MemberDTO record = memberService.selectOne(map);
   	  record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
   	  model.addAttribute("loginRecord", record);
 		

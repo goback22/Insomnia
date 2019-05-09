@@ -10,8 +10,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="description"
-	content="Specialising in lifestyle, interiors, 360 and aerial photography and videography, Clorova work across a range of advertising, editorial, pr and corporate clients in Bali and Jakarta.">
+<meta name="description" content="Specialising in lifestyle, interiors, 360 and aerial photography and videography, Clorova work across a range of advertising, editorial, pr and corporate clients in Bali and Jakarta.">
 
 <link rel="apple-touch-icon" sizes="57x57" href="<c:url value='/resource/img/apple-icon-57x57.png'/>">
 <link rel="apple-touch-icon" sizes="60x60" href="<c:url value='/resource/img/apple-icon-60x60.png'/>">
@@ -54,6 +53,32 @@
 	content="<c:url value='clorova-banner.jpg'/>" />
 <meta name="twitter:creator" content="@Clorova" />
 
+<!-- JQuery -->
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<!-- 구매하기 css -->
+<link href="<c:url value='/vendor/css/custom.css'/>" rel="stylesheet">
+<link href="<c:url value='/vendor/css/jquery.scrolling-tabs.css'/>" rel="stylesheet">
+
+<!-- PayMoving js -->
+<script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
+
+<script>
+   $(function() {
+      //구매하기 hide, show
+      $('.option-btn').click(function() {
+         if ($('#optionList').css('display') === 'none') {
+            $('#optionList').show(1000);
+         } else {
+            $('#optionList').hide(1000);
+         }
+      });
+   }); //function
+</script>
+
+<!-- 이게 범인? 
 <script>
 	(function(i, s, o, g, r, a, m) {
 		i['GoogleAnalyticsObject'] = r;
@@ -70,10 +95,9 @@
 	ga('create', 'UA-20462557-7', 'auto');
 	ga('send', 'pageview');
 </script>
-
-</head>
+ -->
+ 
 <body class=" ">
-
 	<!-- LOADING -->
 
 	<div id="overlay">
@@ -240,16 +264,17 @@
 									</h1>
 								</a>
 								<div class="text">
+									<!-- 
 									<h5>Clorova Media Production</h5>
 									<p>Specialising in lifestyle, interiors, 360 and aerial
 										photography and videography, Clorova work across a range of
 										advertising, editorial, pr and corporate clients in Bali and
 										Jakarta.</p>
+									 -->
 								</div>
 							</div>
 							<div class="column q-1-5">
-								<span class="line"></span> <a
-									href="mailto:wndrhtkfurh@naver.com" title="Contact Clorova"
+								<span class="line"></span> <a onclick="showPopup();" title="Contact Clorova"
 									class="flare-hover hover-target">
 									<h1 class="large">
 										<span class="q_split"><span
@@ -257,6 +282,7 @@
 									</h1>
 								</a>
 								<div class="text">
+								<!-- 
 									<h5>Find Us</h5>
 									<p>#1 Beraban Square, Jalan Beraban No.46, Kerobokan,
 										Badung, Bali - 80361, Indonesia</p>
@@ -275,6 +301,7 @@
 											target="_blank" class="hover-target"
 											title="Fleava Digital Agency">Fleava</a>.
 									</p>
+									-->
 								</div>
 							</div>
 
@@ -414,24 +441,10 @@
 							<div class="slide" id="page-top-banner">
 								<div class="image-container">
 									<div class="image-wrapper">
-<!-- 										<div class=""> -->
-<%-- 											<img src="<c:url value='/resource/img/service2.jpg'/>" --%>
-<!-- 												alt="360 Virtual Tour" class="image" /> -->
-<!-- 										</div> -->
-							<a href=""><div id="map" style="width: 1143px; height: 754px;"></div></a>
-								<script type="text/javascript"
-									src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c32fad4a1c57880bfba793d4634c4d7"></script>
-								<script>
-									var container = document
-											.getElementById('map');
-									var options = {
-										center : new daum.maps.LatLng(
-												37.541102, 127.002446),
-										level : 3
-									};
-									var map = new daum.maps.Map(container,
-											options);
-								</script>
+										<div class="">
+											<img src="<c:url value='/resource/img/service2.jpg'/>"
+												alt="360 Virtual Tour" class="image" />
+										</div>
 									</div>
 								</div>
 							</div>
@@ -505,7 +518,7 @@
 							<div class="caption">
 								<h3>
 									<span class="q_split" style="display: none"><span class="q_split_wrap">360&deg;</span></span>
-									<span class="q_split"><span class="q_split_wrap" style="color:black">Where</span></span>
+									<span class="q_split"><span class="q_split_wrap" style="color:white">Where</span></span>
 								</h3>
 								<p class="q_split_wrap">시간 : 6월 15일 오후 20시<br>
 								좌석 : 1,382석<br>주소 : 서울 용산구 블루스퀘어 <br> 인근 : 한강진역 2번 출구<br>찾아오시는 길 : <a href="http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446">Click</a>
@@ -578,7 +591,12 @@
 							</div>
 						</div>
 					</div>
-
+					
+						<!-- 웹채팅 -->
+						<!--
+						<input type="button" onclick="showPopup();" style="width: 100px;height: 100px"/>
+						-->
+						
 				</section>
 
 				<footer id="footer" style="background-color: #12111F;">
@@ -607,5 +625,99 @@
 		</div>
 	</div>
 	
-	<!--Google map api -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsBrMPsyNtpwKXPPpG54XwJXnyobfMAIc"></script>
+	<!-- 구매폼 -->
+	<div>
+		<div class="option-container">
+			<div class="option-btn"
+				style="font-size: 1.2em; width: 10px; height: 50px; padding-top: 3px; margin-left: 350px;">B
+				u y</div>
+			<div id="optionList" class="option-area" style="display: none;margin-left:980px">
+				<div class="option-area-content">
+					<div class="option-area-content-step1">
+						<div class="common-flex-between">
+							<span class="option-title mt10 xs-mt25">Buy Tickets</span>
+						</div>
+		
+						<div class="option-box option-box-blue">
+							<div class="aa" style="display: contents">
+								<div class="option-box-left" style="padding-top: 10px">
+									<div class="option-box-amount">${bgs1.C_CONCERTDATE}</div>
+									<div class="mt5" style="padding-top: 5px">
+										<span><strong>52석 남음</strong></span> <span
+											style="color:white">&nbsp;&nbsp;|&nbsp;&nbsp;
+											48석 판매</span>
+									</div>
+								</div>
+								<form action="<c:url value='/Pay/PayPage.ins'/>"
+									id="bgs_sub_item_list" style="display: none">
+									<input type="hidden" name="bgs1_title"
+										value="${bgs1.B_TITLE }"> <input type="hidden"
+										name="bgs1_content" value="${bgs1.B_CONTENT }">
+									<input type="hidden" name="bgs1_price" value="">
+									<input type="hidden" name="bgs1_qty" value="">
+								</form>
+								<div class="option-box-center" style="padding-top: 10px">
+									<div class="option-box-title">${bgs1.B_TITLE}</div>
+									<div class="option-box-desc mt5"
+										style="margin-top: 10px">${bgs1.B_CONTENT}</div>
+								</div>
+							</div> 
+							<div class="box_inventory option_box_grey">
+								<input type="hidden" name="limited_qty_yn" value="">
+								<input type="hidden" name="limited_min_qty" value="1">
+								<input type="hidden" name="limited_max_qty" value="999">
+								<div style="padding-top: 1px;">
+									<span class="txt_count_inventory option_title">수량&nbsp;&nbsp;&nbsp;</span>
+									<input disabled="disabled" id="qtyqty" name="qty"
+										type="text" value="1"
+										style="color: white; background-color: black; width: 38px; height: 20px; text-align: center"
+										class="input_add" onkeyup="checkQty(this);"
+										onfocus="this.select();" style="line-height: 18px">
+									<a id="plus_ordered" href="javascript:void(0)"
+										style="font-size: 1.5em">&nbsp;+&nbsp;</a> <a
+										id="minus_ordered" href="javascript:void(0)"
+										style="font-size: 1.5em">-</a>
+								</div>
+								<div style="padding-top: 2px">
+									<span>금액&nbsp;&nbsp;&nbsp;</span> <span id="bgs_price"></span>원
+									<script>
+                                            $("#bgs_price").text(String(${bgs1.C_PRICE}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+                                         </script>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="option-box" style="margin-top: -25px;">
+						<div class="option-box-left">
+							<div class="option-box-amount">${bgs2.C_CONCERTDATE}</div>
+							<div class="mt5" style="padding-top: 5px">
+								<strong class="font-pink">Sold out</strong> <span
+									style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
+									판매 완료</span>
+							</div>
+						</div>
+						<div class="option-box-center">
+							<div class="option-box-title">${bgs2.B_TITLE}</div>
+							<div class="option-box-desc mt5" style="margin-top: 10px">${bgs2.B_CONTENT}</div>
+						</div>
+						<div class="hidden-xs option-delivery-date">
+							<strong class="font-pink"
+								style="font-size: 1.6em; margin-top: 200px">Sold
+								out</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<!-- 웹 채팅 -->
+<script>
+function showPopup() {
+     window.open("<c:url value='/bgsChat.jsp'/>", "방구석 채팅!", "width=400, height=600, left=100, top=50");
+}
+</script>
