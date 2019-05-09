@@ -125,7 +125,14 @@ public class ZeroJinController_Sub {
 			  	model.addAttribute("loginRecord", record);
 			}
 		}
-		return "/sub1/subprojects.tiles";
+		return "/sub1/subprojects";
+	}
+	
+	// 방구석 기타리스트 - review 게시판으로 이동
+	@RequestMapping(value="/sub1/review.ins")
+	public String reviewGo() throws Exception{
+		
+		return "/sub1/review.tiles";
 	}
 	
 	// 서브 프로젝트 -> 방구석 기타리스트 
@@ -144,7 +151,8 @@ public class ZeroJinController_Sub {
 		model.addAttribute("bgs1", product_List.get(0));
 		model.addAttribute("bgs2", product_List.get(1));
 		
-		return "/sub1/subcontent.tiles";
+		//이런저런 문제로 인해 tiles빼고 jsp만
+		return "sub1/subcontent";
 	}
 
 	// 목록처리]

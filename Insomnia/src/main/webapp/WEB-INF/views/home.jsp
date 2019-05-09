@@ -152,7 +152,8 @@ $(function(){
 	</div>
 	
 	<!-- 소셜 로그인 모달2 : 추가정보 입력 완료 -->
-	<div class="social-welcome-complete-div">
+	<!-- 자꾸 떠서  none으로 해놓습니다! - 영진 -->
+	<div class="social-welcome-complete-div" style="display: none">
 		<div class="social-content-div">
 			<!-- <button class="close-btn" title="닫기">x</button> -->
 			<div class="social-content">
