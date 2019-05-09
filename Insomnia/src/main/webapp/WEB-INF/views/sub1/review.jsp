@@ -355,8 +355,9 @@ body>#standalone-container {
 
 body {
 	color: white;
-	background-image: url('../resource/img/tempBG.jpg');
-	background-attachment: fixed;
+/* 	background-image: url('../resource/img/tempBG.jpg'); */
+	background-color: #12111F;
+/* 	background-attachment: fixed; */
 }
 
 .text1 {
@@ -527,6 +528,7 @@ body {
 	<!--    <div class="loader loader-bar-ping-pong is-active"></div> -->
 
 	<!-- 공지 시작 -->
+	<!-- 
 	<div class="notice-obt" id="notice-obt1">
 		<div class="notice-obt-close">×</div>
 		<div class="notice-obt-title" style="color: red">방구석 기타리스트 가족 모집
@@ -550,6 +552,7 @@ body {
 			이 창을 열지 않음 &nbsp;&nbsp;<a href='' onclick="javascript:closeWin(1);"><B>[닫기]</B></a>
 		</div>
 	</div>
+	 -->
 	<!--  공지 끝 -->
 
 	<div id="site">
@@ -570,7 +573,7 @@ body {
 						<div class="d-flex justify-content-center row">
 							<div class="col-xl-10">
 								<div class="section-title style-four" id="ad">
-									<h2 style="margin-left: 58px">D E T A I L S</h2>
+									<h2 style="margin-left: 58px">R e v i e w s</h2>
 								</div>
 							</div>
 							<!-- /.col-xl- -->
@@ -581,8 +584,8 @@ body {
 				</footer>
 				<!-- /#footer -->
 
-				<div class="product-tab-wrapper">
-					<ul class="nav product-tabs" role="tablist">
+				<div class="product-tab-wrapper" style="margin-left: 110px;">
+					<ul class="nav product-tabs" role="tablist" style="display:none">
 						<li class="nav-item"><a class="nav-link active"
 							href="#profile" role="tab" data-toggle="tab">Description</a></li>
 						<li class="nav-item"><a class="nav-link" href="#references"
@@ -598,132 +601,134 @@ body {
 						<div role="tabpanel" class="tab-pane fade in active" id="profile">
 							<div class="single-product-wrapper">
 								<div class="row">
+									<div class="col-md-10">
+										<!-- Reviews -->
+										<div class="review-comments">
+											<h5 class="comments-title">
+												Reviews <a href="#HH" id="about" class="btn btn-success"
+													style="margin-left: 40px;">작성</a>
+											</h5>
+											<br>
+											<div class="review-comments">
+												<ul class="review-list">
+													<li id="comments">
+														<!-- ajax로 아래에 코멘트 목록 뿌리기 -->
+													</li>
+													<li>
+														<article class="review-comment" style="margin-top: 10px;margin-bottom: 0px;">
+															<div class="user-avatar">
+																<img src="<c:url value='/resource/img/catcat.jpg'/>"
+																	style="height: 70px" alt="cat">
+															</div>
+															<div class="comment-content">
+																<h5 class="name">김건모</h5>
+																<div class="comment-meta">
+																	<div class="star-rating" id="HH">
+																		<span>Rated <strong class="rating">5.00</strong>
+																			out of 5
+																		</span>
+																	</div>
+																	<span class="post-date">2018-12-25</span>
+																</div>
+																<p>
+																	처음엔 프로들의 공연도 아닌데 티켓 값이 너무 비싼 거 아닌가 생각했는데 공연을 보고 <br> 
+																	그런 생각을 한 제가 창피할 정도였습니다. 다음 공연이 기대되네요!
+																	
+																</p>
+															</div>
+														</article>
+													</li>
+													<li>
+														<article class="review-comment" style="margin-left: 75px">
+															<div class="user-avatar">
+																<img src="<c:url value='/resource/img/dogdog.jpg'/>"
+																	style="height: 70px" alt="cat">
+															</div>
+															<div class="comment-content">
+																<h5 class="name">나문희</h5>
+																<div class="comment-meta">
+																	<span class="post-date">2018-12-25</span>
+																</div>
+																<p>
+																	공감합니다. 자식들이 방구석 기타리스트라는 공연을 보러가자길래 처음엔 기대를 안하고 갔으나<br>
+																	생각보다 공연자들의 실력이 너무 우수했고 감동적이였습니다.
+																</p>
+															</div>
+														</article>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<!-- Leave Review -->
+									</div>
+								</div>
+
+								<!-- comment 등록 폼 -->
+								<div class="col-md-10" style="margin-top: 75px;">
+									<div style="margin-left: -15px">
+										<h5 class="comments-title">Write</h5>
+										<form id="frm" method="post" target="param">
+											<!-- 원본글의 REFER/STEP/DEPTH 설정 -->
+											<input type="hidden" name="refer" value="${record.refer}" />
+											<input type="hidden" name="step" value="${record.step}" />
+											<input type="hidden" name="depth" value="${record.depth}" />
+											
+											<ul class="rating">
+												<li class="rating-title">Leave A Rating</li>&nbsp;&nbsp;
+												<li class="star"><i class="fa fa-star"></i></li>
+												<li class="star"><i class="fa fa-star"></i></li>
+												<li class="star"><i class="fa fa-star"></i></li>
+												<li class="star"><i class="fa fa-star"></i></li>
+												<li class="star"><i class="fa fa-star"></i></li>
+
+											</ul>
+											<!-- 수정 및 삭제용 파라미터 -->
+											<input type="hidden" name="r_no" />
+											
+											 <input type="hidden" name="name" class="form-fname form-element large"
+												placeholder="Name" style="width: 250px">&nbsp;&nbsp;
+											<br> <br>
+											<textarea name="content" id="content" class="form-message"
+												placeholder="Review" tabindex="5"
+												style="margin-top: -30px; width: 400px; height: 200px; border-radius: 20px; padding: 20px"></textarea>
+											<input type="submit" id="submitComment" value="등록"
+												class="btn btn-primary "
+												style="width: 80px; margin-top: -30px; margin-left: 20px;">
+											<input type="hidden" id="starCount" name="starCount" />
+											<!-- iframe 설정 -->
+											<iframe id="if" name="param"></iframe>
+										</form>
+									</div>
 
 									<!-- 타이머 -->
-									<header id="mobile-nav-wrap"> </header>
-									<section id="ticket" class="parallax" data-speed="0.-3"
-										data-height="700px">
-										<div class="tim-container"
-											style="margin-top: -40px; margin-left: -15px">
-											<p
-												style="color: black; font-weight: 600; font-size: 3em; margin-left: 360px; width: 1000px">By
-												the Beginning of Concert...</p>
-											<div class="row">
-												<div class="col-lg-8">
-													<div class="live-ticket">
-														<div class="live-ticket-count">
-															<div
-																style="width: 1000px; height: 150px; margin-left: 382px"
-																class="countdown" data-count-year="2019"
-																data-count-month="6" data-count-day="2"></div>
-														</div>
-													</div>
-													<!-- /.live-ticket -->
-												</div>
-												<!-- /.col-lg-8 -->
-											</div>
-											<!-- /.row -->
-										</div>
-										<!-- /.tim-container -->
-									</section>
-									<!-- 타이머 끝 -->
-
-									<p
-										style="margin-left: 390px; color: black; font-weight: 600; height: 220px; font-size: 2.5em; border-bottom: 3px solid aqua">
-										<br> <br> <br> <br> <br> <br>'
-										'밴드 공연'하면 어떤 것이 떠오르십니까?<br> <br> <br> <br>
-										<br> <br> <br> <br> <br> <br> <br>
-										<br> <br>
-									<p>
-									<div class="col-md-12 col-sm-6" style="margin-top: 50px">
-										<div class="quickview-slider" style="margin-top: 300px">
-											<div class="section section1" data-aos="flip-up">
-												<div style="width: 400px; margin-left: -150px"></div>
-											</div>
-											<br>
-											<p
-												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 70px;">"
-												Fantastic Performance? "</p>
-
-											<!-- section2 -->
-											<div class="section section2" data-aos="fade-down"></div>
-											<br>
-											<p
-												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 830px;">"
-												Big ConcertHall? "</p>
-
-											<!-- section3 -->
-											<div class="section section3" data-aos="slide-up"></div>
-											<br>
-											<p
-												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 120px;">"
-												a lot of Instruments? "</p>
-										</div>
-									</div>
+<!-- 									<header id="mobile-nav-wrap"> </header> -->
+<!-- 									<section id="ticket" class="parallax" data-speed="0.-3" -->
+<!-- 										data-height="700px"> -->
+<!-- 										<div class="tim-container" -->
+<!-- 											style="margin-top: -40px; margin-left: -15px"> -->
+<!-- 											<p -->
+<!-- 												style="color: black; font-weight: 600; font-size: 3em; margin-left: 360px; width: 1000px">By -->
+<!-- 												the Beginning of Concert...</p> -->
+<!-- 											<div class="row"> -->
+<!-- 												<div class="col-lg-8"> -->
+<!-- 													<div class="live-ticket"> -->
+<!-- 														<div class="live-ticket-count"> -->
+<!-- 															<div -->
+<!-- 																style="width: 1000px; height: 150px; margin-left: 382px" -->
+<!-- 																class="countdown" data-count-year="2019" -->
+<!-- 																data-count-month="6" data-count-day="2"></div> -->
+<!-- 														</div> -->
+<!-- 													</div> -->
+<!-- 													/.live-ticket -->
+<!-- 												</div> -->
+<!-- 												/.col-lg-8 -->
+<!-- 											</div> -->
+<!-- 											/.row -->
+<!-- 										</div> -->
+<!-- 										/.tim-container -->
+<!-- 									</section> -->
+<!-- 									타이머 끝 -->
 								</div>
-
-
-								<div>
-
-									<br> <br> <br>
-								</div>
-
-
-								<!-- Concert Information -->
-								<section id="event-about" style="margin-top: 100px;">
-									<div class="container">
-										<div class="row">
-											<div class="col-lg-6">
-												<div class="event-thumb">
-													<img style="width: 605px; height: 250px"
-														src="https://cdn.wadiz.kr/ft/images/green001/2018/0313/20180313155451433_84.jpg/wadiz/format/jpg/quality/80/optimize"
-														class="fr-fic fr-dib">
-													<!-- 길찾기-->
-													<a href="http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446"><img style="width: 605px; height: 400px"
-														src="https://cdn.wadiz.kr/ft/images/green001/2018/0313/20180313155519079_84.png/wadiz/format/jpg/quality/80/optimize"
-														class="fr-fic fr-dib">
-													</a>
-												</div>
-											</div>
-											<!-- /.col-lg-6 -->
-
-											<div class="col-lg-6">
-												<div class="event-content"
-													style="width: 600px; height: 440px; margin-left: 10px; line-height: 35px">
-													<h2 style="text-transform: none;">
-														<span style="font-size: 0.9em"><br> <br>
-															<br> <br> <br> <br>공연 정보 및 일시</span>
-													</h2>
-
-													<div class="event-details">
-														<ul>
-															<li></li>
-														</ul>
-														<div style="color: black; font-weight: 600">
-															＊ 일시 : 2019년 6월 1일 <span
-																style="color: blue; font-weight: 600">토</span>요일
-														</div>
-														<div>＊ 시간 : 10:00 ~ 12:00(오전), 16:00 ~ 18:00(오후)</div>
-														<div>＊ 장소 : 대학로 스푼 잉글리쉬</div>
-														<div>＊ 연락처 : 010 - 1234 - 5678</div>
-													</div>
-
-													<h4></h4>
-													<p></p>
-
-													<!-- <a href="#" class="tim-btn">Buy Tickets</a> -->
-
-												</div>
-												<!-- /.event-content -->
-											</div>
-											<!-- /.col-lg-6 -->
-										</div>
-										<!-- /.row -->
-									</div>
-									<!-- /.tim-container-two -->
-								</section>
-
-
 
 								<!-- =========================================================================================================== -->
 								<!-- buy 폼 -->
@@ -832,106 +837,6 @@ body {
 						<!-- 두번째 카테고리 : 리뷰 게시판 -->
 						<div role="tabpanel" class="tab-pane fade" id="references">
 							<div class="tab-content left">
-								<div class="row">
-									<div class="col-md-10">
-										<!-- Reviews -->
-										<div class="review-comments">
-											<h5 class="comments-title">
-												Reviews <a href="#HH" id="about" class="btn btn-success"
-													style="margin-left: 40px;">작성</a>
-											</h5>
-											<br>
-											<div class="review-comments">
-												<ul class="review-list">
-													<li id="comments">
-														<!-- ajax로 아래에 코멘트 목록 뿌리기 -->
-													</li>
-													<li>
-														<article class="review-comment" style="margin-top: 10px;margin-bottom: 0px;">
-															<div class="user-avatar">
-																<img src="<c:url value='/resource/img/catcat.jpg'/>"
-																	style="height: 70px" alt="cat">
-															</div>
-															<div class="comment-content">
-																<h5 class="name">김건모</h5>
-																<div class="comment-meta">
-																	<div class="star-rating" id="HH">
-																		<span>Rated <strong class="rating">5.00</strong>
-																			out of 5
-																		</span>
-																	</div>
-																	<span class="post-date">2018-12-25</span>
-																</div>
-																<p>
-																	처음엔 프로들의 공연도 아닌데 티켓 값이 너무 비싼 거 아닌가 생각했는데 공연을 보고 <br> 
-																	그런 생각을 한 제가 창피할 정도였습니다. 다음 공연이 기대되네요!
-																	
-																</p>
-															</div>
-														</article>
-													</li>
-													<li>
-														<article class="review-comment" style="margin-left: 75px">
-															<div class="user-avatar">
-																<img src="<c:url value='/resource/img/dogdog.jpg'/>"
-																	style="height: 70px" alt="cat">
-															</div>
-															<div class="comment-content">
-																<h5 class="name">나문희</h5>
-																<div class="comment-meta">
-																	<span class="post-date">2018-12-25</span>
-																</div>
-																<p>
-																	공감합니다. 자식들이 방구석 기타리스트라는 공연을 보러가자길래 처음엔 기대를 안하고 갔으나<br>
-																	생각보다 공연자들의 실력이 너무 우수했고 감동적이였습니다.
-																</p>
-															</div>
-														</article>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<!-- Leave Review -->
-									</div>
-								</div>
-
-								<!-- comment 등록 폼 -->
-								<div class="col-md-10" style="margin-top: 75px;">
-									<div style="margin-left: -15px">
-										<h5 class="comments-title">Write</h5>
-										<form id="frm" method="post" target="param">
-											<!-- 원본글의 REFER/STEP/DEPTH 설정 -->
-											<input type="hidden" name="refer" value="${record.refer}" />
-											<input type="hidden" name="step" value="${record.step}" />
-											<input type="hidden" name="depth" value="${record.depth}" />
-											
-											<ul class="rating">
-												<li class="rating-title">Leave A Rating</li>&nbsp;&nbsp;
-												<li class="star"><i class="fa fa-star"></i></li>
-												<li class="star"><i class="fa fa-star"></i></li>
-												<li class="star"><i class="fa fa-star"></i></li>
-												<li class="star"><i class="fa fa-star"></i></li>
-												<li class="star"><i class="fa fa-star"></i></li>
-
-											</ul>
-											<!-- 수정 및 삭제용 파라미터 -->
-											<input type="hidden" name="r_no" />
-											
-											 <input type="hidden" name="name" class="form-fname form-element large"
-												placeholder="Name" style="width: 250px">&nbsp;&nbsp;
-											<br> <br>
-											<textarea name="content" id="content" class="form-message"
-												placeholder="Review" tabindex="5"
-												style="margin-top: -30px; width: 400px; height: 200px; border-radius: 20px; padding: 20px"></textarea>
-											<input type="submit" id="submitComment" value="등록"
-												class="btn btn-primary "
-												style="width: 80px; margin-top: -30px; margin-left: 20px;">
-											<input type="hidden" id="starCount" name="starCount" />
-											<!-- iframe 설정 -->
-											<iframe id="if" name="param"></iframe>
-										</form>
-									</div>
-								</div>
 							</div>
 							<!-- /.row -->
 						</div>

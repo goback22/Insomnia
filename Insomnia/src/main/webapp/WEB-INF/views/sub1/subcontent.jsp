@@ -253,7 +253,7 @@
 									class="flare-hover hover-target">
 									<h1 class="large">
 										<span class="q_split"><span
-											class="q_split_wrap menu-item">Contact</span> </span>
+											class="q_split_wrap menu-item">Chatting</span> </span>
 									</h1>
 								</a>
 								<div class="text">
@@ -355,7 +355,7 @@
 									<span class="line rev_line"></span>
 									<!-- <span class="q_split"><span class="q_split_wrap rev_item">방구석 기타리스트</span></span> -->
 									<span class="q_split"><span
-										class="q_split_wrap rev_item">Concert Description.</span></span>
+										class="q_split_wrap rev_item">Description.</span></span>
 								</h2>
 							</div>
 						</div>
@@ -414,10 +414,24 @@
 							<div class="slide" id="page-top-banner">
 								<div class="image-container">
 									<div class="image-wrapper">
-										<div class="">
-											<img src="<c:url value='/resource/img/service2.jpg'/>"
-												alt="360 Virtual Tour" class="image" />
-										</div>
+<!-- 										<div class=""> -->
+<%-- 											<img src="<c:url value='/resource/img/service2.jpg'/>" --%>
+<!-- 												alt="360 Virtual Tour" class="image" /> -->
+<!-- 										</div> -->
+							<a href=""><div id="map" style="width: 1143px; height: 754px;"></div></a>
+								<script type="text/javascript"
+									src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c32fad4a1c57880bfba793d4634c4d7"></script>
+								<script>
+									var container = document
+											.getElementById('map');
+									var options = {
+										center : new daum.maps.LatLng(
+												37.541102, 127.002446),
+										level : 3
+									};
+									var map = new daum.maps.Map(container,
+											options);
+								</script>
 									</div>
 								</div>
 							</div>
@@ -461,14 +475,12 @@
 
 						<div class="arrows">
 							<a class="arrow next q_magnet hover-target" friction=".3"> <span
-								class="svg svg-arrow-right"> <svg width="8px"
-										height="21px">
+								class="svg svg-arrow-right"> <svg width="8px" height="21px">
               <use xlink:href="#icn_arrow_right"></use>
             </svg> <span class="alt sr-only"></span>
 							</span>
 							</a> <a class="arrow prev q_magnet hover-target" friction=".3"> <span
-								class="svg svg-arrow-left"> <svg width="8px"
-										height="21px">
+								class="svg svg-arrow-left"> <svg width="8px" height="21px">
               <use xlink:href="#icn_arrow_left"></use>
             </svg> <span class="alt sr-only"></span>
 							</span>
@@ -485,21 +497,19 @@
 									<span class="q_split"><span class="q_split_wrap">Where</span></span>
 								</h3>
 								<p class="q_split_wrap">
-									주소 : 서울 용산구 블루스퀘어 <br> 인근 : 한강진역 2번 출구<br> 좌석 :
-									1,382석<br> 찾아오시는 길 : Click Me
+									주소 : 서울 용산구 블루스퀘어 <br> 인근 : 한강진역 2번 출구<br>찾아오시는 길 : <a href="http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446">Click</a>
 								</p>
 							</div>
 						</div>
 						<div class="slide-content">
 							<div class="caption">
 								<h3>
-									<span class="q_split"><span class="q_split_wrap">360&deg;</span></span>
-									<span class="q_split"><span class="q_split_wrap">Virtual
-											Tour</span></span>
+									<span class="q_split" style="display: none"><span class="q_split_wrap">360&deg;</span></span>
+									<span class="q_split"><span class="q_split_wrap" style="color:black">Where</span></span>
 								</h3>
-								<p class="q_split_wrap">We combine 360 photography expertise
-									with innovation in interactive technology to create integrated
-									brand experiences that inform and delight.</p>
+								<p class="q_split_wrap">시간 : 6월 15일 오후 20시<br>
+								좌석 : 1,382석<br>주소 : 서울 용산구 블루스퀘어 <br> 인근 : 한강진역 2번 출구<br>찾아오시는 길 : <a href="http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446">Click</a>
+								</p>
 							</div>
 						</div>
 						<!-- 
@@ -561,8 +571,9 @@
 										alt="PNK Hotels" /> <img src="<c:url value='/resource/img/8.png'/>"
 										class="rev_client" alt="Alaya Hotels" /> <img
 										src="<c:url value='/resource/img/9.png'/>" class="rev_client"
-										alt="Mowilex" /> <img src="<c:url value='/resource/img/10.png'/>"
-										class="rev_client" alt="Manisan" />
+										alt="Mowilex" /> 
+<%-- 										<img src="<c:url value='/resource/img/10.png'/>" --%>
+<!-- 										class="rev_client" alt="Manisan" /> -->
 								</div>
 							</div>
 						</div>
@@ -584,19 +595,17 @@
 													a</span></span> <span class="q_split"><span style="color: white;"
 												class="q_split_wrap rev_item">Request.</span></span>
 										</h2>
-										<p class="rev_item">If you have any questions.</p>
+										<p class="rev_item" style="font-weight: 600">If you have any questions.</p>
 									</a>
 								</div>
 							</div>
 						</div>
 					</section>
-					<a id="scrollTop" class="footer-box hover-target"
-						title="Clorova | Bali & Jakarta Photography, Video, 360 Media Production"></a>
-					<copyright>&copy; <span id="year_copy"></span> <a
-						href="index.html" class="hover-target"
-						title="Clorova | Bali & Jakarta Photography, Video, 360 Media Production">Insomnia</a></copyright>
 				</footer>
 
 			</div>
 		</div>
 	</div>
+	
+	<!--Google map api -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsBrMPsyNtpwKXPPpG54XwJXnyobfMAIc"></script>

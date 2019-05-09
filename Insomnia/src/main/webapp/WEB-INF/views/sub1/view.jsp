@@ -44,8 +44,7 @@
 <style type="text/css">
 body {
 	color: white;
-	background-image: url('../resource/img/tempBG.jpg');
-	background-attachment: fixed;
+	background-color: #12111F;
 }
 
 #kyj2{

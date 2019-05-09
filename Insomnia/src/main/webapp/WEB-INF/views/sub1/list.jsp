@@ -50,8 +50,8 @@ element.style {
 
 body {
 	color: white;
-	background-image: url('../resource/img/tempBG.jpg');
-	background-attachment: fixed;
+	background-color: #12111F;
+/* 	background-attachment: fixed; */
 }
 
 .text1 {
@@ -275,7 +275,7 @@ th:after {
 
 							<c:if test="${not isEmpty }">
 							<!-- 공지사항 -->
-							<tr style="color: aqua;" >
+							<tr style="color: blue;font-weight: 600" >
 								<td style="text-align: center; padding-top: 10px;">·</td>
 								<td style="text-align: center; padding-top: 10px;">·</td>
 								<td

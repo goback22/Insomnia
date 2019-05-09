@@ -78,19 +78,7 @@
 
 	<!-- LOADING -->
 
-	<div id="overlay">
-		<div id="loading-items">
-			<a href="#" class="logo-loading"
-				title="Clorova — Bali Media Production"> <svg width="100px"
-					height="28px" id="logo">
-        <use xlink:href="#clorova_logo"></use>
-      </svg>
-			</a>
-			<h5 id="progstat"></h5>
-		</div>
-	</div>
-	<div id="content-overlay"></div>
-	<div id="progress-overlay"></div>
+	
 
 
 	<!-- /LOADING -->
@@ -173,8 +161,7 @@
 	</div>
 
 	<div id="head" class="header">
-		<a href="<c:url value='/home.ins'/>" class="logo hover-target" id="main-logo"
-			title="Clorova — Bali Media Production">
+		<a href="<c:url value='/home.ins'/>" class="logo hover-target" id="main-logo" title="Clorova — Bali Media Production">
 			<div class="logo-wrap" id="logo-wrap">
 				<svg width="107px" height="24px">
 		    <use xlink:href="#clorova_logo"></use>
@@ -183,7 +170,6 @@
 			<div class="logo-box" id="logo-box"></div> <span>Media
 				Production</span>
 		</a> <a href="<c:url value='/home.ins'/>" class="works q_magnet hover-target">Home</a>
-		</li>
 
 		<div class="nav-menu hover-target" id="nav">
 			<span class="line"></span> <span class="line"></span> <span
@@ -222,22 +208,22 @@
 
 						<div class="columns">
 							<div class="column q-1-5">
-								<span class="line"></span> <a href="about.html"
+								<span class="line"></span> <a href="<c:url value='/sub1/list.ins'/>"
 									class="flare-hover hover-target barba_nav">
 									<h1 class="large">
 										<span class="q_split"><span
-											class="q_split_wrap menu-item">About</span> </span>
+											class="q_split_wrap menu-item">Recruit</span> </span>
 									</h1>
 								</a>
 
 
 							</div>
 							<div class="column q-1-5">
-								<span class="line"></span> <a href="journal.html"
+								<span class="line"></span> <a href="<c:url value='/sub1/review.ins'/>"
 									class="flare-hover hover-target barba_nav">
 									<h1 class="large">
 										<span class="q_split"><span
-											class="q_split_wrap menu-item">Journal</span> </span>
+											class="q_split_wrap menu-item">Review</span> </span>
 									</h1>
 								</a>
 								<div class="text">
@@ -253,7 +239,7 @@
 									title="Contact Clorova" class="flare-hover hover-target">
 									<h1 class="large">
 										<span class="q_split"><span
-											class="q_split_wrap menu-item">Contact</span> </span>
+											class="q_split_wrap menu-item">Chatting</span> </span>
 									</h1>
 								</a>
 								<div class="text">
@@ -356,7 +342,7 @@
 							</div>
 						</figure>
 						<div class="text vsh" data-speed=".2">
-							<h5>Hot — 2019</h5>
+							<p>Hot — 2019</p>
 							<h1>방구석 기타리스트</h1>
 							<p>꿈 많은 청년들의 공연을 직접 만나보세요.</p>
 						</div>
