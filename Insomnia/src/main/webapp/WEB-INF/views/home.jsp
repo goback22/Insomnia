@@ -276,8 +276,8 @@ $(function(){
 						</div>
 						<div class="bottom-message">
 							<p class="text">
-								아직 계정이 없나요?&nbsp;&nbsp;<a
-									href="<c:url value='/register/term.ins'/>" data-return-url="">회원가입</a>
+								아직 계정이 없나요?&nbsp;&nbsp;
+								<a href="<c:url value='/register/term.ins'/>" data-return-url="">회원가입</a>
 							</p>
 						</div>
 
@@ -292,7 +292,7 @@ $(function(){
 					</div>
 
 				</div>
-
+				
 			</c:if>
 				<!-- 비 로그인시 보여줄 화면 끝-->
 			
@@ -510,7 +510,11 @@ $(function(){
 		<!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script> -->
 		<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 		<script>
-			
+			function goAndroid() {
+				location.replace('/asd/asd.ins')
+			}	
+		
+		
 			var naverLogin = new naver.LoginWithNaverId({
 				
 				clientId:"baw69zHb2FPVPqvEd5sl",
