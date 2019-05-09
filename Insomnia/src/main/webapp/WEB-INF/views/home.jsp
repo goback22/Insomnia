@@ -239,7 +239,7 @@ $(function(){
 			<p id="isError" style="display:none;">${errorMessage}</p>
 			<!-- 로그인/회원정보 페이지 시작 -->
 			<c:if test="${empty sessionScope.id}" var="result">
-				<!-- 비로그인 시 보여줄 화면 시작-->
+				<!-- 비 로그인 시 보여줄 화면 시작-->
 				<div class="offset-menu-two">
 					<a href="<c:url value='/#'/>" class="offset-closer"><img
 						src="<c:url value='/resource/img/offset-cross2.png'/>" alt=""></a>
