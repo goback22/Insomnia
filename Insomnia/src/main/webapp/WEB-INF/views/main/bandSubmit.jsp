@@ -18,13 +18,13 @@
 <!-- 섬머노트 css,js -->
 <link rel="stylesheet"
 	href="<c:url value='/vendor/css/summernote.css'/>" type="text/css">
-<script src="<c:url value='/vendor/js/summernote.js'/>"></script>
+<script src="<c:url value='/vendor/js/summernote-bandSubmit.js'/>"></script>
 
 <!-- 섬머노트 awesome css,js -->
 <link rel="stylesheet"
 	href="<c:url value='/vendor/css/summernote-ext-emoji-ajax.css'/>"
 	type="text/css">
-<script src="<c:url value='/vendor/js/summernote-ext-emoji-ajax.js'/>"></script>
+<script src="<c:url value='/vendor/js/summernote-ext-emoji-ajax2-bandSubmit.js'/>"></script>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -58,7 +58,7 @@ body {
 	font-size: 15px;
 	font-weight: 200;
 }
-ㅂ
+
 .reward-description {
 	font-size: 15px;
 	color: gray;
@@ -105,6 +105,10 @@ body {
 .b_description{
 	color:black;
 }
+
+.modal-backdrop{
+	width:0;
+}
 </style>
 
 
@@ -127,15 +131,14 @@ body {
 			<section id="artist"
 				class="section-padding section-dark parallax-window"
 				data-parallax="image"
-				data-bg-image="/insomnia/upload/temp/${empty profile_name ? 'default_band_profile_img.jpg' : profile_name }">
+				data-bg-image="/insomnia/upload/content/main/banner/${empty profile_name ? 'default_band_profile_img.jpg' : profile_name }">
 
 				<!--  <c:url value='/resource/img/default_band_profile_img.jpg'/>  -->
 
 				<div class="container" style="margin-top: 5%;">
 					<div class="section-title text-center">
-						<h2>
-							밴드 이름 <input type="text" name="b_name" id="b_name" class="b_name"
-								required>
+						<h2 style="padding-bottom:50px; letter-spacing:25px;">
+							${bandDto.b_name}
 						</h2>
 					</div>
 					<!-- /.section-title -->
@@ -159,7 +162,7 @@ body {
 							<div class="artist-details">
 								<h3 class="artist-name">
 									<input type="text" name="b_description" id="b_description"
-										class="b_desciption">
+										class="b_desciption" style="color:black;">
 								</h3>
 								<h4 class="band-name">밴드 주 설명</h4>
 
@@ -171,7 +174,7 @@ body {
 
 									<!-- <a href="<c:url value='/main/bandSubmit.ins'/>"></a>  -->
 									<div class="watch-inner text-center" style="margin-top: 100px;">
-										<a href="#" class="tim-btn tim-btn-bg">SUBMIT!</a>
+										<a href="javascript:submit();" class="tim-btn tim-btn-bg" >SUBMIT!</a>
 									</div>
 
 								</div>
@@ -277,13 +280,9 @@ body {
 													<i class="fa fa-play"></i>
 												</div>
 												<div class="text">
-													<p>
-														제목<input style="width: 200px; margin-left: 15px;"
-															type="text" name="video-title">
+													<p style="margin-top: 17px;">
+														제목<input style="width: 200px; margin-left: 15px; color:black;" type="text" id="video-title" name="video-title">
 													</p>
-													<span>설명 <input
-														style="height: 30px; width: 200px; margin-left: 23.5px; margin-top: 3px;"
-														type="text" name="video-description"></span>
 												</div>
 
 											</div>
@@ -337,11 +336,9 @@ body {
 							action="<c:url value='/bandsubmit/setimages.ins'/>"
 							enctype="multipart/form-data" style="text-align: center;">
 
-							&nbsp;&nbsp;사진 1&nbsp;&nbsp; <input id="upload_image1"
-								name="upload_image1" type="file"><br /> &nbsp;&nbsp;사진
-							2&nbsp;&nbsp; <input id="upload_image2" name="upload_image2"
-								type="file"><br /> &nbsp;&nbsp;사진 3&nbsp;&nbsp; <input
-								id="upload_image3" name="upload_image3" type="file">
+							&nbsp;&nbsp;사진 1&nbsp;&nbsp; <input id="upload_image1" name="upload_image1" type="file"><br /> 
+							&nbsp;&nbsp;사진 2&nbsp;&nbsp; <input id="upload_image2" name="upload_image2" type="file"><br /> 
+							&nbsp;&nbsp;사진 3&nbsp;&nbsp; <input id="upload_image3" name="upload_image3" type="file">
 
 						</form>
 						<br />
@@ -472,7 +469,7 @@ body {
 
 
 	<script>
-		console.log('version 96'); //////version
+		console.log('version 105'); //////version
 
 		//section태그에 id를 부여할 인덱스 선언
 		var index = 1;
@@ -491,7 +488,7 @@ body {
 			addHtml += '<dl class="reward-info"><dt>';
 			addHtml += r_price + "원 펀딩</dt><dd>";
 			addHtml += '<p class="reward-name">' + r_name + '</p>';
-			addHtml += '<p>' + r_description + '</p></dd></dl>';
+			addHtml += '<p class="reward-description">' + r_description + '</p></dd></dl>';
 			addHtml += '<ul class="data-info"><li class="shipping" style="width: 100%; margin-bottom: 5px;">배송비<em>4,500원</em></li></ul>';
 			addHtml += '</section>';
 			index++;
@@ -546,6 +543,9 @@ body {
 		};//upload
 
 		$(function() {
+			
+			
+			
 
 			console.log("콘솔에 찍어본 c:url 주소" + $('.profile-img2').prop('src'));
 
@@ -589,19 +589,19 @@ body {
 															$("#artist")
 																	.css(
 																			"background-image",
-																			"url('/insomnia/upload/temp/"
+																			"url('/insomnia/upload/content/main/banner/"
 																					+ data
 																					+ "')");
 															$("#artist")
 																	.attr(
 																			"data-bg-image",
-																			"/insomnia/upload/temp/"
+																			"/insomnia/upload/content/main/banner/"
 																					+ data);
 															$("#artist")
 																	.removeAttr(
 																			"data-bg-image");
 															$("#bi_profile")
-																	.get(0).src = "/insomnia/upload/temp/"
+																	.get(0).src = "/insomnia/upload/content/main/banner/"
 																	+ data;
 															console
 																	.log($(
@@ -619,7 +619,7 @@ body {
 																	.log(
 																			'서버로부터 받은 HTML데이타 :',
 																			request.responseText);
-															console.log('에러:',
+															console.log('에러11:',
 																	error);
 														}
 
@@ -658,112 +658,12 @@ body {
 			//var jsonString = JSON.stringify(data);
 			console.log("fn_setImages START");
 			console.log(data);
-			$
-					.each(
-							data,
-							function(index, element) {
-								$("#image" + (parseInt(index) + 1)).get(0).src = "<c:url value='/upload/temp/"+element["image"+index]+"'/>";
-							}); //each
+			$.each(data,function(index, element) {
+				$("#image" + (parseInt(index) + 1)).get(0).src = "<c:url value='/upload/content/main/shows/"+element["image"+index]+"'/>";
+			}); //each
 		};//function fn_setImage
 
-		////////////////////////////////////////////////////////// 이미지 3개 설정
-		/*
-		function readImageUrl(input){
-			
-			if(input.id == "upload_image1"){
-				if(input.files && input.files[0]){
-					var reader = new FileReader();
-					reader.readAsDataURL(input.files[0]);
-					
-					reader.onload = function(e){
-						var tempImage = new Image();
-						tempImage.src = reader.result;
-						
-						tempImage.onload = function(){
-							var canvas = document.createElement('canvas');
-							var canvasContext = canvas.getContext("2d");
-							
-							var img = new Image();
-							img.src = e.target.result;
-							
-							var ratio = img.width / img.height;
-							var img_width = img.width;
-							
-							
-							//canvas.width = 301;
-							//canvas.height = 193;
-							
-							canvasContext.drawImage(this, 0,0, canvas.width, canvas.height);
-							var dataURI=canvas.toDataURL("image/png");
-			        		document.querySelector("#image1").src=dataURI;
-			        		document.querySelector("#image1").css("width","100%");
-							
-							//var dataURI = canvas.toDataURL("image/png");
-						}//tempImage.onload
-					}//reader.onload
-				}//if
-			}///if(upload_image1)
-			else if(input.id == "upload_image2"){
-				if(input.files && input.files[0]){
-					var reader = new FileReader();
-					reader.readAsDataURL(input.files[0]);
-					
-					reader.onload = function(e){
-						var tempImage = new Image();
-						tempImage.src = reader.result;
-						
-						tempImage.onload = function(){
-							var canvas = document.createElement('canvas');
-							var canvasContext = canvas.getContext("2d");
-							
-							var img = new Image();
-							img.src = e.target.result;
-							
-							//canvas.width = 301;
-							//canvas.height = 193;
-							
-							canvasContext.drawImage(this, 0,0, canvas.width, canvas.height);
-							var dataURI=canvas.toDataURL("image/png");
-			        		document.querySelector("#image2").src=dataURI;
-			        		document.querySelector("#image2").css("width","100%");
-						}//temImage.onload
-					}//reader.onload
-				}//if
-			}//else if input.id == upload_image2
-			else{
-				if(input.files && input.files[0]){
-					var reader = new FileReader();
-					reader.readAsDataURL(input.files[0]);
-					
-					reader.onload = function(e){
-						var tempImage = new Image();
-						tempImage.src = reader.result;
-						
-						tempImage.onload = function(){
-							var canvas = document.createElement('canvas');
-							var canvasContext = canvas.getContext("2d");
-							
-							var img = new Image();
-							img.src = e.target.result;
-							
-							
-							var ratio = img.width / img.height;
-							//canvas.width = 541;
-							//canvas.height = 611;
-							
-							canvasContext.drawImage(this, 0,0, canvas.width, canvas.height);
-							var dataURI=canvas.toDataURL("image/png");
-			        		document.querySelector("#image3").src=dataURI;
-			        		document.querySelector("#image3").css("width","100%");
-			        		document.querySelector("#image3").css("height",document.querySelector("#image3").attr("width")*ratio);
-						}//tempImage.onload
-					}//reader.onload
-				}//if input.files && input.files[0]
-			}//else
-		}///readImageUrl
-		 */
 
-		//////////////////////////////////////////////////////////이미지 3개 설정 끝
 		$('#b_banner_description')
 				.summernote(
 						{
@@ -793,10 +693,19 @@ body {
 									callback($.grep(this.words, function(item) {
 										return item.indexOf(keyword) === 0;
 									}));
-								}
-							}
-						});
-		
+								}//search
+							},//hint
+							callbacks:{
+								//이미지를 업로드했을때 server에 저장해서 경로로 반환
+								onImageUpload : function(files, editor, welEditable){
+									for(var i = files.length - 1; i>=0; i--){
+										sendFile(files[i], this);
+									}//for
+								}//onImageUpload
+							}//callbacks
+						});//summernote
+						
+	
 		 $('#summernote')
 			.summernote(
 					{
@@ -826,10 +735,136 @@ body {
 								callback($.grep(this.words, function(item) {
 									return item.indexOf(keyword) === 0;
 								}));
-							}
-						}
-					});
-	</script>
+							}//search
+						},//hint
+						
+						callbacks:{
+							onImageUpload : function(files, editor, welEditable){
+								for(var i= files.length -1; i>=0; i--)
+									sendFile(files[i], this);
+							}//onImages Upload
+						}//callbacks
+					});//.sumernot
+						
+						
+			function sendFile(file, el){
+				var form_data = new FormData();
+				form_data.append('file', file);
+				$.ajax({
+					data : form_data,
+					type:'post',
+					url:'<c:url value="/bandsubmit/b_banner_description.ins"/>',
+					cache:false,
+					contentType:false,
+					enctype:'multipart/form-data',
+					processData:false,
+					success:function(img_name){
+						$(el).summernote('editor.insertImage', img_name);
+					}
+				});//$.ajax
+			}//sendFile
+			
+	
+		 //////최종 서브밋
+		 function submit(){
+			
+			var isSuccess = true; // db까지 무사히 등록되었는지 판별하는 validate용
+				
+			var b_description =$('#b_description').val()
+			var b_banner_description = $('#b_banner_description').val()
+			var bi_profile = $("#bi_profile").attr("src");
+			bi_profile = bi_profile.substring(bi_profile.lastIndexOf("/")+1);
+			var video_title = $("#video-title").val();
+			var image1 = $("#image1").attr("src");
+			image1 = image1.substring(image1.lastIndexOf("/")+1);
+			var image2 = $("#image2").attr("src");
+			image2 = image2.substring(image2.lastIndexOf("/")+1);
+			var image3 = $("#image3").attr("src");
+			image3 = image3.substring(image3.lastIndexOf("/")+1);
+			var youtube = $("#video_url").attr("href");
+			var summernote = $("#summernote").val();
+			
+			//ajax처리할 json객체 생성
+			var json = {
+					'sw_short_description' : b_description,
+					'sw_long_description' : b_banner_description,
+					'sw_banner' : bi_profile,
+					'sw_image_1' : image1,
+					'sw_image_2' : image2,
+					'sw_image_3' : image3,
+					'sw_youtube' : youtube,
+					'sw_youtube_title' : video_title,
+					'sw_content' : summernote
+				};
+			
+			//reward를 제외한 나머지를 먼저 bandSubmitWaiting에 등록한다.
+			$.ajax({
+				url:'<c:url value="/bandsubmit/addNewBandSubmitWaiting.ins"/>',
+				data : json,
+				type: 'post',
+				dataType: 'text',
+				async: false,
+				success : function(data){
+					if(data == "SUC"){}
+					else{
+						isSuccess = false;}
+					
+				},
+				error : function(error){
+					console.log(error);
+					console.log(error.status);
+					alert("에러");
+					isSuccess = false;}
+			});//$.ajax
+			
+			
+			
+			//reward 내용 rewardWaiting 에 설정
+			$("section[id^=reward_created]").each(function(){
+				
+				var rw_price = parseInt($(this).find("dt").text());
+				var rw_name = $(this).find(".reward-name").text();
+				var rw_description = $(this).find(".reward-description").text();
+				
+				var rwJson = {
+					'rw_price' : rw_price,
+					'rw_name' : rw_name,
+					'rw_description' : rw_description
+				};
+				
+				$.ajax({
+					url : '<c:url value="/bandsubmit/addRewardWaiting.ins"/>',
+					data : rwJson,
+					dataType:'text',
+					async: false,
+					success:function(data){
+						if(data == "FAIL")
+							isSuccess = false;
+					},
+					error : function(error){
+						console.log(error);
+						console.log(error.status);
+						alert("에러");
+						isSuccess = false;
+					}
+				});//$.ajax
+			});//$.each fn
+			
+			if(isSuccess){
+				alert("등록 성공!");
+				location.href='<c:url value="/band/bandInfo.ins"/>';
+			}else
+				alert("등록 실패 .. ㅠㅠ");
+		 }///submit;
+		 
+		 
+		 
+		 
+		 </script>
+	
+	
+	
+	
 
 <!-- app.css를 안건드리기 위해 여기다 적음 -->
 <style>

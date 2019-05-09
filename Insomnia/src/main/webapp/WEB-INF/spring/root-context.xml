@@ -55,4 +55,17 @@
 	</bean>
 	<tx:annotation-driven />
 	
+	<!-- 스프링 소셜 : 페이스북 -->
+	<!--  <bean id="connectionFactory"
+        class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+        <constructor-arg value="1073792512792998" />
+        <constructor-arg value="d179fd98bc2e1b518697e517aa46e61f" />
+    </bean>
+ 
+    <bean id="oAuth2Parameters"
+        class="org.springframework.social.oauth2.OAuth2Parameters">
+        <property name="scope" value="email" />
+        <property name="redirectUri" value="http://localhost:8080/insomnia/" />
+    </bean> -->
+	
 </beans>

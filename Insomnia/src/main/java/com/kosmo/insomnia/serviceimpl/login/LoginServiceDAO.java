@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.service.login.LoginService;
+import com.kosmo.insomnia.util.login.MailHandler;
+import com.kosmo.insomnia.util.login.TempKey;
 
 @Repository
 public class LoginServiceDAO implements LoginService{
@@ -43,4 +45,6 @@ public class LoginServiceDAO implements LoginService{
 	public boolean checkSignup(String id) {
 		return false;
 	}
+
+	
 }

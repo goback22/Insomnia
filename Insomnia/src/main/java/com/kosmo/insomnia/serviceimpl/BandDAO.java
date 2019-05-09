@@ -13,7 +13,10 @@ import com.kosmo.insomnia.service.BandImgDTO;
 import com.kosmo.insomnia.service.BandMemberDTO;
 import com.kosmo.insomnia.service.BandMusicDTO;
 import com.kosmo.insomnia.service.BandService;
+import com.kosmo.insomnia.service.BandSubmitDTO;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
+import com.kosmo.insomnia.service.RewardWaitingDTO;
+import com.kosmo.insomnia.service.SeqDTO;
 
 @Repository
 public class BandDAO implements BandService {
@@ -37,6 +40,11 @@ public class BandDAO implements BandService {
 	}///addNewBand
 	
 	@Override
+	public BandDTO getBandDTOByB_no(String b_no) {
+		return template.selectOne("getBandDTOByB_no", b_no);
+	}//getBandDTOByB_no
+	
+	@Override
 	public boolean isMember(String id) {
 		return template.selectOne("isMember_createNewBand", id) == null ? false : true;
 	}//isMember
@@ -58,8 +66,8 @@ public class BandDAO implements BandService {
 	}//isExistBand
 	
 	@Override
-	public BandDTO getBandDTOByB_name(String id) {
-		return template.selectOne("getBandDTOByB_name", id);
+	public BandDTO getBandDTOByB_name(String b_name) {
+		return template.selectOne("getBandDTOByB_name", b_name);
 	}//getBandDTOById
 	
 	@Override
@@ -102,4 +110,59 @@ public class BandDAO implements BandService {
 	public int addBandMusic(BandMusicDTO dto) {
 		return template.insert("addBandMusic", dto);
 	}//addBandMusic
+	
+	@Override
+	public int addBandSubmitWaiting(BandSubmitWaitingDTO dto) {
+		return template.insert("addBandSubmitWaiting", dto);
+	}//addBandSubmitWaiting
+	
+	@Override
+	public int addRewardWaiting(RewardWaitingDTO dto) {
+		return template.insert("addRewardWaiting", dto);
+	}//rewardWaiting
+	
+	@Override
+	public List<BandMusicDTO> getListBandMusicDTO(String b_no) {
+		return template.selectList("getListBandMusicDTO", b_no);
+	}///getListBandMusciDTO
+	
+	@Override
+	public List<RewardWaitingDTO> getListRewardWaitingDTO(String sw_no) {
+		return template.selectList("getListRewardWaitingDTO", sw_no);
+	}//getListRewardWaitingDTO
+	
+	@Override
+	public List<BandDTO> allBand() {
+		return template.selectList("allBand");
+	}//allBand()
+	
+	@Override
+	public int acceptBandSubmitWaiting(String b_no) {
+		return template.update("acceptBandSubmitWaiting", b_no);
+	}//acceptBandSubmitWaiting
+	
+	@Override
+	public int completeBandSubmitWaiting(String sw_no) {
+		return template.update("completeBandSubmitWaiting", sw_no);
+	}///completeBandSumbitWaiting
+	
+	@Override
+	public int addBandSubmit(BandSubmitDTO dto) {
+		return template.update("addBandSubmit", dto);
+	}//addBandSubmit
+	
+	@Override
+	public BandSubmitDTO getBandSubmitDTO(String sw_no) {
+		return template.selectOne("getBandSubmitDTO", sw_no);
+	}//getBandSubmitDTO
+	
+	@Override
+	public int getSeq_band(SeqDTO dto) {
+		return template.insert("getSeq_band", dto);
+	}///getSeq_band
+	
+	@Override
+	public BandSubmitDTO getBandSubmitDTOByS_no(String s_no) {
+		return template.selectOne("getBandSubmitDTOByS_no", s_no);
+	}///getBandSubmitDTOByS_no
 }// class BandDAO

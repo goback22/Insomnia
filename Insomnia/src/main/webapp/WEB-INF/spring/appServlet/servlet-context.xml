@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:aop="http://www.springframework.org/schema/aop"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:tx="http://www.springframework.org/schema/tx"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+      http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+      http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd"
+   xmlns:websocket="http://www.springframework.org/schema/websocket">
+		
 	<mvc:annotation-driven
 		content-negotiation-manager="contentNegotiationManager" />
 	<bean id="contentNegotiationManager"
@@ -20,6 +23,7 @@
 		<property name="ignoreAcceptHeader" value="false" />
 	</bean>
 	<mvc:default-servlet-handler />
+	
 
 	<!-- tiles사용을 위한 bean등록 -->
 	<bean
@@ -30,6 +34,13 @@
 			</list>
 		</property>
 	</bean>
+	
+	  <!-- 웹소켓 서버용 빈 만들기 -->
+   <bean id="chatServer" class="com.kosmo.insomnia.util.WebSocketServer"/>
+   <!-- 웹소켓 서버와 클라이언트에서 접속하는 path와 매핑 -->
+   <websocket:handlers>
+      <websocket:mapping handler="chatServer" path="/chat-ws.ins"/>
+   </websocket:handlers>
 
 	<!-- tiles를 처리하도록 또 다른 뷰리졸버 등록 -->
 	<bean

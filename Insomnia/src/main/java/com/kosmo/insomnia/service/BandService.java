@@ -14,7 +14,8 @@ public interface BandService {
 	//3] Band테이블에 새로운 밴드 등록
 	void addNewBand(Map map);
 	
-	//4] BandMember 테이블에 만든 밴드의 
+	//4] b_no로 BandDTO 가져오기
+	BandDTO getBandDTOByB_no(String b_no);
 	
 	//5] 회원인지 여부판단 //없는 회원인 경우 null을 반환한다.
 	boolean isMember(String id);
@@ -29,7 +30,7 @@ public interface BandService {
 	boolean isExistBand(String b_name);
 	
 	//9] 밴드 이름으로 검색해 밴드 객체 얻어오기
-	BandDTO getBandDTOByB_name(String id);
+	BandDTO getBandDTOByB_name(String b_name);
 	
 	//10] 해당밴드가 펀딩을 대기중인지 확인
 	//대기중이라면 객체의 isExist값 "T" 아니면 "F"
@@ -58,5 +59,38 @@ public interface BandService {
 	
 	//17] dto객체로 밴드 음악 등록
 	int addBandMusic(BandMusicDTO dto);
+	
+	//18] dto 객체로 bandSubmitWaiting 등록
+	int addBandSubmitWaiting(BandSubmitWaitingDTO dto);
+	
+	//19] dto 객체로 rewardWaiting 등록
+	int addRewardWaiting(RewardWaitingDTO dto);
+	
+	//20] b_name으로 List BandMusicDTO 얻기
+	List<BandMusicDTO> getListBandMusicDTO(String b_no);
+	
+	//21] sw_no 으로 List RewardWaitingDTO 얻기
+	List<RewardWaitingDTO> getListRewardWaitingDTO(String sw_no);
+	
+	//22] 모든 밴드의 정보 DTO가져오기
+	List<BandDTO> allBand();
+	
+	//23] b_no로 밴드 accept하기
+	int acceptBandSubmitWaiting(String b_no);
+	
+	//24] bandSubmitWaiting 완료
+	int completeBandSubmitWaiting(String sw_no);
+	
+	//25] bandSubmit 등록
+	int addBandSubmit(BandSubmitDTO dto);
+	
+	//26] bandSubmit DTO 가져오기
+	BandSubmitDTO getBandSubmitDTO(String sw_no);
+	
+	//27] seq_band의 현재 시퀀스 currval을 가져오기
+	int getSeq_band(SeqDTO dto);
+	
+	//28] bandSubmitDTO를 s_no값으로 가져오기
+	BandSubmitDTO getBandSubmitDTOByS_no(String s_no);
 	
 }//interface BadnService

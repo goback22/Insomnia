@@ -41,9 +41,46 @@
 	<select id="adminMainMember" parameterType="java.util.Map" resultType="AdminDTO">
 		select * from band
 	</select>
+	<!-- bandmember -->
+	<select id="bandMember" parameterType="java.util.Map" resultType="AdminDTO">
+		select B.*,M.name
+		from members M
+		join bandmember BM on BM.id=M.id
+		join band B on B.b_name = BM.b_name
+	</select>
+	<!-- band music list -->
 	<select id="adminMainMusicList" parameterType="java.lang.String" resultType="AdminDTO">
 		select B.b_no,BM.* from band B join bandmusic BM on B.b_no = BM.b_no where B.b_name=#{B.b_name}
 	</select>
 	
+	<!-- member detail view -->
+	<select id="memberDetailView" parameterType="java.lang.String" resultType="AdminDTO">
+		select * from members where id = #{id}
+	</select>
+	<!-- member detail view about pay -->
+	<select id="memberViewPay" parameterType="java.lang.String" resultType="AdminMemberPayDTO">
+		select SP.*,R.r_name,R.r_price
+		from safepay SP
+		join reward R on R.r_no = SP.r_no
+		where SP.id = #{id} order by sp_no desc
+	</select>
 	
+	<!-- sub -->
+	<!-- sublist -->
+	<select id="subList" parameterType="java.lang.String" resultType="AdminSubDTO">
+		select * from bgsconcert B
+		join concerttimes CT on CT.bgsco_no = B.bgsco_no 
+	</select>
+	<!-- sub member list -->
+	<select id="subMemberList" parameterType="java.util.Map" resultType="AdminSubDTO">
+		select * from bgsapply 
+	</select>
+	<!-- bgshire -->
+	<insert id="bgshire" parameterType="java.lang.String">
+		insert into bgshire values(seq_bgshire.nextval,#{ap_no},'1')
+	</insert>
+	<!-- bgshire list -->
+	<select id="bgsHireList" parameterType="java.util.Map" resultType="AdminSubDTO">
+		select ap_no from bgshire
+	</select>
 </mapper>

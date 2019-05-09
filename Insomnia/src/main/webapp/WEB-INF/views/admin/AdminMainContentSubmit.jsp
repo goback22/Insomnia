@@ -4,19 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AdminMainContentMember.jsp</title>
-<link href="<c:url value='/vendor/css/bootstrap-3.3.2.css'/>"
-	rel="stylesheet">
-<script src="<c:url value='/vendor/js/jquery-3.3.1.js'/>"></script>
-<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script>
-<!--  -->
-<link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>"
-	rel="stylesheet">
-<link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>"
-	rel="stylesheet">
+	<link href="<c:url value='/vendor/css/bootstrap-3.3.2.css'/>" rel="stylesheet">
+	<script src="<c:url value='/vendor/js/jquery-3.3.1.js'/>"></script>
+	<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<!--  -->
+	<link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>" rel="stylesheet">
+	<link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>" rel="stylesheet">
+
 </head>
 <body>
 	<div id="wrapper">
@@ -34,7 +33,7 @@
 			</div>
 			<!--  -->
 			<div class="row">
-				<div class="col-md-11">
+				<div class="col-md-8">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">진행중인 main content</h3>
@@ -180,8 +179,33 @@
 				</div>
 
 				<!-- 첫번째 끝 -->
-
-
+				<div class="col-md-4">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">진행중인 main content chart1</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+							<!-- chart1 -->
+								
+							<!-- chart1 end -->
+							</section>
+						</div>
+					</div>
+				</div>
+				<!-- 두번째 끝 -->
+				<div class="col-md-4" style="float:right;">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">진행중인 main content chart2</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+							
+							</section>
+						</div>
+					</div>
+				</div>
 
 			</div>
 		</div>
@@ -202,7 +226,9 @@
 // 			$(this).next(".fold").toggle(400);
 	});
 </script>
+<script type="text/javascript">
 
+</script>
 
 </body>
 </html>

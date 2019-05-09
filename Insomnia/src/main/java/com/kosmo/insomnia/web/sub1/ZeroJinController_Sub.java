@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,13 +36,12 @@ import org.w3c.dom.ls.LSInput;
 
 import com.kosmo.insomnia.service.BGSConcertDTO;
 import com.kosmo.insomnia.service.BGSConcertService;
+import com.kosmo.insomnia.service.CommentDTO;
 import com.kosmo.insomnia.service.ListDTO;
-import com.kosmo.insomnia.service.MainCommentService;
 import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.serviceimpl.CommentServiceImpl;
 import com.kosmo.insomnia.serviceimpl.ListDAO;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
-import com.kosmo.insomnia.serviceimpl.MainCommentServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 import com.kosmo.insomnia.web.sub1.PagingUtil;
 import com.oreilly.servlet.MultipartRequest;
@@ -60,33 +61,35 @@ public class ZeroJinController_Sub {
 	@Resource
 	private MemberServiceImpl memberService;
 	
-	//메인 코멘트용
-	@Resource(name="mainCommentService")
-	private MainCommentServiceImpl mainCommentService;
 	
    // 로그인
    @RequestMapping(value = "/login.ins")
-   public String login(HttpSession session, Model model, @RequestParam Map map) throws Exception {
+   public String login(HttpSession session, Model model, @RequestParam Map map, Authentication auth) throws Exception {
 	   
       boolean flag = insService.isMember(map);
-      
+	   
+	   //UserDetails authenticated = (UserDetails)auth.getPrincipal();
+	   
       if(flag) {
     	  session.setAttribute("id", map.get("id"));
+	   
+	   	  //map.put("id", authenticated.getUsername());
     	  
     	  MemberDTO record = memberService.selectOne(map);
 
-    	  record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+    	  //record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
     	  
     	  model.addAttribute("loginRecord", record);
-
+    	  
+    	  //session.setAttribute("id", authenticated.getUsername());
     	  session.setAttribute("login_user_name", record.getName());
 	      session.setAttribute("login_user_phoneNb", record.getPhone());
 	      System.out.println(record.getPhone());
     	  
-      } else {
+     } else {
     	  model.addAttribute("errorMessage", "아이디 또는 비밀번호가 불일치합니다.");
     	 /* return "forward:/loginErr/ajax.ins";*/
-      }
+    }
       
       return "home.tiles";
    }
@@ -113,13 +116,23 @@ public class ZeroJinController_Sub {
 	// 서브 프로젝트
 	@RequestMapping(value = "/sub1/subprojects.ins")
 	public String subprojects(Model model, Map map, HttpSession session) throws Exception {
+		if(session.getAttribute("id") != null) {
+			map.put("id", session.getAttribute("id"));
+			
+			MemberDTO record = memberService.selectOne(map);
+			if(record != null) {
+			  	//record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+			  	model.addAttribute("loginRecord", record);
+			}
+		}
+		return "/sub1/subprojects";
+	}
 	
-	map.put("id", session.getAttribute("id"));
-	MemberDTO record = memberService.selectOne(map);
-  	 record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
-  	 model.addAttribute("loginRecord", record);
+	// 방구석 기타리스트 - review 게시판으로 이동
+	@RequestMapping(value="/sub1/review.ins")
+	public String reviewGo() throws Exception{
 		
-		return "/sub1/subprojects.tiles";
+		return "/sub1/review.tiles";
 	}
 	
 	// 서브 프로젝트 -> 방구석 기타리스트 
@@ -138,7 +151,8 @@ public class ZeroJinController_Sub {
 		model.addAttribute("bgs1", product_List.get(0));
 		model.addAttribute("bgs2", product_List.get(1));
 		
-		return "/sub1/subcontent.tiles";
+		//이런저런 문제로 인해 tiles빼고 jsp만
+		return "sub1/subcontent";
 	}
 
 	// 목록처리]
@@ -400,7 +414,7 @@ public class ZeroJinController_Sub {
 		List<Map> comments= commentService.selectList(map);
 		
 		for(Map comment:comments) {
-			comment.put("POSTDATE", comment.get("POSTDATE").toString().substring(0,10));
+			comment.put("POSTDATE", comment.get("POSTDATE").toString().substring(0,19));
 			//엔터 값
 			comment.put("CONTENT", comment.get("CONTENT").toString().replace("\r\n", "<br/>"));
 		}
@@ -439,11 +453,59 @@ public class ZeroJinController_Sub {
 	//삭제 처리]
 	@ResponseBody
 	@RequestMapping(value="/sub1/memodelete.ins",produces="text/html; charset=UTF-8")
-	public String delete(@RequestParam Map map) throws Exception{
+	public String mainCommentDelete(@RequestParam Map map,Model model) throws Exception{
+		System.out.println("삭제 메소드로 오냐");
+		
+		System.out.println("map:"+map);
+		
+//		System.out.println("?:"+map.get("r_no").toString()+"1");
+		
+		//c_refer를 맵에 담아야하는데 c_refer는 곧 해당 댓글 번호이므로 댓글 번호를 넣어준다.
+		map.put("refer", map.get("r_no"));
+//			System.out.println("map이 뭔데?:"+map);
+		
+		System.out.println("mapmap:"+map);
+		
+		//댓글에 자식이 있니?
+		boolean flag = commentService.isChild(map);
+		
+		System.out.println("flag:"+flag);
+		
+		//자식이 있는 경우 원 댓글 삭제 안되게 하기
+		if(flag) {
+			//ajax이므로 당연히 request영역에는 담을 수 없다.
+//				model.addAttribute("errorMessage", "답글이 있는 댓글은 삭제할 수 없습니다.");
+			//메세지를 return에 담아줘야 한다.
+			return "";
+		}
+		
 		//서비스 호출]
 		commentService.delete(map);
 		
 		return "";
-	}//	
+	}//
+	
+	//Reply Comment
+	@ResponseBody
+	@RequestMapping(value="/sub1/replywrite.ins",produces="text/html; charset=UTF-8") 
+	public String replyWrite(@RequestParam Map map,HttpSession session) throws Exception{
+		CommentDTO record = commentService.selectOne(map);
+		
+		System.out.println("map.get(\"r_no\"):"+map.get("r_no"));
+		System.out.println("record.toString():"+record.toString());
+		
+		map.put("id", session.getAttribute("id"));
+		map.put("refer", record.getRefer().toString());
+		map.put("step", record.getStep().toString());
+		map.put("depth", record.getDepth().toString());
+		
+		System.out.println("Map:"+map);
+		
+		//서비스 호출
+		commentService.reply(map);
+		System.out.println("여기까지 오냐?");
+	
+		return map.get("r_no").toString();
+	}
 		
 }//class

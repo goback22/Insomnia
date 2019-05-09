@@ -75,13 +75,27 @@ public class MemberController {
 				+ map.get("birth_day").toString());
 		record.put("birth_flag", map.get("birth_flag").toString());
 		record.put("zip_code", map.get("zip_code").toString());
-		record.put("address",
+		
+		System.out.println("도로명주소: " + map.get("roadAddress"));
+		System.out.println("지번주소: " + map.get("jibunAddress"));
+		System.out.println("상세주소: " + map.get("detailAddress"));
+		
+		
+		String road = map.get("roadAddress").toString();
+		String jibun = map.get("jibunAddress").toString();
+		String detail = map.get("detailAddress").toString();
+		
+		record.put("address", road + "^" + jibun + "^" + detail);
+		
+		/*record.put("address",
 				"R:" + map.get("roadAddress") == null ? ""
 						: map.get("roadAddress").toString() + " J:" + map.get("jibunAddress") == null ? ""
 								: map.get("jibunAddress").toString() + " D:" + map.get("detailAddress") == null ? ""
-										: map.get("detailAddress").toString());
+										: map.get("detailAddress").toString());*/
+		
 		record.put("phone", "010" + map.get("phone1").toString() + map.get("phone2").toString());
 		record.put("sms_recieve", map.get("advertise") == null ? "F" : "T");
+		record.put("email", map.get("email").toString() + "@" + map.get("portal").toString());
 		
 		service.create(record);
 		rttr.addFlashAttribute("authmsg", "이메일 인증 후 사용 가능합니다.");

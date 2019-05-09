@@ -93,10 +93,13 @@ body {
 									<dt>
 									<!-- ajax -->
 									<c:if test="${empty record.login_chain}" var="isSocial">
+
 										<img class="profile-img2" src="${img }"/>
 
 									</c:if>
+
 									<c:if test="${not isSocial}">
+
 										<img class="profile-img2" src='${loginRecord.profile_img }'/>
 									</c:if>
 									<div class="filebox"> 
@@ -394,7 +397,7 @@ body {
 				
 				if(element['noData'] != null) {
 					//emptyMessage = "<p class='emptyMess'>아직 "+element["which"]+" 상품이 없습니다.</p>";
-					emptyMessage = "<p>아직 "+element["which"]+" 상품이 없습니다.</p>";
+					emptyMessage = "<p style='font-size:17px;'>아직 "+element["which"]+" 상품이 없습니다.</p>";
 					isEmpty = true;
 					return;
 				}
@@ -456,6 +459,7 @@ body {
 			if(isEmpty) {
 				/* $('.historyEmptyValue').css('display', 'none') */
 				$('.historyValue').html(emptyMessage);
+				$('.historyValue').css('padding-top', '80px');
 			/* 	$('.historyValue').css('display', 'block'); */
 				$('.pagingDiv').html("");
 				return;
@@ -463,6 +467,7 @@ body {
 			
 		/* 	$('.historyValue').css('display', 'block'); */
 			$('.historyValue').html(listString);
+			$('.historyValue').css('padding-top', '0px');
 			/* $('.historyEmptyValue').css('display', 'none') */
 			
 			

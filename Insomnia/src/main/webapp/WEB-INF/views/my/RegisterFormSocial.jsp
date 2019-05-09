@@ -90,6 +90,14 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 	margin-left:10px;
 }
 
+#user_nm {
+	margin-left:30px;
+}
+
+.confirm_txt {
+	display:none;
+}
+
 
 </style>
 
@@ -119,10 +127,10 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 			<!-- 여기부터 -->
 
 			<fieldset>
-				<legend class="hid">회원가입폼</legend>
+				<legend class="hid">소셜회원 추가정보 입력</legend>
 
 				<div class="find_mem_ttl_div">
-					<strong class="find_mem_ttl">회원가입</strong>
+					<strong class="find_mem_ttl">추가정보 입력</strong><br/>
 				</div>
 				<!-- <c:url value='/register/complete.ins'/> -->
 				<form id="frm" method="post" action="<c:url value='/registerSocial/update.ins'/>">
@@ -131,7 +139,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 						<!-- 머릿말 -->
 						<img class="find_insomnia_logo"
 							src="../resource/img/insomnia-logo.png" />
-						<p class="find_form_txt">회원정보를 입력해 주세요.</p>
+						<p class="find_form_txt">${record.login_chain} 제휴회원</p>
 
 						<!-- 이메일 입력 -->
 						<div class="renew_input_box email_chk">
@@ -149,22 +157,13 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 								</select>
 								<button type="button" class="btn btn-success" id="checkbtn">중복확인</button>  <!-- 입력되면 비활성화 -->
 								<p class="limit_txt email_txt" id="email_txt">이메일을 입력해주세요.</p>
+								<p class="confirm_txt">소셜계정을 통해 이메일이 확인되었습니다.</p>
 								<div id="checkMsg"></div>
 							</div>
 							<!-- 버튼이 들어간 input태그  -->
 
 
 						</div>
-
-						<!-- 아이디 입력 // 이메일로 대체 2019 04 14 -->
-						<!-- 
-					<div class="renew_input_box id_chk">
-						<label for="user_id" class="hid">아이디</label>
-						<input type="text" name="user_id" id="user_id" placeholder="아이디" maxlength="13" required>
-						<p class="limit_txt id_chk_txt" id="id_chk_txt">아이디 에러메세지</p>
-					</div>
-					 -->
-
 
 						<!-- 비번 입력 -->
 						<div class="renew_input_box pw_chk">
@@ -185,12 +184,13 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 						<div class="renew_input_box gender_chk">
 							<!-- 이름입력 -->
 							<strong>이름(필수)</strong>
-							<input type="text" id="user_nm" name="user_nm" value="서기환"	required="required" value="${name}" disabled>
+							<input type="text" id="user_nm" name="user_nm" required="required" value="${recordMap.name}" disabled>
 							<!-- 성별입력 -->
 							<div class="user_gender">
 								<a class="male">남</a> <a class="female">여</a> 
 								<input type="hidden" id="gender" name="gender" value="M">  <!-- input에 따른 a효과도 -->
 							</div>
+							<p class="limit_txt gender_txt" id="gender_txt">생년월일을 선택해주세요.</p>
 						</div>
 						<!-- 생년월일 입력 -->
 						<div class="renew_input_box birth_chk">
@@ -327,11 +327,12 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 							<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 							<input name="roadAddress" type="text" id="sample4_roadAddress" placeholder="도로명주소">
 							<input name="jibunAddress" type="text" id="sample4_jibunAddress" placeholder="지번주소">
-							<span id="guide" style="color: #999; display: none"></span> 
+							<!-- <span id="guide" style="color: #999; display: none"></span>  -->
 							<input name="detailAddress"	type="text" id="sample4_detailAddress" placeholder="상세주소">
 							<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+							<p class="limit_txt addr_txt" id="birth_txt">주소를 입력해주세요.</p>
 						</div>
-						<p class="limit_txt addr_txt" id="birth_txt">주소를 입력해주세요.</p>
+						
 
 
 						<!-- 휴대폰 번호 입력 -->
@@ -356,7 +357,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 
 					<!-- 로그인버튼 -->
 					<div class="btnSubmit_div">
-						<input id="btnSubmit" class="btn btn-success" type="button" value="가입하기"/>
+						<input id="btnSubmit" class="btn btn-success" type="button" value="추가정보 입력하기"/>
 					</div>
 					<h1>${$authmsg}</h1>
 					<!-- 
@@ -486,7 +487,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 				$('#id_chk_txt').html('');
 				$('#id_chk_txt').css('display', 'none');
 				console.log(flag + '아이디 유효성 확인');
-				flag++;
+				flag++;  //2
 			}
 			 
 			
@@ -520,7 +521,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 
 			//6]휴대전화 검증
 			if ($('#phone1').val() == '' || $('#phone2').val() == '') {
-				$('#phone_txt').html('휴대전화를 입력해주세요.');
+				$('#phone_txt').html('휴대폰 번호를 입력해주세요.');
 				$('#phone_txt').css('display', 'block');
 				console.log("번호오류1");
 
@@ -674,8 +675,18 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 			
 		})
 		
-		
+	</script>
 	
+	<script>
+		$(function(){
+			
+			console.log('길이길이: ' + $('#email').prop('value').length);
+			if($('#email').prop('value').length != 0) {
+				
+				$('.confirm_txt').css('display', 'block');
+			}
+			
+		})
 	
 	</script>
 

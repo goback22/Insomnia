@@ -2,7 +2,9 @@
 
 /*========================================태그 선택자======================================*/
 
-
+* {
+	box-sizing:border-box;
+}
 
 
 
@@ -207,7 +209,6 @@ input::placeholder {
     padding: 30px 20px 30px;
 }
 
-
 .renew_input_box {				/*아이디 비번 label태그와 p태그를 감싸는 div태그*/
   /*   background: #fff; */
     border-bottom: 1px solid #ddd;
@@ -265,6 +266,10 @@ input::placeholder {
     font-size: 16px;
     line-height: 1.6;
     margin-top: 15px;
+}
+
+.limit_txt_option {
+	color: red;
 }
 
 
@@ -504,3 +509,19 @@ input {
 	width:100px;
 	margin-bottom:20px;
 }
+
+
+/*=======================================================*/
+.user_gender {
+    margin-top: 2px;
+}
+
+input #user_nm {
+    margin-left: 20px;
+}
+
+.email_chk {
+    height: 150px;
+}
+
+

@@ -132,6 +132,37 @@
 	width: 100%;
 	text-align: center;
 }
+
+.user_gender {
+    margin-top: 2px;
+}
+
+#user_nm {
+   margin-left:40px;
+}
+
+.email_chk {
+    height: 150px;
+}
+
+.limit_txt {				/*아이디 비번 문자수 제한 경고문자*/
+    color: red;
+    display: none;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-top: 15px;
+}
+
+/* .user_name {
+    border: none;
+    border-radius: 3px;
+    float: right;
+    margin-left: 2%;
+    overflow: hidden;
+    width: 70%;
+    text-align:center;
+
+} */
 </style>
 
 <script>
@@ -178,22 +209,22 @@
 						<div class="renew_input_box email_chk">
 							<strong>이메일(필수)</strong>
 							<div class="inner-btn-input">
-								<label for="email" class="hid">e-mail</label> <input
-									class="input-email" type="text" name="email" id="email"
-									placeholder="E-mail을 입력하세요." required="required"> <select
-									id="portal" name="portal">
+								<label for="email" class="hid">e-mail</label>
+								<input class="input-email" type="text" name="email" id="email" placeholder="E-mail을 입력하세요." required="required">
+								<select id="portal" name="portal">
 									<option value="naver.com">naver.com</option>
-									<option value="daum.com">daum.com</option>
+									<option value="daum.com">daum.net</option>
+									<option value="daum.com">hanmail.net</option>
 									<option value="nate.com">nate.com</option>
 									<option value="google.com">google.com</option>
 								</select>
 								<button type="button" class="btn btn-success" id="checkbtn">중복확인</button>
-								<p class="limit_txt email_txt" id="email_txt">이메일을 입력해주세요.</p>
-								<div id="checkMsg"></div>
+								
+								
 							</div>
+							<p class="limit_txt email_txt" id="email_txt">이메일을 입력해주세요.</p>
+							<div id="checkMsg" class="" style="display:block;"></div>
 							<!-- 버튼이 들어간 input태그  -->
-
-
 						</div>
 
 						<!-- 아이디 입력 // 이메일로 대체 2019 04 14 -->
@@ -226,13 +257,14 @@
 					<section class="renew_joinform_v2">
 						<div class="renew_input_box gender_chk">
 							<!-- 이름입력 -->
-							<strong>이름(필수)</strong> <input type="text" id="user_nm"
-								name="user_nm" value="" required="required">
+							<strong>이름(필수)</strong>
+							<input type="text" id="user_nm" name="user_nm" value="" required="required">
 							<!-- 성별입력 -->
 							<div class="user_gender">
-								<a class="male on">남</a> <a class="female">여</a> <input
-									type="hidden" id="gender" name="gender" value="M">
+								<a class="male">남</a> <a class="female">여</a> <input
+									type="hidden" id="gender" name="gender" value="">
 							</div>
+							<p class="limit_txt gender_txt" id="gender_txt">생년월일을 선택해주세요.</p>
 						</div>
 						<!-- 생년월일 입력 -->
 						<div class="renew_input_box birth_chk">
@@ -364,19 +396,16 @@
 						</div>
 						<!-- 주소 입력 -->
 						<div class="renew_input_box addr_chk">
-							<strong>주소(필수)</strong> <input name="zip_code" type="text"
-								id="sample4_postcode" placeholder="우편번호"> <input
-								type="button" onclick="sample4_execDaumPostcode()"
-								value="우편번호 찾기"><br> <input name="roadAddress"
-								type="text" id="sample4_roadAddress" placeholder="도로명주소">
-							<input name="jibunAddress" type="text" id="sample4_jibunAddress"
-								placeholder="지번주소"> <span id="guide"
-								style="color: #999; display: none"></span> <input
-								name="detailAddress" type="text" id="sample4_detailAddress"
-								placeholder="상세주소"> <input type="text"
-								id="sample4_extraAddress" placeholder="참고항목">
+							<strong>주소(필수)</strong>
+							<input name="zip_code" type="text" id="sample4_postcode" placeholder="우편번호">
+							<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+							<input name="roadAddress" type="text" id="sample4_roadAddress" placeholder="도로명주소">
+							<input name="jibunAddress" type="text" id="sample4_jibunAddress" placeholder="지번주소">
+							<!-- <span id="guide" style="color: #999; display: none"></span> -->
+							<input name="detailAddress" type="text" id="sample4_detailAddress" placeholder="상세주소"> <input type="text" id="sample4_extraAddress" placeholder="참고항목">
+							<p class="limit_txt addr_txt" id="addr_txt">주소를 입력해주세요.</p>
 						</div>
-						<p class="limit_txt addr_txt" id="birth_txt">주소를 입력해주세요.</p>
+						
 
 
 
@@ -390,7 +419,7 @@
 						<!-- 휴대폰 번호 입력 -->
 						<div class="renew_input_box phone_chk">
 							<strong>휴대폰 번호(필수)</strong> <input class="input_phone_num"
-								type="text" value="010" id="phone3" readonly="readonly" /> <input
+								type="text" value="010" id="phone3" readonly="readonly" />- <input
 								class="input_phone_num" type="text" name="phone1" id="phone1"
 								required /> - <input class="input_phone_num" type="text"
 								name="phone2" id="phone2" required />
@@ -431,6 +460,28 @@
 
 	</div>
 	<!-- site다이브 끝 -->
+	
+	<script>
+		$(function(){
+			
+			var original = $('#email').val();
+			
+			$('#email').keyup(function(){
+				
+
+				if($('#checkMsg').html() != "") {
+					if(original != $(this).val()) {
+						$('#checkMsg').html('');
+					}
+				}
+				
+			});
+			
+			
+		})
+	
+	
+	</script>
 
 
 	<script>
@@ -450,10 +501,10 @@
 							success : function(data) {
 								if ($.trim(data) == 0) {
 									$('#checkMsg').html(
-											'<p style="color:blue">사용가능</p>');
+											'<p style="color:blue; margin-top:2px;">이메일이 사용가능합니다.</p>');
 								} else {
 									$('#checkMsg').html(
-											'<p style="color:red">사용불가능</p>');
+											'<p style="color:red; margin-top:2px;">이메일이 중복됩니다. 다른 이메일을 입력하세요.</p>');
 								}
 							}
 						}); //end ajax    
@@ -461,19 +512,20 @@
 
 			///1] 키 입력시 검증 메서드 호출
 			$('input').bind('keyup', function() {
+				console.log("검증 이벤트 발생한 폼 " + $(this) + " " + $(this)[0]);
 				validateKeyup($(this)[0]);
 			});
 
 			//2] 폼의 submit 이벤트와 검증 메서드 바인딩
 			$('#frm').bind('submit', function() {
-				console.log(validateForm());
+				//console.log(validateForm());
 				return validateForm();
-			})
+			});
 
 			//3] '가입하기' 클릭시  폼을 submit 시킴
 			$('#btnSubmit').click(function() {
 				$('#frm').submit();
-			})
+			});
 
 			//4] 성별 선택시 효과주기
 			//   성별 선택시 hidden input에 val값 설정
@@ -492,40 +544,39 @@
 			});
 
 		})/////////제이쿼리 진입점
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///입력값 검증 메서드
 		function validateForm(which) {
 
 			//플래그 변수 선언
-			var flag = 2;
+			var flag = 1;
 
 			//정규식 변수 선언
-			var regID = /^[^a-z]|[^a-z0-9]+|^([a-z]+|[0-9]+)$/i;
+			/* var regID = /^[^a-z]|[^a-z0-9]+|^([a-z]+|[0-9]+)$/i; */
 			var regPWD = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 
 			//폼 입력값 얻기
-			var idValue = $('#user_id').val();
+			var idValue = $('#email').val();
 			var pwdValue = $('#user_pwd').val();
 			var pwdChkValue = $('#user_pwd_chk').val();
 
 			//[검증 시작]   
 
 			//1]아이디 검증 - 아이디를 이메일로 대체
-			/*
-			if(idValue.length < 8 || idValue.length > 16) {	
-				$('#id_chk_txt').html('아이디는 8자 이상, 10자 이하여야 합니다.');
-				$('#id_chk_txt').css('display', 'block');
+			
+			if(idValue.indexOf("@") != -1) {	
+				$('#email_txt').html('아이디는 @와 도메인 주소를 제외한 부분만 입력하세요.');
+				$('#email_txt').css('display', 'block');
 				
-			} else if(idValue.match(regID) == null) {
-				$('#id_chk_txt').html('아이디는 영문으로 시작하여야 하며, 영문/숫자의 조합으로 만들어야 합니다. 특수문자는?');
-				$('#id_chk_txt').css('display', 'block');
-					
-			} else if(idValue.match(regID) != null) {
-				$('#id_chk_txt').html('');
-				$('#id_chk_txt').css('display', 'none');
-				flag++; //플래그 = 1	
+			} else if(idValue == "") {
+				$('#email_txt').html('이메일 아이디를 입력하세요.');
+				$('#email_txt').css('display', 'block');
+			} else {
+				$('#email_txt').html('');
+				$('#email_txt').css('display', 'none');
+				flag++; //플래그 = 2
 			}
-			 */
+			 
 
 			//2]비밀번호 검증
 			if (pwdValue.length == 0) {
@@ -541,8 +592,8 @@
 			} else {
 				$('#user_pwd_txt').html('');
 				$('#user_pwd_txt').css('display', 'none');
-				flag++; //플래그 = 2
-				console.log(flag);
+				flag++; //플래그 = 3
+				/* console.log(flag); */
 			}
 
 			//3]비밀번호 동일성 검증
@@ -559,8 +610,8 @@
 				$('#user_pwd_chk_txt').html('비밀번호가 일치합니다.');
 				$('#user_pwd_chk_txt').css('color', 'green');
 				$('#user_pwd_chk_txt').css('display', 'block');
-				flag++; //플래그 = 3
-				console.log(flag);
+				flag++; //플래그 = 4
+				/* console.log(flag); */
 			}
 
 			//4]생년월일 검증
@@ -575,24 +626,26 @@
 			} else {
 				$('#birth_txt').html('');
 				$('#birth_txt').css('display', 'none');
-				flag++; //플래그 = 4
-				console.log(flag);
+				flag++; //플래그 = 5
+				/* console.log(flag); */
 			}
 
 			//5]성별 검증
 			if ($('#gender').val() == '') {
-				$('#gender_txt').html('성별을 선택해주세요.');
+				
+				$('#gender_txt').html('성별을 선택하세요.');
 				$('#gender_txt').css('display', 'block');
 
 			} else {
-				$('#gender_txt').html('성별을 선택해주세요.');
-				$('#gender_txt').css('display', 'block');
-				flag++; //플래그 = 5
-				console.log(flag);
+				$('#gender_txt').html("");
+				$('#gender_txt').css('display', 'none');
+				flag++; //플래그 = 6
+				/* console.log(flag); */
 			}
 
 			//6]휴대전화 검증
 			if ($('#phone1').val() == '' || $('#phone2').val() == '') {
+				
 				$('#phone_txt').html('휴대전화를 입력해주세요.');
 				$('#phone_txt').css('display', 'block');
 
@@ -604,61 +657,68 @@
 			} else {
 				$('#phone_txt').html('');
 				$('#phone_txt').css('display', 'none');
-				flag++; //플래그 = 6
-				console.log(flag);
+				flag++; //플래그 = 7
+				/* console.log(flag); */
 			}
 
 			//7]주소 검증
 
-			//8]이메일 검증
-			if ($('#email').val() == '') {
-				$('#email_txt').html('이메일을 입력해주세요.');
-				$('#phone_txt').css('display', 'block');
+			if($('#sample4_postcode').val() == '') {
+				$('#addr_txt').html('우편번호 찾기 버튼을 눌러 주소를 입력하세요.');
+				//$('#addr_txt').addClass('limit_txt_option');
+				$('#addr_txt').css('display', 'block')
+				
 			} else {
-				$('#email_txt').html('');
-				$('#phone_txt').css('display', 'none');
+				$('#addr_txt').html("");
+				$('#addr_txt').css('display', 'none')  ////addClass해야 되나?
+				flag++;  //플래그 = 8
+				/* console.log(flag + "주소 유효성 확인")  //7 */
+			}
+			
+			//8] 이름 검증 추가
+			if($('#user_nm').val() == '') {
+				/* $('#name_txt').html('이름을 입력하세요.');
+				$('#name_txt').css('display', 'block'); */
+			} else {
+				/* $('#name_txt').html('');
+				$('#name_txt').css('display', 'none'); */
+				flag++;  //9
 			}
 
-			if (flag >= 6)
+			if (flag >= 9)
 				return true;
 			else
-
 				return false;
 
 		}////validateFormd
 
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		function validateKeyup(which) {
 
-			var flag = 1;
-
 			//정규식 변수 선언
-			var regID = /^[^a-z]|[^a-z0-9]+|^([a-z]+|[0-9]+)$/i;
 			var regPWD = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 
 			//폼 입력값 얻기
-			var idValue = $('#user_id').val();
+			var idValue = $('#email').val();
 			var pwdValue = $('#user_pwd').val();
 			var pwdChkValue = $('#user_pwd_chk').val();
 
-			if (which == $('#user_id')[0]) {
+			if (which == $('#user_id')[0]) {     //////아이디
 
-				//1]아이디 검증 - 아이디를 이메일로 대체
-				/*
-				if(idValue.length < 8 || idValue.length > 16) {	
-					$('#id_chk_txt').html('아이디는 8자 이상, 10자 이하여야 합니다.');
+				if(idValue.indexOf("@") != -1) {	
+					$('#id_chk_txt').html('아이디는 @와 도메인 주소를 제외한 부분만 입력하세요.');
 					$('#id_chk_txt').css('display', 'block');
 					
-				} else if(idValue.match(regID) == null) {
-					$('#id_chk_txt').html('아이디는 영문으로 시작하여야 하며, 영문/숫자의 조합으로 만들어야 합니다. 특수문자는?');
+				} else if(idValue == "") {
+					$('#id_chk_txt').html('이메일 아이디를 입력하세요.');
 					$('#id_chk_txt').css('display', 'block');
-						
-				} else if(idValue.match(regID) != null) {
+				} else {
 					$('#id_chk_txt').html('');
 					$('#id_chk_txt').css('display', 'none');
-				}
-				 */
 
-			} else if (which == $('#user_pwd')[0]) {
+				}
+
+			} else if (which == $('#user_pwd')[0]) {   ////비번
 
 				if (pwdValue.length == 0) {
 
@@ -673,11 +733,10 @@
 				} else {
 					$('#user_pwd_txt').html('');
 					$('#user_pwd_txt').css('display', 'none');
-					flag++; //플래그 = 2
-					console.log(flag);
+
 				}
 
-			} else if (which == $('#user_pwd_chk')[0]) {
+			} else if (which == $('#user_pwd_chk')[0]) {   //////비번확인
 
 				//3]비밀번호 동일성 검증
 				if (pwdChkValue.length == 0) {
@@ -695,25 +754,38 @@
 					$('#user_pwd_chk_txt').css('display', 'block');
 				}
 
-			} else if (which == $('select').not('#portal')[0]) {
+			} else if (which == $('select').not('#portal')[0]) {    ///////////////생년월일.  근데 포탈도 해야 된다.
+				
+				
 
-				console.log('4');
+				
 
-			} else if (which == $('#gender')[0]) {
-
-				console.log('5');
-
-			} else if (which == $('#email')[0]) {
-
-				if ($('#email').val() == '') {
-					$('#email_txt').html('이메일을 입력해주세요.');
-					$('#phone_txt').css('display', 'block');
+			} else if (which == $('#gender')[0]) {  ///////성별
+				
+				if($('#gender').val() == '') {
+					$('.gender_txt').html('성별을 선택해주세요.');
+					$('.gender_txt').css('display', 'block')
+					
 				} else {
-					$('#email_txt').html('');
-					$('#phone_txt').css('display', 'none');
+					$('.gender_txt').html("");
+					$('.gender_txt').css('display', 'none')
+					
 				}
 
-			} else if (which == $('#phone1') || which == $('#phone2')) {
+			
+			} else if (which == $('#sample4_postcode')[0]) {
+
+				if($('#sample4_postcode').val() == '') {
+					$('.addr_txt').html('주소찾기 버튼을 눌러 주소를 입력하세요.');
+					$('.addr_txt').css('display', 'block')
+					
+				} else {
+					$('.addr_txt').html("");
+					$('.addr_txt').css('display', 'none')
+					
+				}
+
+			} else if (which == $('#phone1')[0] || which == $('#phone2')[0]) {
 
 				if ($('#phone1').val() == '' || $('#phone2').val() == '') {
 					$('#phone_txt').html('휴대전화를 입력해주세요.');
@@ -729,6 +801,16 @@
 					$('#phone_txt').css('display', 'none');
 				}
 
+			} else {
+				
+				/* if($('user_nm').val() == '') {
+					$('#name_txt').html('이름을 입력하세요.');
+					$('#name_txt').css('display', 'block');
+				} else {
+					$('#name_txt').html('');
+					$('#name_txt').css('display', 'none');
+					
+				} */
 			}
 
 		}
@@ -748,8 +830,11 @@ function submitUserForm() {
     if(response.length == 0) {
         document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;margin-left:880px;">로봇 방지를 체크해주세요.</span>';
         return false;
-    }
-    return true;
+    } 
+    	document.getElementById('g-recaptcha-error').style.display = 'none';
+    	return true;
+    
+   
 }
  
 function verifyCaptcha() {

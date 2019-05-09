@@ -23,6 +23,7 @@ public class AdminDTO {
 	private String gender;
 	private String is_activation;
 	private String activationkey;
+	private String email;
 	//band
 	private String b_no;
 	private String b_name;
@@ -37,7 +38,13 @@ public class AdminDTO {
 	//bandimage
 	private String image;
 	
-
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getImage() {
 		return image;
 	}

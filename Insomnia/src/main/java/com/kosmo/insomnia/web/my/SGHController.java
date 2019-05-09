@@ -1,14 +1,20 @@
 package com.kosmo.insomnia.web.my;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +22,22 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.social.MissingAuthorizationException;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.User;
+import org.springframework.social.facebook.api.UserOperations;
+import org.springframework.social.facebook.api.impl.FacebookTemplate;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -35,6 +54,7 @@ import com.kosmo.insomnia.serviceimpl.BGSConcertServiceImpl;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 import com.kosmo.insomnia.serviceimpl.RewardServiceImpl;
+import com.kosmo.insomnia.util.login.MailHandler;
 import com.kosmo.insomnia.web.sub1.PagingUtil;
 
 @SessionAttributes("id")
@@ -50,6 +70,17 @@ public class SGHController {
 	@Resource(name="bGSConcertService")
 	private BGSConcertServiceImpl bgsService;
 	
+	@Inject
+	private JavaMailSender mailSender;
+	
+	/*@Autowired
+	private FacebookConnectionFactory connectionFactory;
+	
+	@Autowired
+	private OAuth2Parameters oAuth2Parameters;*/
+	
+	//////////////////////////////////////////의존성 주입////////////////////////////////////////////
+	
 	@ResponseBody
 	@RequestMapping("/menu/mypage3.ins")
 	public String myyyyy(@RequestParam Map map1) {
@@ -58,76 +89,109 @@ public class SGHController {
 		
 		return map1.get("photoUrl").toString();
 	}
+
 	
 	/////마이페이지 이동
 	@RequestMapping("/menu/mypage.ins")
 	public String mypage(@RequestParam Map map1, HttpSession session, Map map, Model model, @RequestParam(required=false, defaultValue="1") int nowPage) throws Exception {
-		Map map2 = new HashMap();
-		map2.put("id", session.getAttribute("id"));
-		String img = memberService.selectOne(map2).getProfile_img();
-		System.out.println("들어오니?:"+map1.get("url"));
-		int length = map1.get("url").toString().lastIndexOf("/");
-		String img_default = map1.get("url").toString().substring(0,length+1);
-		System.out.println("기본 path : "+img_default);
 		
-		if(img.trim().equals("default_cover_img.jpg")) {
-			model.addAttribute("img", img_default+"default_cover_img.jpg");
-		}else {
-			model.addAttribute("img", map1.get("url"));
-		}
+		if(session.getAttribute("id") != null) {
+			Map map2 = new HashMap();
+			map2.put("id", session.getAttribute("id"));
+			String img = memberService.selectOne(map2).getProfile_img();
+			System.out.println("들어오니?:"+map1.get("url"));
+	
+			int length = map1.get("url").toString().lastIndexOf("/");
+			String img_default = map1.get("url").toString().substring(0,length+1);
+			System.out.println("기본 path : "+img_default);
+			if(img.trim().equals("default_cover_img.jpg")) {
+				model.addAttribute("img", img_default+"default_cover_img.jpg");
+			}else {
+				model.addAttribute("img", map1.get("url"));
+			}
 		
-		//세션에 저장된 아이디값 구하기
-		String id = session.getAttribute("id") == null ? null : session.getAttribute("id").toString();
-		if(id == null) {
-			return "my/MyPage2.tiles";
-		}
 		
-		System.out.println("저장된 id는 " + id);
-		
-		//서비스 객체가 쓸 map객체
-		map.put("id", id);
-		//서비스 객체를 통해 DTO객체 받기
-		MemberDTO record = memberService.selectOne(map);
-		
-		record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
-		 
-		System.out.println("갖고온 이름은? " + record.getName());
-		
-		//반환한 레코드 객체(1명) 모델에 담아서 반환
-		model.addAttribute("loginRecord", record);
-		
-		/////처음 로딩시 펀딩한(이게 제일 앞이니까) 목록을 보여주어야.
-		//페이징을 위한 로직
-		
-		//전체 레코드수
-		int totalRecordCount = rewardService.getCount(map); //map은 검색용 혹시 에러나면 지우기 null 들어갈 테니
-		//한 페이지에서 보여줄 div 수
-		int pageSize = 4;  //나중에 .properties로?
-		//페이징 수
-		int blockPage = 5;
-		//전체 페이지수
-		int totalPage = (int)Math.ceil(((double)totalRecordCount/pageSize));
-		
-		int start = (nowPage-1)*pageSize + 1;
-		int end = nowPage*pageSize;
-		map.put("start", start);
-		map.put("end", end);
-		
-		String pagingString = PagingUtilSGH.pagingText(totalRecordCount, pageSize, blockPage, nowPage, "/mypage/history.ins?");
-		
-		List<RewardDTO> fundingRecords = rewardService.selectList(map);
-		model.addAttribute("fundingRecords", fundingRecords);
-		model.addAttribute("pagingString", pagingString);
-		System.out.println("fundingRecords는?" + fundingRecords);
-		
-		MemberDTO record2 = memberService.selectOne(map);
-		model.addAttribute("loginRecord", record2);
-		
+			//세션에 저장된 아이디값 구하기
+			String id = session.getAttribute("id") == null ? null : session.getAttribute("id").toString();
+			if(id == null) {
+				return "my/MyPage2.tiles";
+			}
+			
+			System.out.println("저장된 id는 " + id);
+			
+			//서비스 객체가 쓸 map객체
+			map.put("id", id);
+			//서비스 객체를 통해 DTO객체 받기
+			MemberDTO record = memberService.selectOne(map);
+			if(record == null) 
+				return "my/MyPage2.tiles";
+			
+			//record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
+			 
+			System.out.println("갖고온 이름은? " + record.getName());
+			
+			//반환한 레코드 객체(1명) 모델에 담아서 반환
+			model.addAttribute("loginRecord", record);
+			
+			/////처음 로딩시 펀딩한(이게 제일 앞이니까) 목록을 보여주어야.
+			//페이징을 위한 로직
+			
+			//전체 레코드수
+			int totalRecordCount = rewardService.getCount(map); //map은 검색용 혹시 에러나면 지우기 null 들어갈 테니
+			//한 페이지에서 보여줄 div 수
+			int pageSize = 4;  //나중에 .properties로?
+			//페이징 수
+			int blockPage = 5;
+			//전체 페이지수
+			int totalPage = (int)Math.ceil(((double)totalRecordCount/pageSize));
+			
+			int start = (nowPage-1)*pageSize + 1;
+			int end = nowPage*pageSize;
+			map.put("start", start);
+			map.put("end", end);
+			
+			String pagingString = PagingUtilSGH.pagingText(totalRecordCount, pageSize, blockPage, nowPage, "/mypage/history.ins?");
+			
+			List<RewardDTO> fundingRecords = rewardService.selectList(map);
+			model.addAttribute("fundingRecords", fundingRecords);
+			model.addAttribute("pagingString", pagingString);
+			System.out.println("fundingRecords는?" + fundingRecords);
+			
+			MemberDTO record2 = memberService.selectOne(map);
+			model.addAttribute("loginRecord", record2);
+			
+		}  //// != null
 		return "my/MyPage2.tiles";
 	}
 	
 	@RequestMapping("/menu/mypage/edit.ins")
-	public String mypage_edit() throws Exception {
+	public String mypage_edit(Model model, Map map, HttpSession session) throws Exception {
+		
+		map.put("id", session.getAttribute("id"));
+		MemberDTO editRecord = memberService.selectOne(map);
+		
+		String address = editRecord.getShipping_address();
+		System.out.println("비아 주소 : " + address );
+		if(address != null) {
+			
+			StringTokenizer tkz = new StringTokenizer(address, "^");
+			
+			//String[] addArr = address.split("");
+			//System.out.println("첫번째: " + addArr[0]);
+			//System.out.println("두번째: " + addArr[1]);
+			
+			/*model.addAttribute("road", addArr[0]);
+			model.addAttribute("road", addArr[1]);
+			model.addAttribute("road", addArr[2]);*/
+			
+			model.addAttribute("road", tkz.nextToken());
+			model.addAttribute("jibun", tkz.nextToken());
+			model.addAttribute("detail", tkz.nextToken());
+			
+		}
+		
+		model.addAttribute("editRecord", editRecord);
+		
 		
 		return "my/MemberEdit2.tiles";
 	}
@@ -183,7 +247,8 @@ public class SGHController {
 			map.put("socialBirth", socialBirth);
 		}*/
 		
-		if(!socialSite.equals("kakao")) {
+		
+		if(!socialSite.equals("kakao") && !socialSite.equals("naver")) {
 			
 			socialBirth = birthArr[2] + "/" + birthArr[0] + "/" + birthArr[1];
 			map.put("socialBirth", socialBirth);
@@ -257,11 +322,29 @@ public class SGHController {
 	@RequestMapping(value="/edit/profileImgAjax.ins", produces="text/html; charset=UTF-8")  //한글깨짐 방지
 	public String editProfileImgAjax(@RequestParam Map map, Map dismap, HttpSession session) throws Exception {
 		
+/*<<<<<<< HEAD
+		String physicalPath = mhsr.getServletContext().getRealPath("/upload/member/profile");
+		//MultipartFile upload = mhsr.getFile("imgUpload");
+		MultipartFile upload = multipartRequest.getFile("imgUpload");
+		
+		String newFileName = FileUpDownUtils.getNewFileName(physicalPath, upload.getOriginalFilename());///upload가 null인듯
+		File file = new File(physicalPath + File.separator + newFileName);
+		
+		System.out.println("newFileName은? " + newFileName);
+		
+		upload.transferTo(file);
+		
+		dismap.put("profile_img", newFileName);
+=======*/
+		
 		String profile_img = map.get("fileName").toString();
+
 		System.out.println("profile_img : "+profile_img);
 		dismap.put("profile_img", profile_img);
+
 		dismap.put("id", session.getAttribute("id"));
 		
+
 		memberService.updateProfile(dismap);
 		
 		return profile_img;
@@ -347,7 +430,7 @@ public class SGHController {
 					tempMap.put("R_Description", record.getR_description());
 					tempMap.put("B_name", record.getB_name());
 					tempMap.put("BM_name", record.getBm_name());
-					tempMap.put("S_Album_cover", record.getS_album_cover());
+					tempMap.put("S_Album_cover", record.getSw_image_1());
 					
 					resultList.add(tempMap);
 				}
@@ -423,7 +506,15 @@ public class SGHController {
 	////아이디 비밀번호 찾기 페이지 이동
 	
 	@RequestMapping("/find/findId.ins")
-	public String findIdPage() throws Exception {
+	public String findIdPage(@RequestParam Map map, Model model) throws Exception {
+		
+		///최초 이동시가 아닌, 이메일 링크 클릭 후 이동 시 필요한 정보들
+		if(map.get("q") != null) {
+			//model.addAttribute("givenEmail", map.get("foundId"));
+			model.addAttribute("fromEmailLink", "fromEmailLink"); 
+		}
+		
+		
 		
 		return "my/FindIdPassword.tiles";
 	}
@@ -431,7 +522,7 @@ public class SGHController {
 	////아이디 찾기 결과 화면
 	@ResponseBody
 	@RequestMapping("/find/findIdAjax.ins")
-	public String findIdAjax(@RequestParam Map map, HttpSession session) throws Exception {
+	public String findIdAjax(@RequestParam Map map, HttpSession session, Model model) throws Exception {
 		
 		String id = map.get("findId").toString();
 		
@@ -439,15 +530,16 @@ public class SGHController {
 		boolean isMember = memberService.checkSignup(id) == 1 ? true : false;
 		
 		
+		
 		if(isMember) {
-			return "memberOk";
+			return "memberOk" + "^" + id;
 		}
 		
-		return "memberNo";
+		return "memberNo" + "^" + id;
 		
 	}////아이디 이메일로 전송시키는 기능 추가해야.
 	
-	////비밀번호 찾기 결과 화면
+	////비밀번호 찾기 결과 화면  /////////////////////////이거 뭐하는 컨트롤러?
 	@ResponseBody
 	@RequestMapping("/find/findPwdAjax.ins")
 	public String findPwdAjax(@RequestParam Map map, HttpSession session) throws Exception {
@@ -472,22 +564,23 @@ public class SGHController {
 		model.addAttribute("birthMonth", birthArr[1].substring(1, 2)  + "월"); 
 		model.addAttribute("birthDay", birthArr[2] + "일"); */
 		
-		String[] emailArr, birthArr;
+		String[] emailArr = new String[2];
+		String[] birthArr = new String[3];
 		String emailBack;
 		
 		System.out.println("로그인 체인은?" + record.getLogin_chain());
+		
+		if(!record.getLogin_chain().equals("kakao") && !record.getLogin_chain().equals("naver")) {
+			
+			birthArr = record.getBirthDay().substring(0, 10).split("-");
+		}
+		
 		if(!record.getLogin_chain().equals("kakao")) {
+		
 			
 			emailArr = record.getEmail().split("@");
-			birthArr = record.getBirthDay().substring(0, 10).split("-");
 			
-			/*if(Integer.parseInt(birthArr[0]) <= 19) {   /////NumberFormatException
-				birthArr[0] = birthArr[0];
-			} else {
-				birthArr[0] = "19" + birthArr[0];
-			}*/
-			System.out.println("처리전 이메일 백의 값은?" + emailArr[1]); 
-			
+				
 			emailBack = emailArr[1];
 			if(!(emailBack.equals("naver.com") || emailBack.equals("daum.net") || emailBack.equals("nate.com") || emailBack.equals("google.com") || emailBack.equals("hanmail.net") )) {
 				emailBack = "직접입력";
@@ -501,6 +594,8 @@ public class SGHController {
 			recordMap.put("birthYear", birthArr[0]);
 			recordMap.put("birthMonth", birthArr[1]);
 			recordMap.put("birthDay", birthArr[2]);
+			
+			System.out.println("네이버의 이메일 프론트는? " + emailArr[0]);
 
 		}
 		
@@ -509,8 +604,8 @@ public class SGHController {
 		recordMap.put("gender", record.getGender());
 		
 		
-		
 		model.addAttribute("recordMap", recordMap);
+		model.addAttribute("record", record);
 		
 		
 		
@@ -552,10 +647,306 @@ public class SGHController {
 		MemberDTO loginRecord = memberService.selectOne(recordMap);
 		
 		model.addAttribute("loginRecord", loginRecord);
+		model.addAttribute("social_complete", "yes");
 		
 		
 		return "home.tiles";
 	}
+	
+	/////회원정보 수정
+	@ResponseBody
+	@RequestMapping("/find/passwordByEmail.ins")
+	public String findPasswordEmail(@RequestParam Map map, Model model) throws Exception {
+		
+		String email = map.get("findPass").toString();
+		
+		try {
+			MailHandler sendMail = new MailHandler(mailSender);
+			sendMail.setSubject("INSOMNIA 비밀번호 찾기 링크입니다.");
+			
+			Date current = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(EEE) hh:mm");
+			String currentStr = format.format(current);
+			
+			String message;
+			//여기부터
+			message = "<div style=\"max-width: 595px; margin: 0 auto\">\r\n" + 
+					"		<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n" + 
+					"			style=\"max-width: 595px; width: 100%; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif; background-color: #fff; -webkit-text-size-adjust: 100%; text-align: left\">\r\n" + 
+					"			<!-- Header -->\r\n" + 
+					"			<tbody>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td height=\"30\"></td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td style=\"padding-right: 27px; padding-left: 21px\">\r\n" + 
+					"						<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n" + 
+					"							<tbody>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td style=\"\" width=\"61\"><img\r\n" + 
+					"										src=\"ㅇㄹㅇㄹㅇ이미지링크 aws 서버에서 갖고오기ㄹㅇㄹㅇㄹㅇㄹ\"\r\n" + 
+					"										alt=\"Insomnia\" width=\"61\"></td>\r\n" + 
+					"									<td style=\"padding-left: 5px\"><img\r\n" + 
+					"										src=\"http://static.naver.com/common/ems/nid_dm/nid_201412.gif\"\r\n" + 
+					"										alt=\"회원정보\" width=\"42\"></td>\r\n" + 
+					"								</tr>\r\n" + 
+					"							</tbody>\r\n" + 
+					"						</table>\r\n" + 
+					"					</td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td height=\"13\"></td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td\r\n" + 
+					"						style=\"padding-right: 27px; padding-left: 18px; line-height: 34px; font-size: 29px; color: #424240; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"						새로운 비밀번호를<br>\r\n" + 
+					"					<span style=\"color: #1ec800\">설정하시겠습니까?</span>\r\n" + 
+					"					</td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td height=\"22\"></td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td height=\"1\" style=\"background-color: #e5e5e5;\"></td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<!-- //Header -->\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td\r\n" + 
+					"						style=\"padding-top: 24px; padding-right: 27px; padding-bottom: 32px; padding-left: 20px\">\r\n" + 
+					"						<table align=\"left\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n" + 
+					"							width=\"100%\"\r\n" + 
+					"							style=\"font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"							<tbody>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td height=\"6\"></td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr style=\"display: none;\">\r\n" + 
+					"									<td\r\n" + 
+					"										style=\"padding: 9px 15px 10px; background-color: #f4f4f4; font-size: 14px; color: #000; line-height: 24px; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"										이 메일은 아띠(rlgh****)의 비상 연락처에 등록된 메일 주소로 발송되었습니다. 본인의 네이버 계정이\r\n" + 
+					"										아니라면 <a href=\"#\" target=\"_blank\"\r\n" + 
+					"										style=\"color: #009e25; text-decoration: underline\"\r\n" + 
+					"										rel=\"noreferrer noopener\"><span style=\"color: #009E25\">여기에서\r\n" + 
+					"												수정</span></a>하세요. 해당 페이지는 <strong>별도의 로그인을 요구하지 않습니다. 또한 주소창에\r\n" + 
+					"											[NAVER Corp.]와 자물쇠 마크</strong>가 있으니 꼭 확인하세요.\r\n" + 
+					"									</td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr style=\"display: none;\">\r\n" + 
+					"									<td height=\"24\"></td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td\r\n" + 
+					"										style=\"font-size: 14px; color: #696969; line-height: 24px; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"										회원님의 아이디 <span style=\"color: #009E25\">" + email +"</span><strong>로\r\n" + 
+					"											비밀번호 요청이 수신되었습니다.</strong><br> 아래의 로그인이 회원님의 활동이 맞는지 확인해주세요.<br>\r\n" + 
+					"										회원님의 활동이 아니라면, 관리자에게 문의해 주시기 바랍니다.\r\n" + 
+					"									</td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td height=\"24\"></td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td\r\n" + 
+					"										style=\"font-size: 14px; color: #696969; line-height: 24px; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"										<table cellpadding=\"0\" cellspacing=\"0\"\r\n" + 
+					"											style=\"width: 100%; margin: 0; padding: 0\">\r\n" + 
+					"											<tbody>\r\n" + 
+					"												<tr>\r\n" + 
+					"													<td height=\"23\"\r\n" + 
+					"														style=\"font-weight: bold; color: #000; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"														로그인 정보</td>\r\n" + 
+					"												</tr>\r\n" + 
+					"												<tr>\r\n" + 
+					"													<td height=\"2\" style=\"background: #424240\"></td>\r\n" + 
+					"												</tr>\r\n" + 
+					"												<tr>\r\n" + 
+					"													<td height=\"20\"></td>\r\n" + 
+					"												</tr>\r\n" + 
+					"												<tr>\r\n" + 
+					"													<td>\r\n" + 
+					"														<table cellpadding=\"0\" cellspacing=\"0\"\r\n" + 
+					"															style=\"width: 100%; margin: 0; padding: 0\">\r\n" + 
+					"															<tbody>\r\n" + 
+					"																<tr>\r\n" + 
+					"																	<td width=\"110\"\r\n" + 
+					"																		style=\"padding-bottom: 5px; color: #696969; line-height: 23px; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"																		시간</td>\r\n" + 
+					"																	<td\r\n" + 
+					"																		style=\"padding-bottom: 5px; color: #000; line-height: 23px; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"																		" + currentStr + "</td>\r\n" + 
+					"																</tr>\r\n" + 
+					"																<tr>\r\n" + 
+					"																	<td width=\"110\"\r\n" + 
+					"																		style=\"padding-bottom: 5px; color: #696969; line-height: 23px; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"																		위치</td>\r\n" + 
+					"																	<td\r\n" + 
+					"																		style=\"padding-bottom: 5px;; color: #000; line-height: 23px; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"																		대한민국 (211.251.220.133)</td>\r\n" + 
+					"																</tr>\r\n" + 
+					"																<tr>\r\n" + 
+					"																	<td width=\"110\"\r\n" + 
+					"																		style=\"padding-bottom: 5px; color: #696969; line-height: 23px; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"																		기기</td>\r\n" + 
+					"																	<td\r\n" + 
+					"																		style=\"padding-bottom: 5px;; color: #000; line-height: 23px; vertical-align: top; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"																		웹브라우저</td>\r\n" + 
+					"																</tr>\r\n" + 
+					"															</tbody>\r\n" + 
+					"														</table>\r\n" + 
+					"													</td>\r\n" + 
+					"												</tr>\r\n" + 
+					"												<tr>\r\n" + 
+					"													<td height=\"20\"></td>\r\n" + 
+					"												</tr>\r\n" + 
+					"												<tr>\r\n" + 
+					"													<td height=\"1\" style=\"background: #d5d5d5\"></td>\r\n" + 
+					"												</tr>\r\n" + 
+					"											</tbody>\r\n" + 
+					"										</table>\r\n" + 
+					"									</td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td height=\"24\"></td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td\r\n" + 
+					"										style=\"font-size: 14px; color: #696969; line-height: 24px; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"										<strong>회원님이 비밀번호를 요청하셨나요?<br> 새로운 비밀번호를 설정하시려면\r\n" + 
+					"											[비밀번호 설정]을 눌러주세요.\r\n" + 
+					"									</strong>\r\n" + 
+					"									</td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td\r\n" + 
+					"										style=\"height: 34px; font-size: 14px; color: #696969; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"										<a\r\n" + 
+					"										href=\"http://localhost:8080/insomnia/find/findId.ins?q=link\"\r\n" + 
+					"										style=\"display: inline-block; padding: 10px 10px 10px; margin-top: 10px; background-color: #08a600; color: #fff; text-align: center; text-decoration: none;\"\r\n" + 
+					"										target=\"_blank\" rel=\"noreferrer noopener\">비밀번호 설정</a> <a\r\n" + 
+					"										href=\"https://localhost:8080/insomnia/관리자문의 컨트롤러  ㅇㄹㅇㄹ\"\r\n" + 
+					"										style=\"display: inline-block; padding: 10px 60px 10px; margin-top: 10px; background-color: #8e8e8e; color: #fff; text-align: center; text-decoration: none;\"\r\n" + 
+					"										target=\"_blank\" rel=\"noreferrer noopener\">관리자 문의</a>\r\n" + 
+					"									</td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td height=\"24\"></td>\r\n" + 
+					"								</tr>\r\n" + 
+					"								<tr>\r\n" + 
+					"									<td\r\n" + 
+					"										style=\"font-size: 14px; color: #696969; line-height: 24px; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
+					"										보다 자세한 내용은 아이디 도용에 대한 <a href=\"http://naver.me/GsdVn7dq\"\r\n" + 
+					"										target=\"_blank\"\r\n" + 
+					"										style=\"text-decoration: underline; color: #009e25\"\r\n" + 
+					"										rel=\"noreferrer noopener\">도움말</a>을 확인 해주시기 바랍니다.<br> 더욱\r\n" + 
+					"										편리한 서비스를 제공하기 위해 항상 최선을 다하겠습니다.\r\n" + 
+					"									</td>\r\n" + 
+					"								</tr>\r\n" + 
+					"							</tbody>\r\n" + 
+					"						</table>\r\n" + 
+					"					</td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<!-- footer -->\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td\r\n" + 
+					"						style=\"padding-top: 26px; padding-left: 21px; padding-right: 21px; padding-bottom: 13px; background: #f9f9f9; font-size: 12px; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif; color: #696969; line-height: 17px\">\r\n" + 
+					"						본 메일은 발신전용 입니다. INSOMNIA 서비스관련 궁금하신 사항은 INSOMNIA <a\r\n" + 
+					"						href=\"https://help.naver.com/support/alias/membership/p.membership/p.membership_26.naver\"\r\n" + 
+					"						style=\"color: #696969; font-weight: bold; text-decoration: underline\"\r\n" + 
+					"						rel=\"noreferrer noopener\" target=\"_blank\">고객센터</a>에 문의하세요.\r\n" + 
+					"					</td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<td\r\n" + 
+					"						style=\"padding-left: 21px; padding-right: 21px; padding-bottom: 57px; background: #f9f9f9; font-size: 12px; font-family: Helvetica; color: #696969; line-height: 17px\">\r\n" + 
+					"						Copyright ⓒ <strong>INSOMNIA</strong> Corp. All Rights Reserved.\r\n" + 
+					"					</td>\r\n" + 
+					"				</tr>\r\n" + 
+					"				<!-- //footer -->\r\n" + 
+					"			</tbody>\r\n" + 
+					"		</table>\r\n" + 
+					"	</div>";
+		
+			//여기까지
+			sendMail.setText(message);
+			sendMail.setFrom("admin@insomnia.com", "INSOMNIA 개인정보 관리 담당자");
+			sendMail.setTo(email);
+			sendMail.send();
+			
+			// model.addAttribute("mailSucFail", "yes");
+			return "sendSuccess";
+			
+				
+		} catch (MessagingException | UnsupportedEncodingException e) {
+			// model.addAttribute("mailSucFail", "no");
+			e.printStackTrace();
+			
+			return "sendFail";
+		}
+		
+		//return "home.tiles";
+	}
+	
+	/////비밀번호 새로 설정하는 링크 
+	@RequestMapping("/find/newPassword.ins")
+	public String insertNewPassword(@RequestParam Map map, Model model) throws Exception {
+		
+		
+		//memberService.changePassword();
+		
+		return "home.tiles";
+	}
+	
+	
+	/*@RequestMapping(value = "/facebookSignInCallback", method = { RequestMethod.GET, RequestMethod.POST })
+    public String facebookSignInCallback(@RequestParam String code) throws Exception {
+ 
+        try {
+             String redirectUri = oAuth2Parameters.getRedirectUri();
+            System.out.println("Redirect URI : " + redirectUri);
+            System.out.println("Code : " + code);
+ 
+            OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
+            AccessGrant accessGrant = oauthOperations.exchangeForAccess(code, redirectUri, null);
+            String accessToken = accessGrant.getAccessToken();
+            System.out.println("AccessToken: " + accessToken);
+            Long expireTime = accessGrant.getExpireTime();
+        
+            
+            if (expireTime != null && expireTime < System.currentTimeMillis()) {
+                accessToken = accessGrant.getRefreshToken();
+                //logger.info("accessToken is expired. refresh token = {}", accessToken);
+            };
+            
+        
+            Connection<Facebook> connection = connectionFactory.createConnection(accessGrant);
+            Facebook facebook = connection == null ? new FacebookTemplate(accessToken) : connection.getApi();
+            UserOperations userOperations = facebook.userOperations();
+            
+            try
+ 
+            {            
+                String [] fields = { "id", "email",  "name"};
+                User userProfile = facebook.fetchObject("me", User.class, fields);
+                System.out.println("유저이메일 : " + userProfile.getEmail());
+                System.out.println("유저 id : " + userProfile.getId());
+                System.out.println("유저 name : " + userProfile.getName());
+                
+            } catch (MissingAuthorizationException e) {
+                e.printStackTrace();
+                System.out.println("오류다.오류다.");
+            }
+ 
+        
+        } catch (Exception e) {
+ 
+            e.printStackTrace();
+ 
+        }
+        return "home.tiles";
+ 
+    }*/
+	
 	
 	
 	

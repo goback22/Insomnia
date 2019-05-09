@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
@@ -17,6 +20,7 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +33,9 @@ import com.kosmo.insomnia.service.BandDTO;
 import com.kosmo.insomnia.service.BandImgDTO;
 import com.kosmo.insomnia.service.BandMemberDTO;
 import com.kosmo.insomnia.service.BandMusicDTO;
+import com.kosmo.insomnia.service.BandSubmitDTO;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
+import com.kosmo.insomnia.service.SeqDTO;
 import com.kosmo.insomnia.serviceimpl.BandServiceImpl;
 import com.kosmo.insomnia.web.my.FileUpDownUtils;
 
@@ -39,11 +45,16 @@ public class BandController {
 	@Resource(name="bandService")
 	private BandServiceImpl bandService;
 	
-	@RequestMapping("/band/bandInfo.ins")
-	public String goToBandInfoPage(@RequestParam Map params, HttpSession session, Model model) {
-		System.out.println("bandInfo에 넘겨진 파라미터 : " + params.toString());
+	@RequestMapping(value="/band/bandInfo.ins")
+	public String goToBandInfoPage(@RequestParam Map params, HttpSession session, Model model, ServletRequest request) {
+		String b_no = null;
 		//createNewBand를 통해 넘어왔을 경우에 밴드 생성해서 등록
 		if(params != null && params.get("select_category") != null && params.get("band_name") != null) {
+			//CRUD될 밴드의 currval값을 가져온다.
+			SeqDTO seqDto = new SeqDTO();
+			bandService.getSeq_band(seqDto);
+			b_no = String.valueOf(seqDto.getId());
+			
 			//멤버들 분리
 			String[] bandMemberArr = params.get("bandMembers").toString().split(" ");
 			String b_name = params.get("band_name").toString();
@@ -52,7 +63,7 @@ public class BandController {
 			//등록전에 파일 이름 바꿔주기
 			String fileName = params.get("coverName").toString();
 			String extension = fileName.substring(fileName.lastIndexOf("."));
-			String newFileName = b_name + extension;
+			String newFileName = b_no + extension;
 			params.put("coverName", newFileName);
 			bandService.addNewBand(params);
 			//bandMember 등록
@@ -63,7 +74,7 @@ public class BandController {
 				bandService.addNewBandMember(oneMap);
 			}//bandMember
 			
-			//파일 이름 b_name으로 바꾸기
+			//파일 이름 b_no으로 바꾸기
 				String path = session.getServletContext().getRealPath("/upload/band/cover");
 				
 				File oldFile = new File(path, newFileName);
@@ -75,33 +86,63 @@ public class BandController {
 		}//밴드 생성if
 		
 		
-		//세션에서 아이디 얻어온다.
+		///결과 b_name
+		String b_name = null;
+		b_no = null;
+		//결과들을 조합할 플래그 선언
+		boolean isBandMember = false; //밴드 등록을 안 한 상태의 flag로 초기화
+		boolean isSame = false;  //조회하는 밴드와 해당 아이디가 다른 flag로 초기화
+		
+		//1] 해당 아이디가 밴드 등록을 했는지 여부 검사
 		String id = session.getAttribute("id").toString();
-		// 아이디가 BandMember 테이블에 있는 지 확인 있으면 List<String>반환
 		List<BandMemberDTO> bandMemberList = bandService.isMemberBand(id);
-		System.out.println(bandMemberList.toString());
-		if(bandMemberList.size() == 0) { //소속된 밴드가 없을 경우
-			model.addAttribute("isBandMember", false);
-			return "main/bandInfo.tiles";
-		}else { 						 //소속된 밴드가 있을 경우
-			model.addAttribute("isBandMember", true);
-		}
-		String b_name = bandMemberList.get(0).getB_name().toString();
+		//해당 아이디의 밴드 이름을 얻어온다.
+		String id_b_name = null;
+		
+		if(bandMemberList.size() != 0) {
+			for(BandMemberDTO dto : bandMemberList)
+				id_b_name = dto.getB_name();
+			isBandMember = true;}
+		//해당 아이디가 밴드 등록을 하지 않은 경우
+		
+		//2] 조회하는 밴드의 b_no를 얻어온다.
+		///만약 밴드관리:내 밴드 로 접근했을 경우 b_no는 null / funding에서 진행했을 경우 b_no는 파라미터값을 가져온다.
+		b_no = request.getParameter("b_no") == null? null : request.getParameter("b_no").toString();
+		if(b_no == null) 
+			isSame = true;
+		
+		//3] isBandMember, isSame을 조합하여 케이스를 만든다.
+		//case 1 - 조회하는 아이디가 밴드등록을 하지 않았을 때 자신의 밴드관리에 들어갈 때
+		if(isBandMember == false && isSame == true) {
+			model.addAttribute("isBandMember", "F");
+			model.addAttribute("thirdLook", "F");
+			return "main/bandInfo.tiles";}
+		//case 2 - 조회하는 아이디가 밴드등록을 한 상태로 자신의 밴드관리에 들어갈 때
+		else if(isBandMember == true && isSame == true) {
+			model.addAttribute("isBandMember", "T");
+			model.addAttribute("thirdLook", "F");
+			b_name = id_b_name;}
+		//case 3 - 조회하는 아이디가 밴드 등록을 하지 않았을 때 다른 밴드정보에 접근한 경우
+		//case 4 - 조회하는 아이디가 밴드 등록을 했을 때 다른 밴드정보에 접근한 경우
+		else if(isSame == false) {
+			model.addAttribute("isBandMember", "T");
+			model.addAttribute("thirdLook", "T");
+			BandDTO paramBandDTO = bandService.getBandDTOByB_no(b_no);
+			b_name = paramBandDTO.getB_name();}
+		
+		//b_name만 설정해놓으면 알아서 간다.
 		//model 객체를 통해서 값 bandInfo에 필요한 값 넘겨주기
 		//band객체를 얻어온다. b_name로 검색
 		BandDTO record = bandService.getBandDTOByB_name(b_name);
 		record.setB_album_cover(record.getB_album_cover() == null ? "default_band_profile_img.jpg" : record.getB_album_cover().toString());
 		model.addAttribute("record", record);
-		
-		//session 설정
-		//session에 b_no 넣어두기
-		BandDTO bandDto = bandService.getBandDTOByB_name(b_name);
-		session.setAttribute("b_no", bandDto.getB_no());
-		
+
+		session.setAttribute("b_no", record.getB_no());
+		session.setAttribute("b_name", b_name);
 		
 		//PlayList 목록 Map에 넣어 반환
 		//PlayList 얻어오기
-		List<BandMusicDTO> playList = bandService.getPlayList(bandDto.getB_no());
+		List<BandMusicDTO> playList = bandService.getPlayList(record.getB_no());
 		//등록된 PlayList가 없으면 isExist "F"넣고 반환
 		if(playList.size() == 0) {
 			BandMusicDTO tempDto = new BandMusicDTO();
@@ -116,9 +157,34 @@ public class BandController {
 		//있으면 모델객체에 넣어 반환한다.
 		model.addAttribute("playList", playList);
 		
+		
+		//BandSubmitWaiting이 있으면 dto를 반환한다.
+		//세션에서 b_no얻어오기 
+		b_no = session.getAttribute("b_no").toString();
+		List<BandSubmitWaitingDTO> waiting = bandService.getBandSubmitWaitingDTO(b_no);
+		//b_name 추가  //category 추가
+		for(BandSubmitWaitingDTO dto : waiting) {
+			dto.setB_name(b_name);
+			CategoryUtil.setCt_noInBandSubmitWaitingDTO(dto, record.getCt_no().toString());
+			//bandsubmitWaiting이 complete된 상태라면 진짜 funding 페이지를 보여준다.
+			BandSubmitDTO bandsubmitDto = bandService.getBandSubmitDTO(dto.getSw_no());
+			if(bandsubmitDto != null) {
+				dto.setS_no(bandsubmitDto.getS_no());
+				dto.setS_goal_price(bandsubmitDto.getS_goal_price());
+				dto.setS_goal_accumulation(bandsubmitDto.getS_goal_accumulation());
+				dto.setS_goal_deadline(bandsubmitDto.getS_goal_deadline());
+				dto.setS_liked(bandsubmitDto.getS_liked());
+				dto.setComma_Accumulation(String.format("%,d", Integer.parseInt(dto.getS_goal_accumulation())));
+			}///if
+		}//for
+		
+		model.addAttribute("waiting", waiting);
+		
 		return "main/bandInfo.tiles";
 	}///geToBandInfoPage
 	
+	
+
 	
 	@RequestMapping("/band/createNewBand.ins")
 	public String goToCreateNewBand(HttpSession session) {
@@ -134,7 +200,7 @@ public class BandController {
 		//MultipartFile upload = mhsr.getFile("imgUpload");
 		MultipartFile upload = multipartRequest.getFile("upload_cover");
 		
-		String newFileName = FileUpDownUtils.getNewFileName(physicalPath, upload.getOriginalFilename());///upload�� null�ε�
+		String newFileName = FileUpDownUtils.getNewFileName(physicalPath, upload.getOriginalFilename());
 		File file = new File(physicalPath + File.separator + newFileName);
 		
 		upload.transferTo(file);
@@ -152,15 +218,12 @@ public class BandController {
 	}//isExistBand()
 	
 	
-	
-	
 	///밴드를 만들때 회원을 찾아 같은 밴드에 등록하는 메서드
 	@ResponseBody
 	@RequestMapping(value="/band/searchMember.ins", produces="text/html; charset=UTF-8")
 	public String searchMember(@RequestParam Map map, HttpSession session) throws Exception{
 		//아이디 받아오기 - 아이디가 있으면 프로필 사진 이름 반환
 		String oneMemberProfileName = bandService.getMemberProfile(map.get("searchId").toString());
-		System.out.println("oneMemberProfileName : " + oneMemberProfileName);
 		//담는 그릇 생성
 		List<Map<String, String>> record = new Vector<Map<String, String>>();
 		Map<String, String> oneMap = new HashMap<String, String>();
@@ -189,14 +252,10 @@ public class BandController {
 		String newFileName = FileUpDownUtils.getNewFileName(physicalPath, upload.getOriginalFilename());
 		//파일 이름 설정 : BandImg : b_no_index.extension : ex) 2_3.jpg
 		String b_no = (String)session.getAttribute("b_no");
-		System.out.println(b_no);
 		//뒤에 붙을 인덱스 값 얻어오기 / +1 이 다음에 붙을 인덱스값
 		int currentInt = bandService.getTotalBandImg(b_no);
 		int nextIndex = currentInt + 1;
-		System.out.println("currentInt : "+currentInt);
-		System.out.println("nextInt : " + nextIndex);
 		newFileName = b_no + "_" + nextIndex + newFileName.substring(newFileName.lastIndexOf("."));
-		System.out.println("newFileName : "+newFileName);
 		File file = new File(physicalPath + File.separator + newFileName);
 		upload.transferTo(file);
 		
@@ -224,36 +283,7 @@ public class BandController {
 	@ResponseBody
 	@RequestMapping(value="/band/uploadBandMusicInBandInfo.ins", produces="text/html; charset=UTF-8")
 	public String addBandMusic(@RequestParam Map map, MultipartHttpServletRequest mhsr, Model model, MultipartRequest multipartRequest, HttpSession session) throws Exception{
-		System.out.println(map.toString());
-		
-		/* 밴드 이미지 파일 업로드
-		 * 
-		 * 
-		String newFileName = FileUpDownUtils.getNewFileName(physicalPath, upload.getOriginalFilename());
-		//파일 이름 설정 : BandImg : b_no_index.extension : ex) 2_3.jpg
-		String b_no = (String)session.getAttribute("b_no");
-		System.out.println(b_no);
-		//뒤에 붙을 인덱스 값 얻어오기 / +1 이 다음에 붙을 인덱스값
-		int currentInt = bandService.getTotalBandImg(b_no);
-		int nextIndex = currentInt + 1;
-		System.out.println("currentInt : "+currentInt);
-		System.out.println("nextInt : " + nextIndex);
-		newFileName = b_no + "_" + nextIndex + newFileName.substring(newFileName.lastIndexOf("."));
-		System.out.println("newFileName : "+newFileName);
-		File file = new File(physicalPath + File.separator + newFileName);
-		upload.transferTo(file);
-		
-		//데이터베이스에 입력
-		//맵을 만들어서 넘겨주자
-		Map dto = new HashMap<String, String>();
-		dto.put("b_no", b_no);
-		dto.put("newFileName", newFileName);
-		
-		bandService.addBandImg(dto);
-		
-		return newFileName;
-		*/
-		
+
 		//파일 객체 얻어오기
 		String physicalPath = mhsr.getServletContext().getRealPath("/upload/band/music");
 		MultipartFile upload = multipartRequest.getFile("upload_band_music");
@@ -294,7 +324,6 @@ public class BandController {
 	@ResponseBody
 	@RequestMapping(value="/band/getBandSubmitWaitingList.ins", produces="text/html; charset=UTF-8")
 	public String getBandSubmitList(@RequestParam Map params) throws Exception{
-		System.out.println("params.toString() : " + params.toString());
 		String b_no = params.get("b_no").toString();
 		List<BandSubmitWaitingDTO> BSWList = bandService.getBandSubmitWaitingDTO(b_no);
 		List<Map<String, String>> resultArray = new Vector<Map<String, String>>();

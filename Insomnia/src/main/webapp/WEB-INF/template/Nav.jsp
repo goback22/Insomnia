@@ -220,7 +220,7 @@ $(function(){
 							%>
 
 							<li class="menu-item-has-children">
-							<a href="<c:url value='/menu/mypage.ins'/>" class="mypage_1">My Page</a></li>
+							<a href="" class="mypage_1">My Page</a></li>
 							<%
 								}
 							%>
@@ -268,7 +268,7 @@ $(function(){
 		            <table class="user_middle">	<!-- 중간메뉴:ul -->	<!-- ul이 1 칸 차지, li display : inline -->
 		              <tr>
 			              <td><a id="middle1" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_apple-music-2_2301791.png'/>"/></a></td>
-			              <td><a id="middle2" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_microphone_1055023.png'/>"/></a></td>
+			              <td><a id="middle2" href="<c:url value='/menu/mypage.ins'/>" class=""><img src="<c:url value='/img/iconfinder_microphone_1055023.png'/>"/></a></td>
 			              <td><a id="middle3" href="javascript:void(0)" class=""><img src="<c:url value='/img/followers.png'/>"/></a></td>
 			              <td><a id="middle4" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_heart_289619.png'/>"/></a></td>
 			           </tr>

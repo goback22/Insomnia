@@ -10,6 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,46 +30,44 @@ import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	
+	/*@Autowired
+	private FacebookConnectionFactory connectionFactory;
+	
+	@Autowired
+	private OAuth2Parameters oAuth2Parameters;*/
+	
 	@Resource(name="memberService")
 	private MemberServiceImpl memberService;
 	
 	//로그인 폼으로 이동, 혹은 홈 화면으로 이동
 	@RequestMapping(value = "/home.ins", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, Map map, HttpSession session) {
+		
+		////페이스북 로그인
+		//OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
+        //String facebook_url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, oAuth2Parameters);
+        
+		
+		
 		if(session.getAttribute("id") != null) {
 			
 			map.put("id", session.getAttribute("id"));
-			
 			MemberDTO record = memberService.selectOne(map);
-			model.addAttribute("loginRecord", record);
-			record.setProfile_img(record.getProfile_img());
-
-			System.out.println("왜 안들어가냐:"+record.getProfile_img());
 			
-			model.addAttribute("record", record);
-
 			if(record != null) {
-				
-				record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
-				model.addAttribute("record", record);
-			}
-
+				model.addAttribute("loginRecord", record);
+				//record.setProfile_img(record.getProfile_img());		
+				model.addAttribute("record", record);	
+			}	
 			
-		}
+		}/////if문
+		
+		//model.addAttribute("facebook_url", facebook_url);
+        //System.out.println("/facebook" + facebook_url);
 		
 		
 		return "home.tiles";
 	}///home
 	
-	//메인 프로젝트
-	@RequestMapping(value="/main/mainproject.ins")
-	public String mainproject() {
-		return "/main/mainproject.tiles";
-	}
-	
-	//메인 프로젝트 - 컨텐트
-	@RequestMapping(value="/main/content.ins")
-	public String content() {
-		return "/main/content.tiles";
-	}
 }//classs

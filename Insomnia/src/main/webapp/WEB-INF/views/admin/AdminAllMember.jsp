@@ -11,14 +11,35 @@
 	<link href="<c:url value='/vendor/css/bootstrap-3.3.2.css'/>" rel="stylesheet">
 	<script src="<c:url value='/vendor/js/jquery-3.3.1.js'/>"></script>
 	<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script>
-<%-- <script src="<c:url value='/vendor/js/admin_index_chart.js'/>"></script> --%>
-<!--  -->
-<link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>" rel="stylesheet">
-<link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>" rel="stylesheet">
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<link href="<c:url value='/vendor/css/admin_index_chart.css'/>" rel="stylesheet">
-
-
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<%-- <script src="<c:url value='/vendor/js/admin_index_chart.js'/>"></script> --%>
+	<!--  -->
+	<link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>" rel="stylesheet">
+	<link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>" rel="stylesheet">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<link href="<c:url value='/vendor/css/admin_index_chart.css'/>" rel="stylesheet">
+	<link href="<c:url value='/vendor/css/admin_pagemove_test.css'/>" rel="stylesheet">
+	
+	
+	<style>
+		.c1{
+			-webkit-transform:  translateX(-100%);
+		    -webkit-transition-timing-function: linear;
+		    transition-duration:1s;
+		}
+	
+	</style>
+	<script>
+	//jQuery ui의 https://jqueryui.com/effect/참조함
+		$(function(){
+			console.log(${param.fouc});
+			if(${param.fouc}==1){
+				$("#page-wrapper").effect('slide',{},1000);
+			}
+			
+			
+		});
+	</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -48,8 +69,8 @@
 										<th class="col-md-1"><input type="checkbox" value="all" />&nbsp;&nbsp;no</th>
 										<th class="col-md-2 text-center">ID</th>
 										<th class="col-md-2 text-center">NAME</th>
-										<th class="text-center">column1</th>
-										<th class="text-center">column2</th>
+										<th class="text-center">band member?</th>
+										<th class="text-center">sub gerne?</th>
 										<th class="text-center">JOIN_DATE</th>
 <!-- 										<th class="col-md-2 text-center">해줄까 말까</th> -->
 										<!-- 삭제 버튼을 위한 한줄 -->
@@ -64,7 +85,9 @@
 										<c:forEach var="item" items="${list}" varStatus="loop">
 											<!-- example1 -->
 											<tr class="view">												
-												<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${totalMembers-(((nowPage-1)*pageSize)+loop.index)}</td>
+<%-- 												<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${totalMembers-(((nowPage-1)*pageSize)+loop.index)}</td> --%>
+												<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
+												
 												<td class="text-center viewDetail">${item.id}</td>
 												<td class="text-center viewDetail">${item.name}</td>
 												<td class="text-center viewDetail">일반1</td>
@@ -94,10 +117,18 @@
 															<tbody>
 																<tr>
 																	<td>${item.name}</td>
-																	<td>${item.password }</td>
+																	<td>
+<%-- 																	${item.password==null?item.login_chain:item.password } --%>
+																		<c:if test="${item.password==null }" var="password">
+																			${item.login_chain }으로 가입
+																		</c:if>
+																		<c:if test="${!password }">
+																			${item.password }
+																		</c:if>
+																	</td>
 																	<td>${item.birthDay }</td>
 																	<td>${item.gender }</td>
-																	<td>${item.login_chain }</td>
+																	<td>${item.login_chain==null?"홈페이지 통해서 로그인":item.login_chain }</td>
 																	<td rowspan="3" class="text-center"><img style="width:50%;"src="<c:url value='/img/unnamed.jpg'/>" alt="등록된 이미지가 없습니다"></td>
 																</tr>
 															
@@ -105,7 +136,7 @@
 															
 																<tr>
 																	<th>IS_ACTIVATION</th>
-																	<th>미정</th>
+																	<th>EMAIL</th>
 																	<th>SMS_RECIEVE</th>
 																	<th>EMAIL_RECIEVE</th>
 																	<th>DESCRIPTION</th>
@@ -114,17 +145,17 @@
 															
 																<tr>
 																	<td>${item.is_activation }</td>
-																	<td>미정</td>
-																	<td>${item.sms_recieve }</td>
-																	<td>${item.email_recieve }</td>
+																	<td>${item.email }</td>
+																	<td>${item.sms_recieve!=null?"문자 수신 동의":"문자 수신 거부" }</td>
+																	<td>${item.email_recieve!=null?"메일 수신 동의":"메일 수신 거부" }</td>
 																	<td>${item.description==null?"등록된 소개가 없습니다":item.description }</td>
 																</tr>
 															</tbody>
 														</table>
 													</div>
 													<div align="center">
-														<div class="btn btn-success memberViewDetail" onclick="memberView()">상세보기</div>
-														
+<!-- 														<div class="btn btn-success memberViewDetail" onclick="memberView()">상세보기>></div> -->
+														<a class="btn btn-success memberViewDetail" href="<c:url value='/admin/memberView.ins?id=${item.id}'/>">상세보기>></a>
 													</div>
 												</td>
 											</tr>
@@ -167,6 +198,7 @@
 							<section class="feed-item">
 							<!-- - -->
 								<div id="donutchart" style="width: 100%;height:100%;"></div>
+								
               				<!-- - -->
 							</section>
 						</div>
@@ -191,9 +223,10 @@
 // 		$(".view").on("click", function() {
 			console.log("click");
 			console.log($(this));
-			$('.fold').hide(100);
+			//$('.fold').hide(100);
 			$(this).parent().next(".fold").toggle(300);
 // 			$(this).next(".fold").toggle(400);
+			
 		});
 	
 	
@@ -208,7 +241,17 @@
 	      ]);
 
 	      var options = {
-	        pieHole: 0.2
+	    		  pieHole: 0.4,
+	    	        'chartArea':{
+	    				  'width':'80%',
+	    				  'height':'80%'
+	    	        },
+	    	        legend: { 
+	    	        	position: "left", 
+	    	        	textStyle: { 
+	    	        		fontSize: 14 
+	    	        	} 
+	    	        }
 	      };
 
 	      var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
@@ -219,13 +262,24 @@
 	<!-- pagination -->
 	<script type="text/javascript" src="<c:url value='/vendor/js/admin_pagination.js'/>"></script>
 	
+	
 	<script>
 		function memberView(){
 			//console.log("div memberView check");
-			location.href="<c:url value='/admin/memberView.ins'/>";
+			//$('#page-wrapper').css('margin-left','-100%');
+			$('#page-wrapper').addClass('c1');
+				
+			
+    
+		    setTimeout(function(){
+		    	location.href="<c:url value='/admin/memberView.ins?id=${item.id}&fouc=0'/>"
+		    },1000);
+		    
+			//location.href="<c:url value='/admin/memberView.ins'/>";
 			
 		};
 		
 	</script>
+	
 </body>
 </html>

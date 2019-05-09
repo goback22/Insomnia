@@ -11,4 +11,5 @@ public interface LoginService {
 	void createAuthKey(String user_emial, String user_authcode);
 	void userAuth(Map map);
 	boolean checkSignup(String id);
+	
 }

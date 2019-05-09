@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kosmo.insomnia.service.AdminDTO;
 import com.kosmo.insomnia.service.AdminService;
+import com.kosmo.insomnia.service.AdminSubDTO;
 
 @Repository
 public class AdminDAO implements AdminService{
@@ -39,8 +40,8 @@ public class AdminDAO implements AdminService{
 	}
 
 	@Override
-	public AdminDTO selectOne(Map map) {
-		return null;
+	public AdminDTO selectOne(String string) {
+		return template.selectOne("memberDetailView",string);
 	}
 
 	@Override
@@ -84,7 +85,34 @@ public class AdminDAO implements AdminService{
 	public int selectTwoDaysAgoNewMember(Map map) {
 		return template.selectOne("twoDayAgoMember",map);
 	}
-	
+	@Override
+	public List<AdminDTO> selectBandMember(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectList("bandMember",map);
+	}
+	@Override
+	public List<AdminDTO> selectMemberViewPay(String string) {
+		return template.selectList("memberViewPay",string);
+	}
+	@Override
+	public List<AdminSubDTO> selectSubList(Map map) {
+		return template.selectList("subList",map);
+	}
+	@Override
+	public List<AdminSubDTO> selectSubMemberList(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectList("subMemberList",map);
+	}
+	@Override
+	public int insertBgshire(String string) {
+		// TODO Auto-generated method stub
+		return template.insert("bgshire",string);
+	}
+	@Override
+	public List<AdminSubDTO> selectHire(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectList("bgsHireList",map);
+	}
 	
 
 }

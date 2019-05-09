@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kosmo.insomnia.service.CommentDTO;
 import com.kosmo.insomnia.service.CommentService;
 
 @Repository
@@ -36,4 +37,21 @@ public class CommentDAO implements CommentService{
 		template.update("commentUpdate",map);
 	}
 
+	@Override
+	public CommentDTO selectOne(Map map) {
+		return template.selectOne("replySelectOne",map);
+	}
+
+	@Override
+	public void reply(Map map) {
+		template.insert("replyInsert",map);
+		
+	}
+
+	@Override
+	public boolean isChild(Map map) {
+		System.out.println("여기는 오는건가요..???");
+		System.out.println("mapmapmapmapmapmap:"+map);
+		return (Integer)template.selectOne("isChild",map)==0 ? false:true;
+	}
 }
