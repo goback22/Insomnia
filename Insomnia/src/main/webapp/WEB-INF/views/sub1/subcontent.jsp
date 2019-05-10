@@ -177,10 +177,10 @@
 		    <use xlink:href="#clorova_logo"></use>
 		  </svg>
 			</div>
-			<div class="logo-box" id="logo-box" style="display:none;"></div> <span>Media
+			<div class="logo-box" id="logo-box" style="display:none;"></div> <span style="display:none">Media
 				Production</span>
 			<img style="width: 170px;height: 55px;margin-top: -50px;" src="<c:url value='/resource/img/logo_5.png'/>">
-			<div class="logo-box" id="logo-box"></div> <span>Media
+			<div class="logo-box" id="logo-box"></div> <span style="display: none">Media
 				Production</span>
 		</a> <a href="<c:url value='/sub1/subprojects.ins'/>" class="works q_magnet hover-target">All
 			projects</a>
@@ -205,9 +205,9 @@
 							<a href="http://fleava.com/" target="_blank"
 								class="logo fleava hover-target"
 								title="Fleava — Bali Digital Agency"> <svg width="105px"
-									height="24px">
+									height="24px" style="display: none">
 				        <use xlink:href="#fleava_logo"></use>
-				      </svg> <span>Digital Agency</span>
+				      </svg> <span style="display: none">Digital Agency</span>
 							</a>
 
 						</div>
