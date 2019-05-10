@@ -79,22 +79,6 @@
 </script>
 
 <body class=" ">
-	<!-- LOADING -->
-<!-- 	<div id="overlay"> -->
-<!-- 		<div id="loading-items"> -->
-<!-- 			<a href="#" class="logo-loading" -->
-<!-- 				title="Clorova — Bali Media Production"> <svg width="100px" -->
-<!-- 					height="28px" id="logo"> -->
-<!--         <use xlink:href="#clorova_logo"></use> -->
-<!--       </svg> -->
-<!-- 			</a> -->
-<!-- 			<h5 id="progstat"></h5> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- 	<div id="content-overlay"></div> -->
-<!-- 	<div id="progress-overlay"></div> -->
-	<!-- /LOADING -->
-
 	<div id="svg-sprite" style="display: none">
 		<svg xmlns="http://www.w3.org/2000/svg">
 
@@ -209,17 +193,12 @@
 				        <use xlink:href="#fleava_logo"></use>
 				      </svg> <span style="display: none">Digital Agency</span>
 							</a>
-
 						</div>
 					</header>
-
 					<div class="nav-menu close hover-target" id="navClose">
 						<span class="line"></span>
 					</div>
-
-
 					<div class="menu-content">
-
 
 						<div class="columns">
 							<div class="column q-1-5">
@@ -231,7 +210,6 @@
 									</h1>
 								</a>
 
-
 							</div>
 							<div class="column q-1-5">
 								<span class="line"></span> <a href="<c:url value='/sub1/review.ins'/>"
@@ -242,13 +220,6 @@
 									</h1>
 								</a>
 								<div class="text">
-									<!-- 
-									<h5>Clorova Media Production</h5>
-									<p>Specialising in lifestyle, interiors, 360 and aerial
-										photography and videography, Clorova work across a range of
-										advertising, editorial, pr and corporate clients in Bali and
-										Jakarta.</p>
-									 -->
 								</div>
 							</div>
 							<div class="column q-1-5">
@@ -260,26 +231,6 @@
 									</h1>
 								</a>
 								<div class="text">
-								<!-- 
-									<h5>Find Us</h5>
-									<p>#1 Beraban Square, Jalan Beraban No.46, Kerobokan,
-										Badung, Bali - 80361, Indonesia</p>
-									<p>
-										<a class="hover-target"
-											href="https://www.facebook.com/clorova/" target="_blank"
-											title="Clorova on Facebook">Fb &nbsp; &nbsp;</a> <a
-											class="hover-target"
-											href="https://www.instagram.com/clorova_id/" target="_blank"
-											title="Clorova on Instagram">Ig &nbsp; &nbsp;</a> <a
-											class="hover-target" href="https://twitter.com/clorova"
-											target="_blank" title="Clorova on Twitter">Tw &nbsp;
-											&nbsp;</a> <a class="hover-target barba_nav" href="terms.html">Terms</a>
-										<br>
-										<br> Website by <a href="http://fleava.com/"
-											target="_blank" class="hover-target"
-											title="Fleava Digital Agency">Fleava</a>.
-									</p>
-									-->
 								</div>
 							</div>
 
@@ -307,20 +258,12 @@
 
 	<div id="barba-wrapper">
 		<div class="barba-container">
-
-
-
 			<div id="main" class="q_smooth">
-
-
-
 				<div id="section-header">
-
 					<section class="section">
 						<div class="q-container container-inner">
 							<div class="columns">
 								<div class="column q-1-2"></div>
-
 								<div class="column q-1-2">
 									<div class="title">
 										<p>
@@ -358,7 +301,6 @@
 							<div class="column">
 								<h2>
 									<span class="line rev_line"></span>
-									<!-- <span class="q_split"><span class="q_split_wrap rev_item">방구석 기타리스트</span></span> -->
 									<span class="q_split"><span
 										class="q_split_wrap rev_item">Description.</span></span>
 								</h2>
@@ -378,9 +320,6 @@
 					</div>
 				</section>
 
-
-
-
 				<section class="section small-pt">
 					<div class="q-container container-inner reveal" style="margin-top: 40px">
 						<div class="columns">
@@ -398,19 +337,14 @@
 
 				<section id="q_slide" class="half-width" animate='stagTop' autoplay='8000' parallax=".25" opacity=".3">
 						<div class="">
-							<a href="http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446">
+							<a href="#" onClick="window.open('http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446','길찾기','width=2050, height=1000, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;">
 							<img style="opacity: 0.9;margin-left: 300px" src="<c:url value='/resource/img/YakDo.png'/>"
 								alt="360 Virtual Tour" class="image" />
 							</a>
 						</div>
 				</section>
 
-
-
-
-
 				<section class="section">
-
 					<div class="q-container container-inner reveal">
 						<div class="columns">
 							<div class="column">
@@ -445,12 +379,6 @@
 							</div>
 						</div>
 					</div>
-					
-						<!-- 웹채팅 -->
-						<!--
-						<input type="button" onclick="showPopup();" style="width: 100px;height: 100px"/>
-						-->
-						
 				</section>
 
 				<footer id="footer" style="background-color: #12111F;">
