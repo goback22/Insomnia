@@ -137,22 +137,30 @@ public class ZeroJinController_Sub {
 	
 	// 서브 프로젝트 -> 방구석 기타리스트 
 	@RequestMapping(value = "/sub1/subcontent.ins")
-	public String subcontent(Model model, Map map, HttpSession session) throws Exception {
+	public String subcontent(@RequestParam Map androidmap, Model model, Map map, HttpSession session) throws Exception {
 		List<Map> product_List = bGSConcertService.selectList();
 		
+		if(session.getAttribute("id") != null) {
+			map.put("id", session.getAttribute("id"));
+			System.out.println("이프");
+		}
+		else {
+			session.setAttribute("id", androidmap.get("id"));
+			map.put("id", session.getAttribute("id"));
+			System.out.println("서브 들어갈 때 id : "+session.getAttribute("id"));
+			return null;
+		}
+			MemberDTO record = memberService.selectOne(map);
+			
+			model.addAttribute("loginRecord", record);
+			
+			
+			model.addAttribute("bgs1", product_List.get(0));
+			model.addAttribute("bgs2", product_List.get(1));
+			
+			//이런저런 문제로 인해 tiles빼고 jsp만
+			return "sub1/subcontent";
 		
-		map.put("id", session.getAttribute("id"));
-		
-		MemberDTO record = memberService.selectOne(map);
-		record.setProfile_img(record.getProfile_img() == null ? "profile_none.jpg" : record.getProfile_img());
-		model.addAttribute("loginRecord", record);
-		
-		
-		model.addAttribute("bgs1", product_List.get(0));
-		model.addAttribute("bgs2", product_List.get(1));
-		
-		//이런저런 문제로 인해 tiles빼고 jsp만
-		return "sub1/subcontent";
 	}
 
 	// 목록처리]
