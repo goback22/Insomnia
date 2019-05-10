@@ -78,49 +78,24 @@
    }); //function
 </script>
 
-<!-- 이게 범인? 
-<script>
-	(function(i, s, o, g, r, a, m) {
-		i['GoogleAnalyticsObject'] = r;
-		i[r] = i[r] || function() {
-			(i[r].q = i[r].q || []).push(arguments)
-		}, i[r].l = 1 * new Date();
-		a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-		a.async = 1;
-		a.src = g;
-		m.parentNode.insertBefore(a, m)
-	})(window, document, 'script', '../www.google-analytics.com/analytics.js',
-			'ga');
-
-	ga('create', 'UA-20462557-7', 'auto');
-	ga('send', 'pageview');
-</script>
- -->
- 
 <body class=" ">
 	<!-- LOADING -->
-
-	<div id="overlay">
-		<div id="loading-items">
-			<a href="#" class="logo-loading"
-				title="Clorova — Bali Media Production"> <svg width="100px"
-					height="28px" id="logo">
-        <use xlink:href="#clorova_logo"></use>
-      </svg>
-			</a>
-			<h5 id="progstat"></h5>
-		</div>
-	</div>
-	<div id="content-overlay"></div>
-	<div id="progress-overlay"></div>
-
-
+<!-- 	<div id="overlay"> -->
+<!-- 		<div id="loading-items"> -->
+<!-- 			<a href="#" class="logo-loading" -->
+<!-- 				title="Clorova — Bali Media Production"> <svg width="100px" -->
+<!-- 					height="28px" id="logo"> -->
+<!--         <use xlink:href="#clorova_logo"></use> -->
+<!--       </svg> -->
+<!-- 			</a> -->
+<!-- 			<h5 id="progstat"></h5> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- 	<div id="content-overlay"></div> -->
+<!-- 	<div id="progress-overlay"></div> -->
 	<!-- /LOADING -->
 
-
-
 	<div id="svg-sprite" style="display: none">
-
 		<svg xmlns="http://www.w3.org/2000/svg">
 
 		<!-- arrow left -->
@@ -195,13 +170,16 @@
 	</div>
 
 	<div id="head" class="header">
-		<a href="index.html" class="logo hover-target" id="main-logo"
+		<a href="<c:url value='/home.ins'/>" class="logo hover-target" id="main-logo"
 			title="Clorova — Bali Media Production">
-			<div class="logo-wrap" id="logo-wrap">
-				<svg width="107px" height="24px">
+						<div class="logo-wrap" id="logo-wrap">
+				<svg width="107px" height="24px" style="display: none">
 		    <use xlink:href="#clorova_logo"></use>
 		  </svg>
 			</div>
+			<div class="logo-box" id="logo-box" style="display:none;"></div> <span>Media
+				Production</span>
+			<img style="width: 170px;height: 55px;margin-top: -50px;" src="<c:url value='/resource/img/logo_5.png'/>">
 			<div class="logo-box" id="logo-box"></div> <span>Media
 				Production</span>
 		</a> <a href="<c:url value='/sub1/subprojects.ins'/>" class="works q_magnet hover-target">All
@@ -404,13 +382,12 @@
 
 
 				<section class="section small-pt">
-					<div class="q-container container-inner reveal">
+					<div class="q-container container-inner reveal" style="margin-top: 40px">
 						<div class="columns">
 							<div class="column q-1-3"></div>
 							<div class="column q-2-3">
 								<h2>
 									<span class="line rev_line"></span>
-									<!-- 					<span class="q_split"><span class="q_split_wrap rev_item">Concert</span></span> -->
 									<span class="q_split"><span
 										class="q_split_wrap rev_item">Information.</span></span>
 								</h2>
@@ -419,136 +396,13 @@
 					</div>
 				</section>
 
-
-
-				<section id="q_slide" class="half-width" animate='stagTop'
-					autoplay='8000' parallax=".25" opacity=".3">
-
-					<div class="q_slide-inner">
-						<div class="slides">
-
-							<div class="slide q_current" id="header">
-								<div class="image-container">
-									<div class="image-wrapper">
-										<div class="">
-											<img src="<c:url value='/resource/img/service1.jpg'/>" alt="Photography"
-												class="image" />
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="slide" id="page-top-banner">
-								<div class="image-container">
-									<div class="image-wrapper">
-										<div class="">
-											<img src="<c:url value='/resource/img/service2.jpg'/>"
-												alt="360 Virtual Tour" class="image" />
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!--         <div class="slide" id="page-top-banner"> -->
-							<!--           <div class="image-container"> -->
-							<!--             <div class="image-wrapper"> -->
-							<!--               <div class=""> -->
-							<!--                 <img src="assets/img/about/service3.jpg" alt="Video Production" class="image" /> -->
-							<!--               </div> -->
-							<!--             </div> -->
-							<!--           </div> -->
-							<!--         </div> -->
-
-							<!--         <div class="slide" id="page-top-banner"> -->
-							<!--           <div class="image-container"> -->
-							<!--             <div class="image-wrapper"> -->
-							<!--               <div class=""> -->
-							<!--                 <img src="assets/img/about/service4.jpg" alt="Aerial Cinematography" class="image" /> -->
-							<!--               </div> -->
-							<!--             </div> -->
-							<!--           </div> -->
-							<!--         </div> -->
-
-						</div>
-
-						<div class="pagination">
-							<div class="item q_current">
-								<span><strong>01</strong>
-							</div>
-							<div class="item">
-								<span><strong>02</strong>
-							</div>
-							<div class="item">
-								<span><strong>03</strong>
-							</div>
-							<div class="item">
-								<span><strong>04</strong>
-							</div>
-						</div>
-
-						<div class="arrows">
-							<a class="arrow next q_magnet hover-target" friction=".3"> <span
-								class="svg svg-arrow-right"> <svg width="8px" height="21px">
-              <use xlink:href="#icn_arrow_right"></use>
-            </svg> <span class="alt sr-only"></span>
-							</span>
-							</a> <a class="arrow prev q_magnet hover-target" friction=".3"> <span
-								class="svg svg-arrow-left"> <svg width="8px" height="21px">
-              <use xlink:href="#icn_arrow_left"></use>
-            </svg> <span class="alt sr-only"></span>
-							</span>
+				<section id="q_slide" class="half-width" animate='stagTop' autoplay='8000' parallax=".25" opacity=".3">
+						<div class="">
+							<a href="http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446">
+							<img style="opacity: 0.9;margin-left: 300px" src="<c:url value='/resource/img/YakDo.png'/>"
+								alt="360 Virtual Tour" class="image" />
 							</a>
 						</div>
-
-
-					</div>
-
-					<div class="caption-external">
-						<div class="slide-content">
-							<div class="caption">
-								<h3>
-									<span class="q_split"><span class="q_split_wrap">Where</span></span>
-								</h3>
-								<p class="q_split_wrap">
-									주소 : 서울 용산구 블루스퀘어 <br> 인근 : 한강진역 2번 출구<br>찾아오시는 길 : <a href="http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446">Click</a>
-								</p>
-							</div>
-						</div>
-						<div class="slide-content">
-							<div class="caption">
-								<h3>
-									<span class="q_split" style="display: none"><span class="q_split_wrap">360&deg;</span></span>
-									<span class="q_split"><span class="q_split_wrap" style="color:white">Where</span></span>
-								</h3>
-								<p class="q_split_wrap">시간 : 6월 15일 오후 20시<br>
-								좌석 : 1,382석<br>주소 : 서울 용산구 블루스퀘어 <br> 인근 : 한강진역 2번 출구<br>찾아오시는 길 : <a href="http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446">Click</a>
-								</p>
-							</div>
-						</div>
-						<!-- 
-	  <div class="slide-content">
-	  	<div class="caption">
-	  		<h3>
-	  			<span class="q_split"><span class="q_split_wrap">Video Production</span></span>
-	  		</h3>
-	  		<p class="q_split_wrap">
-	  			When it comes to video production, we’ve got it down to an art form. We do advertising films, TV & Web commercials, Corporate videos, Web content, Music videos, Art films and many more.
-	  		</p>
-	  	</div>
-	  </div>
-	  <div class="slide-content">
-	  	<div class="caption">
-	  		<h3>
-	  			<span class="q_split"><span class="q_split_wrap">Aerial</span></span>
-	  			<span class="q_split"><span class="q_split_wrap">Cinematography</span></span>
-	  		</h3>
-	  		<p class="q_split_wrap">
-	  			We fly a variety of professional cameras, across many verticals and projects with eye for precision. We capture the most challenging and spectacular shots you would think possible.
-	  		</p>
-	  	</div>
-	  </div>
-	   -->
-					</div>
 				</section>
 
 
