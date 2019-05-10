@@ -50,8 +50,8 @@ element.style {
 
 body {
 	color: white;
-	background-image: url('../resource/img/tempBG.jpg');
-	background-attachment: fixed;
+	background-color: #12111F;
+/* 	background-attachment: fixed; */
 }
 
 .text1 {
@@ -275,8 +275,8 @@ th:after {
 
 							<c:if test="${not isEmpty }">
 							<!-- 공지사항 -->
-							<tr style="color: aqua;" >
-								<td style="text-align: center; padding-top: 10px;">·</td>
+							<tr style="color: aqua;font-weight: 600" >
+								<td style="text-align: center; padding-top: 10px;">2</td>
 								<td style="text-align: center; padding-top: 10px;">·</td>
 								<td
 									style="text-align: left; padding-left: 10px; padding-top: 10px; font-weight: bold;"><a
@@ -285,19 +285,19 @@ th:after {
 										작성 예시</a></td>
 								<td
 									style="text-align: center; padding-top: 10px; font-weight: bold;">관리자</td>
-								<td style="text-align: center; padding-top: 10px;">·</td>
+								<td style="text-align: center; padding-top: 10px;">7841</td>
 								<td
 									style="text-align: center; padding-top: 10px; font-weight: bold;">2019-04-15</td>
 							</tr>
 							<tr style="color: aqua;" >
-								<td style="text-align: center; padding-top: 10px;">·</td>
+								<td style="text-align: center; padding-top: 10px;">1</td>
 								<td style="text-align: center; padding-top: 10px;">·</td>
 								<td
 									style="text-align: left; padding-left: 10px; padding-top: 10px; font-weight: bold;"><a
 									style="color: aqua;" href="" class="title">첨부파일 업로드 시 주의사항</a></td>
 								<td
 									style="text-align: center; padding-top: 10px; font-weight: bold;">관리자</td>
-								<td style="text-align: center; padding-top: 10px;">·</td>
+								<td style="text-align: center; padding-top: 10px;">5899</td>
 								<td
 									style="text-align: center; padding-top: 10px; font-weight: bold;">2018-12-24</td>
 							</tr>

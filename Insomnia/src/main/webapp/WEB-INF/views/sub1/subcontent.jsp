@@ -2,14 +2,56 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/WEB-INF/views/my/isMember.jsp"%>
+<head>
+<link rel="stylesheet"
+	href="<c:url value='/vendor/css/subcontent.css'/>">
+<script src="<c:url value='/vendor/js/subcontent.js'/>"></script>
 
+<meta charset="UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="Specialising in lifestyle, interiors, 360 and aerial photography and videography, Clorova work across a range of advertising, editorial, pr and corporate clients in Bali and Jakarta.">
 
-<!-- Meta Data -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta HTTP-EQUIV="Page-exit" content="BlendTrans(Duration=1)" />
-<meta HTTP-EQUIV="Page-enter" content="BlendTrans(Duration=1)" />
+<link rel="apple-touch-icon" sizes="57x57" href="<c:url value='/resource/img/apple-icon-57x57.png'/>">
+<link rel="apple-touch-icon" sizes="60x60" href="<c:url value='/resource/img/apple-icon-60x60.png'/>">
+<link rel="apple-touch-icon" sizes="72x72" href="<c:url value='/resource/img/apple-icon-72x72.png'/>">
+<link rel="apple-touch-icon" sizes="76x76" href="<c:url value='/resource/img/apple-icon-76x76.png'/>">
+<link rel="apple-touch-icon" sizes="114x114" href="<c:url value='/resource/img/apple-icon-114x114.png'/>">
+<link rel="apple-touch-icon" sizes="120x120" href="<c:url value='/resource/img/apple-icon-120x120.png'/>">
+<link rel="apple-touch-icon" sizes="144x144" href="<c:url value='/resource/img/apple-icon-144x144.png'/>">
+<link rel="apple-touch-icon" sizes="152x152" href="<c:url value='/resource/img/apple-icon-152x152.png'/>">
+<link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/resource/img/apple-icon-180x180.png'/>">
+<link rel="icon" type="image/png" sizes="192x192" href="<c:url value='/resource/img/android-icon-192x192.png'/>">
+<link rel="icon" type="image/png" sizes="32x32" href="<c:url value='favicon-32x32.png'/>">
+<link rel="icon" type="image/png" sizes="96x96" href="<c:url value='favicon-96x96.png'/>">
+<link rel="icon" type="image/png" sizes="16x16" href="<c:url value='favicon-16x16.png'/>">
+<link rel="manifest" href="<c:url value='/resource/img/manifest.json'/>">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="<c:url value='ms-icon-144x144.png'/>">
+<meta name="theme-color" content="#ffffff">
+<link rel="canonical" href="index.html" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title"
+	content="Clorova | Bali & Jakarta Photography, Video, 360 Media Production" />
+<meta property="og:description"
+	content="Specialising in lifestyle, interiors, 360 and aerial photography and videography, Clorova work across a range of advertising, editorial, pr and corporate clients in Bali and Jakarta." />
+<meta property="og:url" content="index.html" />
+<meta property="og:site_name"
+	content="Clorova | Bali & Jakarta Photography, Video, 360 Media Production" />
+<meta property="article:publisher"
+	content="https://www.facebook.com/clorova/" />
+<meta property="og:image"
+	content="<c:url value='/resource/img/clorova-banner.jpg'/>" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description"
+	content="Specialising in lifestyle, interiors, 360 and aerial photography and videography, Clorova work across a range of advertising, editorial, pr and corporate clients in Bali and Jakarta." />
+<meta name="twitter:title"
+	content="Clorova | Bali & Jakarta Photography, Video, 360 Media Production" />
+<meta name="twitter:site" content="@Clorova" />
+<meta name="twitter:image"
+	content="<c:url value='clorova-banner.jpg'/>" />
+<meta name="twitter:creator" content="@Clorova" />
 
 <!-- JQuery -->
 <script type="text/javascript"
@@ -17,24 +59,14 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- 구매하기 css -->
-<link href="<c:url value='/vendor/css/bootstrap.min.css'/>"
-	rel="stylesheet">
 <link href="<c:url value='/vendor/css/custom.css'/>" rel="stylesheet">
-<link href="<c:url value='/vendor/css/jquery.scrolling-tabs.css'/>"
-	rel="stylesheet">
-
-<!-- 공지사항 -->
-<script type="text/javascript" src="<c:url value='/vendor/js/obt.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/vendor/js/obt2.js'/>"></script>
-
+<link href="<c:url value='/vendor/css/jquery.scrolling-tabs.css'/>" rel="stylesheet">
 
 <!-- PayMoving js -->
 <script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
+
 <script>
    $(function() {
-      //페이지 뿌리기
-      showComments();
-
       //구매하기 hide, show
       $('.option-btn').click(function() {
          if ($('#optionList').css('display') === 'none') {
@@ -43,1302 +75,437 @@
             $('#optionList').hide(1000);
          }
       });
-
-      //댓글 작성
-      $('#submitComment').click(function() {
-         if ($(this).val() == '등록') {
-            var action = "<c:url value='/sub1/memowrite.ins'/>";
-           	
-            //별점, 내용 유효성 체크
-            if($('#starCount').val() == ''){
-           		alert('별점을 클릭하세요');
-           		return false;
-            }
-            
-            else if($('#content').val() == ''){
-           		alert('내용을 입력해주세요');
-           		return false;
-           	}//if
-           	
-           	if($('.rating').hide()){
-           		$('.rating').show();
-            	$('#frm').css('margin-top','0px');
-           	}
-         }//if
-         
-	       //Edit Commit 누를 때
-	       if ($(this).val() == '수정') {
-	          var action = "<c:url value='/sub1/memoedit.ins'/>";
-	          $('.rating').show();
-	       }
-	       
-	       //Reply Commit 누를 때
-	       if($(this).val() == '답변') {
-	          var action = "<c:url value='/sub1/replywrite.ins'/>";
-	          
-	          $('.rating').show();
-	          $('#frm').css('margin-top','0px');
-	       }
-
-         $.ajax({
-            url : action,
-            data : $('#frm').serialize(),
-            dataType : 'text',
-            type : 'post',
-            success : function() {
-               //등록 후 현재 모든 댓글 뿌려주기
-               showComments();
-
-               //입력 댓글 클리어 및 포커스 주기
-               $('#content').val('');
-               $('#about').focus();
-               
-               //글 수정후 등록버튼으로 다시 교체하기
-//                if($('#submitComment').val()=='수정'){
-//                   $('#submitComment').val('등록');
-//                }
-            },
-            error : function(request, error) {
-               console.log('상태코드:', request.status);
-               console.log('서버로부터 받은 HTML데이타 :', request.responseText);
-               console.log('에러:', error);
-            }
-         });
-      })
-      
-      $(function(){         
-         $('.star').click(function(){
-            $('#starCount').val($(this).index());
-            console.log($('#starCount').val()); //클릭하면 별의 개수가 카운터에 찍힌다.
-         });
-      });
    }); //function
-
-   //리스트
-   var showComments = function() { // ★ajax를 함수로 감싸서 리스트를 뿌릴 때 쓰기
-      $.ajax({
-         url : '<c:url value="/sub1/memolist.ins"/>',
-         dataType : 'text',
-         success : successAjax,
-         error : function(request, error) {
-            console.log('상태코드:', request.status);
-            console.log('서버로부터 받은 HTML데이타 :', request.responseText);
-            console.log('에러:', error);
-         }
-      });
-   };//showComments
-
-   var successAjax = function(data) {
-      /*JSON배열을 출력할때는 $.each(data,function(index,index에 따른 요소값){}); 사용]
-      data : 서버로부터 전송받은 데이타(JSON배열타입)
-      index : JSON배열의 인덱스(0부터 시작)   
-      index에 따른 요소 값 : JSON 배열에서 하나씩 꺼내온거를 담은 인자      
-       */
-      console.log('서버로부터 받은 데이타:', data);
-
-      var tableString = "";
-      $.each(JSON.parse(data),
-         function(index, element) {
-    	  	var B = 70;
-      		tableString += "<li>";
-      		tableString += "<article style='margin-left:"+B*element['DEPTH']+"px' class='review-comment'>";
-    	    var A = "https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/" + element['PROFILE_IMG'] + "";
-//     	  	var A = element['PROFILE_IMG'];
-//     	  	console.log(A);
-//     	  	var B = "<c:url value='/upload/" +A+ "'/>;"
-//     	  	console.log(B);
-            tableString += "<div class='user-avatar'>";
-//             tableString += "<img src='<c:url value='/resource/img/commenttemp.jpg'/>'>";
-            tableString += "<img style='border-radius:50px;height:70px;width:70px;' src='" +A+ "'>";
-
-            tableString += "</div>";
-            tableString += "<div class='comment-content'>";
-            tableString += "<h5 class='name'>"
-                  + element['NAME'] + "</h5>";
-            tableString += "<div class='comment-meta'>";
-            if(element['DEPTH'] == '0'){
-            tableString += "<div class='star-rating_"+element['STARS']+"'>";
-            tableString += "<span>Rated <strong class='rating'>5.00</strong>out of 5</span>";
-            tableString += "</div>";
-            }
-            tableString += "<span class='post-date'>"
-                  + element['POSTDATE'] + "</span>";
-            tableString += "</div>";
-            tableString += "<span>" + element['CONTENT'] + "</span>"
-            if('${sessionScope.id}' == element	['ID']){
-            tableString += "<a href='#HH' class='commentEdit' title='"+element['R_NO']+"' style='color:white;font-size:0.8em;'>" + '&nbsp&nbsp[수정]' + "<span id='asd' style='display:none;'>"
-                  + element['CONTENT'] + "</span></a>"
-            tableString += "<span class='commentDelete' title='"+element['R_NO']+"' style='color:white;font-size:0.8em;cursor:pointer'>"
-                  + '&nbsp&nbsp[삭제]' + "</span>";
-            }//if
-            tableString += "<span>" + '&nbsp;&nbsp;&nbsp;&nbsp;' + "</span>"
-            tableString += "<a style='text-decoration:none;color:black;font-weight:600;' class='commentReply' title='"+element['R_NO']+"' href='#HH'><i class='fa fa-reply'></i>Reply</a>";
-            tableString += "<div>" + '<br>' + "</div>"
-            tableString += "</div>";
-	      	tableString += "</article>";
-      		tableString += "</li>";
-         });
-      //리스트 뿌려주기
-      $('#comments').html(tableString);
-      
-		//답글
-		$('.commentReply').click(function() {
-			$('.rating').hide();
-			$('#frm').css('margin-top','-20px');
-			
-			console.log('클릭한 댓글의 키(답글):' + $(this).attr('title'));
-			//form의 hidden속성중 name="cno"값 설정
-			$('input[name=r_no]').val($(this).attr('title'));
-	
-			$('#submitComment').val('답변');
-		})//
-      
-      //코멘트 수정]
-      $('.commentEdit').click(function(){
-         console.log('클릭한 댓글의 키(r_no):',$(this).attr('title'));
-         
-         //클릭한 제목으로 텍스트박스 값 설정
-         $('#content').val($(this).children().eq(0).html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
-         $('#submitComment').val('수정');
-         
-         //form의 hidden속성중 name="cno"값 설정
-         $('input[name=r_no]').val($(this).attr('title'));
-      });
-
-      //코멘트 삭제 
-      $('.commentDelete').click(function() {
-        //form의 hidden속성중 name="bsc_no"값 설정
-		$('input[name=r_no]').val($(this).attr('title'));
-
-         $.ajax({
-            url : '<c:url value="/sub1/memodelete.ins"/>',
-            data : $('#frm').serialize(),
-            dataType : 'text',
-            type : 'post',
-            success : showComments(),
-            error : function(request, error) {
-               console.log('상태코드:', request.status);
-               console.log('서버로부터 받은 HTML데이타 :', request.responseText);
-               console.log('에러:', error);
-            }
-         });
-      });
-      
-	  //수정으로 돼있다면 등록으로 바꾸기
-	  $('#submitComment').click(function() {
-			if ($('#submitComment').val() == '수정') {
-				($('#submitComment')).val('등록');
-			}
-      })
-      
-	  $('#submitComment').click(function() {
-			if ($('#submitComment').val() == '답변') {
-				($('#submitComment')).val('등록');
-			}
-      })
-      
-      //작성 버튼 눌렀을 때 수정으로 돼있다면 등록으로 바꾸기
-      $('#about').click(function(){
-         if($('#submitComment').val() == '수정') {
-            ($('#submitComment')).val('등록')   ;
-         }
-      })
-	  
-   }
-   
-   //오늘 하루 그만보기
-   //쿠키설정   
-   function setCookie(name, value, expiredays) {
-      var todayDate = new Date();
-      todayDate.setDate(todayDate.getDate() + expiredays);
-      document.cookie = name + '=' + escape(value) + '; path=/; expires='
-            + todayDate.toGMTString() + ';'
-   }
-
-   //쿠키 불러오기
-   function getCookie(name) {
-      var obj = name + "=";
-      var x = 0;
-      while (x <= document.cookie.length) {
-         var y = (x + obj.length);
-         if (document.cookie.substring(x, y) == obj) {
-            if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
-               endOfCookie = document.cookie.length;
-            return unescape(document.cookie.substring(y, endOfCookie));
-         }
-         x = document.cookie.indexOf(" ", x) + 1;
-         if (x == 0)
-            break;
-      }
-      return "";
-   }
-
-   //닫기 버튼 클릭시
-   function closeWin(key) {
-      if ($("#todaycloseyn").prop("checked")) {
-         setCookie('notice-obt' + key, 'Y', 1);
-      }
-      $("#notice-obt" + key + "").hide();
-   }
-
-   $(function() {
-      if (getCookie("notice-obt1") != "Y") {
-         $("#notice-obt1").show();
-      }
-   });
-   
 </script>
 
-<!-- aos 구동 -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<body class=" ">
+	<div id="svg-sprite" style="display: none">
+		<svg xmlns="http://www.w3.org/2000/svg">
 
-<!-- Dependency Styles -->
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/bootstrap.min.css'/>" type="text/css">
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/stylesheet.css'/>" type="text/css">
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/swiper.min.css'/>" type="text/css">
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/font-awesome.min.css'/>"
-	type="text/css">
-<link rel="stylesheet" href="<c:url value='/vendor/css/animate.css'/>"
-	type="text/css">
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/magnific-popup.css'/>" type="text/css">
-<link rel="stylesheet" href="<c:url value='/vendor/css/jquery-ui.css'/>"
-	type="text/css">
-<link rel="stylesheet" href="<c:url value='/vendor/css/slick.css'/>"
-	type="text/css">
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/colornip.min.css'/>" type="text/css">
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/css-loader.css'/>" type="text/css">
+		<!-- arrow left -->
+		<symbol viewBox="0 0 14 26" id="icn_arrow_left">
+			<path
+				d="M13,26c-0.256,0-0.512-0.098-0.707-0.293l-12-12c-0.391-0.391-0.391-1.023,0-1.414l12-12c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414L2.414,13l11.293,11.293c0.391,0.391,0.391,1.023,0,1.414C13.512,25.902,13.256,26,13,26z" /> 
+		</symbol>
 
-<!-- Site Stylesheet -->
-<link rel="stylesheet"
-	href="<c:url value='/vendor/css/woocommerce.css'/>" type="text/css">
-<link rel="stylesheet" href="<c:url value='/vendor/css/app.css'/>"
-	type="text/css">
+		<!-- arrow right -->
+		<symbol viewBox="0 0 14 26" id="icn_arrow_right">
+			<path
+				d="M1,0c0.256,0,0.512,0.098,0.707,0.293l12,12c0.391,0.391,0.391,1.023,0,1.414l-12,12c-0.391,0.391-1.023,0.391-1.414,0s-0.391-1.023,0-1.414L11.586,13L0.293,1.707c-0.391-0.391-0.391-1.023,0-1.414C0.488,0.098,0.744,0,1,0z" />
+		</symbol>
 
-<style>
-#footer-3 {
-	margin-top: -70px;
-}
+		<!-- map pin -->
+		<symbol viewBox="0 0 9 13" id="icn_map_pin">
+			<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+				<g id="6.contact-us" transform="translate(-977.000000, -67.000000)"
+				fill="#F26724">
+	        <g id="Menu" transform="translate(81.000000, 37.000000)">
+	          <g id="Group-10" transform="translate(603.000000, 27.000000)">
+							<path
+				d="M297.493232,16 C297.605734,16 297.712366,15.4875294 297.786715,15.4031079 C297.959283,15.2072343 302.014051,10.5685558 301.999963,7.50979368 C301.988811,5.02317838 299.970036,3 297.50008,3 C295.018579,3 293,5.02396187 293,7.51175242 C293,10.5687516 297.027571,15.2062549 297.199161,15.4021285 C297.273315,15.4869418 297.37486,15.5329721 297.493232,15.5357143 L297.493232,16 Z M297.500094,6 C296.67298,6 296,6.6729375 296,7.5 C296,8.32725 296.67298,9 297.500094,9 C298.327208,9 299,8.32725 299,7.5 C299,6.6729375 298.327208,6 297.500094,6 Z"
+				id="17-copy-17"></path>
+						</g>
+					</g>
+				</g>
+			</g>
+		</symbol>
 
-element.style {
-	background-color: white;
-	color: white;
-}
+		<!-- FLEAVA LOGO -->
 
-/* iframe을 숨기기 위한 css*/
-#if {
-	width: 0px;
-	height: 0px;
-	border: 0px;
-}
+    <symbol id="fleava_logo" viewBox="0 0 307 86">
+      <path
+				d="M11.9,29.5H0v-4.1h11.9v-7.9c0-8.2,2.3-13.4,12.9-13.4c2.2,0,5,0.3,7.8,0.6v4.1c-2.2-0.4-5.1-0.6-7.2-0.6
+        c-2.3,0-8.9,0-8.9,7.9v9.3h14.7v4.1H16.5v48.3h-4.6V29.5z" />
+      <path d="M48.4,4.7h4.6v73.1h-4.6V4.7z" />
+      <path
+				d="M68.5,52.6c0.3,13.1,8.9,22.7,24.2,22.7c15.8,0,19.8-10.2,21.6-14.9h4.6c-4.3,13.2-13.2,19-26.7,19
+        c-17.3,0-28.2-10.8-28.2-28.3c0-11,6.7-27.4,28.3-27.4c17.6,0,27.7,12.1,27.9,28.9H68.5z M115.1,48.5
+        c-1.9-14.3-11.6-20.7-23.3-20.7c-13.1,0-21.3,8.2-23.3,20.7H115.1z" />
+      <path
+				d="M129.3,41.6c1.7-13.2,8.2-17.8,23.6-17.8c14.8,0,23.3,3.6,23.3,15.4v29.4c0,3.9,0,6.2,3.4,6.2c1.5,0,3-0.3,4.5-0.8V78
+        c-1.4,0.5-3.3,0.8-5.6,0.8c-6.2,0-6.2-4.5-6.2-11.5H172c-5.7,10.7-17.5,12.1-24.2,12.1c-4.4,0-20.8,0-20.8-16
+        c0-10.7,8.8-14.4,19.1-15l17.7-1.2c5.3-0.4,7.7-1,7.7-7.5c0-7.1-3.9-11.9-18.8-11.9c-13.4,0-17.5,4.3-18.9,13.7H129.3z
+         M171.6,48.5h-0.2c-1.1,1.2-3.8,2.5-8.1,2.8l-17.1,1.2c-8.5,0.6-14.6,3.1-14.6,11c0,10.6,10.4,11.9,16.6,11.9
+        c10.1,0,23.5-4.7,23.5-17.2V48.5z" />
+      <path
+				d="M185.9,25.4h5.2l22.2,47.7l22.2-47.7h5.2l-25.1,52.4h-4.6L185.9,25.4z" />
+      <path
+				d="M248.1,41.6c1.7-13.2,8.2-17.8,23.6-17.8c14.8,0,23.3,3.6,23.3,15.4v29.4c0,3.9,0,6.2,3.4,6.2c1.5,0,3-0.3,4.5-0.8V78
+        c-1.4,0.5-3.3,0.8-5.6,0.8c-6.2,0-6.2-4.5-6.2-11.5h-0.2c-5.7,10.7-17.5,12.1-24.2,12.1c-4.4,0-20.8,0-20.8-16
+        c0-10.7,8.8-14.4,19.1-15l17.7-1.2c5.3-0.4,7.7-1,7.7-7.5c0-7.1-3.9-11.9-18.8-11.9c-13.4,0-17.5,4.3-18.9,13.7H248.1z
+         M290.4,48.5h-0.2c-1.1,1.2-3.8,2.5-8.1,2.8L265,52.5c-8.5,0.6-14.6,3.1-14.6,11c0,10.6,10.4,11.9,16.6,11.9
+        c10.1,0,23.5-4.7,23.5-17.2V48.5z" />
+      <polygon points="81,17.3 83.8,19 101.9,7.4 97.6,4.1   " />
+    </symbol>
 
-div.tab-content.left {
-	margin-left: 130px;
-	margin-top: 20px;
-}
 
-body>#standalone-container {
-	margin: 50px auto;
-	max-width: 720px;
-}
+    <!-- CLOROVA LOGO -->
 
-#editor-container {
-	height: 350px;
-}
+    <symbol id="clorova_logo" viewBox="0 0 389 85">
+      <path
+				d="M337.367273,53.6490909 C330.703636,54.5672727 325.912727,56.1218182 323.167273,58.3036364 C320.476364,60.4218182 319.103636,63.3581818 319.103636,67.0309091 C319.103636,70.8854545 320.549091,73.9036364 323.530909,76.2218182 C326.503636,78.5218182 330.585455,79.6945455 335.676364,79.6945455 C339.021818,79.6945455 342.067273,79.1763636 344.712727,78.14 C347.376364,77.1127273 349.621818,75.64 351.394545,73.7490909 C353.676364,71.4309091 355.249091,69.1218182 356.076364,66.8672727 C356.921818,64.5672727 357.358182,61.2763636 357.358182,57.0581818 L357.358182,51.3490909 C350.976364,51.8763636 344.258182,52.6490909 337.367273,53.6490909 Z M363.976364,83.1854545 L358.794545,83.1854545 L358.730909,82.8218182 C358.130909,79.8763636 357.803636,76.5581818 357.730909,72.9127273 C355.621818,76.3036364 352.767273,79.0309091 349.267273,81.0218182 C345.358182,83.2309091 340.549091,84.3581818 334.94,84.3581818 C328.567273,84.3581818 323.367273,82.7672727 319.485455,79.6218182 C315.585455,76.4672727 313.603636,72.2672727 313.603636,67.14 C313.603636,62.1763636 315.412727,58.1581818 318.985455,55.1945455 C322.512727,52.2581818 328.485455,50.1672727 336.74,48.9854545 C344.476364,47.9309091 351.412727,47.1490909 357.358182,46.6763636 L357.358182,43.6945455 C357.358182,37.7672727 355.794545,33.3127273 352.703636,30.4309091 C349.621818,27.5581818 345.349091,26.1036364 340.030909,26.1036364 C334.376364,26.1036364 329.94,27.4854545 326.849091,30.2127273 C323.758182,32.9309091 322.030909,36.6127273 321.712727,41.1581818 L321.685455,41.5763636 L316.176364,41.5763636 L316.212727,41.0854545 C316.64,35.1309091 318.949091,30.3218182 323.085455,26.7672727 C327.203636,23.2309091 332.912727,21.4490909 340.030909,21.4490909 C346.903636,21.4490909 352.449091,23.34 356.503636,27.0672727 C360.567273,30.8218182 362.612727,36.5309091 362.612727,44.0490909 L362.612727,68.7854545 C362.612727,74.3672727 363.030909,79.0309091 363.849091,82.6309091 L363.976364,83.1854545 Z M282.485455,78.7763636 L271.34,51.1581818 L260.285455,23.9127273 L254.467273,23.9127273 L279.085455,84.0763636 L279.203636,84.3581818 L285.767273,84.3581818 L310.376364,24.5309091 L310.64,23.9127273 L304.803636,23.9127273 L282.485455,78.7763636 Z M238.512727,33.1490909 C234.558182,28.4763636 228.94,26.1127273 221.830909,26.1127273 C214.794545,26.1127273 209.221818,28.4763636 205.276364,33.1490909 C201.303636,37.8581818 199.294545,44.4854545 199.294545,52.84 C199.294545,61.2036364 201.303636,67.84 205.276364,72.5309091 C209.212727,77.2127273 214.794545,79.5854545 221.830909,79.5854545 C228.949091,79.5854545 234.558182,77.2127273 238.512727,72.5309091 C242.476364,67.8490909 244.494545,61.2218182 244.494545,52.84 C244.494545,44.4672727 242.476364,37.8490909 238.512727,33.1490909 Z M242.485455,29.7490909 C247.476364,35.3036364 250.003636,43.0763636 250.003636,52.84 C250.003636,62.6127273 247.476364,70.3854545 242.485455,75.94 C237.503636,81.5218182 230.549091,84.3581818 221.830909,84.3581818 C213.112727,84.3581818 206.176364,81.5218182 201.230909,75.94 C196.285455,70.3854545 193.785455,62.6036364 193.785455,52.84 C193.785455,43.0763636 196.285455,35.3036364 201.230909,29.7490909 C206.176364,24.1672727 213.112727,21.3309091 221.830909,21.3309091 C230.549091,21.3309091 237.503636,24.1672727 242.485455,29.7490909 Z M186.403636,23.5490909 C181.621818,23.5490909 177.421818,24.6218182 173.921818,26.7218182 C170.849091,28.5854545 168.34,31.1581818 166.467273,34.3945455 L166.467273,23.9127273 L161.085455,23.9127273 L161.085455,84.3581818 L166.467273,84.3581818 L166.467273,50.8490909 C166.467273,43.6581818 168.267273,38.1036364 171.812727,34.34 C175.367273,30.5945455 180.312727,28.44 186.521818,28.44 C187.567273,28.44 188.730909,28.5218182 190.076364,28.6672727 L190.585455,28.7218182 L190.585455,23.9854545 L190.212727,23.9127273 C189.012727,23.6763636 187.721818,23.5490909 186.403636,23.5490909 Z M133.730909,72.5309091 C137.694545,67.8490909 139.712727,61.2218182 139.712727,52.84 C139.712727,44.4672727 137.694545,37.8490909 133.730909,33.1490909 C129.776364,28.4763636 124.167273,26.1127273 117.049091,26.1127273 C110.003636,26.1127273 104.44,28.4763636 100.485455,33.1490909 C96.5218182,37.8581818 94.5036364,44.4854545 94.5036364,52.84 C94.5036364,61.2036364 96.5218182,67.84 100.485455,72.5309091 C104.430909,77.2127273 110.003636,79.5854545 117.049091,79.5854545 C124.176364,79.5854545 129.785455,77.2127273 133.730909,72.5309091 Z M137.703636,29.7490909 C142.694545,35.3036364 145.212727,43.0763636 145.212727,52.84 C145.212727,62.6127273 142.694545,70.3854545 137.703636,75.94 C132.712727,81.5218182 125.767273,84.3581818 117.049091,84.3581818 C108.34,84.3581818 101.403636,81.5218182 96.4490909,75.94 C91.5036364,70.3854545 89.0036364,62.6036364 89.0036364,52.84 C89.0036364,43.0763636 91.5036364,35.3036364 96.4490909,29.7490909 C101.403636,24.1672727 108.34,21.3309091 117.049091,21.3309091 C125.767273,21.3309091 132.712727,24.1672727 137.703636,29.7490909 Z M67.8672727,84.3581818 L73.2490909,84.3581818 L73.2490909,0.00363636364 L67.8672727,0.00363636364 L67.8672727,84.3581818 Z M49.5036364,62.3854545 L52.6218182,62.3854545 C52.0218182,68.8854545 49.4218182,74.2309091 44.8854545,78.2672727 C40.34,82.3036364 34.5490909,84.3581818 27.6854545,84.3581818 C19.1309091,84.3581818 12.3036364,81.5218182 7.39454545,75.94 C2.48545455,70.3854545 0.00363636364,62.6036364 0.00363636364,52.84 C0.00363636364,43.0854545 2.48545455,35.3036364 7.39454545,29.7490909 C12.3036364,24.1672727 19.1309091,21.3309091 27.6854545,21.3309091 C34.54,21.3309091 40.3309091,23.3218182 44.8763636,27.24 C49.4218182,31.1672727 52.0218182,36.3763636 52.6218182,42.7218182 L47.4309091,42.7309091 C47.0127273,37.8309091 44.5672727,33.8036364 41.04,30.74 C37.5127273,27.6763636 33.0127273,26.1127273 27.6854545,26.1127273 C20.8127273,26.1127273 15.34,28.4763636 11.4218182,33.1490909 C7.50363636,37.8672727 5.50363636,44.4854545 5.50363636,52.84 C5.50363636,61.2036364 7.50363636,67.8309091 11.4218182,72.5309091 C15.3309091,77.2127273 20.8036364,79.5854545 27.6854545,79.5854545 C33.0127273,79.5854545 37.4854545,77.9490909 40.9763636,74.7127273 C44.4672727,71.5127273 46.4854545,67.3490909 46.9763636,62.3672727 L49.5036364,62.3854545 Z"
+				id="Fill-1" fill="#FEFEFE"></path>
+      <polygon id="Fill-4" fill="#EC2026"
+				points="378.790909 84.3572727 388.372727 84.3572727 388.372727 68.8936364 378.790909 68.8936364"></polygon>
+    </symbol>
 
-body {
-	color: white;
-	background-image: url('../resource/img/tempBG.jpg');
-	background-attachment: fixed;
-}
+	</svg>
 
-.text1 {
-	color: white;
-	font-size: 24px;
-	margin-left: 58px;
-	margin-top: 50px;
-	text-shadow: 1px 1px 10px black;
-	font-weight: bold;
-}
+	</div>
 
-.section {
-	text-align: center;
-	color: white;
-	font-size: 40px;
-	text-shadow: 1px 1px 10px black;
-	z-index: 50;
-	letter-spacing: 10px;
-	line-height: 180%;
-	font-weight: 500;
-	padding-left: 95px;
-	padding-right: 150px;
-	padding-top: 170px;
-	padding-bottom: 50px;
-	border: none;
-	font-family: 'Cormorant Garamond', serif;
-}
+	<div id="head" class="header">
+		<a href="<c:url value='/home.ins'/>" class="logo hover-target" id="main-logo"
+			title="Clorova — Bali Media Production">
+						<div class="logo-wrap" id="logo-wrap">
+				<svg width="107px" height="24px" style="display: none">
+		    <use xlink:href="#clorova_logo"></use>
+		  </svg>
+			</div>
+			<div class="logo-box" id="logo-box" style="display:none;"></div> <span style="display:none">Media
+				Production</span>
+			<img style="width: 170px;height: 55px;margin-top: -50px;" src="<c:url value='/resource/img/logo_5.png'/>">
+			<div class="logo-box" id="logo-box"></div> <span style="display: none">Media
+				Production</span>
+		</a> <a href="<c:url value='/sub1/subprojects.ins'/>" class="works q_magnet hover-target">All
+			projects</a>
+		</li>
 
-.section1 {
-	margin-top: 20px;
-	margin-left: 30px;
-	width: 650px;
-	height: 480px;
-	background-image: url('../resource/img/concert2.jpg');
-}
-
-.section2 {
-	margin-top: 280px;
-	margin-left: 690px;
-	width: 650px;
-	height: 480px;
-	background-image: url('../resource/img/big concert hall.jpg');
-}
-
-.section3 {
-	margin-top: 280px;
-	margin-left: 30px;
-	width: 650px;
-	height: 480px;
-	background-image: url('../resource/img/instruments3.png');
-}
-
-.tempImage {
-	height: 360px;
-	width: 275px;
-}
-
-.review-comments {
-	margin-top: -10px;
-}
-
-.title {
-	color: white;
-}
-
-.comments-title {
-	font-size: 24px;
-	font-weight: 600;
-	margin-top: -20px;
-}
-
-.col-md-10 {
-	margin: auto;
-}
-
-/* notice */
-.notice-obt {
-	position: fixed;
-	width: 420px;
-	height: 440px;
-	color: white;
-	top: 200px;
-	left: 100px;
-	border: 1px solid #ccc;
-	padding: 20px;
-	background: black;
-	z-index: 1000;
-	margin-left: 0px;
-	margin-top: 0px;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
-	display: none;
-}
-
-.notice-obt-close {
-	position: relative;
-	cursor: pointer;
-	font-size: 35px;
-	right: -360px;
-}
-
-.notice-obt-title {
-	line-height: 80px;
-	font-size: 24px;
-	font-weight: bold;
-	margin-top: -50px;
-	l
-}
-
-.notice-obt-content {
-	height: 270px;
-	padding: 20px 10px;
-	margin-left: -10px;
-	margin-top: -35px;
-	line-height: 2.3em;
-}
-
-.notice-obt-content a {
-	color: #2196F3;
-	font-weight: bold;
-}
-
-.notice-obt-bottom {
-	text-align: right;
-}
-
-.live-ticket-count .countdown .CountdownContent {
-	display: inline-block;
-	height: 110px;
-	width: 120px;
-	font-size: 76px;
-	font-weight: 600;
-	color: red;
-	font-family: "Changa", sans-serif;
-	text-align: center;
-	position: relative;
-	background-image: url("../../media/background/1.png");
-	background-size: contain;
-	margin-right: 20px;
-	background-repeat: no-repeat;
-	padding: 24px 0;
-}
-
-.live-ticket-count .countdown .CountdownContent .CountdownLabel {
-	display: block;
-	text-align: center;
-	font-size: 16px;
-	font-family: "Roboto", sans-serif;
-	padding-top: 15px;
-}
-
-.tim-container-box {
-	width: 1200px;
-	padding-right: 15px;
-	padding-left: 15px;
-	margin-right: auto;
-	margin-left: auto;
-}
-</style>
-</head>
-
-<body id="home-version-1" class="home-version-1" data-style="default">
-	<!--    <!-- 반응형 글씨 -->
-	<!--    <a class="typewrite" data-period="3000" data-type='[ "#반응형 #모바일 #무료" ]'> -->
-	<!--       <span class="wrap"></span> -->
-	<!--    </a> -->
-
-	<!-- 로딩 -->
-	<!--    <div class="loader loader-bar-ping-pong is-active"></div> -->
-
-	<!-- 공지 시작 -->
-	<div class="notice-obt" id="notice-obt1">
-		<div class="notice-obt-close">×</div>
-		<div class="notice-obt-title" style="color: red">방구석 기타리스트 가족 모집
-		</div>
-		<div class="notice-obt-content">
-			<b>지난해, 모두를 광란의 도가니속으로 몰아 넣었던 <br>`방구석 기타리스트`가 2탄으로 다시
-				찾아옵니다.
-			</b> <br> <span style="font-style: bold">Insomnia는</span> 공연을 빛내줄
-			여러분들을 기다립니다.<br> <a href="<c:url value='/sub1/list.ins'/>">모집
-				게시판</a>을 통해 게시글을 등록해주세요.<br> &lt;참여 조건&gt; <br>연령 : 25세 이상 <br>
-			장르 : 무관 <br>자격 : 음악을 사랑하는 누구나 <br>신청 기간 : ~ 2019. 6. 4 (6일
-			발표)
-		</div>
-		<div class="notice-obt-bottom">
-			<img
-				style="margin-top: 60px; margin-left: 35px; height: 70px; width: 115px;"
-				src="<c:url value='/resource/img/logo_5.png'/>">
-		</div>
-		<div class="button_area" style="margin-top: -45px">
-			<input type='checkbox' name='chkbox' id='todaycloseyn' value='Y'>&nbsp;&nbsp;오늘
-			이 창을 열지 않음 &nbsp;&nbsp;<a href='' onclick="javascript:closeWin(1);"><B>[닫기]</B></a>
+		<div class="nav-menu hover-target" id="nav">
+			<span class="line"></span> <span class="line"></span> <span
+				class="line"></span> <span class="text">Menu</span>
 		</div>
 	</div>
-	<!--  공지 끝 -->
 
-	<div id="site">
-		<!--=========================-->
-		<!--=        Navbar         =-->
-		<!--=========================-->
-		<jsp:include page="/WEB-INF/template/Nav.jsp" />
+	<div class="menu-overlay" id="menu-overlay"></div>
 
-		<!--===========================-->
-		<!--=           About         =-->
-		<!--===========================-->
-		<section class="single-product">
-			<div class="container">
-				<br> <br>
-				<!-- DETAILS 문구 -->
-				<footer id="footer-4">
-					<div class="container">
-						<div class="d-flex justify-content-center row">
-							<div class="col-xl-10">
-								<div class="section-title style-four" id="ad">
-									<h2 style="margin-left: 58px">D E T A I L S</h2>
-								</div>
-							</div>
-							<!-- /.col-xl- -->
+	<div id="menu" class="menu hideOnLoad">
+
+		<div class="section_fixed" id="menu-inner">
+			<div class="section__clip" id="menuClip">
+				<div class="section__content">
+
+					<header>
+						<div class="header-wrap">
+							<a href="http://fleava.com/" target="_blank"
+								class="logo fleava hover-target"
+								title="Fleava — Bali Digital Agency"> <svg width="105px"
+									height="24px" style="display: none">
+				        <use xlink:href="#fleava_logo"></use>
+				      </svg> <span style="display: none">Digital Agency</span>
+							</a>
 						</div>
-						<!-- /.row -->
+					</header>
+					<div class="nav-menu close hover-target" id="navClose">
+						<span class="line"></span>
 					</div>
-					<!-- /.container -->
+					<div class="menu-content">
+
+						<div class="columns">
+							<div class="column q-1-5">
+								<span class="line"></span> <a href="<c:url value='/sub1/list.ins'/>"
+									class="flare-hover hover-target barba_nav">
+									<h1 class="large">
+										<span class="q_split"><span
+											class="q_split_wrap menu-item">Recruit</span> </span>
+									</h1>
+								</a>
+
+							</div>
+							<div class="column q-1-5">
+								<span class="line"></span> <a href="<c:url value='/sub1/review.ins'/>"
+									class="flare-hover hover-target barba_nav">
+									<h1 class="large">
+										<span class="q_split"><span
+											class="q_split_wrap menu-item">Review</span> </span>
+									</h1>
+								</a>
+								<div class="text">
+								</div>
+							</div>
+							<div class="column q-1-5">
+								<span class="line"></span> <a onclick="showPopup();" title="Contact Clorova"
+									class="flare-hover hover-target">
+									<h1 class="large">
+										<span class="q_split"><span
+											class="q_split_wrap menu-item">Chatting</span> </span>
+									</h1>
+								</a>
+								<div class="text">
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+	<div class='cursor' id="cursor"></div>
+	<div class='cursor2' id="cursor2"></div>
+	<div class='cursor3' id="cursor3"></div>
+
+	<div id="dynamicLoad" class="dynamic_load">
+		<div class="progress">
+			<div class="bar" id="dynamicBar"></div>
+		</div>
+	</div>
+
+
+	<div id="barba-wrapper">
+		<div class="barba-container">
+			<div id="main" class="q_smooth">
+				<div id="section-header">
+					<section class="section">
+						<div class="q-container container-inner">
+							<div class="columns">
+								<div class="column q-1-2"></div>
+								<div class="column q-1-2">
+									<div class="title">
+										<p>
+											<span class="q_split"><span style="font-size: 1.1em"
+												class="q_split_wrap rev_item"># 인기 프로젝트</span> </span>
+										</p>
+										<h1>
+											<span class="q_split"><span
+												class="q_split_wrap rev_item">방구석</span> </span> <span
+												class="q_split"><span class="q_split_wrap rev_item">기타리스트</span>
+											</span>
+										</h1>
+										<div class="line"></div>
+										</p>
+									</div>
+								</div>
+							</div>
+					</section>
+
+					<section>
+						<figure class="picture">
+							<div class="rev_clip">
+								<img src="<c:url value='/resource/img/banner.jpg'/>"
+									alt="About Clorova | Bali & Jakarta Photography, Video, 360 Media Production"
+									class="vs-div" data-speed="-0.4" />
+							</div>
+						</figure>
+					</section>
+
+				</div>
+
+				<section class="section">
+					<div class="q-container container-inner reveal">
+						<div class="columns">
+							<div class="column">
+								<h2>
+									<span class="line rev_line"></span>
+									<span class="q_split"><span
+										class="q_split_wrap rev_item">Description.</span></span>
+								</h2>
+							</div>
+						</div>
+						<div class="columns">
+							<div class="column q-1-2"></div>
+							<div class="column q-1-2">
+								<p class="rev_item">세상에는 음악적으로 성공한 수 많은 음악인들이 있습니다. 또한 그들처럼
+									되기 위해 방구석이라는 곳에서 성공이라는 꿈을 키우며 묵묵히 연습하는 젊은이들도 있겠지요. Insomnia에서는
+									그들과 여러분들이 소통할 수 있는 공연장을 제공해주고 싶었습니다.</p>
+								<p class="rev_item">물론 아무나 공연에 설 수 있는건 아닙니다. 관심있는 청년들이 신청을
+									해주면 저희 Insomnia에서 그 중 가장 실력있는 젊은이들을 뽑아서 한 달이라는 시간동안 함께 연습할 수
+									있도록 함께 연습을 시킬 것입니다. 때문에 퀄리티있는 공연을 기대하셔도 좋습니다.</p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="section small-pt">
+					<div class="q-container container-inner reveal" style="margin-top: 40px">
+						<div class="columns">
+							<div class="column q-1-3"></div>
+							<div class="column q-2-3">
+								<h2>
+									<span class="line rev_line"></span>
+									<span class="q_split"><span
+										class="q_split_wrap rev_item">Information.</span></span>
+								</h2>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section id="q_slide" class="half-width" animate='stagTop' autoplay='8000' parallax=".25" opacity=".3">
+						<div class="">
+							<a href="#" onClick="window.open('http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446','길찾기','width=2050, height=1000, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;">
+							<img style="opacity: 0.9;margin-left: 300px" src="<c:url value='/resource/img/YakDo.png'/>"
+								alt="360 Virtual Tour" class="image" />
+							</a>
+						</div>
+				</section>
+
+				<section class="section">
+					<div class="q-container container-inner reveal">
+						<div class="columns">
+							<div class="column">
+								<h2>
+									<span class="line rev_line"></span> <span class="q_split"><span
+										class="q_split_wrap rev_item">A Trusted</span></span> <span
+										class="q_split"><span class="q_split_wrap rev_item">Partner.</span></span>
+								</h2>
+							</div>
+						</div>
+						<div class="columns">
+							<div class="column">
+								<div class="clients">
+								<img src="<c:url value='/resource/img/1.png'/>" class="rev_client" alt="Starwood" /> 
+									<img src="<c:url value='/resource/img/2.png'/>" class="rev_client"
+										alt="Starwood" /> <img src="<c:url value='/resource/img/2.png'/>"
+										class="rev_client" alt="Prama Sanur" /> <img
+										src="<c:url value='/resource/img/3.png'/>" class="rev_client"
+										alt="Preference Hotels" /> <img
+										src="<c:url value='/resource/img/4.png'/>" class="rev_client"
+										alt="Sintesa Group" /> <img
+										src="<c:url value='/resource/img/5.png'/>" class="rev_client"
+										alt="Four Points" /> <img
+										src="<c:url value='/resource/img/6.png'/>" class="rev_client"
+										alt="PNK Hotels" /> <img src="<c:url value='/resource/img/8.png'/>"
+										class="rev_client" alt="Alaya Hotels" /> <img
+										src="<c:url value='/resource/img/9.png'/>" class="rev_client"
+										alt="Mowilex" /> 
+<%-- 										<img src="<c:url value='/resource/img/10.png'/>" --%>
+<!-- 										class="rev_client" alt="Manisan" /> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<footer id="footer" style="background-color: #12111F;">
+					<section class="section">
+						<div class="q-container container-inner reveal">
+							<div class="columns">
+								<div class="column q-1-3"></div>
+								<div class="column q-2-3">
+									<a href="mailto:wndrhtkfurh@naver.com" class="hover-target"
+										title="Contact Clorova">
+										<h2>
+											<span class="line rev_line"></span> <span class="q_split"><span
+												style="color: white;" class="q_split_wrap rev_item">Send
+													a</span></span> <span class="q_split"><span style="color: white;"
+												class="q_split_wrap rev_item">Request.</span></span>
+										</h2>
+										<p class="rev_item" style="font-weight: 600">If you have any questions.</p>
+									</a>
+								</div>
+							</div>
+						</div>
+					</section>
 				</footer>
-				<!-- /#footer -->
 
-				<div class="product-tab-wrapper">
-					<ul class="nav product-tabs" role="tablist">
-						<li class="nav-item"><a class="nav-link active"
-							href="#profile" role="tab" data-toggle="tab">Description</a></li>
-						<li class="nav-item"><a class="nav-link" href="#references"
-							role="tab" data-toggle="tab">Reviews</a></li>
-						<li class="nav-item"><a class="nav-link" href="#buzz"
-							role="tab" data-toggle="tab">Q&A</a></li>
-					</ul>
-					<br>
-
-					<div class="tab-content">
-
-						<!-- 첫번째 카테고리 : 상품 설명 -->
-						<div role="tabpanel" class="tab-pane fade in active" id="profile">
-							<div class="single-product-wrapper">
-								<div class="row">
-
-									<!-- 타이머 -->
-									<header id="mobile-nav-wrap"> </header>
-									<section id="ticket" class="parallax" data-speed="0.-3"
-										data-height="700px">
-										<div class="tim-container"
-											style="margin-top: -40px; margin-left: -15px">
-											<p
-												style="color: black; font-weight: 600; font-size: 3em; margin-left: 360px; width: 1000px">By
-												the Beginning of Concert...</p>
-											<div class="row">
-												<div class="col-lg-8">
-													<div class="live-ticket">
-														<div class="live-ticket-count">
-															<div
-																style="width: 1000px; height: 150px; margin-left: 382px"
-																class="countdown" data-count-year="2019"
-																data-count-month="6" data-count-day="2"></div>
-														</div>
-													</div>
-													<!-- /.live-ticket -->
-												</div>
-												<!-- /.col-lg-8 -->
-											</div>
-											<!-- /.row -->
-										</div>
-										<!-- /.tim-container -->
-									</section>
-									<!-- 타이머 끝 -->
-
-									<p
-										style="margin-left: 390px; color: black; font-weight: 600; height: 220px; font-size: 2.5em; border-bottom: 3px solid aqua">
-										<br> <br> <br> <br> <br> <br>'
-										'밴드 공연'하면 어떤 것이 떠오르십니까?<br> <br> <br> <br>
-										<br> <br> <br> <br> <br> <br> <br>
-										<br> <br>
-									<p>
-									<div class="col-md-12 col-sm-6" style="margin-top: 50px">
-										<div class="quickview-slider" style="margin-top: 300px">
-											<div class="section section1" data-aos="flip-up">
-												<div style="width: 400px; margin-left: -150px"></div>
-											</div>
-											<br>
-											<p
-												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 70px;">"
-												Fantastic Performance? "</p>
-
-											<!-- section2 -->
-											<div class="section section2" data-aos="fade-down"></div>
-											<br>
-											<p
-												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 830px;">"
-												Big ConcertHall? "</p>
-
-											<!-- section3 -->
-											<div class="section section3" data-aos="slide-up"></div>
-											<br>
-											<p
-												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 120px;">"
-												a lot of Instruments? "</p>
-										</div>
-									</div>
-								</div>
-
-
-								<div>
-
-									<br> <br> <br>
-								</div>
-
-
-								<!-- Concert Information -->
-								<section id="event-about" style="margin-top: 100px;">
-									<div class="container">
-										<div class="row">
-											<div class="col-lg-6">
-												<div class="event-thumb">
-													<img style="width: 605px; height: 250px"
-														src="https://cdn.wadiz.kr/ft/images/green001/2018/0313/20180313155451433_84.jpg/wadiz/format/jpg/quality/80/optimize"
-														class="fr-fic fr-dib">
-													<!-- 길찾기-->
-													<a href="http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446"><img style="width: 605px; height: 400px"
-														src="https://cdn.wadiz.kr/ft/images/green001/2018/0313/20180313155519079_84.png/wadiz/format/jpg/quality/80/optimize"
-														class="fr-fic fr-dib">
-													</a>
-												</div>
-											</div>
-											<!-- /.col-lg-6 -->
-
-											<div class="col-lg-6">
-												<div class="event-content"
-													style="width: 600px; height: 440px; margin-left: 10px; line-height: 35px">
-													<h2 style="text-transform: none;">
-														<span style="font-size: 0.9em"><br> <br>
-															<br> <br> <br> <br>공연 정보 및 일시</span>
-													</h2>
-
-													<div class="event-details">
-														<ul>
-															<li></li>
-														</ul>
-														<div style="color: black; font-weight: 600">
-															＊ 일시 : 2019년 6월 1일 <span
-																style="color: blue; font-weight: 600">토</span>요일
-														</div>
-														<div>＊ 시간 : 10:00 ~ 12:00(오전), 16:00 ~ 18:00(오후)</div>
-														<div>＊ 장소 : 대학로 스푼 잉글리쉬</div>
-														<div>＊ 연락처 : 010 - 1234 - 5678</div>
-													</div>
-
-													<h4></h4>
-													<p></p>
-
-													<!-- <a href="#" class="tim-btn">Buy Tickets</a> -->
-
-												</div>
-												<!-- /.event-content -->
-											</div>
-											<!-- /.col-lg-6 -->
-										</div>
-										<!-- /.row -->
-									</div>
-									<!-- /.tim-container-two -->
-								</section>
-
-
-
-								<!-- =========================================================================================================== -->
-								<!-- buy 폼 -->
-								<div>
-									<div class="option-container">
-										<div class="option-btn"
-											style="font-size: 1.2em; width: 10px; height: 50px; padding-top: 3px; margin-left: 20px;">B
-											u y</div>
-										<div id="optionList" class="option-area"
-											style="display: none;">
-											<div class="option-area-content">
-												<div class="option-area-content-step1">
-													<div class="common-flex-between">
-														<span class="option-title mt10 xs-mt25">Buy Tickets</span>
-													</div>
-
-													<div class="option-box option-box-blue">
-														<div class="aa" style="display: contents">
-															<div class="option-box-left" style="padding-top: 10px">
-																<div class="option-box-amount">${bgs1.C_CONCERTDATE}</div>
-																<div class="mt5" style="padding-top: 5px">
-																	<span><strong>52석 남음</strong></span> <span
-																		style="color:white">&nbsp;&nbsp;|&nbsp;&nbsp;
-																		248석 판매</span>
-																</div>
-															</div>
-															<form action="<c:url value='/Pay/PayPage.ins'/>"
-																id="bgs_sub_item_list" style="display: none">
-																<input type="hidden" name="bgs1_title"
-																	value="${bgs1.B_TITLE }"> <input type="hidden"
-																	name="bgs1_content" value="${bgs1.B_CONTENT }">
-																<input type="hidden" name="bgs1_price" value="">
-																<input type="hidden" name="bgs1_qty" value="">
-															</form>
-															<div class="option-box-center" style="padding-top: 10px">
-																<div class="option-box-title">${bgs1.B_TITLE}</div>
-																<div class="option-box-desc mt5"
-																	style="margin-top: 10px">${bgs1.B_CONTENT}</div>
-															</div>
-														</div>
-														<div class="box_inventory option_box_grey">
-															<input type="hidden" name="limited_qty_yn" value="">
-															<input type="hidden" name="limited_min_qty" value="1">
-															<input type="hidden" name="limited_max_qty" value="999">
-															<div style="padding-top: 1px;">
-																<span class="txt_count_inventory option_title">수량&nbsp;&nbsp;&nbsp;</span>
-																<input disabled="disabled" id="qtyqty" name="qty"
-																	type="text" value="1"
-																	style="color: white; background-color: black; width: 38px; height: 20px; text-align: center"
-																	class="input_add" onkeyup="checkQty(this);"
-																	onfocus="this.select();" style="line-height: 18px">
-																<a id="plus_ordered" href="javascript:void(0)"
-																	style="font-size: 1.5em">&nbsp;+&nbsp;</a> <a
-																	id="minus_ordered" href="javascript:void(0)"
-																	style="font-size: 1.5em">-</a>
-															</div>
-															<div style="padding-top: 2px">
-																<span>금액&nbsp;&nbsp;&nbsp;</span> <span id="bgs_price"></span>원
-																<script>
-                                                   $("#bgs_price").text(String(${bgs1.C_PRICE}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
-                                                </script>
-															</div>
-														</div>
-
-													</div>
-
-												</div>
-
-												<div class="option-box" style="margin-top: -25px;">
-													<div class="option-box-left">
-														<div class="option-box-amount">${bgs2.C_CONCERTDATE}</div>
-														<div class="mt5" style="padding-top: 5px">
-															<strong class="font-pink">Sold out</strong> <span
-																style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
-																판매 완료</span>
-														</div>
-													</div>
-													<div class="option-box-center">
-														<div class="option-box-title">${bgs2.B_TITLE}</div>
-														<div class="option-box-desc mt5" style="margin-top: 10px">${bgs2.B_CONTENT}</div>
-													</div>
-													<div class="hidden-xs option-delivery-date">
-														<strong class="font-pink"
-															style="font-size: 1.6em; margin-top: 200px">Sold
-															out</strong>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-
-
-								<!-- =========================================================================================================== -->
-
-								<div class="optionBtnBox">
-									<div class="optionStepBtn">다음단계</div>
-								</div>
-								
-								<!-- 웹채팅 -->
-								<input type="button" onclick="showPopup();" style="width: 100px;height: 100px"/>
-							</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 구매폼 -->
+	<div>
+		<div class="option-container">
+			<div class="option-btn"
+				style="font-size: 1.2em; width: 10px; height: 50px; padding-top: 3px; margin-left: 350px;">B
+				u y</div>
+			<div id="optionList" class="option-area" style="display: none;margin-left:980px">
+				<div class="option-area-content">
+					<div class="option-area-content-step1">
+						<div class="common-flex-between">
+							<span class="option-title mt10 xs-mt25">Buy Tickets</span>
 						</div>
-
-						<!-- 두번째 카테고리 : 리뷰 게시판 -->
-						<div role="tabpanel" class="tab-pane fade" id="references">
-							<div class="tab-content left">
-								<div class="row">
-									<div class="col-md-10">
-										<!-- Reviews -->
-										<div class="review-comments">
-											<h5 class="comments-title">
-												Reviews <a href="#HH" id="about" class="btn btn-success"
-													style="margin-left: 40px;">작성</a>
-											</h5>
-											<br>
-											<div class="review-comments">
-												<ul class="review-list">
-													<li id="comments">
-														<!-- ajax로 아래에 코멘트 목록 뿌리기 -->
-													</li>
-													<li>
-														<article class="review-comment" style="margin-top: 10px;margin-bottom: 0px;">
-															<div class="user-avatar">
-																<img src="<c:url value='/resource/img/catcat.jpg'/>"
-																	style="height: 70px" alt="cat">
-															</div>
-															<div class="comment-content">
-																<h5 class="name">김건모</h5>
-																<div class="comment-meta">
-																	<div class="star-rating" id="HH">
-																		<span>Rated <strong class="rating">5.00</strong>
-																			out of 5
-																		</span>
-																	</div>
-																	<span class="post-date">2018-12-25</span>
-																</div>
-																<p>
-																	처음엔 프로들의 공연도 아닌데 티켓 값이 너무 비싼 거 아닌가 생각했는데 공연을 보고 <br> 
-																	그런 생각을 한 제가 창피할 정도였습니다. 다음 공연이 기대되네요!
-																	
-																</p>
-															</div>
-														</article>
-													</li>
-													<li>
-														<article class="review-comment" style="margin-left: 75px">
-															<div class="user-avatar">
-																<img src="<c:url value='/resource/img/dogdog.jpg'/>"
-																	style="height: 70px" alt="cat">
-															</div>
-															<div class="comment-content">
-																<h5 class="name">나문희</h5>
-																<div class="comment-meta">
-																	<span class="post-date">2018-12-25</span>
-																</div>
-																<p>
-																	공감합니다. 자식들이 방구석 기타리스트라는 공연을 보러가자길래 처음엔 기대를 안하고 갔으나<br>
-																	생각보다 공연자들의 실력이 너무 우수했고 감동적이였습니다.
-																</p>
-															</div>
-														</article>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<!-- Leave Review -->
+		
+						<div class="option-box option-box-blue">
+							<div class="aa" style="display: contents">
+								<div class="option-box-left" style="padding-top: 10px">
+									<div class="option-box-amount">${bgs1.C_CONCERTDATE}</div>
+									<div class="mt5" style="padding-top: 5px">
+										<span><strong>52석 남음</strong></span> <span
+											style="color:white">&nbsp;&nbsp;|&nbsp;&nbsp;
+											48석 판매</span>
 									</div>
 								</div>
-
-								<!-- comment 등록 폼 -->
-								<div class="col-md-10" style="margin-top: 75px;">
-									<div style="margin-left: -15px">
-										<h5 class="comments-title">Write</h5>
-										<form id="frm" method="post" target="param">
-											<!-- 원본글의 REFER/STEP/DEPTH 설정 -->
-											<input type="hidden" name="refer" value="${record.refer}" />
-											<input type="hidden" name="step" value="${record.step}" />
-											<input type="hidden" name="depth" value="${record.depth}" />
-											
-											<ul class="rating">
-												<li class="rating-title">Leave A Rating</li>&nbsp;&nbsp;
-												<li class="star"><i class="fa fa-star"></i></li>
-												<li class="star"><i class="fa fa-star"></i></li>
-												<li class="star"><i class="fa fa-star"></i></li>
-												<li class="star"><i class="fa fa-star"></i></li>
-												<li class="star"><i class="fa fa-star"></i></li>
-
-											</ul>
-											<!-- 수정 및 삭제용 파라미터 -->
-											<input type="hidden" name="r_no" />
-											
-											 <input type="hidden" name="name" class="form-fname form-element large"
-												placeholder="Name" style="width: 250px">&nbsp;&nbsp;
-											<br> <br>
-											<textarea name="content" id="content" class="form-message"
-												placeholder="Review" tabindex="5"
-												style="margin-top: -30px; width: 400px; height: 200px; border-radius: 20px; padding: 20px"></textarea>
-											<input type="submit" id="submitComment" value="등록"
-												class="btn btn-primary "
-												style="width: 80px; margin-top: -30px; margin-left: 20px;">
-											<input type="hidden" id="starCount" name="starCount" />
-											<!-- iframe 설정 -->
-											<iframe id="if" name="param"></iframe>
-										</form>
-									</div>
+								<form action="<c:url value='/Pay/PayPage.ins'/>"
+									id="bgs_sub_item_list" style="display: none">
+									<input type="hidden" name="bgs1_title"
+										value="${bgs1.B_TITLE }"> <input type="hidden"
+										name="bgs1_content" value="${bgs1.B_CONTENT }">
+									<input type="hidden" name="bgs1_price" value="">
+									<input type="hidden" name="bgs1_qty" value="">
+								</form>
+								<div class="option-box-center" style="padding-top: 10px">
+									<div class="option-box-title">${bgs1.B_TITLE}</div>
+									<div class="option-box-desc mt5"
+										style="margin-top: 10px">${bgs1.B_CONTENT}</div>
+								</div>
+							</div> 
+							<div class="box_inventory option_box_grey">
+								<input type="hidden" name="limited_qty_yn" value="">
+								<input type="hidden" name="limited_min_qty" value="1">
+								<input type="hidden" name="limited_max_qty" value="999">
+								<div style="padding-top: 1px;">
+									<span class="txt_count_inventory option_title">수량&nbsp;&nbsp;&nbsp;</span>
+									<input disabled="disabled" id="qtyqty" name="qty"
+										type="text" value="1"
+										style="color: white; background-color: black; width: 38px; height: 20px; text-align: center"
+										class="input_add" onkeyup="checkQty(this);"
+										onfocus="this.select();" style="line-height: 18px">
+									<a id="plus_ordered" href="javascript:void(0)"
+										style="font-size: 1.5em">&nbsp;+&nbsp;</a> <a
+										id="minus_ordered" href="javascript:void(0)"
+										style="font-size: 1.5em">-</a>
+								</div>
+								<div style="padding-top: 2px">
+									<span>금액&nbsp;&nbsp;&nbsp;</span> <span id="bgs_price"></span>원
+									<script>
+                                            $("#bgs_price").text(String(${bgs1.C_PRICE}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+                                         </script>
 								</div>
 							</div>
-							<!-- /.row -->
+
 						</div>
 
-						<!-- 세번째 카테고리 : Q&A -->
-						<div role="tabpanel" class="tab-pane fade" id="buzz">
-							<table class="shop_attributes">
-								<tbody>
-									<tr>
-										<th>Weight</th>
-										<td class="product_weight">1.2 kg</td>
-									</tr>
+					</div>
 
-									<tr>
-										<th>Dimensions</th>
-										<td class="product_dimensions">38 x 28 x 15 cm</td>
-									</tr>
-
-									<tr>
-										<th>Color</th>
-										<td>
-											<p>Blue, Grey, Red</p>
-										</td>
-									</tr>
-									<tr>
-										<th>Size</th>
-										<td>
-											<p>32-36, 36-40, 40-46</p>
-										</td>
-									</tr>
-									<tr>
-										<th>Size</th>
-										<td>
-											<p>H: 38cm/15″ W: 28cm/11″ D: 15cm/6″</p>
-										</td>
-									</tr>
-									<tr>
-										<th>Details</th>
-										<td>
-											<p>Contrasting print, Adjustable shoulder straps, Grab
-												handle</p>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+					<div class="option-box" style="margin-top: -25px;">
+						<div class="option-box-left">
+							<div class="option-box-amount">${bgs2.C_CONCERTDATE}</div>
+							<div class="mt5" style="padding-top: 5px">
+								<strong class="font-pink">Sold out</strong> <span
+									style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
+									판매 완료</span>
+							</div>
+						</div>
+						<div class="option-box-center">
+							<div class="option-box-title">${bgs2.B_TITLE}</div>
+							<div class="option-box-desc mt5" style="margin-top: 10px">${bgs2.B_CONTENT}</div>
+						</div>
+						<div class="hidden-xs option-delivery-date">
+							<strong class="font-pink"
+								style="font-size: 1.6em; margin-top: 200px">Sold
+								out</strong>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- /.product-tab-wrapper -->
-		</section>
+		</div>
 	</div>
-	<!-- 끝 -->
-	<!-- /.container -->
+	
+	<!-- =========================================================================================================== -->
 
-	<br>
-	<br>
-	<br>
-	<!-- /#site -->
-	<!-- Dependency Scripts -->
-	<script src="<c:url value='/vendor/js/jquery.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/jquery-ui.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/jquery-ui.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/swiper.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/swiperRunner.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/wow.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/jquery.countdown.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/jquery.magnific-popup.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/jquery.spinner.js'/>"></script>
-	<script src="<c:url value='/vendor/js/isotope.pkgd.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/masonry.pkgd.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/imagesloaded.pkgd.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/slick.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/headroom.js'/>"></script>
-	<script src="<c:url value='/vendor/js/mp3-player-button.js'/>"></script>
-	<script src="<c:url value='/vendor/js/smoke.js'/>"> </script>
-	<script src="<c:url value='/vendor/js/jquery.fittext.js'/>"></script>
-	<script src="<c:url value='/vendor/js/tilt.jquery.js'/>"></script>
-	<script src="<c:url value='/vendor/js/parallax.min.js'/>"></script>
-	<script
-		src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>
-	<!-- Player -->
-	<script src="<c:url value='/vendor/js/jquery.jplayer.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/jplayer.playlist.min.js'/>"></script>
-	<script src="<c:url value='/vendor/js/myplaylist.js'/>"></script>
-	<!--Google map api -->
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsBrMPsyNtpwKXPPpG54XwJXnyobfMAIc"></script>
+	<div class="optionBtnBox">
+		<div class="optionStepBtn">다음단계</div>
+	</div>
+</body>
 
-	<!-- Site Scripts -->
-	<script src="<c:url value='/vendor/js/app.js'/>"></script>
-
-	<!-- AOS 적용 -->
-	<script>
-      AOS.init();
-   </script>
-	<!-- 등록버튼 효과 -->
-	<script>
-      $(document).on('click', 'a[href^="#"]', function(event) {
-         event.preventDefault();
-         if ($($.attr(this, 'href')).length == 0) {
-            location.href = '/' + $.attr(this, 'href');
-         } else {
-            $('html, body').animate({
-               scrollTop : $($.attr(this, 'href')).offset().top
-            }, 500);
-         }
-      });
-      
-   //공지사항 닫기 버튼 활성화
-   $('.notice-obt-close').on('click', function() {
-      $('.notice-obt').remove();
-   });
-   
-   //반응형 글씨
-//    $('.notice-cbt-close, .notice-cbt').on('click', function() {
-//         $('.notice-cbt').remove();
-//     });
-
-//     $('.notice-obt-close').on('click', function() {
-//         qv_func.setCookie('notice_main',1,1);
-//         $('.notice-obt').remove();
-//     });
-
-//     $('.start-btn').click(function(e){
-//        location.href="template.html";
-//     });
-//     $('#main-slide').bind('slide.bs.carousel', function (e) {
-//         //console.log('slide event!');
-//     });
-
-//     $('#main-slide').carousel({
-// //        swipe: 30
-// //        wrap: false
-//     });
-
-//     var TxtType = function(el, toRotate, period) {
-//         this.toRotate = toRotate;
-//         this.el = el;
-//         this.loopNum = 0;
-//         this.period = parseInt(period, 10) || 2000;
-//         this.txt = '';
-//         this.tick();
-//         this.isDeleting = false;
-//     };
-
-//     TxtType.prototype.tick = function() {
-//         var i = this.loopNum % this.toRotate.length;
-//         var fullTxt = this.toRotate[i];
-
-//         if (this.isDeleting) {
-//             this.txt = fullTxt.substring(0, this.txt.length - 1);
-//         } else {
-//             this.txt = fullTxt.substring(0, this.txt.length + 1);
-//         }
-
-//         this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
-
-//         var that = this;
-//         var delta = 200 - Math.random() * 100;
-
-//         if (this.isDeleting) { delta /= 2; }
-
-//         if (!this.isDeleting && this.txt === fullTxt) {
-//             delta = this.period;
-//             this.isDeleting = true;
-//         } else if (this.isDeleting && this.txt === '') {
-//             this.isDeleting = false;
-//             this.loopNum++;
-//             delta = 500;
-
-//             var count = $('.carousel').find('.carousel-inner .item').length;
-//             var index = $('.carousel').find('.carousel-inner .item.active').index();
-//             if (count - 1 > index) {
-//                 $('.carousel').carousel(index + 1);
-//             }
-//             else {
-//                 $('.carousel').carousel(0);
-//             }
-//         }
-
-//         setTimeout(function() {
-//             that.tick();
-//         }, delta);
-//     };
-
-//     window.onload = function() {
-//         var elements = document.getElementsByClassName('typewrite');
-//         for (var i=0; i<elements.length; i++) {
-//             var toRotate = elements[i].getAttribute('data-type');
-//             var period = elements[i].getAttribute('data-period');
-//             if (toRotate) {
-//                 new TxtType(elements[i], JSON.parse(toRotate), period);
-//             }
-//         }
-//         // INJECT CSS
-//         var css = document.createElement("style");
-//         css.type = "text/css";
-//         document.body.appendChild(css);
-
-//         //alert(screen.height);
-//         //main-slide txt padding refit
-//         //PC
-//         if($("#main-slide").width()>600) {
-//             if ($("#main-slide").height() < 700) {
-//                 //console.log("resize");
-//                 $("#main-slide .carousel-contents .slide-txt").css("padding", 0);
-//             }
-//         }
-
-//         if(!qv_func.getCookie('notice_main')) {
-//             //tmp
-//             //$(".notice-obt").show();
-//         }
-//     };
-
-//     $(window).resize(function(){
-//         //main-slide txt padding refit
-//         //PC
-//         if($("#main-slide").width()>600) {
-//             //console.log("resize");
-//             if ($("#main-slide").height() < 700) {
-//                 $("#main-slide .carousel-contents .slide-txt").css("padding", 0);
-//             } else {
-//                 $("#main-slide .carousel-contents .slide-txt").css("padding", "40px 40px 30px 40px");
-//             }
-//         }
-//     });
-   </script>
-
-	<style>
-.star-rating {
-	overflow: hidden;
-	position: relative;
-	height: 1.618em;
-	line-height: 1.618;
-	font-size: 1em;
-	width: 5.3em;
-	font-family: star;
-	font-weight: 400;
-}
-
-.star-rating_5 span:before {
-	content: "\53\53\53\53\53";
-	top: 0;
-	position: absolute;
-	left: 0;
-	color: #2c2d33;
-}
-
-.star-rating_4 span:before {
-	content: "\53\53\53\53";
-	top: 0;
-	position: absolute;
-	left: 0;
-	color: #2c2d33;
-}
-
-.star-rating_3 span:before {
-	content: "\53\53\53";
-	top: 0;
-	position: absolute;
-	left: 0;
-	color: #2c2d33;
-}
-
-.star-rating_2 span:before {
-	content: "\53\53";
-	top: 0;
-	position: absolute;
-	left: 0;
-	color: #2c2d33;
-}
-
-.star-rating_1 span:before {
-	content: "\53";
-	top: 0;
-	position: absolute;
-	left: 0;
-	color: #2c2d33;
-}
-
-.star-rating_1 {
-	overflow: hidden;
-	position: relative;
-	height: 1.618em;
-	line-height: 1.618;
-	font-size: 1em;
-	width: 5.3em;
-	font-family: star;
-	font-weight: 400;
-}
-
-.star-rating_2 {
-	overflow: hidden;
-	position: relative;
-	height: 1.618em;
-	line-height: 1.618;
-	font-size: 1em;
-	width: 5.3em;
-	font-family: star;
-	font-weight: 400;
-}
-
-.star-rating_3 {
-	overflow: hidden;
-	position: relative;
-	height: 1.618em;
-	line-height: 1.618;
-	font-size: 1em;
-	width: 5.3em;
-	font-family: star;
-	font-weight: 400;
-}
-
-.star-rating_4 {
-	overflow: hidden;
-	position: relative;
-	height: 1.618em;
-	line-height: 1.618;
-	font-size: 1em;
-	width: 5.3em;
-	font-family: star;
-	font-weight: 400;
-}
-
-.star-rating_5 {
-	overflow: hidden;
-	position: relative;
-	height: 1.618em;
-	line-height: 1.618;
-	font-size: 1em;
-	width: 5.3em;
-	font-family: star;
-	font-weight: 400;
-}
-
-.star-rating_1 span {
-	overflow: hidden;
-	float: left;
-	top: 0;
-	left: 0;
-	position: absolute;
-	padding-top: 1.5em;
-}
-
-.star-rating_2 span {
-	overflow: hidden;
-	float: left;
-	top: 0;
-	left: 0;
-	position: absolute;
-	padding-top: 1.5em;
-}
-
-.star-rating_3 span {
-	overflow: hidden;
-	float: left;
-	top: 0;
-	left: 0;
-	position: absolute;
-	padding-top: 1.5em;
-}
-
-.star-rating_4 span {
-	overflow: hidden;
-	float: left;
-	top: 0;
-	left: 0;
-	position: absolute;
-	padding-top: 1.5em;
-}
-
-.star-rating_5 span {
-	overflow: hidden;
-	float: left;
-	top: 0;
-	left: 0;
-	position: absolute;
-	padding-top: 1.5em;
-}
-
-.star-rating_1 span:before {
-	color: #e43a90;
-}
-
-.star-rating_2 span:before {
-	color: #e43a90;
-}
-
-.star-rating_3 span:before {
-	color: #e43a90;
-}
-
-.star-rating_4 span:before {
-	color: #e43a90;
-}
-
-.star-rating_5 span:before {
-	color: #e43a90;
-}
-</style>
 <!-- 웹 채팅 -->
 <script>
 function showPopup() {
-//     window.open("/insomnia/123.jsp", "방구석 채팅!", "width=400, height=600, left=100, top=50");
      window.open("<c:url value='/bgsChat.jsp'/>", "방구석 채팅!", "width=400, height=600, left=100, top=50");
 }
 </script>

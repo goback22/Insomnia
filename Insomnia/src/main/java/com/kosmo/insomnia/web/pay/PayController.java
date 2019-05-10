@@ -36,6 +36,5 @@ public class PayController {
 			
 		return "/Pay/SubPayPage.tiles";
 	}///payPage()
-	
 
 }/////class

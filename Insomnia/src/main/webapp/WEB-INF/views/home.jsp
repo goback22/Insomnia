@@ -152,7 +152,8 @@ $(function(){
 	</div>
 	
 	<!-- 소셜 로그인 모달2 : 추가정보 입력 완료 -->
-	<div class="social-welcome-complete-div">
+	<!-- 자꾸 떠서  none으로 해놓습니다! - 영진 -->
+	<div class="social-welcome-complete-div" style="display: none">
 		<div class="social-content-div">
 			<!-- <button class="close-btn" title="닫기">x</button> -->
 			<div class="social-content">
@@ -309,8 +310,8 @@ $(function(){
 						</div>
 						<div class="bottom-message">
 							<p class="text">
-								아직 계정이 없나요?&nbsp;&nbsp;<a
-									href="<c:url value='/register/term.ins'/>" data-return-url="">회원가입</a>
+								아직 계정이 없나요?&nbsp;&nbsp;
+								<a href="<c:url value='/register/term.ins'/>" data-return-url="">회원가입</a>
 							</p>
 						</div>
 						
@@ -327,7 +328,7 @@ $(function(){
 					
 
 				</div>
-
+				
 			</c:if>
 				<!-- 비 로그인시 보여줄 화면 끝-->
 			
@@ -544,28 +545,24 @@ $(function(){
 		
 		<!-- 네이버 로그인 위한 이벤트 전달 -->
 		<script>
-			$(function(){
-				$('#forNaverLogin').click(function(){
-					//$('#naver_id_login').trigger('click');
-					//document.getElementById('naver_id_login').click();
-					//setTimeout(function(){ $('#naver_id_login').click()}, 100);
-				});
-			})
-		</script>
-		<!-- 네이버 로그인 시작  1.기본설정-->
+			function goAndroid() {
+				location.replace('/asd/asd.ins')
+			}	
 		
 		
-		<script>
-			////방법1.
-			var naver_id_login = new naver_id_login("baw69zHb2FPVPqvEd5sl", "http://localhost:8080/insomnia/");
-		  	var state = naver_id_login.getUniqState();
-		  	naver_id_login.setButton("white", 2,40);
-		  	naver_id_login.setDomain("http://localhost:8080/insomnia/");
-		  	naver_id_login.setState(state);
-		  	/* naver_id_login.setPopup(); */
-		  	naver_id_login.init_naver_id_login();
-		  	
-
+			var naverLogin = new naver.LoginWithNaverId({
+				
+				clientId:"baw69zHb2FPVPqvEd5sl",
+				callbackUrl:"https://localhost:8080/insomnia/",
+				isPopup:true,
+				loginButton:{color:"green", type:2, height:60}
+			});
+			
+			naverLogin.init();
+			
+			
+			/* naver_id_login.setPopup();
+			naver_id_login.init_naver_id_login(); */
 		</script>
 		
 		<!-- 네이버 로그인2 : 로그인 버튼 조정 -->
