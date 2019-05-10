@@ -177,6 +177,7 @@
             tableString += "</div>";
 	      	tableString += "</article>";
       		tableString += "</li>";
+      		
          });
       //리스트 뿌려주기
       $('#comments').html(tableString);
@@ -829,8 +830,8 @@ body {
 									<div class="optionStepBtn">다음단계</div>
 								</div>
 								
-								<!-- 웹채팅 -->
-								<input type="button" onclick="showPopup();" style="width: 100px;height: 100px"/>
+<!-- 								웹채팅 -->
+<!-- 								<input type="button" onclick="showPopup();" style="width: 100px;height: 100px"/> -->
 							</div>
 						</div>
 
@@ -1240,10 +1241,3 @@ body {
 	color: #e43a90;
 }
 </style>
-<!-- 웹 채팅 -->
-<script>
-function showPopup() {
-//     window.open("/insomnia/123.jsp", "방구석 채팅!", "width=400, height=600, left=100, top=50");
-     window.open("<c:url value='/bgsChat.jsp'/>", "방구석 채팅!", "width=400, height=600, left=100, top=50");
-}
-</script>
