@@ -53,5 +53,6 @@ public class RewardDAO implements RewardService {
 	public int getTotalCount(Map map) {
 		return template.selectOne("getTotalCount_reward", map);
 	}
+	
 
 }

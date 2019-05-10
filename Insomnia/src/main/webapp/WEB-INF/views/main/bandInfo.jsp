@@ -590,6 +590,7 @@ li {
 								<div class="myinfo-content">
 									<dl>
 										<dd>
+											<p id="b_no" style="display:none;">${record.b_no}</p>
 											<p class="nickname" style="font-weight: 600">${record.b_name}</p>
 											<p class="accnttype">등록된 밴드</p>
 											<p class="otherinfo"></p>
@@ -610,12 +611,12 @@ li {
 										<li><strong class="count">0</strong><span>펀딩</span></li>
 																										<!-- 기환쓰 좋아요 처리할 부분임당~ -->
 										<li><a href="javascript:void(0)"
-											<c:if test="${thirdLook == 'T'}"> onclick="likeBand();" </c:if>
+											<c:if test="${thirdLook == 'T'}"> </c:if>
 										>
-										<!-- 밴드 좋아요 처리 -->
-										<strong class="count">${record.b_liked}</strong><em>좋아요</em></a></li>
+										<!-- 밴드 좋아요 처리 -->  <%-- ${record.b_liked} --%>
+										<strong class="count likeNfollow" id="like">${like}</strong><em>좋아요</em></a></li>
 										<li><a href="javascript:void(0)"><strong
-												class="count">0</strong><em>팔로워</em></a></li>
+												class="count likeNfollow" id="follow">${follow}</strong><em>팔로워</em></a></li>
 									</ul>
 									<p class="introduce"></p>
 									<ul class="interest-list">
@@ -1256,5 +1257,32 @@ li {
 			
 		}////밴드 좋아요 처리
 		*/
+		
+		
+		$(function(){
+			
+			var b_no = $('#b_no').html();
+			
+			$('.likeNfollow').click(function(){
+				var choice = $(this).prop('id');
+				var self = $(this);
+				$.ajax({
+					url:"<c:url value='/band/like.ins'/>",
+					type:'post',
+					data:{"b_no":b_no, "choice":choice},
+					dataType:'text',
+					success:function(data){
+						console.log("들어오는지 " + data);
+						self.html(data);
+					},
+					error:function(request, error){
+						console.log('상태코드:',request.status);
+						console.log('서버로부터 받은 HTML데이타 :',request.responseText);
+						console.log('에러:',error);	
+					}
+					
+				});////////$.ajax
+			});/////click
+		})////제이쿼리 진입점
 			
 	</script>

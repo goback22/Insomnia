@@ -64,6 +64,11 @@ body a {
     box-sizing: border-box;
 }
 
+dl {
+	
+	margin-bottom: 1rem;
+}
+
 /*=====================================================================*/
 
 #mypageWrap, #mypageWrap * {   /*전체 감싸는*/

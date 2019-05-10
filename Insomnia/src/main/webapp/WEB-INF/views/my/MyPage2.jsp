@@ -112,12 +112,12 @@ body {
 								<p style="display:hidden" id="imgSrc"></p>
 								<!-- <input type="file" id="imgUpload" name="imgUpload" accept="image/*"> -->
 								<ul class="activity-list">
-									<li><strong class="count">0</strong><span>펀딩</span></li>
+									<li><strong class="count">${fundingCount}</strong><span>펀딩</span></li>
 									<li><a href="javascript:void(0)"> <strong
-											class="count">0</strong> <em>지지서명</em>
+											class="count">${bgsCount}</strong> <em>공연</em>
 									</a></li>
 									<li><a href="javascript:void(0)"><strong
-											class="count">0</strong><em>팔로워</em></a></li>
+											class="count">${likeCount}</strong><em>좋아요</em></a></li>
 									<li><a href="javascript:void(0)"><strong
 											class="count">0</strong><em>팔로잉</em></a></li>
 								</ul>
@@ -179,7 +179,7 @@ body {
 	
 												<div class='historyDiv'>
 													<p class='historyName'>${funding.r_name}</p>
-													<img class='historyImg' src="<c:url value='/resource/img/${funding.s_album_cover}'/>"/> 
+													<img class='historyImg' src="<c:url value='/upload/band/cover/${funding.sw_banner}'/>"/> 
 													<p class="historyDesc">${funding.r_description}</p>  
 													<p class="historyMusic">${funding.bm_name}</p>  
 													<p class="historyAuthor">${funding.b_name}</p><p class="historyPrice">${funding.r_price}원</p>
@@ -384,6 +384,12 @@ body {
 			
 		})///////제이쿼리 진입점
 		
+		
+		/////페이징 ajax?
+				
+		////페이징 ajax?
+		
+		
 		function succFunction(data) {
 			//값 받아서 뿌려주기 projectCardList, div 1개로 돌려막기? 3개 생성?
 			console.log('succFunction이 받은 데이터' + data)
@@ -411,7 +417,7 @@ body {
 
 					
 					var imgSrc = element["S_Album_cover"];
-					var src = '<c:url value="/resource/img/'+imgSrc+'"/>';
+					var src = '<c:url value="/upload/band/cover/'+imgSrc+'"/>';
 					
 					listString += "<div class='historyDiv'>";  //전체 div
 					listString += "<p class='historyName'>" + element["R_Name"] + "</p>"; 
@@ -422,7 +428,7 @@ body {
 
 	
 					listString += "</div>"  //전체 div끝
-				}
+				}////펀딩
 				
 				if(whichClick == "공연") {
 					
@@ -442,7 +448,24 @@ body {
 
 	
 					listString += "</div>"  //전체 div끝
-				}
+				}////공연
+				
+				if(whichClick == "좋아한") {
+					
+					var imgSrc = element['b_album_cover'];
+					var src = '<c:url value="/upload/band/cover/'+imgSrc+'"/>';
+					
+					listString += "<div class='historyDiv'>";  //전체 div
+					listString += "<p class='historyName'>" + element["b_name"] + "</p>"; 
+					listString += "<img class='historyImg' src='"+src+"' />"  
+					listString += "<p class='historyDesc'>"+element["b_description"]+"</p>";
+					listString += "<p class='historyMusic'>"+element["bm_title"]+"</p>";
+					listString += "<p class='historyPrice' style='border:none;'>좋아요 "+element["b_liked"]+"♥</p>";
+
+	
+					listString += "</div>"  //전체 div끝
+					
+				}/////좋아한
 				
 			});
 			
@@ -452,7 +475,7 @@ body {
 			console.log("페이지스트링 " + pageString);
 			console.log('왜 엠프티 메세지 안뜨지?' + emptyMessage);
 			
-			$('.pagingDiv').html(pageString)
+			$('.pagingDiv').html(pageString);
 			
 			
 			

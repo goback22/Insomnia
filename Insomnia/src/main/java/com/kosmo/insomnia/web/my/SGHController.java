@@ -36,6 +36,7 @@ import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,9 +49,12 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import com.kosmo.insomnia.service.BGSConcertDTO;
+import com.kosmo.insomnia.service.BandDTO;
+import com.kosmo.insomnia.service.BandService;
 import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.service.RewardDTO;
 import com.kosmo.insomnia.serviceimpl.BGSConcertServiceImpl;
+import com.kosmo.insomnia.serviceimpl.BandServiceImpl;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 import com.kosmo.insomnia.serviceimpl.RewardServiceImpl;
@@ -69,6 +73,9 @@ public class SGHController {
 	
 	@Resource(name="bGSConcertService")
 	private BGSConcertServiceImpl bgsService;
+	
+	@Resource(name="bandService")
+	private BandServiceImpl bandService;
 	
 	@Inject
 	private JavaMailSender mailSender;
@@ -158,6 +165,14 @@ public class SGHController {
 			System.out.println("fundingRecords는?" + fundingRecords);
 			
 			MemberDTO record2 = memberService.selectOne(map);
+			
+			model.addAttribute("fundingCount", rewardService.getCount(map2));  //펀딩 갯수
+			model.addAttribute("bgsCount", bgsService.getCount(map2));
+			
+			map2.put("choice", "like");
+			model.addAttribute("likeCount", bandService.getLikeNFollow(map2));
+			
+			
 			model.addAttribute("loginRecord", record2);
 			
 		}  //// != null
@@ -358,8 +373,9 @@ public class SGHController {
 		
 		///요청한 유저의 id를 쿼리문으로 전달하기 위해 dismap에 저장
 		dismap.put("id", session.getAttribute("id"));
+		dismap.put("choice", "like");
 		
-		//펀딩, 좋아요, 제작 목록 중 어떤 요청인지 확인
+		//펀딩, 공연, 좋아한 중 선택
 		String requestStr = map.get("target").toString();
 		
 		//페이징을 위한 로직
@@ -375,8 +391,7 @@ public class SGHController {
 				totalRecordCount = bgsService.getCount(dismap);
 				break;
 			case "좋아한" :
-				break;
-			case "만든" :
+				totalRecordCount = bandService.getLikeNFollow(dismap);
 				break;
 		}
 		
@@ -430,13 +445,15 @@ public class SGHController {
 					tempMap.put("R_Description", record.getR_description());
 					tempMap.put("B_name", record.getB_name());
 					tempMap.put("BM_name", record.getBm_name());
-					tempMap.put("S_Album_cover", record.getSw_image_1());
+					tempMap.put("S_Album_cover", record.getSw_banner());
 					
 					resultList.add(tempMap);
 				}
 				
 				pagingMap.put("pagingString", pagingString);
 				resultList.add(pagingMap);
+				
+				System.out.println("음반은 나오냐 페이징 : " + pagingString);
 				
 				System.out.println("음반 : " + JSONArray.toJSONString(resultList));
 				return JSONArray.toJSONString(resultList);  //null이면 목록이 없습니다 뿌려주기 어떻게 판단?
@@ -483,23 +500,46 @@ public class SGHController {
 				return JSONArray.toJSONString(resultList);
 				
 		} else /*(requestStr.equals("좋아한"))*/ {
+			
+				///좋아한 리워드 목록 가져오기
 				
-				blankMap.put("noData", "noData");
-				blankMap.put("which", "좋아한");
-				resultList.add(blankMap);
+				List<BandDTO> records = bandService.getLikeBand(dismap);
+				
+				if(records.size() == 0) {
+					blankMap.put("noData", "noData");
+					blankMap.put("which", "좋아한");
+					resultList.add(blankMap);
+					return JSONArray.toJSONString(resultList);
+				}
+				
+				
+				///값이 있을 때
+				for(BandDTO record : records) {
+					
+					//맵 생성
+					Map tempMap = new HashMap();
+					tempMap.put("b_name", record.getB_name());
+					tempMap.put("b_description", record.getB_description());
+					tempMap.put("b_album_cover", record.getB_album_cover());
+					tempMap.put("bm_title", record.getBm_title());
+					
+					System.out.println("이게 왜 널이냐? " + record.getB_no());
+					dismap.put("b_no", record.getB_no());
+					int likeCount = bandService.getBandLikeNFollow(dismap);
+					
+					tempMap.put("b_liked", likeCount);
+				
+					resultList.add(tempMap);			
+				}
+				
+				System.out.println("대체 왜 안나오냐 페이징 : " + pagingString);
+				pagingMap.put("pagingString", pagingString);
+				resultList.add(pagingMap);
+				
 				return JSONArray.toJSONString(resultList);
 				
-		} /*else if(requestStr.equals("만든")) {		
-
-				blankMap.put("noData", "noData");
-				blankMap.put("which", "만든");
-				resultList.add(blankMap);
-				return JSONArray.toJSONString(resultList);
-						
-		}*/
-		
-
-		
+		} 
+	
 
 	}//////////////json으로 구매한 목록들 뿌려주기
 	
@@ -946,6 +986,33 @@ public class SGHController {
         return "home.tiles";
  
     }*/
+	
+	///좋아요, 팔로우
+	@ResponseBody
+	@RequestMapping("/band/like.ins") 
+	public String like(@RequestParam Map map, Map dismap, HttpSession session) throws Exception {
+		
+		System.out.println("좋아요/팔로우 들어오는지");
+		
+		dismap.put("id", session.getAttribute("id"));
+		dismap.put("b_no", map.get("b_no"));
+		dismap.put("choice", map.get("choice"));
+		
+		boolean flag = bandService.distinguishLike(dismap) >= 1 ? false : true;  //1보다 크거나 같다면
+		
+		System.out.println("플래그는? "  + flag);
+		if(flag) {
+			int like = bandService.like_follow_insert(dismap);
+			System.out.println("성공했으면 insert " + like);
+		} else {
+			int delete = bandService.like_follow_delete(dismap);  //팝업으로 띄워? 토스트 같은 거 있으면 좋은데.
+			System.out.println("실패했으면 delete " + delete);
+		}
+		
+		System.out.println("밴드의 좋아요 팔로우 개수는 몇갠지" + bandService.getBandLikeNFollow(dismap));
+		
+		return String.valueOf(bandService.getBandLikeNFollow(dismap));
+	}
 	
 	
 	

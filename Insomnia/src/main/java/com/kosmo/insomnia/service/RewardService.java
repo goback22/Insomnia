@@ -22,4 +22,5 @@ public interface RewardService {
 	int insert();
 	int update();
 	
+	
 }
