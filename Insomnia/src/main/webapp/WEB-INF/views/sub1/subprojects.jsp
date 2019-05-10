@@ -11,8 +11,7 @@
 <link rel="stylesheet" href="<c:url value='/vendor/css/subcontent.css'/>">
 <script src="<c:url value='/vendor/js/subcontent.js'/>"></script>
 
-<meta name="description"
-	content="Specialising in lifestyle, interiors, 360 and aerial photography and videography, Clorova work across a range of advertising, editorial, pr and corporate clients in Bali and Jakarta.">
+<meta name="description" content="Specialising in lifestyle, interiors, 360 and aerial photography and videography, Clorova work across a range of advertising, editorial, pr and corporate clients in Bali and Jakarta.">
 
 <link rel="apple-touch-icon" sizes="57x57" href="<c:url value='/resource/img/apple-icon-57x57.png'/>">
 <link rel="apple-touch-icon" sizes="60x60" href="<c:url value='/resource/img/apple-icon-60x60.png'/>">
@@ -55,37 +54,9 @@
 <meta name="twitter:image"
 	content="<c:url value='clorova-banner.jpg'/>" />
 <meta name="twitter:creator" content="@Clorova" />
-
-<script>
-	(function(i, s, o, g, r, a, m) {
-		i['GoogleAnalyticsObject'] = r;
-		i[r] = i[r] || function() {
-			(i[r].q = i[r].q || []).push(arguments)
-		}, i[r].l = 1 * new Date();
-		a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-		a.async = 1;
-		a.src = g;
-		m.parentNode.insertBefore(a, m)
-	})(window, document, 'script', '../www.google-analytics.com/analytics.js',
-			'ga');
-
-	ga('create', 'UA-20462557-7', 'auto');
-	ga('send', 'pageview');
-</script>
-
 <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body class=" ">
-
-	<!-- LOADING -->
-
-	
-
-
-	<!-- /LOADING -->
-
-
-
 	<div id="svg-sprite" style="display: none">
 
 		<svg xmlns="http://www.w3.org/2000/svg">
@@ -163,13 +134,14 @@
 
 	<div id="head" class="header">
 		<a href="<c:url value='/home.ins'/>" class="logo hover-target" id="main-logo" title="Clorova — Bali Media Production">
-			<div class="logo-wrap" id="logo-wrap">
-				<svg width="107px" height="24px">
-		    <use xlink:href="#clorova_logo"></use>
-		  </svg>
-			</div>
-			<div class="logo-box" id="logo-box"></div> <span>Media
-				Production</span>
+<!-- 			<div class="logo-wrap" id="logo-wrap"> -->
+<!-- 				<svg width="107px" height="24px"> -->
+<!-- 		    <use xlink:href="#clorova_logo"></use> -->
+<!-- 		  </svg> -->
+<!-- 			</div> -->
+<!-- 			<div class="logo-box" id="logo-box"></div> <span>Media -->
+<!-- 				Production</span> -->
+			<img style="width: 170px;height: 55px;" src="<c:url value='/resource/img/logo_5.png'/>">
 		</a> <a href="<c:url value='/home.ins'/>" class="works q_magnet hover-target">Home</a>
 
 		<div class="nav-menu hover-target" id="nav">
@@ -289,47 +261,39 @@
 
 	<div id="barba-wrapper">
 		<div class="barba-container">
-
-
-
 			<div id="main" class="q_horizontal">
-
-
 				<div class="works-wrapper">
-
-
-
-					<a href="works/the-ocean.html" class="works-item hover-target">
+					<a href="#" class="works-item hover-target">
 						<date>01 <span></span> 06</date>
 						<figure class="image-container">
 							<div class="work-image-wrapper vsh" data-speed="-.1">
 								<div class="work-image"
-									style="background-image: url('/insomnia/resource/img/thumb.jpg')">
+									style="background-image: url('/insomnia/resource/img/InsomniaStar.jpg')">
 									<img src="<c:url value='/resource/img/thumb.jpg'/>"
 										alt="The Ocean Champagne Bar by Clorova" />
 								</div>
 							</div>
 						</figure>
 						<div class="text vsh" data-speed=".2">
-							<h5>Bali — 2017</h5>
-							<h1>The Ocean</h1>
-							<p>Photography — Documentation</p>
+							<h5>Hot — 2019</h5>
+							<h1>Insomnia K</h1>
+							<p>누구나 Insomnia의 스타가 될 수 있습니다.</p>
 						</div>
-					</a> <a href="works/prama.html" class="works-item hover-target"> <date>02
+					</a> <a href="#" class="works-item hover-target"> <date>02
 						<span></span> 06</date>
 						<figure class="image-container">
 							<div class="work-image-wrapper vsh" data-speed="-.1">
 								<div class="work-image"
-									style="background-image: url('/insomnia/resource/img/thumb.jpg')">
-									<img src="assets/img/works/prama/thumb.jpg"
+									style="background-image: url('/insomnia/resource/img/earear.png')">
+									<img src="assets/img/works/prama/ear.jpg"
 										alt="Prama Sanur by Clorova" />
 								</div>
 							</div>
 						</figure>
 						<div class="text vsh" data-speed=".2">
-							<h5>Bali — 2017</h5>
-							<h1>Prama</h1>
-							<p>Photography, 360 — Interior</p>
+							<h5>Hot — 2019</h5>
+							<h1>청각 장애인 공연</h1>
+							<p>귀가 안들려도 음악을 즐길 수 있습니다.</p>
 						</div>
 					</a> <a href="<c:url value='/sub1/subcontent.ins'/>" class="works-item hover-target">
 						<date>03 <span></span> 06</date>
@@ -396,40 +360,11 @@
 							<p>Photography — Interior, Lifestyle</p>
 						</div>
 					</a>
-					<!--
-	<a href="/works/360-gallery" class="works-item hover-target">
-		<date>07 <span></span> 07</date>
-		<figure class="image-container">
-			<div class="work-image-wrapper vsh" data-speed="-.1">
-				<div class="work-image" style="background-image:url('./assets/img/works/360/thumb.jpg')">
-					<img src="./assets/img/works/360/thumb.jpg" alt="360 Gallery by Clorova" />
-				</div>
-			</div>
-		</figure>
-		<div class="text vsh" data-speed=".2">
-			<h5>Bali — 2016</h5>
-			<h1>360 Gallery</h1>
-			<p>360 Virtual Tour Gallery</p>
-		</div>
-	</a>
-	-->
-
 					<div class="reveal">
 						<div class="rev_item"></div>
 					</div>
-
 				</div>
-
-
-
-
-
-
 			</div>
-
-
-
-
 		</div>
 	</div>
 </body>

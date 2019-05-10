@@ -16,14 +16,14 @@
 	src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<!-- êµ¬ë§¤í•˜ê¸° css -->
+<!-- ±¸¸ÅÇÏ±â css -->
 <link href="<c:url value='/vendor/css/bootstrap.min.css'/>"
 	rel="stylesheet">
 <link href="<c:url value='/vendor/css/custom.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendor/css/jquery.scrolling-tabs.css'/>"
 	rel="stylesheet">
 
-<!-- ê³µì§€ì‚¬í•­ -->
+<!-- °øÁö»çÇ× -->
 <script type="text/javascript" src="<c:url value='/vendor/js/obt.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/vendor/js/obt2.js'/>"></script>
 
@@ -32,10 +32,10 @@
 <script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
 <script>
    $(function() {
-      //í˜ì´ì§€ ë¿Œë¦¬ê¸°
+      //ÆäÀÌÁö »Ñ¸®±â
       showComments();
 
-      //êµ¬ë§¤í•˜ê¸° hide, show
+      //±¸¸ÅÇÏ±â hide, show
       $('.option-btn').click(function() {
          if ($('#optionList').css('display') === 'none') {
             $('#optionList').show(1000);
@@ -44,19 +44,19 @@
          }
       });
 
-      //ëŒ“ê¸€ ì‘ì„±
+      //´ñ±Û ÀÛ¼º
       $('#submitComment').click(function() {
-         if ($(this).val() == 'ë“±ë¡') {
+         if ($(this).val() == 'µî·Ï') {
             var action = "<c:url value='/sub1/memowrite.ins'/>";
            	
-            //ë³„ì , ë‚´ìš© ìœ íš¨ì„± ì²´í¬
+            //º°Á¡, ³»¿ë À¯È¿¼º Ã¼Å©
             if($('#starCount').val() == ''){
-           		alert('ë³„ì ì„ í´ë¦­í•˜ì„¸ìš”');
+           		alert('º°Á¡À» Å¬¸¯ÇÏ¼¼¿ä');
            		return false;
             }
             
             else if($('#content').val() == ''){
-           		alert('ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”');
+           		alert('³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä');
            		return false;
            	}//if
            	
@@ -66,14 +66,14 @@
            	}
          }//if
          
-	       //Edit Commit ëˆ„ë¥¼ ë•Œ
-	       if ($(this).val() == 'ìˆ˜ì •') {
+	       //Edit Commit ´©¸¦ ¶§
+	       if ($(this).val() == '¼öÁ¤') {
 	          var action = "<c:url value='/sub1/memoedit.ins'/>";
 	          $('.rating').show();
 	       }
 	       
-	       //Reply Commit ëˆ„ë¥¼ ë•Œ
-	       if($(this).val() == 'ë‹µë³€') {
+	       //Reply Commit ´©¸¦ ¶§
+	       if($(this).val() == '´äº¯') {
 	          var action = "<c:url value='/sub1/replywrite.ins'/>";
 	          
 	          $('.rating').show();
@@ -86,22 +86,22 @@
             dataType : 'text',
             type : 'post',
             success : function() {
-               //ë“±ë¡ í›„ í˜„ì¬ ëª¨ë“  ëŒ“ê¸€ ë¿Œë ¤ì£¼ê¸°
+               //µî·Ï ÈÄ ÇöÀç ¸ğµç ´ñ±Û »Ñ·ÁÁÖ±â
                showComments();
 
-               //ì…ë ¥ ëŒ“ê¸€ í´ë¦¬ì–´ ë° í¬ì»¤ìŠ¤ ì£¼ê¸°
+               //ÀÔ·Â ´ñ±Û Å¬¸®¾î ¹× Æ÷Ä¿½º ÁÖ±â
                $('#content').val('');
                $('#about').focus();
                
-               //ê¸€ ìˆ˜ì •í›„ ë“±ë¡ë²„íŠ¼ìœ¼ë¡œ ë‹¤ì‹œ êµì²´í•˜ê¸°
-//                if($('#submitComment').val()=='ìˆ˜ì •'){
-//                   $('#submitComment').val('ë“±ë¡');
+               //±Û ¼öÁ¤ÈÄ µî·Ï¹öÆ°À¸·Î ´Ù½Ã ±³Ã¼ÇÏ±â
+//                if($('#submitComment').val()=='¼öÁ¤'){
+//                   $('#submitComment').val('µî·Ï');
 //                }
             },
             error : function(request, error) {
-               console.log('ìƒíƒœì½”ë“œ:', request.status);
-               console.log('ì„œë²„ë¡œë¶€í„° ë°›ì€ HTMLë°ì´íƒ€ :', request.responseText);
-               console.log('ì—ëŸ¬:', error);
+               console.log('»óÅÂÄÚµå:', request.status);
+               console.log('¼­¹ö·ÎºÎÅÍ ¹ŞÀº HTMLµ¥ÀÌÅ¸ :', request.responseText);
+               console.log('¿¡·¯:', error);
             }
          });
       })
@@ -109,32 +109,32 @@
       $(function(){         
          $('.star').click(function(){
             $('#starCount').val($(this).index());
-            console.log($('#starCount').val()); //í´ë¦­í•˜ë©´ ë³„ì˜ ê°œìˆ˜ê°€ ì¹´ìš´í„°ì— ì°íŒë‹¤.
+            console.log($('#starCount').val()); //Å¬¸¯ÇÏ¸é º°ÀÇ °³¼ö°¡ Ä«¿îÅÍ¿¡ ÂïÈù´Ù.
          });
       });
    }); //function
 
-   //ë¦¬ìŠ¤íŠ¸
-   var showComments = function() { // â˜…ajaxë¥¼ í•¨ìˆ˜ë¡œ ê°ì‹¸ì„œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¿Œë¦´ ë•Œ ì“°ê¸°
+   //¸®½ºÆ®
+   var showComments = function() { // ¡Úajax¸¦ ÇÔ¼ö·Î °¨½Î¼­ ¸®½ºÆ®¸¦ »Ñ¸± ¶§ ¾²±â
       $.ajax({
          url : '<c:url value="/sub1/memolist.ins"/>',
          dataType : 'text',
          success : successAjax,
          error : function(request, error) {
-            console.log('ìƒíƒœì½”ë“œ:', request.status);
-            console.log('ì„œë²„ë¡œë¶€í„° ë°›ì€ HTMLë°ì´íƒ€ :', request.responseText);
-            console.log('ì—ëŸ¬:', error);
+            console.log('»óÅÂÄÚµå:', request.status);
+            console.log('¼­¹ö·ÎºÎÅÍ ¹ŞÀº HTMLµ¥ÀÌÅ¸ :', request.responseText);
+            console.log('¿¡·¯:', error);
          }
       });
    };//showComments
 
    var successAjax = function(data) {
-      /*JSONë°°ì—´ì„ ì¶œë ¥í• ë•ŒëŠ” $.each(data,function(index,indexì— ë”°ë¥¸ ìš”ì†Œê°’){}); ì‚¬ìš©]
-      data : ì„œë²„ë¡œë¶€í„° ì „ì†¡ë°›ì€ ë°ì´íƒ€(JSONë°°ì—´íƒ€ì…)
-      index : JSONë°°ì—´ì˜ ì¸ë±ìŠ¤(0ë¶€í„° ì‹œì‘)   
-      indexì— ë”°ë¥¸ ìš”ì†Œ ê°’ : JSON ë°°ì—´ì—ì„œ í•˜ë‚˜ì”© êº¼ë‚´ì˜¨ê±°ë¥¼ ë‹´ì€ ì¸ì      
+      /*JSON¹è¿­À» Ãâ·ÂÇÒ¶§´Â $.each(data,function(index,index¿¡ µû¸¥ ¿ä¼Ò°ª){}); »ç¿ë]
+      data : ¼­¹ö·ÎºÎÅÍ Àü¼Û¹ŞÀº µ¥ÀÌÅ¸(JSON¹è¿­Å¸ÀÔ)
+      index : JSON¹è¿­ÀÇ ÀÎµ¦½º(0ºÎÅÍ ½ÃÀÛ)   
+      index¿¡ µû¸¥ ¿ä¼Ò °ª : JSON ¹è¿­¿¡¼­ ÇÏ³ª¾¿ ²¨³»¿Â°Å¸¦ ´ãÀº ÀÎÀÚ      
        */
-      console.log('ì„œë²„ë¡œë¶€í„° ë°›ì€ ë°ì´íƒ€:', data);
+      console.log('¼­¹ö·ÎºÎÅÍ ¹ŞÀº µ¥ÀÌÅ¸:', data);
 
       var tableString = "";
       $.each(JSON.parse(data),
@@ -166,49 +166,48 @@
             tableString += "</div>";
             tableString += "<span>" + element['CONTENT'] + "</span>"
             if('${sessionScope.id}' == element	['ID']){
-            tableString += "<a href='#HH' class='commentEdit' title='"+element['R_NO']+"' style='color:white;font-size:0.8em;'>" + '&nbsp&nbsp[ìˆ˜ì •]' + "<span id='asd' style='display:none;'>"
+            tableString += "<a href='#HH' class='commentEdit' title='"+element['R_NO']+"' style='color:white;font-size:0.8em;'>" + '&nbsp&nbsp[¼öÁ¤]' + "<span id='asd' style='display:none;'>"
                   + element['CONTENT'] + "</span></a>"
             tableString += "<span class='commentDelete' title='"+element['R_NO']+"' style='color:white;font-size:0.8em;cursor:pointer'>"
-                  + '&nbsp&nbsp[ì‚­ì œ]' + "</span>";
+                  + '&nbsp&nbsp[»èÁ¦]' + "</span>";
             }//if
             tableString += "<span>" + '&nbsp;&nbsp;&nbsp;&nbsp;' + "</span>"
-            tableString += "<a style='text-decoration:none;color:pink;font-weight:600;' class='commentReply' title='"+element['R_NO']+"' href='#HH'><i class='fa fa-reply'></i>Reply</a>";
+            tableString += "<a style='text-decoration:none;color:black;font-weight:600;' class='commentReply' title='"+element['R_NO']+"' href='#HH'><i class='fa fa-reply'></i>Reply</a>";
             tableString += "<div>" + '<br>' + "</div>"
             tableString += "</div>";
 	      	tableString += "</article>";
       		tableString += "</li>";
-      		
          });
-      //ë¦¬ìŠ¤íŠ¸ ë¿Œë ¤ì£¼ê¸°
+      //¸®½ºÆ® »Ñ·ÁÁÖ±â
       $('#comments').html(tableString);
       
-		//ë‹µê¸€
+		//´ä±Û
 		$('.commentReply').click(function() {
 			$('.rating').hide();
 			$('#frm').css('margin-top','-20px');
 			
-			console.log('í´ë¦­í•œ ëŒ“ê¸€ì˜ í‚¤(ë‹µê¸€):' + $(this).attr('title'));
-			//formì˜ hiddenì†ì„±ì¤‘ name="cno"ê°’ ì„¤ì •
+			console.log('Å¬¸¯ÇÑ ´ñ±ÛÀÇ Å°(´ä±Û):' + $(this).attr('title'));
+			//formÀÇ hidden¼Ó¼ºÁß name="cno"°ª ¼³Á¤
 			$('input[name=r_no]').val($(this).attr('title'));
 	
-			$('#submitComment').val('ë‹µë³€');
+			$('#submitComment').val('´äº¯');
 		})//
       
-      //ì½”ë©˜íŠ¸ ìˆ˜ì •]
+      //ÄÚ¸àÆ® ¼öÁ¤]
       $('.commentEdit').click(function(){
-         console.log('í´ë¦­í•œ ëŒ“ê¸€ì˜ í‚¤(r_no):',$(this).attr('title'));
+         console.log('Å¬¸¯ÇÑ ´ñ±ÛÀÇ Å°(r_no):',$(this).attr('title'));
          
-         //í´ë¦­í•œ ì œëª©ìœ¼ë¡œ í…ìŠ¤íŠ¸ë°•ìŠ¤ ê°’ ì„¤ì •
+         //Å¬¸¯ÇÑ Á¦¸ñÀ¸·Î ÅØ½ºÆ®¹Ú½º °ª ¼³Á¤
          $('#content').val($(this).children().eq(0).html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
-         $('#submitComment').val('ìˆ˜ì •');
+         $('#submitComment').val('¼öÁ¤');
          
-         //formì˜ hiddenì†ì„±ì¤‘ name="cno"ê°’ ì„¤ì •
+         //formÀÇ hidden¼Ó¼ºÁß name="cno"°ª ¼³Á¤
          $('input[name=r_no]').val($(this).attr('title'));
       });
 
-      //ì½”ë©˜íŠ¸ ì‚­ì œ 
+      //ÄÚ¸àÆ® »èÁ¦ 
       $('.commentDelete').click(function() {
-        //formì˜ hiddenì†ì„±ì¤‘ name="bsc_no"ê°’ ì„¤ì •
+        //formÀÇ hidden¼Ó¼ºÁß name="bsc_no"°ª ¼³Á¤
 		$('input[name=r_no]').val($(this).attr('title'));
 
          $.ajax({
@@ -218,37 +217,37 @@
             type : 'post',
             success : showComments(),
             error : function(request, error) {
-               console.log('ìƒíƒœì½”ë“œ:', request.status);
-               console.log('ì„œë²„ë¡œë¶€í„° ë°›ì€ HTMLë°ì´íƒ€ :', request.responseText);
-               console.log('ì—ëŸ¬:', error);
+               console.log('»óÅÂÄÚµå:', request.status);
+               console.log('¼­¹ö·ÎºÎÅÍ ¹ŞÀº HTMLµ¥ÀÌÅ¸ :', request.responseText);
+               console.log('¿¡·¯:', error);
             }
          });
       });
       
-	  //ìˆ˜ì •ìœ¼ë¡œ ë¼ìˆë‹¤ë©´ ë“±ë¡ìœ¼ë¡œ ë°”ê¾¸ê¸°
+	  //¼öÁ¤À¸·Î µÅÀÖ´Ù¸é µî·ÏÀ¸·Î ¹Ù²Ù±â
 	  $('#submitComment').click(function() {
-			if ($('#submitComment').val() == 'ìˆ˜ì •') {
-				($('#submitComment')).val('ë“±ë¡');
+			if ($('#submitComment').val() == '¼öÁ¤') {
+				($('#submitComment')).val('µî·Ï');
 			}
       })
       
 	  $('#submitComment').click(function() {
-			if ($('#submitComment').val() == 'ë‹µë³€') {
-				($('#submitComment')).val('ë“±ë¡');
+			if ($('#submitComment').val() == '´äº¯') {
+				($('#submitComment')).val('µî·Ï');
 			}
       })
       
-      //ì‘ì„± ë²„íŠ¼ ëˆŒë €ì„ ë•Œ ìˆ˜ì •ìœ¼ë¡œ ë¼ìˆë‹¤ë©´ ë“±ë¡ìœ¼ë¡œ ë°”ê¾¸ê¸°
+      //ÀÛ¼º ¹öÆ° ´­·¶À» ¶§ ¼öÁ¤À¸·Î µÅÀÖ´Ù¸é µî·ÏÀ¸·Î ¹Ù²Ù±â
       $('#about').click(function(){
-         if($('#submitComment').val() == 'ìˆ˜ì •') {
-            ($('#submitComment')).val('ë“±ë¡')   ;
+         if($('#submitComment').val() == '¼öÁ¤') {
+            ($('#submitComment')).val('µî·Ï')   ;
          }
       })
 	  
    }
    
-   //ì˜¤ëŠ˜ í•˜ë£¨ ê·¸ë§Œë³´ê¸°
-   //ì¿ í‚¤ì„¤ì •   
+   //¿À´Ã ÇÏ·ç ±×¸¸º¸±â
+   //ÄíÅ°¼³Á¤   
    function setCookie(name, value, expiredays) {
       var todayDate = new Date();
       todayDate.setDate(todayDate.getDate() + expiredays);
@@ -256,7 +255,7 @@
             + todayDate.toGMTString() + ';'
    }
 
-   //ì¿ í‚¤ ë¶ˆëŸ¬ì˜¤ê¸°
+   //ÄíÅ° ºÒ·¯¿À±â
    function getCookie(name) {
       var obj = name + "=";
       var x = 0;
@@ -274,7 +273,7 @@
       return "";
    }
 
-   //ë‹«ê¸° ë²„íŠ¼ í´ë¦­ì‹œ
+   //´İ±â ¹öÆ° Å¬¸¯½Ã
    function closeWin(key) {
       if ($("#todaycloseyn").prop("checked")) {
          setCookie('notice-obt' + key, 'Y', 1);
@@ -290,7 +289,7 @@
    
 </script>
 
-<!-- aos êµ¬ë™ -->
+<!-- aos ±¸µ¿ -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
@@ -333,7 +332,7 @@ element.style {
 	color: white;
 }
 
-/* iframeì„ ìˆ¨ê¸°ê¸° ìœ„í•œ css*/
+/* iframeÀ» ¼û±â±â À§ÇÑ css*/
 #if {
 	width: 0px;
 	height: 0px;
@@ -520,28 +519,27 @@ body {
 </head>
 
 <body id="home-version-1" class="home-version-1" data-style="default">
-	<!--    <!-- ë°˜ì‘í˜• ê¸€ì”¨ -->
-	<!--    <a class="typewrite" data-period="3000" data-type='[ "#ë°˜ì‘í˜• #ëª¨ë°”ì¼ #ë¬´ë£Œ" ]'> -->
+	<!--    <!-- ¹İÀÀÇü ±Û¾¾ -->
+	<!--    <a class="typewrite" data-period="3000" data-type='[ "#¹İÀÀÇü #¸ğ¹ÙÀÏ #¹«·á" ]'> -->
 	<!--       <span class="wrap"></span> -->
 	<!--    </a> -->
 
-	<!-- ë¡œë”© -->
+	<!-- ·Îµù -->
 	<!--    <div class="loader loader-bar-ping-pong is-active"></div> -->
 
-	<!-- ê³µì§€ ì‹œì‘ -->
-	<!-- 
+	<!-- °øÁö ½ÃÀÛ -->
 	<div class="notice-obt" id="notice-obt1">
-		<div class="notice-obt-close">Ã—</div>
-		<div class="notice-obt-title" style="color: red">ë°©êµ¬ì„ ê¸°íƒ€ë¦¬ìŠ¤íŠ¸ ê°€ì¡± ëª¨ì§‘
+		<div class="notice-obt-close">¡¿</div>
+		<div class="notice-obt-title" style="color: red">¹æ±¸¼® ±âÅ¸¸®½ºÆ® °¡Á· ¸ğÁı
 		</div>
 		<div class="notice-obt-content">
-			<b>ì§€ë‚œí•´, ëª¨ë‘ë¥¼ ê´‘ë€ì˜ ë„ê°€ë‹ˆì†ìœ¼ë¡œ ëª°ì•„ ë„£ì—ˆë˜ <br>`ë°©êµ¬ì„ ê¸°íƒ€ë¦¬ìŠ¤íŠ¸`ê°€ 2íƒ„ìœ¼ë¡œ ë‹¤ì‹œ
-				ì°¾ì•„ì˜µë‹ˆë‹¤.
-			</b> <br> <span style="font-style: bold">InsomniaëŠ”</span> ê³µì—°ì„ ë¹›ë‚´ì¤„
-			ì—¬ëŸ¬ë¶„ë“¤ì„ ê¸°ë‹¤ë¦½ë‹ˆë‹¤.<br> <a href="<c:url value='/sub1/list.ins'/>">ëª¨ì§‘
-				ê²Œì‹œíŒ</a>ì„ í†µí•´ ê²Œì‹œê¸€ì„ ë“±ë¡í•´ì£¼ì„¸ìš”.<br> &lt;ì°¸ì—¬ ì¡°ê±´&gt; <br>ì—°ë ¹ : 25ì„¸ ì´ìƒ <br>
-			ì¥ë¥´ : ë¬´ê´€ <br>ìê²© : ìŒì•…ì„ ì‚¬ë‘í•˜ëŠ” ëˆ„êµ¬ë‚˜ <br>ì‹ ì²­ ê¸°ê°„ : ~ 2019. 6. 4 (6ì¼
-			ë°œí‘œ)
+			<b>Áö³­ÇØ, ¸ğµÎ¸¦ ±¤¶õÀÇ µµ°¡´Ï¼ÓÀ¸·Î ¸ô¾Æ ³Ö¾ú´ø <br>`¹æ±¸¼® ±âÅ¸¸®½ºÆ®`°¡ 2ÅºÀ¸·Î ´Ù½Ã
+				Ã£¾Æ¿É´Ï´Ù.
+			</b> <br> <span style="font-style: bold">Insomnia´Â</span> °ø¿¬À» ºû³»ÁÙ
+			¿©·¯ºĞµéÀ» ±â´Ù¸³´Ï´Ù.<br> <a href="<c:url value='/sub1/list.ins'/>">¸ğÁı
+				°Ô½ÃÆÇ</a>À» ÅëÇØ °Ô½Ã±ÛÀ» µî·ÏÇØÁÖ¼¼¿ä.<br> &lt;Âü¿© Á¶°Ç&gt; <br>¿¬·É : 25¼¼ ÀÌ»ó <br>
+			Àå¸£ : ¹«°ü <br>ÀÚ°İ : À½¾ÇÀ» »ç¶ûÇÏ´Â ´©±¸³ª <br>½ÅÃ» ±â°£ : ~ 2019. 6. 4 (6ÀÏ
+			¹ßÇ¥)
 		</div>
 		<div class="notice-obt-bottom">
 			<img
@@ -549,12 +547,11 @@ body {
 				src="<c:url value='/resource/img/logo_5.png'/>">
 		</div>
 		<div class="button_area" style="margin-top: -45px">
-			<input type='checkbox' name='chkbox' id='todaycloseyn' value='Y'>&nbsp;&nbsp;ì˜¤ëŠ˜
-			ì´ ì°½ì„ ì—´ì§€ ì•ŠìŒ &nbsp;&nbsp;<a href='' onclick="javascript:closeWin(1);"><B>[ë‹«ê¸°]</B></a>
+			<input type='checkbox' name='chkbox' id='todaycloseyn' value='Y'>&nbsp;&nbsp;¿À´Ã
+			ÀÌ Ã¢À» ¿­Áö ¾ÊÀ½ &nbsp;&nbsp;<a href='' onclick="javascript:closeWin(1);"><B>[´İ±â]</B></a>
 		</div>
 	</div>
-	 -->
-	<!--  ê³µì§€ ë -->
+	<!--  °øÁö ³¡ -->
 
 	<div id="site">
 		<!--=========================-->
@@ -568,13 +565,13 @@ body {
 		<section class="single-product">
 			<div class="container">
 				<br> <br>
-				<!-- DETAILS ë¬¸êµ¬ -->
+				<!-- DETAILS ¹®±¸ -->
 				<footer id="footer-4">
 					<div class="container">
 						<div class="d-flex justify-content-center row">
 							<div class="col-xl-10">
 								<div class="section-title style-four" id="ad">
-									<h2 style="margin-left: 58px">R e v i e w s</h2>
+									<h2 style="margin-left: 58px">D E T A I L S</h2>
 								</div>
 							</div>
 							<!-- /.col-xl- -->
@@ -585,8 +582,8 @@ body {
 				</footer>
 				<!-- /#footer -->
 
-				<div class="product-tab-wrapper" style="margin-left: 110px;">
-					<ul class="nav product-tabs" role="tablist" style="display:none">
+				<div class="product-tab-wrapper">
+					<ul class="nav product-tabs" role="tablist">
 						<li class="nav-item"><a class="nav-link active"
 							href="#profile" role="tab" data-toggle="tab">Description</a></li>
 						<li class="nav-item"><a class="nav-link" href="#references"
@@ -598,141 +595,138 @@ body {
 
 					<div class="tab-content">
 
-						<!-- ì²«ë²ˆì§¸ ì¹´í…Œê³ ë¦¬ : ìƒí’ˆ ì„¤ëª… -->
+						<!-- Ã¹¹øÂ° Ä«Å×°í¸® : »óÇ° ¼³¸í -->
 						<div role="tabpanel" class="tab-pane fade in active" id="profile">
 							<div class="single-product-wrapper">
 								<div class="row">
-									<div class="col-md-10">
-										<!-- Reviews -->
-										<div class="review-comments">
-											<h5 class="comments-title">
-												Reviews <a href="#HH" id="about" class="btn btn-success"
-													style="margin-left: 40px;">ì‘ì„±</a>
-											</h5>
-											<br>
-											<div class="review-comments">
-												<ul class="review-list">
-													<li id="comments">
-														<!-- ajaxë¡œ ì•„ë˜ì— ì½”ë©˜íŠ¸ ëª©ë¡ ë¿Œë¦¬ê¸° -->
-													</li>
-													<li>
-														<article class="review-comment" style="margin-top: 10px;margin-bottom: 0px;">
-															<div class="user-avatar">
-																<img src="<c:url value='/resource/img/catcat.jpg'/>"
-																	style="height: 70px" alt="cat">
-															</div>
-															<div class="comment-content">
-																<h5 class="name">ê¹€ê±´ëª¨</h5>
-																<div class="comment-meta">
-																	<div class="star-rating" id="HH">
-																		<span>Rated <strong class="rating">5.00</strong>
-																			out of 5
-																		</span>
-																	</div>
-																	<span class="post-date">2018-12-25</span>
-																</div>
-																<p>
-																	ì²˜ìŒì—” í”„ë¡œë“¤ì˜ ê³µì—°ë„ ì•„ë‹Œë° í‹°ì¼“ ê°’ì´ ë„ˆë¬´ ë¹„ì‹¼ ê±° ì•„ë‹Œê°€ ìƒê°í–ˆëŠ”ë° ê³µì—°ì„ ë³´ê³  <br> 
-																	ê·¸ëŸ° ìƒê°ì„ í•œ ì œê°€ ì°½í”¼í•  ì •ë„ì˜€ìŠµë‹ˆë‹¤. ë‹¤ìŒ ê³µì—°ì´ ê¸°ëŒ€ë˜ë„¤ìš”!
-																	
-																</p>
-															</div>
-														</article>
-													</li>
-													<li>
-														<article class="review-comment" style="margin-left: 75px">
-															<div class="user-avatar">
-																<img src="<c:url value='/resource/img/dogdog.jpg'/>"
-																	style="height: 70px" alt="cat">
-															</div>
-															<div class="comment-content">
-																<h5 class="name">ë‚˜ë¬¸í¬</h5>
-																<div class="comment-meta">
-																	<span class="post-date">2018-12-25</span>
-																</div>
-																<p>
-																	ê³µê°í•©ë‹ˆë‹¤. ìì‹ë“¤ì´ ë°©êµ¬ì„ ê¸°íƒ€ë¦¬ìŠ¤íŠ¸ë¼ëŠ” ê³µì—°ì„ ë³´ëŸ¬ê°€ìê¸¸ë˜ ì²˜ìŒì—” ê¸°ëŒ€ë¥¼ ì•ˆí•˜ê³  ê°”ìœ¼ë‚˜<br>
-																	ìƒê°ë³´ë‹¤ ê³µì—°ìë“¤ì˜ ì‹¤ë ¥ì´ ë„ˆë¬´ ìš°ìˆ˜í–ˆê³  ê°ë™ì ì´ì˜€ìŠµë‹ˆë‹¤.
-																</p>
-															</div>
-														</article>
-													</li>
-												</ul>
+
+									<!-- Å¸ÀÌ¸Ó -->
+									<header id="mobile-nav-wrap"> </header>
+									<section id="ticket" class="parallax" data-speed="0.-3"
+										data-height="700px">
+										<div class="tim-container"
+											style="margin-top: -40px; margin-left: -15px">
+											<p
+												style="color: black; font-weight: 600; font-size: 3em; margin-left: 360px; width: 1000px">By
+												the Beginning of Concert...</p>
+											<div class="row">
+												<div class="col-lg-8">
+													<div class="live-ticket">
+														<div class="live-ticket-count">
+															<div
+																style="width: 1000px; height: 150px; margin-left: 382px"
+																class="countdown" data-count-year="2019"
+																data-count-month="6" data-count-day="2"></div>
+														</div>
+													</div>
+													<!-- /.live-ticket -->
+												</div>
+												<!-- /.col-lg-8 -->
 											</div>
+											<!-- /.row -->
 										</div>
-										<!-- Leave Review -->
+										<!-- /.tim-container -->
+									</section>
+									<!-- Å¸ÀÌ¸Ó ³¡ -->
+
+									<p style="margin-left: 390px; color: black; font-weight: 600; height: 220px; font-size: 2.5em; border-bottom: 3px solid aqua">
+										<br> <br> <br> <br> <br> <br>'
+										'¹êµå °ø¿¬'ÇÏ¸é ¾î¶² °ÍÀÌ ¶°¿À¸£½Ê´Ï±î?<br> <br> <br> <br>
+										<br> <br> <br> <br> <br> <br> <br>
+										<br> <br>
+									<p>
+									<div class="col-md-12 col-sm-6" style="margin-top: 50px">
+										<div class="quickview-slider" style="margin-top: 300px">
+											<div class="section section1" data-aos="flip-up">
+												<div style="width: 400px; margin-left: -150px"></div>
+											</div>
+											<br>
+											<p
+												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 70px;">"
+												Fantastic Performance? "</p>
+
+											<!-- section2 -->
+											<div class="section section2" data-aos="fade-down"></div>
+											<br>
+											<p
+												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 830px;">"
+												Big ConcertHall? "</p>
+
+											<!-- section3 -->
+											<div class="section section3" data-aos="slide-up"></div>
+											<br>
+											<p
+												style="color: black; font-weight: 600; font-size: 2.7em; margin-left: 120px;">"
+												a lot of Instruments? "</p>
+										</div>
 									</div>
 								</div>
 
-								<!-- comment ë“±ë¡ í¼ -->
-								<div class="col-md-10" style="margin-top: 75px;">
-									<div style="margin-left: -15px">
-										<h5 class="comments-title">Write</h5>
-										<form id="frm" method="post" target="param">
-											<!-- ì›ë³¸ê¸€ì˜ REFER/STEP/DEPTH ì„¤ì • -->
-											<input type="hidden" name="refer" value="${record.refer}" />
-											<input type="hidden" name="step" value="${record.step}" />
-											<input type="hidden" name="depth" value="${record.depth}" />
-											
-											<ul class="rating">
-												<li class="rating-title">Leave A Rating</li>&nbsp;&nbsp;
-												<li class="star"><i class="fa fa-star"></i></li>
-												<li class="star"><i class="fa fa-star"></i></li>
-												<li class="star"><i class="fa fa-star"></i></li>
-												<li class="star"><i class="fa fa-star"></i></li>
-												<li class="star"><i class="fa fa-star"></i></li>
 
-											</ul>
-											<!-- ìˆ˜ì • ë° ì‚­ì œìš© íŒŒë¼ë¯¸í„° -->
-											<input type="hidden" name="r_no" />
-											
-											 <input type="hidden" name="name" class="form-fname form-element large"
-												placeholder="Name" style="width: 250px">&nbsp;&nbsp;
-											<br> <br>
-											<textarea name="content" id="content" class="form-message"
-												placeholder="Review" tabindex="5"
-												style="margin-top: -30px; width: 400px; height: 200px; border-radius: 20px; padding: 20px"></textarea>
-											<input type="submit" id="submitComment" value="ë“±ë¡"
-												class="btn btn-primary "
-												style="width: 80px; margin-top: -30px; margin-left: 20px;">
-											<input type="hidden" id="starCount" name="starCount" />
-											<!-- iframe ì„¤ì • -->
-											<iframe id="if" name="param"></iframe>
-										</form>
-									</div>
+								<div>
 
-									<!-- íƒ€ì´ë¨¸ -->
-<!-- 									<header id="mobile-nav-wrap"> </header> -->
-<!-- 									<section id="ticket" class="parallax" data-speed="0.-3" -->
-<!-- 										data-height="700px"> -->
-<!-- 										<div class="tim-container" -->
-<!-- 											style="margin-top: -40px; margin-left: -15px"> -->
-<!-- 											<p -->
-<!-- 												style="color: black; font-weight: 600; font-size: 3em; margin-left: 360px; width: 1000px">By -->
-<!-- 												the Beginning of Concert...</p> -->
-<!-- 											<div class="row"> -->
-<!-- 												<div class="col-lg-8"> -->
-<!-- 													<div class="live-ticket"> -->
-<!-- 														<div class="live-ticket-count"> -->
-<!-- 															<div -->
-<!-- 																style="width: 1000px; height: 150px; margin-left: 382px" -->
-<!-- 																class="countdown" data-count-year="2019" -->
-<!-- 																data-count-month="6" data-count-day="2"></div> -->
-<!-- 														</div> -->
-<!-- 													</div> -->
-<!-- 													/.live-ticket -->
-<!-- 												</div> -->
-<!-- 												/.col-lg-8 -->
-<!-- 											</div> -->
-<!-- 											/.row -->
-<!-- 										</div> -->
-<!-- 										/.tim-container -->
-<!-- 									</section> -->
-<!-- 									íƒ€ì´ë¨¸ ë -->
+									<br> <br> <br>
 								</div>
+
+
+								<!-- Concert Information -->
+								<section id="event-about" style="margin-top: 100px;">
+									<div class="container">
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="event-thumb">
+													<img style="width: 605px; height: 250px"
+														src="https://cdn.wadiz.kr/ft/images/green001/2018/0313/20180313155451433_84.jpg/wadiz/format/jpg/quality/80/optimize"
+														class="fr-fic fr-dib">
+													<!-- ±æÃ£±â-->
+													<a href="http://map.daum.net/link/to/ºí·ç½ºÄù¾î,37.541102,127.002446"><img style="width: 605px; height: 400px"
+														src="https://cdn.wadiz.kr/ft/images/green001/2018/0313/20180313155519079_84.png/wadiz/format/jpg/quality/80/optimize"
+														class="fr-fic fr-dib">
+													</a>
+												</div>
+											</div>
+											<!-- /.col-lg-6 -->
+
+											<div class="col-lg-6">
+												<div class="event-content"
+													style="width: 600px; height: 440px; margin-left: 10px; line-height: 35px">
+													<h2 style="text-transform: none;">
+														<span style="font-size: 0.9em"><br> <br>
+															<br> <br> <br> <br>°ø¿¬ Á¤º¸ ¹× ÀÏ½Ã</span>
+													</h2>
+
+													<div class="event-details">
+														<ul>
+															<li></li>
+														</ul>
+														<div style="color: black; font-weight: 600">
+															£ª ÀÏ½Ã : 2019³â 6¿ù 1ÀÏ <span
+																style="color: blue; font-weight: 600">Åä</span>¿äÀÏ
+														</div>
+														<div>£ª ½Ã°£ : 10:00 ~ 12:00(¿ÀÀü), 16:00 ~ 18:00(¿ÀÈÄ)</div>
+														<div>£ª Àå¼Ò : ´ëÇĞ·Î ½ºÇ¬ À×±Û¸®½¬</div>
+														<div>£ª ¿¬¶ôÃ³ : 010 - 1234 - 5678</div>
+													</div>
+
+													<h4></h4>
+													<p></p>
+
+													<!-- <a href="#" class="tim-btn">Buy Tickets</a> -->
+
+												</div>
+												<!-- /.event-content -->
+											</div>
+											<!-- /.col-lg-6 -->
+										</div>
+										<!-- /.row -->
+									</div>
+									<!-- /.tim-container-two -->
+								</section>
+
+
 
 								<!-- =========================================================================================================== -->
-								<!-- buy í¼ -->
+								<!-- buy Æû -->
 								<div>
 									<div class="option-container">
 										<div class="option-btn"
@@ -751,9 +745,9 @@ body {
 															<div class="option-box-left" style="padding-top: 10px">
 																<div class="option-box-amount">${bgs1.C_CONCERTDATE}</div>
 																<div class="mt5" style="padding-top: 5px">
-																	<span><strong>52ì„ ë‚¨ìŒ</strong></span> <span
+																	<span><strong>52¼® ³²À½</strong></span> <span
 																		style="color:white">&nbsp;&nbsp;|&nbsp;&nbsp;
-																		248ì„ íŒë§¤</span>
+																		248¼® ÆÇ¸Å</span>
 																</div>
 															</div>
 															<form action="<c:url value='/Pay/PayPage.ins'/>"
@@ -775,7 +769,7 @@ body {
 															<input type="hidden" name="limited_min_qty" value="1">
 															<input type="hidden" name="limited_max_qty" value="999">
 															<div style="padding-top: 1px;">
-																<span class="txt_count_inventory option_title">ìˆ˜ëŸ‰&nbsp;&nbsp;&nbsp;</span>
+																<span class="txt_count_inventory option_title">¼ö·®&nbsp;&nbsp;&nbsp;</span>
 																<input disabled="disabled" id="qtyqty" name="qty"
 																	type="text" value="1"
 																	style="color: white; background-color: black; width: 38px; height: 20px; text-align: center"
@@ -787,7 +781,7 @@ body {
 																	style="font-size: 1.5em">-</a>
 															</div>
 															<div style="padding-top: 2px">
-																<span>ê¸ˆì•¡&nbsp;&nbsp;&nbsp;</span> <span id="bgs_price"></span>ì›
+																<span>±İ¾×&nbsp;&nbsp;&nbsp;</span> <span id="bgs_price"></span>¿ø
 																<script>
                                                    $("#bgs_price").text(String(${bgs1.C_PRICE}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
                                                 </script>
@@ -804,7 +798,7 @@ body {
 														<div class="mt5" style="padding-top: 5px">
 															<strong class="font-pink">Sold out</strong> <span
 																style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
-																íŒë§¤ ì™„ë£Œ</span>
+																ÆÇ¸Å ¿Ï·á</span>
 														</div>
 													</div>
 													<div class="option-box-center">
@@ -827,22 +821,122 @@ body {
 								<!-- =========================================================================================================== -->
 
 								<div class="optionBtnBox">
-									<div class="optionStepBtn">ë‹¤ìŒë‹¨ê³„</div>
+									<div class="optionStepBtn">´ÙÀ½´Ü°è</div>
 								</div>
 								
-<!-- 								ì›¹ì±„íŒ… -->
-<!-- 								<input type="button" onclick="showPopup();" style="width: 100px;height: 100px"/> -->
+								<!-- À¥Ã¤ÆÃ -->
+								<input type="button" onclick="showPopup();" style="width: 100px;height: 100px"/>
 							</div>
 						</div>
 
-						<!-- ë‘ë²ˆì§¸ ì¹´í…Œê³ ë¦¬ : ë¦¬ë·° ê²Œì‹œíŒ -->
+						<!-- µÎ¹øÂ° Ä«Å×°í¸® : ¸®ºä °Ô½ÃÆÇ -->
 						<div role="tabpanel" class="tab-pane fade" id="references">
 							<div class="tab-content left">
+								<div class="row">
+									<div class="col-md-10">
+										<!-- Reviews -->
+										<div class="review-comments">
+											<h5 class="comments-title">
+												Reviews <a href="#HH" id="about" class="btn btn-success"
+													style="margin-left: 40px;">ÀÛ¼º</a>
+											</h5>
+											<br>
+											<div class="review-comments">
+												<ul class="review-list">
+													<li id="comments">
+														<!-- ajax·Î ¾Æ·¡¿¡ ÄÚ¸àÆ® ¸ñ·Ï »Ñ¸®±â -->
+													</li>
+													<li>
+														<article class="review-comment" style="margin-top: 10px;margin-bottom: 0px;">
+															<div class="user-avatar">
+																<img src="<c:url value='/resource/img/catcat.jpg'/>"
+																	style="height: 70px" alt="cat">
+															</div>
+															<div class="comment-content">
+																<h5 class="name">±è°Ç¸ğ</h5>
+																<div class="comment-meta">
+																	<div class="star-rating" id="HH">
+																		<span>Rated <strong class="rating">5.00</strong>
+																			out of 5
+																		</span>
+																	</div>
+																	<span class="post-date">2018-12-25</span>
+																</div>
+																<p>
+																	Ã³À½¿£ ÇÁ·ÎµéÀÇ °ø¿¬µµ ¾Æ´Ñµ¥ Æ¼ÄÏ °ªÀÌ ³Ê¹« ºñ½Ñ °Å ¾Æ´Ñ°¡ »ı°¢Çß´Âµ¥ °ø¿¬À» º¸°í <br> 
+																	±×·± »ı°¢À» ÇÑ Á¦°¡ Ã¢ÇÇÇÒ Á¤µµ¿´½À´Ï´Ù. ´ÙÀ½ °ø¿¬ÀÌ ±â´ëµÇ³×¿ä!
+																	
+																</p>
+															</div>
+														</article>
+													</li>
+													<li>
+														<article class="review-comment" style="margin-left: 75px">
+															<div class="user-avatar">
+																<img src="<c:url value='/resource/img/dogdog.jpg'/>"
+																	style="height: 70px" alt="cat">
+															</div>
+															<div class="comment-content">
+																<h5 class="name">³ª¹®Èñ</h5>
+																<div class="comment-meta">
+																	<span class="post-date">2018-12-25</span>
+																</div>
+																<p>
+																	°ø°¨ÇÕ´Ï´Ù. ÀÚ½ÄµéÀÌ ¹æ±¸¼® ±âÅ¸¸®½ºÆ®¶ó´Â °ø¿¬À» º¸·¯°¡ÀÚ±æ·¡ Ã³À½¿£ ±â´ë¸¦ ¾ÈÇÏ°í °¬À¸³ª<br>
+																	»ı°¢º¸´Ù °ø¿¬ÀÚµéÀÇ ½Ç·ÂÀÌ ³Ê¹« ¿ì¼öÇß°í °¨µ¿ÀûÀÌ¿´½À´Ï´Ù.
+																</p>
+															</div>
+														</article>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<!-- Leave Review -->
+									</div>
+								</div>
+
+								<!-- comment µî·Ï Æû -->
+								<div class="col-md-10" style="margin-top: 75px;">
+									<div style="margin-left: -15px">
+										<h5 class="comments-title">Write</h5>
+										<form id="frm" method="post" target="param">
+											<!-- ¿øº»±ÛÀÇ REFER/STEP/DEPTH ¼³Á¤ -->
+											<input type="hidden" name="refer" value="${record.refer}" />
+											<input type="hidden" name="step" value="${record.step}" />
+											<input type="hidden" name="depth" value="${record.depth}" />
+											
+											<ul class="rating">
+												<li class="rating-title">Leave A Rating</li>&nbsp;&nbsp;
+												<li class="star"><i class="fa fa-star"></i></li>
+												<li class="star"><i class="fa fa-star"></i></li>
+												<li class="star"><i class="fa fa-star"></i></li>
+												<li class="star"><i class="fa fa-star"></i></li>
+												<li class="star"><i class="fa fa-star"></i></li>
+
+											</ul>
+											<!-- ¼öÁ¤ ¹× »èÁ¦¿ë ÆÄ¶ó¹ÌÅÍ -->
+											<input type="hidden" name="r_no" />
+											
+											 <input type="hidden" name="name" class="form-fname form-element large"
+												placeholder="Name" style="width: 250px">&nbsp;&nbsp;
+											<br> <br>
+											<textarea name="content" id="content" class="form-message"
+												placeholder="Review" tabindex="5"
+												style="margin-top: -30px; width: 400px; height: 200px; border-radius: 20px; padding: 20px"></textarea>
+											<input type="submit" id="submitComment" value="µî·Ï"
+												class="btn btn-primary "
+												style="width: 80px; margin-top: -30px; margin-left: 20px;">
+											<input type="hidden" id="starCount" name="starCount" />
+											<!-- iframe ¼³Á¤ -->
+											<iframe id="if" name="param"></iframe>
+										</form>
+									</div>
+								</div>
 							</div>
 							<!-- /.row -->
 						</div>
 
-						<!-- ì„¸ë²ˆì§¸ ì¹´í…Œê³ ë¦¬ : Q&A -->
+						<!-- ¼¼¹øÂ° Ä«Å×°í¸® : Q&A -->
 						<div role="tabpanel" class="tab-pane fade" id="buzz">
 							<table class="shop_attributes">
 								<tbody>
@@ -871,7 +965,7 @@ body {
 									<tr>
 										<th>Size</th>
 										<td>
-											<p>H: 38cm/15â€³ W: 28cm/11â€³ D: 15cm/6â€³</p>
+											<p>H: 38cm/15¡È W: 28cm/11¡È D: 15cm/6¡È</p>
 										</td>
 									</tr>
 									<tr>
@@ -890,7 +984,7 @@ body {
 			<!-- /.product-tab-wrapper -->
 		</section>
 	</div>
-	<!-- ë -->
+	<!-- ³¡ -->
 	<!-- /.container -->
 
 	<br>
@@ -931,11 +1025,11 @@ body {
 	<!-- Site Scripts -->
 	<script src="<c:url value='/vendor/js/app.js'/>"></script>
 
-	<!-- AOS ì ìš© -->
+	<!-- AOS Àû¿ë -->
 	<script>
       AOS.init();
    </script>
-	<!-- ë“±ë¡ë²„íŠ¼ íš¨ê³¼ -->
+	<!-- µî·Ï¹öÆ° È¿°ú -->
 	<script>
       $(document).on('click', 'a[href^="#"]', function(event) {
          event.preventDefault();
@@ -948,12 +1042,12 @@ body {
          }
       });
       
-   //ê³µì§€ì‚¬í•­ ë‹«ê¸° ë²„íŠ¼ í™œì„±í™”
+   //°øÁö»çÇ× ´İ±â ¹öÆ° È°¼ºÈ­
    $('.notice-obt-close').on('click', function() {
       $('.notice-obt').remove();
    });
    
-   //ë°˜ì‘í˜• ê¸€ì”¨
+   //¹İÀÀÇü ±Û¾¾
 //    $('.notice-cbt-close, .notice-cbt').on('click', function() {
 //         $('.notice-cbt').remove();
 //     });
@@ -1241,3 +1335,10 @@ body {
 	color: #e43a90;
 }
 </style>
+<!-- À¥ Ã¤ÆÃ -->
+<script>
+function showPopup() {
+//     window.open("/insomnia/123.jsp", "¹æ±¸¼® Ã¤ÆÃ!", "width=400, height=600, left=100, top=50");
+     window.open("<c:url value='/bgsChat.jsp'/>", "¹æ±¸¼® Ã¤ÆÃ!", "width=400, height=600, left=100, top=50");
+}
+</script>

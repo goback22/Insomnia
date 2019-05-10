@@ -10,8 +10,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="description"
-	content="Specialising in lifestyle, interiors, 360 and aerial photography and videography, Clorova work across a range of advertising, editorial, pr and corporate clients in Bali and Jakarta.">
+<meta name="description" content="Specialising in lifestyle, interiors, 360 and aerial photography and videography, Clorova work across a range of advertising, editorial, pr and corporate clients in Bali and Jakarta.">
 
 <link rel="apple-touch-icon" sizes="57x57" href="<c:url value='/resource/img/apple-icon-57x57.png'/>">
 <link rel="apple-touch-icon" sizes="60x60" href="<c:url value='/resource/img/apple-icon-60x60.png'/>">
@@ -54,49 +53,33 @@
 	content="<c:url value='clorova-banner.jpg'/>" />
 <meta name="twitter:creator" content="@Clorova" />
 
-<script>
-	(function(i, s, o, g, r, a, m) {
-		i['GoogleAnalyticsObject'] = r;
-		i[r] = i[r] || function() {
-			(i[r].q = i[r].q || []).push(arguments)
-		}, i[r].l = 1 * new Date();
-		a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-		a.async = 1;
-		a.src = g;
-		m.parentNode.insertBefore(a, m)
-	})(window, document, 'script', '../www.google-analytics.com/analytics.js',
-			'ga');
+<!-- JQuery -->
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-	ga('create', 'UA-20462557-7', 'auto');
-	ga('send', 'pageview');
+<!-- 구매하기 css -->
+<link href="<c:url value='/vendor/css/custom.css'/>" rel="stylesheet">
+<link href="<c:url value='/vendor/css/jquery.scrolling-tabs.css'/>" rel="stylesheet">
+
+<!-- PayMoving js -->
+<script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
+
+<script>
+   $(function() {
+      //구매하기 hide, show
+      $('.option-btn').click(function() {
+         if ($('#optionList').css('display') === 'none') {
+            $('#optionList').show(1000);
+         } else {
+            $('#optionList').hide(1000);
+         }
+      });
+   }); //function
 </script>
 
-</head>
 <body class=" ">
-
-	<!-- LOADING -->
-
-	<div id="overlay">
-		<div id="loading-items">
-			<a href="#" class="logo-loading"
-				title="Clorova — Bali Media Production"> <svg width="100px"
-					height="28px" id="logo">
-        <use xlink:href="#clorova_logo"></use>
-      </svg>
-			</a>
-			<h5 id="progstat"></h5>
-		</div>
-	</div>
-	<div id="content-overlay"></div>
-	<div id="progress-overlay"></div>
-
-
-	<!-- /LOADING -->
-
-
-
 	<div id="svg-sprite" style="display: none">
-
 		<svg xmlns="http://www.w3.org/2000/svg">
 
 		<!-- arrow left -->
@@ -171,14 +154,17 @@
 	</div>
 
 	<div id="head" class="header">
-		<a href="index.html" class="logo hover-target" id="main-logo"
+		<a href="<c:url value='/home.ins'/>" class="logo hover-target" id="main-logo"
 			title="Clorova — Bali Media Production">
-			<div class="logo-wrap" id="logo-wrap">
-				<svg width="107px" height="24px">
+						<div class="logo-wrap" id="logo-wrap">
+				<svg width="107px" height="24px" style="display: none">
 		    <use xlink:href="#clorova_logo"></use>
 		  </svg>
 			</div>
-			<div class="logo-box" id="logo-box"></div> <span>Media
+			<div class="logo-box" id="logo-box" style="display:none;"></div> <span style="display:none">Media
+				Production</span>
+			<img style="width: 170px;height: 55px;margin-top: -50px;" src="<c:url value='/resource/img/logo_5.png'/>">
+			<div class="logo-box" id="logo-box"></div> <span style="display: none">Media
 				Production</span>
 		</a> <a href="<c:url value='/sub1/subprojects.ins'/>" class="works q_magnet hover-target">All
 			projects</a>
@@ -203,21 +189,16 @@
 							<a href="http://fleava.com/" target="_blank"
 								class="logo fleava hover-target"
 								title="Fleava — Bali Digital Agency"> <svg width="105px"
-									height="24px">
+									height="24px" style="display: none">
 				        <use xlink:href="#fleava_logo"></use>
-				      </svg> <span>Digital Agency</span>
+				      </svg> <span style="display: none">Digital Agency</span>
 							</a>
-
 						</div>
 					</header>
-
 					<div class="nav-menu close hover-target" id="navClose">
 						<span class="line"></span>
 					</div>
-
-
 					<div class="menu-content">
-
 
 						<div class="columns">
 							<div class="column q-1-5">
@@ -229,7 +210,6 @@
 									</h1>
 								</a>
 
-
 							</div>
 							<div class="column q-1-5">
 								<span class="line"></span> <a href="<c:url value='/sub1/review.ins'/>"
@@ -240,16 +220,10 @@
 									</h1>
 								</a>
 								<div class="text">
-									<h5>Clorova Media Production</h5>
-									<p>Specialising in lifestyle, interiors, 360 and aerial
-										photography and videography, Clorova work across a range of
-										advertising, editorial, pr and corporate clients in Bali and
-										Jakarta.</p>
 								</div>
 							</div>
 							<div class="column q-1-5">
-								<span class="line"></span> <a
-									href="mailto:wndrhtkfurh@naver.com" title="Contact Clorova"
+								<span class="line"></span> <a onclick="showPopup();" title="Contact Clorova"
 									class="flare-hover hover-target">
 									<h1 class="large">
 										<span class="q_split"><span
@@ -257,24 +231,6 @@
 									</h1>
 								</a>
 								<div class="text">
-									<h5>Find Us</h5>
-									<p>#1 Beraban Square, Jalan Beraban No.46, Kerobokan,
-										Badung, Bali - 80361, Indonesia</p>
-									<p>
-										<a class="hover-target"
-											href="https://www.facebook.com/clorova/" target="_blank"
-											title="Clorova on Facebook">Fb &nbsp; &nbsp;</a> <a
-											class="hover-target"
-											href="https://www.instagram.com/clorova_id/" target="_blank"
-											title="Clorova on Instagram">Ig &nbsp; &nbsp;</a> <a
-											class="hover-target" href="https://twitter.com/clorova"
-											target="_blank" title="Clorova on Twitter">Tw &nbsp;
-											&nbsp;</a> <a class="hover-target barba_nav" href="terms.html">Terms</a>
-										<br>
-										<br> Website by <a href="http://fleava.com/"
-											target="_blank" class="hover-target"
-											title="Fleava Digital Agency">Fleava</a>.
-									</p>
 								</div>
 							</div>
 
@@ -302,20 +258,12 @@
 
 	<div id="barba-wrapper">
 		<div class="barba-container">
-
-
-
 			<div id="main" class="q_smooth">
-
-
-
 				<div id="section-header">
-
 					<section class="section">
 						<div class="q-container container-inner">
 							<div class="columns">
 								<div class="column q-1-2"></div>
-
 								<div class="column q-1-2">
 									<div class="title">
 										<p>
@@ -353,7 +301,6 @@
 							<div class="column">
 								<h2>
 									<span class="line rev_line"></span>
-									<!-- <span class="q_split"><span class="q_split_wrap rev_item">방구석 기타리스트</span></span> -->
 									<span class="q_split"><span
 										class="q_split_wrap rev_item">Description.</span></span>
 								</h2>
@@ -373,17 +320,13 @@
 					</div>
 				</section>
 
-
-
-
 				<section class="section small-pt">
-					<div class="q-container container-inner reveal">
+					<div class="q-container container-inner reveal" style="margin-top: 40px">
 						<div class="columns">
 							<div class="column q-1-3"></div>
 							<div class="column q-2-3">
 								<h2>
 									<span class="line rev_line"></span>
-									<!-- 					<span class="q_split"><span class="q_split_wrap rev_item">Concert</span></span> -->
 									<span class="q_split"><span
 										class="q_split_wrap rev_item">Information.</span></span>
 								</h2>
@@ -392,158 +335,16 @@
 					</div>
 				</section>
 
-
-
-				<section id="q_slide" class="half-width" animate='stagTop'
-					autoplay='8000' parallax=".25" opacity=".3">
-
-					<div class="q_slide-inner">
-						<div class="slides">
-
-							<div class="slide q_current" id="header">
-								<div class="image-container">
-									<div class="image-wrapper">
-										<div class="">
-											<img src="<c:url value='/resource/img/service1.jpg'/>" alt="Photography"
-												class="image" />
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="slide" id="page-top-banner">
-								<div class="image-container">
-									<div class="image-wrapper">
-<!-- 										<div class=""> -->
-<%-- 											<img src="<c:url value='/resource/img/service2.jpg'/>" --%>
-<!-- 												alt="360 Virtual Tour" class="image" /> -->
-<!-- 										</div> -->
-							<a href=""><div id="map" style="width: 1143px; height: 754px;"></div></a>
-								<script type="text/javascript"
-									src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c32fad4a1c57880bfba793d4634c4d7"></script>
-								<script>
-									var container = document
-											.getElementById('map');
-									var options = {
-										center : new daum.maps.LatLng(
-												37.541102, 127.002446),
-										level : 3
-									};
-									var map = new daum.maps.Map(container,
-											options);
-								</script>
-									</div>
-								</div>
-							</div>
-
-							<!--         <div class="slide" id="page-top-banner"> -->
-							<!--           <div class="image-container"> -->
-							<!--             <div class="image-wrapper"> -->
-							<!--               <div class=""> -->
-							<!--                 <img src="assets/img/about/service3.jpg" alt="Video Production" class="image" /> -->
-							<!--               </div> -->
-							<!--             </div> -->
-							<!--           </div> -->
-							<!--         </div> -->
-
-							<!--         <div class="slide" id="page-top-banner"> -->
-							<!--           <div class="image-container"> -->
-							<!--             <div class="image-wrapper"> -->
-							<!--               <div class=""> -->
-							<!--                 <img src="assets/img/about/service4.jpg" alt="Aerial Cinematography" class="image" /> -->
-							<!--               </div> -->
-							<!--             </div> -->
-							<!--           </div> -->
-							<!--         </div> -->
-
-						</div>
-
-						<div class="pagination">
-							<div class="item q_current">
-								<span><strong>01</strong>
-							</div>
-							<div class="item">
-								<span><strong>02</strong>
-							</div>
-							<div class="item">
-								<span><strong>03</strong>
-							</div>
-							<div class="item">
-								<span><strong>04</strong>
-							</div>
-						</div>
-
-						<div class="arrows">
-							<a class="arrow next q_magnet hover-target" friction=".3"> <span
-								class="svg svg-arrow-right"> <svg width="8px" height="21px">
-              <use xlink:href="#icn_arrow_right"></use>
-            </svg> <span class="alt sr-only"></span>
-							</span>
-							</a> <a class="arrow prev q_magnet hover-target" friction=".3"> <span
-								class="svg svg-arrow-left"> <svg width="8px" height="21px">
-              <use xlink:href="#icn_arrow_left"></use>
-            </svg> <span class="alt sr-only"></span>
-							</span>
+				<section id="q_slide" class="half-width" animate='stagTop' autoplay='8000' parallax=".25" opacity=".3">
+						<div class="">
+							<a href="#" onClick="window.open('http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446','길찾기','width=2050, height=1000, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;">
+							<img style="opacity: 0.9;margin-left: 300px" src="<c:url value='/resource/img/YakDo.png'/>"
+								alt="360 Virtual Tour" class="image" />
 							</a>
 						</div>
-
-
-					</div>
-
-					<div class="caption-external">
-						<div class="slide-content">
-							<div class="caption">
-								<h3>
-									<span class="q_split"><span class="q_split_wrap">Where</span></span>
-								</h3>
-								<p class="q_split_wrap">
-									주소 : 서울 용산구 블루스퀘어 <br> 인근 : 한강진역 2번 출구<br>찾아오시는 길 : <a href="http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446">Click</a>
-								</p>
-							</div>
-						</div>
-						<div class="slide-content">
-							<div class="caption">
-								<h3>
-									<span class="q_split" style="display: none"><span class="q_split_wrap">360&deg;</span></span>
-									<span class="q_split"><span class="q_split_wrap" style="color:black">Where</span></span>
-								</h3>
-								<p class="q_split_wrap">시간 : 6월 15일 오후 20시<br>
-								좌석 : 1,382석<br>주소 : 서울 용산구 블루스퀘어 <br> 인근 : 한강진역 2번 출구<br>찾아오시는 길 : <a href="http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446">Click</a>
-								</p>
-							</div>
-						</div>
-						<!-- 
-	  <div class="slide-content">
-	  	<div class="caption">
-	  		<h3>
-	  			<span class="q_split"><span class="q_split_wrap">Video Production</span></span>
-	  		</h3>
-	  		<p class="q_split_wrap">
-	  			When it comes to video production, we’ve got it down to an art form. We do advertising films, TV & Web commercials, Corporate videos, Web content, Music videos, Art films and many more.
-	  		</p>
-	  	</div>
-	  </div>
-	  <div class="slide-content">
-	  	<div class="caption">
-	  		<h3>
-	  			<span class="q_split"><span class="q_split_wrap">Aerial</span></span>
-	  			<span class="q_split"><span class="q_split_wrap">Cinematography</span></span>
-	  		</h3>
-	  		<p class="q_split_wrap">
-	  			We fly a variety of professional cameras, across many verticals and projects with eye for precision. We capture the most challenging and spectacular shots you would think possible.
-	  		</p>
-	  	</div>
-	  </div>
-	   -->
-					</div>
 				</section>
 
-
-
-
-
 				<section class="section">
-
 					<div class="q-container container-inner reveal">
 						<div class="columns">
 							<div class="column">
@@ -578,7 +379,6 @@
 							</div>
 						</div>
 					</div>
-
 				</section>
 
 				<footer id="footer" style="background-color: #12111F;">
@@ -607,5 +407,105 @@
 		</div>
 	</div>
 	
-	<!--Google map api -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsBrMPsyNtpwKXPPpG54XwJXnyobfMAIc"></script>
+	<!-- 구매폼 -->
+	<div>
+		<div class="option-container">
+			<div class="option-btn"
+				style="font-size: 1.2em; width: 10px; height: 50px; padding-top: 3px; margin-left: 350px;">B
+				u y</div>
+			<div id="optionList" class="option-area" style="display: none;margin-left:980px">
+				<div class="option-area-content">
+					<div class="option-area-content-step1">
+						<div class="common-flex-between">
+							<span class="option-title mt10 xs-mt25">Buy Tickets</span>
+						</div>
+		
+						<div class="option-box option-box-blue">
+							<div class="aa" style="display: contents">
+								<div class="option-box-left" style="padding-top: 10px">
+									<div class="option-box-amount">${bgs1.C_CONCERTDATE}</div>
+									<div class="mt5" style="padding-top: 5px">
+										<span><strong>52석 남음</strong></span> <span
+											style="color:white">&nbsp;&nbsp;|&nbsp;&nbsp;
+											48석 판매</span>
+									</div>
+								</div>
+								<form action="<c:url value='/Pay/PayPage.ins'/>"
+									id="bgs_sub_item_list" style="display: none">
+									<input type="hidden" name="bgs1_title"
+										value="${bgs1.B_TITLE }"> <input type="hidden"
+										name="bgs1_content" value="${bgs1.B_CONTENT }">
+									<input type="hidden" name="bgs1_price" value="">
+									<input type="hidden" name="bgs1_qty" value="">
+								</form>
+								<div class="option-box-center" style="padding-top: 10px">
+									<div class="option-box-title">${bgs1.B_TITLE}</div>
+									<div class="option-box-desc mt5"
+										style="margin-top: 10px">${bgs1.B_CONTENT}</div>
+								</div>
+							</div> 
+							<div class="box_inventory option_box_grey">
+								<input type="hidden" name="limited_qty_yn" value="">
+								<input type="hidden" name="limited_min_qty" value="1">
+								<input type="hidden" name="limited_max_qty" value="999">
+								<div style="padding-top: 1px;">
+									<span class="txt_count_inventory option_title">수량&nbsp;&nbsp;&nbsp;</span>
+									<input disabled="disabled" id="qtyqty" name="qty"
+										type="text" value="1"
+										style="color: white; background-color: black; width: 38px; height: 20px; text-align: center"
+										class="input_add" onkeyup="checkQty(this);"
+										onfocus="this.select();" style="line-height: 18px">
+									<a id="plus_ordered" href="javascript:void(0)"
+										style="font-size: 1.5em">&nbsp;+&nbsp;</a> <a
+										id="minus_ordered" href="javascript:void(0)"
+										style="font-size: 1.5em">-</a>
+								</div>
+								<div style="padding-top: 2px">
+									<span>금액&nbsp;&nbsp;&nbsp;</span> <span id="bgs_price"></span>원
+									<script>
+                                            $("#bgs_price").text(String(${bgs1.C_PRICE}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+                                         </script>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="option-box" style="margin-top: -25px;">
+						<div class="option-box-left">
+							<div class="option-box-amount">${bgs2.C_CONCERTDATE}</div>
+							<div class="mt5" style="padding-top: 5px">
+								<strong class="font-pink">Sold out</strong> <span
+									style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
+									판매 완료</span>
+							</div>
+						</div>
+						<div class="option-box-center">
+							<div class="option-box-title">${bgs2.B_TITLE}</div>
+							<div class="option-box-desc mt5" style="margin-top: 10px">${bgs2.B_CONTENT}</div>
+						</div>
+						<div class="hidden-xs option-delivery-date">
+							<strong class="font-pink"
+								style="font-size: 1.6em; margin-top: 200px">Sold
+								out</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- =========================================================================================================== -->
+
+	<div class="optionBtnBox">
+		<div class="optionStepBtn">다음단계</div>
+	</div>
+</body>
+
+<!-- 웹 채팅 -->
+<script>
+function showPopup() {
+     window.open("<c:url value='/bgsChat.jsp'/>", "방구석 채팅!", "width=400, height=600, left=100, top=50");
+}
+</script>
