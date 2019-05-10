@@ -1,7 +1,11 @@
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/WEB-INF/views/my/isMember.jsp"%>
+
 <link rel="stylesheet"
 	href="<c:url value='/vendor/css/bootstrap2.min.css'/>">
 <script src="<c:url value='/vendor/js/jquery2.js'/>"></script>
@@ -26,6 +30,8 @@
 <!-- fonts -->
 <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond"
 	rel="stylesheet">
+	
+	
 
 <!-- 네비게이션 바 -->
 <div class="nav">
@@ -433,7 +439,9 @@ option {
 				<!-- /.row -->
 			</div>
 		</section>
+		
 	</div>
+	
 	<%@ include file="/WEB-INF/template/Footer.jsp"%>
 </body>
 <script>
@@ -489,7 +497,3 @@ option {
 	}
 	document.onkeydown = noEvent;
 </script>
-<!-- /.product-tab-wrapper -->
-<!-- /.container -->
-<!-- /.single-product -->
-<!-- Quick View -->

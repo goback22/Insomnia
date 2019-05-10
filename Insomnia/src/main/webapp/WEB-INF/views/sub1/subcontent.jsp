@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ include file="/WEB-INF/views/my/isMember.jsp"%>
 <head>
 <link rel="stylesheet"
 	href="<c:url value='/vendor/css/subcontent.css'/>">
@@ -310,10 +310,10 @@
 							<div class="column q-1-2"></div>
 							<div class="column q-1-2">
 								<p class="rev_item">세상에는 음악적으로 성공한 수 많은 음악인들이 있습니다. 또한 그들처럼
-									되기 위해 방구석이라는 곳에서 성공이라는 꿈을 키우며 묵묵히 연습하는 젊은이들도 있겠지요. Insomnia에서는
-									그들과 여러분들이 소통할 수 있는 공연장을 제공해주고 싶었습니다.</p>
-								<p class="rev_item">물론 아무나 공연에 설 수 있는건 아닙니다. 관심있는 청년들이 신청을
-									해주면 저희 Insomnia에서 그 중 가장 실력있는 젊은이들을 뽑아서 한 달이라는 시간동안 함께 연습할 수
+									되기 위해 방구석이라는 곳에서 성공이라는 꿈을 키우며 묵묵히 연습하는 이들도 있겠지요. Insomnia에서는
+									그들과 여러분들이 소통할 수 있는 공연장을 마련해보고자 합니다.</p>
+								<p class="rev_item">물론 열정이 있다고 해서 누구나 공연에 설 수 있는건 아닙니다. 관심있는 청년들이 신청을
+									해주면 저희 Insomnia에서 그 중 가장 실력있는 젊은이들을 초대하여 한 달이라는 시간동안 함께 연습할 수
 									있도록 함께 연습을 시킬 것입니다. 때문에 퀄리티있는 공연을 기대하셔도 좋습니다.</p>
 							</div>
 						</div>
@@ -336,10 +336,17 @@
 				</section>
 
 				<section id="q_slide" class="half-width" animate='stagTop' autoplay='8000' parallax=".25" opacity=".3">
-						<div class="">
+						<div >
+							<a href="#" onClick="window.open('http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446','길찾기','width=2090, height=1000, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;">
+							<img style="opacity: 0.9;max-width: 100%;height: auto" src="<c:url value='/resource/img/YakDo.png'/>"
+								alt="360 Virtual Tour" class="image1" />
+							</a>
+						</div>
+						
+						<div >
 							<a href="#" onClick="window.open('http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446','길찾기','width=2050, height=1000, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;">
-							<img style="opacity: 0.9;margin-left: 300px" src="<c:url value='/resource/img/YakDo.png'/>"
-								alt="360 Virtual Tour" class="image" />
+							<img style="opacity: 0.9;max-width: 100%;height: auto;display: none" src="<c:url value='/resource/img/YakDo.png'/>"
+								alt="360 Virtual Tour" class="image2" />
 							</a>
 						</div>
 				</section>
@@ -373,8 +380,6 @@
 										class="rev_client" alt="Alaya Hotels" /> <img
 										src="<c:url value='/resource/img/9.png'/>" class="rev_client"
 										alt="Mowilex" /> 
-<%-- 										<img src="<c:url value='/resource/img/10.png'/>" --%>
-<!-- 										class="rev_client" alt="Manisan" /> -->
 								</div>
 							</div>
 						</div>
@@ -401,6 +406,16 @@
 							</div>
 						</div>
 					</section>
+					
+					<div style="margin-top: 200px;margin-left: 850px;">
+						<a href="javascript:shareFB();"  title="facebook 공유">
+						<img style="width: 55px;height: 55px" class="kyj" src="<c:url value='/resource/img/facebook128.png'/>"/></a>
+						
+						<img style="width: 55px;height: 55px;margin-left: 30px" class="kyj" src="<c:url value='/resource/img/instagram128.png'/>"/>
+						
+						<a href="javascript:shareTW();" class="tw" title="twitter 공유">
+						<img style="width: 55px;height: 55px;margin-left: 30px" class="kyj" src="<c:url value='/resource/img/twitter128.png'/>"/></a>
+					</div>
 				</footer>
 
 			</div>
@@ -496,6 +511,7 @@
 		</div>
 	</div>
 	
+	
 	<!-- =========================================================================================================== -->
 
 	<div class="optionBtnBox">
@@ -508,4 +524,49 @@
 function showPopup() {
      window.open("<c:url value='/bgsChat.jsp'/>", "방구석 채팅!", "width=400, height=600, left=100, top=50");
 }
+</script>
+
+<!-- 약도,SNS API 반응형으로 만들기 -->
+<style>
+@media only screen and (max-width: 600px) {
+  .image1 {	
+	  margin-left: 0;
+  }    
+} 
+@media only screen and (min-width: 601px) {
+  .image1 {	
+	  margin-left: 300px;
+  }    
+} 
+@media only screen and (max-width: 600px) {
+  .kyj {	
+	  display:none;
+  }    
+} 
+
+.kyj {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+}
+.kyj:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+}
+</style>
+
+<script>
+function shareFB() {
+   window.open('http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:8083/insomnia/');
+}
+function shareTW() {
+   window.open('http://twitter.com/share?url=http://127.0.0.1:8083/insomnia/&text=당신을 Insomnia로 초대합니다.');
+}
+
 </script>
