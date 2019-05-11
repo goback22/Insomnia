@@ -366,7 +366,7 @@
 				marker.setMap(map);
 				
 				//
-				var iwContent = '<div style="color:black;margin-left:10px;padding:5px;font-weight:600;font-family:cursive ">방구석 기타리스트<br><a href="http://map.daum.net/link/to/Hello World!,37.541102,127.002446" style="color:red;font-weight:900;text-decoration:none;margin-left:32px;font-family:cursive " target="_blank">길 찾 기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+				var iwContent = '<div style="color:black;margin-left:9px;padding:5px;font-weight:600;font-family:cursive ">방구석 기타리스트<br><a href="http://map.daum.net/link/to/Hello World!,37.541102,127.002446" style="color:red;font-weight:900;text-decoration:none;margin-left:32px;font-family:cursive " target="_blank">길 찾 기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 				iwPosition = new daum.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
 				
 				//인포윈도우를 생성합니다
@@ -443,7 +443,7 @@
 						</div>
 					</section>
 					
-					<div style="margin-top: 280px;margin-left: 905px;">
+					<div style="margin-top: 165px;margin-left: 885px;">
 						<a href="javascript:shareFB();" title="facebook 공유">
 						<img style="width: 55px;height: 55px" class="kyj" src="<c:url value='/resource/img/facebook128.png'/>"/></a>
 						

@@ -27,11 +27,17 @@
 <script type="text/javascript" src="<c:url value='/vendor/js/obt.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/vendor/js/obt2.js'/>"></script>
 
+<!-- JQuery UI -->
+<script type="text/javascript" src="<c:url value='/vendor/js/jquery-ui.js'/>"></script>
+
 
 <!-- PayMoving js -->
 <script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
 <script>
    $(function() {
+	  //로드 시 작성 칸 숨기기
+	  $('#my').hide();
+	   
       //페이지 뿌리기
       showComments();
 
@@ -113,6 +119,75 @@
          });
       });
    }); //function
+   
+   //무한 스크롤
+   $(window).scroll(function () {
+	if ($(window).scrollTop() >= $(document).height() - $(window).height() - 1000) {
+		console.log('스크롤이 충돌하였습니다.');
+	 	//스크롤 충돌 시 새로운 10개 목록 보여주기
+		var lastNo = $('.commentReply:last').attr('title');
+	 	
+	 	console.log('lastNo:'+lastNo);
+	 	
+	 	$.ajax({
+	 		url : '<c:url value="/sub1/newCommentList.ins"/>',
+	 		data : {r_no : lastNo}, 
+	 		dataType : 'text',
+	 		success : showNewComments,
+	 		error : function(request, error) {
+                console.log('상태코드:', request.status);
+                console.log('서버로부터 받은 HTML데이타 :', request.responseText);
+                console.log('에러:', error);
+            } 		
+	 	})//ajax
+		}//if
+	});//function
+   
+   var showNewComments = function(data) {
+	   console.log('서버로부터 받은 데이타:', data);
+	   
+      var tableString = "";
+      if(data != ""){
+      $.each(JSON.parse(data),function(index, element) {
+    	  var B = 70;
+    	  tableString += "<li>";
+    	  tableString += "<article style='margin-left:"+B*element['DEPTH']+"px' class='review-comment'>";
+  	      var A = "https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/" + element['PROFILE_IMG'] + "";
+          tableString += "<div class='user-avatar'>";
+          tableString += "<img style='border-radius:50px;height:70px;width:70px;' src='" +A+ "'>";
+
+          tableString += "</div>";
+          tableString += "<div class='comment-content'>";
+          tableString += "<h5 class='name'>"
+                + element['NAME'] + "</h5>";
+          tableString += "<div class='comment-meta'>";
+          if(element['DEPTH'] == '0'){
+          tableString += "<div class='star-rating_"+element['STARS']+"'>";
+          tableString += "<span>Rated <strong class='rating'>5.00</strong>out of 5</span>";
+          tableString += "</div>";
+          }
+          tableString += "<span class='post-date'>"
+                + element['POSTDATE'] + "</span>";
+          tableString += "</div>";
+          tableString += "<span>" + element['CONTENT'] + "</span>"
+          if('${sessionScope.id}' == element	['ID']){
+          tableString += "<a href='#HH' class='commentEdit' title='"+element['R_NO']+"' style='color:white;font-size:0.8em;'>" + '&nbsp&nbsp[수정]' + "<span id='asd' style='display:none;'>"
+                + element['CONTENT'] + "</span></a>"
+          tableString += "<span class='commentDelete' title='"+element['R_NO']+"' style='color:white;font-size:0.8em;cursor:pointer'>"
+                + '&nbsp&nbsp[삭제]' + "</span>";
+          }//if
+          tableString += "<span>" + '&nbsp;&nbsp;&nbsp;&nbsp;' + "</span>"
+          tableString += "<a style='text-decoration:none;color:pink;font-weight:600;' class='commentReply' title='"+element['R_NO']+"' href='#HH'><i class='fa fa-reply'></i>Reply</a>";
+          tableString += "<div>" + '<br>' + "</div>"
+          tableString += "</div>";
+	      tableString += "</article>";
+	   	  tableString += "</li>";
+ 	    })//each
+      }//if
+      
+    //리스트 뿌려주기
+    $('#commentsNew').append(tableString);
+   }//function
 
    //리스트
    var showComments = function() { // ★ajax를 함수로 감싸서 리스트를 뿌릴 때 쓰기
@@ -137,8 +212,7 @@
       console.log('서버로부터 받은 데이타:', data);
 
       var tableString = "";
-      $.each(JSON.parse(data),
-         function(index, element) {
+      $.each(JSON.parse(data),function(index, element) {
     	  	var B = 70;
       		tableString += "<li>";
       		tableString += "<article style='margin-left:"+B*element['DEPTH']+"px' class='review-comment'>";
@@ -184,6 +258,7 @@
       
 		//답글
 		$('.commentReply').click(function() {
+			$('#my').show();
 			$('.rating').hide();
 			$('#frm').css('margin-top','-20px');
 			
@@ -196,6 +271,7 @@
       
       //코멘트 수정]
       $('.commentEdit').click(function(){
+    	 $('#my').show();
          console.log('클릭한 댓글의 키(r_no):',$(this).attr('title'));
          
          //클릭한 제목으로 텍스트박스 값 설정
@@ -240,6 +316,8 @@
       
       //작성 버튼 눌렀을 때 수정으로 돼있다면 등록으로 바꾸기
       $('#about').click(function(){
+    	  $('#my').show();
+    	  
          if($('#submitComment').val() == '수정') {
             ($('#submitComment')).val('등록')   ;
          }
@@ -615,6 +693,9 @@ body {
 													<li id="comments">
 														<!-- ajax로 아래에 코멘트 목록 뿌리기 -->
 													</li>
+													<li id="commentsNew">
+														<!-- ajax로 아래에 코멘트 목록 뿌리기 -->
+													</li>
 													<li>
 														<article class="review-comment" style="margin-top: 10px;margin-bottom: 0px;">
 															<div class="user-avatar">
@@ -665,7 +746,7 @@ body {
 								</div>
 
 								<!-- comment 등록 폼 -->
-								<div class="col-md-10" style="margin-top: 75px;">
+								<div class="col-md-10" style="margin-top: 75px;" id="my">
 									<div style="margin-left: -15px">
 										<h5 class="comments-title">Write</h5>
 										<form id="frm" method="post" target="param">
@@ -700,138 +781,7 @@ body {
 											<iframe id="if" name="param"></iframe>
 										</form>
 									</div>
-
-									<!-- 타이머 -->
-<!-- 									<header id="mobile-nav-wrap"> </header> -->
-<!-- 									<section id="ticket" class="parallax" data-speed="0.-3" -->
-<!-- 										data-height="700px"> -->
-<!-- 										<div class="tim-container" -->
-<!-- 											style="margin-top: -40px; margin-left: -15px"> -->
-<!-- 											<p -->
-<!-- 												style="color: black; font-weight: 600; font-size: 3em; margin-left: 360px; width: 1000px">By -->
-<!-- 												the Beginning of Concert...</p> -->
-<!-- 											<div class="row"> -->
-<!-- 												<div class="col-lg-8"> -->
-<!-- 													<div class="live-ticket"> -->
-<!-- 														<div class="live-ticket-count"> -->
-<!-- 															<div -->
-<!-- 																style="width: 1000px; height: 150px; margin-left: 382px" -->
-<!-- 																class="countdown" data-count-year="2019" -->
-<!-- 																data-count-month="6" data-count-day="2"></div> -->
-<!-- 														</div> -->
-<!-- 													</div> -->
-<!-- 													/.live-ticket -->
-<!-- 												</div> -->
-<!-- 												/.col-lg-8 -->
-<!-- 											</div> -->
-<!-- 											/.row -->
-<!-- 										</div> -->
-<!-- 										/.tim-container -->
-<!-- 									</section> -->
-<!-- 									타이머 끝 -->
 								</div>
-
-								<!-- =========================================================================================================== -->
-								<!-- buy 폼 -->
-								<div>
-									<div class="option-container">
-										<div class="option-btn"
-											style="font-size: 1.2em; width: 10px; height: 50px; padding-top: 3px; margin-left: 20px;">B
-											u y</div>
-										<div id="optionList" class="option-area"
-											style="display: none;">
-											<div class="option-area-content">
-												<div class="option-area-content-step1">
-													<div class="common-flex-between">
-														<span class="option-title mt10 xs-mt25">Buy Tickets</span>
-													</div>
-
-													<div class="option-box option-box-blue">
-														<div class="aa" style="display: contents">
-															<div class="option-box-left" style="padding-top: 10px">
-																<div class="option-box-amount">${bgs1.C_CONCERTDATE}</div>
-																<div class="mt5" style="padding-top: 5px">
-																	<span><strong>52석 남음</strong></span> <span
-																		style="color:white">&nbsp;&nbsp;|&nbsp;&nbsp;
-																		248석 판매</span>
-																</div>
-															</div>
-															<form action="<c:url value='/Pay/PayPage.ins'/>"
-																id="bgs_sub_item_list" style="display: none">
-																<input type="hidden" name="bgs1_title"
-																	value="${bgs1.B_TITLE }"> <input type="hidden"
-																	name="bgs1_content" value="${bgs1.B_CONTENT }">
-																<input type="hidden" name="bgs1_price" value="">
-																<input type="hidden" name="bgs1_qty" value="">
-															</form>
-															<div class="option-box-center" style="padding-top: 10px">
-																<div class="option-box-title">${bgs1.B_TITLE}</div>
-																<div class="option-box-desc mt5"
-																	style="margin-top: 10px">${bgs1.B_CONTENT}</div>
-															</div>
-														</div>
-														<div class="box_inventory option_box_grey">
-															<input type="hidden" name="limited_qty_yn" value="">
-															<input type="hidden" name="limited_min_qty" value="1">
-															<input type="hidden" name="limited_max_qty" value="999">
-															<div style="padding-top: 1px;">
-																<span class="txt_count_inventory option_title">수량&nbsp;&nbsp;&nbsp;</span>
-																<input disabled="disabled" id="qtyqty" name="qty"
-																	type="text" value="1"
-																	style="color: white; background-color: black; width: 38px; height: 20px; text-align: center"
-																	class="input_add" onkeyup="checkQty(this);"
-																	onfocus="this.select();" style="line-height: 18px">
-																<a id="plus_ordered" href="javascript:void(0)"
-																	style="font-size: 1.5em">&nbsp;+&nbsp;</a> <a
-																	id="minus_ordered" href="javascript:void(0)"
-																	style="font-size: 1.5em">-</a>
-															</div>
-															<div style="padding-top: 2px">
-																<span>금액&nbsp;&nbsp;&nbsp;</span> <span id="bgs_price"></span>원
-																<script>
-                                                   $("#bgs_price").text(String(${bgs1.C_PRICE}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
-                                                </script>
-															</div>
-														</div>
-
-													</div>
-
-												</div>
-
-												<div class="option-box" style="margin-top: -25px;">
-													<div class="option-box-left">
-														<div class="option-box-amount">${bgs2.C_CONCERTDATE}</div>
-														<div class="mt5" style="padding-top: 5px">
-															<strong class="font-pink">Sold out</strong> <span
-																style="opacity: 0.5;">&nbsp;&nbsp;|&nbsp;&nbsp;
-																판매 완료</span>
-														</div>
-													</div>
-													<div class="option-box-center">
-														<div class="option-box-title">${bgs2.B_TITLE}</div>
-														<div class="option-box-desc mt5" style="margin-top: 10px">${bgs2.B_CONTENT}</div>
-													</div>
-													<div class="hidden-xs option-delivery-date">
-														<strong class="font-pink"
-															style="font-size: 1.6em; margin-top: 200px">Sold
-															out</strong>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-
-
-								<!-- =========================================================================================================== -->
-
-								<div class="optionBtnBox">
-									<div class="optionStepBtn">다음단계</div>
-								</div>
-								
-<!-- 								웹채팅 -->
-<!-- 								<input type="button" onclick="showPopup();" style="width: 100px;height: 100px"/> -->
 							</div>
 						</div>
 
@@ -1241,3 +1191,19 @@ body {
 	color: #e43a90;
 }
 </style>
+
+<script>
+var lastScrollTop = 0;
+$(window).scroll(function(){
+	var currentScrollTop = $(window).scrollTop();
+	if(currentScrollTop - lastScrollTop > 0){
+		lastScrollTop = currentScrollTop; 
+	}//if
+	else{
+		lastScrollTop = currentScrollTop;
+	}
+})
+
+var position = $('.commentReply:first').offset();
+$('html,body').stop().animate({scrollTop : position.top}, 600, 'easeInQuint');
+</script>

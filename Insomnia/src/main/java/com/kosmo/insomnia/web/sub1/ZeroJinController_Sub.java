@@ -143,7 +143,6 @@ public class ZeroJinController_Sub {
 		
 		if(session.getAttribute("id") != null) {
 			map.put("id", session.getAttribute("id"));
-			System.out.println("이프");
 		}
 		else {
 			session.setAttribute("id", androidmap.get("id"));
@@ -173,7 +172,6 @@ public class ZeroJinController_Sub {
 		
 	// 방구석 기타리스트 게시판
 	@RequestMapping(value = "/sub1/list.ins")
-
 	public String list(Model model, @RequestParam Map map, HttpServletRequest req, HttpSession session,
 			@RequestParam(required = false, defaultValue = "1") int nowPage) throws Exception {
 
@@ -432,18 +430,41 @@ public class ZeroJinController_Sub {
 		
 //		System.out.println(comments.get("PROFILE_IMG").to);
 		
-		System.out.println(JSONArray.toJSONString(comments));
+		System.out.println("원래 댓글 목록:"+JSONArray.toJSONString(comments));
 		return JSONArray.toJSONString(comments);
 	}//list()
+	
+	//스크롤 시 새로운 댓글 20개 가져오기(무한 스크롤)
+	@ResponseBody 
+	@RequestMapping(value="/sub1/newCommentList.ins", produces="text/html; charset=UTF-8")
+	public String newList(@RequestParam Map map,HttpServletRequest req) throws Exception{
+		System.out.println("느 들어오긴하니??");
+		
+		System.out.println("새로운 댓글의 Map:"+map); // 마지막 번호가 map으로 잘 넘어오니?
+		
+		//서비스 호출]
+		List<Map> comments= commentService.newSelectList(map);
+		
+		for(Map comment:comments) {
+			comment.put("POSTDATE", comment.get("POSTDATE").toString().substring(0,19));
+			//엔터 값
+//			comment.put("CONTENT", comment.get("CONTENT").toString().replace("\r\n", "<br/>"));
+		}
+		
+		System.out.println("새로운 댓글 목록:"+JSONArray.toJSONString(comments));
+		return JSONArray.toJSONString(comments);
+	}//newCommentList()
 		
 	//코멘트 입력처리]
 	@ResponseBody 
 	@RequestMapping(value="/sub1/memowrite.ins",produces="text/html; charset=UTF-8")
 	public String write(@RequestParam Map map,HttpSession session) throws Exception{
+		System.out.println("map:"+map);
+		
 		//서비스 호출]
 		//한줄 댓글 작성자 아이디 맵에 설정
 		map.put("id", session.getAttribute("id"));
-		
+
 		commentService.insert(map);
 		
 		return map.get("r_no").toString();
@@ -498,6 +519,7 @@ public class ZeroJinController_Sub {
 	@ResponseBody
 	@RequestMapping(value="/sub1/replywrite.ins",produces="text/html; charset=UTF-8") 
 	public String replyWrite(@RequestParam Map map,HttpSession session) throws Exception{
+		
 		CommentDTO record = commentService.selectOne(map);
 		
 		System.out.println("map.get(\"r_no\"):"+map.get("r_no"));
@@ -509,6 +531,9 @@ public class ZeroJinController_Sub {
 		map.put("depth", record.getDepth().toString());
 		
 		System.out.println("Map:"+map);
+		
+		//insert하기 전 관련 답글들의 step을 1씩 증가시켜야한다.
+		commentService.replyBeforeUpdate(map);
 		
 		//서비스 호출
 		commentService.reply(map);
