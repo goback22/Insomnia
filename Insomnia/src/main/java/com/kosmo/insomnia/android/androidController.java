@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -24,16 +25,14 @@ public class androidController {
 	
 	//안드로이드 통신관련
 	@RequestMapping(value="/AjaxJson.ins",produces="text/html; charset=UTF-8")
-
 	@ResponseBody
-
 	public String ajaxJson(@RequestParam Map map) throws Exception{
 		System.out.println("버튼 클릭했다");
 
 		//비지니스 로직 호출
 
 		boolean isLogin=listservice.isMember(map);
-
+		System.out.println("id : "+map.get("id"));
 		//JSON데이타 타입으로 반환하기위해 JSONObject객체 생성
 
 		JSONObject json=new JSONObject();
