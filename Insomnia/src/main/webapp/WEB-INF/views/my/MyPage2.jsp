@@ -19,6 +19,35 @@
 
 </style>
 
+<style type="text/css">
+	.current {
+  color: green;
+}
+
+#pagin li {
+  display: inline-block;
+}
+
+.prev {
+  cursor: pointer;
+}
+
+.next {
+  cursor: pointer;
+}
+
+.last{
+  cursor:pointer;
+  margin-left:5px;
+}
+
+.first{
+  cursor:pointer;
+  margin-right:5px;
+}
+</style>
+
+
 <!-- 제이쿼리 UI용 라이브러리 임베드 -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -162,7 +191,7 @@ body {
 							
 							<!-- 실질적으로 내용 뿌려주는 부분 -->
 							<div id="projectCardList" style="text-align:center;" class="card-list">
-							<div class="historyValue" style="width:1500px; height:450px; margin:auto; text-align:center;"> <!-- 루프 -->
+							<div class="historyValue paginated" style="width:1500px; height:450px; margin:auto; text-align:center;"> <!-- 루프 -->
 									<!-- 내용이 없을 경우 -->
 									<c:if test="${empty fundingRecords}" var="result">
 										<!-- <div class="historyEmptyValue" style="width:1500px; height:450px; margin:auto; text-align:center;"> -->
@@ -192,8 +221,10 @@ body {
 								
 							</div>  <!-- projectCardList 끝 -->
 							<div class="pagingDiv" style="text-align: center; margin:auto; width:1000px; margin-top:20px;">${pagingString}</div>
-						
 							
+							<div id="pagin"></div>
+							<div id="paginReal"></div>
+
 						</div>  <!-- projectList 끝 -->
 					</div>  <!-- 하단 부분 끝 -->
 					
@@ -352,13 +383,19 @@ body {
 	
 		$(function(){
 			
-			$('#historyTab li').click(function(){
+			$('#historyTab li').click(function historyAjax(){
 				
 				console.log("historyTab li가 클릭은 되니?");
 				console.log("컨트롤러의 switch문에 전달하는 값은? " + $(this).find('span').html());
 				
 				///밑에서 음반, 공연, 등 나눠주기 위한 용도
+				
+				if($(this) == null || typeof($(this)) == undefined) {
+					$(this) = $('#historyTab li .active')
+				}
 				whichClick = $(this).find('span').html();
+				
+				console.log('$(this가 뭘까)' + $(this) + ' span의 html은?' + $(this).find('span').html());
 				
 				$.ajax({
 					url : '<c:url value="/mypage/history.ins"/>',
@@ -393,12 +430,13 @@ body {
 		function succFunction(data) {
 			//값 받아서 뿌려주기 projectCardList, div 1개로 돌려막기? 3개 생성?
 			console.log('succFunction이 받은 데이터' + data)
-			
+
 			
 			var listString = "";
 			var pageString = "";
 			var isEmpty = false;
 			var emptyMessage = "";
+			
 			$.each(data, function(index, element){
 				
 				if(element['noData'] != null) {
@@ -414,7 +452,7 @@ body {
 				}
 				console.log("$.each()에 어떤 값이?" + whichClick);
 				if(whichClick == "음반") {
-
+					
 					
 					var imgSrc = element["S_Album_cover"];
 					var src = '<c:url value="/upload/band/cover/'+imgSrc+'"/>';
@@ -428,6 +466,7 @@ body {
 
 	
 					listString += "</div>"  //전체 div끝
+					
 				}////펀딩
 				
 				if(whichClick == "공연") {
@@ -448,6 +487,7 @@ body {
 
 	
 					listString += "</div>"  //전체 div끝
+					
 				}////공연
 				
 				if(whichClick == "좋아한") {
@@ -465,6 +505,7 @@ body {
 	
 					listString += "</div>"  //전체 div끝
 					
+					
 				}/////좋아한
 				
 			});
@@ -476,7 +517,6 @@ body {
 			console.log('왜 엠프티 메세지 안뜨지?' + emptyMessage);
 			
 			$('.pagingDiv').html(pageString);
-			
 			
 			
 			if(isEmpty) {
@@ -493,11 +533,100 @@ body {
 			$('.historyValue').css('padding-top', '0px');
 			/* $('.historyEmptyValue').css('display', 'none') */
 			
+			page();
+			
 			
 			
 		}/////succFunction
-	
-	
+		
+		function page(){ 
+			
+			//Pagination
+			pageSize = 3;
+			incremSlide = 5;
+			startPage = 0;
+			numberPage = 0;
+			
+			var pageCount =  $(".historyDiv").length / pageSize;
+			var totalSlidepPage = Math.floor(pageCount / incremSlide);
+			
+			$('#pagin').html('');
+			
+			for(var i = 0 ; i<pageCount;i++) {
+				
+				urll = "<c:url value='/mypage/history.ins'/>"
+				urll2 = "javascript:historyAjax();"
+			    $("#pagin").append('<li><a href="'+urll2+'">'+(i+1)+'</a></li>');
+			    if(i>pageSize){
+			       $("#pagin li").eq(i).hide();
+			    }
+			}
+			
+			var prev = $("<li/>").addClass("prev").html("Prev").click( function(){
+				   startPage-=5;
+				   incremSlide-=5;
+				   numberPage--;
+				   slide();
+			});
+			
+			prev.hide();
+			
+			var next = $("<li/>").addClass("next").html("Next").click(function(){
+				   startPage+=5;
+				   incremSlide+=5;
+				   numberPage++;
+				   slide();
+			});
+			
+			$("#pagin").prepend(prev).append(next);
+			
+			$("#pagin li").first().find("a").addClass("current");
+
+			slide = function(sens){
+				   $("#pagin li").hide();
+				   
+				   for(t=startPage;t<incremSlide;t++){
+				     $("#pagin li").eq(t+1).show();
+				   }
+				   if(startPage == 0){
+				     next.show();
+				     prev.hide();
+				   }else if(numberPage == totalSlidepPage ){
+				     next.hide();
+				     prev.show();
+				   }else{
+				     next.show();
+				     prev.show();
+				   }    
+			}
+			
+			showPage = function(page) {
+				  $(".historyDiv").hide();
+				  $(".historyDiv").each(function(n) {
+				      if (n >= pageSize * (page - 1) && n < pageSize * page)
+				          $(this).show();
+				  });        
+			}
+			
+			showPage(1);
+			$("#pagin li a").eq(0).addClass("current");
+			
+			$("#pagin li a").click(function() {
+				 $("#pagin li a").removeClass("current");
+				 $(this).addClass("current");
+				 showPage(parseInt($(this).text()));
+			});
+			
+			////추가한 부분, 중복제거
+			//$('#paginReal').html($('#pagin').html());
+			
+			
+			
+			
+		}
+			
 	</script>
+	
+	
 	
 

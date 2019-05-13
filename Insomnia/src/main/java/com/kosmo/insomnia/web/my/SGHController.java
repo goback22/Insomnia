@@ -385,14 +385,14 @@ public class SGHController {
 		switch(requestStr) {
 		
 			case "음반" :
-				totalRecordCount = rewardService.getCount(dismap);
-				break;
+				//totalRecordCount = rewardService.getCount(dismap);
+				//break;
 			case "공연" :
-				totalRecordCount = bgsService.getCount(dismap);
-				break;
+				//totalRecordCount = bgsService.getCount(dismap);
+				//break;
 			case "좋아한" :
-				totalRecordCount = bandService.getLikeNFollow(dismap);
-				break;
+				//totalRecordCount = bandService.getLikeNFollow(dismap);
+				//break;
 		}
 		
 		 
