@@ -5,7 +5,7 @@
 <script>
 	<c:choose>
 		<c:when test="${succFail==1}">
-			location.replace("<c:url value='/admin/AdminSubContent'/>");
+			location.replace("<c:url value='/admin/subcontent.ins'/>");
 		</c:when>
 		<c:when test="${succFail==0}">
 			history.back();

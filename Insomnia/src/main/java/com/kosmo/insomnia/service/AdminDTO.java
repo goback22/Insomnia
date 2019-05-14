@@ -37,8 +37,155 @@ public class AdminDTO {
 	private String bm_liked;
 	//bandimage
 	private String image;
+	//bandsubmit
+	private String s_submit_date;
+	private String s_goal_accumulation;
+	private String s_account_bank;
+	private String s_account_serial;
+	private String s_goal_price;
+	private String s_goal_deadline;
+	//reward
+	private String r_no;
+	private String s_no;
+	private String r_price;
+	private String r_name;
+	private String r_description;
 	
+	//bandsubmitwaiting
+	private String sw_postdate;
+	private String sw_content;
+	private String sw_isaccept;
+	private String sw_iscomplete;
+	private String sw_short_deccription;
 	
+	//band chart
+	private String sp_reward_qty;
+	
+	//sum reward qty
+	private String sum_reward_qty_1;
+	private String sum_reward_qty_2;
+	private String sum_reward_qty_3;
+	
+	public String getSum_reward_qty_1() {
+		return sum_reward_qty_1;
+	}
+	public void setSum_reward_qty_1(String sum_reward_qty_1) {
+		this.sum_reward_qty_1 = sum_reward_qty_1;
+	}
+	public String getSum_reward_qty_2() {
+		return sum_reward_qty_2;
+	}
+	public void setSum_reward_qty_2(String sum_reward_qty_2) {
+		this.sum_reward_qty_2 = sum_reward_qty_2;
+	}
+	public String getSum_reward_qty_3() {
+		return sum_reward_qty_3;
+	}
+	public void setSum_reward_qty_3(String sum_reward_qty_3) {
+		this.sum_reward_qty_3 = sum_reward_qty_3;
+	}
+	public String getR_no() {
+		return r_no;
+	}
+	public void setR_no(String r_no) {
+		this.r_no = r_no;
+	}
+	public String getSp_reward_qty() {
+		return sp_reward_qty;
+	}
+	public void setSp_reward_qty(String sp_reward_qty) {
+		this.sp_reward_qty = sp_reward_qty;
+	}
+	public String getS_no() {
+		return s_no;
+	}
+	public void setS_no(String s_no) {
+		this.s_no = s_no;
+	}
+	public String getR_price() {
+		return r_price;
+	}
+	public void setR_price(String r_price) {
+		this.r_price = r_price;
+	}
+	public String getR_name() {
+		return r_name;
+	}
+	public void setR_name(String r_name) {
+		this.r_name = r_name;
+	}
+	public String getR_description() {
+		return r_description;
+	}
+	public void setR_description(String r_description) {
+		this.r_description = r_description;
+	}
+	public String getS_account_bank() {
+		return s_account_bank;
+	}
+	public void setS_account_bank(String s_account_bank) {
+		this.s_account_bank = s_account_bank;
+	}
+	public String getS_account_serial() {
+		return s_account_serial;
+	}
+	public void setS_account_serial(String s_account_serial) {
+		this.s_account_serial = s_account_serial;
+	}
+	public String getSw_short_deccription() {
+		return sw_short_deccription;
+	}
+	public void setSw_short_deccription(String sw_short_deccription) {
+		this.sw_short_deccription = sw_short_deccription;
+	}
+	public String getS_goal_accumulation() {
+		return s_goal_accumulation;
+	}
+	public void setS_goal_accumulation(String s_goal_accumulation) {
+		this.s_goal_accumulation = s_goal_accumulation;
+	}
+	public String getS_goal_price() {
+		return s_goal_price;
+	}
+	public void setS_goal_price(String s_goal_price) {
+		this.s_goal_price = s_goal_price;
+	}
+	public String getS_goal_deadline() {
+		return s_goal_deadline;
+	}
+	public void setS_goal_deadline(String s_goal_deadline) {
+		this.s_goal_deadline = s_goal_deadline;
+	}
+	public String getS_submit_date() {
+		return s_submit_date;
+	}
+	public void setS_submit_date(String s_submit_date) {
+		this.s_submit_date = s_submit_date;
+	}
+	public String getSw_postdate() {
+		return sw_postdate;
+	}
+	public void setSw_postdate(String sw_postdate) {
+		this.sw_postdate = sw_postdate;
+	}
+	public String getSw_content() {
+		return sw_content;
+	}
+	public void setSw_content(String sw_content) {
+		this.sw_content = sw_content;
+	}
+	public String getSw_isaccept() {
+		return sw_isaccept;
+	}
+	public void setSw_isaccept(String sw_isaccept) {
+		this.sw_isaccept = sw_isaccept;
+	}
+	public String getSw_iscomplete() {
+		return sw_iscomplete;
+	}
+	public void setSw_iscomplete(String sw_iscomplete) {
+		this.sw_iscomplete = sw_iscomplete;
+	}
 	public String getEmail() {
 		return email;
 	}

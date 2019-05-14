@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
+<!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
+
+<mapper namespace="mapper.adminMainPay">
+	<select id="adminMainPaySelectlist" parameterType="java.util.Map" resultType="java.util.Map">
+		select s_no,b_name,  s_goal_accumulation, s_goal_deadline,S_GOAL_PRICE from band b join bandsubmit bs on b.b_no = bs.b_no
+	</select>
+	
+	<select id="countFundPeople" parameterType="java.lang.String" resultType="int">
+		select count(*) from safepay sp join reward r on sp.r_no = r.r_no join bandsubmit bs on bs.s_no = r.s_no where bs.s_no = #{value}
+	</select>
+	
+	<select id="selectBandSafepayDetail" parameterType="java.util.Map" resultType="java.util.Map">
+		select sp.*,r.* from safepay sp join reward r on sp.r_no = r.r_no join bandsubmit bs on bs.s_no = r.s_no where bs.s_no = #{S_NO}
+	</select>
+
+	
+</mapper>

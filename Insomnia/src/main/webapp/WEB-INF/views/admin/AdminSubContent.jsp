@@ -17,7 +17,12 @@
 	<link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>" rel="stylesheet">
 	<link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>" rel="stylesheet">
 	<link href="<c:url value='/vendor/css/admin_datatable.css'/>" rel="stylesheet">
-	
+<style>
+	.c {
+		btn;
+		btn-success;
+	}
+</style>	
 </head>
 <body>
 	<div id="wrapper">
@@ -34,7 +39,7 @@
 			</div>
 			<!-- 회원관련 -->
 			<div class="row">
-				<div class="col-md-9">
+				<div class="col-md-8">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -72,17 +77,17 @@
 									            	
 													<th class='text-center'><input type="checkbox" value="all"/></th>
 													<th>no</th>
+													<th class="col-md-1">name</th>
 													<th class="col-md-1">ID</th>
 													<th class="col-md-3">제목</th>
-													<th class="col-md-3">내용</th>
-													<th class="col-md-1">등록일</th>
+													<th class="col-md-2">등록일</th>
+													<th class="col-md-1">좋아요</th>
 													<th class="col-md-1">장르</th>
 													<th>apply/deny</th>
 									            </tr>
 									          </thead>
 									          <%-- 				<c:if 없을때 없다고 표시하기1/2> --%>
 												<tbody class="submember">
-												
 <!-- 												<tr> -->
 <!-- 													<td ><input type="checkbox" name="allmember"/>&nbsp;&nbsp;1</td> -->
 <!-- 													<td>oin members</td> -->
@@ -91,7 +96,6 @@
 <!-- 													<td>aBGSAPPLY</td> -->
 <!-- 													<td class="text-center"><div class="btn btn-default apply">수락</div><div class="btn btn-default deny">거부</div></td> -->
 <!-- 												</tr> -->
-												
 												</tbody>
 									          </table>          
 									        </div>
@@ -114,57 +118,31 @@
 					</div>
 				</div>
 				<!-- test1 -->
-<%-- 				<c:if 없을때 없다고 표시하기2/2> --%>
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								apply test1
+								방구석 신청 후 수락된 회원 목록
 							</h3>
 						</div>
 						<div class="panel-body feed">
 							<section class="feed-item">
 								<table class="table table-hover apply-table">
-									<tr>
-										<th>id</th><th>genre</th><th>etc</th>
-									</tr>
+									<thead>
+										<tr> 
+											<th class="col-md-3">아이디</th><th class="col-md-2">성명</th><th>신청 장르</th><th class="col-md-2">등록일</th> 
+										</tr>
+									</thead>
+									<tbody class="subhire_member"></tbody>
 								</table>
 							</section>
 						</div>
 					</div>
 				</div>
-				
 				<!-- test1 end -->
-				
-				<!-- test2 -->
-				<c:if test="${true }" var="trexist">
-				<div class="col-md-3" style="float:right;">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								apply test2
-							</h3>
-						</div>
-						<div class="panel-body feed">
-							<section class="feed-item">
-								<table class="table table-hover deny-table">
-									<tr>
-										<th>id</th><th>gernr</th><th>etc</th>
-									</tr>
-								</table>
-							</section>
-						</div>
-					</div>
-				</div>
-				</c:if>
-				<!-- test2 end -->
-				
-				
 			</div>
 			<!--  -->
-			
 		</div>
-		
 	</div>
 
 
@@ -175,7 +153,6 @@ let memberLength = $(':checkbox[name=allmember]').length;
 $(':checkbox:first').click(function(){
 	if($(this).is(':checked')){			
 		$(':checkbox[name=allmember]').prop('checked',true);
-		
 	}
 	else{
 		$(':checkbox[name=allmember]').prop('checked',false);
@@ -201,7 +178,6 @@ $(':checkbox[name=allmember]').click(function(){
 		console.log("unchecked");
 	}
 });
-
 $('.checkeddelete').click(function(){
 	console.log('delete button');
 	if($(':checkbox:first').is(':checked')){
@@ -217,16 +193,22 @@ $('.checkeddelete').click(function(){
 
 //세부 정보 table toggle
 $(".view").on("click", function(){
+	
 	console.log("click");
 	$(this).next(".fold").toggle(500);
-	
 });
+
+
 $(function(){
+	
+	$('.fold').show();
+	//sub content 신청한 사람 꺼내기
 	$.ajax({
 		url:"<c:url value='/admin/submember.ins'/>",
 		dataType:'json',
 		success:function(data){
-			firstSubSubmitMembers(data)
+			//console.log("1");
+			firstSubSubmitMembers(data);
 		},
 		error:function(request,error){
 			console.log('상태코드:',request.status);
@@ -234,38 +216,33 @@ $(function(){
 			console.log('에러:',error);
 		}
 	});
-	
+	//sub content 신청한 사람 꺼내기-성공하면 실행되는 메소드
 	function firstSubSubmitMembers(data){
 		//console.log(data);
 		var tableString;
 		var id;
 		var ap_no;
 		$.each(data,function(index,element){
-			//index = element["ap_no"];
-			
 			id = element["id"];
 			ap_no = element["ap_no"];
-			
-			tableString += "<tr>";
+			tableString += "<tr class='bgsapply'>";
 			tableString +=		"<td class='text-center'><input type='checkbox' name='allmember'/></td>";
 			tableString +=		"<td class='text-center'></td>";
-			tableString +=		"<td class='col-md-1'>"+id+"${hireAp_no.ap_no},${isSame}</td>";
+			tableString +=		"<td class='col-md-1'>"+element["name"]+"</td>";
+			tableString +=		"<td class='col-md-1'>"+element["id"]+"</td>";
 			tableString +=		"<td class='col-md-3'>"+element["ap_title"]+"</td>";
-			tableString +=		"<td class='col-md-3'>"+element["ap_content"]+"</td>";
-			tableString +=		"<td class='col-md-1'>"+element['ap_postdate'].substring(0,10)+"</td>";//
+			tableString +=		"<td class='col-md-2'>"+element['ap_postdate'].substring(0,10)+"</td>";//
+			tableString +=		"<td class='col-md-1'>"+element["ap_visit"]+"</td>";
 			tableString +=		"<td class='col-md-1'>"+element["ap_genre"]+"</td>";
 			tableString +=		"<td class='text-center'>"
-			tableString +=			"<div value='"+ap_no+"' class='btn btn-default apply' onclick='applyButton(this)'>수락</div>"
-			tableString += 			"<div class='btn btn-default deny' onclick='denyButton()'>거부</div>"
+			tableString +=			"<div value='"+element["ap_no"]+"' class='btn btn-default apply' onclick='applyButton(this)'>수락</div>&nbsp;"
+// 			tableString += 			"<div class='btn btn-default deny' onclick='denyButton()'>거부</div>"
 			tableString +=		"</td>";
 			tableString += "</tr>";
-			
-			
-			
 		});
 		$('.submember').html(tableString);
 		
-		//sub detail view table
+		//sub detail view table option
 		var t = $('.example').DataTable( {
 	        "columnDefs": [ {
 	            "searchable": false,
@@ -274,38 +251,83 @@ $(function(){
 	        } ],
 	        "order": [[ 1, 'asc' ]]
 	    } );
-	 
 	    t.on( 'order.dt search.dt', function () {
 	        t.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
 	            cell.innerHTML = i+1;
 	        } );
 	    } ).draw();
-		
 	};
 	
-
-});
+// 	$('.apply').click(function(){
+	//sub hire member list
+	$.ajax({
+		url:"<c:url value='/admin/submemberApplyMember.ins'/>",
+		dataType:'json',
+		success:
+// 			console.log("apply member list success method");
+			subHireList,
+		error:function(request,error){
+// 			console.log("apply member list fail");
+			console.log('상태코드:',request.status);
+			console.log('서버로 부터 받은 HTML데이터:',request.responseText);
+			
+		}
+	});//ajax
+// 	})//cch click
+	
+});//function
+	
+	//sub hire member list-success method
+	var subHireList = function(data){
+		console.log("data:"+data);
+		console.log("????????????????이거임?");	
+		var subHireString = "";
+		$.each(data,function(index,element){
+			console.log("????????????????이건들어오냐");	
+			subHireString += "<tr>";
+			subHireString += 	"<td>"+element["name"]+"</td>";
+			subHireString += 	"<td>"+element["id"]+"</td>";
+			subHireString += 	"<td>"+element["ap_genre"]+"</td>";
+			subHireString += 	"<td>"+element['ap_postdate'].substring(0,10)+"</td>";//
+			subHireString += "</tr>";
+		});
+		
+		//출력
+		$('.subhire_member').html(subHireString);
+	};//subHireList
+	
 function applyButton(info){
-    //var thisId = $(info).attr("value");
     var thisap_no = $(info).attr("value");
-    //console.log(thisId);
 	console.log(thisap_no);
-    
     $.ajax({
     	url:"<c:url value='/admin/submemberApplySingle.ins?ap_no="+thisap_no+"'/>",
-    	dataType:"json",
-    	success:function(data){
-    		console.log(data);
+    	//dataType:"json",
+    	success:function(){
+    		alert("방구석 신청 완료");
+    		location.reload();
     	},
     	error:function(request,error){
+    		console.log('수락버튼 누르고 에러 나올때');
 			console.log('상태코드:',request.status);
 			console.log('에러:',error);
 		}
     });
 };
+
 function denyButton(){
 	console.log("deny single button");
+	test();
 	
+};
+
+var test = function(){
+	var denyString="";
+	denyString = "<tr>";
+	denyString +=	"<td>11</td>";
+	denyString +=	"<td>22</td>";
+	denyString +=	"<td>33</td>";
+	denyString += "</tr>";
+	$('.deny-test').append(denyString);
 };
 </script>
 

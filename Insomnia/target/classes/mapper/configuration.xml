@@ -33,6 +33,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mapper/adminMember.xml" />
 		<mapper resource="mapper/bgsPay.xml" />
 		<mapper resource="mapper/band.xml"/>
+		<mapper resource="mapper/adminBand.xml" />
+		<mapper resource="mapper/adminSub.xml" />
+		<mapper resource="mapper/adminMainPay.xml"/>
 		<mapper resource="mapper/freeboard.xml"/>
 	</mappers>
 	

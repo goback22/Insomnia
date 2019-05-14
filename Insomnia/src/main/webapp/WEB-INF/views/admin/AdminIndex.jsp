@@ -211,27 +211,23 @@
 							<section class="feed-item">
 								<table class="table table-hover">
 									<tr>
-										<th class="text-center">no</th>
-										<th class="col-md-1 text-center">BAND.b_name</th>
+										<th class="col-md-3 text-center">BAND.b_name</th>
 										<th class="text-center">BAND.bm_title</th>
-										<th class="text-center">BANDMUSIC.bm_name</th>
+										<th class="text-center">BAND.b_description</th>
 										<th class="col-md-1 text-center">BAND.b_liked</th>
 									</tr>
 									<!-- DB에서 꺼내기 -->
-									<tr>
-										<td class="text-center">1</td>
-										<td class="text-center"></td>
-										<td class="text-center"></td>
-										<td class="text-center"></td>
-										<td class="text-center"></td>
-									</tr>
-									<tr>
-										<td class="text-center">2</td>
-										<td class="text-center"></td>
-										<td class="text-center"></td>
-										<td class="text-center"></td>
-										<td class="text-center"></td>
-									</tr>
+									
+										<c:forEach items="${bandList }" var="item" varStatus="loop">
+											<tr class="view">
+												<td class="text-center">${item.b_name }</td>
+												<td class="text-center">${item.bm_title }</td>
+												<td class="text-center">${item.b_description }</td>
+												<td class="text-center">${item.b_liked }</td>
+											</tr>
+										</c:forEach>
+									
+									
 									<!-- DB에서 꺼내기 끝 -->
 								</table>
 								<div class="" style="text-align: right;margin-right: 5px;">
@@ -270,14 +266,7 @@
 										<td class="text-center"></td>
 										
 									</tr>
-									<tr>
-										<td class="text-center">2</td>
-										<td class="text-center"></td>
-										<td class="text-center"></td>
-										<td class="text-center"></td>
-										<td class="text-center"></td>
-										
-									</tr>
+									
 									<!-- DB에서 꺼내기 끝 -->
 								</table>
 								<div class="" style="text-align: right;margin-right: 5px;">
@@ -290,165 +279,8 @@
 			</div>	
 			<!-- main band end -->
 			
-			<!-- main content -->
-			<div class="row">
-				<div class="col-lg-9">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								main content관련-앨범 만들어주는 컨텐츠
-							</h3>
-						</div>
-						<div class="panel-body">
-							<h3>앨범 만들어주고픈 회원?</h3>
-							<!-- table -->
-							<table class="table table-hover">
-								<tr>
-									<th>no</th>
-									<th>ID</th>
-									<th>name</th>
-									<th>앨범이름</th>
-									<th>e mail</th>
-									<th>column1</th>
-									<th>column2</th>
-									<th>column3</th>
-									<th>column4</th>
-								</tr>
-								<!--  -->
-								<tr>
-									<td>1</td>
-									<td>gerilong</td>
-									<td>게리롱</td>
-									<td>funny powder</td>
-									<td>gerilong@naver.com</td>
-									<td>column1</td>
-									<td>column2</td>
-									<td>column3</td>
-									<td>column4</td>
-								</tr>
-								<tr>
-									<td>no</td>
-									<td>hoorilong</td>
-									<td>name</td>
-									<td>phone</td>
-									<td>e mail</td>
-									<td>column1</td>
-									<td>column2</td>
-									<td>column3</td>
-									<td>column4</td>
-								</tr>
-								
-								<tr>
-									<td>1</td>
-									<td>2</td>
-									<td>3</td>
-									<td>4</td>
-									<td>5</td>
-									<td>6</td>
-									<td>7</td>
-									<td>8</td>
-									<td>9</td>
-								</tr>
-							</table>
-							<!-- table end -->
-							<div class="" style="text-align: right;margin-right: 30px;">
-								<a href="<c:url value='/admin/maincontent.ins'/>">more view</a></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- main content end -->
-			<!-- sub content -->
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								sub content관련-아티스트 모으고 공연장 섭외해서 공연기획
-							</h3>
-						</div>
-						<div class="panel-body">
-							<table class="table table-hover">
-								<tr>
-									<th class="col-md-1">no</th>
-									<th class="col-md-2 text-center">아이디</th>
-									<th class="col-md-2 text-center">이름</th>
-									<th class="col-md-1 text-center">이메일</th>
-									<th class="text-center">is방구석</th>
-									<th class="text-center">column</th>
-									<th class="col-md-1 text-center">yes or no</th>
-								</tr>
-								
-								<tr>
-									<td class="">1</td>
-									<td class="text-center">queen</td>
-									<td class="text-center">후레디멐유리</td>
-									<td class="text-center">queen@naver.com</td>
-									<td class="text-center">방구석</td>
-									<td class="text-center">content1</td>
-									<td class="text-center">yes or no</td>
-								</tr>
-								<tr>
-									<td class="">2</td>
-									<td class="text-center">redmarx</td>
-									<td class="text-center">마르크스</td>
-									<td class="text-center">redmarx@han.net</td>
-									<td class="text-center">일반</td>
-									<td class="text-center">text-center</td>
-									<td class="text-center">yes or no</td>
-								</tr>
-							</table>
-							<div class="" style="text-align: right;margin-right: 5px;">
-								<a href="<c:url value='/admin/subcontent.ins'/>">more view</a></div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-6">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								sub content관련-아티스트 목록(신청한사람?)
-							</h3>
-						</div>
-						<div class="panel-body">
-							<table class="table table-hover">
-								<tr>
-									<th class="col-md-1 text-center">no</th>
-									<th class="col-md-2 text-center">ID</th>
-									<th class="col-md-2 text-center">성명</th>
-									<th class="col-md-1 text-center">Email</th>
-									<th class="col-md-1 text-center"></th>
-									<th class="text-center">제목</th>
-									<th class="col-md-1 text-center">수락여부</th>
-								</tr>
-								
-								<tr>
-									<td class="">1</td>
-									<td class="text-center">mamison</td>
-									<td class="text-center">마미손</td>
-									<td class="text-center">hand@naver.com</td>
-									<td class="text-center"></td>
-									<td class="">제목?</td>
-									<td class="text-center">yes or no</td>
-								</tr>
-								<tr>
-									<td class="">2</td>
-									<td class="text-center">do</td>
-									<td class="text-center">이현도</td>
-									<td class="text-center">do@hanmail.net</td>
-									<td class="text-center"></td>
-									<td class="">제에목?</td>
-									<td class="text-center">yes or no</td>
-								</tr>
-							</table>
-							<div class="" style="text-align: right;margin-right: 5px;">
-								<a href="#">more view</a></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- sub content end -->
+			
+			
 			
 			<!-- 결제관련 -->
 			<div class="row">
@@ -459,51 +291,9 @@
 								결제 진행 목록?결제 완료된 회원?
 							</h3>
 						</div>
-						<div class="panel-body">
-							<h1>아직</h1>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-5">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								표 팔고 있는 공연 목록
-							</h3>
-						</div>
-						<div class="panel-body">
-							<table class="table table-hover">
-								<tr>
-									<th class="col-md-1">no</th>
-									<th class="col-md-3 text-center">공연이름</th>
-									<th class="col-md-2 text-center">공연날짜</th>
-									<th class="col-md-2 text-center">총좌석수</th>
-									<th class="text-center">장소</th>
-								</tr>
-								
-								<tr>
-									<td class="col-md-1">1</td>
-									<td class="col-md-3 text-center">여놀자</td>
-									<td class="col-md-2 text-center">2019-04-07</td>
-									<td class="col-md-2 text-center">400</td>
-									<td class="text-center">강변북로</td>
-								</tr>
-								<tr>
-									<td class="col-md-1">2</td>
-									<td class="col-md-3 text-center">기타들고모여</td>
-									<td class="col-md-2 text-center">2019-04-09</td>
-									<td class="col-md-2 text-center">500</td>
-									<td class="text-center">아르코예술극장</td>
-								</tr>
-								<tr>
-									<td class="col-md-1">3</td>
-									<td class="col-md-3 text-center">드림콘서트</td>
-									<td class="col-md-2 text-center">2019-04-01</td>
-									<td class="col-md-2 text-center">1500</td>
-									<td class="text-center">드림랜드 마당</td>
-								</tr>
-							</table>
+						<div class="panel-body feed">
+							<section class="feed-item">
+							</section>
 						</div>
 					</div>
 				</div>
@@ -570,7 +360,7 @@ $(function(){
 		}		
 		var resultDate = twoagoMonth+"월 "+twoagoDay+"일";
 		
-		google.charts.load("current", {packages:["corechart"]});
+		google.charts.load("current", {packages:["annotationchart"]});
 		google.charts.setOnLoadCallback(drawChart);
 		function drawChart() {
 	    	var data = google.visualization.arrayToDataTable([
@@ -581,7 +371,7 @@ $(function(){
 	        ]);
 	    	var options = {
 	    	  displayAnnotations: true,
-   	          legend: 'none',
+	    	  legend: 'none',
 			  lineWidth: 3,
 			  'chartArea':{
 				  'width':'80%',
@@ -595,7 +385,8 @@ $(function(){
 			  'vAxis':{
 				  'textStyle':{
 					  'fontSize':14
-				  }
+				  },
+			  minValue: 0,
 			  },
 			  animation:{
 	            duration: 1000,
@@ -609,9 +400,7 @@ $(function(){
 		chart.draw(data,options);
       };
 //band chart
-
 	var divlength = $('#sub_chart').width();
-	
 	google.charts.load('current', {packages: ['corechart', 'bar']});
 	google.charts.setOnLoadCallback(drawBandBasic);
 	function drawBandBasic() {
@@ -646,8 +435,8 @@ $(function(){
 });
 //4th chart
 
-		var male = ${totalMemberCount}-${femaleMember};
-		var female = ${femaleMember};
+	var male = ${totalMemberCount}-${femaleMember};
+	var female = ${femaleMember};
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {

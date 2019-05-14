@@ -120,9 +120,65 @@ public class AdminServiceImpl implements AdminService{
 		// TODO Auto-generated method stub
 		return dao.selectHire(map);
 	}
+	//////////////
+
+	@Override
+	public List<AdminDTO> selectWaitingBand(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectWaitingBand(map);
+	}
+
+	@Override
+	public List<AdminDTO> selectBandSubmit(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectBandSubmit(map);
+	}
+
+	@Override
+	public List<AdminDTO> selectBandSubmitReward(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectBandSubmitReward(map);
+	}
+
+	@Override
+	public List<AdminSubDTO> selectSubApplyList(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectSubApplyList(map);
+	}
+
+	@Override
+	public List<AdminDTO> selectChartData(String string) {
+		// TODO Auto-generated method stub
+		return dao.selectChartData(string);
+	}
+
+	@Override
+	public int updateBandAccept(String string) {
+		// TODO Auto-generated method stub
+		return dao.updateBandAccept(string);
+	}
+
+	@Override
+	public int getNewMember(Map map) {
+		// TODO Auto-generated method stub
+		return dao.getNewMember(map);
+	}
 	
-	
-	
+	//일승 추가 - 메인 결제 전체 조회
+	@Override
+	public List<Map> selectSafepayList(){
+		return  dao.selectSafepayList();
+	}
+	//일승 추가 - 메인 총 구매자 수 조회 쿼리
+	@Override
+	public int countFundPeople(String S_NO) {
+		return dao.countFundPeople(S_NO);
+	}
+
+	@Override
+	public List<Map> selectBandSafepayDetail(Map map) {
+		return dao.selectBandSafepayDetail(map);
+	}
 
 	
 
