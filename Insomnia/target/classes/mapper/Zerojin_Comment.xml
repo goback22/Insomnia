@@ -6,7 +6,8 @@
 
 <mapper namespace="mapper.Zerojin_Comment">
    <select id="commentSelectList" parameterType="java.util.Map" resultType="java.util.Map">
-   SELECT m.id,content,name,postdate,r_no,stars,profile_img,refer,depth,step FROM BGSREVIEW m JOIN members b ON m.id=b.id order by refer desc, step asc
+   SELECT * FROM (SELECT TBL.*,ROWNUM R FROM ( SELECT m.id,content,name,postdate,r_no,stars,profile_img,refer,depth,step FROM BGSREVIEW m JOIN members b ON m.id=b.id order by refer desc, step asc)TBL)
+   WHERE R BETWEEN 1 AND 10
    </select>
    
    <insert id="commentInsert" parameterType="java.util.Map" >
@@ -21,6 +22,10 @@
    DELETE FROM BGSREVIEW WHERE r_no =#{r_no, jdbcType=VARCHAR}  
    </delete>
    
+   <update id="replyBeforeUpdate" parameterType="java.util.Map">
+   <![CDATA[ UPDATE bgsreview set step = step+1 where refer = #{refer} and step > #{step} ]]>
+   </update>
+   
    <insert id="replyInsert" parameterType="java.util.Map">
    INSERT INTO BGSREVIEW(r_no,id,content,postdate,refer,depth,step) VALUES(SEQ_bgsreview.nextval,#{id},#{content},sysdate,#{refer},#{depth}+1,#{step}+1)
    </insert>
@@ -31,5 +36,9 @@
 	
    <select id="isChild" parameterType="java.util.Map" resultType="int">
    SELECT COUNT(*) FROM BGSREVIEW WHERE refer=#{refer,jdbcType=VARCHAR} AND r_no!=#{refer,jdbcType=VARCHAR}
+   </select>
+   
+   <select id="NewList" parameterType="java.util.Map" resultType="java.util.Map">
+   <![CDATA[ SELECT m.id,content,name,postdate,r_no,stars,profile_img,refer,depth,step FROM BGSREVIEW m JOIN members b ON m.id=b.id where r_no < #{r_no} and r_no > #{r_no}-10 order by refer desc, step asc ]]>
    </select>
 </mapper>

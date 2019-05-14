@@ -20,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="AdminSubDTO" type="com.kosmo.insomnia.service.AdminSubDTO"/>
 		<typeAlias alias="FreeBoardDTO" type="com.kosmo.insomnia.service.FreeBoardDTO"/>
 		<typeAlias alias="GoodNbadDTO" type="com.kosmo.insomnia.service.GoodNbadDTO"/>
+		<typeAlias alias="BandDTO" type="com.kosmo.insomnia.service.BandDTO"/>
 	</typeAliases>
 	
 	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 -->	

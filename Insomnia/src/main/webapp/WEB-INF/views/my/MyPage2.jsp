@@ -19,6 +19,35 @@
 
 </style>
 
+<style type="text/css">
+	.current {
+  color: green;
+}
+
+#pagin li {
+  display: inline-block;
+}
+
+.prev {
+  cursor: pointer;
+}
+
+.next {
+  cursor: pointer;
+}
+
+.last{
+  cursor:pointer;
+  margin-left:5px;
+}
+
+.first{
+  cursor:pointer;
+  margin-right:5px;
+}
+</style>
+
+
 <!-- 제이쿼리 UI용 라이브러리 임베드 -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -112,12 +141,12 @@ body {
 								<p style="display:hidden" id="imgSrc"></p>
 								<!-- <input type="file" id="imgUpload" name="imgUpload" accept="image/*"> -->
 								<ul class="activity-list">
-									<li><strong class="count">0</strong><span>펀딩</span></li>
+									<li><strong class="count">${fundingCount}</strong><span>펀딩</span></li>
 									<li><a href="javascript:void(0)"> <strong
-											class="count">0</strong> <em>지지서명</em>
+											class="count">${bgsCount}</strong> <em>공연</em>
 									</a></li>
 									<li><a href="javascript:void(0)"><strong
-											class="count">0</strong><em>팔로워</em></a></li>
+											class="count">${likeCount}</strong><em>좋아요</em></a></li>
 									<li><a href="javascript:void(0)"><strong
 											class="count">0</strong><em>팔로잉</em></a></li>
 								</ul>
@@ -162,7 +191,7 @@ body {
 							
 							<!-- 실질적으로 내용 뿌려주는 부분 -->
 							<div id="projectCardList" style="text-align:center;" class="card-list">
-							<div class="historyValue" style="width:1500px; height:450px; margin:auto; text-align:center;"> <!-- 루프 -->
+							<div class="historyValue paginated" style="width:1500px; height:450px; margin:auto; text-align:center;"> <!-- 루프 -->
 									<!-- 내용이 없을 경우 -->
 									<c:if test="${empty fundingRecords}" var="result">
 										<!-- <div class="historyEmptyValue" style="width:1500px; height:450px; margin:auto; text-align:center;"> -->
@@ -179,7 +208,7 @@ body {
 	
 												<div class='historyDiv'>
 													<p class='historyName'>${funding.r_name}</p>
-													<img class='historyImg' src="<c:url value='/resource/img/${funding.s_album_cover}'/>"/> 
+													<img class='historyImg' src="<c:url value='/upload/band/cover/${funding.sw_banner}'/>"/> 
 													<p class="historyDesc">${funding.r_description}</p>  
 													<p class="historyMusic">${funding.bm_name}</p>  
 													<p class="historyAuthor">${funding.b_name}</p><p class="historyPrice">${funding.r_price}원</p>
@@ -192,8 +221,10 @@ body {
 								
 							</div>  <!-- projectCardList 끝 -->
 							<div class="pagingDiv" style="text-align: center; margin:auto; width:1000px; margin-top:20px;">${pagingString}</div>
-						
 							
+							<div id="pagin"></div>
+							<!-- <div id="paginReal"></div> -->
+
 						</div>  <!-- projectList 끝 -->
 					</div>  <!-- 하단 부분 끝 -->
 					
@@ -241,7 +272,7 @@ body {
 					
 					var match = ['jpg', 'png', 'gif', 'jpeg', 'bmp', 'tif'];
 					
-					console.log("타입은 대체?" + $(this).type);
+					//console.log("타입은 대체?" + $(this).type);
 					
 					if($.inArray(extension.toLowerCase(), match) == -1) {
 						alert('이미지 파일만 등록해주세요.');
@@ -255,19 +286,19 @@ body {
 					
 					if(uploadOk) {
 						var files = document.getElementById('imgUpload1').files;
-						console.log("files : "+files);
-				  		console.log("files.length : "+files.length);
+						//console.log("files : "+files);
+				  		//console.log("files.length : "+files.length);
 						if (!files.length) {
 						    return alert('Please choose a file to upload first.');
 						}
 				    	var file = files[0];
-						console.log("file : "+file)
+						//console.log("file : "+file)
 						var file_length = file.name.lastIndexOf('.')+1;
 						
 					    var fileName = '${id }' + '_cover_Img.jpg';
 					    console.log(fileName);
 						var albumPhotosKey = encodeURIComponent(albumName) + '/';
-						console.log(albumName);
+						//console.log(albumName);
 						var photoKey = albumPhotosKey + fileName;
 						s3.upload({
 					      Key: photoKey,
@@ -352,13 +383,21 @@ body {
 	
 		$(function(){
 			
-			$('#historyTab li').click(function(){
+			//var historyAjax;
+			
+			$('#historyTab li').click(function historyAjax(){
 				
 				console.log("historyTab li가 클릭은 되니?");
 				console.log("컨트롤러의 switch문에 전달하는 값은? " + $(this).find('span').html());
 				
 				///밑에서 음반, 공연, 등 나눠주기 위한 용도
+				
+				if($(this) == null || typeof($(this)) == undefined) {
+					$(this) = $('#historyTab li .active')
+				}
 				whichClick = $(this).find('span').html();
+				
+				console.log('$(this가 뭘까)' + $(this) + ' span의 html은?' + $(this).find('span').html());
 				
 				$.ajax({
 					url : '<c:url value="/mypage/history.ins"/>',
@@ -382,22 +421,39 @@ body {
 				
 			});//////click 이벤트
 			
+			/////////내가 추가
+			
+			$('.pagingLi').click(function(){
+				page();
+			})
+			
+			/////////내가 추가
+			
+			
+			
 		})///////제이쿼리 진입점
+		
+		
+		/////페이징 ajax?
+				
+		////페이징 ajax?
+		
 		
 		function succFunction(data) {
 			//값 받아서 뿌려주기 projectCardList, div 1개로 돌려막기? 3개 생성?
 			console.log('succFunction이 받은 데이터' + data)
-			
+
 			
 			var listString = "";
 			var pageString = "";
 			var isEmpty = false;
 			var emptyMessage = "";
+			
 			$.each(data, function(index, element){
 				
 				if(element['noData'] != null) {
 					//emptyMessage = "<p class='emptyMess'>아직 "+element["which"]+" 상품이 없습니다.</p>";
-					emptyMessage = "<p style='font-size:17px;'>아직 "+element["which"]+" 상품이 없습니다.</p>";
+					emptyMessage = "<p class='emptyCont' style='font-size:17px;'>아직 "+element["which"]+" 상품이 없습니다.</p>";
 					isEmpty = true;
 					return;
 				}
@@ -408,10 +464,10 @@ body {
 				}
 				console.log("$.each()에 어떤 값이?" + whichClick);
 				if(whichClick == "음반") {
-
+					
 					
 					var imgSrc = element["S_Album_cover"];
-					var src = '<c:url value="/resource/img/'+imgSrc+'"/>';
+					var src = '<c:url value="/upload/band/cover/'+imgSrc+'"/>';
 					
 					listString += "<div class='historyDiv'>";  //전체 div
 					listString += "<p class='historyName'>" + element["R_Name"] + "</p>"; 
@@ -422,12 +478,13 @@ body {
 
 	
 					listString += "</div>"  //전체 div끝
-				}
+					
+				}////펀딩
 				
 				if(whichClick == "공연") {
 					
 
-					//var imgSrc = element["S_Album_cover"];
+					//var imgSrc = element["S_Album_cover"];  ///이미지 바꿔야.
 					var imgSrc = "yumicell.jpg";
 					var src = '<c:url value="/resource/img/'+imgSrc+'"/>';
 					
@@ -442,7 +499,26 @@ body {
 
 	
 					listString += "</div>"  //전체 div끝
-				}
+					
+				}////공연
+				
+				if(whichClick == "좋아한") {
+					
+					var imgSrc = element['b_album_cover'];
+					var src = '<c:url value="/upload/band/cover/'+imgSrc+'"/>';
+					
+					listString += "<div class='historyDiv'>";  //전체 div
+					listString += "<p class='historyName'>" + element["b_name"] + "</p>"; 
+					listString += "<img class='historyImg' src='"+src+"' />"  
+					listString += "<p class='historyDesc'>"+element["b_description"]+"</p>";
+					listString += "<p class='historyMusic'>"+element["bm_title"]+"</p>";
+					listString += "<p class='historyPrice' style='border:none;'>좋아요 "+element["b_liked"]+"♥</p>";
+
+	
+					listString += "</div>"  //전체 div끝
+					
+					
+				}/////좋아한
 				
 			});
 			
@@ -452,16 +528,20 @@ body {
 			console.log("페이지스트링 " + pageString);
 			console.log('왜 엠프티 메세지 안뜨지?' + emptyMessage);
 			
-			$('.pagingDiv').html(pageString)
-			
+			$('.pagingDiv').html(pageString);
 			
 			
 			if(isEmpty) {
+				
 				/* $('.historyEmptyValue').css('display', 'none') */
 				$('.historyValue').html(emptyMessage);
 				$('.historyValue').css('padding-top', '80px');
 			/* 	$('.historyValue').css('display', 'block'); */
 				$('.pagingDiv').html("");
+			
+				
+				$('#pagin').html("");
+				
 				return;
 			}
 			
@@ -470,11 +550,108 @@ body {
 			$('.historyValue').css('padding-top', '0px');
 			/* $('.historyEmptyValue').css('display', 'none') */
 			
+			page();
+			
 			
 			
 		}/////succFunction
+		
+		
+		
+		function page(){ 
+			
+			//Pagination
+			pageSize = 3;   ///한페이지에 보여줄 글 수
+			incremSlide = 5;  //하단에 보여줄 페이징 수
+			startPage = 0;
+			numberPage = 0;
+			
+			var pageCount =  $(".historyDiv").length / pageSize;  
+			var totalSlidepPage = Math.floor(pageCount / incremSlide);  
+			
+			$('#pagin').html('');
+			
+			for(var i = 0 ; i<pageCount;i++) {
+				
+				//urll2 = "javascript:historyAjax();"
+			    $("#pagin").append('<li class="pagingLi"><a href="javascript:void(0)">'+(i+1)+'&nbsp;&nbsp;&nbsp;</a></li>');
+				
+			    if(i>pageSize){  ////전체 페이징 숫자 중 3보다 큰 숫자는 숨긴다.
+			       $("#pagin li").eq(i).hide();
+			    }
+			}
+			
+			var prev = $("<li/>").addClass("prev").html("Prev").click(function(){  //변수 prev를 만든 다음 붙일 예정
+				   startPage-=5; //1, 6, 11 : 5씩 증감
+				   incremSlide-=5;  //하단에 보여줄 페이징 수 5씩 증감
+				   numberPage--;  //-1
+				   slide();
+				   
+			});
+			
+			prev.hide();
+			
+			var next = $("<li/>").addClass("next").html("Next").click(function(){	//변수 next를 만든 다음 붙일 예정
+				   startPage+=5;
+				   incremSlide+=5;
+				   numberPage++;
+				   slide();
+				   
+			});
+			
+			next.hide();
+			
+			$("#pagin").prepend(prev).append(next);  //앞에다 prev를 붙이고 뒤에다 next를 붙임
+			
+			$("#pagin li").first().find("a").addClass("current");
+
+			slide = function(sens){   //prev에서도 호출되고 next에서도 호출됨
+				   $("#pagin li").hide();
+				   
+					
+				   for(t=startPage;t<incremSlide;t++){
+				     $("#pagin li").eq(t+1).show();
+				   }
+				   
+				   
+				   console.log('liCount는? ' + liCount);
+				   
+				   if(startPage == 0){
+				     next.show();
+				     prev.hide();
+				   }else if(numberPage == totalSlidepPage){
+				     next.hide();
+				     prev.show();
+				   }else {
+				     next.show();
+				     prev.show();
+				   } 
+				   
+				   
+			}
+			
+			showPage = function(page) {
+				  $(".historyDiv").hide();
+				  $(".historyDiv").each(function(n) {
+				      if (n >= pageSize * (page - 1) && n < pageSize * page)
+				          $(this).show();
+				  });        
+			}
+			
+			showPage(1);
+			
+			$("#pagin li a").eq(0).addClass("current");
+			
+			$("#pagin li a").click(function() {
+				 $("#pagin li a").removeClass("current");
+				 $(this).addClass("current");
+				 showPage(parseInt($(this).text()));
+			});
 	
-	
+		}
+					
 	</script>
+	
+	
 	
 

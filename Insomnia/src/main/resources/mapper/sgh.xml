@@ -43,8 +43,8 @@
 	<!-- 마이페이지에서 펀딩한 리워드 목록 가져오기 --> 
 	<select id="selectList_reward" parameterType="java.util.Map" resultType="RewardDTO">
 
-		select * from (select t.*, rownum r from (select r_no, r_price, r_name, s_no, r_description, b_name, bm_name from (select r.*, bm_name , b_name from reward r join safepay s on r.r_no = s.r_no
 
+		select * from (select t.*, rownum r from (select r_no, r_price, r_name, s_no, r_description, b_name, bm_name, sw_banner from (select r.*, bm_name, b_name, sw_banner from reward r join safepay s on r.r_no = s.r_no
 		join bandsubmit bs on bs.s_no = r.s_no
 		join bandsubmitwaiting bsw on bsw.sw_no = bs.sw_no
 		join band b on b.b_no = bs.b_no
@@ -80,5 +80,31 @@
 		join bgspay p on p.ct_no = t.ct_no
 		where id = #{id}) t)
 	</select>
+	
+	<insert id="like_follow_insert" parameterType="java.util.Map">
+		insert into favorite values(seq_favorite.nextval, #{id}, #{b_no}, #{choice})
+	</insert>
+	
+	<delete id="like_follow_delete" parameterType="java.util.Map">
+		delete favorite where id=#{id} and choice=#{choice} and b_no=#{b_no}
+	</delete>
+	
+	<select id="getLikeNFollow" parameterType="java.util.Map" resultType="int">
+		select count(*) from favorite where id=#{id} and choice=#{choice}
+	</select>
+	
+	<select id="getBandLikeNFollow" parameterType="java.util.Map" resultType="int">
+		select count(*) from favorite where b_no=#{b_no} and choice=#{choice}
+	</select>
+	
+	<select id="getLikeBand" parameterType="java.util.Map" resultType="BandDTO">	
+		select * from (select t.*, rownum as r from (select b.b_no, b_name, b_description, b_album_cover, bm_title 
+		from band b join favorite f on b.b_no = f.b_no where id=#{id} and choice=#{choice}) t) where r between #{start} and #{end}
+	</select>
+	
+	<select id="distinguishLike" parameterType="java.util.Map" resultType="int">
+		select count(*) from favorite where id=#{id} and choice=#{choice} and b_no = #{b_no}
+	</select>
+	
 	
 </mapper>

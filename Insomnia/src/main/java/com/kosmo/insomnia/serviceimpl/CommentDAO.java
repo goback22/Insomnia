@@ -45,7 +45,6 @@ public class CommentDAO implements CommentService{
 	@Override
 	public void reply(Map map) {
 		template.insert("replyInsert",map);
-		
 	}
 
 	@Override
@@ -54,4 +53,15 @@ public class CommentDAO implements CommentService{
 		System.out.println("mapmapmapmapmapmap:"+map);
 		return (Integer)template.selectOne("isChild",map)==0 ? false:true;
 	}
+
+	@Override
+	public List<Map> newSelectList(Map map) {
+		return template.selectList("NewList",map);
+	}
+
+	@Override
+	public void replyBeforeUpdate(Map map) {
+		template.update("replyBeforeUpdate", map);
+	}
+
 }

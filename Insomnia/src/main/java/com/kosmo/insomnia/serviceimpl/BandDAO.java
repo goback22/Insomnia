@@ -165,4 +165,40 @@ public class BandDAO implements BandService {
 	public BandSubmitDTO getBandSubmitDTOByS_no(String s_no) {
 		return template.selectOne("getBandSubmitDTOByS_no", s_no);
 	}///getBandSubmitDTOByS_no
+
+	@Override
+	public int like_follow_insert(Map map) {
+		return template.insert("like_follow_insert", map);
+	}
+
+	@Override
+	public int like_follow_delete(Map map) {
+		return template.delete("like_follow_delete", map);
+	}
+
+	@Override
+	public int getLikeNFollow(Map map) {
+		return template.selectOne("getLikeNFollow", map);
+	}
+
+	@Override
+	public int getBandLikeNFollow(Map map) {
+		return template.selectOne("getBandLikeNFollow", map);
+	}
+
+	@Override
+	public List<BandDTO> getLikeBand(Map map) {
+		return template.selectList("getLikeBand", map);
+	}
+
+	@Override
+	public int distinguishLike(Map map) {
+		return template.selectOne("distinguishLike", map);
+	}
+
+	
+	
+	
+
+	
 }// class BandDAO

@@ -93,4 +93,21 @@ public interface BandService {
 	//28] bandSubmitDTO를 s_no값으로 가져오기
 	BandSubmitDTO getBandSubmitDTOByS_no(String s_no);
 	
+	//29] 좋아요/팔로잉
+	int like_follow_insert(Map map);
+	int like_follow_delete(Map map);
+	
+	//30] 좋아요/팔로잉 가져오기
+	int getLikeNFollow(Map map);
+	
+	//31]밴드가 얻은 총 좋아요와 팔로우 수 구하기
+	int getBandLikeNFollow(Map map);
+	
+	//32]좋아한 목록의 정보 가져오기
+	List<BandDTO> getLikeBand(Map map);
+	
+	//33]구별하기
+	int distinguishLike(Map map);
+	
+	
 }//interface BadnService

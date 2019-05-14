@@ -46,7 +46,7 @@ public class BandController {
 	private BandServiceImpl bandService;
 	
 	@RequestMapping(value="/band/bandInfo.ins")
-	public String goToBandInfoPage(@RequestParam Map params, HttpSession session, Model model, ServletRequest request) {
+	public String goToBandInfoPage(@RequestParam Map params, Map dismap, HttpSession session, Model model, ServletRequest request) {
 		String b_no = null;
 		//createNewBand를 통해 넘어왔을 경우에 밴드 생성해서 등록
 		if(params != null && params.get("select_category") != null && params.get("band_name") != null) {
@@ -140,6 +140,8 @@ public class BandController {
 		session.setAttribute("b_no", record.getB_no());
 		session.setAttribute("b_name", b_name);
 		
+		dismap.put("b_no", record.getB_no());
+		
 		//PlayList 목록 Map에 넣어 반환
 		//PlayList 얻어오기
 		List<BandMusicDTO> playList = bandService.getPlayList(record.getB_no());
@@ -177,6 +179,15 @@ public class BandController {
 				dto.setComma_Accumulation(String.format("%,d", Integer.parseInt(dto.getS_goal_accumulation())));
 			}///if
 		}//for
+		
+		
+		dismap.put("choice", "like");
+		int like = bandService.getBandLikeNFollow(dismap);
+		dismap.put("choice", "follow");
+		int follow = bandService.getBandLikeNFollow(dismap);
+		
+		model.addAttribute("like", like);
+		model.addAttribute("follow", follow);
 		
 		model.addAttribute("waiting", waiting);
 		

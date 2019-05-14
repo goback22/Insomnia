@@ -40,10 +40,10 @@
 
 <!-- 네아로 방법1. -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script> -->
 <!-- 네아로 방법2 -->
-<!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script> -->
-
+<!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+ -->
 
 
 <!-- aws s3 사용을 위한 js -->
@@ -289,7 +289,9 @@ $(function(){
 									src="<c:url value='/resource/img/f-ogo_RGB_HEX-58.png'/>" /> <i
 									class="facebook"></i>페이스북으로 로그인
 							</button>
+							
 							<div id="naver_id_login"></div>
+							
 							<button type="button" id="custom-login-btn" style="float:right; width:104.95px; height:40px; border-radius:4px;"
 								onclick="javascript:loginWithKakao();">
 								<img class="icon" 
@@ -544,13 +546,17 @@ $(function(){
 		<!-- 페이스북 로그인 끝 -->
 		
 		<!-- 네이버 로그인 위한 이벤트 전달 -->
-		<script>
+		
+		<!-- <script>
 			function goAndroid() {
 				location.replace('/asd/asd.ins')
 			}	
+	
+		</script> -->
 		
-		
-			var naverLogin = new naver.LoginWithNaverId({
+		<script>
+			
+			/* var naverLogin = new naver.LoginWithNaverId({
 				
 				clientId:"baw69zHb2FPVPqvEd5sl",
 				callbackUrl:"https://localhost:8080/insomnia/",
@@ -558,11 +564,21 @@ $(function(){
 				loginButton:{color:"green", type:2, height:60}
 			});
 			
-			naverLogin.init();
+			naverLogin.init(); */
 			
 			
 			/* naver_id_login.setPopup();
 			naver_id_login.init_naver_id_login(); */
+			
+			
+			var naver_id_login = new naver_id_login("baw69zHb2FPVPqvEd5sl", "http://localhost:8080/insomnia/");
+		  	var state = naver_id_login.getUniqState();
+		  	naver_id_login.setButton("white", 2,40);
+		  	naver_id_login.setDomain("http://localhost:8080/insomnia/");
+		  	naver_id_login.setState(state);
+		  	/* naver_id_login.setPopup(); */
+		  	naver_id_login.init_naver_id_login();
+			
 		</script>
 		
 		<!-- 네이버 로그인2 : 로그인 버튼 조정 -->
@@ -592,11 +608,7 @@ $(function(){
 		</script>
 		<!--네이버 로그인 끝 -->
 		
-		
-		
-		
-		</script>
-		
+				
 		<!-- 아이디 저장 시작(쿠키) -->
 		<script>
 			$(function() {

@@ -52,4 +52,15 @@ public class CommentServiceImpl implements CommentService {
 		System.out.println("mapmapmap:"+map);
 		return dao.isChild(map);
 	}
+
+	@Override
+	public List<Map> newSelectList(Map map) {
+		return dao.newSelectList(map);
+	}
+
+	@Override
+	public void replyBeforeUpdate(Map map) {
+		dao.replyBeforeUpdate(map);
+	}
+
 }//class

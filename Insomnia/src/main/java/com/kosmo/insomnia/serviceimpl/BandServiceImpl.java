@@ -166,5 +166,38 @@ public class BandServiceImpl implements BandService{
 	public BandSubmitDTO getBandSubmitDTOByS_no(String s_no) {
 		return dao.getBandSubmitDTOByS_no(s_no);
 	}//getBandSubmitDTOByS_no
+
+	@Override
+	public int like_follow_insert(Map map) {
+		return dao.like_follow_insert(map);
+	}
+
+	@Override
+	public int like_follow_delete(Map map) {
+		return dao.like_follow_delete(map);
+	}
+	
+
+	@Override
+	public int getLikeNFollow(Map map) {
+		return dao.getLikeNFollow(map);
+	}
+
+	@Override
+	public int getBandLikeNFollow(Map map) {
+		return dao.getBandLikeNFollow(map);
+	}
+
+	@Override
+	public List<BandDTO> getLikeBand(Map map) {
+		return dao.getLikeBand(map);
+	}
+
+	@Override
+	public int distinguishLike(Map map) {
+		return dao.distinguishLike(map);
+	}
+
+	
 	
 }//class BandServiceImpl

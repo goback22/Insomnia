@@ -51,5 +51,6 @@ public class RewardServiceImpl implements RewardService {
 	public int getTotalCount(Map map) {
 		return dao.getTotalCount(map);
 	}
+	
 
 }

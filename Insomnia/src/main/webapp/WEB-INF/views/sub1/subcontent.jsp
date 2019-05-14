@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ include file="/WEB-INF/views/my/isMember.jsp"%>
 <head>
 <link rel="stylesheet"
 	href="<c:url value='/vendor/css/subcontent.css'/>">
@@ -310,10 +310,10 @@
 							<div class="column q-1-2"></div>
 							<div class="column q-1-2">
 								<p class="rev_item">세상에는 음악적으로 성공한 수 많은 음악인들이 있습니다. 또한 그들처럼
-									되기 위해 방구석이라는 곳에서 성공이라는 꿈을 키우며 묵묵히 연습하는 젊은이들도 있겠지요. Insomnia에서는
-									그들과 여러분들이 소통할 수 있는 공연장을 제공해주고 싶었습니다.</p>
-								<p class="rev_item">물론 아무나 공연에 설 수 있는건 아닙니다. 관심있는 청년들이 신청을
-									해주면 저희 Insomnia에서 그 중 가장 실력있는 젊은이들을 뽑아서 한 달이라는 시간동안 함께 연습할 수
+									되기 위해 방구석이라는 곳에서 성공이라는 꿈을 키우며 묵묵히 연습하는 이들도 있겠지요. Insomnia에서는
+									그들과 여러분들이 소통할 수 있는 공연장을 마련해보고자 합니다.</p>
+								<p class="rev_item">물론 열정이 있다고 해서 누구나 공연에 설 수 있는건 아닙니다. 관심있는 청년들이 신청을
+									해주면 저희 Insomnia에서 그 중 가장 실력있는 젊은이들을 초대하여 한 달이라는 시간동안 함께 연습할 수
 									있도록 함께 연습을 시킬 것입니다. 때문에 퀄리티있는 공연을 기대하셔도 좋습니다.</p>
 							</div>
 						</div>
@@ -335,14 +335,57 @@
 					</div>
 				</section>
 
-				<section id="q_slide" class="half-width" animate='stagTop' autoplay='8000' parallax=".25" opacity=".3">
-						<div class="">
-							<a href="#" onClick="window.open('http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446','길찾기','width=2050, height=1000, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;">
-							<img style="opacity: 0.9;margin-left: 300px" src="<c:url value='/resource/img/YakDo.png'/>"
-								alt="360 Virtual Tour" class="image" />
-							</a>
-						</div>
-				</section>
+				<!-- 지도API -->
+				<div id="map" style="width:100%;height:700px;"></div>
+				
+				<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c32fad4a1c57880bfba793d4634c4d7"></script>
+				<script>
+				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				    mapOption = { 
+				        center: new daum.maps.LatLng(37.541102,127.002446), // 지도의 중심좌표
+				        level: 4 // 지도의 확대 레벨
+				    };
+				
+				var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+				
+				var imageSrc = "/insomnia/resource/img/bgsbgs.png", // 마커이미지의 주소입니다    
+				    imageSize = new daum.maps.Size(40, 40), // 마커이미지의 크기입니다
+				    imageOption = {offset: new daum.maps.Point(17, 47)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+				      
+				// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+				var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+				    markerPosition = new daum.maps.LatLng(37.541102,127.002446); // 마커가 표시될 위치입니다
+				
+				// 마커를 생성합니다
+				var marker = new daum.maps.Marker({
+				    position: markerPosition, 
+				    image: markerImage // 마커이미지 설정 
+				});
+				
+				// 마커가 지도 위에 표시되도록 설정합니다
+				marker.setMap(map);
+				
+				//
+				var iwContent = '<div style="color:black;margin-left:9px;padding:5px;font-weight:600;font-family:cursive ">방구석 기타리스트<br><a href="http://map.daum.net/link/to/Hello World!,37.541102,127.002446" style="color:red;font-weight:900;text-decoration:none;margin-left:32px;font-family:cursive " target="_blank">길 찾 기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+				iwPosition = new daum.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+				
+				//인포윈도우를 생성합니다
+				var infowindow = new daum.maps.InfoWindow({
+				position : iwPosition, 
+				content : iwContent 
+				});
+				
+				//마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+				infowindow.open(map, marker); 
+				</script>
+				
+				<!-- 약도 -->
+				<div id="kyj2">
+					<a href="#" onClick="window.open('http://map.daum.net/link/to/블루스퀘어,37.541102,127.002446','길찾기','width=2090, height=1000, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;">
+					<img style="opacity: 0.9;max-width: 100%;height: auto" src="<c:url value='/resource/img/YakDo.png'/>"
+						alt="360 Virtual Tour" class="image1" />
+					</a>
+				</div>
 
 				<section class="section">
 					<div class="q-container container-inner reveal">
@@ -373,8 +416,6 @@
 										class="rev_client" alt="Alaya Hotels" /> <img
 										src="<c:url value='/resource/img/9.png'/>" class="rev_client"
 										alt="Mowilex" /> 
-<%-- 										<img src="<c:url value='/resource/img/10.png'/>" --%>
-<!-- 										class="rev_client" alt="Manisan" /> -->
 								</div>
 							</div>
 						</div>
@@ -401,6 +442,23 @@
 							</div>
 						</div>
 					</section>
+					
+					<div style="margin-top: 165px;margin-left: 885px;">
+						<a href="javascript:shareFB();" title="facebook 공유">
+						<img style="width: 55px;height: 55px" class="kyj" src="<c:url value='/resource/img/facebook128.png'/>"/></a>
+						
+						<form id="myform" style="display: none">
+							<input type="hidden" id="url" value="127.0.0.1:8083/insomnia"><br />
+							<input type="hidden" id="title" value="Insomnia"><br />
+						</form>
+						
+						<a href="javascript:shareNB();" title="NaverBlog 공유">
+						<img style="width: 55px;height: 55px;margin-left: 30px" class="kyj" src="<c:url value='/resource/img/naver.com.png'/>"/>
+						</a>
+						
+						<a href="javascript:shareTW();" class="tw" title="twitter 공유">
+						<img style="width: 55px;height: 55px;margin-left: 30px" class="kyj" src="<c:url value='/resource/img/twitter128.png'/>"/></a>
+					</div>
 				</footer>
 
 			</div>
@@ -496,6 +554,7 @@
 		</div>
 	</div>
 	
+	
 	<!-- =========================================================================================================== -->
 
 	<div class="optionBtnBox">
@@ -507,5 +566,65 @@
 <script>
 function showPopup() {
      window.open("<c:url value='/bgsChat.jsp'/>", "방구석 채팅!", "width=400, height=600, left=100, top=50");
+}
+</script>
+
+<!-- 약도,SNS API 반응형으로 만들기 -->
+<style>
+@media only screen and (min-width: 601px) {
+  #q_slide {	
+	  display: none;
+  }    
+} 
+@media only screen and (max-width: 601px) {
+  .image1 {	
+  }    
+} 
+@media only screen and (max-width: 600px) {
+  #map {	
+	  display:none;
+  }    
+} 
+@media only screen and (min-width: 600px) {
+  #kyj2 {	
+	  display:none;
+  }    
+} 
+
+.kyj {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+}
+.kyj:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+}
+</style>
+
+<script>
+//페북 공유
+function shareFB() {
+   window.open('http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:8083/insomnia/');
+}
+
+//트위터 공유
+function shareTW() {
+   window.open('http://twitter.com/share?url=http://127.0.0.1:8083/insomnia/&text=당신을 Insomnia로 초대합니다.');
+}
+
+//네이버블로그 공유 : 로컬호스트를 지원하지 않아 실제 작동은 되지않는다. url만 실제 있는 url로 바꿔주면 작동하긴한다.
+function shareNB() {
+	var url = encodeURI(encodeURIComponent(myform.url.value));
+	var title = encodeURI(myform.title.value);
+	var shareURL = "https://share.naver.com/web/shareView.nhn?url=" + url
+			+ "&title=" + title;
+	document.location = shareURL;
 }
 </script>
