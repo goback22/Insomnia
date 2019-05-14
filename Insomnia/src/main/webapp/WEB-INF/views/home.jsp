@@ -40,7 +40,7 @@
 
 <!-- 네아로 방법1. -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script> -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!-- 네아로 방법2 -->
 <!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
  -->
@@ -178,7 +178,7 @@ $(function(){
 			<header class="header header-magic-line">
 				<div class="header-inner ">
 					<div class="tim-container clearfix">
-						<div class="header-magic-line-inner clearfix" style="margin-top: -15px">
+						<div class="header-magic-line-inner clearfix">
 							<div id="site-logo" class="float-left">
 								<a href="<c:url value='/home.ins'/>" class="logo-main"> <img
 									src="<c:url value='/resource/img/logo_5.png'/>" alt="logo">
