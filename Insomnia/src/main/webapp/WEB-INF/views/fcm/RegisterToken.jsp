@@ -32,9 +32,10 @@
     }else{
         // 토큰값 전달시 쿼리문 입력할곳임
         String idVal = (session.getAttribute("id")).toString();
-        sql = "INSERT INTO FCM_TOKENS(FCM_ID, ID, TOKEN) VALUES(TOKENS_SEQ.NEXTVAL, " + idVal + ", ?)";
-        pstm = conn.prepareStatement(sql);        
-        pstm.setString(1,token);        
+        sql = "INSERT INTO FCM_TOKENS(FCM_ID, ID, TOKEN) VALUES(TOKENS_SEQ.NEXTVAL, ?, ?)";
+        pstm = conn.prepareStatement(sql);  
+        pstm.setString(1, idVal);
+        pstm.setString(2,token);        
         pstm.executeUpdate();
         System.out.println("토큰값이 입력되었습니다.");
     }

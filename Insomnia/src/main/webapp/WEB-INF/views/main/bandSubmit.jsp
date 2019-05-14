@@ -467,7 +467,7 @@ body {
 	<!--site-->
 
 	<div class="fcmDiv" style="display:none;">
-		<form action="PushToPhone.jsp" method="post">
+		<form action="<c:url value=''/>" method="post" id="fcmForm">
 			<table style="border-spacing:1px;background-color:gray;width:400px">
 				<tr style="border-spacing:1px;background-color:white">
 					<td style="width:20%">제목</td>
@@ -487,20 +487,7 @@ body {
 		</form>
 	</div>
 	
-	<!-- FCM 보내기 위한 스크립트 : 시작 -->
-	<script>
 	
-		$(function(){
-			$('#fcmSubmit').click(function(){
-				$('#fcmTitle').prop('value', 'Insomnia 리워드 등록 안내');
-				$('#fcmMessage').prop('value', 'Insomnia 리워드 등록이 성공적으로 완료되었습니다.');
-				$('.fcmDiv').submit();
-			})
-		})
-	
-	
-	</script>
-	<!-- FCM 보내기 위한 스크립트 : 끝 -->
 
 
 	<script>
@@ -884,6 +871,20 @@ body {
 					}
 				});//$.ajax
 			});//$.each fn
+			
+			
+			///////////////여기서 처리해야지. 바로 리다이렉트 되버리니까 내 코드가 실행이 안되잖아.
+			// FCM 보내기 위한 스크립트 : 시작
+			
+			$('#fcmTitle').prop('value', 'Insomnia 리워드 등록 안내');
+			$('#fcmMessage').prop('value', 'Insomnia 리워드 등록이 성공적으로 완료되었습니다.');
+			//console.log('인섬니아 푸시 콘솔.로그');
+			
+			<% System.out.println("콘솔에 들어오는지?"); %>
+			$('#fcmForm').submit();
+	
+			// FCM 보내기 위한 스크립트 : 끝
+			
 			
 			if(isSuccess){
 				alert("등록 성공!");

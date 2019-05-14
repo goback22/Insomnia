@@ -290,7 +290,7 @@ $(function(){
             		<a href='/insomnia/band/bandInfo.ins?b_no=${traditional.b_no }'>
 			        	<div class='DIV box-shadow' data-scroll='toggle(.scaleUpIn, .scaleDownOut)'
 			        	 style="width:${traditional.wh}; 
-			        	 height:${folk.wh}; 
+			        	 height:${traditional.wh}; 
 			        	 margin:${traditional.mt} ${traditional.mr} ${traditional.mb} ${traditional.ml};
 			        	background-image:url(/insomnia/upload/band/cover/${traditional.b_album_cover});">
 			        	</div>

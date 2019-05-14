@@ -223,7 +223,7 @@ body {
 							<div class="pagingDiv" style="text-align: center; margin:auto; width:1000px; margin-top:20px;">${pagingString}</div>
 							
 							<div id="pagin"></div>
-							<div id="paginReal"></div>
+							<!-- <div id="paginReal"></div> -->
 
 						</div>  <!-- projectList 끝 -->
 					</div>  <!-- 하단 부분 끝 -->
@@ -383,6 +383,8 @@ body {
 	
 		$(function(){
 			
+			//var historyAjax;
+			
 			$('#historyTab li').click(function historyAjax(){
 				
 				console.log("historyTab li가 클릭은 되니?");
@@ -419,6 +421,16 @@ body {
 				
 			});//////click 이벤트
 			
+			/////////내가 추가
+			
+			$('.pagingLi').click(function(){
+				page();
+			})
+			
+			/////////내가 추가
+			
+			
+			
 		})///////제이쿼리 진입점
 		
 		
@@ -441,7 +453,7 @@ body {
 				
 				if(element['noData'] != null) {
 					//emptyMessage = "<p class='emptyMess'>아직 "+element["which"]+" 상품이 없습니다.</p>";
-					emptyMessage = "<p style='font-size:17px;'>아직 "+element["which"]+" 상품이 없습니다.</p>";
+					emptyMessage = "<p class='emptyCont' style='font-size:17px;'>아직 "+element["which"]+" 상품이 없습니다.</p>";
 					isEmpty = true;
 					return;
 				}
@@ -520,11 +532,16 @@ body {
 			
 			
 			if(isEmpty) {
+				
 				/* $('.historyEmptyValue').css('display', 'none') */
 				$('.historyValue').html(emptyMessage);
 				$('.historyValue').css('padding-top', '80px');
 			/* 	$('.historyValue').css('display', 'block'); */
 				$('.pagingDiv').html("");
+			
+				
+				$('#pagin').html("");
+				
 				return;
 			}
 			
@@ -539,65 +556,83 @@ body {
 			
 		}/////succFunction
 		
+		
+		
 		function page(){ 
 			
 			//Pagination
-			pageSize = 3;
-			incremSlide = 5;
+			pageSize = 3;   ///한페이지에 보여줄 글 수
+			incremSlide = 5;  //하단에 보여줄 페이징 수
 			startPage = 0;
 			numberPage = 0;
 			
-			var pageCount =  $(".historyDiv").length / pageSize;
-			var totalSlidepPage = Math.floor(pageCount / incremSlide);
+			var pageCount =  $(".historyDiv").length / pageSize;  
+			var totalSlidepPage = Math.floor(pageCount / incremSlide);  
 			
 			$('#pagin').html('');
 			
 			for(var i = 0 ; i<pageCount;i++) {
 				
-				urll = "<c:url value='/mypage/history.ins'/>"
-				urll2 = "javascript:historyAjax();"
-			    $("#pagin").append('<li><a href="'+urll2+'">'+(i+1)+'</a></li>');
-			    if(i>pageSize){
+				//urll2 = "javascript:historyAjax();"
+			    $("#pagin").append('<li class="pagingLi"><a href="javascript:void(0)">'+(i+1)+'&nbsp;&nbsp;&nbsp;</a></li>');
+				
+			    if(i>pageSize){  ////전체 페이징 숫자 중 3보다 큰 숫자는 숨긴다.
 			       $("#pagin li").eq(i).hide();
 			    }
 			}
 			
-			var prev = $("<li/>").addClass("prev").html("Prev").click( function(){
-				   startPage-=5;
-				   incremSlide-=5;
-				   numberPage--;
+			var prev = $("<li/>").addClass("prev").html("Prev").click(function(){  //변수 prev를 만든 다음 붙일 예정
+				   startPage-=5; //1, 6, 11 : 5씩 증감
+				   incremSlide-=5;  //하단에 보여줄 페이징 수 5씩 증감
+				   numberPage--;  //-1
 				   slide();
+				   
 			});
 			
 			prev.hide();
 			
-			var next = $("<li/>").addClass("next").html("Next").click(function(){
+			var next = $("<li/>").addClass("next").html("Next").click(function(){	//변수 next를 만든 다음 붙일 예정
 				   startPage+=5;
 				   incremSlide+=5;
 				   numberPage++;
 				   slide();
+				   
 			});
 			
-			$("#pagin").prepend(prev).append(next);
+			next.hide();
+			
+			$("#pagin").prepend(prev).append(next);  //앞에다 prev를 붙이고 뒤에다 next를 붙임
 			
 			$("#pagin li").first().find("a").addClass("current");
 
-			slide = function(sens){
+			slide = function(sens){   //prev에서도 호출되고 next에서도 호출됨
 				   $("#pagin li").hide();
 				   
+					//내가 선언한 카운트 변수
+					var liCount;
+					
 				   for(t=startPage;t<incremSlide;t++){
 				     $("#pagin li").eq(t+1).show();
 				   }
+				   
+				   //liCount = $('#pagin li :visible').length;
+				   
+				   console.log('liCount는? ' + liCount);
+				   
 				   if(startPage == 0){
 				     next.show();
 				     prev.hide();
-				   }else if(numberPage == totalSlidepPage ){
+				   }else if(numberPage == totalSlidepPage){
 				     next.hide();
 				     prev.show();
-				   }else{
+				   }else {
 				     next.show();
 				     prev.show();
-				   }    
+				   } 
+				   
+				   ///내가 추가
+				   //if($('#pagin li'))
+				   
 			}
 			
 			showPage = function(page) {
@@ -609,6 +644,7 @@ body {
 			}
 			
 			showPage(1);
+			
 			$("#pagin li a").eq(0).addClass("current");
 			
 			$("#pagin li a").click(function() {
@@ -617,13 +653,12 @@ body {
 				 showPage(parseInt($(this).text()));
 			});
 			
-			////추가한 부분, 중복제거
-			//$('#paginReal').html($('#pagin').html());
-			
-			
-			
+			console.log("개수는? " + $(".historyDiv").length);
+			console.log("존재하는지?" + $('.emptyCont').length);
 			
 		}
+		
+		//$('#pagin').css('display', 'block');  //조건 검사할 필요 없다. 값이 없으면 위 SuccFail메서드의 isEmpty 절에서 바로 return 하니까.
 			
 	</script>
 	

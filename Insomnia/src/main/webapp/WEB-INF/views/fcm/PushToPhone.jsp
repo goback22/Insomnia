@@ -22,7 +22,9 @@
 	request.setCharacterEncoding("UTF-8");
 
 	//token값저장용
-    ArrayList<String> token = new ArrayList<String>();  	
+    ArrayList<String> token = new ArrayList<String>();  
+	
+	System.out.println("토큰의 값은? " + token);
 	 
     //Firebase Console->프로젝트 선택->설정->프로젝트 설정
     //->클라우드 메시징->서버키 복사
@@ -40,6 +42,7 @@
     	Class.forName("oracle.jdbc.OracleDriver");
        
         conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","project","12341234");
+        System.out.println("conn의 값은?" + conn);////////
         psmt= conn.prepareStatement("SELECT TOKEN FROM FCM_TOKENS");
         rs = psmt.executeQuery();       
        
