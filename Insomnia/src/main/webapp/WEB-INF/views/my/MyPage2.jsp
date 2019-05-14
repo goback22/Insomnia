@@ -272,7 +272,7 @@ body {
 					
 					var match = ['jpg', 'png', 'gif', 'jpeg', 'bmp', 'tif'];
 					
-					console.log("타입은 대체?" + $(this).type);
+					//console.log("타입은 대체?" + $(this).type);
 					
 					if($.inArray(extension.toLowerCase(), match) == -1) {
 						alert('이미지 파일만 등록해주세요.');
@@ -286,19 +286,19 @@ body {
 					
 					if(uploadOk) {
 						var files = document.getElementById('imgUpload1').files;
-						console.log("files : "+files);
-				  		console.log("files.length : "+files.length);
+						//console.log("files : "+files);
+				  		//console.log("files.length : "+files.length);
 						if (!files.length) {
 						    return alert('Please choose a file to upload first.');
 						}
 				    	var file = files[0];
-						console.log("file : "+file)
+						//console.log("file : "+file)
 						var file_length = file.name.lastIndexOf('.')+1;
 						
 					    var fileName = '${id }' + '_cover_Img.jpg';
 					    console.log(fileName);
 						var albumPhotosKey = encodeURIComponent(albumName) + '/';
-						console.log(albumName);
+						//console.log(albumName);
 						var photoKey = albumPhotosKey + fileName;
 						s3.upload({
 					      Key: photoKey,
@@ -484,7 +484,7 @@ body {
 				if(whichClick == "공연") {
 					
 
-					//var imgSrc = element["S_Album_cover"];
+					//var imgSrc = element["S_Album_cover"];  ///이미지 바꿔야.
 					var imgSrc = "yumicell.jpg";
 					var src = '<c:url value="/resource/img/'+imgSrc+'"/>';
 					
@@ -608,14 +608,11 @@ body {
 			slide = function(sens){   //prev에서도 호출되고 next에서도 호출됨
 				   $("#pagin li").hide();
 				   
-					//내가 선언한 카운트 변수
-					var liCount;
 					
 				   for(t=startPage;t<incremSlide;t++){
 				     $("#pagin li").eq(t+1).show();
 				   }
 				   
-				   //liCount = $('#pagin li :visible').length;
 				   
 				   console.log('liCount는? ' + liCount);
 				   
@@ -630,8 +627,6 @@ body {
 				     prev.show();
 				   } 
 				   
-				   ///내가 추가
-				   //if($('#pagin li'))
 				   
 			}
 			
@@ -652,14 +647,9 @@ body {
 				 $(this).addClass("current");
 				 showPage(parseInt($(this).text()));
 			});
-			
-			console.log("개수는? " + $(".historyDiv").length);
-			console.log("존재하는지?" + $('.emptyCont').length);
-			
+	
 		}
-		
-		//$('#pagin').css('display', 'block');  //조건 검사할 필요 없다. 값이 없으면 위 SuccFail메서드의 isEmpty 절에서 바로 return 하니까.
-			
+					
 	</script>
 	
 	
