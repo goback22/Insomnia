@@ -178,7 +178,7 @@ $(function(){
 			<header class="header header-magic-line">
 				<div class="header-inner ">
 					<div class="tim-container clearfix">
-						<div class="header-magic-line-inner clearfix">
+						<div class="header-magic-line-inner clearfix" style="margin-top: -15px">
 							<div id="site-logo" class="float-left">
 								<a href="<c:url value='/home.ins'/>" class="logo-main"> <img
 									src="<c:url value='/resource/img/logo_5.png'/>" alt="logo">

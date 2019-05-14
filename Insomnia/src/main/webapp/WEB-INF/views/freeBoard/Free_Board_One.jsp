@@ -370,10 +370,10 @@ body {
 									<div class="col-sm-5">
 										<c:if test="${id eq list.id }" var="iswriter">
 											<input type="text" class="form-control" name="free_title" id="free_title" style="display: initial;" value="${list.title }"/>
-											<a href="<c:url value='/freeBoard/Free_Board_Delete.ins?no=${no }'/>"><input type="button" class="btn btn-danger btn_delete" value="삭제"></a>
+											<a href="<c:url value='/freeBoard/Free_Board_Delete.ins?no=${no }'/>"><input type="button" style="margin-left: 635px;margin-top: -30px" class="btn btn-danger btn_delete" value="삭제"></a>
 										</c:if>
 										<c:if test="${not iswriter }">
-											<input type="text" class="form-control" name="free_title" id="free_title" value="${list.title }" disabled="disabled"/>
+											<div style="margin-top: 6px">${list.title}</div>
 										</c:if>
 									</div>
 								</div>
@@ -384,7 +384,7 @@ body {
 											<textarea rows="10" id="summernote" name="free_content" class="form-control">${list.content }</textarea>
 										</c:if>
 										<c:if test="${not iswriter }">
-											<textarea rows="10" id="summernote" name="free_content" class="form-control" disabled="disabled">${list.content }</textarea>
+											<div style="width: 600px;height: 600px;margin-top: 6px"> ${list.content }</div>
 										</c:if>
 									</div>
 								</div>
@@ -392,11 +392,12 @@ body {
 									<div class="col-md-12 text-center" style="margin-left: 75px; margin-top: 15px">
 										<c:if test="${id eq list.id }" var="iswriter">
 											<input type="submit" class="btn btn-info" value="수정" />
+											<a href="<c:url value='/freeBoard/Free_Board.ins'/>"><input type="button" class="btn btn-info" value="목록" /></a>
 										</c:if>
 										<c:if test="${not iswriter }">
-											<a href="<c:url value='/freeBoard/Free_Board.ins'/>"><input type="button" class="btn btn-info" value="확인" /></a>
+											<a href="<c:url value='/freeBoard/Free_Board.ins'/>"><input type="button" class="btn btn-info" value="목록" /></a>
 										</c:if>
-										<a href="<c:url value='/freeBoard/Free_Board.ins'/>" class="btn btn-success" style="margin-left: 25px">취소</a>
+										
 									</div>
 									<div style="position: absolute; margin-left: 357px; margin-top: 100px;">
 										<a class="ilikeyou" style="cursor: pointer;"><img alt="" src="<c:url value='/img/upbtn.png'/>"></a>

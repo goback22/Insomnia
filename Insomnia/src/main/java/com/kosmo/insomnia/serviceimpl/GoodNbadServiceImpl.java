@@ -20,6 +20,11 @@ public class GoodNbadServiceImpl implements GoodNbadService{
 	public int insert(Map map) {
 		return dao.insert(map);
 	}
+	
+	@Override
+	public int delete(Map map) {
+		return dao.delete(map);
+	}
 
 	@Override
 	public GoodNbadDTO selectOne(Map map) {

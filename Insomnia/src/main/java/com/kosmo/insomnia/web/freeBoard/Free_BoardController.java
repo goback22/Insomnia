@@ -89,7 +89,7 @@ public class Free_BoardController {
 		System.out.println("no의 값 : "+map1.get("no").toString());
 		Map no = new HashMap();
 		no.put("no", map1.get("no"));
-		
+		goodService.delete(no);
 		freeService.delete(no);
 		
 		return "forward:/freeBoard/Free_Board.ins";

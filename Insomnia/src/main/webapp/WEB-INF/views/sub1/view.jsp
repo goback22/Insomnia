@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/WEB-INF/views/my/isMember.jsp" %>
+<%@ include file="/WEB-INF/views/my/isMember.jsp"%>
 
 <!-- aos 구동 -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -47,7 +47,7 @@ body {
 	background-color: #12111F;
 }
 
-#kyj2{
+#kyj2 {
 	color: white;
 	text-decoration: none;
 }
@@ -119,7 +119,8 @@ body {
 						<div class="col-md-10">
 							<h5 class="comments-title">Application</h5>
 							<table class="table table-hover text-center">
-- 							<input type="hidden" name="ap_no" value="${record.ap_no}"/> 
+								-
+								<input type="hidden" name="ap_no" value="${record.ap_no}" />
 								<tr style="height: 40px; display: none">
 									<td style="width: 10%;">No</td>
 									<td class="B">${record.ap_no}</td>
@@ -141,16 +142,17 @@ body {
 									<td style="text-align: left">${record.ap_content == null ? "" : record.ap_content}</td>
 								<tr>
 									<td style="height: 40px;">File</td>
-									<td class="B" >
-									<a id="kyj2" href="<c:url value='/sub1/download.ins?filename=${record.ap_attachedfile}&no=${record.ap_no}'/>">${record.ap_attachedfile}</a>
+									<td class="B"><a id="kyj2"
+										href="<c:url value='/sub1/download.ins?filename=${record.ap_attachedfile}&no=${record.ap_no}'/>">${record.ap_attachedfile}</a>
 									</td>
 								</tr>
 								<tr style="border-bottom: none">
-									<td style="height: 40px;"> &nbsp;이전 글 <br> 다음 글 </td>
-									<td class="B">
-								 	 <a style="color:white;" href="<c:url value='/sub1/view.ins?ap_no=${prev.ap_no}'/>">${prev.ap_title == null ? "등록된 이전 글이 없습니다." : prev.ap_title}</a>
-									 <br> 
-									 <a style="color:white;" href="<c:url value='/sub1/view.ins?ap_no=${next.ap_no}'/>">${next.ap_title == null ? "등록된 다음 글이 없습니다." : next.ap_title}</a>
+									<td style="height: 40px;">&nbsp;이전 글 <br> 다음 글
+									</td>
+									<td class="B"><a style="color: white;"
+										href="<c:url value='/sub1/view.ins?ap_no=${prev.ap_no}'/>">${prev.ap_title == null ? "등록된 이전 글이 없습니다." : prev.ap_title}</a>
+										<br> <a style="color: white;"
+										href="<c:url value='/sub1/view.ins?ap_no=${next.ap_no}'/>">${next.ap_title == null ? "등록된 다음 글이 없습니다." : next.ap_title}</a>
 								</tr>
 							</table>
 						</div>

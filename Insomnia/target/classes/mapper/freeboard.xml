@@ -32,6 +32,9 @@
 	<insert id="gd_insert" parameterType="java.util.Map">
 		insert into goodNbad(gb_no,id,no,click) values(seq_gb.nextval,#{id},#{no},'Y')
 	</insert>
+	<delete id="gd_delete" parameterType="java.util.Map">
+		delete from goodnbad where no = #{no}
+	</delete>
 	<select id="gd_selectone" parameterType="java.util.Map" resultType="GoodNbadDTO">
 		select click from goodNbad where id=#{id} and no =#{no}
 	</select>

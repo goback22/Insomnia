@@ -20,12 +20,16 @@ public class GoodNbadDAO implements GoodNbadService {
 	public int insert(Map map) {
 		return template.insert("gd_insert", map);
 	}
+	
+	@Override
+	public int delete(Map map) {
+		return template.delete("gd_delete", map);
+	}
 
 	@Override
 	public GoodNbadDTO selectOne(Map map) {
 		return template.selectOne("gd_selectone", map);
 	}
-
 	
 
 	
