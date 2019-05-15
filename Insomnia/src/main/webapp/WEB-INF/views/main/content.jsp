@@ -209,14 +209,12 @@ body {
 		index : JSON배열의 인덱스(0부터 시작)   
 		index에 따른 요소 값 : JSON 배열에서 하나씩 꺼내온거를 담은 인자      
 		 */
-		console.log('successAjax로 들어왔어요');
-		console.log('서버로부터 받은 데이타:', data);
 			
 		var tableString = "";
 		$.each(data, function(index, element) {
 			var A = element['PROFILE_IMG'];
 			var B = "<c:url value='/upload/" +A+ "'/>;"
-			console.log(B);
+			
 			
 			tableString += "<li>"
 			tableString += "<article class='comment-body'>";
@@ -246,7 +244,6 @@ body {
 			tableString += "</article>";
 			tableString += "</li>";
 		});//each
-		console.log("tableString:"+tableString);
 		
 		//리스트 뿌려주기
 		$('#commentWrite').html(tableString);
@@ -687,7 +684,7 @@ body {
 									</dt>
 									<dd>
 										<p style="font-weight:bold;font-size:20px;">${band.b_name }</p>
-										<p>${band.b_description }밴드설명!</p>
+										<p>${band.b_description }</p>
 									</dd>
 								</dl>
 							</div>
@@ -698,7 +695,7 @@ body {
 					
 
 							<c:forEach items="${rewardList }" var="rewardList"> <!-- 리스트 뿌려주는 foreach문 시작 -->
-							
+								<div class="rw_no" hidden="hidden" value="${rewardList.rw_no }"></div>
 								<div class="rightinfo-reward-list" style="width: 100%;"
 									onclick="">
 									<div class="top-info" style="width: 100%">
@@ -728,15 +725,15 @@ body {
 							
 							<!-- 후원하기 입력창 추가 -->
 							<div class="rightinfo-reward-list support-now">
-								<p class="support-in">후원하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><input type="text" class="support-in" style="width:160px; height:60px; border:none;"><p class="support-in">&nbsp;원</p>
+								<p class="support-in">후원하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><input id="support-count" type="text" class="support-in" style="width:160px; height:60px; border:none;"><p class="support-in">&nbsp;원</p>
 							</div>
 							<!-- 후원하기 입력창 추가 끝 -->
 							
 							<!-- 펀딩하기 버튼 추가 -->
 							<div class="rightinfo-reward-list funding-now"
-									onclick=""
 									style="text-align:center; padding:20px; width:88%;"
-									>
+									onclick="javascript:funding();">
+	
 								<p style="margin-bottom:0;">펀딩하기!</p>	
 							</div>
 							<!-- 펀딩하기 버튼 추가 끝 -->
@@ -760,7 +757,12 @@ body {
 	
 	<script>
 	
+	console.log("version 6");
+
+		
 	
+
+
 
 	
 	
@@ -772,6 +774,35 @@ body {
 		//setSummernote();
 		
 	});;//window.onload
+	
+	
+	
+	//펀딩하기를 눌러 MainPayPage로 이동
+	function funding(){
+		var arr = new Array();
+		var count = new Array();
+		var support = $("#support-count").val();
+		var b_no = "${band.b_no}";
+		//후원된 금액도 맵에 넣어서 컨트롤러에 넘겨줘서 마지막 인덱스에 넣어 처리
+		console.log("support : " +support);
+		$(".rw_no").each(function(){
+			arr.push($(this).attr("value"));
+		});
+		$(".reward-count").each(function(){
+			count.push($(this).text());
+		});
+		
+		
+		var query = "?";
+		for(var i = 0 ; i < arr.length; i++){
+			query += arr[i]+"="+count[i]+"&";
+		}//
+		query += "support="+support+"&";
+		query += "b_no=" + b_no;
+		console.log("query : " +query);
+		location.href="<c:url value='/Pay/MainPayPage.ins"+query+"'/>";
+	};//fn funding
+
 	
 	
 	//등록된 youtube링크로 썸네일 따와서 세팅
@@ -820,7 +851,6 @@ jQuery(document).ready(function($) {
 	  type:'post',
 	  dataType:'json',
 	  success: function(data){
-		  console.log(data);
 		  loadMusicList(data);  
 	  },
 	  error:function(request, error){
@@ -954,7 +984,12 @@ jQuery(document).ready(function($) {
     keyEnabled: true
   });
 
-});
+
+
+});///$(function(){})
+
+
+	
 	
 	
 	</script>

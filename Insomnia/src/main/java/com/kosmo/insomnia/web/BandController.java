@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.google.android.gcm.server.MulticastResult;
 import com.kosmo.insomnia.common.CategoryUtil;
 import com.kosmo.insomnia.common.DTOUtil;
 import com.kosmo.insomnia.service.BandDTO;
@@ -39,8 +41,6 @@ import com.kosmo.insomnia.service.SeqDTO;
 import com.kosmo.insomnia.serviceimpl.BandServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 import com.kosmo.insomnia.web.my.FileUpDownUtils;
-
-////FCM 푸시를 위한 import : 시작
 
 import java.util.Scanner;
 import java.io.InputStream;
@@ -60,9 +60,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-
-////FCM 푸시를 위한 import : 끝
-
 @Controller
 public class BandController {
 	
@@ -73,7 +70,7 @@ public class BandController {
 	private MemberServiceImpl memberService;
 	
 	@RequestMapping(value="/band/bandInfo.ins")
-	public String goToBandInfoPage(@RequestParam Map params, Map dismap, HttpSession session, Model model, ServletRequest request) {
+	public String goToBandInfoPage(@RequestParam Map params, HttpSession session, Map dismap, Model model, ServletRequest request) {
 		String b_no = null;
 		//createNewBand를 통해 넘어왔을 경우에 밴드 생성해서 등록
 		if(params != null && params.get("select_category") != null && params.get("band_name") != null) {
@@ -161,16 +158,11 @@ public class BandController {
 		//model 객체를 통해서 값 bandInfo에 필요한 값 넘겨주기
 		//band객체를 얻어온다. b_name로 검색
 		BandDTO record = bandService.getBandDTOByB_name(b_name);
-		
-		System.out.println("record은???" + record);
-		System.out.println("b_name은???" + b_name);
 		record.setB_album_cover(record.getB_album_cover() == null ? "default_band_profile_img.jpg" : record.getB_album_cover().toString());
 		model.addAttribute("record", record);
 
 		session.setAttribute("b_no", record.getB_no());
 		session.setAttribute("b_name", b_name);
-		
-		dismap.put("b_no", record.getB_no());
 		
 		//PlayList 목록 Map에 넣어 반환
 		//PlayList 얻어오기
@@ -210,20 +202,9 @@ public class BandController {
 			}///if
 		}//for
 		
-		
-		dismap.put("choice", "like");
-		int like = bandService.getBandLikeNFollow(dismap);
-		dismap.put("choice", "follow");
-		int follow = bandService.getBandLikeNFollow(dismap);
-		
-		model.addAttribute("like", like);
-		model.addAttribute("follow", follow);
-		
 		model.addAttribute("waiting", waiting);
 		
-		
-		//////FCM 시작 : 서기환, 5월 14일//////
-		
+		/////////////////////////////서기환 추가  5월 14일
 		if(params.get("fcm") != null) {
 			//token값저장용
 		    ArrayList<String> token = new ArrayList<String>();  
@@ -304,12 +285,10 @@ public class BandController {
 		    }catch (Exception e) {
 		        e.printStackTrace();
 		    }
-		    		
-		
 		}
-		
-		
 		//////FCM 끝 : 서기환, 5월 14일//////
+		
+		
 		
 		
 		
@@ -498,5 +477,31 @@ public class BandController {
 	}//getBandImgList
 	
 }//class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

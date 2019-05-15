@@ -8,7 +8,16 @@ public class RewardWaitingDTO {
 	private String rw_name;
 	private String rw_description;
 	
+	//편의상 추가 변수
+	private String s_no;
 	
+	
+	public String getS_no() {
+		return s_no;
+	}
+	public void setS_no(String s_no) {
+		this.s_no = s_no;
+	}
 	public String getRw_no() {
 		return rw_no;
 	}

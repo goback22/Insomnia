@@ -18,9 +18,8 @@
 	</insert>
 	
 	<select id="getBandDTOByB_no" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandDTO">
-		SELECT b.b_no, b_name, b_description, b_album_cover, bm_name, b_liked, b.ct_no FROM band b
-		join bandmusic bm on b.b_no = bm.b_no
-		WHERE b.b_no = #{b_no}
+		SELECT b_no, b_name, b_description, b_album_cover, b_liked, ct_no FROM band
+		WHERE b_no = #{b_no}
 	</select>
 	
 	<select id="isMember_createNewBand" parameterType="java.lang.String" resultType="java.lang.String">
@@ -89,7 +88,7 @@
 	</insert>
 	
 	<select id="getListBandMusicDTO" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandMusicDTO">
-		SELECT bm_no, b.b_no, bm_name, bm_description, bm_liked, b.ct_no, bm_filename FROM BandMusic WHERE b_no = #{b_no}
+		SELECT bm_no, b_no, bm_name, bm_description, bm_liked, ct_no, bm_filename FROM BandMusic WHERE b_no = #{b_no}
 	</select>
 	
 	<select id="getListRewardWaitingDTO" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.RewardWaitingDTO">
@@ -119,27 +118,61 @@
 		WHERE sw_no = #{sw_no}
 	</select>
 	
-	 
 	<insert id="getSeq_band" parameterType="com.kosmo.insomnia.service.SeqDTO">
 		insert into seq_band_table values(seq_band.nextval)
 		<selectKey keyProperty="id" resultType="java.lang.String" order="AFTER">
 			select seq_band.currval from dual
 		</selectKey>
 	</insert>
-	 
-
-<!--
-	<insert id="getSeq_band" parameterType="com.kosmo.insomnia.service.SeqDTO">
-		INSERT INTO seq_band_table(num) VALUES(seq_band.nextval)
-		<selectKey keyProperty="id" resultType="Integer"
-			order="AFTER"> SELECT seq_band.currval FROM dual </selectKey>
-	</insert> 
--->
-
 	
 	<select id="getBandSubmitDTOByS_no" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandSubmitDTO">
 		SELECT s_no, b_no, p_no, s_account_bank, s_account_serial, s_goal_price, s_goal_deadline, s_goal_accumulation, s_submit_date, s_liked, sw_no
 		FROM bandsubmit WHERE s_no = #{s_no}
 	</select>
+	
+	<insert id="addReward" parameterType="com.kosmo.insomnia.service.RewardWaitingDTO">
+		INSERT INTO Reward(r_no, rw_no, s_no, r_price, r_name, r_description) 
+		VALUES(seq_reward.nextval,#{rw_no}, #{s_no},#{rw_price},#{rw_name},#{rw_description}) 
+	</insert>
+	
+	<select id="getRewardDTO" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.RewardDTO">
+		SELECT r_no, s_no, r_price, r_name, r_description, rw_no FROM Reward WHERE rw_no = #{rw_no}
+	</select>
+	
+	<select id="getMemberDTO" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.MemberDTO">
+		SELECT * FROM members WHERE id=#{id}
+	</select>
+	
+	<insert id="addSafePay" parameterType="com.kosmo.insomnia.service.SafePayDTO">
+		INSERT INTO safePay(sp_no, id, r_no, sp_reward_qty, sp_recipient, sp_zip_code, sp_shipping_address, sp_depositor, sp_phone, s_no, sp_uid_no)
+		VALUES(seq_safepay.nextval, #{id}, #{r_no}, #{sp_reward_qty}, #{sp_recipient}, #{sp_zip_code}, #{sp_shipping_address}, #{sp_depositor}, #{sp_phone}, #{s_no}, #{sp_uid_no})
+	</insert>
+	
+	<insert id="addSafePaySupport" parameterType="com.kosmo.insomnia.service.SafePayDTO">
+		INSERT INTO safePay(sp_no, id, r_no, sp_support, sp_recipient, sp_zip_code, sp_shipping_address, sp_depositor, sp_phone, s_no, sp_uid_no)
+		VALUES(seq_safepay.nextval, #{id}, #{r_no}, #{sp_support}, #{sp_recipient}, #{sp_zip_code}, #{sp_shipping_address}, #{sp_depositor}, #{sp_phone}, #{s_no}, #{sp_uid_no})
+	</insert>
+	
+	<select id="getRewardDTOByR_no" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.RewardDTO">
+		SELECT r_no, s_no, rw_no, r_price, r_name, r_description FROM reward WHERE r_no=#{r_no}
+	</select>
+	
+	<select id="getPayDTO" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.PayDTO">
+		SELECT p_no, p_complete_date, p_total_people, p_total_accumulation, p_uid_no, s_no FROM pay WHERE s_no = #{s_no} 
+	</select>
+	
+	<select id="getMembersInBand" parameterType="java.lang.String" resultType="java.util.List">
+		SELECT id bandMember where b_name=#{b_name}
+	</select>
+	
+	<select id="getTotalPeopleForPay" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT count(sp_no) from safePay WHERE s_no=#{s_no}
+	</select>
+	
+	<insert id="addPay" parameterType="com.kosmo.insomnia.service.PayDTO">
+		INSERT INTO Pay(p_no, p_complete_date, p_total_people, p_total_accumulation, p_uid_no, s_no)
+		VALUES(seq_pay.nextval, sysdate, #{p_total_people}, #{p_total_accumulation}, #{p_uid_no}, #{s_no})
+	</insert>
+	
 	
 </mapper>

@@ -15,7 +15,11 @@ import com.kosmo.insomnia.service.BandMusicDTO;
 import com.kosmo.insomnia.service.BandService;
 import com.kosmo.insomnia.service.BandSubmitDTO;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
+import com.kosmo.insomnia.service.MemberDTO;
+import com.kosmo.insomnia.service.PayDTO;
+import com.kosmo.insomnia.service.RewardDTO;
 import com.kosmo.insomnia.service.RewardWaitingDTO;
+import com.kosmo.insomnia.service.SafePayDTO;
 import com.kosmo.insomnia.service.SeqDTO;
 
 @Repository
@@ -165,6 +169,57 @@ public class BandDAO implements BandService {
 	public BandSubmitDTO getBandSubmitDTOByS_no(String s_no) {
 		return template.selectOne("getBandSubmitDTOByS_no", s_no);
 	}///getBandSubmitDTOByS_no
+	
+	@Override
+	public int addReward(RewardWaitingDTO dto) {
+		return template.insert("addReward", dto);
+	}//addReward
+	
+	@Override
+	public RewardDTO getRewardDTO(String rw_no) {
+		return template.selectOne("getRewardDTO", rw_no);
+	}//getRewardDTO
+	
+	@Override
+	public MemberDTO getMemberDTO(String id) {
+		return template.selectOne("getMemberDTO", id);
+	}//getMemberDTO
+	
+	@Override
+	public int addSafePay(SafePayDTO dto) {
+		return template.insert("addSafePay", dto);
+	}//addSafePay
+	
+	@Override
+	public int addSafePaySupport(SafePayDTO dto) {
+		return template.insert("addSafePaySupport", dto);
+	}///addSafePaySupport
+	
+	@Override
+	public RewardDTO getRewardDTOByR_no(String r_no) {
+		return template.selectOne("getRewardDTOByR_no", r_no);
+	}//getRewardDTOByR_no
+	
+	@Override
+	public PayDTO getPayDTO(String s_no) {
+		return template.selectOne("getPayDTO", s_no);
+	}//getPayDTO
+	
+	@Override
+	public List getMembersInBand(String b_name) {
+		return template.selectList("getMembersInBand", b_name);
+	}//getMembersInBand
+	
+	@Override
+	public String getTotalPeopleForPay(String s_no) {
+		return template.selectOne("getTotalPeopleForPay", s_no);
+	}//getTotalPeopleForPay
+	
+	@Override
+	public int addPay(PayDTO dto) {
+		return template.insert("addPay", dto);
+	}//addPay
+	
 
 	@Override
 	public int like_follow_insert(Map map) {
@@ -195,10 +250,6 @@ public class BandDAO implements BandService {
 	public int distinguishLike(Map map) {
 		return template.selectOne("distinguishLike", map);
 	}
-
-	
-	
-	
 
 	
 }// class BandDAO

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <link rel="stylesheet" type="text/css" href="http://www.superstari.co.kr/design/superstari/inc/15_re/demo-style.css" />
 <link rel="stylesheet" type="text/css" href="http://www.superstari.co.kr/design/superstari/inc/15_re/search_component.css" />
@@ -13,7 +14,7 @@
 <link rel="stylesheet" href="<c:url value='/vendor/css/PayCSS_1.css'/>" type="text/css">
 <link rel="stylesheet" href="<c:url value='/vendor/css/PayCSS_2.css'/>" type="text/css">
 <link rel="stylesheet" href="<c:url value='/vendor/css/PayCSS_3.css'/>" type="text/css">
-<script src="<c:url value='/vendor/js/PayMoving.js'/>"></script>
+<script src="<c:url value='/vendor/js/PayMoving-main.js'/>"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -26,6 +27,80 @@
 	.col-md-3{
 		padding-left: 79px;
 	}
+	.subpay_title_content{
+		width: 500px;
+		background-color: white;
+		border: none;
+		pointer-events: none;
+	}
+	
+	#asmr{
+		height: 51px;
+		position: relative;
+		background-repeat: no-repeat;
+		background-position: right 0;
+		float: left;
+		color: #fff;
+		font-weight: 700;
+		padding: 0 15px 2px;
+		padding-left: 15px;
+		margin: 20px 0;
+		border: 0;
+		cursor: pointer;
+		z-index: 5;
+		width: 16%;
+		border-radius: 10px;
+		background-color: black;
+		font-size: 26px;
+		text-align: center;
+		padding-left: 16px;
+		margin-left: 438px;
+	}
+	
+	#asmr2{
+		height: 52px;
+		float: left;
+		color: black;
+		font-weight: 700;
+		padding: 0 15px 2px;
+		padding-left: 15px;
+		margin: 19px 0;
+		margin-left: 0px;
+		border: 0;
+		cursor: pointer;
+		width: 16%;
+		border-radius: 10px;
+		background-color: #ececec;
+		font-size: 26px;
+		text-align: center;
+		padding-left: 16px;
+		margin-left: 13px;
+	}
+	
+	.error {
+    	border: 2px;
+		border-color: lightcoral;
+		border-style: outset;
+	}
+	
+	.valid {
+	    border: 2px solid #ddd;
+	}
+	
+	#docs {
+	    display: block;
+	    position: fixed;
+	    bottom: 0;
+	    right: 0;
+	}
+	
+	.ads_aside{
+		float: inline-end;
+	    position: absolute;
+	    display: inline;
+	    margin-left: 1400px;
+	    width: 16%;
+	}
 </style>
 </head>
 <body id="home-version-1" class="home-version-1" data-style="default">
@@ -37,7 +112,7 @@
 				<div id="content">
 					<div id="order">
 						<div class="page-body">
-							<form name="form1" id="order_form" action="<c:url value='/Pay/PayComplete.ins'/>" method="post">
+							<form name="form1" id="order_form" action="javascript:void(0);" method="post">
 								
 								
 
@@ -75,38 +150,91 @@
 												</tr>
 											</thead>
 											<tbody class="add_trTag">
-												<tr class='orderlist_checkNrelease_delete'>
-													<td>
-														<div class='tb-center'>
-															<div class='thumb'>
-																<input type='checkbox' class='order_list_checked' checked='checked'>
-																<img src='<c:url value="/img/guita.png"/>' width='40'>
+											
+											
+																			<!-- 파라미터를 위한 히든태그 -->
+												<input type="hidden" id="b_name" value="${band.b_name }" form="order_form">
+												<input type="hidden" id="reward_count" value="${fn:length(rewards) }" form="order_form">
+												<input type="hidden" id="b_no" value="${band.b_no }" form="order_form">
+											
+											
+																			<!-- 주문정보 추가 시작 -->
+												<c:forEach items="${rewards }" var="rewards" varStatus="st">
+												<c:if test="${!st.last}">
+													<input type="hidden" id="r_no_${st.index }" value="${rewards.r_no }">
+													<input type="hidden" id="s_no" value="${rewards.s_no }">
+												
+													<tr class='orderlist_checkNrelease_delete'>
+														<td>
+															<div class='tb-center'>
+																<div class='thumb'>
+																	<input type='checkbox' class='order_list_checked' checked='checked'>
+																	<img src='<c:url value="/upload/band/cover/${rewards.b_album_cover }"/>' width='40'>
+																</div>
 															</div>
-														</div>
-													</td>
-													<td>
-														<div class='tb-left'>
-															<a href='#'>${param.bgs1_title } </a><br/>
-															<a href="#">${param.bgs1_content}</a>
-														</div>
-													</td>
-													<td>
-														<div class='tb-center'>
-															<input disabled="disabled" type='text' class='item_Count' value='${param.bgs1_qty }' style='width: 25px; text-align: right;background-color: #fff;'> 개
-															<input type='button' class='btn btn-info btn_plus' value='+'>
-															<input type='button' class='btn btn-info btn_minus' value='-''>
-														</div>
-													</td>
-													<td>
-														<div class='tb-right tb-bold tb-center'><span id="price_concert"></span>원</div>
-														<script>
-															$("#price_concert").text(String(${param.bgs1_price}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
-														</script>
-													</td>
-													<td>
-														<div class='tb-center'>없음</div>
-													</td>
-												</tr>
+														</td>
+														<td>
+															<div class='tb-left'>
+																<a href='#'>${rewards.r_name } </a><br/>
+																<a href="#" style="color:gray;">${rewards.r_description}</a>
+															</div>
+														</td>
+														<td>
+															<div class='tb-center'>
+																<input disabled="disabled" type='text' class='item_Count' id="sp_reward_qty_${st.index }" value='${rewards.count }' style='width: 25px; text-align: right;background-color: #fff;'> 개
+																<input type='button' class='btn btn-info btn_plus' value='+'>
+																<input type='button' class='btn btn-info btn_minus' value='-''>
+															</div>
+														</td>
+														<td>	
+															<div class='tb-right tb-bold tb-center' style="text-align:center;"><span id="price_concert_${rewards.r_no }"></span>원</div>
+															<script>
+																$("#price_concert_${rewards.r_no}").text(String(${rewards.r_price * rewards.count}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+															</script>
+														</td>
+														<td>
+															<div class='tb-center'>없음</div>
+														</td>
+													</tr>
+													
+													</c:if> <!-- 마지막 정보는 support가 들어있으므로 리스트의 마지막 인덱스인지 검사 -->
+													<c:if test="${st.last }"> <!-- 마지막 인덱스 support라면 -->
+														<input type="hidden" id="support" value="${rewards.support }">
+														
+														<tr class='orderlist_checkNrelease_delete'>
+														<td>
+															<div class='tb-center'>
+																<div class='thumb'>
+																	<input type='checkbox' class='order_list_checked' checked='checked'>
+																	<img src='<c:url value="/upload/band/cover/${rewards.b_album_cover }"/>' width='40'>
+																</div>
+															</div>
+														</td>
+														<td>
+															<div class='tb-left'>
+																<a href='#'>후원금 </a><br/>
+																<a href="#">${param.bgs1_content}</a>
+															</div>
+														</td>
+														<td>
+															<div class='tb-right tb-bold tb-center'><span id="price_concert_support"></span>원</div>
+															<script>
+																$("#price_concert_support").text(String(${rewards.support}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+															</script>
+														</td>
+														
+													</tr>
+														
+													</c:if>
+												</c:forEach> <!-- List형으로 받은 주문정보를 얻어서 뿌려준다. -->
+																		<!-- 주문정보 추가 끝 -->
+																		
+																		
+																		
+																		
+																		
+																		
+																		
 											</tbody>
 										</table>
 									</div>
@@ -190,7 +318,7 @@
 									<h3>
 										배송 정보 
 										<label> 
-										<input type="checkbox" name="same" form="order_form" id="same" onclick="copydata()"> 
+										<input type="checkbox" name="same" form="order_form" id="same"> 
 											위 정보와 같음
 										</label>
 									</h3>
@@ -236,14 +364,22 @@
 <!-- 															<input type="hidden" name="old_offi_address" form="order_form" id="old_offi_address" value="">  -->
 <!-- 															<input type="text" name="address2" form="order_form" id="address2" size="50" class="MS_input_txt w240" placeholder="상세주소"> -->
 <!-- 														</div> -->
-															<input type="text" id="sample4_postcode" placeholder="우편번호" readonly="">
+																<!-- hidden input으로 값을 토글 -->
+																<input type="hidden" id="postcode" value="${member.zip_code}">
+																<input type="hidden" id="roadAddress" value="${roadAddress }">
+																<input type="hidden" id="jibunAddress" value="${jibunAddress }">
+																<input type="hidden" id="detailAddress" value="${detailAddress }">
+																<input type="hidden" id="extraAddress" value="${extraAddress}">
+																<!-- hidden input으로 값을 토글 끝 -->
+
+															<input type="text" id="sample4_postcode" placeholder="우편번호" readonly="" value="">
 															<input type="button" class="d_btn" id="sample4_execDaumPostcode" value="우편번호 찾기"><br>
-															<input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly="">
-															<input type="text" id="sample4_jibunAddress" placeholder="지번주소" readonly="">
+															<input type="text" id="sample4_roadAddress" placeholder="도로명주소" readonly="" value="">
+															<input type="text" id="sample4_jibunAddress" placeholder="지번주소" readonly="" value="">
 															<span id="guide" style="color:#999;display:none"></span>
 															<br/>
-															<input type="text" id="sample4_detailAddress" placeholder="상세주소">
-															<input type="text" id="sample4_extraAddress" placeholder="참고항목" readonly="">
+															<input type="text" id="sample4_detailAddress" placeholder="상세주소" value="">
+															<input type="text" id="sample4_extraAddress" placeholder="참고항목" readonly="" value="">
 													</td>
 												</tr>
 												
@@ -253,7 +389,7 @@
 															주문메세지<br> <span>(100자내외)</span>
 														</div></th>
 													<td colspan="3">
-														<textarea name="message" form="order_form" id="message" cols="50" rows="5" class="MS_textarea"></textarea>
+														<textarea id="message" name="message" form="order_form" id="message" cols="50" rows="5" class="MS_textarea"></textarea>
 													</td>
 												</tr>
 												
@@ -262,7 +398,7 @@
 														<div class="txt-l">무통장 입금자명</div>
 													</th>
 													<td colspan="3">
-														<input type="text" name="bankname" form="order_form" class="MS_input_txt" size="10" maxlength="40"> 
+														<input type="text" name="bankname" form="order_form" class="MS_input_txt" size="10" maxlength="40" id="sp_depositor"> 
 														<span class="MS_bankname_message"> (주문자와 같을경우 생략 가능)</span>
 													</td>
 												</tr>
@@ -270,9 +406,8 @@
 										</table>
 									</div>
 									<!-- .tbl-order -->
-
-									<h3>추가정보</h3>
-									<div class="tbl-order">
+<h3 class="add_Info">추가정보</h3>
+									<div class="tbl-order tbl-add_Info">
 										<table>
 											<caption>추가정보</caption>
 											<colgroup>
@@ -281,23 +416,26 @@
 											</colgroup>
 											<tbody>
 												<tr>
-													<th scope="row"><div class="txt-l">무통장 환불 예금주</div></th>
-													<td><input type="text" name="order_add_info[1]"
-														form="order_form" class="MS_input_txt" size=""
-														maxlength=""></td>
+													<th scope="row">
+														<div class="txt-l">무통장 환불 예금주</div>
+													</th>
+													<td>
+														<input type="text" name="subPay_Refund_Name" form="order_form" class="MS_input_txt">
+													</td>
 												</tr>
 												<tr>
 													<th scope="row"><div class="txt-l">무통장 환불 은행명</div></th>
-													<td><input type="text" name="order_add_info[2]"
-														form="order_form" class="MS_input_txt" size=""
-														maxlength=""></td>
+													<td>
+														<input type="text" name="subPay_Refund_BankName" form="order_form" class="MS_input_txt" id="sp_bank_name">
+													</td>
 												</tr>
 												<tr>
-													<th scope="row"><div class="txt-l">무통장 환불 계좌</div></th>
-													<td><input type="text" name="order_add_info[3]"
-														form="order_form" class="MS_input_txt" size=""
-														maxlength=""><br>( 계좌번호 미기재 또는 오류시 기재한 계좌로
-														환불처리 )<br></td>
+													<th scope="row">
+														<div class="txt-l">무통장 환불 계좌</div>
+													</th>
+													<td>
+												<input type="text" name="subPay_Refund_BankAccount" form="order_form" class="MS_input_txt" placeholder="(-) 제외 계좌번호 입력." id="sp_account_serial"><br>
+													( 계좌번호 미기재 또는 오류시 기재한 계좌로 환불처리 )<br></td>
 												</tr>
 											</tbody>
 										</table>
@@ -319,9 +457,9 @@
 													<td>
 														<ul class="pay-method">
 															<li>
-															<input type="radio" class="chk-rdo" name="radio_paymethod" value="B" checked="checked">
+															<input type="radio" class="chk-rdo" name="subPay_orderWay" value="B" checked="checked">
 																무통장입금 <em><span class="op-bank-dc-price fc-red"></span></em>
-																<select name="pay_data" class="w280 MK_bank_select_list MK_pay_add_choice">
+																<select name="pay_data" class="w280 MK_bank_select_list MK_pay_add_choice" style="font-size: 11px; letter-spacing: 0;">
 																	<option value="">입금 계좌번호 선택(반드시 주문자 성함으로 입금)</option>
 																	<option value="신한 110-394-023184 (예금주:(주)Insomnia)">
 																		신한 110-394-023184 (예금주:(주)Insomnia)
@@ -329,12 +467,12 @@
 																</select>
 															</li>
 															<li>
-															<input type="radio" class="chk-rdo" name="radio_paymethod" value="C"> 
-																신용카드 <em><span class="op-card-dc-price fc-red"></span></em>
+															<input type="radio" class="chk-rdo" name="subPay_orderWay" value="C"> 
+																휴대폰 결제 <em><span class="op-card-dc-price fc-red"></span></em>
 															</li>
 															<li>
-																<input type="radio" class="chk-rdo" name="radio_paymethod" value="D"> 
-																휴대폰 결제 
+																<input type="radio" class="chk-rdo" name="subPay_orderWay" value="D"> 
+																신용카드
 																<em><span class="op-hp-dc-price fc-red"></span></em>
 															</li>
 														</ul>
@@ -365,10 +503,9 @@
 
 															<div style="padding-top: 5px;">
 																<div id="evidence_data">
-																	<script type="text/javascript" src="/js/check.js"></script>
 																	<div id="evidence_cashbill_data">
 																		<span id="cashbilltype"> 
-																			<select name="evidence_banktype" class="bank-type" onchange="togglecashbilltype(this.value)">
+																			<select style="font-size: 12px;" name="evidence_banktype" class="bank-type">
 																					<option value="0" selected="">핸드폰 번호</option>
 																					<option value="1">국세청 현금영수증 카드</option>
 																					<option value="2">사업자 번호</option>
@@ -617,11 +754,14 @@
 																<div style="margin-top: 5px;">* 동의하셔야 서비스를 이용하실 수
 																	있습니다.</div>
 																<div class="privercy-agree">
-																	<label><input type="radio"
-																		name="new_privacy_agree" value="Y"> 정보수집에
-																		동의합니다.</label> <label><input type="radio"
-																		name="new_privacy_agree" value="N" checked="">
-																		동의하지 않습니다.</label>
+																	<label>
+																		<input type="radio" class="sub_yes_agree" name="new_privacy_agree" value="Y"> 
+																		정보수집에 동의합니다.
+																	</label> 
+																	<label>
+																		<input type="radio" class="sub_no_agree" name="new_privacy_agree" value="N" checked="checked">
+																		동의하지 않습니다.
+																	</label>
 																</div>
 															</div>
 														</div>
@@ -629,10 +769,12 @@
 												</tr>
 												<tr>
 													<th scope="row"><div class="txt-l">주문동의</div></th>
-													<td><label class="label"> <input
-															type="checkbox" id="pay_agree" name="pay_agree"
-															form="order_form"> 상기 결제정보를 확인하였으며, 구매진행에 동의합니다.
-													</label></td>
+													<td>
+													<label class="label"> 
+														<input type="checkbox" id="pay_agree" name="pay_agree" form="order_form"> 
+														상기 결제정보를 확인하였으며, 구매진행에 동의합니다.
+													</label>
+													</td>
 												</tr>
 											</tbody>
 										</table>
@@ -649,13 +791,18 @@
 											<thead>
 												<tr>
 													<th>최종 결제금액</th>
-													<td><strong class="price"><em><span
-																id="block_unit_dollar" style="display: none">$</span> 
-																<span id="op_total_price"></span></em> 
-																<script>
-																	$("#op_total_price").text(String(${param.bgs1_price}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
-																</script>
-																<span id="block_unit_won">원</span></strong> &nbsp;</td>
+													<td>
+														<strong class="price"><em>
+															<span id="block_unit_dollar" style="display:none;">$</span>
+															<span id="op_total_price"></span></em> 
+															<script> 
+																$("#op_total_price").text(String(${param.bgs1_price}).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')); 
+															</script> 
+															<span id="block_unit_won">원</span>
+															<input type="hidden" id="total_payment" value="">
+														</strong> &nbsp;
+														<input type="hidden" name="subPay_Final_payment_amount" value="">
+													</td>
 												</tr>
 
 											</thead>
@@ -664,13 +811,13 @@
 									<!-- .tbl-pay -->
 
 									<div id="paybutton">
-										<input type="button" id="btn_order_ok" class="btn btn-success btn_FontSize" style="margin-right: 5px;" value="주문하기"/>
-										<a href="javascript:order_cancel('cancel')">
-											<button id="btn_order_cancle" class="btn btn-default btn_FontSize" style="margin-left: 5px">주문취소</button>
-										</a>
+										<input type="button" id="asmr" class="btn_order_ok_main" value="주문하기">
+										<!-- <input type="button" id="btn_order_ok" class="btn btn-success btn_FontSize" style="margin-right: 5px;" value="주문하기"/> -->
+										<input type="button" id="asmr2" value="주문취소">
 									</div>
 								</fieldset>
 							</form>
+							<a id="docs" href="http://docs.jquery.com/Plugins/Validation" target="_blank">Validation Documentation</a>
 						</div>
 						<!-- .page-body -->
 					</div>
@@ -687,7 +834,4 @@
 	        	이 콘텐츠는 콘텐츠 산업 진흥법에 따라 최초 제작일로부터 5년간 보호됩니다.
         	</span>
        	</div>
-
-
-	</div>
-	
+	</div>	

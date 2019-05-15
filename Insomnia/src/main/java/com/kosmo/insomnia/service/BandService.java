@@ -93,21 +93,51 @@ public interface BandService {
 	//28] bandSubmitDTO를 s_no값으로 가져오기
 	BandSubmitDTO getBandSubmitDTOByS_no(String s_no);
 	
-	//29] 좋아요/팔로잉
+	//29] rewardWaiting에 있는 rewards를 reward테이블에 넣기
+	int addReward(RewardWaitingDTO dto);
+	
+	//30] r_no 로 reward테이블의 정보를 얻어온다.
+	RewardDTO getRewardDTO(String rw_no);
+	
+	//31] id로 member info가져오기
+	MemberDTO getMemberDTO(String id);
+	
+	//32] safePay에 결제정보 등록
+	int addSafePay(SafePayDTO dto);
+	
+	//33] safePay에 결제정보 등록 - 후원금 항목일 때
+	int addSafePaySupport(SafePayDTO dto);
+	
+	//34] r_no로 rewardDTO가져오기
+	RewardDTO getRewardDTOByR_no(String r_no);
+	
+	//35] s_no로 payDTO가져오기
+	PayDTO getPayDTO(String s_no);
+	
+	//36] b_name으로 밴드 멤버 리스트 얻기
+	List getMembersInBand(String b_name);
+	
+	//37] s_no로 p_total_people 얻기
+	String getTotalPeopleForPay(String s_no);
+	
+	//38] dto로 Pay테이블 insert
+	int addPay(PayDTO dto);
+	
+	//서기환 추가
+	//39] 좋아요/팔로잉
 	int like_follow_insert(Map map);
 	int like_follow_delete(Map map);
 	
-	//30] 좋아요/팔로잉 가져오기
+	//40] 좋아요/팔로잉 가져오기
 	int getLikeNFollow(Map map);
 	
-	//31]밴드가 얻은 총 좋아요와 팔로우 수 구하기
+	//41]밴드가 얻은 총 좋아요와 팔로우 수 구하기
 	int getBandLikeNFollow(Map map);
 	
-	//32]좋아한 목록의 정보 가져오기
+	//42]좋아한 목록의 정보 가져오기
 	List<BandDTO> getLikeBand(Map map);
 	
-	//33]구별하기
+	//43]구별하기
 	int distinguishLike(Map map);
-	
 	
 }//interface BadnService
