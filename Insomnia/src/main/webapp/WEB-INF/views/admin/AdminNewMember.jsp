@@ -58,14 +58,14 @@
 									<!-- example1 -->
 									<c:if test="${empty list }" var="isEmpty">
 										<tr>
-											<td colspan="6" align="center">등록된 게시물이 없어요</td>
+											<td colspan="6" align="center">가입한 회원이 없..어...없...없습니...없습니다..흑흑</td>
 										</tr>
 									</c:if>
 										
 									<c:if test="${!isEmpty }">
 										<c:forEach items="${list }" var="item" varStatus="loop">
 									<tr class="view">
-										<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;1</td>
+										<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
 										<td class="text-center">${item.id }</td>
 										<td class="text-center">${item.name }</td>
 										<td class="text-center">일반1</td>

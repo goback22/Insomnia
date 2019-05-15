@@ -1,6 +1,8 @@
 package com.kosmo.insomnia.service;
 
 public class AdminSubDTO {
+	//members
+	private String name;
 	//bgsconcert 
 	private String bgsco_no;
 	private String b_title;
@@ -21,7 +23,12 @@ public class AdminSubDTO {
 	private String ap_genre;
 	private String id;
 	
-	//bgsapply
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getId() {
 		return id;
 	}

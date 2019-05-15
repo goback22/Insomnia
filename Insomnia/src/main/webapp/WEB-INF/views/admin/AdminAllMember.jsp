@@ -18,9 +18,7 @@
 	<link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>" rel="stylesheet">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<link href="<c:url value='/vendor/css/admin_index_chart.css'/>" rel="stylesheet">
-	<link href="<c:url value='/vendor/css/admin_pagemove_test.css'/>" rel="stylesheet">
-	
-	
+<%-- 	<link href="<c:url value='/vendor/css/admin_pagemove_test.css'/>" rel="stylesheet"> --%>
 	<style>
 		.c1{
 			-webkit-transform:  translateX(-100%);
@@ -36,8 +34,6 @@
 			if(${param.fouc}==1){
 				$("#page-wrapper").effect('slide',{},1000);
 			}
-			
-			
 		});
 	</script>
 </head>
@@ -141,8 +137,6 @@
 																	<th>EMAIL_RECIEVE</th>
 																	<th>DESCRIPTION</th>
 																</tr>
-															
-															
 																<tr>
 																	<td>${item.is_activation }</td>
 																	<td>${item.email }</td>
@@ -173,7 +167,7 @@
 									<div class="btn btn-default">수락</div>
 									<div class="btn btn-default">거부</div>
 									<!-- 페이징 -->
-										 <jsp:include page="/WEB-INF/views/admin/template/AdminPagination.jsp" />
+									<jsp:include page="/WEB-INF/views/admin/template/AdminPagination.jsp" />
 <%-- 										 <div class="col-md-12 text-center">${pagingString}</div> --%>
 									<!-- 페이징 -->
 								</div>
@@ -198,8 +192,7 @@
 							<section class="feed-item">
 							<!-- - -->
 								<div id="donutchart" style="width: 100%;height:100%;"></div>
-								
-              				<!-- - -->
+							<!-- - -->
 							</section>
 						</div>
 					</div>

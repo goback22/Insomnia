@@ -15,13 +15,21 @@
 	<select id="totalMembers" parameterType="java.util.Map" resultType="int">
 		select count(*) from members
 	</select>
+	<!-- 신규회원수 -->
+	<select id="getNewMember" parameterType="java.util.Map" resultType="int">
+		SELECT count(*)
+		FROM members
+		where to_char(join_date,'yyyymmdd') 
+		between to_char(sysdate-2, 'yyyymmdd') and to_char(sysdate, 'yyyymmdd')
+	</select>
 	<!-- 여성회원 -->
 	<select id="femaleMember" parameterType="java.lang.String" resultType="int">
 		select count(*) from members where gender = #{gender}
 	</select>
 	<!-- new Member -->
 	<select id="adminNewMember" parameterType="java.util.Map" resultType="AdminDTO">
-	SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.*,(SELECT COUNT(*) FROM members) FROM members M where to_char(join_date, 'yyyymmdd' ) between to_char(sysdate, 'yyyymmdd') and to_char(sysdate, 'yyyymmdd') ORDER BY join_date DESC)T) WHERE R BETWEEN #{start} AND #{end}
+	SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.*,(SELECT COUNT(*) FROM members) FROM members M where to_char(join_date, 'yyyymmdd' ) 
+	between to_char(sysdate-2, 'yyyymmdd') and to_char(sysdate, 'yyyymmdd') ORDER BY join_date DESC)T) WHERE R BETWEEN #{start} AND #{end}
 <!-- 	SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.*,(SELECT COUNT(*) FROM members) FROM members M where to_char(join_date, 'yyyymmdd' ) between to_char(sysdate, 'yyyymmdd') and to_char(sysdate-2, 'yyyymmdd') ORDER BY join_date DESC)T) WHERE R BETWEEN #{start} AND #{end} -->
 
 	</select>
@@ -37,21 +45,6 @@
 	<select id="twoDayAgoMember" parameterType="java.util.Map" resultType="int">
 		select count(*) from members where to_char(join_date,'yyyymmdd') = to_char(sysdate-2, 'yyyymmdd')
 	</select>
-	<!-- band -->
-	<select id="adminMainMember" parameterType="java.util.Map" resultType="AdminDTO">
-		select * from band
-	</select>
-	<!-- bandmember -->
-	<select id="bandMember" parameterType="java.util.Map" resultType="AdminDTO">
-		select B.*,M.name
-		from members M
-		join bandmember BM on BM.id=M.id
-		join band B on B.b_name = BM.b_name
-	</select>
-	<!-- band music list -->
-	<select id="adminMainMusicList" parameterType="java.lang.String" resultType="AdminDTO">
-		select B.b_no,BM.* from band B join bandmusic BM on B.b_no = BM.b_no where B.b_name=#{B.b_name}
-	</select>
 	
 	<!-- member detail view -->
 	<select id="memberDetailView" parameterType="java.lang.String" resultType="AdminDTO">
@@ -65,22 +58,4 @@
 		where SP.id = #{id} order by sp_no desc
 	</select>
 	
-	<!-- sub -->
-	<!-- sublist -->
-	<select id="subList" parameterType="java.lang.String" resultType="AdminSubDTO">
-		select * from bgsconcert B
-		join concerttimes CT on CT.bgsco_no = B.bgsco_no 
-	</select>
-	<!-- sub member list -->
-	<select id="subMemberList" parameterType="java.util.Map" resultType="AdminSubDTO">
-		select * from bgsapply 
-	</select>
-	<!-- bgshire -->
-	<insert id="bgshire" parameterType="java.lang.String">
-		insert into bgshire values(seq_bgshire.nextval,#{ap_no},'1')
-	</insert>
-	<!-- bgshire list -->
-	<select id="bgsHireList" parameterType="java.util.Map" resultType="AdminSubDTO">
-		select ap_no from bgshire
-	</select>
 </mapper>

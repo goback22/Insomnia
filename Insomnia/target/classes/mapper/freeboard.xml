@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
+<!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
+
+<mapper namespace="mapper.freeboard">
+	<select id="freeselectlist" parameterType="java.util.Map" resultType="FreeBoardDTO">
+		select f.*,m.name from freeboard f JOIN members m ON f.id = m.id order by no desc
+	</select>
+	<insert id="freeinsert" parameterType="java.util.Map">
+		insert into freeboard(no,id,title,content) values(seq_freeboard.nextval,#{id},#{title},#{content})
+	</insert>
+	<delete id="freedelete" parameterType="java.util.Map">
+		delete from freeboard where no=#{no}
+	</delete>
+	<update id="freeupdate">
+		update freeboard set title=#{title}, content=#{content} where no=#{no}
+	</update>
+	<select id="freeselectone" parameterType="java.util.Map" resultType="FreeBoardDTO">
+		select f.*,name from freeboard f join members m on f.id = m.id where no=#{no}
+	</select>
+	<update id="freeupdate_views">
+		update freeboard set views = views + 1 where no=#{no} 
+	</update>
+	<update id="freeupdate_like">
+		update freeboard set ilikeyou = ilikeyou+1 where no = #{no}
+	</update>
+	<update id="freeupdate_hate">
+		update freeboard set ihateyou = ihateyou+1 where no = #{no}
+	</update>
+	<insert id="gd_insert" parameterType="java.util.Map">
+		insert into goodNbad(gb_no,id,no,click) values(seq_gb.nextval,#{id},#{no},'Y')
+	</insert>
+	<delete id="gd_delete" parameterType="java.util.Map">
+		delete from goodnbad where no = #{no}
+	</delete>
+	<select id="gd_selectone" parameterType="java.util.Map" resultType="GoodNbadDTO">
+		select click from goodNbad where id=#{id} and no =#{no}
+	</select>
+</mapper>

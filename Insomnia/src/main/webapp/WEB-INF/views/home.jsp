@@ -382,7 +382,7 @@ $(function(){
 			              <td class="mypage_1"><a id="middle2" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_microphone_1055023.png'/>"/></a></td>
 
 			              <td><a id="middle3" href="javascript:void(0)" class=""><img src="<c:url value='/img/followers.png'/>"/></a></td>
-			              <td><a id="middle4" href="<c:url value='/Free_Board.ins'/>" class=""><img src="<c:url value='/img/iconfinder_heart_289619.png'/>"/></a></td>
+			              <td><a id="middle4" href="<c:url value='/freeBoard/Free_Board.ins'/>" class=""><img src="<c:url value='/img/iconfinder_heart_289619.png'/>"/></a></td>
 			           </tr>
 			           <tr>
 		           		  <td><label for="middle1">리워드</label></td>

@@ -63,7 +63,11 @@ public class AdminDAO implements AdminService{
 	public int getTotalRecord(Map map) {
 		return template.selectOne("totalMembers", map);
 	}
-
+	@Override
+	public int getNewMember(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectOne("getNewMember",map);
+	}
 	@Override
 	public int getGenderCount(Map map) {
 		return 0;
@@ -112,6 +116,51 @@ public class AdminDAO implements AdminService{
 	public List<AdminSubDTO> selectHire(Map map) {
 		// TODO Auto-generated method stub
 		return template.selectList("bgsHireList",map);
+	}
+	/////////////
+	@Override
+	public List<AdminDTO> selectWaitingBand(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectList("bandWaiting",map);
+	}
+	@Override
+	public List<AdminDTO> selectBandSubmit(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectList("bandSubmit",map);
+	}
+	@Override
+	public List<AdminDTO> selectBandSubmitReward(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectList("bandSubmitReward",map);
+	}
+	@Override
+	public List<AdminSubDTO> selectSubApplyList(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectList("subHireMember",map);
+	}
+	@Override
+	public List<AdminDTO> selectChartData(String string) {
+		// TODO Auto-generated method stub
+		return template.selectList("bandChartData",string);
+	}
+	@Override
+	public int updateBandAccept(String string) {
+		// TODO Auto-generated method stub
+		return template.update("updateBandAccept",string);
+	}
+	
+	//일승 추가 - 메인 결제 전체 조회
+	@Override
+	public List<Map> selectSafepayList(){
+		return  template.selectList("adminMainPaySelectlist");
+	}
+	@Override
+	public int countFundPeople(String S_NO) {
+		return template.selectOne("countFundPeople",S_NO);
+	}
+	@Override
+	public List<Map> selectBandSafepayDetail(Map map) {
+		return template.selectList("selectBandSafepayDetail",map);
 	}
 	
 

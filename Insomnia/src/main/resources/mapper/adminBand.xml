@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
+<!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
+
+<mapper namespace="mapper.adminBand">
+	
+	<!-- band -->
+	<select id="adminMainMember" parameterType="java.util.Map" resultType="AdminDTO">
+	<!-- select * from band -->
+		SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.*,(SELECT COUNT(*) FROM band) FROM band M 
+		ORDER BY b_no DESC)T) WHERE R BETWEEN #{start} AND #{end} 
+<!-- select M.id,M.name,B.* from members M  -->
+<!-- join bandmember BM on BM.id = M.id -->
+<!-- join band B on B.b_name = BM.b_name -->
+<!-- join bandsubmitwaiting BSW on BSW.b_no = B.b_no -->
+<!-- join bandsubmit BS on BS.b_no = B.b_no -->
+	</select>
+	<!-- band list,member -->
+	<select id="bandMember" parameterType="java.util.Map" resultType="AdminDTO">
+		select B.*,M.name
+		from members M
+		join bandmember BM on BM.id=M.id
+		join band B on B.b_name = BM.b_name
+	</select>
+	<!-- band submit waiting -->
+	<select id="bandWaiting" parameterType="java.util.Map" resultType="AdminDTO">
+		select BSW.* from bandsubmitwaiting BSW
+		join band B on B.b_no = BSW.b_no
+	</select>
+	<!-- bandsubmit list -->
+	<select id="bandSubmit" parameterType="java.util.Map" resultType="AdminDTO">
+		select B.*,BS.* from band B
+		join bandsubmit BS on BS.b_no = B.b_no
+	</select>
+	<!-- band submit reward -->
+	<select id="bandSubmitReward" parameterType="java.util.Map" resultType="AdminDTO">
+		select * from reward
+		
+	</select>
+	<!-- band music list -->
+	<select id="adminMainMusicList" parameterType="java.lang.String" resultType="AdminDTO">
+		select B.b_no,BM.* from band B join bandmusic BM on B.b_no = BM.b_no where B.b_name=#{B.b_name}
+	</select>
+	<!-- band chart -->
+	<select id="bandChartData" parameterType="java.lang.String" resultType="AdminDTO">
+		
+	
+		select B.b_name,R.r_no,BS.s_no,R.r_name,SA.sp_reward_qty, R.r_price, BS.s_goal_accumulation,BS.s_goal_price
+		from reward R 
+		join safepay SA on SA.r_no = R.r_no
+		join bandsubmit BS on BS.s_no = R.s_no
+		join band B on B.b_no = BS.b_no where R.s_no = #{s_no}
+		order by R.r_no asc 
+
+<!-- 		select -->
+<!-- 		sum(case r_no when 7 then sp_reward_qty else 0 end) as sum_reward_qty_1, -->
+<!-- 		sum(case r_no when 8 then sp_reward_qty else 0 end) as sum_reward_qty_2, -->
+<!-- 		sum(case r_no when 9 then sp_reward_qty else 0 end) as sum_reward_qty_3 -->
+<!-- 		from -->
+<!-- 		(select  -->
+<!-- 		B.b_name,R.r_no,BS.s_no,R.r_name,SA.sp_reward_qty, -->
+<!-- 		R.r_price, -->
+<!-- 		BS.s_goal_ACCUMULATION,BS.s_goal_price -->
+<!-- 		from reward R  -->
+<!-- 		join safepay SA on SA.r_no = R.r_no -->
+<!-- 		join bandsubmit BS on BS.s_no = R.s_no -->
+<!-- 		join band B on B.b_no = BS.b_no where R.s_no = 23)T group by T.r_name -->
+
+		
+	</select>
+	<select id="updateBandAccept" parameterType="java.util.Map" resultType="int">
+		update BANDSUBMITWAITING set SW_ISACCEPT = 'T' where b_no = #{b_no}
+	</select>
+</mapper>

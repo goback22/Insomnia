@@ -18,6 +18,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="AdminDTO" type="com.kosmo.insomnia.service.AdminDTO"/>
 		<typeAlias alias="AdminMemberPayDTO" type="com.kosmo.insomnia.service.AdminMemberPayDTO"/>
 		<typeAlias alias="AdminSubDTO" type="com.kosmo.insomnia.service.AdminSubDTO"/>
+		<typeAlias alias="FreeBoardDTO" type="com.kosmo.insomnia.service.FreeBoardDTO"/>
+		<typeAlias alias="GoodNbadDTO" type="com.kosmo.insomnia.service.GoodNbadDTO"/>
 		<typeAlias alias="BandDTO" type="com.kosmo.insomnia.service.BandDTO"/>
 	</typeAliases>
 	
@@ -31,6 +33,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mapper/adminMember.xml" />
 		<mapper resource="mapper/bgsPay.xml" />
 		<mapper resource="mapper/band.xml"/>
+		<mapper resource="mapper/adminBand.xml" />
+		<mapper resource="mapper/adminSub.xml" />
+		<mapper resource="mapper/adminMainPay.xml"/>
+		<mapper resource="mapper/freeboard.xml"/>
 	</mappers>
 	
 </configuration>

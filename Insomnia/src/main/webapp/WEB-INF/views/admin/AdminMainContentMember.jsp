@@ -1,7 +1,8 @@
-﻿<%@page import="com.kosmo.insomnia.serviceimpl.AdminDAO"%>
+<%@page import="com.kosmo.insomnia.serviceimpl.AdminDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 	<link href="<c:url value='/vendor/css/bootstrap-3.3.2.css'/>" rel="stylesheet">
 	<script src="<c:url value='/vendor/js/jquery-3.3.1.js'/>"></script>
 	<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script>
-	
+	<script type="text/javascript" src="<c:url value='/vendor/js/admin_pagination.js'/>"></script>
 	
 	<!--  -->
 	<link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>" rel="stylesheet">
@@ -34,7 +35,7 @@
 		</div>
 		<!--  -->
 		<div class="row">
-			<div class="col-md-11">
+			<div class="col-md-8">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">band member</h3>
@@ -45,12 +46,13 @@
 							<table class="table table-hover" style="border-bottom:1px #c8c8c8 solid;">
 								<tr>
 									<th class="col-md-1"><input type="checkbox" value="all" />&nbsp;&nbsp;no</th>
-									<th class="col-md-1 text-center">B_NAME</th>
-									<th class="col-md-2 text-center">column1</th>
-									<th class="col-md-3 text-center">BM_TITLE</th>
-									<th class="col-md-1 text-center">b-LIKED</th>
-									<th class="col-md-1 text-center">main신청여부</th>
-									<th class="col-md-1 text-center">작성 글 보기</th>
+									<th class="col-md-1 text-center">MEMBERS.name</th>
+									<th class="col-md-2 text-center">BAND.bm_title</th>
+									<th class="col-md-3 text-center">WAITING.sw_postdate</th>
+									<th class="col-md-1 text-center">BANDSUBMIT.s_submit_date</th>
+									<th class="col-md-1 text-center">WAITING.sw_complete,sw_isaccept</th>
+									
+<!-- 									<th class="col-md-1 text-center">band신청</th> -->
 								</tr>
 								
 								<c:if test="${empty bandlist }" var="isEmpty">
@@ -58,17 +60,41 @@
 										<td colspan="7">등록된 게시물이 없어요</td>
 									</tr>
 								</c:if>
+								
 								<c:if test="${not isEmpty }">
 								<c:forEach items="${bandlist }" var="item" varStatus="loop">
-								
 									<tr data-tr_value="1" class="view">
-										<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;1</td>
-										<td class="text-center viewDetail" style="cursor:pointer;">${item.b_name }</td>
-										<td class="text-center viewDetail">column1</td>
+										<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
+										<td class="text-center viewDetail">${item.b_name }</td>
 										<td class="text-center viewDetail">${item.bm_title }</td>
-										<td class="text-center viewDetail">${item.b_liked }</td>
-										<td class="text-center">미신청</td>
-										<td class="text-center"><a class="btn btn-default" href="<c:url value='/admin/allmember.ins?b_no=${item.b_no}'/>">글보기</a></td>
+										<td class="text-center viewDetail">
+											<c:forEach items="${bandWaiting }" var="bandWaiting" varStatus="s-loop">
+												<c:if test="${bandWaiting.b_no eq item.b_no }" var="isExist">
+													${bandWaiting.sw_postdate.substring(0,10) }
+												</c:if>
+												<input type="hidden" value="${bandWaiting.sw_isaccept }"/>
+											</c:forEach>
+										</td>
+										<td class="text-center viewDetail">
+											<c:forEach items="${bandSubmitList }" var="bandSubmitList" varStatus="s-loop">
+												<c:if test="${bandSubmitList.b_no eq item.b_no }" var="isExist">
+													${bandSubmitList.s_submit_date.substring(0,10) }
+												</c:if>
+											</c:forEach>
+										</td>
+										<td class="text-center viewDetail isAccept">
+											<c:forEach items="${bandWaiting }" var="bandWaiting" varStatus="s-loop">
+												<c:if test="${bandWaiting.b_no eq item.b_no }" var="isExist">
+													${bandWaiting.sw_iscomplete=="T"?"진행중":bandWaiting.sw_isaccept=="T"?"수락함":"대기중" }
+												</c:if>
+												<input type="hidden" value="${bandWaiting.sw_isaccept }"/>
+											</c:forEach>
+											
+										</td>
+										
+<!-- 										<td class="text-center"> -->
+<!-- 											<div class="btn btn-default apply">수락</div> -->
+<!-- 										</td> -->
 									</tr>
 									<!-- 위의 detail -->
 									<tr class="fold" style="background-color: #c8c8c8;">
@@ -90,16 +116,16 @@
 															<td>${item.b_name }</td>
 															<td>
 																<c:forEach items="${bandMember }" var="bandMember" varStatus="loop">
- 																	<%-- ${bandMember.b_name==item.b_name?bandMember.name:"" } --%>
 																	<c:if test="${item.b_name==bandMember.b_name }" var="isMember">
-																		${bandMember.name }<br/>
+																		${bandMember.name=="" or bandMember.name==null?"no member":bandMember.name }<br/>
 																	</c:if>
+																	
 																</c:forEach>
 															</td>
 															<td colspan="2">${item.b_description }</td>
 															<td rowspan="3" align="center">
 															<!-- ------------------------------- -->
-																<img style="height:30%;" 
+																<img style="height:30%;"
 																src="<c:url value='/img/unnamed.jpg'/>" 
 																alt="등록된 이미지가 없습니다"> 
 																
@@ -128,52 +154,126 @@
 												</table>
 											</div>
 											<!-- 신청 여부에 따라 조건 -->
-											<div align="center">
+											<div class="text-center">
 												<div class="btn btn-default apply">수락</div>
-												<div class="btn btn-default deny">거부</div>
-												<div hidden="hidden" class="b_no">${item.b_no }</div>
+												<input type="hidden" value="${item.b_no }"/>
 											</div>
 										</td>
 										
 									</tr>
-									
 									<!-- 위의 detail 끝 -->
-									
 									</c:forEach>
 								</c:if>
-								
 							</table>
-							
 							<!-- table test end -->
-							<div>
-								<div class="btn btn-default checkeddelete">삭제</div>
-								
-							</div>
+<!-- 							<div> -->
+<!-- 								<div class="btn btn-default checkeddelete">삭제</div> -->
+<%-- 								<jsp:include page="/WEB-INF/views/admin/template/AdminPagination.jsp" /> --%>
+<!-- 							</div> -->
 						</section>
 					</div>
 				</div>
 			</div>
 			<!-- 첫번째 끝 -->
-			
+			<!-- 두번째 시작 -->
+			<div class="col-md-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">main submit(simple)</h3>
+					</div>
+					<div class="panel-body feed">
+						<section class="feed-item">
+							<table class="table table-hover " style="border-bottom:1px #c8c8c8 solid;">
+								<tr>
+									<th>BAND.b_name</th>
+									<th class="text-center">BANDSUBMIT.S_GOAL_PRICE</th>
+									<th class="text-center">BANDSUBMIT.S_GOAL_DEADLINE</th>
+								</tr>
+								<tbody class="bandSubmitListSimple">
+								
+								</tbody>
+							</table>
+						</section>
+					</div>
+				</div>
+			</div>
+			<!-- 두번째 끝 -->
 		</div>		
 	</div>
 	<!-- main end -->
 </div>
 
-															
-
+<script type="text/javascript">
+$(function(){
+	
+	$.ajax({
+		url:"<c:url value='/admin/bandSubmit.ins'/>",
+		dataType:'json',
+		success:function(data){
+			bandSubmit(data)
+		},
+		error:function(request,error){
+			console.log('상태코드:',request.status);
+			console.log('서버로 부터 받은 HTML데이터:',request.responseText);
+			console.log('에러:',error);
+		}
+	})
+	
+	var bandSubmit = function(data){
+		var bandSubmitString;
+		$.each(data,function(i,element){
+			bandSubmitString += "<tr>";
+			bandSubmitString += 	"<td class='viewDetail'>"+element["b_name"]+"</td>";
+			bandSubmitString += 	"<td class='text-center'>"+element["s_goal_price"]+"</td>";
+			bandSubmitString += 	"<td class='text-center'>"+element["s_goal_deadline"]+"</td>";
+			bandSubmitString += "</tr>";
+		});
+		$('.bandSubmitListSimple').html(bandSubmitString);
+	};
+	
+	$('.apply').click(function(){
+		console.log("11111111111");
+		//text가져오기
+		var applyText = $(this).parent().parent().parent().prev().children('.isAccept').text();
+		console.log(applyText.trim());
+				
+		//update 관련
+		var applyValue = $(this).next().val();
+		console.log(applyValue);
+		
+		$.ajax({
+			//update
+			url:"<c:url value='/admin/bandIsacceptApply.ins?b_no="+applyValue+"'/>",
+			dataType:'json',
+			success:function(data){
+				if(applyText.trim()=='진행중' || applyText.trim()=='수락함'){
+					$(this).addClass('btn btn-success');
+					location.reload();
+				}
+			},
+			error:function(request,error){
+				if(applyText.trim()=='수락함'){
+					alert('이미 수락한 밴드입니다');
+				}
+				else{
+					alert("이미 진행중인 밴드입니다");
+				}
+				
+			}
+		})
+	});
+});
+	
+	
+	
+</script>
 
 <!-- checked about checkbox -->
 <script type="text/javascript" src="<c:url value='/vendor/js/admin_allchecked.js'/>"></script>
 <script type="text/javascript">
 	$(".viewDetail").on("click", function() {//[o]
-// 		$("td.clk").on("click", function() {//[o]
-//		$("view td.clk").on("click", function() {//[o]
-// 		$(".view").on("click", function() {
 			console.log("click");
-			console.log($(this));
 			$(this).parent().next(".fold").toggle(400);
-// 			$(this).next(".fold").toggle(400);
 	});
 </script>
 <script src="<c:url value='/vendor/js/admin_jqbar.js'/>" type="text/javascript"></script>
@@ -223,54 +323,7 @@ function drawChart() {
 
 
 </script>
-<script type="text/javascript">
-$('.deny').click(function(){
-	console.log("거부버튼");
-	//$(this).closest('tr').css("display","none");
-	if($(this).is($('.deny'))){
-		$(this).removeClass().addClass("btn btn-danger denied").html("거부됨");
-		$(this).prev().remove();
-	}
-	else{
-		$(this).removeClass().addClass("btn btn-default deny").html("거절");
-		
-	}
-	
-});
-var page = 'http://www.naver.com'
-$('.apply').click(function(){
-	console.log("수락버튼");
-	//$(this).closest('tr').css("display","none");
-//	$(this).removeClass().addClass("btn btn-success allpied").html("수락됨");
 
-	//임한결 추가 2019 05 05 어린이날
-	//수락버튼 누르면 실제로 bandSUbmit으로 등록되게 처리
-	var where = $(this);
-	var b_no = $(this).next().next().text();
-	var json = { 'b_no' : b_no }
-	console.log("b_no : " +b_no);
-	$.ajax({
-		url: '<c:url value="/admin/acceptBandSubmitWaiting.ins"/>',
-		data : json,
-		dataType: 'text',
-		type:'post',
-		success:function(data){
-			setAccept(where);
-		},error:function(error, request){
-			console.log(error);
-			console.log(error.status);
-			alert("error");
-		}//error
-	});//ajax
-});///aplly onClick
-
-	function setAccept(where){
-		console.log(where);
-
-		$(where).removeClass().addClass("btn btn-success allpied").html("").append('<a href="fsdfdf?no=${no}" style="color:white;">수락</a>');
-		$(where).next().remove();
-	}///setAccept
-</script>
 
 </body>
 </html>
