@@ -157,7 +157,9 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 								</select>
 								<button type="button" class="btn btn-success" id="checkbtn">중복확인</button>  <!-- 입력되면 비활성화 -->
 								<p class="limit_txt email_txt" id="email_txt">이메일을 입력해주세요.</p>
+								<p class="limit_txt portal_txt" id="portal_txt">도메인을 선택해주세요.</p>
 								<p class="confirm_txt">소셜계정을 통해 이메일이 확인되었습니다.</p>
+								
 								<div id="checkMsg"></div>
 							</div>
 							<!-- 버튼이 들어간 input태그  -->
@@ -338,7 +340,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 						<!-- 휴대폰 번호 입력 -->
 						<div class="renew_input_box phone_chk">
 							<strong>휴대폰 번호(필수)</strong> 
-							<input class="input_phone_num"	type="text" value="010" id="phone3" readonly="readonly" /> 
+							<input class="input_phone_num"	type="text" value="010" id="phone3" readonly="readonly" /> -
 							<input	class="input_phone_num" type="text" name="phone1" id="phone1" required /> - 
 							<input class="input_phone_num" type="text" name="phone2" id="phone2" required />
 							<p class="limit_txt phone_txt" id="phone_txt">휴대폰 번호를 입력해주세요.</p>
@@ -474,18 +476,18 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 			//1]아이디 검증 - 아이디를 이메일로 대체
 			
 			if(idValue.length == 0) {	
-				$('#id_chk_txt').html('유효한 이메일 주소를 입력해주시기 바랍니다.');
-				$('#id_chk_txt').css('display', 'block');
+				$('#email_txt').html('유효한 이메일 주소를 입력해주시기 바랍니다.');
+				$('#email_txt').css('display', 'block');
 				console.log("아이디오류1");
 				
 			} else if($('portal').val == '') {
-				$('#id_chk_txt').html('도메인을 선택해주시기 바랍니다.');
-				$('#id_chk_txt').css('display', 'block');
+				$('#email_txt').html('도메인을 선택해주시기 바랍니다.');
+				$('#email_txt').css('display', 'block');
 				console.log("아이디오류1");
 				
 			} else {
-				$('#id_chk_txt').html('');
-				$('#id_chk_txt').css('display', 'none');
+				$('#email_txt').html('');
+				$('#email_txt').css('display', 'none');
 				console.log(flag + '아이디 유효성 확인');
 				flag++;  //2
 			}
@@ -510,7 +512,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 			//5]성별 검증
 			if ($('#gender').val() == '') {
 				$('#gender_txt').html('성별을 선택해주세요.');
-				$('#gender_txt').css('display', 'block');
+				$('#gender_txt').css('display', 'none');
 
 			} else {
 				$('#gender_txt').html('성별을 선택해주세요.');
@@ -554,7 +556,6 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 			if (flag == 6)
 				return true;
 			else
-
 				return false;
 
 		}////validateFormd
@@ -575,37 +576,57 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 			if (which == $('#email')) {
 
 				if((idValue.length < 8) || (idValue.length > 16)) {	
-					$('#id_chk_txt').html('아이디는 8자 이상, 10자 이하여야 합니다.');
-					$('#id_chk_txt').css('display', 'block');
+					$('#email_txt').html('아이디는 8자 이상, 10자 이하여야 합니다.');
+					$('#email_txt').css('display', 'block');
 					
 				} else if(idValue.match(regID) == null) {
-					$('#id_chk_txt').html('아이디는 영문으로 시작하여야 하며, 영문/숫자의 조합으로 만들어야 합니다. 특수문자는?');
-					$('#id_chk_txt').css('display', 'block');
+					$('#email_txt').html('아이디는 영문으로 시작하여야 하며, 영문/숫자의 조합으로 만들어야 합니다. 특수문자는?');
+					$('#email_txt').css('display', 'block');
 						
 				} else if(idValue.match(regID) != null) {
-					$('#id_chk_txt').html('');
-					$('#id_chk_txt').css('display', 'none');
+					$('#email_txt').html('');
+					$('#email_txt').css('display', 'none');
 				}
 				 
 
 			} else if (which == $('select').not('#portal')[0]) {
-
 				
-
-			} else if (which == $('#gender')[0]) {
-
-				
-
-			} else if (which == $('#email')[0]) {
-
-				if ($('#email').val() == '') {
-					$('#email_txt').html('이메일을 입력해주세요.');
-					$('#phone_txt').css('display', 'block');
+				if($('#portal option:selected').val() == '') {
+					$('#portal_txt').html('도메인을 선택해주세요.');
+					$('#portal_txt').css('display', 'block');
 				} else {
-					$('#email_txt').html('');
-					$('#phone_txt').css('display', 'none');
+					$('#portal_txt').html('');
+					$('#portal_txt').css('display', 'none');
 				}
 
+				
+			} else if(which == $('#birth_year')[0] || which == $('#birth_month')[0] || which == $('#birth_day')[0] || which == $('#birth_flag')[0]) { 
+			
+				if($('#birth_year option:selected').val() == ''
+					|| $('#birth_month option:selected').val() == ''
+					|| $('#birth_day option:selected').val() == ''
+					|| $('#birth_flag option:selected').val() == '') {
+				$('#birth_txt').html('생년월일을 선택해주세요.');
+				$('#birth_txt').css('display', 'block');
+
+				} else {
+					$('#birth_txt').html('');
+					$('#birth_txt').css('display', 'none');
+
+				}
+			
+			
+			} else if (which == $('#gender')[0]) {
+				
+				if($('#gender').val() == '') {
+					$('.gender_txt').html('성별을 선택해주세요.');
+					$('.gender_txt').css('display', 'block')
+					
+				} else {
+					$('.gender_txt').html("");
+					$('.gender_txt').css('display', 'none')	
+				}
+				
 			} else if (which == $('#phone1') || which == $('#phone2')) {
 
 				if ($('#phone1').val() == '' || $('#phone2').val() == '') {
@@ -620,6 +641,18 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 				} else {
 					$('#phone_txt').html('');
 					$('#phone_txt').css('display', 'none');
+				}
+
+			} else if (which == $('#sample4_postcode')[0]) {
+
+				if($('#sample4_postcode').val() == '') {
+					$('.addr_txt').html('주소찾기 버튼을 눌러 주소를 입력하세요.');
+					$('.addr_txt').css('display', 'block')
+					
+				} else {
+					$('.addr_txt').html("");
+					$('.addr_txt').css('display', 'none')
+					
 				}
 
 			}

@@ -40,7 +40,7 @@
 
 <!-- 네아로 방법1. -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script> -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!-- 네아로 방법2 -->
 <!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
  -->
@@ -569,7 +569,6 @@ $(function(){
 			
 			/* naver_id_login.setPopup();
 			naver_id_login.init_naver_id_login(); */
-			
 			
 			var naver_id_login = new naver_id_login("baw69zHb2FPVPqvEd5sl", "http://localhost:8080/insomnia/");
 		  	var state = naver_id_login.getUniqState();

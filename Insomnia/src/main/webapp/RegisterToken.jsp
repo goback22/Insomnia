@@ -16,7 +16,7 @@
     
     try{
     	Class.forName("oracle.jdbc.OracleDriver");
-        String url = "jdbc:oracle:thin:@localhost:1521:orcl";  //수정 전은 myoracle
+        String url = "jdbc:oracle:thin:@orcl.c3yirc2i0ocz.ap-northeast-2.rds.amazonaws.com:1521:orcl";  //수정 전은 myoracle
         conn = DriverManager.getConnection(url,"project","12341234");
         
         System.out.println("연결성공");
@@ -31,11 +31,10 @@
         System.out.println("토큰값이 전달 되지 않았습니다.");
     }else{
         // 토큰값 전달시 쿼리문 입력할곳임
-        String idVal = (session.getAttribute("id")).toString();
-        sql = "INSERT INTO FCM_TOKENS(FCM_ID, ID, TOKEN) VALUES(TOKENS_SEQ.NEXTVAL, ?, ?)";
+        
+        sql = "INSERT INTO FCM_TOKENS(ID, TOKEN) VALUES(TOKENS_SEQ.NEXTVAL, ?)";
         pstm = conn.prepareStatement(sql);  
-        pstm.setString(1, idVal);
-        pstm.setString(2,token);        
+        pstm.setString(1,token);        
         pstm.executeUpdate();
         System.out.println("토큰값이 입력되었습니다.");
     }

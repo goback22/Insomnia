@@ -18,7 +18,9 @@
 	</insert>
 	
 	<select id="getBandDTOByB_no" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandDTO">
-		SELECT b_no, b_name, b_description, b_album_cover, bm_title, b_liked, ct_no FROM band WHERE b_no = #{b_no}
+		SELECT b.b_no, b_name, b_description, b_album_cover, bm_name, b_liked, b.ct_no FROM band b
+		join bandmusic bm on b.b_no = bm.b_no
+		WHERE b.b_no = #{b_no}
 	</select>
 	
 	<select id="isMember_createNewBand" parameterType="java.lang.String" resultType="java.lang.String">
@@ -38,7 +40,8 @@
 	</select>
 	
 	<select id="getBandDTOByB_name" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandDTO">
-		SELECT b_no, b_name, b_description, b_album_cover, bm_title, b_liked, ct_no FROM band where b_name=#{b_name}
+		SELECT b_no, b_name, b_description, b_album_cover, b_liked, ct_no FROM band
+		where b_name=#{b_name}
 	</select>
 	
 	<select id="getBandSubmitWaitingDTOList" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandSubmitWaitingDTO">
@@ -71,7 +74,7 @@
 	</select>
 	
 	<insert id="addBandMusic" parameterType="com.kosmo.insomnia.service.BandMusicDTO">
-		INSERT INTO bandMusic(bm_no, b_no, bm_name, bm_description, bm_liked, ct_no, bm_filename) 
+		INSERT INTO bandMusic(bm_no, b.b_no, bm_name, bm_description, bm_liked, b.ct_no, bm_filename) 
 		values(seq_bandMusic.nextval, #{b_no}, #{bm_name},#{bm_description},#{bm_liked},#{ct_no}, #{bm_filename})
 	</insert>
 	
@@ -86,7 +89,7 @@
 	</insert>
 	
 	<select id="getListBandMusicDTO" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandMusicDTO">
-		SELECT bm_no, b_no, bm_name, bm_description, bm_liked, ct_no, bm_filename FROM BandMusic WHERE b_no = #{b_no}
+		SELECT bm_no, b.b_no, bm_name, bm_description, bm_liked, b.ct_no, bm_filename FROM BandMusic WHERE b_no = #{b_no}
 	</select>
 	
 	<select id="getListRewardWaitingDTO" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.RewardWaitingDTO">
@@ -94,7 +97,8 @@
 	</select>
 	
 	<select id="allBand" resultType="com.kosmo.insomnia.service.BandDTO">
-		SELECT b_no, b_name, b_description, b_album_cover, bm_title, b_liked, ct_no FROM Band
+		SELECT b.b_no, b_name, b_description, b_album_cover, bm_name, b_liked, b.ct_no FROM Band b join bandmusic bm on
+		b.b_no = bm.b_no
 	</select>
 	
 	<update id="acceptBandSubmitWaiting" parameterType="java.lang.String">

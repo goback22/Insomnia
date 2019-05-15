@@ -37,13 +37,40 @@ import com.kosmo.insomnia.service.BandSubmitDTO;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
 import com.kosmo.insomnia.service.SeqDTO;
 import com.kosmo.insomnia.serviceimpl.BandServiceImpl;
+import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 import com.kosmo.insomnia.web.my.FileUpDownUtils;
+
+////FCM 푸시를 위한 import : 시작
+
+import java.util.Scanner;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.io.OutputStream;
+import java.io.BufferedReader;
+import org.json.simple.JSONObject;
+import com.google.android.gcm.server.Result;
+import java.util.List;
+import com.google.android.gcm.server.MulticastResult;
+import com.google.android.gcm.server.Message;
+import com.google.android.gcm.server.Sender;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
+
+
+////FCM 푸시를 위한 import : 끝
 
 @Controller
 public class BandController {
 	
 	@Resource(name="bandService")
 	private BandServiceImpl bandService;
+	
+	@Resource(name="memberService")
+	private MemberServiceImpl memberService;
 	
 	@RequestMapping(value="/band/bandInfo.ins")
 	public String goToBandInfoPage(@RequestParam Map params, Map dismap, HttpSession session, Model model, ServletRequest request) {
@@ -134,6 +161,9 @@ public class BandController {
 		//model 객체를 통해서 값 bandInfo에 필요한 값 넘겨주기
 		//band객체를 얻어온다. b_name로 검색
 		BandDTO record = bandService.getBandDTOByB_name(b_name);
+		
+		System.out.println("record은???" + record);
+		System.out.println("b_name은???" + b_name);
 		record.setB_album_cover(record.getB_album_cover() == null ? "default_band_profile_img.jpg" : record.getB_album_cover().toString());
 		model.addAttribute("record", record);
 
@@ -190,6 +220,98 @@ public class BandController {
 		model.addAttribute("follow", follow);
 		
 		model.addAttribute("waiting", waiting);
+		
+		
+		//////FCM 시작 : 서기환, 5월 14일//////
+		
+		if(params.get("fcm") != null) {
+			//token값저장용
+		    ArrayList<String> token = new ArrayList<String>();  
+			
+			 
+		    //Firebase Console->프로젝트 선택->설정->프로젝트 설정
+		    //->클라우드 메시징->서버키 복사
+		    String simpleApiKey = "AAAAdxhW5go:APA91bEOM7vrXSiQusce7meRsZNwU_2ZRBXjT1WF_dW1EjMrh-k2BlAzzx61OWg_0JxhMBltse2Ps40pJJobsLCWAw8z2BkU85h7V_NTqNHQQ2oX40dPW0p5tveRAX3h7TMXM5KzvH8M";
+		    //String gcmURL = "https://android.googleapis.com/fcm/send";    
+		    String gcmURL ="https://fcm.googleapis.com/fcm/send";
+		    Connection conn = null; 
+		    PreparedStatement psmt = null; 
+		    ResultSet rs = null;
+		    
+		    //String message = request.getParameter("message");
+		    String b_description = params.get("b_description").toString();
+		    System.out.println("밴드인포컨트롤러의 b_description" + b_description);
+		    //String title = request.getParameter("title");
+		    String b_banner_description = params.get("b_banner_description").toString();
+		    System.out.println("밴드인포컨트롤러의 b_banner_description" + b_banner_description);
+		    
+		    String title = "[" + b_description + "] 펀딩이 신청되었습니다";
+		    String message = "";
+		    
+		    dismap.put("id", session.getAttribute("id"));
+		    message += memberService.selectOne(dismap).getName() + "님의 펀딩이 신청되었습니다. 신청 내용이 아래와 동일한지 확인해주세요.";
+		    message += b_banner_description;
+		    
+		    int successTokens=0;
+		    try {
+		    	Class.forName("oracle.jdbc.OracleDriver");
+		       
+		        conn = DriverManager.getConnection("jdbc:oracle:thin:@orcl.c3yirc2i0ocz.ap-northeast-2.rds.amazonaws.com:1521:orcl","project","12341234");
+		        System.out.println("conn의 값은?" + conn);////////
+		        psmt= conn.prepareStatement("SELECT TOKEN FROM FCM_TOKENS");
+		        rs = psmt.executeQuery();       
+		       
+		        while(rs.next()){
+		            token.add(rs.getString(1));
+		        }
+		        conn.close();     
+		      
+		        Sender sender = new Sender(simpleApiKey);
+		        Message msg = new Message.Builder()        
+		        .addData("message",message)//데이타 메시지
+		        .addData("title",title)//데이타 타이틀
+		        .build();
+		        System.out.println("msg에 addData 후 메세지는? " + message);
+		        System.out.println("msg에 addData 후 타이틀은? " + title);
+		        System.out.println("msg에 addData 후 msg객체는? " + msg);
+		        
+		        System.out.println("==========문제적인 부분=========");
+		        System.out.println("token의 값은? : " + token);
+		        System.out.println("sender의 값은? : " + sender);
+		        System.out.println("msg의 값은? : " + msg);
+		        System.out.println("token의 값은? : " + token);
+		        
+		        //등록된 모든 토큰에 푸쉬 메시지 전송.
+		        MulticastResult multicast = sender.send(msg,token,3);//3는 메시지 전송실패시 재시도 횟수
+		        
+		        System.out.println("multicast 값까지 오나? " + multicast);
+		        //푸쉬 결과  
+		        
+		        if (multicast != null) {
+		            List<Result> resultList = multicast.getResults();
+		            
+		            
+		            for (Result result : resultList) {
+		            	if(result.getMessageId()!=null) successTokens++;   
+		            	
+		                System.out.println("메시지 아이디:"+result.getMessageId());
+		                
+		            }
+		            System.out.println(successTokens+"개의 기기에 전송되었어요...");
+		        }
+		       
+	
+		    }catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    		
+		
+		}
+		
+		
+		//////FCM 끝 : 서기환, 5월 14일//////
+		
+		
 		
 		return "main/bandInfo.tiles";
 	}///geToBandInfoPage
@@ -376,31 +498,5 @@ public class BandController {
 	}//getBandImgList
 	
 }//class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

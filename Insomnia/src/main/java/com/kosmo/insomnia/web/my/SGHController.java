@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.social.MissingAuthorizationException;
 import org.springframework.social.connect.Connection;
@@ -60,6 +61,28 @@ import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 import com.kosmo.insomnia.serviceimpl.RewardServiceImpl;
 import com.kosmo.insomnia.util.login.MailHandler;
 import com.kosmo.insomnia.web.sub1.PagingUtil;
+
+////////////FCM 푸시 위한 import
+import java.util.Scanner;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.io.OutputStream;
+import java.io.BufferedReader;
+import org.json.simple.JSONObject;
+import com.google.android.gcm.server.Result;
+import java.util.List;
+import com.google.android.gcm.server.MulticastResult;
+import com.google.android.gcm.server.Message;
+import com.google.android.gcm.server.Sender;
+//import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
+
+
+
 
 @SessionAttributes("id")
 @Controller
@@ -145,6 +168,8 @@ public class SGHController {
 			
 			//전체 레코드수
 			int totalRecordCount = rewardService.getCount(map); //map은 검색용 혹시 에러나면 지우기 null 들어갈 테니
+			
+			System.out.println("최초의 totalRecordCount : " + totalRecordCount);
 			//한 페이지에서 보여줄 div 수
 			int pageSize = 4;  //나중에 .properties로?
 			//페이징 수
@@ -152,16 +177,22 @@ public class SGHController {
 			//전체 페이지수
 			int totalPage = (int)Math.ceil(((double)totalRecordCount/pageSize));
 			
-			int start = (nowPage-1)*pageSize + 1;
-			int end = nowPage*pageSize;
-			map.put("start", start);
-			map.put("end", end);
+			System.out.println("최초의 totalPage " + totalPage);
 			
-			String pagingString = PagingUtilSGH.pagingText(totalRecordCount, pageSize, blockPage, nowPage, "/mypage/history.ins?");
+			//int start = (nowPage-1)*pageSize + 1;
+			//int end = nowPage*pageSize;
+			//map.put("start", start);
+			//map.put("end", end);
+			
+			//System.out.println("최초의 strt와 end : " + start + ", " + end);
+			
+			//String pagingString = PagingUtilSGH.pagingText(totalRecordCount, pageSize, blockPage, nowPage, "/mypage/history.ins?");
+			
+			//System.out.println("최초의 pagingString " + pagingString);
 			
 			List<RewardDTO> fundingRecords = rewardService.selectList(map);
 			model.addAttribute("fundingRecords", fundingRecords);
-			model.addAttribute("pagingString", pagingString);
+			//model.addAttribute("pagingString", pagingString);
 			System.out.println("fundingRecords는?" + fundingRecords);
 			
 			MemberDTO record2 = memberService.selectOne(map);
@@ -385,14 +416,14 @@ public class SGHController {
 		switch(requestStr) {
 		
 			case "음반" :
-				//totalRecordCount = rewardService.getCount(dismap);
-				//break;
+				totalRecordCount = rewardService.getCount(dismap);
+				break;
 			case "공연" :
-				//totalRecordCount = bgsService.getCount(dismap);
-				//break;
+				totalRecordCount = bgsService.getCount(dismap);
+				break;
 			case "좋아한" :
-				//totalRecordCount = bandService.getLikeNFollow(dismap);
-				//break;
+				totalRecordCount = bandService.getLikeNFollow(dismap);
+				break;
 		}
 		
 		 
@@ -403,12 +434,13 @@ public class SGHController {
 		//전체 페이지수
 		int totalPage = (int)Math.ceil(((double)totalRecordCount/pageSize));
 		
-		int start = (nowPage-1)*pageSize + 1;
-		int end = nowPage*pageSize;
-		dismap.put("start", start);
-		dismap.put("end", end);
 		
-		String pagingString = PagingUtilSGH.pagingText(totalRecordCount, pageSize, blockPage, nowPage, "/mypage/history.ins?");
+		//int start = (nowPage-1)*pageSize + 1;
+		//int end = nowPage*pageSize;
+		//dismap.put("start", start);
+		//dismap.put("end", end);
+		
+		//String pagingString = PagingUtilSGH.pagingText(totalRecordCount, pageSize, blockPage, nowPage, "/mypage/history.ins?");
 		
 		
 		//json을 위해 선언한 리스트
@@ -450,10 +482,10 @@ public class SGHController {
 					resultList.add(tempMap);
 				}
 				
-				pagingMap.put("pagingString", pagingString);
-				resultList.add(pagingMap);
+				//pagingMap.put("pagingString", pagingString);
+				//resultList.add(pagingMap);
 				
-				System.out.println("음반은 나오냐 페이징 : " + pagingString);
+				//System.out.println("음반은 나오냐 페이징 : " + pagingString);
 				
 				System.out.println("음반 : " + JSONArray.toJSONString(resultList));
 				return JSONArray.toJSONString(resultList);  //null이면 목록이 없습니다 뿌려주기 어떻게 판단?
@@ -493,8 +525,8 @@ public class SGHController {
 					resultList.add(tempMap);			
 				}
 				
-				pagingMap.put("pagingString", pagingString);
-				resultList.add(pagingMap);
+				//pagingMap.put("pagingString", pagingString);
+				//resultList.add(pagingMap);
 				
 				System.out.println("공연 : " + JSONArray.toJSONString(resultList));
 				return JSONArray.toJSONString(resultList);
@@ -521,7 +553,7 @@ public class SGHController {
 					tempMap.put("b_name", record.getB_name());
 					tempMap.put("b_description", record.getB_description());
 					tempMap.put("b_album_cover", record.getB_album_cover());
-					tempMap.put("bm_title", record.getBm_title());
+					tempMap.put("bm_name", record.getBm_name());
 					
 					System.out.println("이게 왜 널이냐? " + record.getB_no());
 					dismap.put("b_no", record.getB_no());
@@ -532,9 +564,9 @@ public class SGHController {
 					resultList.add(tempMap);			
 				}
 				
-				System.out.println("대체 왜 안나오냐 페이징 : " + pagingString);
-				pagingMap.put("pagingString", pagingString);
-				resultList.add(pagingMap);
+				//System.out.println("대체 왜 안나오냐 페이징 : " + pagingString);
+				//pagingMap.put("pagingString", pagingString);
+				//resultList.add(pagingMap);
 				
 				return JSONArray.toJSONString(resultList);
 				
@@ -1012,6 +1044,85 @@ public class SGHController {
 		System.out.println("밴드의 좋아요 팔로우 개수는 몇갠지" + bandService.getBandLikeNFollow(dismap));
 		
 		return String.valueOf(bandService.getBandLikeNFollow(dismap));
+	}
+	
+	
+	//////FCM 푸시 위한 컨트롤러
+	@RequestMapping("/fcm/pushToPhone.ins")
+	public String fcmPush(HttpServletRequest request) throws Exception {
+		
+		//token값저장용
+	    ArrayList<String> token = new ArrayList<String>();  
+		
+		 
+	    //Firebase Console->프로젝트 선택->설정->프로젝트 설정
+	    //->클라우드 메시징->서버키 복사
+	    String simpleApiKey = "AAAAN4iICA8:APA91bH1lAxyS2mrQNk_1erIDf5Ee9zjmiDnDuztaWnstPgsoRf1tS6-SqIGHSHT73gK-SyBf5X0TjX5aCa9DZ0LzTrQGVcKdplg5fT1yltn3Wcdz0wkuRDgn9rVu4VK9UrE72H85oJ6";
+	    //String gcmURL = "https://android.googleapis.com/fcm/send";    
+	    String gcmURL ="https://fcm.googleapis.com/fcm/send";
+	    java.sql.Connection conn = null; 
+	    PreparedStatement psmt = null; 
+	    ResultSet rs = null;
+	    
+	    String message = request.getParameter("message");
+	    String title = request.getParameter("title");;
+	    int successTokens=0;
+	    try {
+	    	Class.forName("oracle.jdbc.OracleDriver");
+	       
+	        conn = DriverManager.getConnection("jdbc:oracle:thin:@orcl.c3yirc2i0ocz.ap-northeast-2.rds.amazonaws.com:1521:orcl","project","12341234");
+	        System.out.println("conn의 값은?" + conn);////////
+	        psmt= conn.prepareStatement("SELECT TOKEN FROM FCM_TOKENS");
+	        rs = psmt.executeQuery();       
+	       
+	        while(rs.next()){
+	            token.add(rs.getString(1));
+	        }
+	        conn.close();     
+	      
+	        Sender sender = new Sender(simpleApiKey);
+	        Message msg = new Message.Builder()        
+	        .addData("message",message)//데이타 메시지
+	        .addData("title",title)//데이타 타이틀
+	        .build();
+	        System.out.println("메세지는? " + message);
+	        System.out.println("타이틀은? " + title);
+	        System.out.println("msg객체는? " + msg);
+	        
+	        //등록된 모든 토큰에 푸쉬 메시지 전송.
+	        MulticastResult multicast = sender.send(msg,token,3);//3는 메시지 전송실패시 재시도 횟수
+	        
+	        System.out.println("multicast 값까지 오나? " + multicast);
+	        //푸쉬 결과  
+	        
+	        if (multicast != null) {
+	            List<Result> resultList = multicast.getResults();
+	            
+	            
+	            for (Result result : resultList) {
+	            	if(result.getMessageId()!=null) successTokens++;   
+	            	
+	                System.out.println("메시지 아이디:"+result.getMessageId());
+	                
+	            }
+	            System.out.println(successTokens+"개의 기기에 전송되었어요...");
+	        }
+	       
+
+	    }catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    
+
+		/*<script>
+			alert("<%=successTokens%>개의 기기에 메시지가 전송되었어요...");
+			//location.href="PushMessageSend.jsp";
+			location.href="<c:url value='/main/bandSubmit.ins'/>";
+		</script>*/
+		
+		
+		
+		return "forward:/band/bandInfo.ins";
 	}
 	
 	

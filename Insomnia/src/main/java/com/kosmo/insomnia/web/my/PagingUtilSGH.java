@@ -13,11 +13,11 @@ public class PagingUtilSGH {  // 교안과 로직 똑같은데, out.println()만
 		//처음 및 이전을 위한 로직
 		if(intTemp != 1){
                 
-			//pagingStr+="<a href='"+page+"nowPage=1'>◀◀</a>&nbsp;<a href='"+page+"nowPage="+(intTemp -1)+"'>◀</a>";
+			pagingStr+="<a href='"+page+"nowPage=1'>◀◀</a>&nbsp;<a href='"+page+"nowPage="+(intTemp -1)+"'>◀</a>";
 																							//이전 처음 이동은 -blockpage
 			
 			//pagingStr+="<a href='<c:url value=\""+page+"nowPage=1'>◀◀</a>&nbsp;<a href='"+page+"nowPage="+(intTemp -1)+"'>◀</a>";
-			pagingStr += "<a href='<c:url value='"+page+"nowPage=1'/>'>◀◀</a>&nbsp;<a href='<c:url value=\""+page+"nowPage="+(intTemp - 1)+"\">'>◀</a>";
+			//pagingStr += "<a href='<c:url value='"+page+"nowPage=1'/>'>◀◀</a>&nbsp;<a href='<c:url value=\""+page+"nowPage="+(intTemp - 1)+"\">'>◀</a>";
 
 		}
 		
@@ -33,8 +33,8 @@ public class PagingUtilSGH {  // 교안과 로직 똑같은데, out.println()만
 				pagingStr+="<span style='Color:red'>"+intTemp+"</span>&nbsp;";  //현재 페이지는 클릭되지 않게 스트링으로
 			}
 		     else
-		    	 //pagingStr+="<a href='"+page+"nowPage="+intTemp+"'>"+intTemp+"</a>&nbsp;";
-		    	 pagingStr += "<a href='<c:url value='"+page+"nowPage="+intTemp+"'/>'>"+intTemp+"</a>&nbsp;";
+		    	 pagingStr+="<a href='"+page+"nowPage="+intTemp+"'>"+intTemp+"</a>&nbsp;";
+		    	 //pagingStr += "<a href='<c:url value='"+page+"nowPage="+intTemp+"'/>'>"+intTemp+"</a>&nbsp;";
 
 		       
 			intTemp = intTemp + 1;
@@ -46,9 +46,8 @@ public class PagingUtilSGH {  // 교안과 로직 똑같은데, out.println()만
 			
 		if(intTemp <= totalPage){
 
-			//pagingStr+="<a href='"+page+"nowPage="+intTemp+"'>▶</a>&nbsp;<a href='"+page+"nowPage="+totalPage+"'>▶▶</a>"; 
-			pagingStr += "<a href='<c:url value=\""+page+"nowPage="+intTemp+"\"/>'>▶</a>&nbsp;<a href='<c:url value=\""+page+"nowPage="+totalPage+"\">'>▶▶</a>";
-
+			pagingStr+="<a href='"+page+"nowPage="+intTemp+"'>▶</a>&nbsp;<a href='"+page+"nowPage="+totalPage+"'>▶▶</a>"; 
+			//pagingStr += "<a href='<c:url value=\""+page+"nowPage="+intTemp+"\"/>'>▶</a>&nbsp;<a href='<c:url value=\""+page+"nowPage="+totalPage+"\">'>▶▶</a>";
 				   
 		}
 		

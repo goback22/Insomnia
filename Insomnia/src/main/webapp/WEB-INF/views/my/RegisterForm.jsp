@@ -223,6 +223,7 @@
 								
 							</div>
 							<p class="limit_txt email_txt" id="email_txt">이메일을 입력해주세요.</p>
+							<p class="limit_txt portal_txt" id="portal_txt">도메인을 선택해주세요.</p>
 							<div id="checkMsg" class="" style="display:block;"></div>
 							<!-- 버튼이 들어간 input태그  -->
 						</div>
@@ -706,15 +707,15 @@
 			if (which == $('#user_id')[0]) {     //////아이디
 
 				if(idValue.indexOf("@") != -1) {	
-					$('#id_chk_txt').html('아이디는 @와 도메인 주소를 제외한 부분만 입력하세요.');
-					$('#id_chk_txt').css('display', 'block');
+					$('#email_txt').html('아이디는 @와 도메인 주소를 제외한 부분만 입력하세요.');
+					$('#email_txt').css('display', 'block');
 					
 				} else if(idValue == "") {
-					$('#id_chk_txt').html('이메일 아이디를 입력하세요.');
-					$('#id_chk_txt').css('display', 'block');
+					$('#email_txt').html('이메일 아이디를 입력하세요.');
+					$('#email_txt').css('display', 'block');
 				} else {
-					$('#id_chk_txt').html('');
-					$('#id_chk_txt').css('display', 'none');
+					$('#email_txt').html('');
+					$('#email_txt').css('display', 'none');
 
 				}
 
@@ -756,8 +757,30 @@
 
 			} else if (which == $('select').not('#portal')[0]) {    ///////////////생년월일.  근데 포탈도 해야 된다.
 				
+				if($('#portal option:selected').val() == '') {
+					$('#portal_txt').html('도메인을 선택해주세요.');
+					$('#portal_txt').css('display', 'block');
+				} else {
+					$('#portal_txt').html('');
+					$('#portal_txt').css('display', 'none');
+				}
 				
+				
+			} else if(which == $('#birth_year')[0] || which == $('#birth_month')[0] || which == $('#birth_day')[0] || which == $('#birth_flag')[0]) {
+				
+				if($('#birth_year option:selected').val() == ''
+					|| $('#birth_month option:selected').val() == ''
+					|| $('#birth_day option:selected').val() == ''
+					|| $('#birth_flag option:selected').val() == '') {
+				$('#birth_txt').html('생년월일을 선택해주세요.');
+				$('#birth_txt').css('display', 'block');
 
+				} else {
+					$('#birth_txt').html('');
+					$('#birth_txt').css('display', 'none');
+				
+					/* console.log(flag); */
+				}
 				
 
 			} else if (which == $('#gender')[0]) {  ///////성별

@@ -467,7 +467,8 @@ body {
 	<!--site-->
 
 	<div class="fcmDiv" style="display:none;">
-		<form action="<c:url value=''/>" method="post" id="fcmForm">
+		<%-- <form action="<c:url value='/'/>" method="post" id="fcmForm"> --%>
+		<form action="<c:url value='/fcm/pushToPhone.ins'/>" method="post" id="fcmForm">
 			<table style="border-spacing:1px;background-color:gray;width:400px">
 				<tr style="border-spacing:1px;background-color:white">
 					<td style="width:20%">제목</td>
@@ -792,8 +793,8 @@ body {
 			
 			var isSuccess = true; // db까지 무사히 등록되었는지 판별하는 validate용
 				
-			var b_description =$('#b_description').val()
-			var b_banner_description = $('#b_banner_description').val()
+			var b_description =$('#b_description').val();
+			var b_banner_description = $('#b_banner_description').val();
 			var bi_profile = $("#bi_profile").attr("src");
 			bi_profile = bi_profile.substring(bi_profile.lastIndexOf("/")+1);
 			var video_title = $("#video-title").val();
@@ -881,14 +882,16 @@ body {
 			//console.log('인섬니아 푸시 콘솔.로그');
 			
 			<% System.out.println("콘솔에 들어오는지?"); %>
-			$('#fcmForm').submit();
+			//$('#fcmForm').submit();
 	
 			// FCM 보내기 위한 스크립트 : 끝
 			
 			
 			if(isSuccess){
 				alert("등록 성공!");
-				location.href='<c:url value="/band/bandInfo.ins"/>';
+				
+				b_description = $('#b_description').text();
+				location.href='<c:url value="/band/bandInfo.ins?fcm=fcm&b_description='+b_description+'&b_banner_description='+b_banner_description+'"/>';
 			}else
 				alert("등록 실패 .. ㅠㅠ");
 		 }///submit;

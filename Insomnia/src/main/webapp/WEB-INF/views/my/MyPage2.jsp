@@ -45,6 +45,57 @@
   cursor:pointer;
   margin-right:5px;
 }
+
+.project-list {
+	height:485px;
+}
+
+.historyValue {
+	height:450px;
+}
+
+#pagin {
+	margin-top:20px;
+}
+
+@media ( max-width: 768px ) {
+
+	body {
+		height:auto;
+	}
+
+	#wadizContainer {
+		height:auto;
+	}
+
+	.project-list {
+		height:auto;
+	}
+	
+	#projectCardList {
+		height:auto;
+	}
+
+
+	.mypage-project {
+		height:auto;
+	}
+
+
+	.historyValue {
+		height:auto;
+	}
+	
+	.historyValue {
+		height:auto;
+	}
+	
+	
+
+
+}
+
+
 </style>
 
 
@@ -179,9 +230,9 @@ body {
 					</script>
 
 
-					<div class="mypage-project bg">   <!-- 하단 부분 시작 -->
+					<div class="mypage-project bg" style="width:100%;">   <!-- 하단 부분 시작 -->
 						<div class="tab-list">
-							<ul id="historyTab">
+							<ul id="historyTab" style="width:50%;">
 								<li style="text-align:center;" class="active_click"><span>음반</span></li> <!-- 결제 -->
 								<li style="text-align:center;"><span>공연</span></li>
 								<li style="text-align:center;"><span>좋아한</span></li>	<!-- 좋아요 -->
@@ -191,7 +242,8 @@ body {
 							
 							<!-- 실질적으로 내용 뿌려주는 부분 -->
 							<div id="projectCardList" style="text-align:center;" class="card-list">
-							<div class="historyValue paginated" style="width:1500px; height:450px; margin:auto; text-align:center;"> <!-- 루프 -->
+							<!-- <div class="historyValue paginated" style="width:1500px; height:450px; margin:auto; text-align:center;"> --> <!-- 루프 -->
+								<div class="historyValue paginated" style="width:100%; margin:auto; text-align:center;">
 									<!-- 내용이 없을 경우 -->
 									<c:if test="${empty fundingRecords}" var="result">
 										<!-- <div class="historyEmptyValue" style="width:1500px; height:450px; margin:auto; text-align:center;"> -->
@@ -220,10 +272,17 @@ body {
 								</div>
 								
 							</div>  <!-- projectCardList 끝 -->
-							<div class="pagingDiv" style="text-align: center; margin:auto; width:1000px; margin-top:20px;">${pagingString}</div>
+							<%-- <div class="pagingDiv" style="text-align: center; margin:auto; width:1000px; margin-top:20px;">${pagingString}</div> --%>
+						
+							<div id="pagin" style="width:100%;"></div>
+							<script>
 							
-							<div id="pagin"></div>
-							<!-- <div id="paginReal"></div> -->
+								$(function(){
+									page();
+								})
+							
+							</script>
+							
 
 						</div>  <!-- projectList 끝 -->
 					</div>  <!-- 하단 부분 끝 -->
@@ -511,7 +570,7 @@ body {
 					listString += "<p class='historyName'>" + element["b_name"] + "</p>"; 
 					listString += "<img class='historyImg' src='"+src+"' />"  
 					listString += "<p class='historyDesc'>"+element["b_description"]+"</p>";
-					listString += "<p class='historyMusic'>"+element["bm_title"]+"</p>";
+					listString += "<p class='historyMusic'>"+element["bm_name"]+"</p>";
 					listString += "<p class='historyPrice' style='border:none;'>좋아요 "+element["b_liked"]+"♥</p>";
 
 	
@@ -528,7 +587,7 @@ body {
 			console.log("페이지스트링 " + pageString);
 			console.log('왜 엠프티 메세지 안뜨지?' + emptyMessage);
 			
-			$('.pagingDiv').html(pageString);
+			//$('.pagingDiv').html(pageString);
 			
 			
 			if(isEmpty) {
@@ -539,7 +598,7 @@ body {
 			/* 	$('.historyValue').css('display', 'block'); */
 				$('.pagingDiv').html("");
 			
-				
+				//$('#pagin').css('display', 'block');
 				$('#pagin').html("");
 				
 				return;
@@ -561,13 +620,17 @@ body {
 		function page(){ 
 			
 			//Pagination
-			pageSize = 3;   ///한페이지에 보여줄 글 수
+			pageSize = 2;   ///한페이지에 보여줄 글 수
 			incremSlide = 5;  //하단에 보여줄 페이징 수
 			startPage = 0;
 			numberPage = 0;
 			
 			var pageCount =  $(".historyDiv").length / pageSize;  
 			var totalSlidepPage = Math.floor(pageCount / incremSlide);  
+			
+			
+			console.log('=========== $(".historyDiv").length는? ' + $(".historyDiv").length);
+			console.log('=========pageCount는? ' + pageCount);
 			
 			$('#pagin').html('');
 			
@@ -614,7 +677,7 @@ body {
 				   }
 				   
 				   
-				   console.log('liCount는? ' + liCount);
+				 
 				   
 				   if(startPage == 0){
 				     next.show();
@@ -640,6 +703,8 @@ body {
 			
 			showPage(1);
 			
+			$('#pagin').css('display', 'block');
+			
 			$("#pagin li a").eq(0).addClass("current");
 			
 			$("#pagin li a").click(function() {
@@ -647,6 +712,8 @@ body {
 				 $(this).addClass("current");
 				 showPage(parseInt($(this).text()));
 			});
+			
+			
 	
 		}
 					
