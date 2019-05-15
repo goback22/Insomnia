@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kosmo.insomnia.service.MemberDTO;
+import com.kosmo.insomnia.serviceimpl.AdminServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 
 /**
@@ -39,6 +40,9 @@ public class HomeController {
 	
 	@Resource(name="memberService")
 	private MemberServiceImpl memberService;
+	
+	@Resource(name="adminService")
+	private AdminServiceImpl adminService;
 	
 	//로그인 폼으로 이동, 혹은 홈 화면으로 이동
 	@RequestMapping(value = "/home.ins", method = RequestMethod.GET)
@@ -66,6 +70,10 @@ public class HomeController {
 		//model.addAttribute("facebook_url", facebook_url);
         //System.out.println("/facebook" + facebook_url);
 		
+		
+		//2019 05 15 임한결 추가 방문자수 카운트
+		adminService.updateVisitor();
+		System.out.println("아 넘어가나요~");
 		
 		return "home.tiles";
 	}///home

@@ -1,5 +1,6 @@
 package com.kosmo.insomnia.web.admin;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,9 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kosmo.insomnia.common.BankUtil;
 import com.kosmo.insomnia.service.AdminDTO;
 import com.kosmo.insomnia.service.AdminSubDTO;
+import com.kosmo.insomnia.service.BandService;
 import com.kosmo.insomnia.serviceimpl.AdminServiceImpl;
+import com.kosmo.insomnia.serviceimpl.BandServiceImpl;
 
 
 @Controller
@@ -31,6 +35,9 @@ public class AdminController {
 	
 	@Resource(name="adminService")
 	private AdminServiceImpl adminService;
+	
+	@Resource(name="bandService")
+	private BandServiceImpl bandService;
 	
 	@Value("${ADMINPAGESIZE}")
 	private int pageSize;
@@ -51,14 +58,80 @@ public class AdminController {
 		//시작 및 끝 ROWNUM구하기]
 		map.put("start","1");
 		map.put("end", "5");
+		
+		///전체회원보기 2019 05 15 임한결 추가
 		List<AdminDTO> list = adminService.selectList(map);
+		for(AdminDTO dto : list) {
+			String phone = dto.getPhone();
+			dto.setPhone("0"+phone.substring(0, 2)+"-"+phone.substring(2, 6)+"-"+phone.substring(6, phone.length()));
+		}///list
 		
 		//new member
 		//신입 회원보기
 		List<AdminDTO> newMemberList = adminService.selectNewMemberList(map);	
+		for(AdminDTO dto : newMemberList) {
+			String phone = dto.getPhone();
+			dto.setPhone("0"+phone.substring(0, 2)+"-"+phone.substring(2, 6)+"-"+phone.substring(6, phone.length()));
+		}//for
 		
 		//band list
 		List<AdminDTO> bandList = adminService.selectBandList(map);
+		
+		//진행중인 밴드 목록추가
+		List<AdminDTO> bandSubmitList = adminService.selectBandSubmitList();
+		model.addAttribute("bandSubmitList", bandSubmitList);
+		for(AdminDTO dto: bandSubmitList) {  ///타이틀 넘버 받아서 음악이름 찾아넣기 //b_no로
+			dto.setBm_name(adminService.selectOneBandMusic(dto.getB_no()));
+			//subString 처리;
+			try {
+				dto.setS_goal_deadline(dto.getS_goal_deadline().substring(0, 10));
+			}catch(Exception e) {}
+			try {	
+				dto.setS_submit_date(dto.getS_submit_date().substring(0, 10));
+			}catch(Exception e) {}
+		}///
+		
+		
+		List<AdminDTO> mainFundingList = adminService.selectBandSafepayDetailAllList();
+		//구매자 아이디값으로 name얻어오기
+		for(AdminDTO dto : mainFundingList) {
+			dto.setName(adminService.getNameById(dto.getId()));
+			//가격 총합 구해서 넣기
+			dto.setSumPrice(String.format("%,d", Integer.parseInt(dto.getSp_reward_qty()) * Integer.parseInt(dto.getR_price())));
+			//구매일자 잘라넣기
+			dto.setSp_date(dto.getSp_date().substring(0, 10));
+		}///for
+		model.addAttribute("mainFundingList", mainFundingList);
+		
+		
+		List<AdminDTO> subPayList = adminService.selectSubPayList();
+		for(AdminDTO dto : subPayList) {
+			dto.setName(adminService.getNameById(dto.getId()));
+			if(dto.getNon_bankbook_complete().equals("N")) {
+				dto.setNon_bankbook_complete("입금 전");
+			}else {
+				dto.setNon_bankbook_complete("입금 확인");}
+			
+			///가격총합 구해넣기
+			try {
+				dto.setSumPrice(String.format("%,d", Integer.parseInt(dto.getQty()) * Integer.parseInt(dto.getC_price())));
+			}catch(Exception e) {}
+			
+		}//for
+		model.addAttribute("subPayList", subPayList);
+		
+		
+		///총 인원 구해서 넣어주기
+		String totalPeople = adminService.getTotalPeople();
+		model.addAttribute("totalPeople", totalPeople);
+		
+		// 방문자수 구해서 넣어주기
+		String visitor = adminService.getVisitor();
+		model.addAttribute("visitor", visitor);
+		
+		//2019 05 15 임한결 추가 끝
+		
+		
 		
 		//가입날에 따른 사람 수
 		int todayMember = adminService.selectTodayNewMember(map);
@@ -73,6 +146,7 @@ public class AdminController {
 		model.addAttribute("totalMemberCount", totalMembers);
 		model.addAttribute("femaleMember", femaleMembers);
 		model.addAttribute("allMemberList", list);
+		
 		
 		return "/admin/AdminIndex";
 	}
@@ -104,6 +178,45 @@ public class AdminController {
 		
 		//전체 회원 보이기
 		List<AdminDTO> allMemberList = adminService.selectList(map);
+		////////////////////////////////////////////////////////////2019 05 14 임한결 수정 / 프로필이미지, 생일
+		//birthDay 출력을 위한 simpledateFormat 설정
+		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat simpleParse = new SimpleDateFormat("yy/MM/dd");
+		for(AdminDTO dto : allMemberList) {
+			//*입력된 값이 null일때는 기본 이미지 넣어준다.
+		try {
+			//1. 프로필 사진이 우리 프로젝트쪽에 있는 경우
+			if(!dto.getProfile_img().startsWith("http://")) {
+				String fileName = dto.getProfile_img();
+				dto.setProfile_img("/insomnia/upload/member/profile/"+fileName);
+			}else {
+				//2. 프로필 사진이 웹서버에 등록되어 있는 경우 그대로 경로를 준다.
+			}///
+		}catch(Exception e) {////입력된 값이 null 일때
+			dto.setProfile_img("/insomnia/upload/member/profile/default_profile_img.jpg");
+		}//catch
+		
+		
+		/// 생일정보 양식에 맞추어 세팅하기
+		try {
+			///birthday 수정 yy/MM/dd 형태로
+			dto.setBirthDay(simpleParse.format(simple.parse(dto.getBirthDay())));
+		}catch(Exception e) {
+			///birthday를 입력하지 않아 null일 경우
+			dto.setBirthDay("입력되지 않은 생일");
+		}////
+		
+		//핸드폰 번호 재조합해서 넣어주기
+		try {
+			String phoneBefore = dto.getPhone();
+			dto.setPhone("0"+phoneBefore.substring(0, 2)+"-"+phoneBefore.substring(2,6)+"-"+phoneBefore.substring(6, phoneBefore.length()));
+		}catch(Exception e) {
+			//입력값이 null일 경우
+			dto.setPhone("등록되지 않음");
+		}
+		
+		}////입력값 재수정해서 넣어주기
+		////////////////////////////////////////////////////////////2019 05 14 임한결 수정 / 프로필이미지, 생일
 		
 				
 		model.addAttribute("nowPage", nowPage);
@@ -130,6 +243,39 @@ public class AdminController {
 		String pagingString=PagingUtil.pagingBootStrapStyle(newMembers, pageSize, blockPage, nowPage, req.getContextPath()+"/admin/newmember.ins?");
 		//오늘부터 3일간 접속한 사람 보이기
 		List<AdminDTO> list = adminService.selectNewMemberList(map);
+		//birthDay 출력을 위한 simpledateFormat 설정
+		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat simpleParse = new SimpleDateFormat("yy/MM/dd");
+		for(AdminDTO dto : list) {
+			//*입력된 값이 null일때는 기본 이미지 넣어준다.
+			try {
+				//1. 프로필 사진이 우리 프로젝트쪽에 있는 경우
+				if(!dto.getProfile_img().startsWith("http://")) {
+					String fileName = dto.getProfile_img();
+					dto.setProfile_img("/insomnia/upload/member/profile/"+fileName);
+				}else {
+					//2. 프로필 사진이 웹서버에 등록되어 있는 경우 그대로 경로를 준다.
+				}///
+			}catch(Exception e) {////입력된 값이 null 일때
+				dto.setProfile_img("/insomnia/upload/member/profile/default_profile_img.jpg");
+			}//catch
+			
+			
+			/// 생일정보 양식에 맞추어 세팅하기
+			try {
+				///birthday 수정 yy/MM/dd 형태로
+				dto.setBirthDay(simpleParse.format(simple.parse(dto.getBirthDay())));
+			}catch(Exception e) {
+				///birthday를 입력하지 않아 null일 경우
+				dto.setBirthDay("입력되지 않은 생일");
+			}////
+			
+			//핸드폰 번호 재조합해서 넣어주기
+			String phoneBefore = dto.getPhone();
+			dto.setPhone("0"+phoneBefore.substring(0, 2)+"-"+phoneBefore.substring(2,6)+"-"+phoneBefore.substring(6, phoneBefore.length()));
+		}////입력값 재수정해서 넣어주기
+		////////////////////////////////////////////////////////////2019 05 14 임한결 수정 / 프로필이미지, 생일
+		
 		//가입날에 따른 사람 수
 		int todayMember = adminService.selectTodayNewMember(map);
 		int yesterday = adminService.selectYesterDayNewMember(map);
@@ -155,6 +301,8 @@ public class AdminController {
 		int end   =nowPage*pageSize;
 		map.put("start",start);
 		map.put("end", end);
+		
+		
 		//band list
 		List<AdminDTO> list = adminService.selectBandList(map);
 		//bandsize
@@ -180,6 +328,9 @@ public class AdminController {
 		//band submit list
 		List<AdminDTO> bandSubmitList = adminService.selectBandSubmit(map);
 		
+
+		
+		
 		model.addAttribute("bandSubmitList", bandSubmitList);
 		model.addAttribute("bandWaiting", bandWaiting);
 		model.addAttribute("pagingString", pagingString);
@@ -196,6 +347,14 @@ public class AdminController {
 	@RequestMapping(value="/admin/bandSubmit.ins",produces="text/html; charset=UTF-8")
 	public String bandSubmitList(Map map) throws Exception{
 		List<AdminDTO> bandSubmit = adminService.selectBandSubmit(map);
+		//////2019-05-15 임한결 추가 1000단위로 , 붙이기
+		for(AdminDTO dto : bandSubmit) {
+			try {
+				dto.setS_goal_price(String.format("%,d", Integer.parseInt(dto.getS_goal_price())));
+			}catch(Exception e) {}///목표치가 설정되지 않은 null값일 경우
+		}///for
+		/////2019 05 15 임한결 추가 1000단위로 , 찍기 끝
+		
 		
 		List<Map> bandSubmitMember = new Vector<Map>();
 		for(AdminDTO submitMember : bandSubmit) {
@@ -216,6 +375,19 @@ public class AdminController {
 		//band submit list
 		List<AdminDTO> bandSubmit = adminService.selectBandSubmit(map);
 		
+		//2019 05 15 임한결 추가 - 은행번호를 은행이름으로 바꿔주는 메서드 호출
+		BankUtil.convertBankNameInDTOList(bandSubmit);
+		for(AdminDTO dto : bandSubmit) {///1000단위로 콤마찍기
+			try {
+				dto.setS_goal_price(String.format("%,d", Integer.parseInt(dto.getS_goal_price())));
+			}catch(Exception e) {}///목표치가 설정되지 않은 null값일 경우
+			try {
+				dto.setS_goal_accumulation(String.format("%,d", Integer.parseInt(dto.getS_goal_accumulation())));
+			}catch(Exception e) {} //펀딩 누적액이 설정되지 않은 경우
+		}///for
+		//2019 05 15 임한결 추가 끝
+		
+		
 		//band submit reward list
 		List<AdminDTO> bandSubmitReward = adminService.selectBandSubmitReward(map);
 		
@@ -224,6 +396,8 @@ public class AdminController {
 		//System.out.println(bandSubmit.size());
 		return "/admin/AdminMainContentSubmit";
 	}
+	
+	
 	//main submit chart
 	@ResponseBody
 	@RequestMapping(value="/admin/maincontentchart.ins",produces="text/html; charset=UTF-8")
@@ -278,10 +452,27 @@ public class AdminController {
 			map.put("fundCountpeople", String.valueOf(fundCountPeople));
 			String date = map.get("S_GOAL_DEADLINE") != null ? map.get("S_GOAL_DEADLINE").toString().substring(0,10): "";
 			map.put("S_GOAL_DEADLINE",date);
-		}
+			
+			///2019 05 15 임한결 추가 1000단위로 , 찍기
+			try {
+				map.put("S_GOAL_PRICE", String.format("%,d",Integer.parseInt(map.get("S_GOAL_PRICE").toString())));
+			}catch(Exception e) {}
+			try {
+				map.put("S_GOAL_ACCUMULATION", String.format("%,d",Integer.parseInt(map.get("S_GOAL_ACCUMULATION").toString())));
+			}catch(Exception e) {}
+			
+			//2019 05 15 임한결 추가  
+			AdminDTO payDto = adminService.getPayDTO(map.get("S_NO").toString());
+			if(payDto == null) {
+				map.put("isPaying", "F");
+			}////pay내역이 존재하지 않는다면
+			else {
+				map.put("isPaying", "T");
+			}///존재할경우
+		}//for
 		model.addAttribute("selectSafepayList",maps);
 		return "/admin/AdminMainPay";
-	}
+	}//payMain
 	
 	//pay
 	@RequestMapping("/admin/paysub.ins")
@@ -440,5 +631,25 @@ public class AdminController {
 		return JSONArray.toJSONString(SafePaydetails);
 	}
 	
+	//차단 멤버
+		@ResponseBody
+		@RequestMapping(value="/admin/memberBlock.ins",produces="text/html; charset=UTF-8")
+		public void memberBlock(@RequestParam(value="id") List<String> ids,Map map) throws Exception{
+			System.out.println("con"+ids);
+			for(int i=0;i<ids.size();i++) {
+				System.out.println("컨트롤러에서의 아이디:"+ids.get(i));
+				int youBlock = adminService.blockMember(ids.get(i));
+			}
+		}///memberBlock
+		
+		@ResponseBody
+		@RequestMapping(value="/admin/memberUnBlock.ins",produces="text/html; charset=UTF-8")
+		public void memberUnBlock(@RequestParam(value="id") List<String> ids,Map map) throws Exception{
+			System.out.println("con"+ids);
+			for(int i=0;i<ids.size();i++) {
+				System.out.println("컨트롤러에서의 아이디:"+ids.get(i));
+				int youBlock = adminService.unBlockMember(ids.get(i));
+			}
+		}///memberBlock
 	
 }/////////////

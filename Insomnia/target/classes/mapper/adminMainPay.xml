@@ -16,6 +16,15 @@
 	<select id="selectBandSafepayDetail" parameterType="java.util.Map" resultType="java.util.Map">
 		select sp.*,r.* from safepay sp join reward r on sp.r_no = r.r_no join bandsubmit bs on bs.s_no = r.s_no where bs.s_no = #{S_NO}
 	</select>
+	
+	<select id="selectBandSafepayDetailAllList" parameterType="java.util.Map" resultType="AdminDTO">
+		select sp.*,r.* from safepay sp join reward r on sp.r_no = r.r_no join bandsubmit bs on bs.s_no = r.s_no ORDER BY sp.sp_no desc
+	</select>
+	
+	<select id="getPayDTO" parameterType="java.lang.String" resultType="AdminDTO">
+		SELECT p_no, p_complete_date, p_total_people, P_TOTAL_ACCUMULATAION, p_uid_no, s_no FROM pay WHERE s_no = #{s_no}
+	</select>
 
+	
 	
 </mapper>

@@ -73,4 +73,34 @@
 	<select id="updateBandAccept" parameterType="java.util.Map" resultType="int">
 		update BANDSUBMITWAITING set SW_ISACCEPT = 'T' where b_no = #{b_no}
 	</select>
+	
+		<!-- 2019 05 15 임한결 추가 -->
+	<select id="selectBandSubmitList" resultType="AdminDTO">
+		select B.*,BS.* from band B join bandsubmit BS on BS.b_no = B.b_no
+	</select>		
+	
+	<select id="selectOneBandMusic" parameterType="java.lang.String" resultType="java.lang.String">
+		select bm_name from bandMusic where bm_no=(select min(bm_no) from bandMusic where b_no=#{b_no})
+	</select>
+	
+	<select id="getNameById" parameterType="java.lang.String" resultType="java.lang.String">
+		select name from members where id=#{id}
+	</select>
+	
+	<select id="selectSubPayList" resultType="AdminDTO">
+		select * from bgsPay bp join  concertTimes ct on bp.ct_no = bp.ct_no join bgsconcert bc on bp.ct_no = bc.bgsco_no ORDER BY p_no desc
+	</select>
+	
+	<select id="getTotalPeople" resultType="java.lang.String">
+		SELECT count(*) from members
+	</select>
+	
+	<select id="getVisitor" resultType="java.lang.String">
+		SELECT visitor from util
+	</select>
+	
+	<update id="updateVisitor">
+		update util set visitor =(select visitor from util) + 1
+	</update>
+
 </mapper>

@@ -179,7 +179,63 @@ public class AdminServiceImpl implements AdminService{
 	public List<Map> selectBandSafepayDetail(Map map) {
 		return dao.selectBandSafepayDetail(map);
 	}
-
+	
+	@Override
+	public int blockMember(String string) {
+		// TODO Auto-generated method stub
+		return dao.blockMember(string);
+	}
+	@Override
+	public int unBlockMember(String string) {
+		return dao.unBlockMember(string);
+	}///unBlockMember
+	
 	
 
-}
+	//2019 05 15 임한결 추가
+	@Override
+	public List<AdminDTO> selectBandSubmitList() {
+		return dao.selectBandSubmitList();
+	}//selectBandSubmitList
+
+	@Override
+	public String selectOneBandMusic(String b_no) {
+		return dao.selectOneBandMusic(b_no);
+	}//selectONeBandMusci
+	
+	@Override
+	public List<AdminDTO> selectBandSafepayDetailAllList() {
+		return dao.selectBandSafepayDetailAllList();
+	}//selectBandSafePayDetailAllList
+	
+	@Override
+	public String getNameById(String id) {
+		return dao.getNameById(id);
+	}//getNameById
+	
+	@Override
+	public List<AdminDTO> selectSubPayList() {
+		return dao.selectSubPayList();
+	}//selectSubPayList
+	
+	@Override
+	public String getTotalPeople() {
+		return dao.getTotalPeople();
+	}///getTotalPeople
+	
+	@Override
+	public String getVisitor() {
+		return dao.getVisitor();
+	}//getVisitor
+	
+	@Override
+	public void updateVisitor() {
+		dao.updateVisitor();
+	}//updateVisitor
+	
+	@Override
+	public AdminDTO getPayDTO(String s_no) {
+		return dao.getPayDTO(s_no);
+	}//getPayDTO
+	
+}//class

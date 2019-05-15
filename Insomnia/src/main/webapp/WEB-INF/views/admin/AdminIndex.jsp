@@ -18,6 +18,7 @@
 	<link href="<c:url value='/vendor/css/admin_index_chart.css'/>" rel="stylesheet">
 	<script src="https://www.amcharts.com/lib/4/core.js"></script>
 	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>	
 	
 </head>
 <body>
@@ -38,7 +39,9 @@
 			<!-- chart -->
 			<!-- canvasjs.com -->
 			<div class="row">
-				<div class="col-sm-3">
+			
+				<div class="col-sm-3" style="height:270px;">	
+				<!-- 
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -47,12 +50,47 @@
 						</div>
 						<div class="panel-body feed" style="height:230px;">
 							<section class="feed-item">
-							<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
+								<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
 								<canvas id="canvas"></canvas>
 							</section>
 						</div>
 					</div>
+				-->
+				
+					<div class="info">
+						<ul style="list-style-type: none; width:100%; display:inline-flex; padding:0; height:270px;">	
+							<li class="info-left" style="background-color:rgb(35, 189, 229); color:white; width:270px;">
+							<!-- 내용 들어갈 부분 -->
+								<ul class="adminInfo" style="list-style-type:none; color:white;">
+									<li style="font-weight:1000; font-size:70px; margin-bottom:-10px;">${totalPeople}</li>
+									<li style="font-weight:600; font-size:23px;">Supporters</li>
+									<li style="font-weight:1000; font-size:70px; margin-bottom:-10px;">${visitor}</li>
+									<li style="font-weight:600; font-size:23px;">Visitors</li>
+								</ul>
+							</li>
+							<li class="info-right" style="background-color:rgb(31, 164, 206); color:white; width:120px; text-align:center;">
+								<img src="<c:url value='/resource/img/admin_setting.png'/>" style="margin-top:100px;" onclick="javascript:showVisitor();">
+							</li>
+						</ul>
+					</div>
+				</div><!-- col - sm - 3 -->
+				 
+				 <!--  -->
+				<div class="col-sm-3">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								test
+							</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+								 <div id="fourdonutchart" style="height: 100%;"></div>
+							</section>
+						</div>
+					</div>
 				</div>
+				<!--  -->
 				<div class="col-sm-3">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
@@ -82,22 +120,7 @@
 					</div>
 				</div>
 				
-				<!--  -->
-				<div class="col-sm-3">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								test
-							</h3>
-						</div>
-						<div class="panel-body feed">
-							<section class="feed-item">
-								 <div id="fourdonutchart" style="height: 100%;"></div>
-							</section>
-						</div>
-					</div>
-				</div>
-				<!--  -->
+				
 			</div>
 			<!-- chart end -->
 			
@@ -117,8 +140,8 @@
 									<tr>
 										<th class="col-md-1 text-center">ID</th>
 										<th class="col-md-2 text-center">NAME</th>
-										<th class="text-center">column1</th>
-										<th class="text-center">column2</th>
+										<th class="text-center">LoginChain</th>
+										<th class="text-center">Phone</th>
 										<th class="text-center">JOIN_DATE</th>
 									</tr>
 									<!-- DB에서 꺼내기 -->
@@ -132,8 +155,8 @@
 											<tr>
 												<td class="text-center viewDetail">${item.id}</td>
 												<td class="text-center viewDetail">${item.name}</td>
-												<td class="text-center viewDetail">일반1</td>
-												<td class="text-center viewDetail">일반2</td>
+												<td class="text-center viewDetail">${item.login_chain }</td>
+												<td class="text-center viewDetail">${item.phone }</td>
 												<td class="text-center viewDetail">${item.join_date}</td>
 											</tr>
 										</c:forEach>
@@ -163,8 +186,8 @@
 									<tr>
 										<th class="col-md-2 text-center">ID</th>
 										<th class="col-md-2 text-center">NAME</th>
-										<th class="text-center">column1</th>
-										<th class="text-center">column2</th>
+										<th class="text-center">LoginChain</th>
+										<th class="text-center">Phone</th>
 										<th class="text-center">JOIN_DATE</th>
 									</tr>
 									<!-- DB에서 꺼내기 -->
@@ -179,8 +202,8 @@
 											<tr class="view">
 												<td class="text-center">${item.id }</td>
 												<td class="text-center">${item.name }</td>
-												<td class="text-center">일반1</td>
-												<td class="text-center">일반2</td>
+												<td class="text-center">${item.login_chain }</td>
+												<td class="text-center">${item.phone }</td>
 												<td class="text-center">${item.join_date }</td>
 											</tr>
 										</c:forEach>
@@ -204,17 +227,17 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								band list
+								등록된 밴드 현황
 							</h3>
 						</div>
 						<div class="panel-body feed">
 							<section class="feed-item">
 								<table class="table table-hover">
 									<tr>
-										<th class="col-md-3 text-center">BAND.b_name</th>
-										<th class="text-center">BAND.bm_title</th>
-										<th class="text-center">BAND.b_description</th>
-										<th class="col-md-1 text-center">BAND.b_liked</th>
+										<th class="col-md-3 text-center">밴드이름</th>
+										<th class="text-center">타이틀</th>
+										<th class="text-center">인삿말</th>
+										<th class="col-md-1 text-center">좋아요</th>
 									</tr>
 									<!-- DB에서 꺼내기 -->
 									
@@ -243,29 +266,33 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								진행중인 밴드목록
+								펀딩 진행중인 밴드 목록
 							</h3>
 						</div>
 						<div class="panel-body feed">
 							<section class="feed-item">
 								<table class="table table-hover">
 									<tr>
-										<th class="text-center">no</th>
-										<th class="col-md-1 text-center">BAND.b_name</th>
-										<th class="col-md-1 text-center">BAND.bm_title</th>
-										<th class="text-center">BANDSUBMIT.s_submit_date</th>
-										<th class="text-center">BANDSUBMIT.s_goal_deadline</th>
+										<th class="col-md-1 text-center">no</th>
+										<th class="col-md-3 text-center">밴드명</th>
+										<th class="col-md-3 text-center">타이틀</th>
+										<th class="col-md-2 text-center">등록 일자</th>
+										<th class="col-md-2 text-center">펀딩 기한</th>
 										
 									</tr>
 									<!-- DB에서 꺼내기 -->
-									<tr>
-										<td class="text-center">1</td>
-										<td class="text-center"></td>
-										<td class="text-center"></td>
-										<td class="text-center"></td>
-										<td class="text-center"></td>
-										
-									</tr>
+									<!--  foreach 시작 -->
+									<c:forEach items="${bandSubmitList }" var="bandSubmitList" varStatus="bsStatus">
+									<c:if test="${bsStatus.index <=4 }">
+										<tr>
+											<td class="text-center">${bandSubmitList.b_no }</td>
+											<td class="text-center">${bandSubmitList.b_name }</td>
+											<td class="text-center">${bandSubmitList.bm_name }</td>
+											<td class="text-center">${bandSubmitList.s_submit_date }</td>
+											<td class="text-center">${bandSubmitList.s_goal_deadline }</td>		
+										</tr>
+									</c:if>
+									</c:forEach>
 									
 									<!-- DB에서 꺼내기 끝 -->
 								</table>
@@ -273,6 +300,8 @@
 									<a href="<c:url value='/admin/maincontentsubmit.ins'/>">more view</a></div>
 							</section>
 						</div>
+						
+						
 					</div>
 				</div>
 				<!-- band submit list -->
@@ -284,17 +313,89 @@
 			
 			<!-- 결제관련 -->
 			<div class="row">
-				<div class="col-lg-7">
+				<div class="col-lg-6">
 					<div class="panel panel-primary">	
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								결제 진행 목록?결제 완료된 회원?
+								메인 결제한 최근 5명 정보
 							</h3>
 						</div>
 						<div class="panel-body feed">
 							<section class="feed-item">
+								<table class="table table-hover">
+									<tr>
+										<th class="col-md-1 text-center">no</th>
+										<th class="col-md-3 text-center">서포터</th>
+										<th class="col-md-3 text-center">상품</th>
+										<th class="col-md-2 text-center">가격</th>
+										<th class="col-md-2 text-center">구매일자</th>
+										
+									</tr>
+									<!-- DB에서 꺼내기 -->
+									<!--  foreach 시작 -->
+									<c:forEach items="${mainFundingList }" var="mainFundingList" varStatus="mfStatus">
+									<c:if test="${mfStatus.index <=4 }">
+										<tr>
+											<td class="text-center">${mainFundingList.sp_no }</td>
+											<td class="text-center">${mainFundingList.name }</td>
+											<td class="text-center">${mainFundingList.r_name }</td>
+											<td class="text-center">${mainFundingList.sumPrice}</td>
+											<td class="text-center">${mainFundingList.sp_date }</td>		
+										</tr>
+									</c:if>
+									</c:forEach>
+									
+									<!-- DB에서 꺼내기 끝 -->
+								</table>
+								<div class="" style="text-align: right;margin-right: 5px;">
+									<a href="<c:url value='/admin/paymain.ins'/>">more view</a></div>
 							</section>
 						</div>
+						
+					</div>
+				</div>
+			
+			
+			
+				<div class="col-lg-6">
+					<div class="panel panel-primary">	
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								서브 결제한 최근 5명 정보
+							</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+								<table class="table table-hover">
+									<tr>
+										<th class="col-md-1 text-center">no</th>
+										<th class="col-md-3 text-center">콘서트</th>
+										<th class="col-md-3 text-center">예매자</th>
+										<th class="col-md-2 text-center">가격</th>
+										<th class="col-md-2 text-center">입금 여부</th>
+										
+									</tr>
+									<!-- DB에서 꺼내기 -->
+									<!--  foreach 시작 -->
+									<c:forEach items="${subPayList }" var="subPayList" varStatus="spStatus">
+									<c:if test="${spStatus.index <=4 }">
+										<tr>
+											<td class="text-center">${subPayList.p_no }</td>
+											<td class="text-center">${subPayList.b_title}</td>
+											<td class="text-center">${subPayList.name}</td>
+											<td class="text-center">${subPayList.sumPrice}</td>
+											<td class="text-center">${subPayList.non_bankbook_complete}</td>		
+										</tr>
+									</c:if>
+									</c:forEach>
+									
+									<!-- DB에서 꺼내기 끝 -->
+								</table>
+								<div class="" style="text-align: right;margin-right: 5px;">
+									<a href="<c:url value='/admin/paysub.ins'/>">more view</a></div>
+							</section>
+						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -303,9 +404,11 @@
 	</div>
 	
 <!-- 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
-<script type="text/javascript">
+<script type="text/javascript"></script>
+<script>
 $(function(){
 	//member chart
+	/*
 	var ctx = document.getElementById("canvas");
 	var data = {
 	    datasets: [{
@@ -344,6 +447,7 @@ $(function(){
 			  'height':'100%'
 		  }
 	});
+	*/
 	    
 //new member chart
 		//그제
@@ -463,6 +567,20 @@ $(function(){
         var chart = new google.visualization.PieChart(document.getElementById('fourdonutchart'));
         chart.draw(data, options);
       }
+      
+      
+      
+      
+      /////////////////////////////// 2019 05 15 추가 설정 버튼 눌러서 visitor표시
+      function showVisitor(){
+    	  
+      }////showVisitor
+      
+      
+      
+      
+      
+      
 </script>
 	
 </body>

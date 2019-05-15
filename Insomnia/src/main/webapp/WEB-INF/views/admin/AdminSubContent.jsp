@@ -51,10 +51,10 @@
 								<table class="table table-hover" id="membercheckbox">
 								
 									<tr>
-										<th class="col-md-2 text-center">BGSCONCERT.b_title</th>
-										<th class="col-md-3 text-center">CONCERTTIMES.c_concertdate</th>
-										<th class="col-md-3 text-center">BGSCONCERT.b_place</th>
-										<th class="text-center">BGSCONCERT.b_content</th>
+										<th class="col-md-2 text-center">콘서트 이름</th>
+										<th class="col-md-3 text-center">일시</th>
+										<th class="col-md-3 text-center">장소</th>
+										<th class="text-center">소개</th>
 									</tr>
 									<!-- DB에서 꺼내서~ each~~...tq -->
 									<c:forEach items="${subList }" var="subList" varStatus="loop">

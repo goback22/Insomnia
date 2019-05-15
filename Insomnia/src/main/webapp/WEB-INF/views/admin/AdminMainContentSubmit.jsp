@@ -78,11 +78,11 @@
 													<!-- first floor -->
 													<thead>
 														<tr>
-															<th class="col-md-2">B_NAME</th>
-															<th class="col-md-2">B_DESCRIPTION</th>
-															<th class="col-md-2">S_ACCOUNT_BANK</th>
-															<th class="col-md-1">S_ACCOUNT_SERIAL</th>
-															<th>S_ALBUM_COVER</th>
+															<th class="col-md-2">밴드 이름</th>
+															<th class="col-md-2">소갯말</th>
+															<th class="col-md-2">등록 은행</th>
+															<th class="col-md-1">계좌 번호</th>
+															<th>앨범 커버</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -91,13 +91,13 @@
 															<td>${submitBandList.b_description }</td>
 															<td>${submitBandList.s_account_bank }</td>
 															<td>${submitBandList.s_account_serial }</td>
-															<td rowspan="3" align="center"><img style="padding:10px;max-width: 100%; max-height: auto;" src="<c:url value='/img/footer-test.png'/>" alt="등록된 이미지가 없습니다"></td>
+															<td rowspan="3" align="center"><img style="padding:10px;max-width: 70%; max-height: auto;" src="<c:url value='/upload/band/cover/${submitBandList.b_album_cover }'/>" alt="등록된 이미지가 없습니다"></td>
 														</tr>
 														<!-- second floor -->
 														<tr>
-															<th>REWARD.r_name</th>
-															<th>REWARD.r_price</th>
-															<th colspan="2">REWARD.r_description</th>
+															<th>리워드 이름</th>
+															<th>리워드 가격</th>
+															<th colspan="2">소개</th>
 														</tr>
 														<c:forEach items="${bandSubmitReward }" var="bandReward" varStatus="loop">
 														<c:if test="${submitBandList.s_no eq bandReward.s_no }" var="isSame">

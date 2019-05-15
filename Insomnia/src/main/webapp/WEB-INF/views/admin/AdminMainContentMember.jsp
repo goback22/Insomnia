@@ -30,7 +30,7 @@
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-md-12">
-				<h1>main content<small>main content member</small></h1>
+				<h1>밴드 목록<small>펀딩 요청 관리</small></h1>
 			</div>
 		</div>
 		<!--  -->
@@ -38,7 +38,7 @@
 			<div class="col-md-8">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">band member</h3>
+						<h3 class="panel-title">밴드일람</h3>
 					</div>
 					<div class="panel-body feed">
 						<section class="feed-item">
@@ -46,11 +46,11 @@
 							<table class="table table-hover" style="border-bottom:1px #c8c8c8 solid;">
 								<tr>
 									<th class="col-md-1"><input type="checkbox" value="all" />&nbsp;&nbsp;no</th>
-									<th class="col-md-1 text-center">MEMBERS.name</th>
-									<th class="col-md-2 text-center">BAND.bm_title</th>
-									<th class="col-md-3 text-center">WAITING.sw_postdate</th>
-									<th class="col-md-1 text-center">BANDSUBMIT.s_submit_date</th>
-									<th class="col-md-1 text-center">WAITING.sw_complete,sw_isaccept</th>
+									<th class="col-md-1 text-center">밴드이름</th>
+									<th class="col-md-2 text-center">타이틀</th>
+									<th class="col-md-3 text-center">펀딩요청</th>
+									<th class="col-md-1 text-center">펀딩시작</th>
+									<th class="col-md-1 text-center">펀딩 진행도</th>
 									
 <!-- 									<th class="col-md-1 text-center">band신청</th> -->
 								</tr>
@@ -66,7 +66,7 @@
 									<tr data-tr_value="1" class="view">
 										<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
 										<td class="text-center viewDetail">${item.b_name }</td>
-										<td class="text-center viewDetail">${item.bm_title }</td>
+										<td class="text-center viewDetail">${item.bm_title==null?"미등록":item.bm_title }</td>
 										<td class="text-center viewDetail">
 											<c:forEach items="${bandWaiting }" var="bandWaiting" varStatus="s-loop">
 												<c:if test="${bandWaiting.b_no eq item.b_no }" var="isExist">
@@ -93,7 +93,7 @@
 										</td>
 										
 <!-- 										<td class="text-center"> -->
-<!-- 											<div class="btn btn-default apply">수락</div> -->
+<!-- 											<div class="btn btn-default apply">asdasd수락</div> -->
 <!-- 										</td> -->
 									</tr>
 									<!-- 위의 detail -->
@@ -104,10 +104,10 @@
 													<!-- first floor -->
 													<thead>
 														<tr>
-															<th>B_NAME</th>
-															<th>BANDMEMBER</th>
-															<th colspan="2">B_DESCRIPTION</th>
-															<th>BI_IMAGE</th>
+															<th>밴드이름</th>
+															<th>소속 멤버</th>
+															<th colspan="2">인삿말</th>
+															<th>밴드 커버</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -119,14 +119,13 @@
 																	<c:if test="${item.b_name==bandMember.b_name }" var="isMember">
 																		${bandMember.name=="" or bandMember.name==null?"no member":bandMember.name }<br/>
 																	</c:if>
-																	
 																</c:forEach>
 															</td>
 															<td colspan="2">${item.b_description }</td>
 															<td rowspan="3" align="center">
 															<!-- ------------------------------- -->
 																<img style="height:30%;"
-																src="<c:url value='/img/unnamed.jpg'/>" 
+																src="<c:url value='/upload/band/cover/${item.b_album_cover }'/>" 
 																alt="등록된 이미지가 없습니다"> 
 																
 															<!-- ------------------------------- -->
@@ -138,8 +137,8 @@
 														<c:forEach items="${bandmusiclist }" var="bandMusic" varStatus="loopBM">
 															<c:if test="${item.b_no == bandMusic.b_no }" var="isSame">
 																<tr>
-																	<th>BM_NAME</th>
-																	<th colspan="2">BM_DESCRIPTION</th>
+																	<th>타이틀</th>
+																	<th colspan="2">곡 소개</th>
 																</tr>
 																
 																<tr>
@@ -154,9 +153,17 @@
 												</table>
 											</div>
 											<!-- 신청 여부에 따라 조건 -->
+											
 											<div class="text-center">
-												<div class="btn btn-default apply">수락</div>
-												<input type="hidden" value="${item.b_no }"/>
+												<c:forEach items="${bandWaiting }" var="bandWaiting" varStatus="s-loop">
+													<c:if test="${bandWaiting.b_no eq item.b_no }" var="isExist">
+														<c:if test='${bandWaiting.sw_isaccept!="T"}'>
+															<div class="btn btn-default apply">수락</div>
+															<input type="hidden" value="${item.b_no }"/>
+														</c:if>
+													</c:if>
+													<input type="hidden" value="${bandWaiting.sw_isaccept }"/>
+												</c:forEach>
 											</div>
 										</td>
 										
@@ -179,15 +186,15 @@
 			<div class="col-md-4">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">main submit(simple)</h3>
+						<h3 class="panel-title">펀딩 진행중인 목록</h3>
 					</div>
 					<div class="panel-body feed">
 						<section class="feed-item">
 							<table class="table table-hover " style="border-bottom:1px #c8c8c8 solid;">
 								<tr>
-									<th>BAND.b_name</th>
-									<th class="text-center">BANDSUBMIT.S_GOAL_PRICE</th>
-									<th class="text-center">BANDSUBMIT.S_GOAL_DEADLINE</th>
+									<th>밴드 이름</th>
+									<th class="text-center">목표 금액</th>
+									<th class="text-center">목표 기한</th>
 								</tr>
 								<tbody class="bandSubmitListSimple">
 								
@@ -225,6 +232,7 @@ $(function(){
 			bandSubmitString += "<tr>";
 			bandSubmitString += 	"<td class='viewDetail'>"+element["b_name"]+"</td>";
 			bandSubmitString += 	"<td class='text-center'>"+element["s_goal_price"]+"</td>";
+			console.log(element["s_goal_price"]);
 			bandSubmitString += 	"<td class='text-center'>"+element["s_goal_deadline"]+"</td>";
 			bandSubmitString += "</tr>";
 		});

@@ -45,12 +45,13 @@
 							<section class="feed-item">
 								<table class="table table-hover" id="membercheckbox">
 									<tr>
-										<th class="col-md-1">BANDSUBMIT.S_NO</th>
-										<th class="col-md-2 text-center">BAND.B_NAME</th>
-										<th class="col-md-2 text-center">S_TOTAL_PEOPLE</th>
-										<th class="col-md-2 text-center">TOTAL_ACCUMULATAION</th>
-										<th class="col-md-2 text-center">S_GOAL_PRICE</th>
-										<th class="col-md-2 text-center">S_GOAL_DEADLINE</th>
+										<th class="col-md-1">번호</th>
+										<th class="col-md-2 text-center">밴드이름</th>
+										<th class="col-md-1 text-center">참여 인원</th>
+										<th class="col-md-2 text-center">펀딩 총액</th>
+										<th class="col-md-2 text-center">목표 금액</th>
+										<th class="col-md-2 text-center">종료 기한</th>
+										<th class="col-md-1 text-center">완료</th>
 										<!-- 삭제 버튼을 위한 한줄 -->
 									</tr>
 									<!-- DB에서 꺼내서~ each~~...tq -->
@@ -61,8 +62,14 @@
 											<td class="text-center viewDetail">${map["B_NAME"] }</td>
 											<td class="text-center viewDetail people">${map["fundCountpeople"] }</td>
 											<td class="text-center viewDetail cur">${map["S_GOAL_ACCUMULATION"] }</td>
-											<td class="text-center viewDetail">${map["S_GOAL_PRICE"] }</td>
+											<td class="text-center viewDetail">${map["S_GOAL_PRICE"] }원</td>
 											<td class="text-center viewDetail">${map["S_GOAL_DEADLINE"] }</td>
+											<c:if test="${map['isPaying'] == 'F' }">
+												<td class="text-center viewDetail"><button class="btn btn-default" id="s_no" onclick="javascript:complete(this)">펀딩 완료!</button></td>
+											</c:if>
+											<c:if test="${map['isPaying'] == 'T' }">
+												<td class="text-center viewDetail">완료된 펀딩</td>
+											</c:if>
 										</tr>
 										<tr class="fold" style="background-color: #c8c8c8;">
 											<td colspan="6">
@@ -112,8 +119,9 @@
 			$('.thischart').show(400);
 			//total chart
 			let bandName = $(this).parent().children().eq(1).html();
-			let goal_price = $(this).parent().children().eq(4).html();
-			let goal_accumulation = $(this).parent().children().eq(3).html();
+			let goal_price = $(this).parent().children().eq(4).html().replace(/,/gi,'').replace('원','');
+			let goal_accumulation = $(this).parent().children().eq(3).html().replace(',','').replace('원','');
+			console.log(goal_price, "   ", goal_accumulation )
 			$('#bandName').html(bandName);
 			if (goal_accumulation != 0 || goal_accumulation != null)
 				$('#bar-1').jqbar({
@@ -153,14 +161,14 @@
 						if (data.length > 2) {
 							tableString += "<table class='table table-hover'>";
 							tableString += "<tr class='view views'> ";
-							tableString += "<th class='col-md-1 text-center'>SP_REWARD_QTY</th> ";
-							tableString += "<th class='col-md-1 text-center'>R_DESCRIPTION</th> ";
-							tableString += "<th class='col-md-1 text-center'>SP_DATE</th> ";
-							tableString += "<th class='col-md-1 text-center'>R_NAME</th> ";
-							tableString += "<th class='col-md-1 text-center'>R_PRICE</th> ";
-							tableString += "<th class='col-md-1 text-center'>R_NO</th> ";
-							tableString += "<th class='col-md-1 text-center'>ID</th> ";
-							tableString += "<th class='col-md-1 text-center'>SP_SUPPORT</th> ";
+							tableString += "<th class='col-md-1 text-center'>수량</th> ";
+							tableString += "<th class='col-md-1 text-center'>소개</th> ";
+							tableString += "<th class='col-md-1 text-center'>펀딩 날짜</th> ";
+							tableString += "<th class='col-md-1 text-center'>리워드 이름</th> ";
+							tableString += "<th class='col-md-1 text-center'>가격</th> ";
+							tableString += "<th class='col-md-1 text-center'>리워드 번호</th> ";
+							tableString += "<th class='col-md-1 text-center'>구매자</th> ";
+							tableString += "<th class='col-md-1 text-center'>후원금</th> ";
 							tableString += "</tr> ";
 							$.each(JSON.parse(data),
 							function(index, element) {
@@ -305,6 +313,7 @@
 		            type:'post',
 		            success:function(data){
 		               alert('pay테이블 입력 성공');
+		               loaction.reload();
 		            },
 		            error:function(error, request){
 		               alert('pay테이블 입력 실패');
