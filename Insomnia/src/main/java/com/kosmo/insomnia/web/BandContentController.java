@@ -91,7 +91,7 @@ public class BandContentController {
 		//저장된 텍스트 파일 String형 메모리로 불러와서 객체에 재저장
 		try {
 			String longFileName = record.getSw_long_description();
-			String contentFileName = record.getSw_content();
+			String contentFileName = record.getSw_content(); //43.txt
 			String longFilePath = session.getServletContext().getRealPath("/upload/content/main/sw_long_description");
 			String contentFilePath = session.getServletContext().getRealPath("/upload/content/main/sw_content");
 			
@@ -119,7 +119,7 @@ public class BandContentController {
 			contentIs.close();
 			
 			record.setSw_long_description(longResult);
-			record.setSw_content(contentResult);
+			record.setSw_content(contentResult); 
 		}catch(IOException e) {e.printStackTrace();}
 		
 		//yotube thumbnail url 만들어 넣기

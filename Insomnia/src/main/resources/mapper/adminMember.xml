@@ -57,5 +57,13 @@
 		join reward R on R.r_no = SP.r_no
 		where SP.id = #{id} order by sp_no desc
 	</select>
+		<!-- block member -->
+	<select id="blockMember" parameterType="java.lang.String" resultType="int">
+		update members set is_blockmember = 'Y' where id = #{id}
+	</select>
+	
+	<select id="unBlockMember" parameterType="java.lang.String" resultType="int">
+		update members set is_blockmember = 'N' where id = #{id}
+	</select>
 	
 </mapper>

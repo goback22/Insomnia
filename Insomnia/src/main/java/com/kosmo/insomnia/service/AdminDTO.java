@@ -24,12 +24,13 @@ public class AdminDTO {
 	private String is_activation;
 	private String activationkey;
 	private String email;
+	private String is_blockmember;
 	//band
 	private String b_no;
 	private String b_name;
 	private String bm_title;
 	private String b_description;
-	private String bi_profile;
+	private String b_album_cover;
 	private String b_liked;
 	//bandmusic
 	private String bm_name;
@@ -61,11 +62,182 @@ public class AdminDTO {
 	//band chart
 	private String sp_reward_qty;
 	
+	
 	//sum reward qty
 	private String sum_reward_qty_1;
 	private String sum_reward_qty_2;
 	private String sum_reward_qty_3;
 	
+	
+	
+	//2019 05 15 임한결추가 편의상 추가함
+	private String sumPrice;
+	private String sp_date;
+	private String sp_no;
+	
+	//bgs pay
+	private String p_no;
+	private String qty;
+	private String paydate;
+	private String non_bankbook;
+	private String non_bankbook_complete;
+	private String non_bankbook_bank_name;
+	private String non_bankbook_account_serial;
+	private String ct_no;
+	private String c_concertdate;
+	private String c_price;
+	private String bgsco_no;
+	private String b_title;
+	private String b_place;
+	private String b_content;
+	
+	//main Pay
+	private String p_complete_date;
+	private String p_total_people;
+	private String p_total_accumulation;
+	private String p_uid_no;
+	private String isPaying;
+	
+	
+	public String getIsPaying() {
+		return isPaying;
+	}
+	public void setIsPaying(String isPaying) {
+		this.isPaying = isPaying;
+	}
+	public String getP_complete_date() {
+		return p_complete_date;
+	}
+	public void setP_complete_date(String p_complete_date) {
+		this.p_complete_date = p_complete_date;
+	}
+	public String getP_total_people() {
+		return p_total_people;
+	}
+	public void setP_total_people(String p_total_people) {
+		this.p_total_people = p_total_people;
+	}
+	public String getP_total_accumulation() {
+		return p_total_accumulation;
+	}
+	public void setP_total_accumulation(String p_total_accumulation) {
+		this.p_total_accumulation = p_total_accumulation;
+	}
+	public String getP_uid_no() {
+		return p_uid_no;
+	}
+	public void setP_uid_no(String p_uid_no) {
+		this.p_uid_no = p_uid_no;
+	}
+	public String getIs_blockmember() {
+		return is_blockmember;
+	}
+	public void setIs_blockmember(String is_blockmember) {
+		this.is_blockmember = is_blockmember;
+	}
+	public String getP_no() {
+		return p_no;
+	}
+	public void setP_no(String p_no) {
+		this.p_no = p_no;
+	}
+
+	public String getQty() {
+		return qty;
+	}
+	public void setQty(String qty) {
+		this.qty = qty;
+	}
+	public String getPaydate() {
+		return paydate;
+	}
+	public void setPaydate(String paydate) {
+		this.paydate = paydate;
+	}
+	public String getNon_bankbook() {
+		return non_bankbook;
+	}
+	public void setNon_bankbook(String non_bankbook) {
+		this.non_bankbook = non_bankbook;
+	}
+	public String getNon_bankbook_complete() {
+		return non_bankbook_complete;
+	}
+	public void setNon_bankbook_complete(String non_bankbook_complete) {
+		this.non_bankbook_complete = non_bankbook_complete;
+	}
+	public String getNon_bankbook_bank_name() {
+		return non_bankbook_bank_name;
+	}
+	public void setNon_bankbook_bank_name(String non_bankbook_bank_name) {
+		this.non_bankbook_bank_name = non_bankbook_bank_name;
+	}
+	public String getNon_bankbook_account_serial() {
+		return non_bankbook_account_serial;
+	}
+	public void setNon_bankbook_account_serial(String non_bankbook_account_serial) {
+		this.non_bankbook_account_serial = non_bankbook_account_serial;
+	}
+	public String getCt_no() {
+		return ct_no;
+	}
+	public void setCt_no(String ct_no) {
+		this.ct_no = ct_no;
+	}
+	public String getC_concertdate() {
+		return c_concertdate;
+	}
+	public void setC_concertdate(String c_concertdate) {
+		this.c_concertdate = c_concertdate;
+	}
+	public String getC_price() {
+		return c_price;
+	}
+	public void setC_price(String c_price) {
+		this.c_price = c_price;
+	}
+	public String getBgsco_no() {
+		return bgsco_no;
+	}
+	public void setBgsco_no(String bgsco_no) {
+		this.bgsco_no = bgsco_no;
+	}
+	public String getB_title() {
+		return b_title;
+	}
+	public void setB_title(String b_title) {
+		this.b_title = b_title;
+	}
+	public String getB_place() {
+		return b_place;
+	}
+	public void setB_place(String b_place) {
+		this.b_place = b_place;
+	}
+	public String getB_content() {
+		return b_content;
+	}
+	public void setB_content(String b_content) {
+		this.b_content = b_content;
+	}
+	public String getSp_no() {
+		return sp_no;
+	}
+	public void setSp_no(String sp_no) {
+		this.sp_no = sp_no;
+	}
+	public String getSp_date() {
+		return sp_date;
+	}
+	public void setSp_date(String sp_date) {
+		this.sp_date = sp_date;
+	}
+	public String getSumPrice() {
+		return sumPrice;
+	}
+	public void setSumPrice(String sumPrice) {
+		this.sumPrice = sumPrice;
+	}
 	public String getSum_reward_qty_1() {
 		return sum_reward_qty_1;
 	}
@@ -247,11 +419,11 @@ public class AdminDTO {
 	public void setB_description(String b_description) {
 		this.b_description = b_description;
 	}
-	public String getBi_profile() {
-		return bi_profile;
+	public String getB_album_cover() {
+		return b_album_cover;
 	}
-	public void setBi_profile(String bi_profile) {
-		this.bi_profile = bi_profile;
+	public void setB_album_cover(String b_album_cover) {
+		this.b_album_cover = b_album_cover;
 	}
 	public String getB_liked() {
 		return b_liked;

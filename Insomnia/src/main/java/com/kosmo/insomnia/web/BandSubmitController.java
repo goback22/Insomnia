@@ -244,6 +244,17 @@ public class BandSubmitController {
 		//콤마빼고 다시 dto세팅
 		dto.setS_goal_price(dto.getS_goal_price().replaceAll(",", ""));
 		int affected = bandService.addBandSubmit(dto);
+		
+		//RewardWaiting에 있는 대기중이 리워드를 reward에 넣어준다.
+		//리워드 리스트를 가져옴
+		List<RewardWaitingDTO> listRewardWaiting = bandService.getListRewardWaitingDTO(dto.getSw_no());
+		//bandsubmitWaiting에서 sw_no얻어와서 bandsubmit에서 sw_no로 s_no얻어와서 세팅
+		String s_no = bandService.getBandSubmitDTO(listRewardWaiting.get(0).getSw_no()).getS_no();
+		for(RewardWaitingDTO rwDto : listRewardWaiting) { 
+			rwDto.setS_no(s_no);
+			bandService.addReward(rwDto);}
+		
+		
 		if(affected == 1)
 			return "T";
 		else

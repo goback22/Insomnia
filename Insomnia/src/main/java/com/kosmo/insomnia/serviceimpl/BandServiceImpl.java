@@ -14,7 +14,11 @@ import com.kosmo.insomnia.service.BandMusicDTO;
 import com.kosmo.insomnia.service.BandService;
 import com.kosmo.insomnia.service.BandSubmitDTO;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
+import com.kosmo.insomnia.service.MemberDTO;
+import com.kosmo.insomnia.service.PayDTO;
+import com.kosmo.insomnia.service.RewardDTO;
 import com.kosmo.insomnia.service.RewardWaitingDTO;
+import com.kosmo.insomnia.service.SafePayDTO;
 import com.kosmo.insomnia.service.SeqDTO;
 
 @Service("bandService")
@@ -166,7 +170,57 @@ public class BandServiceImpl implements BandService{
 	public BandSubmitDTO getBandSubmitDTOByS_no(String s_no) {
 		return dao.getBandSubmitDTOByS_no(s_no);
 	}//getBandSubmitDTOByS_no
-
+	
+	@Override
+	public int addReward(RewardWaitingDTO dto) {
+		return dao.addReward(dto);
+	}//addReward
+	
+	@Override
+	public RewardDTO getRewardDTO(String rw_no) {
+		return dao.getRewardDTO(rw_no);
+	}//getRewardDTO
+	
+	@Override
+	public MemberDTO getMemberDTO(String id) {
+		return dao.getMemberDTO(id);
+	}//getMemberDTO
+	
+	@Override
+	public int addSafePay(SafePayDTO dto) {
+		return dao.addSafePay(dto);
+	}///addSafePay
+	
+	@Override
+	public int addSafePaySupport(SafePayDTO dto) {
+		return dao.addSafePaySupport(dto);
+	}//addSafePaySupport
+	
+	@Override
+	public RewardDTO getRewardDTOByR_no(String r_no) {
+		return dao.getRewardDTOByR_no(r_no);
+	}///getRwardDTOByR_no
+	
+	@Override
+	public PayDTO getPayDTO(String s_no) {
+		return dao.getPayDTO(s_no);
+	}///getPayDTO
+	
+	@Override
+	public List getMembersInBand(String b_name) {
+		return dao.getMembersInBand(b_name);
+	}//getMembersInBand
+	
+	@Override
+	public String getTotalPeopleForPay(String s_no) {
+		return dao.getTotalPeopleForPay(s_no);
+	}//getTotalPeopleForPay
+	
+	@Override
+	public int addPay(PayDTO dto) {
+		return dao.addPay(dto);
+	}///addPay
+	
 	@Override
 	public int like_follow_insert(Map map) {
 		return dao.like_follow_insert(map);
@@ -198,6 +252,5 @@ public class BandServiceImpl implements BandService{
 		return dao.distinguishLike(map);
 	}
 
-	
 	
 }//class BandServiceImpl

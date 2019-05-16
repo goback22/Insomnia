@@ -65,8 +65,8 @@
 										<th class="col-md-1"><input type="checkbox" value="all" />&nbsp;&nbsp;no</th>
 										<th class="col-md-2 text-center">ID</th>
 										<th class="col-md-2 text-center">NAME</th>
-										<th class="text-center">band member?</th>
-										<th class="text-center">sub gerne?</th>
+										<th class="text-center">LoginChain</th>
+										<th class="text-center">Phone</th>
 										<th class="text-center">JOIN_DATE</th>
 <!-- 										<th class="col-md-2 text-center">해줄까 말까</th> -->
 										<!-- 삭제 버튼을 위한 한줄 -->
@@ -82,12 +82,19 @@
 											<!-- example1 -->
 											<tr class="view">												
 <%-- 												<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${totalMembers-(((nowPage-1)*pageSize)+loop.index)}</td> --%>
-												<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
-												
-												<td class="text-center viewDetail">${item.id}</td>
+
+													<!-- 블락아이디 처리 -->
+												<td><input type="checkbox" name="allmember" value="${item.id }"/>&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
+												<c:if test="${item.is_blockmember eq 'Y' }" var="isBlock">
+			                                       <td class="text-center viewDetail" style="color:red;font-family:cursive;">${item.id}</td>
+			                                    </c:if>
+			                                    <c:if test="${!isBlock }">
+			                                       <td class="text-center viewDetail">${item.id}</td>
+			                                    </c:if>
+			                                    	<!-- 블락아이디 처리 끝 -->
 												<td class="text-center viewDetail">${item.name}</td>
-												<td class="text-center viewDetail">일반1</td>
-												<td class="text-center viewDetail">일반2</td>
+												<td class="text-center viewDetail">${item.login_chain }</td>
+												<td class="text-center viewDetail">${item.phone }</td>
 												<td class="text-center viewDetail">${item.join_date}</td>
 <!-- 												<td class="text-center"> -->
 <!-- 													<div class="btn btn-default apply">수정</div> -->
@@ -111,7 +118,8 @@
 																</tr>
 															</thead>
 															<tbody>
-																<tr>
+																
+<tr>
 																	<td>${item.name}</td>
 																	<td>
 <%-- 																	${item.password==null?item.login_chain:item.password } --%>
@@ -125,7 +133,7 @@
 																	<td>${item.birthDay }</td>
 																	<td>${item.gender }</td>
 																	<td>${item.login_chain==null?"홈페이지 통해서 로그인":item.login_chain }</td>
-																	<td rowspan="3" class="text-center"><img style="width:50%;"src="<c:url value='/img/unnamed.jpg'/>" alt="등록된 이미지가 없습니다"></td>
+																	<td rowspan="3" class="text-center"><img style="width:50%;"src="${item.profile_img }" alt="등록된 이미지가 없습니다"></td>
 																</tr>
 															
 															<!-- second floor -->
@@ -137,6 +145,8 @@
 																	<th>EMAIL_RECIEVE</th>
 																	<th>DESCRIPTION</th>
 																</tr>
+															
+															
 																<tr>
 																	<td>${item.is_activation }</td>
 																	<td>${item.email }</td>
@@ -144,6 +154,8 @@
 																	<td>${item.email_recieve!=null?"메일 수신 동의":"메일 수신 거부" }</td>
 																	<td>${item.description==null?"등록된 소개가 없습니다":item.description }</td>
 																</tr>
+
+
 															</tbody>
 														</table>
 													</div>
@@ -162,10 +174,11 @@
 								</table>
 
 								<!-- about checked -->
-								<div>
-									<div class="btn btn-default checkeddelete">삭제</div>
-									<div class="btn btn-default">수락</div>
-									<div class="btn btn-default">거부</div>
+							<div>
+									<div class="btn btn-default checkeddelete">선택 차단</div>
+									<div class="btn btn-default checkedUnblock">차단 해제</div>
+<!-- 									<div class="btn btn-default">수락</div> -->
+<!-- 									<div class="btn btn-default">거부</div> -->
 									<!-- 페이징 -->
 									<jsp:include page="/WEB-INF/views/admin/template/AdminPagination.jsp" />
 <%-- 										 <div class="col-md-12 text-center">${pagingString}</div> --%>
@@ -210,6 +223,62 @@
 	<!-- checked about checkbox -->
 	<script type="text/javascript" src="<c:url value='/vendor/js/admin_allchecked.js'/>"></script>
 	<script type="text/javascript">
+	var checkedId;
+	var checkedIdArray=[];
+	var blockId;
+	
+	
+	
+	$(':checkbox[name=allmember]').click(function(){
+		checkedId = $(this).val();
+		if($(this).is(':checked')==true){
+			checkedIdArray.push(checkedId);
+		}
+		else{
+			var uncheckedIdIndex = checkedIdArray.indexOf(checkedId);
+			console.log("uncheckedIdIndex",uncheckedIdIndex);
+			if(uncheckedIdIndex >-1){
+				checkedIdArray.splice(uncheckedIdIndex,1);
+			}//if
+		}//else
+		
+		blockId = {'id':checkedIdArray};
+	});//checkbox[name=allmember]
+	
+	$('.checkeddelete').click(function(){
+		$.ajax({
+			url:'<c:url value="/admin/memberBlock.ins"/>',
+			data:blockId,
+			traditional:true,
+			success:function(data){
+				alert("블랙리스트로 등록합니다.");
+				location.reload();
+			},
+			error:function(){
+				alert('블랙리스트 실패');
+			}
+		});
+	});///chekddelelte
+	
+	$('.checkedUnblock').click(function(){
+		$.ajax({
+			url:'<c:url value="/admin/memberUnBlock.ins"/>',
+			data:blockId,
+			traditional:true,
+			success:function(data){
+				alert("블랙리스트에서 해제합니다.");
+				location.reload();
+			},
+			error:function(){
+				alert('블랙리스트 해제 실패');
+			}
+		});
+	});///checkedUnblock
+	
+	
+		
+	
+	
 		$(".viewDetail").on("click", function() {//[o]
 // 		$("td.clk").on("click", function() {//[o]
 //		$("view td.clk").on("click", function() {//[o]

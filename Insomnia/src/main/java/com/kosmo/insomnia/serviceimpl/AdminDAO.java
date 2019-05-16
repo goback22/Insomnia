@@ -162,6 +162,63 @@ public class AdminDAO implements AdminService{
 	public List<Map> selectBandSafepayDetail(Map map) {
 		return template.selectList("selectBandSafepayDetail",map);
 	}
+	@Override
+	public int blockMember(String string) {
+		// TODO Auto-generated method stub
+		return template.update("blockMember",string);
+	}
+	@Override
+	public int unBlockMember(String string) {
+		return template.update("unBlockMember", string);
+	}//unblock
 	
+	
+	
+	
+	
+	///2019 05 15 임한결 추가
+	@Override
+	public List<AdminDTO> selectBandSubmitList() {
+		return template.selectList("selectBandSubmitList");
+	}///selectBAndsUbmitList
+	
+	@Override
+	public String selectOneBandMusic(String b_no) {
+		return template.selectOne("selectOneBandMusic", b_no);
+	}///selectOneBandMusic
 
-}
+	@Override
+	public List<AdminDTO> selectBandSafepayDetailAllList() {
+		return template.selectList("selectBandSafepayDetailAllList");
+	}//selectBandSafePayDetailALlList
+	
+	@Override
+	public String getNameById(String id) {
+		return template.selectOne("getNameById", id);
+	}///getNameById
+	
+	@Override
+	public List<AdminDTO> selectSubPayList() {
+		return template.selectList("selectSubPayList");
+	}//selectSubPayList
+	
+	@Override
+	public String getTotalPeople() {
+		return template.selectOne("getTotalPeople");
+	}///getTotalPeople
+	
+	@Override
+	public String getVisitor() {
+		return template.selectOne("getVisitor");
+	}///getVisitor
+	
+	@Override
+	public void updateVisitor() {
+		template.update("updateVisitor");
+	}//updateVisitor
+	
+	@Override
+	public AdminDTO getPayDTO(String s_no) {
+		return template.selectOne("getPayDTO", s_no);
+	}//getPayDTO
+}///class

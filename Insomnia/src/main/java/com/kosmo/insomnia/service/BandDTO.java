@@ -9,7 +9,6 @@ public class BandDTO {
 	private String b_name;
 	private String b_description;
 	private String b_album_cover;
-	/*private String bm_title;*/
 	private String b_liked;
 	private String ct_no;
 	
@@ -18,7 +17,6 @@ public class BandDTO {
 	private String ct_name;
 	private String ct_name_css;
 	private String bm_name;
-	
 	
 	//임의의 크기지정을 위한 변수
 	private String wh; //가로세로
@@ -39,6 +37,12 @@ public class BandDTO {
 	
 	
 	
+	public String getBm_name() {
+		return bm_name;
+	}
+	public void setBm_name(String bm_name) {
+		this.bm_name = bm_name;
+	}
 	public String getWh() {
 		return wh;
 	}
@@ -120,12 +124,6 @@ public class BandDTO {
 	public void setB_album_cover(String b_album_cover) {
 		this.b_album_cover = b_album_cover;
 	}
-	/*public String getBm_title() {
-		return bm_title;
-	}
-	public void setBm_title(String bm_title) {
-		this.bm_title = bm_title;
-	}*/
 	public String getB_liked() {
 		return b_liked;
 	}
@@ -138,13 +136,5 @@ public class BandDTO {
 	public void setCt_no(String ct_no) {
 		this.ct_no = ct_no;
 	}
-	
-	public String getBm_name() {
-		return bm_name;
-	}
-	public void setBm_name(String bm_name) {
-		this.bm_name = bm_name;
-	}
-	
 	
 }//class

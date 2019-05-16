@@ -48,8 +48,8 @@
 										<th class="col-md-1"><input type="checkbox" value="all" />&nbsp;&nbsp;no</th>
 										<th class="col-md-2 text-center">ID</th>
 										<th class="col-md-2 text-center">NAME</th>
-										<th class="text-center">column1</th>
-										<th class="text-center">column2</th>
+										<th class="text-center">LoginChain</th>
+										<th class="text-center">Phone</th>
 										<th class="text-center">JOIN_DATE</th>
 <!-- 										<th class="col-md-2 text-center">해줄까 말까</th> -->
 										<!-- 삭제 버튼을 위한 한줄 -->
@@ -68,8 +68,8 @@
 										<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
 										<td class="text-center">${item.id }</td>
 										<td class="text-center">${item.name }</td>
-										<td class="text-center">일반1</td>
-										<td class="text-center">일반2</td>
+										<td class="text-center">${item.login_chain==null?"미등록":item.login_chain }</td>
+										<td class="text-center">${item.phone}</td>
 										<td class="text-center">${item.join_date }</td>
 <!-- 										<td class="text-center"> -->
 <!-- 											<div class="btn btn-default apply">수락</div> -->
@@ -82,7 +82,8 @@
 											<div class="fold-content">
 												<table class="table table-bordered">
 													<!-- first floor -->
-													<thead>
+													
+<thead>
 														<tr>
 															<th>NAME</th>
 															<th>PASSWORD</th>
@@ -99,9 +100,9 @@
 															<td>${item.password }</td>
 															<td>${item.birthDay }</td>
 															<td>${item.login_chain }</td>
-															<td>${item.sms_recieve }</td>
-															<td>${item.email_recieve }</td>
-															<td rowspan="3"><img src="" alt="등록된 이미지가 없습니다"></td>
+															<td>${item.sms_recieve==null?"문자 수신 거부":"수신 승락" }</td>
+															<td>${item.email_recieve==null?"이메일 수신 거부":"수신 승락" }</td>
+															<td rowspan="3"><img style="max-width:70%;" src="${item.profile_img }" alt="등록된 이미지가 없습니다"></td>
 														</tr>
 													</tbody>
 													<!-- second floor -->
@@ -121,6 +122,7 @@
 															<td colspan="3">${item.description==null?"등록된 소개가 없습니다":item.description }</td>
 														</tr>
 													</tbody>
+
 												</table>
 											</div>
 										</td>

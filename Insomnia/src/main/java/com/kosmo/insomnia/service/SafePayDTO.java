@@ -3,117 +3,203 @@ package com.kosmo.insomnia.service;
 public class SafePayDTO {
 	
 	//멤버변수
-	private String SP_No;
+	private String sp_no;
 	private String id;
-	private String R_no;
-	private String SP_Order_No;
-	private String P_no;
-	private String SP_Reward_Qty;
-	private String SP_Support;
+	private String s_no;
+	private String r_no;
+	private String p_no;
+	private String sp_reward_qty;
+	private String sp_support;
 	private java.sql.Date Date;
-	private String SP_Recipient;
-	private String SP_Zip_Code;
-	private String SP_Shipping_Address;
-	private String SP_Depositor;
-	private String SP_Bank_Name;
-	private String SP_Account_Serial;
-	private String SP_Phone;
+	private String sp_recipient;
+	private String sp_zip_code;
+	private String sp_shipping_address;
+	private String sp_depositor;
+	private String sp_bank_name;
+	private String sp_account_serial;
+	private String sp_phone;
+	private String sp_uid_no;
 	
 	
-	////게터*세터
-	public String getSP_No() {
-		return SP_No;
+	//편의상 추가한 변수
+	private String message;
+
+
+	
+	
+	
+	
+	
+	public String getSp_uid_no() {
+		return sp_uid_no;
 	}
-	public void setSP_No(String sP_No) {
-		SP_No = sP_No;
+	public void setSp_uid_no(String sp_uid_no) {
+		this.sp_uid_no = sp_uid_no;
 	}
+	
+	
+	public String getS_no() {
+		return s_no;
+	}
+
+
+	public void setS_no(String s_no) {
+		this.s_no = s_no;
+	}
+
+
+	public String getSp_no() {
+		return sp_no;
+	}
+
+
+	public void setSp_no(String sp_no) {
+		this.sp_no = sp_no;
+	}
+
+
 	public String getId() {
 		return id;
 	}
+
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
+
 	public String getR_no() {
-		return R_no;
+		return r_no;
 	}
+
+
 	public void setR_no(String r_no) {
-		R_no = r_no;
+		this.r_no = r_no;
 	}
-	public String getSP_Order_No() {
-		return SP_Order_No;
-	}
-	public void setSP_Order_No(String sP_Order_No) {
-		SP_Order_No = sP_Order_No;
-	}
+
+
 	public String getP_no() {
-		return P_no;
+		return p_no;
 	}
+
+
 	public void setP_no(String p_no) {
-		P_no = p_no;
+		this.p_no = p_no;
 	}
-	public String getSP_Reward_Qty() {
-		return SP_Reward_Qty;
+
+
+	public String getSp_reward_qty() {
+		return sp_reward_qty;
 	}
-	public void setSP_Reward_Qty(String sP_Reward_Qty) {
-		SP_Reward_Qty = sP_Reward_Qty;
+
+
+	public void setSp_reward_qty(String sp_reward_qty) {
+		this.sp_reward_qty = sp_reward_qty;
 	}
-	public String getSP_Support() {
-		return SP_Support;
+
+
+
+	public String getSp_support() {
+		return sp_support;
 	}
-	public void setSP_Support(String sP_Support) {
-		SP_Support = sP_Support;
+
+
+	public void setSp_support(String sp_support) {
+		this.sp_support = sp_support;
 	}
+
+
 	public java.sql.Date getDate() {
 		return Date;
 	}
+
+
 	public void setDate(java.sql.Date date) {
 		Date = date;
 	}
-	public String getSP_Recipient() {
-		return SP_Recipient;
-	}
-	public void setSP_Recipient(String sP_Recipient) {
-		SP_Recipient = sP_Recipient;
-	}
-	public String getSP_Zip_Code() {
-		return SP_Zip_Code;
-	}
-	public void setSP_Zip_Code(String sP_Zip_Code) {
-		SP_Zip_Code = sP_Zip_Code;
-	}
-	public String getSP_Shipping_Address() {
-		return SP_Shipping_Address;
-	}
-	public void setSP_Shipping_Address(String sP_Shipping_Address) {
-		SP_Shipping_Address = sP_Shipping_Address;
-	}
-	public String getSP_Depositor() {
-		return SP_Depositor;
-	}
-	public void setSP_Depositor(String sP_Depositor) {
-		SP_Depositor = sP_Depositor;
-	}
-	public String getSP_Bank_Name() {
-		return SP_Bank_Name;
-	}
-	public void setSP_Bank_Name(String sP_Bank_Name) {
-		SP_Bank_Name = sP_Bank_Name;
-	}
-	public String getSP_Account_Serial() {
-		return SP_Account_Serial;
-	}
-	public void setSP_Account_Serial(String sP_Account_Serial) {
-		SP_Account_Serial = sP_Account_Serial;
-	}
-	public String getSP_Phone() {
-		return SP_Phone;
-	}
-	public void setSP_Phone(String sP_Phone) {
-		SP_Phone = sP_Phone;
-	}
-	
-	
-	
-	
 
-}
+
+	public String getSp_recipient() {
+		return sp_recipient;
+	}
+
+
+	public void setSp_recipient(String sp_recipient) {
+		this.sp_recipient = sp_recipient;
+	}
+
+
+	public String getSp_zip_code() {
+		return sp_zip_code;
+	}
+
+
+	public void setSp_zip_code(String sp_zip_code) {
+		this.sp_zip_code = sp_zip_code;
+	}
+
+
+	public String getSp_shipping_address() {
+		return sp_shipping_address;
+	}
+
+
+	public void setSp_shipping_address(String sp_shipping_address) {
+		this.sp_shipping_address = sp_shipping_address;
+	}
+
+
+	public String getSp_depositor() {
+		return sp_depositor;
+	}
+
+
+	public void setSp_depositor(String sp_depositor) {
+		this.sp_depositor = sp_depositor;
+	}
+
+
+	public String getSp_bank_name() {
+		return sp_bank_name;
+	}
+
+
+	public void setSp_bank_name(String sp_bank_name) {
+		this.sp_bank_name = sp_bank_name;
+	}
+
+
+	public String getSp_account_serial() {
+		return sp_account_serial;
+	}
+
+
+	public void setSp_account_serial(String sp_account_serial) {
+		this.sp_account_serial = sp_account_serial;
+	}
+
+
+	public String getSp_phone() {
+		return sp_phone;
+	}
+
+
+	public void setSp_phone(String sp_phone) {
+		this.sp_phone = sp_phone;
+	}
+
+
+	public String getMessage() {
+		return message;
+	}
+
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	
+	
+	
+	
+}//class

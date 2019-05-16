@@ -72,7 +72,7 @@ $(function(){
 			
 		}
 		else{
-			$('.readytodelete').closest('tr').remove();
+			//$('.readytodelete').closest('tr').remove();
 			
 		}
 	});

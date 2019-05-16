@@ -3,22 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style>
-
 	/*===================로그인 후 회원화면=========================*/
-
 .user_top dd, .user_top dt {
 	
 	display: inline;
 	color: white;
 	font-size: 15px;
 }
-
 .afterLogin p, .afterLogin a {
 	color: white;
 	font-size: 15px;
 }
-
-
 .user_picture {
 	
 	width: 70px;
@@ -29,88 +24,63 @@
 	margin-bottom: 5px;
 	
 }
-
 .benefit span, .benefit dt, .benefit dd, .benefit a {
 	font-size: 13px;
 	margin-left: 5px;
 }
-
-
 #logout {
 	font-size; 13px;
 	float: right;
 }
-
-
 .afterLogin img {
 	width: 30px;
 }
-
 /* table { */
 /* 	width: 279px; */
 /* 	text-align: center; */
 /* } */
-
 .user_middle table tr {
 	width: 279px;
 	text-align: center;
 }
-
 .user_middle table td  {
 	width: 25%;
 }
-
 .user_middle td a {
 	width: 100%;
 	text-align: center;
 	height: 100px;
 }
-
-
 .user_middle label {
 	color: white;
 	font-size: 15px;
 }
-
-
 .user_bottom li, .user_bottom ul {
 	width: 100%
 }
-
 .user_bottom img{
 	width: 20%
 }
-
 .user_bottom span{
 	width: 80%
 	text-align: center;
 }
-
 .profile_name {
 	color: orange;
 	font-size: 17px;
 }
-
-
-
-
-
 .user_top {	
 	
 	
 }
-
 .user_middle {
 	
 	
 }
-
 .user_bottom {
 	
 }
 	
-
-
 </style>
 
 <link href="<c:url value='/vendor/css/LoginCSS.css'/>" rel="stylesheet" />
@@ -342,5 +312,4 @@ $(function(){
 <!-- 네비게이션 바 끝 -->
 <!-- 밑 두줄 필요(없으면 꺠지는 부분이 있음) -->
 <header id="mobile-nav-wrap"> </header>
-
 

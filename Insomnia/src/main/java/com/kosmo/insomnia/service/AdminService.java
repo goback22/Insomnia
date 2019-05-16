@@ -63,4 +63,37 @@ public interface AdminService {
 	public int countFundPeople(String S_NO);
 	//safepay 상세보기 쿼리
 	public List<Map> selectBandSafepayDetail(Map map);
-}
+	
+	//block member
+	int blockMember(String string);
+	int unBlockMember(String string);
+	
+	//// 2019 05 15 임한결 추가
+	/// 요약보기에서 진행중인 밴드 목록 꺼내오기
+	List<AdminDTO> selectBandSubmitList();
+	
+	//b_no로 가장 처음 등록한 음악 꺼내오기
+	//upload/band/music
+	String selectOneBandMusic(String b_no);
+	
+	//메인펀딩 디테일 모두 뽑아오기
+	List<AdminDTO> selectBandSafepayDetailAllList();
+	
+	//회원 아이디로 이름 얻어오기
+	String getNameById(String id);
+	
+	//subPay리스트 뽑아오기
+	List<AdminDTO> selectSubPayList();
+	
+	//전체 회원수 얻기
+	String getTotalPeople();
+	
+	//방문자수 구하기
+	String getVisitor();
+	
+	//방문자수 1증가
+	void updateVisitor();
+	
+	//s_no로 AdminDTO얻기
+	AdminDTO getPayDTO(String s_no);
+}//class

@@ -356,6 +356,13 @@ body{
 		
 		
 		$("#first-next").on("click", function(){
+			if($('.select_category').val() == null){
+				alert("카테고리를 선택해주세요");
+				return;
+			}else if($('.band-description-input').val() == ""){
+				alert("밴드 설명을 입력해주세요")
+				return;
+			}
 			$(".main_progress").css("margin-left", "-100%");
 		});//$(.first-next).onCLick
 		
@@ -363,6 +370,9 @@ body{
 			$(".main_progress").css("margin-left", "0");
 		});//$(second-step-btn-back).onClick
 		$("#second-next").on("click", function(){
+			if(coverName == ""){
+				alert("밴드 커버를 설정해주세요");
+				return;}
 			$(".main_progress").css("margin-left", "-200%");
 		});//$(second-step-btn-next).onClick
 		

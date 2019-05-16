@@ -109,6 +109,50 @@ body {
 .modal-backdrop{
 	width:0;
 }
+
+.no_band_header_div {
+	margin:115px;
+}
+
+.no_band_header_btn {
+   color: white;
+   text-align: center;
+   font-weight: 900;
+   font-size: 20px;
+   margin: auto;
+   padding: 15px;
+   background-color: rgb(228, 58, 144);
+   width: 360px;
+   height: 60px;
+   background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+background-size: 1800% 1800%;
+
+-webkit-animation: rainbow 18s ease infinite;
+-z-animation: rainbow 18s ease infinite;
+-o-animation: rainbow 18s ease infinite;
+  animation: rainbow 18s ease infinite;
+}
+@-webkit-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@-moz-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@-o-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@keyframes rainbow { 
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+
 </style>
 
 
@@ -174,7 +218,7 @@ body {
 
 									<!-- <a href="<c:url value='/main/bandSubmit.ins'/>"></a>  -->
 									<div class="watch-inner text-center" style="margin-top: 100px;">
-										<a href="javascript:submit();" class="tim-btn tim-btn-bg" id='fcmSubmit'>SUBMIT!</a>
+										<!-- <a href="javascript:submit();" class="tim-btn tim-btn-bg" >SUBMIT!</a> 
 									</div>
 
 								</div>
@@ -265,7 +309,7 @@ body {
 
 										<div class="single-show-archive">
 											<a href="javascript:upload('video');"><i
-												class="fa fa-link" aria-hidden="true" title="밴드 비디오 등록"></i></a>
+												class="fa fa-link" aria-hidden="true" title="  비디오 등록"></i></a>
 											<img id="video_img_url"
 												src="<c:url value='/resource/img/default_video_cover.jpg'/>"
 												alt="">
@@ -462,37 +506,40 @@ body {
 
 			</div>
 			<!-- row -->
+		</div><!-- content -->
+		
+		<div class="no_band_header_div" onclick="javascript:submit();"> <!-- onclick="javascript:submit();" -->
+			<div class="no_band_header_btn">S U B M I T</div>
 		</div>
+		
+		
 	</div>
 	<!--site-->
-
-	<div class="fcmDiv" style="display:none;">
-		<%-- <form action="<c:url value='/'/>" method="post" id="fcmForm"> --%>
-		<form action="<c:url value='/fcm/pushToPhone.ins'/>" method="post" id="fcmForm">
-			<table style="border-spacing:1px;background-color:gray;width:400px">
-				<tr style="border-spacing:1px;background-color:white">
-					<td style="width:20%">제목</td>
-					<td><input type="text" name="title" id="fcmTitle" style="width:90%"/></td>
-				</tr>
-				<tr style="border-spacing:1px;background-color:white">
-					<td colspan="2">메시지</td>
-				</tr>
-				<tr style="border-spacing:1px;background-color:white">
-					
-					<td colspan="2"><textarea name="message" id="fcmMessage" style="width:90%;height:200px" ></textarea></td>
-				</tr>
-				<tr style="border-spacing:1px;background-color:white">
-					<td colspan="2" style="text-align:center"><input type="submit" value="확인"/></td>			
-				</tr>  
-			</table>
-		</form>
-	</div>
-	
-	
+		<div class="fcmDiv" style="display:none;">
+			<%-- <form action="<c:url value='/'/>" method="post" id="fcmForm"> --%>
+			<form action="<c:url value='/fcm/pushToPhone.ins'/>" method="post" id="fcmForm">
+				<table style="border-spacing:1px;background-color:gray;width:400px">
+					<tr style="border-spacing:1px;background-color:white">
+						<td style="width:20%">제목</td>
+						<td><input type="text" name="title" id="fcmTitle" style="width:90%"/></td>
+					</tr>
+					<tr style="border-spacing:1px;background-color:white">
+						<td colspan="2">메시지</td>
+					</tr>
+					<tr style="border-spacing:1px;background-color:white">
+						
+						<td colspan="2"><textarea name="message" id="fcmMessage" style="width:90%;height:200px" ></textarea></td>
+					</tr>
+					<tr style="border-spacing:1px;background-color:white">
+						<td colspan="2" style="text-align:center"><input type="submit" value="확인"/></td>			
+					</tr>  
+				</table>
+			</form>
+		</div>
 
 
 	<script>
-		console.log('version 105'); //////version
+		console.log('version 106'); //////version
 
 		//section태그에 id를 부여할 인덱스 선언
 		var index = 1;
@@ -873,25 +920,13 @@ body {
 				});//$.ajax
 			});//$.each fn
 			
-			
-			///////////////여기서 처리해야지. 바로 리다이렉트 되버리니까 내 코드가 실행이 안되잖아.
-			// FCM 보내기 위한 스크립트 : 시작
-			
-			$('#fcmTitle').prop('value', 'Insomnia 리워드 등록 안내');
-			$('#fcmMessage').prop('value', 'Insomnia 리워드 등록이 성공적으로 완료되었습니다.');
-			//console.log('인섬니아 푸시 콘솔.로그');
-			
-			<% System.out.println("콘솔에 들어오는지?"); %>
-			//$('#fcmForm').submit();
-	
-			// FCM 보내기 위한 스크립트 : 끝
-			
-			
 			if(isSuccess){
 				alert("등록 성공!");
+
 				
 				var b_description = $('#b_description').val();
 				var b_banner_description = $('#b_banner_description').val();
+
 				location.href='<c:url value="/band/bandInfo.ins?fcm=fcm&b_description='+b_description+'&b_banner_description='+b_banner_description+'"/>';
 			}else
 				alert("등록 실패 .. ㅠㅠ");
