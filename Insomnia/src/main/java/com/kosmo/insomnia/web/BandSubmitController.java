@@ -40,20 +40,25 @@ import org.springframework.web.multipart.MultipartRequest;
 import com.kosmo.insomnia.service.BandDTO;
 import com.kosmo.insomnia.service.BandSubmitDTO;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
+import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.service.RewardWaitingDTO;
 import com.kosmo.insomnia.serviceimpl.BandServiceImpl;
+import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 import com.kosmo.insomnia.web.my.FileUpDownUtils;
 import com.sun.mail.iap.Response;
 
 @Controller
 public class BandSubmitController {
 	
+	@Resource(name="memberService")
+	private MemberServiceImpl memberService;
+	
 	@Resource(name="bandService")
 	private BandServiceImpl bandService;
 	
 	//bandSubmt.jsp로 넘어갈때
 	@RequestMapping("/main/bandSubmit.ins")
-	public String toBandSubmit(@RequestParam Map params, HttpSession session, Model model) {
+	public String toBandSubmit(@RequestParam Map params, Map dismap, HttpSession session, Model model) {
 		//세션에 있는 값 넘겨받는다.
 		String b_name = session.getAttribute("b_name").toString();
 		String b_no = session.getAttribute("b_no").toString();
@@ -69,6 +74,20 @@ public class BandSubmitController {
 		session.setAttribute("id", session.getAttribute("id"));
 		session.setAttribute("b_name", b_name);
 		session.setAttribute("b_no",b_no);
+		
+			////슬라이드 메뉴 위한 부분
+		
+			dismap.put("id", session.getAttribute("id"));
+			MemberDTO loginRecord = memberService.selectOne(dismap);
+			
+			if(loginRecord != null) {
+				model.addAttribute("loginRecord", loginRecord);
+				//record.setProfile_img(record.getProfile_img());		
+				//model.addAttribute("record", record);	
+			}	
+				
+			////슬라이드메뉴
+		
 		return "main/bandSubmit.tiles";           
 	}//toBandSubmit;
 	

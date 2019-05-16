@@ -36,8 +36,7 @@ public class MemberDAO implements MemberService {
 
 	@Override
 	public int update(Map map) {
-//		return template.update("update_member", map);
-		return 0;
+		return template.update("member_update", map);
 	}
 	
 	
@@ -77,6 +76,18 @@ public class MemberDAO implements MemberService {
 	@Override
 	public int socialUpdate(Map map) {
 		return template.update("update_social", map);
+	}
+
+
+	@Override
+	public int changePassword(Map map) {
+		return template.update("changepassword", map);
+	}
+
+
+	@Override
+	public MemberDTO getIdByEmail(Map map) {
+		return template.selectOne("getIdByEmail", map);
 	}
 
 	

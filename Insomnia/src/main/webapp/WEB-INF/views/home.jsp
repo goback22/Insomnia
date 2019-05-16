@@ -395,7 +395,7 @@ $(function(){
 		            
 		            <!-- display:none 끝 -->
 		            <a id="logout" href="<c:url value='/logout.ins'/>">로그아웃</a>
-		            <a href="<c:url value='band/bandInfo.ins'/>">밴드관리</a>
+		            <a href="<c:url value='/band/bandInfo.ins'/>">밴드관리</a>
 		            
 		           <!--  <div id="result">결과</div> -->
 		            
@@ -788,8 +788,8 @@ $(function(){
 					<div class="row">
 						<div class="section-title style-four">
 							<h2 id="about">HOT Track</h2>
-							<p style="font-size: 1.4em; color: #6c757d;">ë¨ê±°ì´
-								ë°´ëë¤, ë¨ê±°ì´ ììë¤</p>
+							<!-- <p style="font-size: 1.4em; color: #6c757d;">ë¨ê±°ì´
+								ë°´ëë¤, ë¨ê±°ì´ ììë¤</p> -->
 						</div>
 					</div>
 					<div class="swiper-container row"

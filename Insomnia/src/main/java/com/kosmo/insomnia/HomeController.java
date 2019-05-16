@@ -41,7 +41,7 @@ public class HomeController {
 	private MemberServiceImpl memberService;
 	
 	//로그인 폼으로 이동, 혹은 홈 화면으로 이동
-	@RequestMapping(value = "/home.ins", method = RequestMethod.GET)
+	@RequestMapping(value = "/home.ins", method = {RequestMethod.GET, RequestMethod.POST})
 	public String home(Locale locale, Model model, Map map, HttpSession session) {
 		
 		////페이스북 로그인
@@ -58,7 +58,7 @@ public class HomeController {
 			if(record != null) {
 				model.addAttribute("loginRecord", record);
 				//record.setProfile_img(record.getProfile_img());		
-				model.addAttribute("record", record);	
+				//model.addAttribute("record", record);	
 			}	
 			
 		}/////if문

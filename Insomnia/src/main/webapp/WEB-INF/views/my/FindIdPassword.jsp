@@ -61,10 +61,10 @@
 					</div>
 					<div class="result-id-btns">
 						<a class="goToRegister" href="<c:url value='/register/term.ins'/>">회원가입하기</a>
-						<form action="" method="POST" id="loginRetryForm">
+						<!-- <form action="" method="POST" id="loginRetryForm">
 							<input type="password" placeholder="비밀번호를 입력하세요."/>
-						</form>
-						<a class="goToLogin" href="<c:url value='/login.ins'/>">로그인</a>
+						</form> -->
+						<a class="goToLogin" href="<c:url value='/home.ins'/>">로그인</a>
 						<!-- <a class="goToCheck" href="">등록한 이메일로 계정 정보 발송하기</a> -->
 					</div>
 				</div>
@@ -94,7 +94,9 @@
 						<div class="findPassDiv">
 							<input type="password" name="insertPass" id="insertPass" placeholder="비밀번호를 입력하세요.">
 							<input type="password" name="insertPassCheck" id="insertPassCheck" placeholder="비밀번호를 확인하세요. ">	
+							<input type="hidden" name="thisEmail" value="${thisEmail}">
 							<em class="passInsertErr">비밀번호 형식이 올바르지 않습니다.</em>
+							<a class="goToChangePassword" href="javascript:void(0);">로그인</a>
 						</div>
 					</form>
 				</div>
@@ -259,6 +261,16 @@
 			})
 		</script>
 	</c:if>
+	
+	
+	<script>
+		$(function(){
+			$('.goToChangePassword').click(function(){
+				$('.passInsertForm').submit();
+			});
+		})
+	
+	</script>
 			
 			
 

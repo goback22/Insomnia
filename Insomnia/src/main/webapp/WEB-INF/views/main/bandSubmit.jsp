@@ -890,7 +890,8 @@ body {
 			if(isSuccess){
 				alert("등록 성공!");
 				
-				b_description = $('#b_description').text();
+				var b_description = $('#b_description').val();
+				var b_banner_description = $('#b_banner_description').val();
 				location.href='<c:url value="/band/bandInfo.ins?fcm=fcm&b_description='+b_description+'&b_banner_description='+b_banner_description+'"/>';
 			}else
 				alert("등록 실패 .. ㅠㅠ");

@@ -32,5 +32,11 @@ public interface MemberService {
 	//아이디 중복확인
 	int checkSignup(String id);
 	
+	//비밀번호 수정
+	int changePassword(Map map);
+	
+	//이메일로 아이디 찾기
+	MemberDTO getIdByEmail(Map map);
+	
 	
 }

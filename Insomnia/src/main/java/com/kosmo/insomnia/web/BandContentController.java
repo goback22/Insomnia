@@ -31,18 +31,23 @@ import com.kosmo.insomnia.service.BandDTO;
 import com.kosmo.insomnia.service.BandMusicDTO;
 import com.kosmo.insomnia.service.BandSubmitDTO;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
+import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.service.RewardWaitingDTO;
 import com.kosmo.insomnia.serviceimpl.BandServiceImpl;
+import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 
 @Controller
 public class BandContentController {
+	
+	@Resource(name="memberService")
+	private MemberServiceImpl memberService;
 
 	@Resource(name="bandService")
 	private BandServiceImpl bandService;
 	
 	//메인 프로젝트 - 컨텐트
 	@RequestMapping(value="/main/content.ins")
-	public String content(@RequestParam Map params, HttpSession session, Model model, ServletRequest request) {
+	public String content(@RequestParam Map params, Map dismap, HttpSession session, Model model, ServletRequest request) {
 		////////////////////////////////////////////////////////////////////////세션에서 필요한 정보얻기
 		String b_no = null;
 		String b_name = null;
@@ -158,6 +163,22 @@ public class BandContentController {
 		session.setAttribute("b_name", b_name);
 		//id값을 session에 넘겨줘야 댓글 입력이 가능하다.
 		session.setAttribute("id", id);
+		
+		
+			////슬라이드 메뉴 위한 부분
+		
+			dismap.put("id", session.getAttribute("id"));
+			MemberDTO loginRecord = memberService.selectOne(dismap);
+			
+			if(loginRecord != null) {
+				model.addAttribute("loginRecord", loginRecord);
+				//record.setProfile_img(record.getProfile_img());		
+				//model.addAttribute("record", record);	
+			}	
+			
+			////슬라이드메뉴
+
+		
 		return "/main/content.tiles";
 	}///content
 	
@@ -203,7 +224,7 @@ public class BandContentController {
 	//모든 밴드 정보를 받아서 카테고리별로 뿌려준다.
 	//메인 프로젝트
 	@RequestMapping(value="/main/mainproject.ins")
-	public String mainproject(@RequestParam Map params, HttpSession session, Model model) {
+	public String mainproject(@RequestParam Map params, Map dismap, HttpSession session, Model model) {
 		
 		//모든 밴드의 필요한 정보를 가져온다.
 		List<BandDTO> beforeAllBand = bandService.allBand();
@@ -243,6 +264,19 @@ public class BandContentController {
 		model.addAttribute("dance", dance);
 		model.addAttribute("rock", rock);
 		model.addAttribute("traditional", traditional);
+		
+		////슬라이드 메뉴 위한 부분
+		
+			dismap.put("id", session.getAttribute("id"));
+			MemberDTO loginRecord = memberService.selectOne(dismap);
+			
+			if(loginRecord != null) {
+				model.addAttribute("loginRecord", loginRecord);
+				//record.setProfile_img(record.getProfile_img());		
+				//model.addAttribute("record", record);	
+			}	
+			
+			////슬라이드메뉴
 		
 		return "/main/mainproject.tiles";
 	}//mainproject

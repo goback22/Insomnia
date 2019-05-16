@@ -76,5 +76,15 @@ public class MemberServiceImpl implements MemberService{
 		return dao.socialUpdate(map);
 	}
 
+	@Override
+	public int changePassword(Map map) {
+		return dao.changePassword(map);
+	}
+
+	@Override
+	public MemberDTO getIdByEmail(Map map) {
+		return dao.getIdByEmail(map);
+	}
+
 	
 }

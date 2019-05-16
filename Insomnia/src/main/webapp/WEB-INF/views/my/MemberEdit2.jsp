@@ -32,7 +32,7 @@
 			<div class="allWrap">
 				
 				<%-- <h2 class="welcomeText">${record.name}님의 기본 정보를 설정하세요</h2> --%>
-				<form class="editForm" method="POST" action="">
+				<form class="editForm" method="POST" action="<c:url value='/menu/mypage/editProcess.ins'/>">
 					<!-- <p class="title2">이메일 변경</p>
 					<input type="email" name="editEmail" id="editEmail" placeholder="수정할 이메일을 입력하세요."> -->
 					<p class="title2">비밀번호 변경</p>
@@ -41,16 +41,16 @@
 					<p class="title2">인증수단 변경</p>
 					<input type="text" name="editEmail" id="editEmail" value="${editRecord.email}" placeholder="수정할 이메일을 입력하세요.">
 					<div id="editEmailBtn">변경</div>
-					<input type="text" name="editPhone" id="editPhone" value="${editRecord.phone}" placeholder="수정할 번호를 입력하세요.">
+					<input type="text" name="editPhone" id="editPhone" value="0${editRecord.phone}" placeholder="수정할 번호를 입력하세요.">
 					<div id="editAuthBtn">인증하기</div>
 					<p class="title2 addrTitle">주소 변경</p>
 					<!-- <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="addrBtn"><br/> -->
 					<div onclick="sample4_execDaumPostcode()" class="addrBtn">우편번호 찾기</div><br/>
 					<input type="text" id="sample4_postcode" placeholder="우편번호" class="addr1" value="${editRecord.zip_code}">
-					<input type="text" id="sample4_roadAddress" placeholder="도로명주소" class="addr2" value="${road}">
-				<!-- 	<input type="text" id="sample4_jibunAddress" placeholder="지번주소" class="addr3"> -->
+					<input type="text" name="road" id="sample4_roadAddress" placeholder="도로명주소" class="addr2" value="${road}">
+				    <input type="text" name="jibun" id="sample4_jibunAddress" placeholder="지번주소" class="addr3" value="${jibun}">
 					<span id="guide" style="color:#999;display:none" class="addr4"></span>
-					<input type="text" id="sample4_detailAddress" placeholder="상세주소" class="addr5" value="${detail}">
+					<input type="text" name="detail" id="sample4_detailAddress" placeholder="상세주소" class="addr5" value="${detail}">
 					<p class="title1">마케팅 정보 설정</p>
 					<div class="marketingDiv">
 						<input type="checkbox" name="setMarketing_Email" id="setMarketingEmail">이메일
@@ -83,15 +83,24 @@
 	<script>
 		$(function() {
 
-			$('#submitATag').click(function() {
+			$('#editSubmitBtn').click(function() {
 				var flag = confirm('이대로 수정하시겠습니까?');
+				
+				if(flag) {
+					$('.editForm').submit();
+				}
 			});
 
+			
+			
+			
+			
+			
 			if (this.prop('id') == 'phone3') {
 				return;
 			}
 
-			$('.pho').keyup(function() {
+			$('.phone').keyup(function() {
 				var limit = $(this).prop('maxlength');
 				if (this.value.length > limit) {
 					$(this).next.focus();

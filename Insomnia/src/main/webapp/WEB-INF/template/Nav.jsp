@@ -293,7 +293,7 @@ $(function(){
 		              <li><a class="" href="<c:url value='/logout.ins'/>"><img src="<c:url value='/img/exit.png'/>"/><span>로그아웃</span></a></li>
 		            </ul> --%>
 		            <a id="logout" href="<c:url value='/logout.ins'/>">로그아웃</a>
-		            <a href="<c:url value='band/bandInfo.ins'/>">밴드관리</a>
+		            <a href="<c:url value='/band/bandInfo.ins'/>">밴드관리</a>
             
           		</div> <!-- afterLogin div 끝 -->
 						

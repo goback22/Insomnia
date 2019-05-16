@@ -242,6 +242,21 @@ public class SGHController {
 		return "my/MemberEdit2.tiles";
 	}
 	
+	@RequestMapping("/menu/mypage/editProcess.ins")
+	public String editProcess(@RequestParam Map map, Map dismap, HttpSession session, Model model) throws Exception {
+		
+		dismap.put("id", session.getAttribute("id"));
+		dismap.put("password", map.get("password"));
+		dismap.put("email", map.get("email"));
+		dismap.put("phone", map.get("phone"));
+		
+		String address = map.get("road").toString() + "^" + map.get("jibun") + "^" + map.get("detail");
+		System.out.println("포스트는 안 되지만 여기는 들어오는지?");
+		dismap.put("shipping_address", address);
+		
+		return "forward:/home.ins";
+	}
+	
 	
 	//소셜 로그인
 	@RequestMapping("/login/social.ins")
@@ -584,6 +599,8 @@ public class SGHController {
 		if(map.get("q") != null) {
 			//model.addAttribute("givenEmail", map.get("foundId"));
 			model.addAttribute("fromEmailLink", "fromEmailLink"); 
+			model.addAttribute("thisEmail", map.get("emailt"));
+			
 		}
 		
 		
@@ -611,7 +628,7 @@ public class SGHController {
 		
 	}////아이디 이메일로 전송시키는 기능 추가해야.
 	
-	////비밀번호 찾기 결과 화면  /////////////////////////이거 뭐하는 컨트롤러?
+	////비밀번호 찾기 결과 화면  /////////////////////////이거 뭐하는 컨트롤러?////////////////////////////////////////////
 	@ResponseBody
 	@RequestMapping("/find/findPwdAjax.ins")
 	public String findPwdAjax(@RequestParam Map map, HttpSession session) throws Exception {
@@ -756,7 +773,7 @@ public class SGHController {
 					"							<tbody>\r\n" + 
 					"								<tr>\r\n" + 
 					"									<td style=\"\" width=\"61\"><img\r\n" + 
-					"										src=\"ㅇㄹㅇㄹㅇ이미지링크 aws 서버에서 갖고오기ㄹㅇㄹㅇㄹㅇㄹ\"\r\n" + 
+					"										src=\"<c:url value='/img/logo.png'/>\"\r\n" + 
 					"										alt=\"Insomnia\" width=\"61\"></td>\r\n" + 
 					"									<td style=\"padding-left: 5px\"><img\r\n" + 
 					"										src=\"http://static.naver.com/common/ems/nid_dm/nid_201412.gif\"\r\n" + 
@@ -893,11 +910,11 @@ public class SGHController {
 					"									<td\r\n" + 
 					"										style=\"height: 34px; font-size: 14px; color: #696969; font-family: '나눔고딕', NanumGothic, '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">\r\n" + 
 					"										<a\r\n" + 
-					"										href=\"http://localhost:8080/insomnia/find/findId.ins?q=link\"\r\n" + 
+					"										href=\"http://localhost:8080/insomnia/find/findId.ins?q=link&emailt=" + email +"\"\r\n" + 
 					"										style=\"display: inline-block; padding: 10px 10px 10px; margin-top: 10px; background-color: #08a600; color: #fff; text-align: center; text-decoration: none;\"\r\n" + 
 					"										target=\"_blank\" rel=\"noreferrer noopener\">비밀번호 설정</a> <a\r\n" + 
-					"										href=\"https://localhost:8080/insomnia/관리자문의 컨트롤러  ㅇㄹㅇㄹ\"\r\n" + 
-					"										style=\"display: inline-block; padding: 10px 60px 10px; margin-top: 10px; background-color: #8e8e8e; color: #fff; text-align: center; text-decoration: none;\"\r\n" + 
+					"										href=\"https://localhost:8080/insomnia/home.ins\"\r\n" + 
+					"										style=\"display: inline-block; padding: 10px 10px 10px; margin-top: 10px; background-color: #8e8e8e; color: #fff; text-align: center; text-decoration: none;\"\r\n" + 
 					"										target=\"_blank\" rel=\"noreferrer noopener\">관리자 문의</a>\r\n" + 
 					"									</td>\r\n" + 
 					"								</tr>\r\n" + 
@@ -961,12 +978,20 @@ public class SGHController {
 	
 	/////비밀번호 새로 설정하는 링크 
 	@RequestMapping("/find/newPassword.ins")
-	public String insertNewPassword(@RequestParam Map map, Model model) throws Exception {
+	public String insertNewPassword(@RequestParam Map map, HttpSession session, Map dismap, Model model) throws Exception {
 		
 		
-		//memberService.changePassword();
+		dismap.put("thisEmail", map.get("thisEmail"));
+		System.out.println("비밀번호 새로 설정시 이메일은? " + map.get("thisEmail"));
+		dismap.put("password", map.get("insertPass").toString());
 		
-		return "home.tiles";
+		MemberDTO record = memberService.getIdByEmail(dismap);
+		dismap.put("id", record.getId());
+		
+		System.out.println("그래서 아이디는? " + record.getId());
+		memberService.changePassword(dismap);
+		
+		return "forward:/home.ins";
 	}
 	
 	

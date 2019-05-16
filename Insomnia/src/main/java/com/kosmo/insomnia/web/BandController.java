@@ -35,6 +35,7 @@ import com.kosmo.insomnia.service.BandMemberDTO;
 import com.kosmo.insomnia.service.BandMusicDTO;
 import com.kosmo.insomnia.service.BandSubmitDTO;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
+import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.service.SeqDTO;
 import com.kosmo.insomnia.serviceimpl.BandServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
@@ -249,8 +250,19 @@ public class BandController {
 		    String message = "";
 		    
 		    dismap.put("id", session.getAttribute("id"));
-		    message += memberService.selectOne(dismap).getName() + "님의 펀딩이 신청되었습니다. 신청 내용이 아래와 동일한지 확인해주세요.";
+		    message += memberService.selectOne(dismap).getName() + "님의 펀딩이 신청되었습니다. 신청 내용을 확인하시려면 로그인하세요.<br/>";
+		    System.out.println("b_banner_description : " + b_banner_description);
 		    message += b_banner_description;
+		    
+		    /////bigPicture 추가//////
+		    
+		    
+		    String bigImage = "http://post.phinf.naver.net/20160613_176/14657821247321kqwl_PNG/IK7bqEX6LasCZ5dlxT9DZgILJI10.jpg";
+		    String bigTitle = "큰 이미지 타이틀";
+		    String bigSubtitle = "큰 이미지 서브타이틀";
+		    
+		    
+		    ////bigPicture 추가///////
 		    
 		    int successTokens=0;
 		    try {
@@ -305,13 +317,23 @@ public class BandController {
 		        e.printStackTrace();
 		    }
 		    		
-		
 		}
 		
 		
 		//////FCM 끝 : 서기환, 5월 14일//////
 		
+		////슬라이드 메뉴 위한 부분
 		
+		dismap.put("id", session.getAttribute("id"));
+		MemberDTO loginRecord = memberService.selectOne(dismap);
+		
+		if(loginRecord != null) {
+			model.addAttribute("loginRecord", loginRecord);
+			//record.setProfile_img(record.getProfile_img());		
+			//model.addAttribute("record", record);	
+		}	
+		
+		////슬라이드메뉴
 		
 		return "main/bandInfo.tiles";
 	}///geToBandInfoPage
@@ -320,8 +342,22 @@ public class BandController {
 
 	
 	@RequestMapping("/band/createNewBand.ins")
-	public String goToCreateNewBand(HttpSession session) {
+	public String goToCreateNewBand(HttpSession session, Map dismap, Model model) {
 		session.setAttribute("id", session.getAttribute("id"));
+		
+		////슬라이드 메뉴 위한 부분
+		
+			dismap.put("id", session.getAttribute("id"));
+			MemberDTO loginRecord = memberService.selectOne(dismap);
+			
+			if(loginRecord != null) {
+				model.addAttribute("loginRecord", loginRecord);
+				//record.setProfile_img(record.getProfile_img());		
+				//model.addAttribute("record", record);	
+			}	
+			
+			////슬라이드메뉴
+		
 		return "main/createNewBand.tiles";
 	}///goToCreateNewBand
 	
