@@ -389,6 +389,8 @@ body {
 								    photoUrl = bucketUrl + encodeURIComponent(photoKey);
 							    });
 							    
+							    console.log("path : "+photoUrl);
+							    
 							    $('.profile-img2').prop('src', photoUrl); // 이미지 변경
 							    
 							  });

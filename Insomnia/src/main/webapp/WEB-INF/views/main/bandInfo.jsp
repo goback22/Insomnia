@@ -701,7 +701,6 @@ li {
 					                                          <br>
 					                                          <c:if test="${waiting.sw_isAccept == 'T'}" var="isAccept">
 					                                          	<span style="margin-left: 40px">허가된 펀딩</span></span>
-					                                          	
 					                                          </c:if>
 					                                          <c:if test="${!isAccept }">
 					                                          	<span style="margin-left: 70px">신 청 중</span></span>
