@@ -90,6 +90,11 @@
 		color: red;
 		display: none;
 	}
+		#loginError {
+		font-size:14px;
+		text-align:center;
+		
+	}
 	
 	/* .emailError {
 		color: #f25555;

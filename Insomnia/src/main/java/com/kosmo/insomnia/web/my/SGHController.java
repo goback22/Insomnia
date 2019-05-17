@@ -230,12 +230,24 @@ public class SGHController {
 			model.addAttribute("road", addArr[1]);
 			model.addAttribute("road", addArr[2]);*/
 			
-			model.addAttribute("road", tkz.nextToken());
-			model.addAttribute("jibun", tkz.nextToken());
-			model.addAttribute("detail", tkz.nextToken());
+			  model.addAttribute("road", tkz.hasMoreTokens() ? tkz.nextToken() : null);
+		      model.addAttribute("jibun", tkz.hasMoreTokens() ? tkz.nextToken() : null);
+		      model.addAttribute("detail", tkz.hasMoreTokens() ? tkz.nextToken() : null);
 			
 		}
+		if(session.getAttribute("id") != null) {
+			
+			map.put("id", session.getAttribute("id"));
+			MemberDTO record = memberService.selectOne(map);
+			
+			if(record != null) {
+				model.addAttribute("loginRecord", record);
+				//record.setProfile_img(record.getProfile_img());		
+				//model.addAttribute("record", record);	
+		}	
 		
+	}/////if문
+	
 		model.addAttribute("editRecord", editRecord);
 		
 		
@@ -548,10 +560,17 @@ public class SGHController {
 				
 		} else /*(requestStr.equals("좋아한"))*/ {
 			
+			///일단, 밴드가 뮤직을 등록을 해 놨는지
+			
+			int doesBandRegisterMusic =  bandService.doesBandRegisterMusic(dismap);
+			List<BandDTO> records;
 				///좋아한 리워드 목록 가져오기
-				
-				List<BandDTO> records = bandService.getLikeBand(dismap);
-				
+			if(doesBandRegisterMusic == 0) {
+				records = bandService.getLikeBand(dismap);
+			} else {
+				records = bandService.getLikeBand2(dismap);
+			}
+			
 				if(records.size() == 0) {
 					blankMap.put("noData", "noData");
 					blankMap.put("which", "좋아한");
@@ -569,7 +588,10 @@ public class SGHController {
 					tempMap.put("b_description", record.getB_description());
 					tempMap.put("b_album_cover", record.getB_album_cover());
 					tempMap.put("bm_name", record.getBm_name());
-					
+
+					if(record.getBm_name() == null) {
+						tempMap.put("bm_name", "리워드 준비중");
+					}
 					System.out.println("이게 왜 널이냐? " + record.getB_no());
 					dismap.put("b_no", record.getB_no());
 					int likeCount = bandService.getBandLikeNFollow(dismap);
@@ -714,13 +736,22 @@ public class SGHController {
 		
 		
 		recordMap.put("zip_code", map.get("zip_code").toString());
-		recordMap.put("address",
+		/*recordMap.put("address",
 				"R:" + map.get("roadAddress") == null ? ""
 						: map.get("roadAddress").toString() + " J:" + map.get("jibunAddress") == null ? ""
 								: map.get("jibunAddress").toString() + " D:" + map.get("detailAddress") == null ? ""
 										: map.get("detailAddress").toString());
-		recordMap.put("phone", "010" + map.get("phone1").toString() + map.get("phone2").toString());
+		recordMap.put("phone", "010" + map.get("phone1").toString() + map.get("phone2").toString());*/
 		//recordMap.put("sms_recieve", map.get("advertise") == null ? "F" : "T");
+		
+		String road = map.get("roadAddress").toString();
+		String jibun = map.get("jibunAddress").toString();
+		String detail = map.get("detailAddress").toString();
+		
+		recordMap.put("address", road + "^" + jibun + "^" + detail);
+		
+		
+		recordMap.put("phone", "010" + map.get("phone1").toString() + map.get("phone2").toString());
 		System.out.println("연결된 주소값은? " + recordMap.get("address"));
 		System.out.println("컨트롤러 생일 : " + map.get("birth_year") + " " + map.get("birth_month") + " " + map.get("birth_flag"));
 		recordMap.put("birthday", map.get("birth_year").toString() + "/" + map.get("birth_month").toString() + "/"
@@ -728,10 +759,10 @@ public class SGHController {
 		recordMap.put("birth_flag", map.get("birth_flag"));
 		
 		recordMap.put("email", map.get("email")+"@"+map.get("portal").toString());
-		
+		recordMap.put("id", session.getAttribute("id"));
 		int flag = memberService.socialUpdate(recordMap);
 		
-		recordMap.put("id", session.getAttribute("id"));
+		
 		
 		MemberDTO loginRecord = memberService.selectOne(recordMap);
 		

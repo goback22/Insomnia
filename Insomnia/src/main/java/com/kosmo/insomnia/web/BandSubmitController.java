@@ -231,7 +231,12 @@ public class BandSubmitController {
 			return "FAIL"; 
 	}//addRewardWaiting
 	
-	
+	//메인 추가 개인정보 등록 폼으로 이동
+			@RequestMapping("/main/writeAdditional.ins")
+			public String bandSubmit() throws Exception{
+				return "/main/writeAdditional.tiles";
+			}///bandSubmit
+		
 	@ResponseBody
 	@RequestMapping(value="/bandsubmit/writeAdditionalComplete.ins", produces="text/html; charset=UTF-8")
 	public String writeAdditionalComplete(BandSubmitDTO dto, HttpSession session, Model model) throws Exception{
@@ -253,7 +258,6 @@ public class BandSubmitController {
 		for(RewardWaitingDTO rwDto : listRewardWaiting) { 
 			rwDto.setS_no(s_no);
 			bandService.addReward(rwDto);}
-		
 		
 		if(affected == 1)
 			return "T";

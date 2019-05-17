@@ -206,7 +206,7 @@ public class BandDAO implements BandService {
 	}//getPayDTO
 	
 	@Override
-	public List getMembersInBand(String b_name) {
+	public List<Map> getMembersInBand(String b_name) {
 		return template.selectList("getMembersInBand", b_name);
 	}//getMembersInBand
 	
@@ -250,6 +250,17 @@ public class BandDAO implements BandService {
 	public int distinguishLike(Map map) {
 		return template.selectOne("distinguishLike", map);
 	}
+	
+	@Override
+	public int doesBandRegisterMusic(Map map) {
+		return template.selectOne("doesBandRegisterMusic", map);
+	}
+
+	@Override
+	public List<BandDTO> getLikeBand2(Map map) {
+		return template.selectList("getLikeBand2", map);
+	}
+
 
 	
 }// class BandDAO

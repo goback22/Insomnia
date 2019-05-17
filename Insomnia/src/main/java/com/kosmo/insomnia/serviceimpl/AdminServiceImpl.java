@@ -234,8 +234,8 @@ public class AdminServiceImpl implements AdminService{
 	}//updateVisitor
 	
 	@Override
-	public AdminDTO getPayDTO(String s_no) {
-		return dao.getPayDTO(s_no);
+	public AdminDTO getAdminPayDTO(String s_no) {
+		return dao.getAdminPayDTO(s_no);
 	}//getPayDTO
 	
 }//class

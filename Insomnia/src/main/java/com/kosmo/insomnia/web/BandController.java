@@ -37,6 +37,7 @@ import com.kosmo.insomnia.service.BandMemberDTO;
 import com.kosmo.insomnia.service.BandMusicDTO;
 import com.kosmo.insomnia.service.BandSubmitDTO;
 import com.kosmo.insomnia.service.BandSubmitWaitingDTO;
+import com.kosmo.insomnia.service.MemberDTO;
 import com.kosmo.insomnia.service.SeqDTO;
 import com.kosmo.insomnia.serviceimpl.BandServiceImpl;
 import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
@@ -164,6 +165,8 @@ public class BandController {
 		session.setAttribute("b_no", record.getB_no());
 		session.setAttribute("b_name", b_name);
 		
+		dismap.put("b_no", record.getB_no());
+		
 		//PlayList 목록 Map에 넣어 반환
 		//PlayList 얻어오기
 		List<BandMusicDTO> playList = bandService.getPlayList(record.getB_no());
@@ -202,6 +205,14 @@ public class BandController {
 			}///if
 		}//for
 		
+		dismap.put("choice", "like");
+		int like = bandService.getBandLikeNFollow(dismap);
+		dismap.put("choice", "follow");
+		int follow = bandService.getBandLikeNFollow(dismap);
+		
+		model.addAttribute("like", like);
+		model.addAttribute("follow", follow);
+		
 		model.addAttribute("waiting", waiting);
 		
 		/////////////////////////////서기환 추가  5월 14일
@@ -230,8 +241,19 @@ public class BandController {
 		    String message = "";
 		    
 		    dismap.put("id", session.getAttribute("id"));
-		    message += memberService.selectOne(dismap).getName() + "님의 펀딩이 신청되었습니다. 신청 내용이 아래와 동일한지 확인해주세요.";
+		    message += memberService.selectOne(dismap).getName() + "님의 펀딩이 신청되었습니다. 신청 내용을 확인하시려면 로그인하세요.<br/>";
+		    System.out.println("b_banner_description : " + b_banner_description);
 		    message += b_banner_description;
+		    
+		    /////bigPicture 추가//////
+		    
+		    
+		    String bigImage = "http://post.phinf.naver.net/20160613_176/14657821247321kqwl_PNG/IK7bqEX6LasCZ5dlxT9DZgILJI10.jpg";
+		    String bigTitle = "큰 이미지 타이틀";
+		    String bigSubtitle = "큰 이미지 서브타이틀";
+		    
+		    
+		    ////bigPicture 추가///////
 		    
 		    int successTokens=0;
 		    try {
@@ -285,10 +307,22 @@ public class BandController {
 		    }catch (Exception e) {
 		        e.printStackTrace();
 		    }
+
 		}
 		//////FCM 끝 : 서기환, 5월 14일//////
 		
+		////슬라이드 메뉴 위한 부분
 		
+		dismap.put("id", session.getAttribute("id"));
+		MemberDTO loginRecord = memberService.selectOne(dismap);
+		
+		if(loginRecord != null) {
+			model.addAttribute("loginRecord", loginRecord);
+			//record.setProfile_img(record.getProfile_img());		
+			//model.addAttribute("record", record);	
+		}	
+		
+		////슬라이드메뉴
 		
 		
 		
@@ -299,8 +333,38 @@ public class BandController {
 
 	
 	@RequestMapping("/band/createNewBand.ins")
-	public String goToCreateNewBand(HttpSession session) {
+	public String goToCreateNewBand(HttpSession session, Map dismap, Model model) {
 		session.setAttribute("id", session.getAttribute("id"));
+		
+		////슬라이드 메뉴 위한 부분
+		
+			dismap.put("id", session.getAttribute("id"));
+			MemberDTO loginRecord = memberService.selectOne(dismap);
+			
+			if(loginRecord != null) {
+				model.addAttribute("loginRecord", loginRecord);
+				//record.setProfile_img(record.getProfile_img());		
+				//model.addAttribute("record", record);	
+			}	
+			
+			////슬라이드메뉴
+
+			////2019 05 17 임한결 추가 프로필 이미지 받아와서 넘기기
+			String id = session.getAttribute("id").toString();
+			String profile = bandService.getMemberProfile(id);
+			
+			//case 1 : s3에 등록된 기본 이미지일 경우
+			if(profile.equals("default_cover_img.jpg")) {
+				profile="https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/default_cover_img.jpg";}
+			//case 2 : 소셜로그인으로 가져온 프로필 이미지일 겨웅
+			else if(profile.startsWith("http")) {}///
+			//case 3 : s3에 개인이 등록된 이미지일 경우
+			else {
+				profile = "https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/"+profile;}
+			//모델에 값 넣고 리턴하기
+			model.addAttribute("profile", profile);
+			////2019 05 17 임한결 추가 프로필 이미지 받아와서 넘기기 끝
+	
 		return "main/createNewBand.tiles";
 	}///goToCreateNewBand
 	
@@ -335,7 +399,20 @@ public class BandController {
 	@RequestMapping(value="/band/searchMember.ins", produces="text/html; charset=UTF-8")
 	public String searchMember(@RequestParam Map map, HttpSession session) throws Exception{
 		//아이디 받아오기 - 아이디가 있으면 프로필 사진 이름 반환
+		//case1 : s3서버에 등록된 프로필 사진일 경우
+				//https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/default_cover_img.jpg
 		String oneMemberProfileName = bandService.getMemberProfile(map.get("searchId").toString());
+		if(oneMemberProfileName.equals("default_cover_img.jpg")) {
+			oneMemberProfileName = "https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/default_cover_img.jpg";
+		}//default_cover_img;
+		else if(oneMemberProfileName.startsWith("http")) {
+		}///소셜 로그인으로 프로필 이미지를 가져올 경우
+		else {
+			oneMemberProfileName = "https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/"+oneMemberProfileName;
+			System.out.println("onMemberProfileName result : " + oneMemberProfileName);
+		}/// s3에 기본프로필 사진이 아닌 개인이 등록한 사진일 경우
+		
+		
 		//담는 그릇 생성
 		List<Map<String, String>> record = new Vector<Map<String, String>>();
 		Map<String, String> oneMap = new HashMap<String, String>();
@@ -345,9 +422,9 @@ public class BandController {
 			return "occur 500error";
 		}//if
 		
-		//아이디, 프로필 사진 이름 넣고 리턴 //프로필 없으면 profile_none.jpg
-		oneMap.put("id", map.get("searchId").toString());
-		oneMap.put("profile", oneMemberProfileName == null ? "profile_none.jpg" : oneMemberProfileName);
+		//아이디, 프로필 사진 이름 넣고 리턴 
+		oneMap.put("id", map.get("searchId").toString());//Map에 담고 리턴
+		oneMap.put("profile", oneMemberProfileName);
 		record.add(oneMap);
 		return JSONArray.toJSONString(record); 
 	}///search Member

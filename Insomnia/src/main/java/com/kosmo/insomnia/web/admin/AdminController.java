@@ -97,7 +97,7 @@ public class AdminController {
 		for(AdminDTO dto : mainFundingList) {
 			dto.setName(adminService.getNameById(dto.getId()));
 			//가격 총합 구해서 넣기
-			dto.setSumPrice(String.format("%,d", Integer.parseInt(dto.getSp_reward_qty()) * Integer.parseInt(dto.getR_price())));
+			dto.setSumPrice(String.format("%,d", Integer.parseInt(dto.getSp_reward_qty()==null ? "1": dto.getSp_reward_qty()) * Integer.parseInt(dto.getR_price())));
 			//구매일자 잘라넣기
 			dto.setSp_date(dto.getSp_date().substring(0, 10));
 		}///for
@@ -462,7 +462,7 @@ public class AdminController {
 			}catch(Exception e) {}
 			
 			//2019 05 15 임한결 추가  
-			AdminDTO payDto = adminService.getPayDTO(map.get("S_NO").toString());
+			AdminDTO payDto = adminService.getAdminPayDTO(map.get("S_NO").toString());
 			if(payDto == null) {
 				map.put("isPaying", "F");
 			}////pay내역이 존재하지 않는다면

@@ -207,7 +207,7 @@ public class BandServiceImpl implements BandService{
 	}///getPayDTO
 	
 	@Override
-	public List getMembersInBand(String b_name) {
+	public List<Map> getMembersInBand(String b_name) {
 		return dao.getMembersInBand(b_name);
 	}//getMembersInBand
 	
@@ -250,6 +250,16 @@ public class BandServiceImpl implements BandService{
 	@Override
 	public int distinguishLike(Map map) {
 		return dao.distinguishLike(map);
+	}
+
+	@Override
+	public int doesBandRegisterMusic(Map map) {
+		return dao.doesBandRegisterMusic(map);
+	}
+
+	@Override
+	public List<BandDTO> getLikeBand2(Map map) {
+		return dao.getLikeBand2(map);
 	}
 
 	

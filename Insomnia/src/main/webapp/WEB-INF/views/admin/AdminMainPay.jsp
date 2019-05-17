@@ -16,6 +16,9 @@
 <link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendor/css/admin_jqbar.css'/>" rel="stylesheet">
 
+<!-- 아임포트 -->
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 </head>
 <body>
@@ -65,7 +68,7 @@
 											<td class="text-center viewDetail">${map["S_GOAL_PRICE"] }원</td>
 											<td class="text-center viewDetail">${map["S_GOAL_DEADLINE"] }</td>
 											<c:if test="${map['isPaying'] == 'F' }">
-												<td class="text-center viewDetail"><button class="btn btn-default" id="s_no" onclick="javascript:complete(this)">펀딩 완료!</button></td>
+												<td class="text-center viewDetail"><button class="btn btn-default" id="${map['S_NO'] }" onclick="javascript:complete(this)">펀딩 완료!</button></td>
 											</c:if>
 											<c:if test="${map['isPaying'] == 'T' }">
 												<td class="text-center viewDetail">완료된 펀딩</td>
@@ -313,7 +316,7 @@
 		            type:'post',
 		            success:function(data){
 		               alert('pay테이블 입력 성공');
-		               loaction.reload();
+		               location.reload();
 		            },
 		            error:function(error, request){
 		               alert('pay테이블 입력 실패');

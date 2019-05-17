@@ -1155,7 +1155,6 @@ public class PayCompleteController {
 		safePayList.add(spDto);
 		
 		//db에 데이터 입력
-		/*
 		for(SafePayDTO dto : safePayList) {
 			try {
 				bandService.addSafePay(dto);
@@ -1164,7 +1163,7 @@ public class PayCompleteController {
 				bandService.addSafePaySupport(dto);
 			}//trychatch
 		}//for
-		*/
+		
 		
 		
 		
@@ -1174,10 +1173,12 @@ public class PayCompleteController {
 		BandSubmitDTO bandSubmitDto = bandService.getBandSubmitDTOByS_no(userInfoMap.get("s_no"));
 		if(Integer.parseInt(bandSubmitDto.getS_goal_accumulation()) >= Integer.parseInt(bandSubmitDto.getS_goal_price())) {
 			//펀딩 총액이 목표금액보다 높아지면
+			/*
 			if(bandService.getPayDTO(userInfoMap.get("s_no")) == null) {
 				//pay테이블에 펀딩성공한 내역이 없으면
 				//선 무통장입금 결제를 진행한다.
 			}//if
+			*/
 		};///if
 		
 		
@@ -1281,8 +1282,8 @@ public class PayCompleteController {
 		BandDTO bandDto = bandService.getBandDTOByB_no(bandSubmitDto.getB_no());
 		String b_name = bandDto.getB_name();
 		String s_goal_accumulation = bandSubmitDto.getS_goal_accumulation();
-		List memberList = bandService.getMembersInBand(bandDto.getB_name());
-		String id = (String)memberList.get(0);
+		List<Map> memberList = bandService.getMembersInBand(bandDto.getB_name());
+		String id = (String)memberList.get(0).get("ID");
 		MemberDTO memberDto = bandService.getMemberDTO(id);
 		String tel = memberDto.getPhone();
 		tel ="0"+tel.substring(0, 2)+"-"+tel.substring(2,6)+"-"+tel.substring(6,10);
@@ -1302,12 +1303,12 @@ public class PayCompleteController {
 	@ResponseBody
 	@RequestMapping(value="/Pay/sendEmailComplete.ins", produces="text/html; charset=UTF-8")
 	public String payComplete(@RequestParam Map params, Model model, ServletRequest request) {
-		System.out.println("맵에 뭐가 찍혀 나오나~" + params.toString());
 		String s_no = params.get("s_no").toString();
 		BandSubmitDTO bandSubmitDto = bandService.getBandSubmitDTOByS_no(s_no);
-		List memberList = bandService.getMembersInBand(bandService.getBandDTOByB_no(bandSubmitDto.getB_no()).getB_name());
-		for(Object id : memberList) {
-			sendCompleteMission((String)id);
+		List<Map> memberList = bandService.getMembersInBand(bandService.getBandDTOByB_no(bandSubmitDto.getB_no()).getB_name());
+		for(Map resultMap : memberList) {
+			System.out.println("email 보내는 아이디 : " + resultMap.get("ID").toString());
+			sendCompleteMission((String)resultMap.get("ID").toString());
 		}///for
 		return "";
 	}///payComplete
@@ -1317,7 +1318,7 @@ public class PayCompleteController {
 	@RequestMapping(value="/Pay/InsertPayComplete.ins", produces="text/html; charset=UTF-8")
 	public String insertPayComplete(@RequestParam Map params, Model model, ServletRequest request) {
 		String s_no = params.get("s_no").toString();
-		String p_uid_no = params.get("p_uid_no").toString();
+		String p_uid_no = params.get("p_uid_no").toString().replaceAll(",", "");
 		/*
 		 * p_total_people, p_total_accumulation, p_uid_no, s_no
 		 */
@@ -1343,7 +1344,7 @@ public class PayCompleteController {
 		String message = "<div class='content'>\r\n" + 
 				"    <div class='content-warp' style='border:1px solid gainsboro;margin:50px 20% 0 20%;'>\r\n" + 
 				"        <div class='head' style='border-bottom:1px solid gainsboro; text-align:center;'>\r\n" + 
-				"            <img src='/insomnia/resource/img/insomnia_funding.jpg'>\r\n" + 
+				"            <a href=\"https://imgur.com/QG2mEIP\"><img src=\"https://i.imgur.com/QG2mEIP.jpg\" title=\"source: imgur.com\" /></a>\r\n" +  
 				"        </div>\r\n" + 
 				"        <div class='body'>\r\n" + 
 				"            <div style='text-align: center;'>\r\n" + 
@@ -1354,7 +1355,7 @@ public class PayCompleteController {
 				"                <p>모여진 펀딩 금액은 회원님이 등록하신 계좌로 발송되었습니다.</p>\r\n" + 
 				"                <p>꿈을 향해 한 발자국 나가는 당신을 응원합니다.</p>\r\n" + 
 				"                <p style='margin-bottom:30px;'>언제나 좋은 음악 들려주셔서 감사합니다.</p>\r\n" + 
-				"                <iframe style='margin-bottom:30px;' width='560' height='315' src='https://www.youtube.com/embed/vsl3gBVO2k4' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>\r\n" + 
+				"                <a href=\"https://imgur.com/fzmyf31\"><img src=\"https://i.imgur.com/fzmyf31.jpg\" title=\"source: imgur.com\" /></a>\r\n" +
 				"            </div>\r\n" + 
 				"        </div>\r\n" + 
 				"    </div>\r\n" + 
