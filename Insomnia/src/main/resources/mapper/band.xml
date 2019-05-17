@@ -96,11 +96,7 @@
 	</select>
 	
 	<select id="allBand" resultType="com.kosmo.insomnia.service.BandDTO">
-<<<<<<< HEAD
 		SELECT b_no, b_name, b_description, b_album_cover, b_liked, ct_no FROM Band
-=======
-			SELECT b_no, b_name, b_description, b_album_cover, b_liked, ct_no FROM Band
->>>>>>> branch 'master' of https://github.com/goback22/Insomnia.git
 	</select>
 	
 	<update id="acceptBandSubmitWaiting" parameterType="java.lang.String">
