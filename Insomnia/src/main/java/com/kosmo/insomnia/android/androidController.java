@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kosmo.insomnia.serviceimpl.BGSConcertServiceImpl;
 import com.kosmo.insomnia.serviceimpl.ListServiceImpl;
 
 @Controller
@@ -22,6 +23,8 @@ public class androidController {
 	
 	@Resource(name="insService")
 	private ListServiceImpl listservice;
+	@Resource(name="bGSConcertService")
+	private BGSConcertServiceImpl bgsconcertservice;
 	
 	//안드로이드 통신관련
 	@RequestMapping(value="/AjaxJson.ins",produces="text/html; charset=UTF-8")
@@ -36,6 +39,7 @@ public class androidController {
 		//JSON데이타 타입으로 반환하기위해 JSONObject객체 생성
 
 		JSONObject json=new JSONObject();
+		json.put("bgslist", bgsconcertservice.selectList());
 
 		//JSON객체의 put("키값","값")메소드로 저장하면
 

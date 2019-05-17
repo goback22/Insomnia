@@ -96,8 +96,7 @@
 	</select>
 	
 	<select id="allBand" resultType="com.kosmo.insomnia.service.BandDTO">
-		SELECT b.b_no, b_name, b_description, b_album_cover, bm_name, b_liked, b.ct_no FROM Band b join bandmusic bm on
-		b.b_no = bm.b_no
+		SELECT b_no, b_name, b_description, b_album_cover, b_liked, ct_no FROM Band
 	</select>
 	
 	<update id="acceptBandSubmitWaiting" parameterType="java.lang.String">

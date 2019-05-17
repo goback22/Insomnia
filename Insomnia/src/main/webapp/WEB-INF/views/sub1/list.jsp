@@ -306,8 +306,8 @@ th:after {
 							<c:if test="${not isEmpty }">
 								<c:forEach var="item" items="${list}" varStatus="loop">
 									<tr class="originally" >
-<%-- 									<td style="text-align: center; padding-top: 10px;">${totalRecordCount - (((nowPage - 1) * pageSize) + loop.index)}</td> --%>
-										<td style="text-align: center; padding-top: 10px;">${item.ap_no}</td>
+ 									<td style="text-align: center; padding-top: 10px;">${totalRecordCount - (((nowPage - 1) * pageSize) + loop.index)}</td> 
+<%-- 										<td style="text-align: center; padding-top: 10px;">${item.ap_no}</td> --%>
 										<td style="text-align: center; padding-top: 10px;">${item.ap_genre}</td>
 										<td
 											style="text-align: left; padding-left: 10px; padding-top: 10px;"><a
