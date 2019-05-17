@@ -393,6 +393,7 @@ body {
 							    console.log("path : "+photoUrl);
 							    
 							    $('.profile-img2').prop('src', photoUrl); // 이미지 변경
+							    $('.user_picture').prop('src', photoUrl);
 							    
 							  });
 						}
