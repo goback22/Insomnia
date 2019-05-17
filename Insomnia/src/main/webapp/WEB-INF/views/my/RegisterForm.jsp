@@ -67,7 +67,7 @@
 	};
 	var onloadCallback = function() {
 		grecaptcha.render('html_element', {
-			'sitekey' : '6Lc5UaAUAAAAABPecBqTzb2Dr0jSIqLwIixteaDp',
+			'sitekey' : '6Leb1aMUAAAAACrHKDAk0rYpZdnA_i-zk0PYQrJD',
 			'callback' : correctCaptcha
 		});
 	};
@@ -211,7 +211,7 @@
 							<div class="inner-btn-input">
 								<label for="email" class="hid">e-mail</label>
 								<input class="input-email" type="text" name="email" id="email" placeholder="E-mail을 입력하세요." required="required">
-								<select id="portal" name="portal">
+								<select id="portal" name="portal" style="margin-right:38px;">
 									<option value="naver.com">naver.com</option>
 									<option value="daum.com">daum.net</option>
 									<option value="daum.com">hanmail.net</option>
@@ -262,8 +262,8 @@
 							<input type="text" id="user_nm" name="user_nm" value="" required="required">
 							<!-- 성별입력 -->
 							<div class="user_gender">
-								<a class="male">남</a> <a class="female">여</a> <input
-									type="hidden" id="gender" name="gender" value="">
+								<a class="male">남</a> <a class="female">여</a>
+								<input type="hidden" id="gender" name="gender" value="">
 							</div>
 							<p class="limit_txt gender_txt" id="gender_txt">생년월일을 선택해주세요.</p>
 						</div>
@@ -489,27 +489,38 @@
 		$(function() {
 
 			///아이디 중복검사
+			
 			$('#checkbtn').on(
 					'click',
 					function() {
-						$.ajax({
-							type : 'POST',
-							url : '/insomnia/checkSignup.ins',
-							data : {
-								"id" : $('#email').val() + "@"
-										+ $('#portal').val()
-							},
-							success : function(data) {
-								if ($.trim(data) == 0) {
-									$('#checkMsg').html(
-											'<p style="color:blue; margin-top:2px;">이메일이 사용가능합니다.</p>');
-								} else {
-									$('#checkMsg').html(
-											'<p style="color:red; margin-top:2px;">이메일이 중복됩니다. 다른 이메일을 입력하세요.</p>');
-								}
-							}
-						}); //end ajax    
-					}); //end on    
+						
+						if($('#email').val() != '') {
+								$.ajax({
+									type : 'POST',
+									url : '/insomnia/checkSignup.ins',
+									data : {
+										"id" : $('#email').val() + "@"
+												+ $('#portal').val()
+									},
+									success : function(data) {
+										if ($.trim(data) == 0) {
+											$('#email_txt').css('display', 'none');
+											$('#checkMsg').html(
+													'<p style="color:blue; margin-top:2px;">이메일이 사용가능합니다.</p>');
+										} else {
+											$('#email_txt').css('display', 'none');
+											$('#checkMsg').html(
+													'<p style="color:red; margin-top:2px;">이메일이 중복됩니다. 다른 이메일을 입력하세요.</p>');
+										}
+									}
+								}); //end ajax
+						} else {
+							$('#checkMsg').html(
+							'<p style="color:red; margin-top:2px;">이메일은 필수 입력사항입니다.</p>');
+						}
+			}); //end on    
+	
+
 
 			///1] 키 입력시 검증 메서드 호출
 			$('input').bind('keyup', function() {

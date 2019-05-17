@@ -190,7 +190,7 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 							<!-- 성별입력 -->
 							<div class="user_gender">
 								<a class="male">남</a> <a class="female">여</a> 
-								<input type="hidden" id="gender" name="gender" value="M">  <!-- input에 따른 a효과도 -->
+								<input type="hidden" id="gender" name="gender" value="">  <!-- input에 따른 a효과도 -->
 							</div>
 							<p class="limit_txt gender_txt" id="gender_txt">생년월일을 선택해주세요.</p>
 						</div>
@@ -400,24 +400,34 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 		$(function() {
 			
 
+			
 			///아이디 중복검사
 			$('#checkbtn').on('click',function() {
-				$.ajax({
-					type : 'POST',
-					url : '/insomnia/checkSignup.ins',
-					data : {
-						"id" : $('#email').val() + "@" + $('#portal').val()
-					},
-					success : function(data) {
-						if ($.trim(data) == 0) {
-							$('#checkMsg').html(
-									'<p style="color:blue">사용가능</p>');
-						} else {
-							$('#checkMsg').html(
-									'<p style="color:red">사용불가능</p>');
-						}
-					}
-				}); //end ajax    
+				if($('#email').val() != '') {
+						$.ajax({
+							type : 'POST',
+							url : '/insomnia/checkSignup.ins',
+							data : {
+								"id" : $('#email').val() + "@" + $('#portal').val()
+							},
+							success : function(data) {
+								if ($.trim(data) == 0) {
+									$('#email_txt').css('display', 'none');
+									$('#checkMsg').html(
+											'<p style="color:blue">사용가능</p>');
+									
+								} else {
+									$('#email_txt').css('display', 'none');
+									$('#checkMsg').html(
+											'<p style="color:red">사용불가능</p>');
+								}
+							}
+						}); //end ajax    
+				} else {
+					$('#checkMsg').html(
+					'<p style="color:red; margin-top:2px;">이메일은 필수 입력사항입니다.</p>');
+				}	
+						
 			}); //end on    
 
 			

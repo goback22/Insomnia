@@ -115,7 +115,7 @@ public interface BandService {
 	PayDTO getPayDTO(String s_no);
 	
 	//36] b_name으로 밴드 멤버 리스트 얻기
-	List getMembersInBand(String b_name);
+	List<Map> getMembersInBand(String b_name);
 	
 	//37] s_no로 p_total_people 얻기
 	String getTotalPeopleForPay(String s_no);
@@ -134,10 +134,17 @@ public interface BandService {
 	//41]밴드가 얻은 총 좋아요와 팔로우 수 구하기
 	int getBandLikeNFollow(Map map);
 	
-	//42]좋아한 목록의 정보 가져오기
-	List<BandDTO> getLikeBand(Map map);
-	
+	//42]좋아한 목록의 정보 가져오기 - 뮤직 미등록
+			List<BandDTO> getLikeBand(Map map);
+			
 	//43]구별하기
 	int distinguishLike(Map map);
+	
+	//44]밴드가 밴드뮤직을 등록했는지
+		int doesBandRegisterMusic(Map map);
+		
+		//45]좋아한 목록의 정보 가져오기 - 뮤직 미등록
+		List<BandDTO> getLikeBand2(Map map);
+		
 	
 }//interface BadnService

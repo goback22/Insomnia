@@ -73,7 +73,7 @@
 	</select>
 	
 	<insert id="addBandMusic" parameterType="com.kosmo.insomnia.service.BandMusicDTO">
-		INSERT INTO bandMusic(bm_no, b.b_no, bm_name, bm_description, bm_liked, b.ct_no, bm_filename) 
+				INSERT INTO bandMusic(bm_no, b_no, bm_name, bm_description, bm_liked, ct_no, bm_filename)  
 		values(seq_bandMusic.nextval, #{b_no}, #{bm_name},#{bm_description},#{bm_liked},#{ct_no}, #{bm_filename})
 	</insert>
 	
@@ -96,8 +96,7 @@
 	</select>
 	
 	<select id="allBand" resultType="com.kosmo.insomnia.service.BandDTO">
-		SELECT b.b_no, b_name, b_description, b_album_cover, bm_name, b_liked, b.ct_no FROM Band b join bandmusic bm on
-		b.b_no = bm.b_no
+			SELECT b_no, b_name, b_description, b_album_cover, b_liked, ct_no FROM Band
 	</select>
 	
 	<update id="acceptBandSubmitWaiting" parameterType="java.lang.String">
@@ -114,7 +113,7 @@
 	</insert>
 	
 	<select id="getBandSubmitDTO" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandSubmitDTO">
-		SELECT s_no, b_no, p_no, s_account_bank, s_account_serial, s_goal_price, s_goal_deadline, s_goal_accumulation, s_submit_date, s_liked, sw_no FROM bandsubmit
+		SELECT s_no, b_no, s_account_bank, s_account_serial, s_goal_price, s_goal_deadline, s_goal_accumulation, s_submit_date, s_liked, sw_no FROM bandsubmit
 		WHERE sw_no = #{sw_no}
 	</select>
 	
@@ -126,7 +125,7 @@
 	</insert>
 	
 	<select id="getBandSubmitDTOByS_no" parameterType="java.lang.String" resultType="com.kosmo.insomnia.service.BandSubmitDTO">
-		SELECT s_no, b_no, p_no, s_account_bank, s_account_serial, s_goal_price, s_goal_deadline, s_goal_accumulation, s_submit_date, s_liked, sw_no
+		SELECT s_no, b_no, s_account_bank, s_account_serial, s_goal_price, s_goal_deadline, s_goal_accumulation, s_submit_date, s_liked, sw_no
 		FROM bandsubmit WHERE s_no = #{s_no}
 	</select>
 	
@@ -161,8 +160,8 @@
 		SELECT p_no, p_complete_date, p_total_people, p_total_accumulation, p_uid_no, s_no FROM pay WHERE s_no = #{s_no} 
 	</select>
 	
-	<select id="getMembersInBand" parameterType="java.lang.String" resultType="java.util.List">
-		SELECT id bandMember where b_name=#{b_name}
+	<select id="getMembersInBand" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT id FROM bandMember where b_name=#{b_name}
 	</select>
 	
 	<select id="getTotalPeopleForPay" parameterType="java.lang.String" resultType="java.lang.String">

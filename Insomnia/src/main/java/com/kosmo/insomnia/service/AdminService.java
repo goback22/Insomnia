@@ -95,5 +95,5 @@ public interface AdminService {
 	void updateVisitor();
 	
 	//s_no로 AdminDTO얻기
-	AdminDTO getPayDTO(String s_no);
+	AdminDTO getAdminPayDTO(String s_no);
 }//class

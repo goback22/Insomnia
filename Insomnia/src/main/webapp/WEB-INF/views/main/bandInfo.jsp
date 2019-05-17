@@ -590,6 +590,7 @@ li {
 								<div class="myinfo-content">
 									<dl>
 										<dd>
+											<p id="b_no" style="display:none;">${record.b_no}</p>
 											<p class="nickname" style="font-weight: 600">${record.b_name}</p>
 											<p class="accnttype">등록된 밴드</p>
 											<p class="otherinfo"></p>
@@ -613,9 +614,9 @@ li {
 											<c:if test="${thirdLook == 'T'}"> onclick="likeBand();" </c:if>
 										>
 										<!-- 밴드 좋아요 처리 -->
-										<strong class="count">${record.b_liked}</strong><em>좋아요</em></a></li>
+										<strong class="count likeNfollow" id="like">${like}</strong><em>좋아요</em></a></li>
 										<li><a href="javascript:void(0)"><strong
-												class="count">0</strong><em>팔로워</em></a></li>
+												class="count likeNfollow" id="follow">${follow}</strong><em>팔로워</em></a></li>
 									</ul>
 									<p class="introduce"></p>
 									<ul class="interest-list">
@@ -920,7 +921,7 @@ li {
 															<c:if test="${thirdLook != 'T'}">
 																<li id="add-music-li" class="tim-songs-items grid-item" data-toggle="modal" data-target="#modal-upload-music">
 																	<ul class="songs-details">
-																		<li><img style="width:22px;" src="<c:url value='/resource/img/plus-button.png'/>"></li>
+																																				<li style="width:100%;"><img style="width:22px;" src="<c:url value='/resource/img/plus-button.png'/>"></li>
 																	</ul>
 																</li>
 															</c:if>
@@ -1170,9 +1171,14 @@ li {
 				var addDiv = '<div data-toggle="modal" data-target="#modal-upload-img" class="plus-image" style="width:287px; height:287px; text-align:center; padding-top:125px; margin:0 0 20px 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.5); display:inline-block;">';
 				addDiv += '<img style="width:30px; height:30px;" src="/insomnia/resource/img/plus-button.png"/></div>';
 				$.each(data, function(idx, element){
+	
+					
+					//2019 05 17 임한결 수정/// 자신의 밴드일 경우 갤러리 비었다는 메세지를 보여주지 않고 addDiv만 보여주도록 한다.
+					//case 1 /// 자신의 밴드이면서 밴드가 등록한 이미지가 없을떄
+					/*
 					if(element['isExist'] == 'F'){ //갤러리에 등록된 이미지가 없을때
 						var emptyString = '<p id="emptyProjectText" style="display: block">갤러리가 비었습니다.</p>';
-						$("#card-list-gallery").html(emptyString);
+						$("#card-list-gallery").html(emptyString+addDiv);
 						return;
 					}//if
 					else{ //있을 때
@@ -1180,8 +1186,19 @@ li {
 						var afterString = '<div class="lightgallery" id="lightgallery">';
 						afterString += ' <a href="/insomnia/upload/band/img/'+ element['image'] + '">';
 						afterString += '<img class="thumbnail" src="/insomnia/upload/band/img/' + element['image'] + '"/></a></div>';
-						$(".lightgallery-center-div").html(beforeString + afterString);
-					}
+						$(".lightgallery-center-div").html(beforeString + afterString+addDiv);
+					}*/
+					/*
+					var beforeString = $(".lightgallery-center-div").html(); 
+					var afterString = '<div class="lightgallery" id="lightgallery">';
+					afterString += ' <a href="/insomnia/upload/band/img/'+ element['image'] + '">';
+					afterString += '<img class="thumbnail" src="/insomnia/upload/band/img/' + element['image'] + '"/></a></div>';
+					$(".lightgallery-center-div").html(beforeString + afterString+addDiv);
+					*/
+					///2019 05 17 임한결 수정 끝
+					
+					
+					
 				});//$.each
 				//추가버튼 마지막으로 붙임
 				var beforeString = $(".lightgallery-center-div").html();
@@ -1262,5 +1279,32 @@ li {
 			
 		}////밴드 좋아요 처리
 		*/
+		
+	$(function(){
+			
+			var b_no = $('#b_no').html();
+			
+			$('.likeNfollow').click(function(){
+				var choice = $(this).prop('id');
+				var self = $(this);
+				$.ajax({
+					url:"<c:url value='/band/like.ins'/>",
+					type:'post',
+					data:{"b_no":b_no, "choice":choice},
+					dataType:'text',
+					success:function(data){
+						console.log("들어오는지 " + data);
+						self.html(data);
+					},
+					error:function(request, error){
+						console.log('상태코드:',request.status);
+						console.log('서버로부터 받은 HTML데이타 :',request.responseText);
+						console.log('에러:',error);	
+					}
+					
+				});////////$.ajax
+			});/////click
+		})////제이쿼리 진입점
+		
 			
 	</script>

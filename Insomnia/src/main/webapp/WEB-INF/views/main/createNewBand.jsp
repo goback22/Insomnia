@@ -305,7 +305,7 @@ body{
 			<div class="select-member-div">
 				<div class="profile-wrap">
 					<div class="profile-image">
-						<img class="image-member" src="<c:url value='/upload/member/profile/default_profile_img.jpg'/>">
+						<img class="image-member" src="${profile }">
 					</div>
 					<div class="profile-id" id="memberNameSelf">${sessionScope.id}</div>
 				</div>
@@ -546,7 +546,7 @@ body{
 			
 			resultString += '<div id="'+index+'" class="profile-wrap '+index+'"><div class="profile-image">';
 			resultString += '<img class="cancel-member '+index+'" src="/insomnia/resource/img/cancel-gray.png" id="'+index+'" onclick="javascript:deleteMember(this)">';
-			resultString += '<img class="image-member" src="/insomnia/upload/member/profile/'+element['profile']+'">';
+			resultString += '<img class="image-member" src="'+element['profile']+'">';
 			resultString += '</div><div class="profile-id" id="memberName_'+index+'">'+element['id']+'</div></div>';
 			index++;
 

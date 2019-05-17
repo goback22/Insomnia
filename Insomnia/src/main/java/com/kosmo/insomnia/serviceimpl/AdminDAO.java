@@ -218,7 +218,7 @@ public class AdminDAO implements AdminService{
 	}//updateVisitor
 	
 	@Override
-	public AdminDTO getPayDTO(String s_no) {
-		return template.selectOne("getPayDTO", s_no);
+	public AdminDTO getAdminPayDTO(String s_no) {
+		return template.selectOne("getAdminPayDTO", s_no);
 	}//getPayDTO
 }///class
