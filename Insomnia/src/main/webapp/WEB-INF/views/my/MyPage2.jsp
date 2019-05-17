@@ -369,6 +369,7 @@ body {
 								} 
 						  }); 
 						}
+					//서기환의 페이지
 					$.ajax({
 						url: '<c:url value="/edit/profileImgAjax.ins"/>',
 						dataType: 'text',
