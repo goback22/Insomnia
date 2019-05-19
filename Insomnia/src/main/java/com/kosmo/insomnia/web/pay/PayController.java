@@ -52,6 +52,12 @@ public class PayController {
 		return "/Pay/SubPayPage.tiles";
 	}///payPage()
 	
+	//안드로이드 카카오페이
+	@RequestMapping("/kakao/pay.ins")
+	public String kakaopay() throws Exception{
+		return "/Pay/Androidkakao.tiles";
+	}
+	
 	
 	
 	
