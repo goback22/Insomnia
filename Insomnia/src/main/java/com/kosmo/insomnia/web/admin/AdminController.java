@@ -305,9 +305,12 @@ public class AdminController {
 		
 		//band list
 		List<AdminDTO> list = adminService.selectBandList(map);
+		for(int i=0;i<list.size();i++) {
+			System.out.println(list.get(i).getCt_name());
+		}
 		//bandsize
-		//System.out.println(list.size());
-		int totalBands = list.size();
+		int totalBands = adminService.selectBandCount(map);
+//		System.out.println(totalBands);
 		String pagingString=PagingUtil.pagingBootStrapStyle(totalBands, pageSize, blockPage, nowPage, req.getContextPath()+"/admin/maincontentmember.ins?");
 		
 		//bandmusic
@@ -404,40 +407,34 @@ public class AdminController {
 	public String mainContentChart(@RequestParam String s_no,Map map,Model model) throws Exception {
 		System.out.println("input param:"+s_no);
 		List<AdminDTO> bandChartdata = adminService.selectChartData(s_no);
+		System.out.println(bandChartdata.size());
+		System.out.println(bandChartdata.get(0).getR_no());
 		
-	
+		Set<String> set = new HashSet<String>();
+		for(AdminDTO dto : bandChartdata) {
+			set.add(dto.getR_no());
+		}
+		
+		
 		List<Map> bandChartInfo = new Vector<Map>();
-		for(AdminDTO chartInfo : bandChartdata) {
-			Map record = new HashMap();
-			
-			record.put("b_name", chartInfo.getB_name());
-			record.put("r_no", chartInfo.getR_no());
-			record.put("s_no", chartInfo.getS_no());
-			record.put("r_name", chartInfo.getR_name());
-			record.put("sp_reward_qty", chartInfo.getSp_reward_qty());
-			record.put("s_goal_accumulation", chartInfo.getS_goal_accumulation());
-			record.put("s_goal_price", chartInfo.getS_goal_price());
-			record.put("priceOfQty", Integer.parseInt(chartInfo.getSp_reward_qty().toString())*Integer.parseInt(chartInfo.getR_price().toString()));
-			
-//			record.put("r_name", chartInfo.getR_name());
-//			record.put("sum_reward_qty_1", chartInfo.getSum_reward_qty_1()==null?"0":chartInfo.getSum_reward_qty_1());
-//			record.put("sum_reward_qty_2", chartInfo.getSum_reward_qty_2()==null?"0":chartInfo.getSum_reward_qty_2());
-//			record.put("sum_reward_qty_3", chartInfo.getSum_reward_qty_3()==null?"0":chartInfo.getSum_reward_qty_3());
-			
+		Map record = new HashMap();
+		AdminDTO rewardName = new AdminDTO();
+		String rewardQty="";
+		Iterator<String> ite = set.iterator();
+		while(ite.hasNext()) {
+			String a = ite.next();
+			//a로 쿼리 두개 돌리고
+			rewardName = adminService.getRewardName(a);
+			rewardQty = adminService.getRewardQty(a);
+			record.put("b_name", rewardName.getB_name());
+			record.put("r_name", rewardName.getR_name());
+			record.put("qtys", rewardQty);
 			bandChartInfo.add(record);
 		}
 		
 		
 		System.out.println(JSONArray.toJSONString(bandChartInfo));
 
-		
-		
-		
-		
-		//total price
-		
-		//reward
-		
 		return JSONArray.toJSONString(bandChartInfo);
 		//return "";
 	}
@@ -485,6 +482,26 @@ public class AdminController {
 	public String memberView(@RequestParam String id,Map map,Model model) throws Exception{
 		//System.out.println("id넘어가는지 확인 :"+id);
 		AdminDTO memberView = adminService.selectOne(id);
+		
+		String addressArray[];
+		String address="";
+		if(memberView.getShipping_address()!=null) {
+			addressArray = memberView.getShipping_address().replace("^", "!").split("!");
+			for(int i=0;i<addressArray.length;i++) {
+				if(i==0) {
+					address+="[도로명주소]<br/>"+addressArray[i]+"<br/>";
+				}
+				else if(i==1){
+					address+="[지번주소]<br/>"+addressArray[i]+"<br/>";
+				}
+				else {
+					address+=addressArray[i]+"<br/>";
+				}
+			}
+			memberView.setShipping_address(address);
+			System.out.println(address);
+		}
+		
 		//System.out.println(list);
 		List<AdminDTO> memberViewPay = adminService.selectMemberViewPay(id);
 		System.out.println(memberViewPay.size());
@@ -516,10 +533,7 @@ public class AdminController {
 		
 		//subhire
 		List<AdminSubDTO> hireList = adminService.selectHire(map);
-//				System.out.println(hireList.size());
-//				for(int i=0;i<hireList.size();i++) {
-//					System.out.println(hireList.get(i).getAp_no());
-//				}
+
 		Set ids = new HashSet();
 		for(int i=0;i<hireList.size();i++) {
 			for(int j=0;j<list.size();j++) {			
@@ -567,19 +581,14 @@ public class AdminController {
 		
 		
 		model.addAttribute("succFail", succFail);
-//		return "/admin/Message";
 		return "/admin/AdminSubContent";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/admin/submemberApplyMember.ins",produces="text/html; charset=UTF-8")
 	public String subMemberApplyMember(@RequestParam Map map,Model model) throws Exception{
-		//System.out.println("컨트롤러옵니다.");
-		//System.out.println("map:"+map);
-//		List<AdminSubDTO> list = adminService.selectSubApplyList2(map);
 		//서비스 호출
 		List<AdminSubDTO> list = adminService.selectSubApplyList(map);
-//		List<Map> subHireMembers = new Vector<Map>();
 		
 		List<HashMap> records = new ArrayList<HashMap>();
 		
@@ -589,7 +598,6 @@ public class AdminController {
 			record.put("ap_genre", subHireMember.getAp_genre());
 			record.put("id", subHireMember.getId());
 			record.put("name", subHireMember.getName());
-			//record.put("ap_content", subHireMember.getAp_content().toString());
 			records.add(record);
 		}
 		

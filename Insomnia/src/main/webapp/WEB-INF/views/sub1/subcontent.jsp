@@ -630,7 +630,8 @@ function shareNB() {
    var title = encodeURI(myform.title.value);
    var shareURL = "https://share.naver.com/web/shareView.nhn?url=" + url
          + "&title=" + title;
-   document.location = shareURL;
+//    document.location = shareURL;
+   window.open(shareURL);
 }
 </script>
 <style>

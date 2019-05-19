@@ -9,8 +9,16 @@
 	<!-- band -->
 	<select id="adminMainMember" parameterType="java.util.Map" resultType="AdminDTO">
 	<!-- select * from band -->
-		SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.*,(SELECT COUNT(*) FROM band) FROM band M 
-		ORDER BY b_no DESC)T) WHERE R BETWEEN #{start} AND #{end} 
+
+<!-- 		SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.*,(SELECT COUNT(*) FROM band ) FROM band M  -->
+<!-- 		ORDER BY b_no DESC)T) WHERE R BETWEEN #{start} AND #{end}  -->
+				SELECT * FROM 
+		(SELECT T.*,ROWNUM R FROM 
+		(SELECT M.*,CT.ct_name FROM band M 
+		join category CT on CT.ct_no = M.ct_no
+		ORDER BY b_no DESC)T) 
+		WHERE R BETWEEN #{start} AND #{end} 
+
 <!-- select M.id,M.name,B.* from members M  -->
 <!-- join bandmember BM on BM.id = M.id -->
 <!-- join band B on B.b_name = BM.b_name -->
@@ -23,6 +31,10 @@
 		from members M
 		join bandmember BM on BM.id=M.id
 		join band B on B.b_name = BM.b_name
+	</select>
+	<!-- band Count -->
+	<select id="bandCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from band
 	</select>
 	<!-- band submit waiting -->
 	<select id="bandWaiting" parameterType="java.util.Map" resultType="AdminDTO">
@@ -46,7 +58,6 @@
 	<!-- band chart -->
 	<select id="bandChartData" parameterType="java.lang.String" resultType="AdminDTO">
 		
-	
 		select B.b_name,R.r_no,BS.s_no,R.r_name,SA.sp_reward_qty, R.r_price, BS.s_goal_accumulation,BS.s_goal_price
 		from reward R 
 		join safepay SA on SA.r_no = R.r_no
@@ -102,5 +113,13 @@
 	<update id="updateVisitor">
 		update util set visitor =(select visitor from util) + 1
 	</update>
-
+	<select id="rewardName" parameterType="java.lang.String" resultType="AdminDTO">
+		select b_name,r_name from reward R
+		join bandsubmit BS on BS.s_no = R.s_no
+		join band B on B.b_no = BS.b_no
+		where r_no = #{r_name}
+	</select>
+	<select id="rewardQty" parameterType="java.lang.String" resultType="java.lang.String">
+		select count(*) from safepay where r_no = #{r_name}
+	</select>
 </mapper>

@@ -297,7 +297,7 @@
                showComments();
                console.log('data가 뭐길래:'+data);
                if(data == '답글 있음') {
-            	   alert('답글이 있으므로 원글을 삭제할 수 없습니다.');
+                  alert('답글이 있으므로 원글을 삭제할 수 없습니다.');
                }
                
             },
@@ -704,48 +704,7 @@ body {
                                        <li id="commentsNew">
                                           <!-- ajax로 아래에 코멘트 목록 뿌리기 -->
                                        </li>
-                                       <li>
-                                          <article class="review-comment" style="margin-top: 10px;margin-bottom: 0px;">
-                                             <div class="user-avatar">
-                                                <img src="<c:url value='/resource/img/catcat.jpg'/>"
-                                                   style="height: 70px" alt="cat">
-                                             </div>
-                                             <div class="comment-content">
-                                                <h5 class="name">김건모</h5>
-                                                <div class="comment-meta">
-                                                   <div class="star-rating" id="HH">
-                                                      <span>Rated <strong class="rating">5.00</strong>
-                                                         out of 5
-                                                      </span>
-                                                   </div>
-                                                   <span class="post-date">2018-12-25</span>
-                                                </div>
-                                                <p>
-                                                   처음엔 프로들의 공연도 아닌데 티켓 값이 너무 비싼 거 아닌가 생각했는데 공연을 보고 <br> 
-                                                   그런 생각을 한 제가 창피할 정도였습니다. 다음 공연이 기대되네요!
-                                                   
-                                                </p>
-                                             </div>
-                                          </article>
-                                       </li>
-                                       <li>
-                                          <article class="review-comment" style="margin-left: 75px">
-                                             <div class="user-avatar">
-                                                <img src="<c:url value='/resource/img/dogdog.jpg'/>"
-                                                   style="height: 70px" alt="cat">
-                                             </div>
-                                             <div class="comment-content">
-                                                <h5 class="name">나문희</h5>
-                                                <div class="comment-meta">
-                                                   <span class="post-date">2018-12-25</span>
-                                                </div>
-                                                <p>
-                                                   공감합니다. 자식들이 방구석 기타리스트라는 공연을 보러가자길래 처음엔 기대를 안하고 갔으나<br>
-                                                   생각보다 공연자들의 실력이 너무 우수했고 감동적이였습니다.
-                                                </p>
-                                             </div>
-                                          </article>
-                                       </li>
+                                       <div id="HH" style="width: 1px;height: 1px;background-color: black"></div>
                                     </ul>
                                  </div>
                               </div>

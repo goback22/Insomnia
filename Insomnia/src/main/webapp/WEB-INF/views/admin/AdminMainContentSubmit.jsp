@@ -148,18 +148,18 @@
 					</div>
 				</div>
 				<!-- 두번째 끝 -->
-				<div class="col-md-4" style="float:right;">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">진행중인 main content chart2</h3>
-						</div>
-						<div class="panel-body feed">
-							<section class="feed-item">
-								<div id="band-chart-2" style="height: 200%;"></div>
-							</section>
-						</div>
-					</div>
-				</div>
+<!-- 				<div class="col-md-4" style="float:right;"> -->
+<!-- 					<div class="panel panel-primary"> -->
+<!-- 						<div class="panel-heading"> -->
+<!-- 							<h3 class="panel-title">진행중인 main content chart2</h3> -->
+<!-- 						</div> -->
+<!-- 						<div class="panel-body feed"> -->
+<!-- 							<section class="feed-item"> -->
+<!-- 								<div id="band-chart-2" style="height: 200%;"></div> -->
+<!-- 							</section> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
 			</div>
 		</div>
@@ -179,14 +179,10 @@
 		$.ajax({
 			url:"<c:url value='/admin/maincontentchart.ins?s_no="+click_s_no+"'/>",
 			dataType:'json',
-			success:function(data){
-				console.log('datadata:',data);
-				if(data.length != 0){
-					chartData(data);
-				}
-				else{
-					hideChart();
-				}
+			success:function(rewardData){
+				console.log('datadata:',rewardData);
+				chartData(rewardData);
+
 			},
 			error:function(request,error){
 				console.log('상태코드:',request.status);
@@ -198,29 +194,23 @@
 			$('#band-chart-2').css('display','none');
 		};
 		
-		function chartData(data){
+		function chartData(rewardData){
 			$('#band-chart-2').css('display','block');
-			var b_name = data[0]['b_name'];
-			var qtys=[];
-			var rewardName=[];
+			var rewardName = [];
+			var qtys = [];
+			var bandName = data[0]['b_name'];
 			
-			for(var i=0;i<data.length-1;i++){
-				qtys[i]=Number(data[i]['sp_reward_qty']);
-				if(data[i]['r_no']==data[i+1]['r_no']){
-					qtys[i]=qtys[i]+Number(data[i+1]['sp_reward_qty']);
-					rewardName[i]=data[i+1]['r_name'];
-				}
-				else{
-					qtys[i]=Number(data[i+1]['sp_reward_qty']);
-					rewardName[i]=data[i+1]['r_name'];
-				}
+			for(var i=0;i<data.length;i++){
+				rewardName[i] = data[i]['r_name'];
+				qtys[i] = data[i]['qtys'];
 			}
-			
-			for(var j=0;j<data.length;j++){
-				if(!rewardName[j]){
-					rewardName[j]='';
-				}
-			}
+
+			console.log('bandName:',bandName);
+			console.log('qtylength:',qtys.length);
+			console.log('qtys[0]:',qtys[0]);
+			console.log('qtys[0]',typeof(qtys[0]));
+			console.log('rewardName[0]:',rewardName[0]);
+			console.log('rewardName[0]',typeof(rewardName[0]));
 			
 			//band chart
 			google.charts.load('current', {packages: ['corechart']});
@@ -230,18 +220,14 @@
 			var chartHeight = 350;
 			function drawBandBasic(data) {
 				var data = google.visualization.arrayToDataTable([
-					['bandReward', rewardName[0]==null?'':rewardName[0], 
-								rewardName[1]==null?'':rewardName[1], 
-								rewardName[2]==null?'':rewardName[2],
-								rewardName[3]==null?'':rewardName[3],
-								'',
+					['bandName', rewardName[0], 
+								'', 
+								
 						{ role: 'annotation' } ],
-					[b_name, qtys[0]==null?0:qtys[0], 
-							qtys[1]==null?0:qtys[1], 
-							qtys[2]==null?0:qtys[2],
-							qtys[3]==null?0:qtys[3],
+					[bandName, qtys[0], 
 							0, 
 							'']
+					
 				]);
 				var options = {
 					legend: { position: 'top', maxLines: 2 },
@@ -258,6 +244,8 @@
 				chart.draw(data, options);
 			};
 		};
+		
+		
 	});
 </script>
 </body>

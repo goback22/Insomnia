@@ -26,6 +26,8 @@ public interface AdminService {
 	int selectTwoDaysAgoNewMember(Map map);
 	//bandlist
 	List<AdminDTO> selectBandList(Map map);
+	//bandCount
+	int selectBandCount(Map map);
 	//band music
 	List<AdminDTO> selectBandMusicList(String string);
 	//bandmember
@@ -96,4 +98,7 @@ public interface AdminService {
 	
 	//s_no로 AdminDTO얻기
 	AdminDTO getAdminPayDTO(String s_no);
+	//reward 이름 및 이름이 따른 갯수
+	AdminDTO getRewardName(String r_no);
+	String getRewardQty(String r_no);
 }//class

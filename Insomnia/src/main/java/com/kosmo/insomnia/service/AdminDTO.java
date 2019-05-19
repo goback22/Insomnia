@@ -97,8 +97,16 @@ public class AdminDTO {
 	private String p_total_accumulation;
 	private String p_uid_no;
 	private String isPaying;
+	//category
+	private String ct_name;
 	
 	
+	public String getCt_name() {
+		return ct_name;
+	}
+	public void setCt_name(String ct_name) {
+		this.ct_name = ct_name;
+	}
 	public String getIsPaying() {
 		return isPaying;
 	}

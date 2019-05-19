@@ -93,7 +93,7 @@
 			                                    </c:if>
 			                                    	<!-- 블락아이디 처리 끝 -->
 												<td class="text-center viewDetail">${item.name}</td>
-												<td class="text-center viewDetail">${item.login_chain }</td>
+												<td class="text-center viewDetail">${item.login_chain==null?"홈페이지 가입":item.login_chain }</td>
 												<td class="text-center viewDetail">${item.phone }</td>
 												<td class="text-center viewDetail">${item.join_date}</td>
 <!-- 												<td class="text-center"> -->
@@ -124,7 +124,7 @@
 																	<td>
 <%-- 																	${item.password==null?item.login_chain:item.password } --%>
 																		<c:if test="${item.password==null }" var="password">
-																			${item.login_chain }으로 가입
+																			Insomnia
 																		</c:if>
 																		<c:if test="${!password }">
 																			${item.password }
@@ -132,7 +132,14 @@
 																	</td>
 																	<td>${item.birthDay }</td>
 																	<td>${item.gender }</td>
-																	<td>${item.login_chain==null?"홈페이지 통해서 로그인":item.login_chain }</td>
+																	<td>
+																		<c:if test="${item.login_chain==null }" var="password">
+																			Insomnia
+																		</c:if>
+																		<c:if test="${!password }">
+																			${item.login_chain }으로 가입
+																		</c:if>
+																	</td>
 																	<td rowspan="3" class="text-center"><img style="width:50%;"src="${item.profile_img }" alt="등록된 이미지가 없습니다"></td>
 																</tr>
 															
@@ -211,9 +218,40 @@
 					</div>
 				</div>
 				<!-- 옆부분 끝 -->
+				
+				<div class="col-md-3 blockmemberlist">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								차단 회원 목록
+							</h3>
+						</div>
+						<div class="panel-body feed">
+							<section class="feed-item">
+							<!-- - -->
+								<table class="table table-hover" style="border-bottom:1px solid #c8c8c8;">
+									<tr>
+										<th class="col-md-6">id</th><th class="col-md-6">name</th>
+									</tr>
+									
+									<c:forEach items="${list}" var="blockmember">
+										<c:if test="${blockmember.is_blockmember=='Y' }" var="isBlock">
+										<tr>
+											<td class="blockmemberid">${blockmember.id }</td>
+											<td>${blockmember.name }</td>
+										</tr>	
+										</c:if>
+									</c:forEach>
+									
+								</table>
+							<!-- - -->
+							</section>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- 회원관련 끝 -->
-
+				
 
 
 
@@ -342,6 +380,14 @@
 		};
 		
 	</script>
+	<script type="text/javascript">
+	$(function(){
+		if($('.blockmemberid').html()==null){
+			$('.blockmemberlist').hide();
+		}
+	});
 	
+		
+	</script>
 </body>
 </html>

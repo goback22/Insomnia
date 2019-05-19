@@ -33,7 +33,11 @@ public class AdminDAO implements AdminService{
 	public List<AdminDTO> selectBandList(Map map) {
 		return template.selectList("adminMainMember",map);
 	}
-	
+	@Override
+	public int selectBandCount(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectOne("bandCount",map);
+	}
 	@Override
 	public List<AdminDTO> selectBandMusicList(String string) {
 		return template.selectList("adminMainMusicList",string);
@@ -221,4 +225,15 @@ public class AdminDAO implements AdminService{
 	public AdminDTO getAdminPayDTO(String s_no) {
 		return template.selectOne("getAdminPayDTO", s_no);
 	}//getPayDTO
+	@Override
+	public AdminDTO getRewardName(String r_no) {
+		// TODO Auto-generated method stub
+		return template.selectOne("rewardName",r_no);
+	}
+	@Override
+	public String getRewardQty(String r_no) {
+		// TODO Auto-generated method stub
+		return template.selectOne("rewardQty",r_no);
+	}
+	
 }///class

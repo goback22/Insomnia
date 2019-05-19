@@ -155,7 +155,14 @@
 											<tr>
 												<td class="text-center viewDetail">${item.id}</td>
 												<td class="text-center viewDetail">${item.name}</td>
-												<td class="text-center viewDetail">${item.login_chain }</td>
+												<td class="text-center viewDetail">
+													<c:if test="${item.login_chain==null }" var="password">
+														Insomnia
+													</c:if>
+													<c:if test="${!password }">
+														${item.login_chain }으로 가입
+													</c:if>
+												</td>
 												<td class="text-center viewDetail">${item.phone }</td>
 												<td class="text-center viewDetail">${item.join_date}</td>
 											</tr>
@@ -202,7 +209,14 @@
 											<tr class="view">
 												<td class="text-center">${item.id }</td>
 												<td class="text-center">${item.name }</td>
-												<td class="text-center">${item.login_chain }</td>
+												<td class="text-center">
+													<c:if test="${item.login_chain==null }" var="password">
+														Insomnia
+													</c:if>
+													<c:if test="${!password }">
+														${item.login_chain }으로 가입
+													</c:if>
+												</td>
 												<td class="text-center">${item.phone }</td>
 												<td class="text-center">${item.join_date }</td>
 											</tr>
@@ -235,7 +249,7 @@
 								<table class="table table-hover">
 									<tr>
 										<th class="col-md-3 text-center">밴드이름</th>
-										<th class="text-center">타이틀</th>
+<!-- 										<th class="text-center">타이틀</th> -->
 										<th class="text-center">인삿말</th>
 										<th class="col-md-1 text-center">좋아요</th>
 									</tr>
@@ -244,7 +258,7 @@
 										<c:forEach items="${bandList }" var="item" varStatus="loop">
 											<tr class="view">
 												<td class="text-center">${item.b_name }</td>
-												<td class="text-center">${item.bm_title }</td>
+<%-- 												<td class="text-center">${item.bm_title }</td> --%>
 												<td class="text-center">${item.b_description }</td>
 												<td class="text-center">${item.b_liked }</td>
 											</tr>
@@ -512,11 +526,11 @@ $(function(){
 		var secondBand = '2nd';
 		var thirdBand = '3rd';
 		var data = google.visualization.arrayToDataTable([
-		        ['bandReward', 'reward1', 'reward2', 'reward3', 'reward4',
+		        ['bandReward', '사은품1', '사은품2', '사은품3', '사은품4',
 		          { role: 'annotation' } ],
-		        [firstBand, 10, 24, 20, 32, ''],
-		        [secondBand, 16, 22, 23, 20, ''],
-		        [thirdBand, 28, 19, 29, 20, '']
+		        [firstBand, 10, 12, 4, 12, ''],
+		        [secondBand, 16, 22, 0, 0, ''],
+		        [thirdBand, 28, 19, 11, 0, '']
 		      ]);
 
 		      var suboptions = {

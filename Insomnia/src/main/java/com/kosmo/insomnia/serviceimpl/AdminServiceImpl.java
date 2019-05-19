@@ -92,7 +92,11 @@ public class AdminServiceImpl implements AdminService{
 	public List<AdminDTO> selectBandMember(Map map) {
 		return dao.selectBandMember(map);
 	}
-
+	@Override
+	public int selectBandCount(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectBandCount(map);
+	}
 	@Override
 	public List<AdminDTO> selectMemberViewPay(String string) {
 		return dao.selectMemberViewPay(string);
@@ -237,5 +241,19 @@ public class AdminServiceImpl implements AdminService{
 	public AdminDTO getAdminPayDTO(String s_no) {
 		return dao.getAdminPayDTO(s_no);
 	}//getPayDTO
+	
+	//reward & qty 
+	@Override
+	public AdminDTO getRewardName(String r_no) {
+		// TODO Auto-generated method stub
+		return dao.getRewardName(r_no);
+	}
+
+	@Override
+	public String getRewardQty(String r_no) {
+		// TODO Auto-generated method stub
+		return dao.getRewardQty(r_no);
+	}
+
 	
 }//class

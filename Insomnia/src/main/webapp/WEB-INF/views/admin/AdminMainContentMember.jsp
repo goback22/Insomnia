@@ -46,10 +46,11 @@
 							<table class="table table-hover" style="border-bottom:1px #c8c8c8 solid;">
 								<tr>
 									<th class="col-md-1"><input type="checkbox" value="all" />&nbsp;&nbsp;no</th>
-									<th class="col-md-1 text-center">밴드이름</th>
+									<th class="col-md-2 text-center">밴드이름</th>
+									<th class="col-md-2 text-center">장르</th>
 									<th class="col-md-2 text-center">타이틀</th>
-									<th class="col-md-3 text-center">펀딩요청</th>
-									<th class="col-md-1 text-center">펀딩시작</th>
+									<th class="col-md-1 text-center">펀딩요청</th>
+									<th class="col-md-2 text-center">펀딩시작</th>
 									<th class="col-md-1 text-center">펀딩 진행도</th>
 									
 <!-- 									<th class="col-md-1 text-center">band신청</th> -->
@@ -66,6 +67,7 @@
 									<tr data-tr_value="1" class="view">
 										<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
 										<td class="text-center viewDetail">${item.b_name }</td>
+										<td class="text-center viewDetail">${item.ct_name }</td>
 										<td class="text-center viewDetail">${item.bm_title==null?"미등록":item.bm_title }</td>
 										<td class="text-center viewDetail">
 											<c:forEach items="${bandWaiting }" var="bandWaiting" varStatus="s-loop">
@@ -104,10 +106,10 @@
 													<!-- first floor -->
 													<thead>
 														<tr>
-															<th>밴드이름</th>
-															<th>소속 멤버</th>
+															<th class="col-md-2">밴드이름</th>
+															<th class="col-md-2">소속 멤버</th>
 															<th colspan="2">인삿말</th>
-															<th>밴드 커버</th>
+															<th class="col-md-3">밴드 커버</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -175,7 +177,7 @@
 							<!-- table test end -->
 <!-- 							<div> -->
 <!-- 								<div class="btn btn-default checkeddelete">삭제</div> -->
-<%-- 								<jsp:include page="/WEB-INF/views/admin/template/AdminPagination.jsp" /> --%>
+								<jsp:include page="/WEB-INF/views/admin/template/AdminPagination.jsp" />
 <!-- 							</div> -->
 						</section>
 					</div>
@@ -287,18 +289,18 @@ $(function(){
 <script src="<c:url value='/vendor/js/admin_jqbar.js'/>" type="text/javascript"></script>
 <script type="text/javascript">
 //total chart
-let showAllOne = "모두가 아는 이름";
-	let firstContent = 90;
-let showAllTwo = $('.main-content-no').next().next().html();
-	let secondContent = 80;
-let showAllThree = "main3";
-	let thirdContent = 60;
-let showAllFour = "maint4";
-	let fourthContent = 70;
-	$('#bar-1').jqbar({ label: showAllOne, value: firstContent, barColor: '#D64747', orientation: 'v' });
-	$('#bar-2').jqbar({ label: showAllTwo, barColor: '#FF681F', value: secondContent, orientation: 'v' });
-	$('#bar-3').jqbar({ label: showAllThree, barColor: '#ea805c', value: thirdContent, orientation: 'v' });
-	$('#bar-4').jqbar({ label: showAllFour, barColor: '#88bbc8', value: fourthContent, orientation: 'v' });
+// let showAllOne = "모두가 아는 이름";
+// 	let firstContent = 90;
+// let showAllTwo = $('.main-content-no').next().next().html();
+// 	let secondContent = 80;
+// let showAllThree = "main3";
+// 	let thirdContent = 60;
+// let showAllFour = "maint4";
+// 	let fourthContent = 70;
+// 	$('#bar-1').jqbar({ label: showAllOne, value: firstContent, barColor: '#D64747', orientation: 'v' });
+// 	$('#bar-2').jqbar({ label: showAllTwo, barColor: '#FF681F', value: secondContent, orientation: 'v' });
+// 	$('#bar-3').jqbar({ label: showAllThree, barColor: '#ea805c', value: thirdContent, orientation: 'v' });
+// 	$('#bar-4').jqbar({ label: showAllFour, barColor: '#88bbc8', value: fourthContent, orientation: 'v' });
 </script>
 
 <script src="<c:url value='/vendor/js/admin_main_modal.js'/>" type="text/javascript"></script>
@@ -307,27 +309,27 @@ let showAllFour = "maint4";
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 //personal chart
-let protitle = '모두가 아는 이름';
+// let protitle = '모두가 아는 이름';
 
-google.charts.load('current', {
-	'packages' : [ 'bar' ]
-});
-google.charts.setOnLoadCallback(drawChart);
+// google.charts.load('current', {
+// 	'packages' : [ 'bar' ]
+// });
+// google.charts.setOnLoadCallback(drawChart);
 
-function drawChart() {
-	var data = google.visualization.arrayToDataTable([
-			[ 'title', 'goal', 'total', 'male', 'female' ],
-			[ protitle, 100, 80, 40, 20 ], ]);
-	var options = {
-		chart : {
-			title : protitle,
-			subtitle : protitle,
-		}
-	};
-	var chart = new google.charts.Bar(document
-			.getElementById('personalchart'));
-	chart.draw(data, google.charts.Bar.convertOptions(options));
-}
+// function drawChart() {
+// 	var data = google.visualization.arrayToDataTable([
+// 			[ 'title', 'goal', 'total', 'male', 'female' ],
+// 			[ protitle, 100, 80, 40, 20 ], ]);
+// 	var options = {
+// 		chart : {
+// 			title : protitle,
+// 			subtitle : protitle,
+// 		}
+// 	};
+// 	var chart = new google.charts.Bar(document
+// 			.getElementById('personalchart'));
+// 	chart.draw(data, google.charts.Bar.convertOptions(options));
+// }
 
 
 </script>

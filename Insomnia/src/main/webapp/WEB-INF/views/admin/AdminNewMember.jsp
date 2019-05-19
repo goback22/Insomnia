@@ -68,7 +68,7 @@
 										<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
 										<td class="text-center">${item.id }</td>
 										<td class="text-center">${item.name }</td>
-										<td class="text-center">${item.login_chain==null?"미등록":item.login_chain }</td>
+										<td class="text-center">${item.login_chain==null?"홈페이지 가입":item.login_chain }</td>
 										<td class="text-center">${item.phone}</td>
 										<td class="text-center">${item.join_date }</td>
 <!-- 										<td class="text-center"> -->
@@ -97,9 +97,23 @@
 													<tbody>
 														<tr>
 															<td>${item.name }</td>
-															<td>${item.password }</td>
+															<td>
+																<c:if test="${item.password==null }" var="password">
+																	${item.login_chain }으로 가입
+																</c:if>
+																<c:if test="${!password }">
+																	${item.password }
+																</c:if>
+															</td>
 															<td>${item.birthDay }</td>
-															<td>${item.login_chain }</td>
+															<td>
+																<c:if test="${item.login_chain==null }" var="password">
+																	Insomnia
+																</c:if>
+																<c:if test="${!password }">
+																	${item.login_chain }으로 가입
+																</c:if>
+															</td>
 															<td>${item.sms_recieve==null?"문자 수신 거부":"수신 승락" }</td>
 															<td>${item.email_recieve==null?"이메일 수신 거부":"수신 승락" }</td>
 															<td rowspan="3"><img style="max-width:70%;" src="${item.profile_img }" alt="등록된 이미지가 없습니다"></td>
