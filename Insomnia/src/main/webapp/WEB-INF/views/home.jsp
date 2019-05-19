@@ -386,7 +386,7 @@ $(function(){
 		           		  <td><label for="middle1">리워드</label></td>
 		           		  <td class="mypage_1"><label for="middle2">마이페이지</label></td>
 		           		  <td><label for="middle3">링크공유</label></td>
-		           		  <td><label for="middle4">FAQ</label></td>
+		           		  <td><label for="middle4">F&B</label></td>
 			           		
 			           </tr>
 		            </table>
