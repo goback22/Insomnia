@@ -205,7 +205,7 @@ public class BandController {
 			}///if
 		}//for
 		
-		dismap.put("choice", "like");
+		dismap.put("choice", "like"); //
 		int like = bandService.getBandLikeNFollow(dismap);
 		dismap.put("choice", "follow");
 		int follow = bandService.getBandLikeNFollow(dismap);
