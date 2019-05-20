@@ -182,19 +182,15 @@ public class AdminController {
 		//birthDay 출력을 위한 simpledateFormat 설정
 		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat simpleParse = new SimpleDateFormat("yy/MM/dd");
-		for(AdminDTO dto : allMemberList) {
-			//*입력된 값이 null일때는 기본 이미지 넣어준다.
-		try {
-			//1. 프로필 사진이 우리 프로젝트쪽에 있는 경우
-			if(!dto.getProfile_img().startsWith("http://")) {
-				String fileName = dto.getProfile_img();
-				dto.setProfile_img("/insomnia/upload/member/profile/"+fileName);
-			}else {
-				//2. 프로필 사진이 웹서버에 등록되어 있는 경우 그대로 경로를 준다.
-			}///
-		}catch(Exception e) {////입력된 값이 null 일때
-			dto.setProfile_img("/insomnia/upload/member/profile/default_profile_img.jpg");
-		}//catch
+	/////2019 05 20 임한결 수정 이미지 세팅
+			for(AdminDTO dto : allMemberList) {
+				if(dto.getProfile_img().equals("default_cover_img.jpg")) {
+					dto.setProfile_img("/insomnia/upload/member/profile/default_cover_img.jpg");
+				}else if(dto.getProfile_img().startsWith("http")) {
+				}else {
+					dto.setProfile_img("https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/"+dto.getProfile_img());
+				}//////이미지 세팅
+			/////2019 05 20 임한결 수정 이미지 세팅 끝
 		
 		
 		/// 생일정보 양식에 맞추어 세팅하기
