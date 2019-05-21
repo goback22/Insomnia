@@ -251,7 +251,7 @@ public class BandController {
 		conn = DriverManager.getConnection("jdbc:oracle:thin:@orcl.c3yirc2i0ocz.ap-northeast-2.rds.amazonaws.com:1521:orcl","project","12341234");
 		System.out.println("conn의 값은?" + conn);////////
 		psmt= conn.prepareStatement("SELECT TOKEN FROM FCM_TOKENS");
-		rs = psmt.executeQuery();       
+		rs = psmt.executeQuery();
 		
 		while(rs.next()){
 		token.add(rs.getString(1));

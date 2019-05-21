@@ -377,23 +377,25 @@ $(function(){
             		</div>
 		            <table class="user_middle">	<!-- 중간메뉴:ul -->	<!-- ul이 1 칸 차지, li display : inline -->
 		              <tr>
-			              <td><a id="middle1" href="javascript:void(0)"><img src="<c:url value='/img/iconfinder_apple-music-2_2301791.png'/>"/></a></td>
+			              <td><a id="middle1" href="<c:url value='/menu/calendar.ins'/>"><img src="<c:url value='/img/iconfinder_apple-music-2_2301791.png'/>"/></a></td>
+
 			              <td class="mypage_1"><a id="middle2" href="javascript:void(0)" class=""><img src="<c:url value='/img/iconfinder_microphone_1055023.png'/>"/></a></td>
-			              <td><a id="middle3" href="<c:url value='/kakao/pay.ins'/>" class=""><img src="<c:url value='/img/followers.png'/>"/></a></td>
+
+			              <td><a id="middle3" href="javascript:void(0)" class=""><img src="<c:url value='/img/followers.png'/>"/></a></td>
 			              <td><a id="middle4" href="<c:url value='/freeBoard/Free_Board.ins'/>" class=""><img src="<c:url value='/img/iconfinder_heart_289619.png'/>"/></a></td>
 			           </tr>
 			           <tr>
 		           		  <td><label for="middle1">리워드</label></td>
 		           		  <td class="mypage_1"><label for="middle2">마이페이지</label></td>
 		           		  <td><label for="middle3">링크공유</label></td>
-		           		  <td><label for="middle4">F&B</label></td>
+		           		  <td><label for="middle4">FAQ</label></td>
 			           		
 			           </tr>
 		            </table>
 		            
 		            <!-- display:none 끝 -->
 		            <a id="logout" href="<c:url value='/logout.ins'/>">로그아웃</a>
-		            <a href="<c:url value='/band/bandInfo.ins'/>">밴드관리</a>
+		            <a href="<c:url value='band/bandInfo.ins'/>">밴드관리</a>
 		            
 		           <!--  <div id="result">결과</div> -->
 		            
@@ -786,8 +788,8 @@ $(function(){
 					<div class="row">
 						<div class="section-title style-four">
 							<h2 id="about">HOT Track</h2>
-							<!-- <p style="font-size: 1.4em; color: #6c757d;">ë¨ê±°ì´
-								ë°´ëë¤, ë¨ê±°ì´ ììë¤</p> -->
+							<p style="font-size: 1.4em; color: #6c757d;">ë¨ê±°ì´
+								ë°´ëë¤, ë¨ê±°ì´ ììë¤</p>
 						</div>
 					</div>
 					<div class="swiper-container row"
