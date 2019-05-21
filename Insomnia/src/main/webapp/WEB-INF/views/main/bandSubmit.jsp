@@ -928,7 +928,7 @@ background-size: 1800% 1800%;
 			}else
 				alert("등록 실패 .. ㅠㅠ");
 		 }///submit;
-		 
+		 //
 		 
 		 
 		 
