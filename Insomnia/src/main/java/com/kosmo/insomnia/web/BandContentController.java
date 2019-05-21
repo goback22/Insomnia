@@ -226,7 +226,7 @@ public class BandContentController {
 	@RequestMapping(value="/main/mainproject.ins")
 	public String mainproject(@RequestParam Map params, Map dismap, HttpSession session, Model model) {
 		
-		if(session.getAttribute("id") != null) {
+		if(session.getAttribute("id") != null) {//
 			//모든 밴드의 필요한 정보를 가져온다.
 			List<BandDTO> beforeAllBand = bandService.allBand();
 			List<BandDTO> folk = new Vector<BandDTO>();
