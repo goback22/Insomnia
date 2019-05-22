@@ -1181,6 +1181,28 @@ public class SGHController {
 		return "forward:/band/bandInfo.ins";
 	}
 	
+	/////개인정보 수정/
+	@RequestMapping("/menu/memberEditEmail.ins")
+	public String memberEditEmail(@RequestParam Map map, Map dismap, Model model, HttpSession session) throws Exception {
+		
+		dismap.put("id", session.getAttribute("id"));
+		dismap.put("email", map.get("email"));
+		memberService.editEmail(dismap);
+		
+		return "forward:/menu/mypage/edit.ins";
+	}
+	
+	@RequestMapping("/menu/memberEditPhone.ins")
+	public String memberEditPhone(@RequestParam Map map, Map dismap, Model model, HttpSession session) throws Exception {
+		
+		dismap.put("id", session.getAttribute("id"));
+		dismap.put("phone", map.get("phone"));
+		memberService.editPhone(dismap);
+		
+		return "forward:/menu/mypage/edit.ins";
+		
+	}
+	
 	
 	
 	

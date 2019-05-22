@@ -1143,7 +1143,7 @@ public class PayCompleteController {
 		//2 서포트 넣기
 		SafePayDTO spDto = new SafePayDTO();
 		spDto.setSp_support(support);
-		spDto.setR_no("9");
+		spDto.setR_no("32");
 		spDto.setId(id);
 		spDto.setSp_uid_no(uid);
 		spDto.setS_no(userInfoMap.get("s_no"));

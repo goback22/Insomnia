@@ -85,6 +85,15 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDTO getIdByEmail(Map map) {
 		return dao.getIdByEmail(map);
 	}
+	@Override
+	public int editEmail(Map map) {
+		return dao.editEmail(map);
+	}
+
+	@Override
+	public int editPhone(Map map) {
+		return dao.editPhone(map);
+	}
 
 	
 }

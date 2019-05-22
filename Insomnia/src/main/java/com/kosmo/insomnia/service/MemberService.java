@@ -38,5 +38,11 @@ public interface MemberService {
 	//이메일로 아이디 찾기
 	MemberDTO getIdByEmail(Map map);
 	
+	//이메일 수정
+	int editEmail(Map map);
+	
+	//전화번호 수정
+	int editPhone(Map map);
+	
 	
 }

@@ -166,6 +166,14 @@
 	<select id="getIdByEmail" parameterType="java.util.Map" resultType="MemberDTO">
 		select * from members where email = #{thisEmail}
 	</select>
+		
+	<update id="editEmail" parameterType="java.util.Map">
+		update members set email = #{email} where id = #{id}
+	</update>
+	
+	<update id="editPhone" parameterType="java.util.Map">
+		update members set phone = #{phone} where id = #{id}
+	</update>
 	
 	
 </mapper>
