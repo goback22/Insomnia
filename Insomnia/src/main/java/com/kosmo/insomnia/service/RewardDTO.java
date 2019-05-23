@@ -4,9 +4,9 @@ package com.kosmo.insomnia.service;
 public class RewardDTO {
 	
 	//support를 위한 번호들
-	//r_no 9
-	//s_no 25
-	//rw_no 23
+	//r_no 32
+	//s_no 42
+	//rw_no 71
 
 	///칼럼들
 	private String r_no;

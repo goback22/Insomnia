@@ -69,6 +69,8 @@ public class BandContentController {
 		
 
 		
+		
+		
 		if(s_no == null) {//파라미터 없이 밴드info로 들어 올 때
 			b_no = session.getAttribute("b_no").toString();
 			b_name = session.getAttribute("b_name").toString();
@@ -226,50 +228,50 @@ public class BandContentController {
 	@RequestMapping(value="/main/mainproject.ins")
 	public String mainproject(@RequestParam Map params, Map dismap, HttpSession session, Model model) {
 		
-		if(session.getAttribute("id") != null) {//
-			//모든 밴드의 필요한 정보를 가져온다.
-			List<BandDTO> beforeAllBand = bandService.allBand();
-			List<BandDTO> folk = new Vector<BandDTO>();
-			List<BandDTO> jazz = new Vector<BandDTO>();
-			List<BandDTO> hiphop = new Vector<BandDTO>();
-			List<BandDTO> dance = new Vector<BandDTO>();
-			List<BandDTO> rock = new Vector<BandDTO>();
-			List<BandDTO> traditional = new Vector<BandDTO>();
-			//ct_name, ct_name_css 채우고 장르별 분류
-			for(BandDTO dto : beforeAllBand) {
-				switch(dto.getCt_no()) {
-				case "1":
-					folk.add(CategoryUtil.setCt_nameInBandDTO(dto));
-					break;
-				case "2":
-					jazz.add(CategoryUtil.setCt_nameInBandDTO(dto));
-					break;
-				case "3":
-					hiphop.add(CategoryUtil.setCt_nameInBandDTO(dto));
-					break;
-				case "4":
-					dance.add(CategoryUtil.setCt_nameInBandDTO(dto));
-					break;
-				case "5":
-					rock.add(CategoryUtil.setCt_nameInBandDTO(dto));
-					break;
-				case "6":
-					traditional.add(CategoryUtil.setCt_nameInBandDTO(dto));
-					break;
-				}//switch
-			}//for
-			
-			model.addAttribute("folk", folk);
-			model.addAttribute("jazz", jazz);
-			model.addAttribute("hiphop", hiphop);
-			model.addAttribute("dance", dance);
-			model.addAttribute("rock", rock);
-			model.addAttribute("traditional", traditional);
-			
-			////슬라이드 메뉴 위한 부분
+		//모든 밴드의 필요한 정보를 가져온다.
+		List<BandDTO> beforeAllBand = bandService.allBand();
+		List<BandDTO> folk = new Vector<BandDTO>();
+		List<BandDTO> jazz = new Vector<BandDTO>();
+		List<BandDTO> hiphop = new Vector<BandDTO>();
+		List<BandDTO> dance = new Vector<BandDTO>();
+		List<BandDTO> rock = new Vector<BandDTO>();
+		List<BandDTO> traditional = new Vector<BandDTO>();
+		//ct_name, ct_name_css 채우고 장르별 분류
+		for(BandDTO dto : beforeAllBand) {
+			switch(dto.getCt_no()) {
+			case "1":
+				folk.add(CategoryUtil.setCt_nameInBandDTO(dto));
+				break;
+			case "2":
+				jazz.add(CategoryUtil.setCt_nameInBandDTO(dto));
+				break;
+			case "3":
+				hiphop.add(CategoryUtil.setCt_nameInBandDTO(dto));
+				break;
+			case "4":
+				dance.add(CategoryUtil.setCt_nameInBandDTO(dto));
+				break;
+			case "5":
+				rock.add(CategoryUtil.setCt_nameInBandDTO(dto));
+				break;
+			case "6":
+				traditional.add(CategoryUtil.setCt_nameInBandDTO(dto));
+				break;
+			}//switch
+		}//for
+		
+		model.addAttribute("folk", folk);
+		model.addAttribute("jazz", jazz);
+		model.addAttribute("hiphop", hiphop);
+		model.addAttribute("dance", dance);
+		model.addAttribute("rock", rock);
+		model.addAttribute("traditional", traditional);
+		
+		////슬라이드 메뉴 위한 부분
 		
 			dismap.put("id", session.getAttribute("id"));
 			MemberDTO loginRecord = memberService.selectOne(dismap);
+
 			
 			if(loginRecord != null) {
 				model.addAttribute("loginRecord", loginRecord);
@@ -278,7 +280,6 @@ public class BandContentController {
 			}	
 			
 			////슬라이드메뉴
-		}
 		
 		return "/main/mainproject.tiles";
 	}//mainproject

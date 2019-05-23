@@ -90,6 +90,17 @@ public class MemberDAO implements MemberService {
 		return template.selectOne("getIdByEmail", map);
 	}
 
+	@Override
+	public int editEmail(Map map) {
+		return template.update("editEmail", map);
+	}
+
+
+	@Override
+	public int editPhone(Map map) {
+		return template.update("editPhone", map);
+	}
+	
 	
 
 }

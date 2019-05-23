@@ -162,7 +162,7 @@
          </div>
          <div class="logo-box" id="logo-box" style="display:none;"></div> <span style="display:none">Media
             Production</span>
-         <img style="width: 170px;height: 55px;margin-top: -50px;" src="<c:url value='/resource/img/logo_5.png'/>">
+         <img style="width: 170px;height: 45.7px;margin-top: -47px;margin-left: 7px" src="<c:url value='/resource/img/logo_5.png'/>">
          <div class="logo-box" id="logo-box"></div> <span style="display: none">Media
             Production</span>
       </a> <a href="<c:url value='/sub1/subprojects.ins'/>" class="works q_magnet hover-target">All
@@ -402,15 +402,15 @@
                         <div class="clients">
                         <img src="<c:url value='/resource/img/1.png'/>" class="rev_client" alt="Starwood" /> 
                            <img src="<c:url value='/resource/img/2.png'/>" class="rev_client"
-                              alt="Starwood" /> <img src="<c:url value='/resource/img/2.png'/>"
+                              alt="Starwood" /> <img src="<c:url value='/resource/img/3.png'/>"
                               class="rev_client" alt="Prama Sanur" /> <img
-                              src="<c:url value='/resource/img/3.png'/>" class="rev_client"
-                              alt="Preference Hotels" /> <img
                               src="<c:url value='/resource/img/4.png'/>" class="rev_client"
-                              alt="Sintesa Group" /> <img
+                              alt="Preference Hotels" /> <img
                               src="<c:url value='/resource/img/5.png'/>" class="rev_client"
-                              alt="Four Points" /> <img
+                              alt="Sintesa Group" /> <img
                               src="<c:url value='/resource/img/6.png'/>" class="rev_client"
+                              alt="Four Points" /> <img
+                              src="<c:url value='/resource/img/10.png'/>" class="rev_client"
                               alt="PNK Hotels" /> <img src="<c:url value='/resource/img/8.png'/>"
                               class="rev_client" alt="Alaya Hotels" /> <img
                               src="<c:url value='/resource/img/9.png'/>" class="rev_client"
