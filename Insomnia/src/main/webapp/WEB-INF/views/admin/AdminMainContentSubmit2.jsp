@@ -168,14 +168,14 @@
 		
 		var click_s_no = $(this).parent().children(0).html();
 		console.log(click_s_no);
-		var datalength='';
+		
 		$.ajax({
 			url:"<c:url value='/admin/maincontentchart.ins?s_no="+click_s_no+"'/>",
 			dataType:'json',
 			success:function(rewardData){
 				console.log('datadata:',rewardData);
-				datalength=rewardData['data'].length;
-				chartData(rewardData)
+				chartData(rewardData);
+
 			},
 			error:function(request,error){
 				console.log('상태코드:',request.status);
@@ -188,45 +188,18 @@
 // 		};
 		
 		function chartData(rewardData){
-			console.log(datalength);
-			var b_names=[];
-			var qtys = [];
-			var r_names = [];
-			for(var i=0;i<datalength;i++){
-				b_names[i] = rewardData['data'][i]['b_name'];
-				qtys[i] = rewardData['data'][i]['qtys'];
-				r_names[i] = rewardData['data'][i]['r_name'];
-				console.log(b_names[i]);
-				console.log(rewardData['data'][i]['qtys']);
-				console.log(rewardData['data'][i]['r_name']);
-			}
-			
 			//band chart
 			google.charts.load('current', {packages: ['corechart']});
 			google.charts.setOnLoadCallback(drawBandBasic);
 // 			var chartHeight = 350;
 			function drawBandBasic(data) {
-// 				var data = google.visualization.arrayToDataTable();
-// 				data.addColumn('data','b_name');
-// 				data.addColumn('data','r_name');
-// 				data.addColumn('data','qty');
-// 				for(var i=0;i<datalength;i++){
-// 					var b_name = 
-// 				}
-				console.log(typeof(qtys[0]));
 				var data = google.visualization.arrayToDataTable([
-					["data", 
-						r_names[0]==null?'':r_names[0], 
-						r_names[1]==null?'':r_names[1], 
-						r_names[2]==null?'':r_names[2],
-						r_names[3]==null?'':r_names[3],		
+					['bandName', 
+						'리워드1', '리워드2',
 								'', 
 						{ role: 'annotation' } ],
-					[b_names[0],
-						Number(qtys[0]==null?'0':qtys[0]), 
-						Number(qtys[1]==null?'0':qtys[1]), 
-						Number(qtys[2]==null?'0':qtys[2]),
-						Number(qtys[3]==null?'0':qtys[3]),
+					['밴드이름??', 
+						33, 22,
 						0, 
 						'']
 				]);

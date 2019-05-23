@@ -101,4 +101,7 @@ public interface AdminService {
 	//reward 이름 및 이름이 따른 갯수
 	AdminDTO getRewardName(String r_no);
 	String getRewardQty(String r_no);
+	
+	//bandWaitingList
+	List<AdminDTO> selectBandSubmitWaiting(Map map);
 }//class

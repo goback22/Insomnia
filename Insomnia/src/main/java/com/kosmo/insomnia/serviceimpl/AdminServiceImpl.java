@@ -255,5 +255,11 @@ public class AdminServiceImpl implements AdminService{
 		return dao.getRewardQty(r_no);
 	}
 
+	@Override
+	public List<AdminDTO> selectBandSubmitWaiting(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectBandSubmitWaiting(map);
+	}
+
 	
 }//class

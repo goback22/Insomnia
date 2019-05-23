@@ -1,33 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<style>
-
-</style>
-<script>
-$(function(){
-	
-	
-});
-
-</script>
 <!-- top sidebar start -->
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-					<span class="sr-only">Toggle navigation</span> 
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="<c:url value='/home.ins'/>">ISOMNIA</a>
+				<a class="navbar-brand" href="<c:url value='/home.ins'/>" style="margin-left:35px;color:#800000;font:bold;font-size:1.5em;">I S O M N I A</a>
+<%-- 				<img src="<c:url value='/resource/img/logo_5.png'/>" alt="ISOMNIA"> --%>
 				
 			</div>
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<!-- side -->
 				<ul id="active" class="nav navbar-nav side-nav">
 					<li class="firstlevel"><a href="<c:url value='/admin/index.ins'/>">관리자 메인</a>
-						
 					</li>	
 					<li class="firstlevel"><a href="#">회원관리<b class="caret"></b></a>
 					<!--  -->
@@ -38,36 +22,35 @@ $(function(){
 <%-- 							<li><a href="<c:url value='/admin/subcontent.ins'/>">sub 목록</a></li> --%>
 						</ul>
 					</li>
-					<li class="firstlevel"><a href="#">main content<b class="caret"></b></a>
+					<li class="firstlevel"><a href="#">밴드<b class="caret"></b></a>
 					<!--  -->
 						<ul class="secondlevel">
-							<li><a href="<c:url value='/admin/maincontentmember.ins'/>">main(band)목록</a></li>
-							<li><a href="<c:url value='/admin/maincontentsubmit.ins'/>">진행중인 밴드목록</a></li>
-							<li><a href="<c:url value='#'/>">band bbs(not yet)</a></li>
+							<li><a href="<c:url value='/admin/maincontentmember.ins'/>">밴드 관리</a></li>
+							<li><a href="<c:url value='/admin/maincontentsubmit.ins'/>">펀딩 진행중</a></li>
+<%-- 							<li><a href="<c:url value='#'/>">band bbs(not yet)</a></li> --%>
 						</ul>
 					</li>
-					<li class="firstlevel"><a href="#">sub content?<b class="caret"></b></a>
+					<li class="firstlevel"><a href="#">방구석 기타리스트<b class="caret"></b></a>
 						<!--  -->
 						<ul class="secondlevel">
-							<li><a href="<c:url value='/admin/subcontent.ins'/>">sub 목록 & 신청회원보기</a></li>
-							<li><a href="#">sub bbs(not yet)</a></li>
+							<li><a href="<c:url value='/admin/subcontent.ins'/>">방구석 회원관리</a></li>
+<!-- 							<li><a href="#">sub bbs(not yet)</a></li> -->
 						</ul>
 					</li>
 					<li class="firstlevel"><a href="#">결제관련<b class="caret"></b></a>
 						<!--  -->
 						<ul class="secondlevel">
-							<li><a href="<c:url value='/admin/paymain.ins'/>">main 결제</a></li>
-							<li><a href="<c:url value='/admin/paysub.ins'/>">sub 결제(ing)</a></li>
+							<li><a href="<c:url value='/admin/paymain.ins'/>">밴드 결제 현황</a></li>
+							<li><a href="<c:url value='/admin/paysub.ins'/>">방구석 결제 현황</a></li>
 						</ul>
 					</li>
-					<li><a href="#">etc</a></li>
-					<li><a href="#">etc</a></li>
-					<li><a href="#">etc</a></li>
+<!-- 					<li><a href="#">etc</a></li> -->
+<!-- 					<li><a href="#">etc</a></li> -->
+<!-- 					<li><a href="#">etc</a></li> -->
 				</ul>
 				<!-- side end -->
-				<!-- top -->
+				<!-- top 
 				<ul class="nav navbar-nav navbar-right navbar-user">
-					<!-- 윗부분 -->
 					
 					<li class="dropdown messages-dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages<span class="badge">2</span>
@@ -95,7 +78,7 @@ $(function(){
 							<input type="text" placeholder="Search" class="form-control">
 						</form>
 					</li>
-				</ul>
+				</ul>-->
 				<!-- top end -->
 			</div>
 		</nav>

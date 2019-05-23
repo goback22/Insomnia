@@ -14,12 +14,13 @@
 	<script src="<c:url value='/vendor/js/jquery-3.3.1.js'/>"></script>
 	<script src="<c:url value='/vendor/js/bootstrap.min.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/vendor/js/admin_pagination.js'/>"></script>
-	
+	<script src="<c:url value='/vendor/js/admin_datatable.js'/>"></script>
 	<!--  -->
 	<link href="<c:url value='/vendor/css/admin_adminmaincss.css'/>" rel="stylesheet">
 	<link href="<c:url value='/vendor/css/admin_jqbar.css'/>" rel="stylesheet">
 	<link href="<c:url value='/vendor/css/admin_allmember_accordian.css'/>" rel="stylesheet">
 	<link href="<c:url value='/vendor/css/admin_main_modal.css'/>" rel="stylesheet">
+	<link href="<c:url value='/vendor/css/admin_datatable.css'/>" rel="stylesheet">
 </head>
 <body>
 <div id="wrapper">
@@ -90,7 +91,7 @@
 												<c:if test="${bandWaiting.b_no eq item.b_no }" var="isExist">
 													${bandWaiting.sw_iscomplete=="T"?"진행중":bandWaiting.sw_isaccept=="T"?"수락함":"대기중" }
 												</c:if>
-												<input type="hidden" value="${bandWaiting.sw_isaccept }"/>
+<%-- 												<input type="hidden" value="${bandWaiting.sw_isaccept }"/> --%>
 											</c:forEach>
 											
 										</td>
@@ -181,6 +182,21 @@
 								<jsp:include page="/WEB-INF/views/admin/template/AdminPagination.jsp" />
 <!-- 							</div> -->
 						</section>
+						<div class="text-center">
+							<form class="form-inline" method="post" action="<c:url value='/admin/maincontentmember.ins'/>">
+								<div class="form-group">
+									<select name="searchColumn" class="form-control">
+										<option value="b_name">밴드이름</option>
+										<option value="ct_name">장르</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<input type="text" name="searchWord" class="form-control" />
+								</div>
+								<button type="submit" class="btn btn-primary">검색</button>
+				
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -192,79 +208,117 @@
 						<h3 class="panel-title">펀딩 진행중인 목록</h3>
 					</div>
 					<div class="panel-body feed">
+						<div class="data-tables datatable-dark">
+							<table class="table table-hover" id="dataTable3" style="border-bottom:1px #c8c8c8 solid;">
+							
+								<thead>
+									<tr>
+										<th class="col-md-5 text-center">밴드 이름</th>
+										<th class="col-md-4 text-center">목표 금액</th>
+										<th class="text-center">목표 기한</th>
+									</tr>
+								</thead>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 두번째 끝 -->
+			<div class="col-md-4" style="float:right;">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">펀딩 신청 밴드 목록</h3>
+					</div>
+					<div class="panel-body feed">
 						<section class="feed-item">
-							<table class="table table-hover " style="border-bottom:1px #c8c8c8 solid;">
-								<tr>
-									<th>밴드 이름</th>
-									<th class="text-center">목표 금액</th>
-									<th class="text-center">목표 기한</th>
-								</tr>
-								<tbody class="bandSubmitListSimple">
-								
+							<table class="table table-hover" id="dataTable4" style="border-bottom:1px #c8c8c8 solid;">
+								<thead>
+									<tr>
+										<th class="col-md-5 text-center">밴드 이름</th>
+										<th class="col-md-4 text-center">신청 장르</th>
+										<th class="text-center">신청날짜</th>
+									</tr>
+								</thead>
+								<tbody class="bandSubmitWaiting">
+									
 								</tbody>
 							</table>
 						</section>
 					</div>
 				</div>
 			</div>
-			<!-- 두번째 끝 -->
 		</div>		
 	</div>
 	<!-- main end -->
 </div>
 
 <script type="text/javascript">
+
+$(document).ready(function() {
+    $('#dataTable3').DataTable({
+     ajax: { 
+       type : "POST",
+       url : "<c:url value='/admin/bandSubmit.ins'/>",
+       dataType : "json",
+       /*success:function(data){
+        console.log(data);
+     },*/    
+        error:function(request,error){
+     console.log('상태코드:',request.status);
+     console.log('서버로부터 받은 HTML데이타 :',request.responseText);
+     console.log('에러:',error);               
+     }      
+     },
+     
+        columns: [
+        	 { "data": "b_name" },
+       	  { "data": "s_goal_price" },
+       	  { "data": "s_goal_deadline" }]
+       });
+   });//document.ready
+   
+   
 $(function(){
-	
-	$.ajax({
-		url:"<c:url value='/admin/bandSubmit.ins'/>",
-		dataType:'json',
-		success:function(data){
-			bandSubmit(data)
-		},
-		error:function(request,error){
-			console.log('상태코드:',request.status);
-			console.log('서버로 부터 받은 HTML데이터:',request.responseText);
-			console.log('에러:',error);
-		}
-	})
-	
-	var bandSubmit = function(data){
-		var bandSubmitString;
-		$.each(data,function(i,element){
-			bandSubmitString += "<tr>";
-			bandSubmitString += 	"<td class='viewDetail'>"+element["b_name"]+"</td>";
-			bandSubmitString += 	"<td class='text-center'>"+element["s_goal_price"]+"</td>";
-			console.log(element["s_goal_price"]);
-			bandSubmitString += 	"<td class='text-center'>"+element["s_goal_deadline"]+"</td>";
-			bandSubmitString += "</tr>";
-		});
-		$('.bandSubmitListSimple').html(bandSubmitString);
-	};
-	
 	$('.apply').click(function(){
 		console.log("11111111111");
 		//text가져오기
 		var applyText = $(this).parent().parent().parent().prev().children('.isAccept').text();
 		console.log(applyText.trim());
-				
+// 		applyText.parent().html('수락함');
+		$(this).parent().parent().parent().prev().children('.isAccept').text("수락함");
 		//update 관련
 		var applyValue = $(this).next().val();
 		console.log(applyValue);
 		
+		var btn = $(this).parent();
+		console.log("1111",btn);
+		
 		$.ajax({
 			//update
 			url:"<c:url value='/admin/bandIsacceptApply.ins?b_no="+applyValue+"'/>",
-			dataType:'json',
+// 			dataType:'json',
 			success:function(data){
-				if(applyText.trim()=='진행중' || applyText.trim()=='수락함'){
-					$(this).addClass('btn btn-success');
-					location.reload();
-				}
+				console.log("success");
+				console.log("2222",btn);
+				btn.css("display","none");//ok
+				console.log(applyText.trim());
+				
+// 				location.reload();
+				
+// 				if(applyText.trim()=='진행중' || applyText.trim()=='수락함'){
+// 					$(this).addClass('btn btn-success');
+// 					location.reload();
+// 				}
 			},
 			error:function(request,error){
 				if(applyText.trim()=='수락함'){
 					alert('이미 수락한 밴드입니다');
+				}
+				else if(applyText.trim()=='대기중'){
+					console.log($(this).val());
+					alert('대기중인 밴드입니다');
+					//location.reload();
 				}
 				else{
 					alert("이미 진행중인 밴드입니다");
@@ -272,9 +326,29 @@ $(function(){
 				
 			}
 		})
-	});
-});
+ 	});
 	
+	$('#dataTable4').DataTable({
+	     ajax: {
+	       type : "POST",
+	       url:"<c:url value='/admin/bandSubmitWaiting.ins'/>",
+	       dataType : "json",
+	       /*success:function(data){
+	        console.log(data);
+	     },*/    
+	        error:function(request,error){
+	     console.log('상태코드:',request.status);
+	     console.log('서버로부터 받은 HTML데이타 :',request.responseText);
+	     console.log('에러:',error);               
+	     }      
+	     },
+	     
+	        columns: [
+	        	 { "data": "b_name" },
+	       	  { "data": "ct_name" },
+	       	  { "data": "sw_postdate" }]
+	       });
+	   });
 	
 	
 </script>
@@ -287,54 +361,10 @@ $(function(){
 			$(this).parent().next(".fold").toggle(400);
 	});
 </script>
-<script src="<c:url value='/vendor/js/admin_jqbar.js'/>" type="text/javascript"></script>
-<script type="text/javascript">
-//total chart
-// let showAllOne = "모두가 아는 이름";
-// 	let firstContent = 90;
-// let showAllTwo = $('.main-content-no').next().next().html();
-// 	let secondContent = 80;
-// let showAllThree = "main3";
-// 	let thirdContent = 60;
-// let showAllFour = "maint4";
-// 	let fourthContent = 70;
-// 	$('#bar-1').jqbar({ label: showAllOne, value: firstContent, barColor: '#D64747', orientation: 'v' });
-// 	$('#bar-2').jqbar({ label: showAllTwo, barColor: '#FF681F', value: secondContent, orientation: 'v' });
-// 	$('#bar-3').jqbar({ label: showAllThree, barColor: '#ea805c', value: thirdContent, orientation: 'v' });
-// 	$('#bar-4').jqbar({ label: showAllFour, barColor: '#88bbc8', value: fourthContent, orientation: 'v' });
-</script>
 
 <script src="<c:url value='/vendor/js/admin_main_modal.js'/>" type="text/javascript"></script>
 
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-//personal chart
-// let protitle = '모두가 아는 이름';
-
-// google.charts.load('current', {
-// 	'packages' : [ 'bar' ]
-// });
-// google.charts.setOnLoadCallback(drawChart);
-
-// function drawChart() {
-// 	var data = google.visualization.arrayToDataTable([
-// 			[ 'title', 'goal', 'total', 'male', 'female' ],
-// 			[ protitle, 100, 80, 40, 20 ], ]);
-// 	var options = {
-// 		chart : {
-// 			title : protitle,
-// 			subtitle : protitle,
-// 		}
-// 	};
-// 	var chart = new google.charts.Bar(document
-// 			.getElementById('personalchart'));
-// 	chart.draw(data, google.charts.Bar.convertOptions(options));
-// }
-
-
-</script>
-
-
+<
 </body>
 </html>

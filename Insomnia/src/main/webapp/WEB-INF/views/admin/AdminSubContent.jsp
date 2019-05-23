@@ -130,7 +130,7 @@
 								<table class="table table-hover apply-table">
 									<thead>
 										<tr> 
-											<th class="col-md-3">아이디</th><th class="col-md-2">성명</th><th>신청 장르</th><th class="col-md-2">등록일</th> 
+											<th class="col-md-2">성명</th><th class="col-md-4">아이디</th><th>신청 장르</th><th class="col-md-3">등록일</th> 
 										</tr>
 									</thead>
 									<tbody class="subhire_member"></tbody>

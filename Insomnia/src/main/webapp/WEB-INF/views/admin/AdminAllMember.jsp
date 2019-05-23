@@ -193,19 +193,34 @@
 								</div>
 								
 								<!-- about checked end -->
-
-
+								
+								<div class="text-center">
+									<form class="form-inline" method="post" action="<c:url value='/admin/allmember.ins'/>">
+										<div class="form-group">
+											<select name="searchColumn" class="form-control">
+												<option value="id">아이디</option>
+												<option value="name">이름</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<input type="text" name="searchWord" class="form-control" />
+										</div>
+										<button type="submit" class="btn btn-primary">검색</button>
+						
+									</form>
+								</div>
 
 							</section>
 						</div>
 					</div>
 				</div>
-				<!-- 위에꺼 옆부분 -->
+				<!-- 위에꺼 옆부분 chart -->
+				<c:if test="${searchColumn=='' }" var="isnull">
 				<div class="col-md-3">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								전체회원(도넛형 남,여)
+								전체회원
 							</h3>
 						</div>
 						<div class="panel-body feed">
@@ -217,6 +232,7 @@
 						</div>
 					</div>
 				</div>
+				</c:if>
 				<!-- 옆부분 끝 -->
 				
 				<div class="col-md-3 blockmemberlist">
@@ -231,7 +247,7 @@
 							<!-- - -->
 								<table class="table table-hover" style="border-bottom:1px solid #c8c8c8;">
 									<tr>
-										<th class="col-md-6">id</th><th class="col-md-6">name</th>
+										<th class="col-md-6">아이디</th><th class="col-md-6">이름</th>
 									</tr>
 									
 									<c:forEach items="${list}" var="blockmember">

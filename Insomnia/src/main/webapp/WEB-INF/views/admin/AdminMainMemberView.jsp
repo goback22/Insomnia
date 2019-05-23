@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
+	String name = request.getParameter("name");
 	String id = request.getParameter("id");
 	//System.out.println("넘어오는 id:"+id);
 	
@@ -48,7 +49,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h1>
-						회원관리 <small><%=id %>의 상세정보</small>
+						회원관리 <small>${name }님의 상세정보</small>
 					</h1>
 				</div>
 			</div>
@@ -57,23 +58,23 @@
 				<div class="col-md-12">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<h3 class="panel-title"><%=id %>의 상세정보</h3>
+							<h3 class="panel-title">${name }(<%=id %>)님의 정보</h3>
 						</div>
 						<div class="panel-body feed">
 							<section class="feed-item">
 								<!-- inner -->
 								<div class="row" style="margin:0 auto;">
-									<div class="col-md-4">
+									<div class="col-md-5">
 										<div class="panel panel-primary">
 											<div class="panel-heading">
-												<h3 class="panel-title">${memberView.id }의 더 상세한 정보</h3>
+												<h3 class="panel-title">${name }(<%=id %>)님의 상세 정보</h3>
 											</div>
 											<div class="panel-body feed">
 												<table class="table">
 													<tr>
-														<th class="col-md-4">MEMBERS.phone</th>
-														<th class="col-md-4">MEMBERS.bank_name</th>
-														<th class="col-md-4">MEMBERS.bank_serial</th>
+														<th class="col-md-4">연락처</th>
+														<th class="col-md-4">은행명</th>
+														<th class="col-md-4">계좌번호</th>
 														
 													</tr>
 													<tr>	
@@ -82,41 +83,41 @@
 														<td>${memberView.bank_serial==null?"등록된 계좌가 없습니다":memberView.bank_serial }</td>
 													</tr>
 													<tr>
-														<th colspan="2">MEMBERS.shipping_address</th>
-														<th>3333333</th>
+														<th colspan="2">주소</th>
+														<th>가입일</th>
 													</tr>
 													<tr>	
 														<td colspan="2">${memberView.shipping_address==null?"등록된 주소가 없습니다":memberView.shipping_address }</td>
-														<td>3333333</td>
+														<td>${memberView.join_date }</td>
 													</tr>
 												</table>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-8">
+									<div class="col-md-7">
 										<div class="panel panel-primary">
 											<div class="panel-heading">
-												<h3 class="panel-title"><%=id %>의 거래정보(SAFEPAY_date로)</h3>
+												<h3 class="panel-title">${name }(<%=id %>)님의 거래정보</h3>
 											</div>
 											<div class="panel-body feed">
 												<table class="table table-hover">
 													<tr>
-														<th>SAFEPAY.sp_no</th>
-														<th>SAFEPAY.sp_date</th>
-														<th>SAFEPAY.sp_recipient</th>
-														<th>SAFEPAY.sp_depositor</th>
-														<th>SAFEPAY.shipping_address</th>
-														<th>SAFEPAY.sp_phone</th>
+<!-- 														<th>거래</th> -->
+														<th>거래일</th>
+														<th>예금자</th>
+														<th>받는 사람</th>
+														<th>배송 주소</th>
+														<th>연락처</th>
 													</tr>
 													
 													<c:forEach items="${memberViewPay }" var="memberPay" varStatus="loop">
 													<tr>
-														<td class="viewDetail">${memberPay.sp_no }</td>
-														<td class="viewDetail">${memberPay.sp_date }</td>
-														<td class="viewDetail">${memberPay.sp_recipient }</td>
-														<td class="viewDetail">${memberPay.sp_depositor }</td>
-														<td class="viewDetail">${memberPay.shipping_address }</td>
-														<td class="viewDetail">${memberpay.sp_phone }</td>
+<%-- 														<td class="viewDetail">${memberPay.sp_no==null?"거래내역 없음":memberPay.sp_no }</td> --%>
+														<td class="viewDetail">${memberPay.sp_date==null?"거래내역 없음":memberPay.sp_date }11111</td>
+														<td class="viewDetail">${memberPay.sp_depositor==null?"거래내역 없음":memberPay.sp_depositor }</td>
+														<td class="viewDetail">${memberPay.sp_recipient==null?"거래내역 없음":memberPay.sp_recipient }</td>
+														<td class="viewDetail">${memberPay.shipping_address==null?"거래내역 없음":memberPay.shipping_address }</td>
+														<td class="viewDetail">${memberpay.sp_phone==null?"거래내역 없음":memberpay.sp_phone }</td>
 													</tr>
 													<!-- 위의 detail -->
 													<tr class="fold" style="background-color: #c8c8c8;">
