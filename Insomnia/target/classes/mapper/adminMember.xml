@@ -7,13 +7,19 @@
 <mapper namespace="mapper.adminMember">
 	<!-- members -->
 	<select id="adminMember" parameterType="java.util.Map" resultType="AdminDTO" >
-		SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.*,(SELECT COUNT(*) FROM members) FROM members M where id not in('admin')
-		ORDER BY join_date DESC)T) WHERE R BETWEEN #{start} AND #{end} 
+		SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT M.* FROM members M where id not in('admin')
+		<if test="searchColumn != null">
+			and ${searchColumn} LIKE '%' || #{searchWord} || '%' 		
+		</if>
+		ORDER BY join_date DESC) T ) WHERE R BETWEEN #{start} AND #{end} 
 	
 	</select>
 	<!-- 전체 회원수  -->
 	<select id="totalMembers" parameterType="java.util.Map" resultType="int">
 		select count(*) from members
+		<if test="searchColumn != null">
+			where ${searchColumn} LIKE '%' || #{searchWord} || '%' 		
+		</if>
 	</select>
 	<!-- 신규회원수 -->
 	<select id="getNewMember" parameterType="java.util.Map" resultType="int">
@@ -25,6 +31,7 @@
 	<!-- 여성회원 -->
 	<select id="femaleMember" parameterType="java.lang.String" resultType="int">
 		select count(*) from members where gender = #{gender}
+		
 	</select>
 	<!-- new Member -->
 	<select id="adminNewMember" parameterType="java.util.Map" resultType="AdminDTO">
@@ -65,5 +72,6 @@
 	<select id="unBlockMember" parameterType="java.lang.String" resultType="int">
 		update members set is_blockmember = 'N' where id = #{id}
 	</select>
+	
 	
 </mapper>

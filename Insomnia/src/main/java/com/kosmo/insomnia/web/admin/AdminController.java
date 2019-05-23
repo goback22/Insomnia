@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -155,7 +156,7 @@ public class AdminController {
 	//전체 회원보기
 	@RequestMapping(value="/admin/allmember.ins")
 	public String allMember(HttpServletRequest req,
-							Map map,
+							@RequestParam Map map,
 							Model model,
 							@RequestParam(required=false,defaultValue="1") int nowPage
 							) throws Exception {
@@ -166,31 +167,46 @@ public class AdminController {
 		int femaleMembers= adminService.getFemaleMember(female);
 		
 		
-		//전체 페이지수]
-		int totalPage=(int)Math.ceil((double)totalMembers/pageSize);	
 		
 		//시작 및 끝 ROWNUM구하기]
 		int start =(nowPage-1)*pageSize+1;
 		int end   =nowPage*pageSize;
 		map.put("start",start);
 		map.put("end", end);
-		String pagingString=PagingUtil.pagingBootStrapStyle(totalMembers, pageSize, blockPage, nowPage, req.getContextPath()+"/admin/allmember.ins?");
+		
 		
 		//전체 회원 보이기
 		List<AdminDTO> allMemberList = adminService.selectList(map);
+		
+		
+		//전체 페이지수]
+		int totalPage=(int)Math.ceil((double)totalMembers/pageSize);	
+		String searchColumn = map.get("searchColumn") == null ? "" :map.get("searchColumn").toString() ;
+		String searchWord = map.get("searchWord") == null ? "" :map.get("searchWord").toString();
+		String pagingString=null;
+		if(searchColumn != "") {
+			pagingString=PagingUtil.pagingBootStrapStyle(totalMembers, pageSize, blockPage, nowPage, req.getContextPath()+"/admin/allmember.ins?searchColumn=" + searchColumn + "&searchWord="+ searchWord + "&");
+		}
+		else {
+			pagingString=PagingUtil.pagingBootStrapStyle(totalMembers, pageSize, blockPage, nowPage, req.getContextPath()+"/admin/allmember.ins?");
+		}
 		////////////////////////////////////////////////////////////2019 05 14 임한결 수정 / 프로필이미지, 생일
 		//birthDay 출력을 위한 simpledateFormat 설정
 		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat simpleParse = new SimpleDateFormat("yy/MM/dd");
-	/////2019 05 20 임한결 수정 이미지 세팅
-			for(AdminDTO dto : allMemberList) {
-				if(dto.getProfile_img().equals("default_cover_img.jpg")) {
-					dto.setProfile_img("/insomnia/upload/member/profile/default_cover_img.jpg");
-				}else if(dto.getProfile_img().startsWith("http")) {
-				}else {
-					dto.setProfile_img("https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/"+dto.getProfile_img());
-				}//////이미지 세팅
-			/////2019 05 20 임한결 수정 이미지 세팅 끝
+		for(AdminDTO dto : allMemberList) {
+			//*입력된 값이 null일때는 기본 이미지 넣어준다.
+		try {
+			//1. 프로필 사진이 우리 프로젝트쪽에 있는 경우
+			if(!dto.getProfile_img().startsWith("http://")) {
+				String fileName = dto.getProfile_img();
+				dto.setProfile_img("/insomnia/upload/member/profile/"+fileName);
+			}else {
+				//2. 프로필 사진이 웹서버에 등록되어 있는 경우 그대로 경로를 준다.
+			}///
+		}catch(Exception e) {////입력된 값이 null 일때
+			dto.setProfile_img("/insomnia/upload/member/profile/default_profile_img.jpg");
+		}//catch
 		
 		
 		/// 생일정보 양식에 맞추어 세팅하기
@@ -214,7 +230,8 @@ public class AdminController {
 		}////입력값 재수정해서 넣어주기
 		////////////////////////////////////////////////////////////2019 05 14 임한결 수정 / 프로필이미지, 생일
 		
-				
+//		System.out.println(searchColumn==""?"null":searchColumn);//""
+		model.addAttribute("searchColumn", searchColumn);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("pageSize",pageSize);
 		model.addAttribute("totalMemberCount", totalMembers);//
@@ -290,24 +307,36 @@ public class AdminController {
 	
 	//main content bandlist
 	@RequestMapping(value="/admin/maincontentmember.ins")
-	public String mainContentMember(@RequestParam(required=false,defaultValue="1") int nowPage,HttpServletRequest req,Map map,Model model) throws Exception {
+	public String mainContentMember(@RequestParam(required=false,defaultValue="1") int nowPage,HttpServletRequest req,@RequestParam Map map,Model model) throws Exception {
+		
 		
 		//시작 및 끝 ROWNUM구하기]
 		int start =(nowPage-1)*pageSize+1;
 		int end   =nowPage*pageSize;
+		
 		map.put("start",start);
 		map.put("end", end);
 		
 		
 		//band list
 		List<AdminDTO> list = adminService.selectBandList(map);
-		for(int i=0;i<list.size();i++) {
-			System.out.println(list.get(i).getCt_name());
-		}
+//		for(int i=0;i<list.size();i++) {
+//			System.out.println(list.get(i).getCt_name());
+//		}
 		//bandsize
 		int totalBands = adminService.selectBandCount(map);
 //		System.out.println(totalBands);
-		String pagingString=PagingUtil.pagingBootStrapStyle(totalBands, pageSize, blockPage, nowPage, req.getContextPath()+"/admin/maincontentmember.ins?");
+		
+		String searchColumn = map.get("searchColumn") == null ? "" :map.get("searchColumn").toString() ;
+		String searchWord = map.get("searchWord") == null ? "" :map.get("searchWord").toString();
+		String pagingString=null;
+		if(searchColumn != "") {
+			pagingString=PagingUtil.pagingBootStrapStyle(totalBands, pageSize, blockPage, nowPage, req.getContextPath()+"/admin/maincontentmember.ins?searchColumn=" + searchColumn + "&searchWord="+ searchWord + "&");
+		}
+		else {
+			pagingString=PagingUtil.pagingBootStrapStyle(totalBands, pageSize, blockPage, nowPage, req.getContextPath()+"/admin/maincontentmember.ins?");
+		}
+		
 		
 		//bandmusic
 		List<AdminDTO> bandMusicAll = new Vector<AdminDTO>();
@@ -354,19 +383,42 @@ public class AdminController {
 		}///for
 		/////2019 05 15 임한결 추가 1000단위로 , 찍기 끝
 		
+		/*
+		 * Map<String, Object> mp = new HashMap<String, Object>();
+       mp.put("data", collections);
+
+
+       JSONObject re = new JSONObject();
+       re.put("data", collections);
+       //Object result = mp;
+       
+      
+       System.out.println("=============");
+       System.out.println(re.toJSONString());
+       System.out.println("=============");
+       return re.toJSONString();
+		 */
 		
-		List<Map> bandSubmitMember = new Vector<Map>();
+		/*
+		 * {"data":[{"PARTNERSTATUS":"1","TEL":"01012345678","ID":"admin","EMAIL":"이메일","NAME":"관리자","ADDR":"주소"},{"PARTNERSTATUS":"0","TEL":"01012345678","ID":"aaaa","EMAIL":"yuemj@naver.com","NAME":"타는사람","ADDR":"06267:!:서울 강남구 도곡동 957-13;!@weqwewqe"},{"PARTNERSTATUS":"1","TEL":"01056782134","ID":"bbbb","EMAIL":"yuemj@naver.com","NAME":"태워줄사람","ADDR":"06267:!:서울 강남구 도곡동 957-13;!@weqwewqe"},{"PARTNERSTATUS":"1","TEL":"01032970922","ID":"csj910226","EMAIL":"csj_910226@naver.com","NAME":"최성준","ADDR":"08593:!:서울 금천구 가산동 343-8;!@1234"}]}
+		 */
+		
+		
+		List<Map<String, String>> bandSubmitMember = new Vector<Map<String, String>>();
 		for(AdminDTO submitMember : bandSubmit) {
-			Map record = new HashMap();
+			Map<String, String> record = new HashMap<String, String>();
 			record.put("b_name", submitMember.getB_name());
 			record.put("s_goal_price", submitMember.getS_goal_price()==null?"--":submitMember.getS_goal_price()+ " 원");
 			record.put("s_goal_deadline", submitMember.getS_goal_deadline()==null?"미정":submitMember.getS_goal_deadline().substring(0, 10));
 			bandSubmitMember.add(record);
-		}
-		System.out.println("submit:"+JSONArray.toJSONString(bandSubmitMember));//이 형태 ok
+		};
 		
-		return JSONArray.toJSONString(bandSubmitMember);
-	}
+		JSONObject re = new JSONObject();
+		re.put("data",bandSubmitMember);
+		System.out.println(re.toJSONString());
+		return re.toJSONString();
+		
+	}///////////////
 	
 	//main + submit ing
 	@RequestMapping(value="/admin/maincontentsubmit.ins")
@@ -409,19 +461,24 @@ public class AdminController {
 		Set<String> set = new HashSet<String>();
 		for(AdminDTO dto : bandChartdata) {
 			set.add(dto.getR_no());
+			System.out.println(set);
 		}
 		
 		
 		List<Map> bandChartInfo = new Vector<Map>();
-		Map record = new HashMap();
+		
 		AdminDTO rewardName = new AdminDTO();
 		String rewardQty="";
 		Iterator<String> ite = set.iterator();
 		while(ite.hasNext()) {
-			String a = ite.next();
+			Map record = new HashMap();
+			String selectByR_no = ite.next();
+			System.out.println("selectByR_no" + selectByR_no);
 			//a로 쿼리 두개 돌리고
-			rewardName = adminService.getRewardName(a);
-			rewardQty = adminService.getRewardQty(a);
+			rewardName = adminService.getRewardName(selectByR_no);
+			System.out.println("rewardName" + rewardName.getR_name());
+			rewardQty = adminService.getRewardQty(selectByR_no);
+			System.out.println("rewardQty" + rewardQty);
 			record.put("b_name", rewardName.getB_name());
 			record.put("r_name", rewardName.getR_name());
 			record.put("qtys", rewardQty);
@@ -429,10 +486,14 @@ public class AdminController {
 		}
 		
 		
-		System.out.println(JSONArray.toJSONString(bandChartInfo));
-
-		return JSONArray.toJSONString(bandChartInfo);
-		//return "";
+//		System.out.println(JSONArray.toJSONString(bandChartInfo));
+//
+//		return JSONArray.toJSONString(bandChartInfo);
+		
+		JSONObject re = new JSONObject();
+		re.put("data",bandChartInfo);
+		System.out.println(re.toJSONString());
+		return re.toJSONString();
 	}
 	
 	//pay
@@ -478,7 +539,13 @@ public class AdminController {
 	public String memberView(@RequestParam String id,Map map,Model model) throws Exception{
 		//System.out.println("id넘어가는지 확인 :"+id);
 		AdminDTO memberView = adminService.selectOne(id);
-		
+		//전화번호
+		String beforePhone = memberView.getPhone();
+//		System.out.println(beforePhone);
+		String afterPhone = "0"+beforePhone.substring(0, 2)+"-"+beforePhone.substring(2,6)+"-"+beforePhone.substring(6);
+//		System.out.println(afterPhone);
+		memberView.setPhone(afterPhone);
+		//주소
 		String addressArray[];
 		String address="";
 		if(memberView.getShipping_address()!=null) {
@@ -502,6 +569,8 @@ public class AdminController {
 		List<AdminDTO> memberViewPay = adminService.selectMemberViewPay(id);
 		System.out.println(memberViewPay.size());
 		
+		
+		model.addAttribute("name", memberView.getName());
 		model.addAttribute("memberViewPay", memberViewPay);
 		model.addAttribute("id", id);
 		model.addAttribute("memberView", memberView);
@@ -622,6 +691,8 @@ public class AdminController {
 //		System.out.println("map:" +map);
 		List<Map> SafePaydetails = adminService.selectBandSafepayDetail(map);
 		for(Map asdasd : SafePaydetails) {
+			System.out.println(asdasd);
+			asdasd.put("NAME",asdasd.get("NAME").toString());
 			asdasd.put("SP_REWARD_QTY",asdasd.get("SP_REWARD_QTY").toString());
 			asdasd.put("R_DESCRIPTION",asdasd.get("R_DESCRIPTION").toString());
 			asdasd.put("SP_DATE",asdasd.get("SP_DATE").toString().substring(0,10));
@@ -632,6 +703,7 @@ public class AdminController {
 			asdasd.put("R_PRICE",asdasd.get("R_PRICE").toString());
 			asdasd.put("SP_SUPPORT",asdasd.get("SP_SUPPORT").toString());
 		}
+		
 		return JSONArray.toJSONString(SafePaydetails);
 	}
 	
@@ -655,5 +727,25 @@ public class AdminController {
 				int youBlock = adminService.unBlockMember(ids.get(i));
 			}
 		}///memberBlock
+	
+	@ResponseBody
+	@RequestMapping(value="/admin/bandSubmitWaiting.ins",produces="text/html; charset=UTF-8")
+	public String bandSubmitWaiting(@RequestParam Map map, Model model) throws Exception {
+		List<AdminDTO> bandWaitingList = adminService.selectBandSubmitWaiting(map);
+		//
+		List<Map<String, String>> bandSubmitMember = new Vector<Map<String, String>>();
+		for(AdminDTO bandWaiting : bandWaitingList) {
+			Map<String, String> record = new HashMap<String, String>();
+			record.put("b_name", bandWaiting.getB_name());
+			record.put("ct_name", bandWaiting.getCt_name()==null?"--":bandWaiting.getCt_name());
+			record.put("sw_postdate", bandWaiting.getSw_postdate().substring(0, 10)==null?"미정":bandWaiting.getSw_postdate().substring(0, 10));
+			bandSubmitMember.add(record);
+		};
+		
+		JSONObject re = new JSONObject();
+		re.put("data",bandSubmitMember);
+		System.out.println(re.toJSONString());
+		return re.toJSONString();
+	}
 	
 }/////////////

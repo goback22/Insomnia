@@ -21,6 +21,8 @@
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 </head>
+
+	
 <body>
 
 	<div id="wrapper">
@@ -123,7 +125,7 @@
 			//total chart
 			let bandName = $(this).parent().children().eq(1).html();
 			let goal_price = $(this).parent().children().eq(4).html().replace(/,/gi,'').replace('원','');
-			let goal_accumulation = $(this).parent().children().eq(3).html().replace(',','').replace('원','');
+			let goal_accumulation = $(this).parent().children().eq(3).html().replace(/,/g,"").replace('원','');
 			console.log(goal_price, "   ", goal_accumulation )
 			$('#bandName').html(bandName);
 			if (goal_accumulation != 0 || goal_accumulation != null)
@@ -142,9 +144,15 @@
 	<%-- <script src="<c:url value='/vendor/js/admin_chart_test.js'/>" type="text/javascript"></script> --%>
 
 	<script type="text/javascript">
+		let elthis;
 		$(function() {
+			
 			$(".views").one("click", function() {
 				showDetailPay($(this).children(0).html());
+				elthis = $(this);	
+				
+				console.log("$this:" + elthis.next().children().children().children(1).next().html());
+
 			});
 		});
 		function showDetailPay(div) {
@@ -189,7 +197,9 @@
 									+ element["SP_REWARD_QTY"]
 									+ "</td>";
 							tableString += "<td class='col-md-1'>"
+									+ "<p class = 'ellip'>"
 									+ element["R_DESCRIPTION"]
+									+ "</p>"
 									+ "</td>";
 							tableString += "<td class='col-md-1'>"
 									+ element["SP_DATE"]
@@ -204,7 +214,8 @@
 									+ element["R_NO"]
 									+ "</td>";
 							tableString += "<td class='col-md-1'>"
-									+ element["ID"]
+									+ element["NAME"] + "(" 
+									+ element["ID"] + ")"
 									+ "</td>";
 							tableString += "<td class='col-md-1'>"
 									+ element["SP_SUPPORT"]
@@ -220,6 +231,27 @@
 						}
 						tableString += "</table> ";
 						$('#div' + String(div)).append(tableString);
+						
+						console.log("this", elthis.next().children().children().children(1).next().children().children().children().eq(1).children().eq(1).children().html());
+						//여기에 추가함
+						var len = 100;
+						var p = elthis.next().children().children().children(1).next().children().children().children().eq(1).children().eq(1).children().get();
+// 						console.log("p" + p);
+						console.log("typeof(p)" + typeof(p));
+						if (p) {
+							console.log("p" + p);
+							var trunc = p.innerHTML;
+							console.log(trunc);
+						 	if (trunc.length > len) {
+						    trunc = trunc.substring(0, len);
+						    trunc = trunc.replace(/\w+$/, '');
+						    trunc += '<a href="#" ' +
+						      'onclick="this.parentNode.innerHTML=' +
+						      'unescape(\''+escape(p.innerHTML)+'\');return false;">' +
+						      '...<\/a>';
+						    p.innerHTML = trunc;
+						  }
+						}
 					})
 			// HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 			.fail(function(xhr, status, errorThrown) {
@@ -330,5 +362,7 @@
 		}//success function
 		/////////////////////////////////// 임한결 추가 끝 //////////
 	</script>
+	
+	
 </body>
 </html>
