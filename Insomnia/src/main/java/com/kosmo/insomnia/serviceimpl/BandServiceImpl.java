@@ -262,5 +262,10 @@ public class BandServiceImpl implements BandService{
 		return dao.getLikeBand2(map);
 	}
 
+	@Override
+	public List<String> getMyLikeBand(Map map) {
+		return dao.getMyLikeBand(map);
+	}
+
 	
 }//class BandServiceImpl

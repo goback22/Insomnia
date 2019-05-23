@@ -282,7 +282,7 @@ function setComma(n) {
 						<option value="4">기업은행</option>
 						<option value="5">KEB하나은행</option>
 						<option value="6">카카오뱅크</option>
-						<option value="7">신한은행</option>
+						<option value="7">국민은행</option>
 					</select>
 				</div>
 				<!-- select div -->

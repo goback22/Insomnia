@@ -55,7 +55,7 @@
 }
 
 #pagin {
-	margin-top:20px;
+	margin-top:80px;
 }
 
 @media ( max-width: 768px ) {
@@ -261,8 +261,8 @@ body {
 												<div class='historyDiv'>
 													<p class='historyName'>${funding.r_name}</p>
 													<img class='historyImg' src="<c:url value='/upload/band/cover/${funding.sw_banner}'/>"/> 
-													<p class="historyDesc">${funding.r_description}</p>  
-													<p class="historyMusic">${funding.bm_name}</p>  
+													<p class="historyDesc">${funding.sw_short_description}</p>  
+													<p class="historyMusic"">${funding.r_name}</p>  
 													<p class="historyAuthor">${funding.b_name}</p><p class="historyPrice">${funding.r_price}원</p>
 												</div>
 												 
@@ -536,9 +536,9 @@ body {
 					listString += "<p class='historyName'>" + element["R_Name"] + "</p>"; 
 					listString += "<img class='historyImg' src='"+src+"' />"  
 					listString += "<p class='historyDesc'>"+element["R_Description"]+"</p>";
-					listString += "<p class='historyMusic'>"+element["BM_name"]+"</p>";
+					listString += "<p class='historyMusic'>"+element["R_Name"]+"</p>";
+					//listString += "<p class='historyMusic'></p>";
 					listString += "<p class='historyAuthor'>"+element["B_name"]+"</p><p class='historyPrice'>"+element["R_Price"]+"원</p>";
-
 	
 					listString += "</div>"  //전체 div끝
 					
@@ -571,11 +571,13 @@ body {
 					var src = '<c:url value="/upload/band/cover/'+imgSrc+'"/>';
 					
 					listString += "<div class='historyDiv'>";  //전체 div
+					
 					listString += "<p class='historyName'>" + element["b_name"] + "</p>"; 
 					listString += "<img class='historyImg' src='"+src+"' />"  
 					listString += "<p class='historyDesc'>"+element["b_description"]+"</p>";
 					listString += "<p class='historyMusic'>"+element["bm_name"]+"</p>";
-					listString += "<p class='historyPrice' style='border:none;'>좋아요 "+element["b_liked"]+"♥</p>";
+					listString += "<p class='historyPrice' style='border:none; text-align:right;'>♥ x "+element["b_liked"]+"</p>";
+					
 
 	
 					listString += "</div>"  //전체 div끝

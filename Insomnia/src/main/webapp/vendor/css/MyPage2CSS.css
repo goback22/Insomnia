@@ -557,11 +557,33 @@ em, i {
 
 /*===========================ajax css========================*/
 
+.historyPrice {
+    margin-top: 20px;
+}
+
+.historyMusic {
+    height: 60px;
+}
+
+.historyDesc {
+	height:55px;
+}
+
+.historyName {
+    height: 50px;
+}
+
+p.historyAuthor {
+    height: 30px;
+    padding-top: 20px;
+}
+
+
 .historyDiv {
 	display:inline-block; 
-	width:270px; 
+	width:300px; 
 	height:450px; 
-	border:1px black solid; 
+	
 	margin-left:20px; 
 	border-bottom: 1px solid #DADCE0;
 	border-top: none;
@@ -618,8 +640,8 @@ em, i {
 	display:inline-block; 
 	width:100%; 
 	margin:0px;
-	border-left: 1px solid #DADCE0;
-	border-right: 1px solid #DADCE0;
+	/* border-left: 1px solid #DADCE0;
+	border-right: 1px solid #DADCE0; */
 	
 }
 
@@ -630,7 +652,7 @@ em, i {
 	width:50%; 
 	margin:0px; 
 	text-align:left;
-	border-left: 1px solid #DADCE0;
+	/* border-left: 1px solid #DADCE0; */
 	padding: none;
 	padding-left:10px;
 	
@@ -641,9 +663,10 @@ em, i {
 	display:inline-block; 
 	width:50%; 
 	text-align:right;
-	border-right: 1px solid #DADCE0;
+	/* border-right: 1px solid #DADCE0; */
 	padding: none;
 	padding-right:10px;
+	margin-top:0px;
 	color: #90949C;
 	
 }

@@ -51,6 +51,18 @@ public class RewardServiceImpl implements RewardService {
 	public int getTotalCount(Map map) {
 		return dao.getTotalCount(map);
 	}
+
+	@Override
+	public List<Map> selectAndroidReward1(Map map) {
+		return dao.selectAndroidReward1(map);
+	}
+	
+	@Override
+	public List<Map> selectAndroidReward2(Map map) {
+		return dao.selectAndroidReward2(map);
+	}
+
+	
 	
 
 }

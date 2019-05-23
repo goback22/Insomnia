@@ -261,6 +261,11 @@ public class BandDAO implements BandService {
 		return template.selectList("getLikeBand2", map);
 	}
 
+	@Override
+	public List<String> getMyLikeBand(Map map) {
+		return template.selectList("getMyLikeBand", map);
+	}
+
 
 	
 }// class BandDAO
