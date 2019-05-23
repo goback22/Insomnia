@@ -63,6 +63,8 @@ public class RewardDAO implements RewardService {
 	public List<Map> selectAndroidReward2(Map map) {
 		return template.selectList("selectAndroidReward2", map);
 	}
+
+	
 	
 	
 

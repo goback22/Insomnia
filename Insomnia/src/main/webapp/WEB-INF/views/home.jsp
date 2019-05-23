@@ -121,7 +121,14 @@ $(function(){
 	</script>
 
 </c:if>
-
+<c:if test='${normalMemberWelcome eq "yes" }'>
+	<script>
+		$(function(){
+			$('.normal-welcome-complete-div').css('display', 'block');
+		})
+	</script>
+</c:if>
+ 
 <c:if test='${mailSucFail eq "yes"}'>
 	<script>
 		alert("비밀번호 설정 링크가 발송되었습니다. 메일을 확인해주세요.");
@@ -165,6 +172,21 @@ $(function(){
 			</div>
 		</div>
 	</div>
+	
+	<!-- 일반 로그인 모달 시작-->
+	<div class="normal-welcome-complete-div" style="display: none">
+		<div class="social-content-div">
+			<!-- <button class="close-btn" title="닫기">x</button> -->
+			<div class="social-content">
+				<div class="social-info-title">INSOMNIA 가입이 완료되었습니다.</div>
+				<div class="social-info">INSOMNIA의 회원이 되신 것을 축하합니다.<br/>INSOMNIA의 다채로운 리워드를 즐길 준비가 되셨나요.</div>
+			</div>
+			<div class="social-btn-div">
+					<span class="normal-btn-complete">확인</span>
+			</div>
+		</div>
+	</div>
+	<!-- 일반 로그인 모달 끝 -->
 	
 
 	<div id="site">
@@ -755,6 +777,14 @@ $(function(){
 					$('.social-welcome-complete-div').css('display', 'none');
 					
 				});
+				
+				
+				$('.normal-btn-complete').click(function(){
+					$('.normal-welcome-complete-div').css('display', 'none');
+					
+				});
+				
+				
 			})
 			
 			

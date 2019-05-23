@@ -63,8 +63,8 @@ public class MemberController {
 	}// toComplete
 
 	@RequestMapping(value = "/register.ins", method = RequestMethod.POST)
-	public String RegisterPost(@RequestParam Map map, RedirectAttributes rttr, HttpServletRequest request,
-			HttpSession session) throws Exception {
+	public String RegisterPost(@RequestParam Map map, Map dismap, RedirectAttributes rttr, HttpServletRequest request,
+			HttpSession session, Model model) throws Exception {
  		Map<String, String> record = new HashMap();
  		
 		record.put("id", map.get("email").toString()+"@"+map.get("portal").toString());
@@ -99,6 +99,17 @@ public class MemberController {
 		
 		service.create(record);
 		rttr.addFlashAttribute("authmsg", "이메일 인증 후 사용 가능합니다.");
+		
+		////////////추가한 부분 - 서기환
+		
+		
+		session.setAttribute("id", record.get("id"));
+		dismap.put("id", session.getAttribute("id"));
+		MemberDTO loginRecord = memberService.selectOne(dismap);
+		
+		model.addAttribute("loginRecord", loginRecord);
+		model.addAttribute("normalMemberWelcome", "yes");
+		
 //		return "redirect:/";
 		return "home.tiles";
 	}

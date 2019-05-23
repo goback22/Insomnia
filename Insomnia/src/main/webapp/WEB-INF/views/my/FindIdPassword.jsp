@@ -57,7 +57,7 @@
 					<div class="result-id-info">
 						<p class="foundId"></p>
 						<p class="joinedId idInfo">회원으로 등록된 계정입니다.<br/> 해당 이메일로 로그인하시고 INSOMNIA를 이용하세요.</p>
-						<p class="notJoinedId idInfo">INSOMNIA에 등록되지 않은 계정입니다. 이메일로 <p>
+						<p class="notJoinedId idInfo">INSOMNIA에 등록되지 않은 계정입니다. 회원가입을 먼저 진행해주세요. <p>
 					</div>
 					<div class="result-id-btns">
 						<a class="goToRegister" href="<c:url value='/register/term.ins'/>">회원가입하기</a>

@@ -25,8 +25,10 @@ public interface RewardService {
 	///안드로이드를 위한 쿼리문1
 	List<Map> selectAndroidReward1(Map map);
 	
-	///안드로이드를 위한 쿼리문1
+	///안드로이드를 위한 쿼리문2
 	List<Map> selectAndroidReward2(Map map);
+	
+
 	
 	
 }

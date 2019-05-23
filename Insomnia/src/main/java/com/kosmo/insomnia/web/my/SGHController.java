@@ -802,7 +802,7 @@ public class SGHController {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(EEE) hh:mm");
 			String currentStr = format.format(current);
 			
-			String message;
+			String message;//
 			//여기부터
 			message = "<div style=\"max-width: 595px; margin: 0 auto\">\r\n" + 
 					"		<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n" + 
@@ -818,7 +818,7 @@ public class SGHController {
 					"							<tbody>\r\n" + 
 					"								<tr>\r\n" + 
 					"									<td style=\"\" width=\"61\"><img\r\n" + 
-					"										src=\"<c:url value='/img/logo.png'/>\"\r\n" + 
+					"										src='https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/insomnia_logo.png'\r\n" +  
 					"										alt=\"Insomnia\" width=\"61\"></td>\r\n" + 
 					"									<td style=\"padding-left: 5px\"><img\r\n" + 
 					"										src=\"http://static.naver.com/common/ems/nid_dm/nid_201412.gif\"\r\n" + 
