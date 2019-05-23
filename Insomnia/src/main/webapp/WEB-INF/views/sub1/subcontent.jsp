@@ -162,7 +162,7 @@
          </div>
          <div class="logo-box" id="logo-box" style="display:none;"></div> <span style="display:none">Media
             Production</span>
-         <img style="width: 170px;height: 55px;margin-top: -50px;" src="<c:url value='/resource/img/logo_5.png'/>">
+         <img style="width: 170px;height: 45.7px;margin-top: -47px;margin-left: 7px" src="<c:url value='/resource/img/logo_5.png'/>">
          <div class="logo-box" id="logo-box"></div> <span style="display: none">Media
             Production</span>
       </a> <a href="<c:url value='/sub1/subprojects.ins'/>" class="works q_magnet hover-target">All
@@ -222,11 +222,11 @@
                         </div>
                      </div>
                      <div class="column q-1-5">
-                        <span class="line"></span> <a onclick="popStream();" title="Contact Clorova"
+                        <span class="line"></span> <a onclick="showPopup();" title="Contact Clorova"
                            class="flare-hover hover-target">
                            <h1 class="large">
                               <span class="q_split"><span
-                                 class="q_split_wrap menu-item">LiveStream</span> </span>
+                                 class="q_split_wrap menu-item">Chatting</span> </span>
                            </h1>
                         </a>
                         <div class="text">
@@ -402,15 +402,15 @@
                         <div class="clients">
                         <img src="<c:url value='/resource/img/1.png'/>" class="rev_client" alt="Starwood" /> 
                            <img src="<c:url value='/resource/img/2.png'/>" class="rev_client"
-                              alt="Starwood" /> <img src="<c:url value='/resource/img/2.png'/>"
+                              alt="Starwood" /> <img src="<c:url value='/resource/img/3.png'/>"
                               class="rev_client" alt="Prama Sanur" /> <img
-                              src="<c:url value='/resource/img/3.png'/>" class="rev_client"
-                              alt="Preference Hotels" /> <img
                               src="<c:url value='/resource/img/4.png'/>" class="rev_client"
-                              alt="Sintesa Group" /> <img
+                              alt="Preference Hotels" /> <img
                               src="<c:url value='/resource/img/5.png'/>" class="rev_client"
-                              alt="Four Points" /> <img
+                              alt="Sintesa Group" /> <img
                               src="<c:url value='/resource/img/6.png'/>" class="rev_client"
+                              alt="Four Points" /> <img
+                              src="<c:url value='/resource/img/10.png'/>" class="rev_client"
                               alt="PNK Hotels" /> <img src="<c:url value='/resource/img/8.png'/>"
                               class="rev_client" alt="Alaya Hotels" /> <img
                               src="<c:url value='/resource/img/9.png'/>" class="rev_client"
@@ -561,15 +561,12 @@
    </div>
 </body>
 
-
 <!-- 웹 채팅 -->
-	<script>
-	////////////////////// 2019 05 21 임한결 추가 라이브 스트림
-	function popStream(){
-		window.open("/insomnia/webRTC/getUserMedia.ins", "라이브 스트림", "width=800, height=597, toolbar=no, menubar=no, scrollbars=no, resizable=no" );
-	}//function popStream
-	</script>
-
+<script>
+function showPopup() {
+     window.open("<c:url value='/bgsChat.jsp'/>", "방구석 채팅!", "width=400, height=600, left=100, top=50");
+}
+</script>
 
 <!-- 약도,SNS API 반응형으로 만들기 -->
 <style>
