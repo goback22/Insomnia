@@ -118,7 +118,7 @@
 		 select * 
  		from band b join favorite f on b.b_no = f.b_no
  		join bandmember bm on bm.b_name = b.b_name
- 		where f.id='twice@naver.com' and choice = 'like'
+ 		where f.id=#{id} and choice = #{choice} and b.b_no=#{b_no}
 	</select>
 	
 	<select id="getLikeBand2" parameterType="java.util.Map" resultType="BandDTO">	
@@ -128,7 +128,7 @@
 		join bandsubmitwaiting bsw on bsw.b_no = b.b_no
 		join bandsubmit bs on bs.b_no = b.b_no
 		join reward r on r.s_no = bs.s_no
-		where f.id=#{id} and choice=#{choice}
+		where f.id=#{id} and choice=#{choice} and b.b_no=#{b_no}
 	</select>
 	<!-- <select id="getLikeBand" parameterType="java.util.Map" resultType="BandDTO">	
 		select * from (select t.*, rownum as r from (select b.b_no, b_name, b_description, b_album_cover, bm_name

@@ -562,37 +562,38 @@ public class SGHController {
 		} else /*(requestStr.equals("좋아한"))*/ {
 			
 			///일단 내가 좋아요 표시한 밴드들을 알아야 한다.
-			List<String> myLikeBandList = bandService.getMyLikeBand(dismap);
+			List<String> myLikeBandList = bandService.getMyLikeBand(dismap);  ///잔나비 2개.
 			
-			for(int i=0; i<myLikeBandList.size(); i++) {
-				System.out.println("부적합한 열 유형이라니??? "  + myLikeBandList.get(i));
-				dismap.put("b_no", myLikeBandList.get(i));
+			
+			if(myLikeBandList.size() == 0) {   ///좋아요 표시한 밴드가 없을시.
+				blankMap.put("noData", "noData");
+				blankMap.put("which", "좋아한");
+				resultList.add(blankMap);
+				return JSONArray.toJSONString(resultList);	
+			}
+			
+			
+			///좋아요 표시한 밴드가 있을 시
+			
+			for(int i=0; i<myLikeBandList.size(); i++) {  //2번 루프
 				
-				int doesBandRegisterMusic =  bandService.doesBandRegisterMusic(dismap);
+				dismap.put("b_no", myLikeBandList.get(i));  //밴드 구분 위해 b_no 주입
+				int doesBandRegisterMusic =  bandService.doesBandRegisterMusic(dismap);  //밴드의 리워드 등록여부 확인
 				
 				List<BandDTO> records;
 				
 				///좋아한 리워드 목록 가져오기
 				if(doesBandRegisterMusic == 0) {
-					records = bandService.getLikeBand(dismap);
+					records = bandService.getLikeBand(dismap);  ///음악 없는 밴드의 정보들 DTO
 				} else {
-					records = bandService.getLikeBand2(dismap);
+					records = bandService.getLikeBand2(dismap); ///음악 등록한 밴드의 정보들 DTO
 				}
 				
-				////////
-				if(records.size() == 0) {
-					blankMap.put("noData", "noData");
-					blankMap.put("which", "좋아한");
-					resultList.add(blankMap);
-					return JSONArray.toJSONString(resultList);
-				}
-				
-				
-				///값이 있을 때
+
 				for(BandDTO record : records) {
 					
-					//맵 생성
-					Map tempMap = new HashMap();
+					Map tempMap = new HashMap();  ///임시맵 생성
+					
 					tempMap.put("b_name", record.getB_name());
 					tempMap.put("b_description", record.getSw_short_description());
 					tempMap.put("b_album_cover", record.getB_album_cover());
@@ -606,28 +607,28 @@ public class SGHController {
 						tempMap.put("b_description", "리워드 준비중");
 					}
 					
-					System.out.println("이게 왜 널이냐? " + record.getB_no());
 					dismap.put("b_no", record.getB_no());
-					int likeCount = bandService.getBandLikeNFollow(dismap);
+					int likeCount = bandService.getBandLikeNFollow(dismap);  ///좋아요 개수
 					
 					tempMap.put("b_liked", likeCount);
 				
-					resultList.add(tempMap);			
-				}
+					resultList.add(tempMap);		
+					
+				}/////for(BandDTO record : records)
 				
 				
-			}
+			}////myLikeBand.size() 2번 루프
 				
 							
 				return JSONArray.toJSONString(resultList);
 				
-		} 
+		} ////좋아한 선택시
 	
 
-	}//////////////json으로 구매한 목록들 뿌려주기
+	} ////컨트롤러 메서드
+	
 	
 	////아이디 비밀번호 찾기 페이지 이동
-	
 	@RequestMapping("/find/findId.ins")
 	public String findIdPage(@RequestParam Map map, Model model) throws Exception {
 		
