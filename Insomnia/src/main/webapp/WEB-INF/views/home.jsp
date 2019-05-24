@@ -754,7 +754,7 @@ $(function(){
 
 				/* $('.user_middle td:nth-child(2)').click(function(){
 					location.href="<c:url value='/menu/mypage3.ins'/>";
-				}); */
+				}); *///
 
 				
 				$('.user_middle td:nth-child(3)').click(function(){
