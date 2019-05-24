@@ -112,6 +112,14 @@
 	outline: none !important;
 }
 
+.ads_aside{
+		float: inline-end;
+	    position: absolute;
+	    display: inline;
+	    margin-left: 1400px;
+	    width: 16%;
+	}
+	
 #btnEmailAuthentication {
 	margin-left: 50px;
 }
@@ -180,6 +188,40 @@
 		<div class="space_for_nav"></div>
 		<jsp:include page="/WEB-INF/template/Nav.jsp" />
 
+<!-- ===================================스테파니쌤===================================== -->
+<aside>
+	<div class="ads_aside">
+		<a href="https://studysearch.co.kr/ayl/ggmm2?gclid=Cj0KCQjwnpXmBRDUARIsAEo71tTeFBcMZcBqXDxNOKi3MP9X45XQ2bkt49OVcKFYWmqOI6UCK0aKw58aAnujEALw_wcB" data-original-click-url="https://www.googleadservices.com/pagead/aclk?sa=L&amp;ai=C_zVlEp_GXOiBAZj5rQT97YjgB6vg459W-pWQm6sIxZzN1LAQEAEgiv_CKGCbg-mEnCmgAYa4sbgDyAECqQJUv32iYaUNPqgDAcgDyQSqBPMBT9C9-iCe8Giy4pz7YqO1ExGj9iK8VRqWh-3HgqT3AfT4Qivncsl4xcGlegqjMicjMtzv_FnYuA-OTz1ZpM_Qm1epOE6Ocv5xdumR0IkLD3Vd5g4BMmqI68WSUgi884VLfy1mzqa08milasnQDUTh2VPyj6NP99QkxV5rZkk91P2W7j0sBSrskltGtBSYgOtiEPF1RWo0IVHtgdHYfW0Jycg7PL9IHthMHYhJfz6A1ELqZIhz6ZINsaKODbgalrIMUEn9YSyLxvuCTCHQ5snkPFk4fzIYG4ZEl6NMu8CnBNp_wpw3KawpOpLfZGogrmL1a0nakAYBoAYCgAfix85HiAcBkAcCqAeOzhuoB9XJG6gH4NMbqAe6BqgH2csbqAfPzBuoB6a-G9gHAdIIBggAEAIYCrEJP61ueB1ROOSACgHYEww&amp;ae=1&amp;num=1&amp;cid=CAMSeQClSFh3B1_oIy5-HMEMTPZpPxE7V8Zff9QeoQAz23pZHyzu9cn7YJxhqjnL3t62WV-cdhx7lTvY5rw64KDy2v1LeFKe0GXO1lYzdbkFAIzN-qtW4oGc8r1hTwF4ZXu6DgtwEZuhJo3yewNLY0ppthpW-6QcwSQS21Y&amp;sig=AOD64_2lCu-CWrTDqJ9hp7y-ip_PgpjMFg&amp;client=ca-pub-9184491641313822&amp;adurl=https://studysearch.co.kr/ayl/ggmm2%3Fgclid%3DCj0KCQjwnpXmBRDUARIsAEo71tTeFBcMZcBqXDxNOKi3MP9X45XQ2bkt49OVcKFYWmqOI6UCK0aKw58aAnujEALw_wcB">
+			<img src="https://tpc.googlesyndication.com/simgad/904511498948388870?sqp=4sqPyQQrQikqJwhfEAEdAAC0QiABKAEwCTgDQPCTCUgAUAFYAWBfcAJ4AcUBLbKdPg&amp;rs=AOga4qleeKK2sSlVeVNOE1kKQ0YviuNkSA" border="0" width="160" alt="" class="img_ad">
+		</a>
+	</div>
+</aside>
+
+<script>
+// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
+var floatPosition = parseInt($(".ads_aside").css('top'));
+// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+
+$(window).scroll(function() {
+	// 현재 스크롤 위치를 가져온다.
+	var scrollTop = $(window).scrollTop();
+	var newPosition = scrollTop + floatPosition + "px";
+
+	$(".ads_aside").stop().animate({
+		"top" : newPosition
+	}, 1000);
+	if(pay_Way == 'B' && scrollTop + floatPosition >= 1513){
+		$(".ads_aside").stop().animate({
+			"top" : 1513+"px"
+		},1000)
+	}else if(pay_Way == 'D' && scrollTop + floatPosition >= 1073){
+		$(".ads_aside").stop().animate({
+			"top" : 1073+"px"
+		},1000)
+	}
+}).scroll();
+//===================================스테파니쌤=====================================
+</script>
 
 		<!--===========================-->
 		<!--=        	About         =-->

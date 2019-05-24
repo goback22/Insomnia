@@ -539,7 +539,7 @@
 
                </div>
 
-               <div class="option-box" style="margin-top: -25px;">
+               <div class="option-box" style="margin-top: -15px;">
                   <div class="option-box-left">
                      <div class="option-box-amount">${bgs2.C_CONCERTDATE}</div>
                      <div class="mt5" style="padding-top: 5px">
