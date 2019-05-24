@@ -121,7 +121,7 @@ public interface BandService {
 	String getTotalPeopleForPay(String s_no);
 	
 	//38] dto로 Pay테이블 insert
-	int addPay(PayDTO dto);
+	int addPay(PayDTO dto);//
 	
 	//서기환 추가
 	//39] 좋아요/팔로잉
