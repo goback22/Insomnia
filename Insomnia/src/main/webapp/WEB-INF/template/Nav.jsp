@@ -313,7 +313,7 @@ $(function(){
 			$(function(){
 				
 				$('.user_middle td:first-child').click(function(){
-					location.href="<c:url value=''/>";
+					/* location.href="<c:url value=''/>"; */
 				});
 				
 
@@ -323,11 +323,11 @@ $(function(){
 
 				
 				$('.user_middle td:nth-child(3)').click(function(){
-					location.href="<c:url value=''/>";
+					/* location.href="<c:url value=''/>"; */
 				});
 				
 				$('.user_middle td:nth-child(4)').click(function(){
-					location.href="<c:url value=''/>";
+					/* location.href="<c:url value=''/>"; */
 				});
 
 				

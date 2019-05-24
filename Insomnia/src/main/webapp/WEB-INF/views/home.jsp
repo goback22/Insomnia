@@ -96,7 +96,15 @@ $(function(){
 			 error: function(){
 			 }
 		  });
-	  })
+	  });
+	  
+	  ////22
+	  
+	  
+	 
+	  
+	  
+	  ////22
 	})
 })
 </script>
@@ -740,21 +748,21 @@ $(function(){
 			$(function(){
 				
 				$('.user_middle td:first-child').click(function(){
-					location.href="<c:url value=''/>";
+					
 				});
 				
 
-				$('.user_middle td:nth-child(2)').click(function(){
+				/* $('.user_middle td:nth-child(2)').click(function(){
 					location.href="<c:url value='/menu/mypage3.ins'/>";
-				});
+				}); */
 
 				
 				$('.user_middle td:nth-child(3)').click(function(){
-					location.href="<c:url value=''/>";
+					/* location.href="<c:url value=''/>"; */
 				});
 				
 				$('.user_middle td:nth-child(4)').click(function(){
-					location.href="<c:url value=''/>";
+					/* location.href="<c:url value=''/>"; */
 				});
 
 				
