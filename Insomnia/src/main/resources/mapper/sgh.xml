@@ -167,5 +167,33 @@
 		select * from members where email = #{thisEmail}
 	</select>
 	
+	<select id="selectList_Android_Funding" resultType="java.util.Map">
+		select c.ct_name,b.b_album_cover,b_name,b_description,bs.s_goal_accumulation,bs.s_goal_price,bs.s_goal_deadline 
+		from band b 
+		join category c on C.ct_no = b.ct_no 
+		join bandsubmit bs on b.b_no = bs.b_no 
+		order by s_goal_deadline
+	</select>
+	
+	<select id="selectList_Android_Funding2" resultType="java.util.Map">
+		select c.ct_no,c.ct_name,b_album_cover,b_name,b_description,bs.s_goal_accumulation,bs.s_goal_price,bs.s_goal_deadline 
+		from band b 
+		join category c on C.ct_no = b.ct_no 
+		join bandsubmit bs on b.b_no = bs.b_no 
+		order by s_goal_deadline
+	</select>
+	
+	<select id="selectAndroidReward2" parameterType="java.util.Map" resultType="java.util.Map">
+		select c.ct_name, b_album_cover, b_name, b_description, bs.s_goal_accumulation, bs.s_goal_price, bs.s_goal_deadline,
+		round(bs.s_goal_accumulation/bs.s_goal_price, 2) as rate
+		from band b 
+		join category c on C.ct_no = b.ct_no 
+		join bandsubmit bs on b.b_no = bs.b_no 
+		order by rate desc
+	</select>
+	
+	
+	
+	
 	
 </mapper>

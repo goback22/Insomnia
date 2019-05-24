@@ -20,6 +20,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kosmo.insomnia.service.BandDTO;
@@ -51,16 +52,6 @@ public class PayController {
 			
 		return "/Pay/SubPayPage.tiles";
 	}///payPage()
-	
-	//안드로이드 카카오페이
-	@RequestMapping("/kakao/pay.ins")
-	public String kakaopay() throws Exception{
-		return "/Pay/Androidkakao.tiles";
-	}
-	
-	
-	
-	
 	
 	@RequestMapping(value="/Pay/MainPayPage.ins")
 	public String mainPayPage(@RequestParam Map map, Model model, HttpSession session) throws Exception{

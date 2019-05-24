@@ -53,6 +53,23 @@ public class RewardDAO implements RewardService {
 	public int getTotalCount(Map map) {
 		return template.selectOne("getTotalCount_reward", map);
 	}
+
+	@Override
+	public List<Map> selectFunding() {
+		return template.selectList("selectList_Android_Funding");
+	}
+
+	@Override
+	public List<Map> selectAndroidReward2(Map map) {
+		return template.selectList("selectAndroidReward2", map);
+	}
+
+	@Override
+	public List<Map> selectFunding2() {
+		return template.selectList("selectList_Android_Funding2");
+	}
+
+
 	
 
 }
