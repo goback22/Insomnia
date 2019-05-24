@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 	String name = request.getParameter("name");
 	String id = request.getParameter("id");
@@ -103,7 +104,7 @@
 												<table class="table table-hover">
 													<tr>
 <!-- 														<th>거래</th> -->
-														<th>거래일</th>
+														<th class="text-center">거래일</th>
 														<th>예금자</th>
 														<th>받는 사람</th>
 														<th>배송 주소</th>
@@ -113,7 +114,7 @@
 													<c:forEach items="${memberViewPay }" var="memberPay" varStatus="loop">
 													<tr>
 <%-- 														<td class="viewDetail">${memberPay.sp_no==null?"거래내역 없음":memberPay.sp_no }</td> --%>
-														<td class="viewDetail">${memberPay.sp_date==null?"거래내역 없음":memberPay.sp_date }11111</td>
+														<td class="viewDetail text-center">${memberPay.sp_date==null?"거래내역 없음":fn:substring(memberPay.sp_date,0,10) }</td>
 														<td class="viewDetail">${memberPay.sp_depositor==null?"거래내역 없음":memberPay.sp_depositor }</td>
 														<td class="viewDetail">${memberPay.sp_recipient==null?"거래내역 없음":memberPay.sp_recipient }</td>
 														<td class="viewDetail">${memberPay.shipping_address==null?"거래내역 없음":memberPay.shipping_address }</td>

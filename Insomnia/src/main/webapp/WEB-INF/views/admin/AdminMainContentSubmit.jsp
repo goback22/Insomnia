@@ -49,12 +49,12 @@
 										<th>
 <!-- 										<input type="checkbox" value="all" /> -->
 										&nbsp;&nbsp;no</th>
-										<th class="col-md-2 text-center">B_NAME</th>
-										<th class="col-md-2 text-center">BM_TITLE</th>
-										<th class="col-md-2 text-center">S_GOAL_ACCUMULATION<br/>(누적금액)</th>
-										<th class="col-md-2 text-center">S_GOAL_PRICE<br/>(목표금액)</th>
-										<th class="col-md-2 text-center">S_SUBMIT_DATE</th>
-										<th class="col-md-2 text-center">GOAL_DEADLINE</th>
+										<th class="col-md-2 text-center">성명</th>
+<!-- 										<th class="col-md-2 text-center">BM_TITLE</th> -->
+										<th class="col-md-2 text-center">누적금액</th>
+										<th class="col-md-2 text-center">목표금액</th>
+										<th class="col-md-2 text-center">펀딩 시작일</th>
+										<th class="col-md-3 text-center">마감일</th>
 									</tr>
 									<!-- 1번 예 - 반복 -->
 									<c:forEach items="${bandSubmit }" var="submitBandList" varStatus="loop">
@@ -64,7 +64,7 @@
 <!-- 										<input type="checkbox" name="allmember" /> -->
 										&nbsp;&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
 										<td class="text-center viewDetail" style="cursor: pointer;">${submitBandList.b_name }</td>
-										<td class="text-center viewDetail">${submitBandList.bm_title}</td>
+<%-- 										<td class="text-center viewDetail">${submitBandList.bm_title}</td> --%>
 										<td class="text-center viewDetail cur">${submitBandList.s_goal_accumulation==null?"0":submitBandList.s_goal_accumulation }</td>
 										<td class="text-center viewDetail cur">${submitBandList.s_goal_price==null?"0":submitBandList.s_goal_price }</td>
 										<td class="text-center viewDetail">${submitBandList.s_submit_date.substring(0,10) }</td>
@@ -81,7 +81,7 @@
 															<th class="col-md-2">밴드 이름</th>
 															
 															<th class="col-md-2">등록 은행</th>
-															<th class="col-md-1">계좌 번호</th>
+															<th class="col-md-2">계좌 번호</th>
 															<th>앨범 커버</th>
 														</tr>
 													</thead>
@@ -91,11 +91,11 @@
 															
 															<td>${submitBandList.s_account_bank }</td>
 															<td>${submitBandList.s_account_serial }</td>
-															<td rowspan="3" align="center"><img style="padding:10px;max-width: 70%; max-height: auto;" src="<c:url value='/upload/band/cover/${submitBandList.b_album_cover }'/>" alt="등록된 이미지가 없습니다"></td>
+															<td rowspan="3" align="center"><img style="padding:10px;max-width: 50%; max-height: auto;" src="<c:url value='/upload/band/cover/${submitBandList.b_album_cover }'/>" alt="등록된 이미지가 없습니다"></td>
 														</tr>
 														<!--  -->
 														<tr>
-														<th class="col-md-2" colspan="3">소갯말</th>
+														<th class="col-md-2 text-center" style="line-height:2em;height:2em;" colspan="3">소개</th>
 														</tr>
 														
 														<tr>
@@ -105,7 +105,7 @@
 														<tr>
 															<th>리워드 이름</th>
 															<th>리워드 가격</th>
-															<th colspan="2">소개</th>
+															<th colspan="2">리워드 소개</th>
 														</tr>
 														<c:forEach items="${bandSubmitReward }" var="bandReward" varStatus="loop">
 														<c:if test="${submitBandList.s_no eq bandReward.s_no }" var="isSame">
@@ -162,9 +162,10 @@
 
 <script type="text/javascript" src="<c:url value='/vendor/js/admin_allchecked.js'/>"></script>
 <script type="text/javascript">
+
 	$(".viewDetail").on("click", function() {//[o]
 		$('.fold').hide();
-		$(this).parent().next(".fold").toggle(400);
+		$(this).parent().next(".fold").show(400);
 		
 		var click_s_no = $(this).parent().children(0).html();
 		console.log(click_s_no);
@@ -183,10 +184,6 @@
 			}
 		});
 		
-// 		var hideChart = function(){
-// 			$('#band-chart-2').css('display','none');
-// 		};
-		
 		function chartData(rewardData){
 			console.log(datalength);
 			var b_names=[];
@@ -204,15 +201,7 @@
 			//band chart
 			google.charts.load('current', {packages: ['corechart']});
 			google.charts.setOnLoadCallback(drawBandBasic);
-// 			var chartHeight = 350;
 			function drawBandBasic(data) {
-// 				var data = google.visualization.arrayToDataTable();
-// 				data.addColumn('data','b_name');
-// 				data.addColumn('data','r_name');
-// 				data.addColumn('data','qty');
-// 				for(var i=0;i<datalength;i++){
-// 					var b_name = 
-// 				}
 				console.log(typeof(qtys[0]));
 				var data = google.visualization.arrayToDataTable([
 					["data", 
@@ -245,8 +234,6 @@
 				chart.draw(data, options);
 			};
 		};
-		
-		
 	});
 </script>
 </body>

@@ -50,7 +50,6 @@
 									<th class="col-md-1"><input type="checkbox" value="all" />&nbsp;&nbsp;no</th>
 									<th class="col-md-2 text-center">밴드이름</th>
 									<th class="col-md-2 text-center">장르</th>
-									<th class="col-md-2 text-center">타이틀</th>
 									<th class="col-md-1 text-center">펀딩요청</th>
 									<th class="col-md-2 text-center">펀딩시작</th>
 									<th class="col-md-1 text-center">펀딩 진행도</th>
@@ -70,7 +69,6 @@
 										<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
 										<td class="text-center viewDetail">${item.b_name }</td>
 										<td class="text-center viewDetail">${item.ct_name }</td>
-										<td class="text-center viewDetail">${item.bm_title==null?"미등록":item.bm_title }</td>
 										<td class="text-center viewDetail">
 											<c:forEach items="${bandWaiting }" var="bandWaiting" varStatus="s-loop">
 												<c:if test="${bandWaiting.b_no eq item.b_no }" var="isExist">
