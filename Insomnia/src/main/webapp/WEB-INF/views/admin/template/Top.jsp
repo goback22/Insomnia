@@ -41,7 +41,7 @@
 						<!--  -->
 						<ul class="secondlevel">
 							<li><a href="<c:url value='/admin/paymain.ins'/>">밴드 결제 현황</a></li>
-							<li><a href="<c:url value='/admin/paysub.ins'/>">방구석 결제 현황</a></li>
+<%-- 							<li><a href="<c:url value='/admin/paysub.ins'/>">방구석 기타리스트</a></li> --%>
 						</ul>
 					</li>
 <!-- 					<li><a href="#">etc</a></li> -->

@@ -115,8 +115,8 @@
 													<tbody>
 													
 														<tr>
-															<td>${item.b_name }</td>
-															<td>
+															<td class="col-md-2">${item.b_name }</td>
+															<td class="col-md-2">
 																<c:forEach items="${bandMember }" var="bandMember" varStatus="loop">
 																	<c:if test="${item.b_name==bandMember.b_name }" var="isMember">
 																		${bandMember.name=="" or bandMember.name==null?"no member":bandMember.name }<br/>
@@ -124,7 +124,7 @@
 																</c:forEach>
 															</td>
 															<td colspan="2">${item.b_description }</td>
-															<td rowspan="3" align="center">
+															<td class="col-md-3" rowspan="3" align="center">
 															<!-- ------------------------------- -->
 																<img style="height:30%;"
 																src="<c:url value='/upload/band/cover/${item.b_album_cover }'/>" 
