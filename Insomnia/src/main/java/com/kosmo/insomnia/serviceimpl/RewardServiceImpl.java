@@ -52,6 +52,7 @@ public class RewardServiceImpl implements RewardService {
 		return dao.getTotalCount(map);
 	}
 
+	
 	@Override
 	public List<Map> selectFunding() {
 		return dao.selectFunding();
@@ -66,6 +67,8 @@ public class RewardServiceImpl implements RewardService {
 	public List<Map> selectFunding2() {
 		return dao.selectFunding2();
 	}
+
+
 
 	
 

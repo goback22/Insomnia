@@ -205,7 +205,7 @@ public class BandController {
 			}///if
 		}//for
 		
-		dismap.put("choice", "like");
+		dismap.put("choice", "like"); //
 		int like = bandService.getBandLikeNFollow(dismap);
 		dismap.put("choice", "follow");
 		int follow = bandService.getBandLikeNFollow(dismap);
@@ -217,97 +217,85 @@ public class BandController {
 		
 		/////////////////////////////서기환 추가  5월 14일
 		if(params.get("fcm") != null) {
-			//token값저장용
-		    ArrayList<String> token = new ArrayList<String>();  
+		//token값저장용
+		ArrayList<String> token = new ArrayList<String>();  
+		
+		
+		//Firebase Console->프로젝트 선택->설정->프로젝트 설정
+		//->클라우드 메시징->서버키 복사
+		String simpleApiKey = "AAAAdxhW5go:APA91bEOM7vrXSiQusce7meRsZNwU_2ZRBXjT1WF_dW1EjMrh-k2BlAzzx61OWg_0JxhMBltse2Ps40pJJobsLCWAw8z2BkU85h7V_NTqNHQQ2oX40dPW0p5tveRAX3h7TMXM5KzvH8M";
+		//String gcmURL = "https://android.googleapis.com/fcm/send";    
+		String gcmURL ="https://fcm.googleapis.com/fcm/send";
+		Connection conn = null; 
+		PreparedStatement psmt = null; 
+		ResultSet rs = null;
+		
+		//String message = request.getParameter("message");
+		String b_description = params.get("b_description").toString();
+		System.out.println("밴드인포컨트롤러의 b_description" + b_description);
+		//String title = request.getParameter("title");
+		String b_banner_description = params.get("b_banner_description").toString();
+		System.out.println("밴드인포컨트롤러의 b_banner_description" + b_banner_description);
+		
+		String title = b_description;
+		String message = "";
+		
+		dismap.put("id", session.getAttribute("id"));
+		message += memberService.selectOne(dismap).getName() + "님의 펀딩이 신청되었습니다.<br>신청 내용이 아래와 동일한지 확인하세요.";
+		message += "<b>" + b_banner_description + "</b>";
+		
+		int successTokens=0;
+		try {
+		Class.forName("oracle.jdbc.OracleDriver");
+		
+		conn = DriverManager.getConnection("jdbc:oracle:thin:@orcl.c3yirc2i0ocz.ap-northeast-2.rds.amazonaws.com:1521:orcl","project","12341234");
+		System.out.println("conn의 값은?" + conn);////////
+		psmt= conn.prepareStatement("SELECT TOKEN FROM FCM_TOKENS");
+		rs = psmt.executeQuery();
+		
+		while(rs.next()){
+		token.add(rs.getString(1));
+		}
+		conn.close();     
+		
+		Sender sender = new Sender(simpleApiKey);
+		Message msg = new Message.Builder()        
+		.addData("message",message)//데이타 메시지
+		.addData("title",title)//데이타 타이틀
+		.build();
+		System.out.println("msg에 addData 후 메세지는? " + message);
+		System.out.println("msg에 addData 후 타이틀은? " + title);
+		System.out.println("msg에 addData 후 msg객체는? " + msg);
+		
+		System.out.println("==========문제적인 부분=========");
+		System.out.println("token의 값은? : " + token);
+		System.out.println("sender의 값은? : " + sender);
+		System.out.println("msg의 값은? : " + msg);
+		System.out.println("token의 값은? : " + token);
+		
+		//등록된 모든 토큰에 푸쉬 메시지 전송.
+		MulticastResult multicast = sender.send(msg,token,3);//3는 메시지 전송실패시 재시도 횟수
+		
+		System.out.println("multicast 값까지 오나? " + multicast);
+		//푸쉬 결과  
+		
+		if (multicast != null) {
+		List<Result> resultList = multicast.getResults();
+		
+		
+		for (Result result : resultList) {
+			if(result.getMessageId()!=null) successTokens++;   
 			
-			 
-		    //Firebase Console->프로젝트 선택->설정->프로젝트 설정
-		    //->클라우드 메시징->서버키 복사
-		    String simpleApiKey = "AAAAdxhW5go:APA91bEOM7vrXSiQusce7meRsZNwU_2ZRBXjT1WF_dW1EjMrh-k2BlAzzx61OWg_0JxhMBltse2Ps40pJJobsLCWAw8z2BkU85h7V_NTqNHQQ2oX40dPW0p5tveRAX3h7TMXM5KzvH8M";
-		    //String gcmURL = "https://android.googleapis.com/fcm/send";    
-		    String gcmURL ="https://fcm.googleapis.com/fcm/send";
-		    Connection conn = null; 
-		    PreparedStatement psmt = null; 
-		    ResultSet rs = null;
+		    System.out.println("메시지 아이디:"+result.getMessageId());
 		    
-		    //String message = request.getParameter("message");
-		    String b_description = params.get("b_description").toString();
-		    System.out.println("밴드인포컨트롤러의 b_description" + b_description);
-		    //String title = request.getParameter("title");
-		    String b_banner_description = params.get("b_banner_description").toString();
-		    System.out.println("밴드인포컨트롤러의 b_banner_description" + b_banner_description);
-		    
-		    String title = "[" + b_description + "] 펀딩이 신청되었습니다";
-		    String message = "";
-		    
-		    dismap.put("id", session.getAttribute("id"));
-		    message += memberService.selectOne(dismap).getName() + "님의 펀딩이 신청되었습니다. 신청 내용을 확인하시려면 로그인하세요.<br/>";
-		    System.out.println("b_banner_description : " + b_banner_description);
-		    message += b_banner_description;
-		    
-		    /////bigPicture 추가//////
-		    
-		    
-		    String bigImage = "http://post.phinf.naver.net/20160613_176/14657821247321kqwl_PNG/IK7bqEX6LasCZ5dlxT9DZgILJI10.jpg";
-		    String bigTitle = "큰 이미지 타이틀";
-		    String bigSubtitle = "큰 이미지 서브타이틀";
-		    
-		    
-		    ////bigPicture 추가///////
-		    
-		    int successTokens=0;
-		    try {
-		    	Class.forName("oracle.jdbc.OracleDriver");
-		       
-		        conn = DriverManager.getConnection("jdbc:oracle:thin:@orcl.c3yirc2i0ocz.ap-northeast-2.rds.amazonaws.com:1521:orcl","project","12341234");
-		        System.out.println("conn의 값은?" + conn);////////
-		        psmt= conn.prepareStatement("SELECT TOKEN FROM FCM_TOKENS");
-		        rs = psmt.executeQuery();       
-		       
-		        while(rs.next()){
-		            token.add(rs.getString(1));
-		        }
-		        conn.close();     
-		      
-		        Sender sender = new Sender(simpleApiKey);
-		        Message msg = new Message.Builder()        
-		        .addData("message",message)//데이타 메시지
-		        .addData("title",title)//데이타 타이틀
-		        .build();
-		        System.out.println("msg에 addData 후 메세지는? " + message);
-		        System.out.println("msg에 addData 후 타이틀은? " + title);
-		        System.out.println("msg에 addData 후 msg객체는? " + msg);
-		        
-		        System.out.println("==========문제적인 부분=========");
-		        System.out.println("token의 값은? : " + token);
-		        System.out.println("sender의 값은? : " + sender);
-		        System.out.println("msg의 값은? : " + msg);
-		        System.out.println("token의 값은? : " + token);
-		        
-		        //등록된 모든 토큰에 푸쉬 메시지 전송.
-		        MulticastResult multicast = sender.send(msg,token,3);//3는 메시지 전송실패시 재시도 횟수
-		        
-		        System.out.println("multicast 값까지 오나? " + multicast);
-		        //푸쉬 결과  
-		        
-		        if (multicast != null) {
-		            List<Result> resultList = multicast.getResults();
-		            
-		            
-		            for (Result result : resultList) {
-		            	if(result.getMessageId()!=null) successTokens++;   
-		            	
-		                System.out.println("메시지 아이디:"+result.getMessageId());
-		                
-		            }
-		            System.out.println(successTokens+"개의 기기에 전송되었어요...");
-		        }
-		       
-	
-		    }catch (Exception e) {
-		        e.printStackTrace();
-		    }
-
+		}
+		System.out.println(successTokens+"개의 기기에 전송되었어요...");
+		}
+		
+		
+		}catch (Exception e) {
+		e.printStackTrace();
+		}
 		}
 		//////FCM 끝 : 서기환, 5월 14일//////
 		

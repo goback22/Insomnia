@@ -1171,7 +1171,6 @@ li {
 				addDiv += '<img style="width:30px; height:30px;" src="/insomnia/resource/img/plus-button.png"/></div>';
 				$.each(data, function(idx, element){
 	
-					
 					//2019 05 17 임한결 수정/// 자신의 밴드일 경우 갤러리 비었다는 메세지를 보여주지 않고 addDiv만 보여주도록 한다.
 					//case 1 /// 자신의 밴드이면서 밴드가 등록한 이미지가 없을떄
 					/*
@@ -1195,8 +1194,11 @@ li {
 					$(".lightgallery-center-div").html(beforeString + afterString+addDiv);
 					*/
 					///2019 05 17 임한결 수정 끝
-					
-					
+					var beforeString = $(".lightgallery-center-div").html(); 
+					var afterString = '<div class="lightgallery" id="lightgallery">';
+					afterString += ' <a href="/insomnia/upload/band/img/'+ element['image'] + '">';
+					afterString += '<img class="thumbnail" src="/insomnia/upload/band/img/' + element['image'] + '"/></a></div>';
+					$(".lightgallery-center-div").html(beforeString + afterString);
 					
 				});//$.each
 				//추가버튼 마지막으로 붙임

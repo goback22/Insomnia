@@ -146,5 +146,8 @@ public interface BandService {
 		//45]좋아한 목록의 정보 가져오기 - 뮤직 미등록
 		List<BandDTO> getLikeBand2(Map map);
 		
+	//45]내가 좋아요 선택한 밴드의 b_no 구하기
+	List<String> getMyLikeBand(Map map);
+		
 	
 }//interface BadnService

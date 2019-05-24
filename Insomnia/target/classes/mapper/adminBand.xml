@@ -16,9 +16,12 @@
 		(SELECT T.*,ROWNUM R FROM 
 		(SELECT M.*,CT.ct_name FROM band M 
 		join category CT on CT.ct_no = M.ct_no
+		<if test="searchColumn != null">
+			where ${searchColumn} LIKE '%' || #{searchWord} || '%' 	
+		</if>
 		ORDER BY b_no DESC)T) 
-		WHERE R BETWEEN #{start} AND #{end} 
-
+		WHERE R BETWEEN #{start} AND #{end}
+		
 <!-- select M.id,M.name,B.* from members M  -->
 <!-- join bandmember BM on BM.id = M.id -->
 <!-- join band B on B.b_name = BM.b_name -->
@@ -31,10 +34,14 @@
 		from members M
 		join bandmember BM on BM.id=M.id
 		join band B on B.b_name = BM.b_name
+		
 	</select>
 	<!-- band Count -->
 	<select id="bandCount" parameterType="java.util.Map" resultType="int">
-		select count(*) from band
+		select count(*) from band B join category CT on CT.ct_no = B.ct_no
+		<if test="searchColumn != null">
+			where ${searchColumn} LIKE '%' || #{searchWord} || '%' 		
+		</if>
 	</select>
 	<!-- band submit waiting -->
 	<select id="bandWaiting" parameterType="java.util.Map" resultType="AdminDTO">
@@ -120,6 +127,13 @@
 		where r_no = #{r_name}
 	</select>
 	<select id="rewardQty" parameterType="java.lang.String" resultType="java.lang.String">
-		select count(*) from safepay where r_no = #{r_name}
+		select sum(SP_REWARD_QTY) from safepay where r_no = #{r_name}
+	</select>
+	<!-- bandSubmitWaiting -->
+	<select id="bandSubmitWaiting" parameterType="java.util.Map" resultType="AdminDTO">
+		select BSW.*,B.b_name,ct_name from bandsubmitwaiting BSW 
+		join band B on B.b_no = BSW.b_no 
+		join category CT on CT.ct_no = B.ct_no
+		order by sw_postdate desc
 	</select>
 </mapper>

@@ -63,11 +63,11 @@
 								<table class="table table-hover" id="membercheckbox">
 									<tr>
 										<th class="col-md-1"><input type="checkbox" value="all" />&nbsp;&nbsp;no</th>
-										<th class="col-md-2 text-center">ID</th>
-										<th class="col-md-2 text-center">NAME</th>
-										<th class="text-center">LoginChain</th>
-										<th class="text-center">Phone</th>
-										<th class="text-center">JOIN_DATE</th>
+										<th class="col-md-2 text-center">아이디</th>
+										<th class="col-md-2 text-center">성명</th>
+										<th class="text-center">가입 방법</th>
+										<th class="text-center">연락처</th>
+										<th class="text-center">가입일</th>
 <!-- 										<th class="col-md-2 text-center">해줄까 말까</th> -->
 										<!-- 삭제 버튼을 위한 한줄 -->
 									</tr>
@@ -93,7 +93,7 @@
 			                                    </c:if>
 			                                    	<!-- 블락아이디 처리 끝 -->
 												<td class="text-center viewDetail">${item.name}</td>
-												<td class="text-center viewDetail">${item.login_chain==null?"홈페이지 가입":item.login_chain }</td>
+												<td class="text-center viewDetail">${item.login_chain==null?"Insomnia":item.login_chain }</td>
 												<td class="text-center viewDetail">${item.phone }</td>
 												<td class="text-center viewDetail">${item.join_date}</td>
 <!-- 												<td class="text-center"> -->
@@ -109,12 +109,12 @@
 															<!-- first floor -->
 															<thead>
 																<tr>
-																	<th class="col-md-1">NAME</th>
-																	<th class="col-md-1">PASSWORD</th>
-																	<th class="col-md-1">BIRTHDAY</th>
-																	<th class="col-md-1">GENDER</th>
-																	<th class="col-md-2">LOGIN_CHAIN</th>
-																	<th class="text-center">PROFILE_IMAGE</th>
+																	<th class="col-md-1">성명</th>
+																	<th class="col-md-1">비밀번호</th>
+																	<th class="col-md-1">생년원일</th>
+																	<th class="col-md-1">성별</th>
+																	<th class="col-md-2">가입 방법</th>
+																	<th class="text-center">프로필 사진</th>
 																</tr>
 															</thead>
 															<tbody>
@@ -146,11 +146,11 @@
 															<!-- second floor -->
 															
 																<tr>
-																	<th>IS_ACTIVATION</th>
-																	<th>EMAIL</th>
-																	<th>SMS_RECIEVE</th>
-																	<th>EMAIL_RECIEVE</th>
-																	<th>DESCRIPTION</th>
+																	<th>메일 인증 여부</th>
+																	<th>이메일</th>
+																	<th>문자 수신</th>
+																	<th>이메일 수신</th>
+																	<th>자기소개</th>
 																</tr>
 															
 															
@@ -193,19 +193,34 @@
 								</div>
 								
 								<!-- about checked end -->
-
-
+								
+								<div class="text-center">
+									<form class="form-inline" method="post" action="<c:url value='/admin/allmember.ins'/>">
+										<div class="form-group">
+											<select name="searchColumn" class="form-control">
+												<option value="id">아이디</option>
+												<option value="name">이름</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<input type="text" name="searchWord" class="form-control" />
+										</div>
+										<button type="submit" class="btn btn-primary">검색</button>
+						
+									</form>
+								</div>
 
 							</section>
 						</div>
 					</div>
 				</div>
-				<!-- 위에꺼 옆부분 -->
+				<!-- 위에꺼 옆부분 chart -->
+				<c:if test="${searchColumn=='' }" var="isnull">
 				<div class="col-md-3">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								전체회원(도넛형 남,여)
+								전체회원
 							</h3>
 						</div>
 						<div class="panel-body feed">
@@ -217,6 +232,7 @@
 						</div>
 					</div>
 				</div>
+				</c:if>
 				<!-- 옆부분 끝 -->
 				
 				<div class="col-md-3 blockmemberlist">
@@ -231,7 +247,7 @@
 							<!-- - -->
 								<table class="table table-hover" style="border-bottom:1px solid #c8c8c8;">
 									<tr>
-										<th class="col-md-6">id</th><th class="col-md-6">name</th>
+										<th class="col-md-6">아이디</th><th class="col-md-6">이름</th>
 									</tr>
 									
 									<c:forEach items="${list}" var="blockmember">

@@ -49,12 +49,12 @@
 										<th>
 <!-- 										<input type="checkbox" value="all" /> -->
 										&nbsp;&nbsp;no</th>
-										<th class="col-md-2 text-center">B_NAME</th>
-										<th class="col-md-2 text-center">BM_TITLE</th>
-										<th class="col-md-2 text-center">S_GOAL_ACCUMULATION<br/>(누적금액)</th>
-										<th class="col-md-2 text-center">S_GOAL_PRICE<br/>(목표금액)</th>
-										<th class="col-md-2 text-center">S_SUBMIT_DATE</th>
-										<th class="col-md-2 text-center">GOAL_DEADLINE</th>
+										<th class="col-md-2 text-center">성명</th>
+<!-- 										<th class="col-md-2 text-center">BM_TITLE</th> -->
+										<th class="col-md-2 text-center">누적금액</th>
+										<th class="col-md-2 text-center">목표금액</th>
+										<th class="col-md-2 text-center">펀딩 시작일</th>
+										<th class="col-md-3 text-center">마감일</th>
 									</tr>
 									<!-- 1번 예 - 반복 -->
 									<c:forEach items="${bandSubmit }" var="submitBandList" varStatus="loop">
@@ -64,7 +64,7 @@
 <!-- 										<input type="checkbox" name="allmember" /> -->
 										&nbsp;&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
 										<td class="text-center viewDetail" style="cursor: pointer;">${submitBandList.b_name }</td>
-										<td class="text-center viewDetail">${submitBandList.bm_title}</td>
+<%-- 										<td class="text-center viewDetail">${submitBandList.bm_title}</td> --%>
 										<td class="text-center viewDetail cur">${submitBandList.s_goal_accumulation==null?"0":submitBandList.s_goal_accumulation }</td>
 										<td class="text-center viewDetail cur">${submitBandList.s_goal_price==null?"0":submitBandList.s_goal_price }</td>
 										<td class="text-center viewDetail">${submitBandList.s_submit_date.substring(0,10) }</td>
@@ -79,25 +79,33 @@
 													<thead>
 														<tr>
 															<th class="col-md-2">밴드 이름</th>
-															<th class="col-md-2">소갯말</th>
+															
 															<th class="col-md-2">등록 은행</th>
-															<th class="col-md-1">계좌 번호</th>
+															<th class="col-md-2">계좌 번호</th>
 															<th>앨범 커버</th>
 														</tr>
 													</thead>
 													<tbody>
 														<tr>
 															<td>${submitBandList.b_name }</td>
-															<td>${submitBandList.b_description }</td>
+															
 															<td>${submitBandList.s_account_bank }</td>
 															<td>${submitBandList.s_account_serial }</td>
-															<td rowspan="3" align="center"><img style="padding:10px;max-width: 70%; max-height: auto;" src="<c:url value='/upload/band/cover/${submitBandList.b_album_cover }'/>" alt="등록된 이미지가 없습니다"></td>
+															<td rowspan="3" align="center"><img style="padding:10px;max-width: 50%; max-height: auto;" src="<c:url value='/upload/band/cover/${submitBandList.b_album_cover }'/>" alt="등록된 이미지가 없습니다"></td>
 														</tr>
-														<!-- second floor -->
+														<!--  -->
+														<tr>
+														<th class="col-md-2 text-center" style="line-height:2em;height:2em;" colspan="3">소개</th>
+														</tr>
+														
+														<tr>
+														<td colspan="3">${submitBandList.b_description }</td>
+														</tr>
+														<!--  -->
 														<tr>
 															<th>리워드 이름</th>
 															<th>리워드 가격</th>
-															<th colspan="2">소개</th>
+															<th colspan="2">리워드 소개</th>
 														</tr>
 														<c:forEach items="${bandSubmitReward }" var="bandReward" varStatus="loop">
 														<c:if test="${submitBandList.s_no eq bandReward.s_no }" var="isSame">
@@ -147,42 +155,28 @@
 						</div>
 					</div>
 				</div>
-				<!-- 두번째 끝 -->
-<!-- 				<div class="col-md-4" style="float:right;"> -->
-<!-- 					<div class="panel panel-primary"> -->
-<!-- 						<div class="panel-heading"> -->
-<!-- 							<h3 class="panel-title">진행중인 main content chart2</h3> -->
-<!-- 						</div> -->
-<!-- 						<div class="panel-body feed"> -->
-<!-- 							<section class="feed-item"> -->
-<!-- 								<div id="band-chart-2" style="height: 200%;"></div> -->
-<!-- 							</section> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-
 			</div>
 		</div>
 		<!-- main end -->
 	</div>
 
-
 <script type="text/javascript" src="<c:url value='/vendor/js/admin_allchecked.js'/>"></script>
 <script type="text/javascript">
+
 	$(".viewDetail").on("click", function() {//[o]
 		$('.fold').hide();
-		$(this).parent().next(".fold").toggle(400);
+		$(this).parent().next(".fold").show(400);
 		
 		var click_s_no = $(this).parent().children(0).html();
 		console.log(click_s_no);
-		
+		var datalength='';
 		$.ajax({
 			url:"<c:url value='/admin/maincontentchart.ins?s_no="+click_s_no+"'/>",
 			dataType:'json',
 			success:function(rewardData){
 				console.log('datadata:',rewardData);
-				chartData(rewardData);
-
+				datalength=rewardData['data'].length;
+				chartData(rewardData)
 			},
 			error:function(request,error){
 				console.log('상태코드:',request.status);
@@ -190,44 +184,40 @@
 			}
 		});
 		
-		var hideChart = function(){
-			$('#band-chart-2').css('display','none');
-		};
-		
 		function chartData(rewardData){
-			$('#band-chart-2').css('display','block');
-			var rewardName = [];
+			console.log(datalength);
+			var b_names=[];
 			var qtys = [];
-			var bandName = data[0]['b_name'];
-			
-			for(var i=0;i<data.length;i++){
-				rewardName[i] = data[i]['r_name'];
-				qtys[i] = data[i]['qtys'];
+			var r_names = [];
+			for(var i=0;i<datalength;i++){
+				b_names[i] = rewardData['data'][i]['b_name'];
+				qtys[i] = rewardData['data'][i]['qtys'];
+				r_names[i] = rewardData['data'][i]['r_name'];
+				console.log(b_names[i]);
+				console.log(rewardData['data'][i]['qtys']);
+				console.log(rewardData['data'][i]['r_name']);
 			}
-
-			console.log('bandName:',bandName);
-			console.log('qtylength:',qtys.length);
-			console.log('qtys[0]:',qtys[0]);
-			console.log('qtys[0]',typeof(qtys[0]));
-			console.log('rewardName[0]:',rewardName[0]);
-			console.log('rewardName[0]',typeof(rewardName[0]));
 			
 			//band chart
 			google.charts.load('current', {packages: ['corechart']});
 			google.charts.setOnLoadCallback(drawBandBasic);
-			
-			
-			var chartHeight = 350;
 			function drawBandBasic(data) {
+				console.log(typeof(qtys[0]));
 				var data = google.visualization.arrayToDataTable([
-					['bandName', rewardName[0], 
+					["data", 
+						r_names[0]==null?'':r_names[0], 
+						r_names[1]==null?'':r_names[1], 
+						r_names[2]==null?'':r_names[2],
+						r_names[3]==null?'':r_names[3],		
 								'', 
-								
 						{ role: 'annotation' } ],
-					[bandName, qtys[0], 
-							0, 
-							'']
-					
+					[b_names[0],
+						Number(qtys[0]==null?'0':qtys[0]), 
+						Number(qtys[1]==null?'0':qtys[1]), 
+						Number(qtys[2]==null?'0':qtys[2]),
+						Number(qtys[3]==null?'0':qtys[3]),
+						0, 
+						'']
 				]);
 				var options = {
 					legend: { position: 'top', maxLines: 2 },
@@ -244,8 +234,6 @@
 				chart.draw(data, options);
 			};
 		};
-		
-		
 	});
 </script>
 </body>

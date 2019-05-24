@@ -14,11 +14,18 @@
 	</select>
 	
 	<select id="selectBandSafepayDetail" parameterType="java.util.Map" resultType="java.util.Map">
-		select sp.*,r.* from safepay sp join reward r on sp.r_no = r.r_no join bandsubmit bs on bs.s_no = r.s_no where bs.s_no = #{S_NO}
+		select sp.*,r.*,name from safepay sp 
+		join reward r on sp.r_no = r.r_no 
+		join bandsubmit bs on bs.s_no = r.s_no
+		join members m on m.id = sp.id 
+		where bs.s_no = #{S_NO}
 	</select>
 	
 	<select id="selectBandSafepayDetailAllList" parameterType="java.util.Map" resultType="AdminDTO">
-		select sp.*,r.* from safepay sp join reward r on sp.r_no = r.r_no join bandsubmit bs on bs.s_no = r.s_no ORDER BY sp.sp_no desc
+		select sp.*,r.* from safepay sp 
+		join reward r on sp.r_no = r.r_no 
+		join bandsubmit bs on bs.s_no = r.s_no 
+		ORDER BY sp.sp_no desc
 	</select>
 	
 	<select id="getAdminPayDTO" parameterType="java.lang.String" resultType="AdminDTO">

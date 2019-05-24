@@ -20,6 +20,7 @@
        <link rel="stylesheet" href="<c:url value='/https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'/>">
         -->
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<link rel="shortcut icon" href="<c:url value='/resource/img/fav-black.ico'/>">
 	
 	<!-- Dependency Styles -->
 	<link rel="stylesheet" href="<c:url value='/vendor/css/bootstrap.min.css'/>" type="text/css">

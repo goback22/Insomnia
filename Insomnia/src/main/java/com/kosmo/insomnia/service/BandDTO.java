@@ -25,6 +25,9 @@ public class BandDTO {
 	private String mb; //bottom
 	private String ml; //left
 	
+	private String sw_short_description;
+	private String r_name;
+	
 	public BandDTO() {
 		wh = (Math.ceil(Math.random()*200) + 50) + "px";
 		mt = Math.ceil(Math.random() * 100) + "px";
@@ -136,5 +139,20 @@ public class BandDTO {
 	public void setCt_no(String ct_no) {
 		this.ct_no = ct_no;
 	}
+	public String getSw_short_description() {
+		return sw_short_description;
+	}
+	public void setSw_short_description(String sw_short_description) {
+		this.sw_short_description = sw_short_description;
+	}
+
+	public String getR_name() {
+		return r_name;
+	}
+	public void setR_name(String r_name) {
+		this.r_name = r_name;
+	}
+	
+	
 	
 }//class

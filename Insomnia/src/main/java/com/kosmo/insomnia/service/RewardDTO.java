@@ -4,9 +4,9 @@ package com.kosmo.insomnia.service;
 public class RewardDTO {
 	
 	//support를 위한 번호들
-	//r_no 9
-	//s_no 25
-	//rw_no 23
+	//r_no 32
+	//s_no 42
+	//rw_no 71
 
 	///칼럼들
 	private String r_no;
@@ -22,6 +22,8 @@ public class RewardDTO {
 	private String b_album_cover;
 	private String r_count;
 	private String sw_banner;  //리워드 앨범 커버
+	private String sw_short_description;  ///정책 때문
+	
 	
 	//PayPage를 위해 추가
 	private String count;
@@ -113,6 +115,12 @@ public class RewardDTO {
 	}
 	public void setR_count(String r_count) {
 		this.r_count = r_count;
+	}
+	public String getSw_short_description() {
+		return sw_short_description;
+	}
+	public void setSw_short_description(String sw_short_description) {
+		this.sw_short_description = sw_short_description;
 	}
 	
 	

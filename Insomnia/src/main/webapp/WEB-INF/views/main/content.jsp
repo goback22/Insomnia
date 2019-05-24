@@ -446,7 +446,7 @@ body {
 							<div class="col-xl-10">
 								<div class="section-title style-five">
 									<h2>PREVIOUS SHOWS</h2>
-									<p>뭐라고 쓸까 음...</p>
+									<p>공연 실황</p>
 								</div>
 								<div class="show-archive-wrapper row no-gutters">
 									<div class="offset-xs-0 offset-sm-4 col-sm-4 col-6">
@@ -684,7 +684,7 @@ body {
 									</dt>
 									<dd>
 										<p style="font-weight:bold;font-size:20px;">${band.b_name }</p>
-										<p>${band.b_description }</p>
+										<p style="width:190px;">${band.b_description }</p>
 									</dd>
 								</dl>
 							</div>

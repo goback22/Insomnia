@@ -235,5 +235,10 @@ public class AdminDAO implements AdminService{
 		// TODO Auto-generated method stub
 		return template.selectOne("rewardQty",r_no);
 	}
+	@Override
+	public List<AdminDTO> selectBandSubmitWaiting(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectList("bandSubmitWaiting",map);
+	}
 	
 }///class

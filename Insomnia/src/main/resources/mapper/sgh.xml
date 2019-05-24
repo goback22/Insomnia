@@ -56,11 +56,10 @@
 	<!-- 마이페이지에서 펀딩한 리워드 목록 가져오기 : ajax --> 
 	<select id="selectList_reward" parameterType="java.util.Map" resultType="RewardDTO">
 
-		select r.r_no, r_price, r_name, r.s_no, r_description, b_name, bm_name, sw_banner from reward r join safepay s on r.r_no = s.r_no
+		select r.r_no, r_price, r_name, r.s_no, r_description, b_name, sw_short_description, sw_banner, b.b_no from reward r join safepay s on r.r_no = s.r_no
 		join bandsubmit bs on bs.s_no = r.s_no
 		join bandsubmitwaiting bsw on bsw.sw_no = bs.sw_no
 		join band b on b.b_no = bs.b_no
-		join bandmusic bm on bm.b_no = b.b_no
         where id = #{id}
 	</select>
 	
@@ -68,10 +67,9 @@
 	<!-- 마이페이지 리워드, 페이징 위한 갯수 구하기 -->  <!-- 수정해야 -->
 	<select id="getCount_reward" parameterType="java.util.Map" resultType="int">
 
-	  select count(*) from (select r.*, bm_name , b_name from reward r join safepay s on r.r_no = s.r_no
+	  select count(*) from (select r.*, b_name from reward r join safepay s on r.r_no = s.r_no
 		join bandsubmit bs on bs.s_no = r.s_no
 		join band b on b.b_no = bs.b_no
-		join bandmusic bm on bm.b_no = b.b_no
         where id = #{id})
 	</select>
 	
@@ -117,16 +115,20 @@
 	
 	<!-- 좋아요 페이징 -->
 	<select id="getLikeBand" parameterType="java.util.Map" resultType="BandDTO">	
-		select b.b_no, b_name, b_description, b_album_cover
-		from band b join favorite f on b.b_no = f.b_no 
-		where id=#{id} and choice=#{choice}
+		 select * 
+ 		from band b join favorite f on b.b_no = f.b_no
+ 		join bandmember bm on bm.b_name = b.b_name
+ 		where f.id='twice@naver.com' and choice = 'like'
 	</select>
 	
 	<select id="getLikeBand2" parameterType="java.util.Map" resultType="BandDTO">	
-		select b.b_no, b_name, b_description, b_album_cover, bm_name
-		from band b join favorite f on b.b_no = f.b_no 
-		join bandmusic bm on b.b_no = bm.b_no
-		where id=#{id} and choice=#{choice}
+		select b.b_no, b.b_name, b_description, b_album_cover, sw_short_description, r_name
+		from band b join favorite f on b.b_no = f.b_no
+		join bandmember bm on bm.b_name = b.b_name
+		join bandsubmitwaiting bsw on bsw.b_no = b.b_no
+		join bandsubmit bs on bs.b_no = b.b_no
+		join reward r on r.s_no = bs.s_no
+		where f.id=#{id} and choice=#{choice}
 	</select>
 	<!-- <select id="getLikeBand" parameterType="java.util.Map" resultType="BandDTO">	
 		select * from (select t.*, rownum as r from (select b.b_no, b_name, b_description, b_album_cover, bm_name
@@ -136,11 +138,20 @@
 	</select> -->
 	
 	<!-- 좋아요 페이징 : ajax -->
-	<select id="doesBandRegisterMusic" parameterType="java.util.Map" resultType="int">
-		select count(*) from band b join bandmusic bm on b.b_no = bm.b_no 
+	<!-- <select id="doesBandRegisterMusic" parameterType="java.util.Map" resultType="int">
+		select count(*) from band b 
 		join favorite f on f.b_no = b.b_no 
 		where id=#{id} 
-	</select>
+	</select> -->
+	
+	<select id="doesBandRegisterMusic" parameterType="java.util.Map" resultType="int">
+	 select count(*) from band b 
+        join bandsubmitwaiting bsw on bsw.b_no = b.b_no
+        join bandsubmit bs on bs.b_no = bsw.b_no
+        join reward r on r.s_no =  bs.s_no
+        where b.b_no = #{b_no}
+    </select>
+	
 	
 	<!-- 
 	<select id="getLikeBand" parameterType="java.util.Map" resultType="BandDTO">	
@@ -166,6 +177,28 @@
 	<select id="getIdByEmail" parameterType="java.util.Map" resultType="MemberDTO">
 		select * from members where email = #{thisEmail}
 	</select>
+		
+	<update id="editEmail" parameterType="java.util.Map">
+		update members set email = #{email} where id = #{id}
+	</update>
+	
+	<update id="editPhone" parameterType="java.util.Map">
+		update members set phone = #{phone} where id = #{id}
+	</update>
+	
+	<!-- 안드로이드를 위한 쿼리문 -->
+	<select id="selectAndroidReward2" parameterType="java.util.Map" resultType="java.util.Map">
+		select c.ct_name, b_album_cover, b_name, b_description, bs.s_goal_accumulation, bs.s_goal_price, bs.s_goal_deadline,
+		round(bs.s_goal_accumulation/bs.s_goal_price, 2) as rate
+		from band b 
+		join category c on C.ct_no = b.ct_no 
+		join bandsubmit bs on b.b_no = bs.b_no 
+		order by rate desc
+	</select>
+	
+	<select id="getMyLikeBand" parameterType="java.util.Map" resultType="java.lang.String">
+		select b_no from favorite where id = #{id}
+	</select>
 	
 	<select id="selectList_Android_Funding" resultType="java.util.Map">
 		select c.ct_name,b.b_album_cover,b_name,b_description,bs.s_goal_accumulation,bs.s_goal_price,bs.s_goal_deadline 
@@ -181,15 +214,6 @@
 		join category c on C.ct_no = b.ct_no 
 		join bandsubmit bs on b.b_no = bs.b_no 
 		order by s_goal_deadline
-	</select>
-	
-	<select id="selectAndroidReward2" parameterType="java.util.Map" resultType="java.util.Map">
-		select c.ct_name, b_album_cover, b_name, b_description, bs.s_goal_accumulation, bs.s_goal_price, bs.s_goal_deadline,
-		round(bs.s_goal_accumulation/bs.s_goal_price, 2) as rate
-		from band b 
-		join category c on C.ct_no = b.ct_no 
-		join bandsubmit bs on b.b_no = bs.b_no 
-		order by rate desc
 	</select>
 	
 	

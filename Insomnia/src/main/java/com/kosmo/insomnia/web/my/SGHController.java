@@ -501,10 +501,11 @@ public class SGHController {
 					tempMap.put("S_no", record.getS_no());
 					tempMap.put("R_Price", record.getR_price());
 					tempMap.put("R_Name", record.getR_name());
-					tempMap.put("R_Description", record.getR_description());
+					tempMap.put("R_Description", record.getSw_short_description());
 					tempMap.put("B_name", record.getB_name());
-					tempMap.put("BM_name", record.getBm_name());
+					//tempMap.put("BM_name", record.getBm_name());
 					tempMap.put("S_Album_cover", record.getSw_banner());
+					tempMap.put("b_no", record.getB_no());
 					
 					resultList.add(tempMap);
 				}
@@ -560,17 +561,25 @@ public class SGHController {
 				
 		} else /*(requestStr.equals("좋아한"))*/ {
 			
-			///일단, 밴드가 뮤직을 등록을 해 놨는지
+			///일단 내가 좋아요 표시한 밴드들을 알아야 한다.
+			List<String> myLikeBandList = bandService.getMyLikeBand(dismap);
 			
-			int doesBandRegisterMusic =  bandService.doesBandRegisterMusic(dismap);
-			List<BandDTO> records;
+			for(int i=0; i<myLikeBandList.size(); i++) {
+				System.out.println("부적합한 열 유형이라니??? "  + myLikeBandList.get(i));
+				dismap.put("b_no", myLikeBandList.get(i));
+				
+				int doesBandRegisterMusic =  bandService.doesBandRegisterMusic(dismap);
+				
+				List<BandDTO> records;
+				
 				///좋아한 리워드 목록 가져오기
-			if(doesBandRegisterMusic == 0) {
-				records = bandService.getLikeBand(dismap);
-			} else {
-				records = bandService.getLikeBand2(dismap);
-			}
-			
+				if(doesBandRegisterMusic == 0) {
+					records = bandService.getLikeBand(dismap);
+				} else {
+					records = bandService.getLikeBand2(dismap);
+				}
+				
+				////////
 				if(records.size() == 0) {
 					blankMap.put("noData", "noData");
 					blankMap.put("which", "좋아한");
@@ -585,13 +594,18 @@ public class SGHController {
 					//맵 생성
 					Map tempMap = new HashMap();
 					tempMap.put("b_name", record.getB_name());
-					tempMap.put("b_description", record.getB_description());
+					tempMap.put("b_description", record.getSw_short_description());
 					tempMap.put("b_album_cover", record.getB_album_cover());
-					tempMap.put("bm_name", record.getBm_name());
+					tempMap.put("bm_name", record.getR_name());
 
-					if(record.getBm_name() == null) {
+					if(record.getR_name() == null) {
 						tempMap.put("bm_name", "리워드 준비중");
 					}
+					
+					if(record.getSw_short_description() == null) {
+						tempMap.put("b_description", "리워드 준비중");
+					}
+					
 					System.out.println("이게 왜 널이냐? " + record.getB_no());
 					dismap.put("b_no", record.getB_no());
 					int likeCount = bandService.getBandLikeNFollow(dismap);
@@ -601,10 +615,10 @@ public class SGHController {
 					resultList.add(tempMap);			
 				}
 				
-				//System.out.println("대체 왜 안나오냐 페이징 : " + pagingString);
-				//pagingMap.put("pagingString", pagingString);
-				//resultList.add(pagingMap);
 				
+			}
+				
+							
 				return JSONArray.toJSONString(resultList);
 				
 		} 
@@ -788,7 +802,7 @@ public class SGHController {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(EEE) hh:mm");
 			String currentStr = format.format(current);
 			
-			String message;
+			String message;//
 			//여기부터
 			message = "<div style=\"max-width: 595px; margin: 0 auto\">\r\n" + 
 					"		<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n" + 
@@ -804,7 +818,7 @@ public class SGHController {
 					"							<tbody>\r\n" + 
 					"								<tr>\r\n" + 
 					"									<td style=\"\" width=\"61\"><img\r\n" + 
-					"										src=\"<c:url value='/img/logo.png'/>\"\r\n" + 
+					"										src='https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/insomnia_logo.png'\r\n" +  
 					"										alt=\"Insomnia\" width=\"61\"></td>\r\n" + 
 					"									<td style=\"padding-left: 5px\"><img\r\n" + 
 					"										src=\"http://static.naver.com/common/ems/nid_dm/nid_201412.gif\"\r\n" + 
@@ -1179,6 +1193,28 @@ public class SGHController {
 		
 		
 		return "forward:/band/bandInfo.ins";
+	}
+	
+	/////개인정보 수정/
+	@RequestMapping("/menu/memberEditEmail.ins")
+	public String memberEditEmail(@RequestParam Map map, Map dismap, Model model, HttpSession session) throws Exception {
+		
+		dismap.put("id", session.getAttribute("id"));
+		dismap.put("email", map.get("email"));
+		memberService.editEmail(dismap);
+		
+		return "forward:/menu/mypage/edit.ins";
+	}
+	
+	@RequestMapping("/menu/memberEditPhone.ins")
+	public String memberEditPhone(@RequestParam Map map, Map dismap, Model model, HttpSession session) throws Exception {
+		
+		dismap.put("id", session.getAttribute("id"));
+		dismap.put("phone", map.get("phone"));
+		memberService.editPhone(dismap);
+		
+		return "forward:/menu/mypage/edit.ins";
+		
 	}
 	
 	

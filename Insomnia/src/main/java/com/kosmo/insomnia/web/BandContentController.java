@@ -69,6 +69,8 @@ public class BandContentController {
 		
 
 		
+		
+		
 		if(s_no == null) {//파라미터 없이 밴드info로 들어 올 때
 			b_no = session.getAttribute("b_no").toString();
 			b_name = session.getAttribute("b_name").toString();
@@ -269,6 +271,7 @@ public class BandContentController {
 		
 			dismap.put("id", session.getAttribute("id"));
 			MemberDTO loginRecord = memberService.selectOne(dismap);
+
 			
 			if(loginRecord != null) {
 				model.addAttribute("loginRecord", loginRecord);

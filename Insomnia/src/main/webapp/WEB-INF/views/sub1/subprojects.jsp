@@ -137,10 +137,9 @@
 <!--             <svg width="107px" height="24px"> -->
 <!--           <use xlink:href="#clorova_logo"></use> -->
 <!--         </svg> -->
-<!--          </div> -->
-<!--          <div class="logo-box" id="logo-box"></div> <span>Media -->
-<!--             Production</span> -->
-         <img style="width: 170px;height: 55px;" src="<c:url value='/resource/img/logo_5.png'/>">
+<!--          </div> --> <!--          <div class="logo-box" id="logo-box"></div> <span>Media -->
+			<!--             Production</span> -->
+         <img style="width: 170px;height: 45.7px;margin-top: -10px" src="<c:url value='/resource/img/logo_5.png'/>">
       </a> <a href="<c:url value='/home.ins'/>" class="works q_magnet hover-target">Home</a>
 
       <div class="nav-menu hover-target" id="nav">

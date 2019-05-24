@@ -29,7 +29,7 @@ public class BankUtil {
 			dto.setS_account_bank("카카오뱅크");
 			break;
 		case "7":
-			dto.setS_account_bank("신한은행");
+			dto.setS_account_bank("국민은행");
 			break;
 		default:
 		}//switch

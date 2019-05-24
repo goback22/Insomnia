@@ -21,6 +21,8 @@
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 </head>
+
+	
 <body>
 
 	<div id="wrapper">
@@ -60,32 +62,35 @@
 									<!-- DB에서 꺼내서~ each~~...tq -->
 									<!-- example1 -->
 									<c:forEach var="map" items="${selectSafepayList}">
-										<tr class="view views">
-											<td>${map['S_NO']}</td>
-											<td class="text-center viewDetail">${map["B_NAME"] }</td>
-											<td class="text-center viewDetail people">${map["fundCountpeople"] }</td>
-											<td class="text-center viewDetail cur">${map["S_GOAL_ACCUMULATION"] }</td>
-											<td class="text-center viewDetail">${map["S_GOAL_PRICE"] }원</td>
-											<td class="text-center viewDetail">${map["S_GOAL_DEADLINE"] }</td>
-											<c:if test="${map['isPaying'] == 'F' }">
-												<td class="text-center viewDetail"><button class="btn btn-default" id="${map['S_NO'] }" onclick="javascript:complete(this)">펀딩 완료!</button></td>
-											</c:if>
-											<c:if test="${map['isPaying'] == 'T' }">
-												<td class="text-center viewDetail">완료된 펀딩</td>
-											</c:if>
-										</tr>
-										<tr class="fold" style="background-color: #c8c8c8;">
-											<td colspan="6">
-												<div class="panel panel-primary">
-													<div class="panel-heading">
-														<h3 class="panel-title" style="text-algin: center">상세보기</h3>
+										<c:if test="${map['B_NAME'] ne 'Supporters'}">
+											<tr class="view views">
+												<td>${map['S_NO']}</td>
+												<td class="text-center viewDetail">${map["B_NAME"] }</td>
+												<td class="text-center viewDetail people">${map["fundCountpeople"] }</td>
+												<td class="text-center viewDetail cur">${map["S_GOAL_ACCUMULATION"] }</td>
+												<td class="text-center viewDetail">${map["S_GOAL_PRICE"] }원</td>
+												<td class="text-center viewDetail">${map["S_GOAL_DEADLINE"] }</td>
+												<c:if test="${map['isPaying'] == 'F' }">
+													<td class="text-center viewDetail"><button class="btn btn-default" id="${map['S_NO'] }" onclick="javascript:complete(this)">펀딩 완료!</button></td>
+												</c:if>
+												<c:if test="${map['isPaying'] == 'T' }">
+													<td class="text-center viewDetail">완료된 펀딩</td>
+												</c:if>
+											</tr>
+											
+											<tr class="fold" style="background-color: #c8c8c8;">
+												<td colspan="6">
+													<div class="panel panel-primary">
+														<div class="panel-heading">
+															<h3 class="panel-title" style="text-algin: center">상세보기</h3>
+														</div>
+														<div class="fold-content" id="div${map['S_NO']}">
+															<!-- 들어갈 내용 -->
+														</div>
 													</div>
-													<div class="fold-content" id="div${map['S_NO']}">
-														<!-- 들어갈 내용 -->
-													</div>
-												</div>
-											</td>
-										</tr>
+												</td>
+											</tr>
+										</c:if>
 									</c:forEach>
 								</table>
 							</section>
@@ -101,7 +106,9 @@
 						</div>
 						<div class="bars" align="center">
 							<!-- 							<div id="sub_chart" style="height: 100%;"></div> -->
-							<div id="bar-1"></div>
+							<div id="bar-1">
+							
+							</div>
 
 						</div>
 					</div>
@@ -123,16 +130,39 @@
 			//total chart
 			let bandName = $(this).parent().children().eq(1).html();
 			let goal_price = $(this).parent().children().eq(4).html().replace(/,/gi,'').replace('원','');
-			let goal_accumulation = $(this).parent().children().eq(3).html().replace(',','').replace('원','');
-			console.log(goal_price, "   ", goal_accumulation )
+			let goal_accumulation = $(this).parent().children().eq(3).html().replace(/,/g,"").replace('원','');
+// 			console.log(goal_price, "   ", goal_accumulation )
 			$('#bandName').html(bandName);
+			
 			if (goal_accumulation != 0 || goal_accumulation != null)
-				$('#bar-1').jqbar({
-					label : bandName,
-					value : parseInt(goal_accumulation / goal_price * 100),
-					barColor : '#D64747',
-					orientation : 'v'
-				});
+				if(goal_accumulation / goal_price * 100 < 100){
+					$('#bar-1').jqbar({
+						label : bandName,
+						value : parseInt(goal_accumulation / goal_price * 100),
+						barColor : '#D64747',
+						orientation : 'v'
+					});
+				}
+				else{
+					$('#bar-1').jqbar({
+						label : bandName,
+						value : parseInt((goal_accumulation / goal_price * 100) % 100),
+						barColor : '#D64747',
+						orientation : 'v'
+					});
+						let k = parseInt(goal_accumulation / goal_price);
+					for(let index = 0; index < k;  index++){
+						$('#bar-1').children().eq(index+1).before($('#bar-1').children().eq(1).clone());
+						$('#bar-1').children().eq(index+1).children().prop("style","height: 200px; top:0px; width: 10px; background-color: rgb(214, 71, 71);");
+						$('#bar-1').children().eq(index+1).prop("style","height: 200px; width: 10px;margin-right:10px;")
+					}
+// 					.attr().prop("style", "")
+// 					.chidren().prop("style", "height: 200px; top: 0px; width: 10px; background-color: rgb(214, 71, 71)")
+
+// 					console.log("/100:",parseInt(goal_accumulation / goal_price));
+// 					console.log("asdasdasd" + $('#bar-1').children().eq(1).clone().wrapAll('<div/>').parent().html());
+// 					console.log("%100:" , (goal_accumulation / goal_price * 100) % 100);
+				}
 		});
 	</script>
 	<script src="<c:url value='/vendor/js/admin_jqbar.js'/>" type="text/javascript"></script>
@@ -142,9 +172,15 @@
 	<%-- <script src="<c:url value='/vendor/js/admin_chart_test.js'/>" type="text/javascript"></script> --%>
 
 	<script type="text/javascript">
+		let elthis;
 		$(function() {
+			
 			$(".views").one("click", function() {
 				showDetailPay($(this).children(0).html());
+				elthis = $(this);	
+				
+// 				console.log("$this:" + elthis.next().children().children().children(1).next().html());
+
 			});
 		});
 		function showDetailPay(div) {
@@ -159,40 +195,43 @@
 					// HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨.
 					.done(
 					function(data) {
-						console.log(data);
+// 						console.log(data);
 						var tableString = '';
 						if (data.length > 2) {
 							tableString += "<table class='table table-hover'>";
 							tableString += "<tr class='view views'> ";
-							tableString += "<th class='col-md-1 text-center'>수량</th> ";
-							tableString += "<th class='col-md-1 text-center'>소개</th> ";
-							tableString += "<th class='col-md-1 text-center'>펀딩 날짜</th> ";
-							tableString += "<th class='col-md-1 text-center'>리워드 이름</th> ";
-							tableString += "<th class='col-md-1 text-center'>가격</th> ";
 							tableString += "<th class='col-md-1 text-center'>리워드 번호</th> ";
 							tableString += "<th class='col-md-1 text-center'>구매자</th> ";
+							tableString += "<th class='col-md-1 text-center'>소개</th> ";
+							tableString += "<th class='col-md-1 text-center'>리워드 이름</th> ";
+							tableString += "<th class='col-md-1 text-center'>가격</th> ";
+							tableString += "<th class='col-md-1 text-center'>수량</th> ";
+							tableString += "<th class='col-md-1 text-center'>펀딩 날짜</th> ";
 							tableString += "<th class='col-md-1 text-center'>후원금</th> ";
 							tableString += "</tr> ";
 							$.each(JSON.parse(data),
 							function(index, element) {
 							//index = element["ap_no"];
-							var SP_REWARD_QTY = element["SP_REWARD_QTY"];
-							var R_DESCRIPTION = element["R_DESCRIPTION"];
-							var SP_DATE = element["SP_DATE"];
-							var R_NAME = element["R_NAME"];
-							var R_PRICE = element["R_PRICE"];
-							var R_NO = element["R_NO"];
-							var ID = element["ID"];
-							var SP_SUPPORT = element["SP_SUPPORT"];
+// 							var SP_REWARD_QTY = element["SP_REWARD_QTY"];
+// 							var R_DESCRIPTION = element["R_DESCRIPTION"];
+// 							var SP_DATE = element["SP_DATE"];
+// 							var R_NAME = element["R_NAME"];
+// 							var R_PRICE = element["R_PRICE"];
+// 							var R_NO = element["R_NO"];
+// 							var ID = element["ID"];
+// 							var SP_SUPPORT = element["SP_SUPPORT"];
 							tableString += "<tr style='text-align:center;'>";
 							tableString += "<td class='col-md-1'>"
-									+ element["SP_REWARD_QTY"]
+									+ element["R_NO"]
 									+ "</td>";
 							tableString += "<td class='col-md-1'>"
+									+ element["NAME"] + "(" 
+									+ element["ID"] + ")"
+									+ "</td>";
+							tableString += "<td class='col-md-1'>"
+									+ "<p class = 'ellip'>"
 									+ element["R_DESCRIPTION"]
-									+ "</td>";
-							tableString += "<td class='col-md-1'>"
-									+ element["SP_DATE"]
+									+ "</p>"
 									+ "</td>";
 							tableString += "<td class='col-md-1'>"
 									+ element["R_NAME"]
@@ -201,10 +240,10 @@
 									+ element["R_PRICE"]
 									+ "</td>";
 							tableString += "<td class='col-md-1'>"
-									+ element["R_NO"]
+									+ element["SP_REWARD_QTY"]
 									+ "</td>";
 							tableString += "<td class='col-md-1'>"
-									+ element["ID"]
+									+ element["SP_DATE"]
 									+ "</td>";
 							tableString += "<td class='col-md-1'>"
 									+ element["SP_SUPPORT"]
@@ -220,6 +259,26 @@
 						}
 						tableString += "</table> ";
 						$('#div' + String(div)).append(tableString);
+						//여기에 추가함
+						var childCount = elthis.next().children().children().children(1).next().children().children().children().length;
+						var len = 40;
+// 						console.log("childCount:" + childCount);
+						for(var i =0; i <childCount; i++){
+							var p = elthis.next().children().children().children(1).next().children().children().children().eq(i+1).children().eq(2).children().get(0);
+							if (p) {
+								var trunc = p.innerHTML;
+							 	if (trunc.length > len) {
+							    trunc = trunc.substring(0, len);
+// 							    console.log("trunc" + trunc);
+							    trunc = trunc.replace(/\w+$/, '');
+							    trunc += '<a href="#" ' +
+							      'onclick="this.parentNode.innerHTML=' +
+							      'unescape(\''+escape(p.innerHTML)+'\');return false;">' +
+							      '...<\/a>';
+							    p.innerHTML = trunc;
+							  	}
+							}
+						}
 					})
 			// HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 			.fail(function(xhr, status, errorThrown) {
@@ -330,5 +389,7 @@
 		}//success function
 		/////////////////////////////////// 임한결 추가 끝 //////////
 	</script>
+	
+	
 </body>
 </html>
