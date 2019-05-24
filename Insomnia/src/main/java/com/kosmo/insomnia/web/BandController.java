@@ -341,18 +341,21 @@ public class BandController {
 			String id = session.getAttribute("id").toString();
 			String profile = bandService.getMemberProfile(id);
 			
+			System.out.println(profile.toString());
+			
 			//case 1 : s3에 등록된 기본 이미지일 경우
-			if(profile.equals("default_cover_img.jpg")) {
-				profile="https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/default_cover_img.jpg";}
-			//case 2 : 소셜로그인으로 가져온 프로필 이미지일 겨웅
-			else if(profile.startsWith("http")) {}///
-			//case 3 : s3에 개인이 등록된 이미지일 경우
-			else {
-				profile = "https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/"+profile;}
+			try {
+				if(profile.equals("default_cover_img.jpg")) {
+					profile="https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/default_cover_img.jpg";}
+				//case 2 : 소셜로그인으로 가져온 프로필 이미지일 겨웅
+				else if(profile.startsWith("http")) {}///
+				//case 3 : s3에 개인이 등록된 이미지일 경우
+				else {
+					profile = "https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/"+profile;}
+			}catch(Exception e) {profile = "default_cover_img.jpg";}
 			//모델에 값 넣고 리턴하기
 			model.addAttribute("profile", profile);
 			////2019 05 17 임한결 추가 프로필 이미지 받아와서 넘기기 끝
-	
 		return "main/createNewBand.tiles";
 	}///goToCreateNewBand
 	

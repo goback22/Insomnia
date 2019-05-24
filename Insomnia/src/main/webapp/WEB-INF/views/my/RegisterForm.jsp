@@ -11,7 +11,7 @@
 	// 토큰과 보안키를 가지고 성공 여부를 확인 함
 	HttpURLConnection conn = (HttpURLConnection) new URL("https://www.google.com/recaptcha/api/siteverify")
 			.openConnection();
-	String params = "secret=6Lc5UaAUAAAAAPwTOPm-kYurYOC0w879V2pAmhVc" + "&response=" + g_recaptcha_response;
+	String params = "secret=6Le-O6UUAAAAAMg1OlAhH7X5KeqqK3mi7tCbVHcT" + "&response=" + g_recaptcha_response;
 	conn.setRequestMethod("POST");
 	conn.setDoOutput(true);
 	DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
@@ -67,7 +67,7 @@
 	};
 	var onloadCallback = function() {
 		grecaptcha.render('html_element', {
-			'sitekey' : '6Leb1aMUAAAAACrHKDAk0rYpZdnA_i-zk0PYQrJD',
+			'sitekey' : '6Le-O6UUAAAAAGVEQbFUjsbM8OUxW-ltn5Yd04aI',
 			'callback' : correctCaptcha
 		});
 	};
