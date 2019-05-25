@@ -119,7 +119,6 @@ body {
 						<div class="col-md-10">
 							<h5 class="comments-title">Application</h5>
 							<table class="table table-hover text-center">
-								-
 								<input type="hidden" name="ap_no" value="${record.ap_no}" />
 								<tr style="height: 40px; display: none">
 									<td style="width: 10%;">No</td>

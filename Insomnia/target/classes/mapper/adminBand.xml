@@ -94,7 +94,7 @@
 	
 		<!-- 2019 05 15 임한결 추가 -->
 	<select id="selectBandSubmitList" resultType="AdminDTO">
-		select B.*,BS.* from band B join bandsubmit BS on BS.b_no = B.b_no
+		select B.*,BS.*,CT.* from band B join bandsubmit BS on BS.b_no = B.b_no join category CT on CT.ct_no = B.ct_no
 	</select>		
 	
 	<select id="selectOneBandMusic" parameterType="java.lang.String" resultType="java.lang.String">

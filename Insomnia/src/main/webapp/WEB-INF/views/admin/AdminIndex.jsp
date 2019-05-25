@@ -131,7 +131,7 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								회원 전체 보기
+								전체 회원
 							</h3>
 						</div>
 						<div class="panel-body feed">
@@ -184,7 +184,7 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								신규회원 관리
+								신규회원
 							</h3>
 						</div>
 						<div class="panel-body feed">
@@ -241,7 +241,7 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								등록된 밴드 현황
+								등록 밴드 현황
 							</h3>
 						</div>
 						<div class="panel-body feed">
@@ -280,7 +280,7 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								펀딩 진행중인 밴드 목록
+								진행중인 밴드
 							</h3>
 						</div>
 						<div class="panel-body feed">
@@ -289,7 +289,7 @@
 									<tr>
 										<th class="col-md-1 text-center">no</th>
 										<th class="col-md-3 text-center">밴드명</th>
-										<th class="col-md-3 text-center">타이틀</th>
+										<th class="col-md-3 text-center">장르</th>
 										<th class="col-md-2 text-center">등록 일자</th>
 										<th class="col-md-2 text-center">펀딩 기한</th>
 										
@@ -299,9 +299,9 @@
 									<c:forEach items="${bandSubmitList }" var="bandSubmitList" varStatus="bsStatus">
 									<c:if test="${bsStatus.index <=4 }">
 										<tr>
-											<td class="text-center">${bandSubmitList.b_no }</td>
+											<td class="text-center">${bsStatus.index+1 }</td>
 											<td class="text-center">${bandSubmitList.b_name }</td>
-											<td class="text-center">${bandSubmitList.bm_name }</td>
+											<td class="text-center">${bandSubmitList.ct_name }</td>
 											<td class="text-center">${bandSubmitList.s_submit_date }</td>
 											<td class="text-center">${bandSubmitList.s_goal_deadline }</td>		
 										</tr>
@@ -331,7 +331,7 @@
 					<div class="panel panel-primary">	
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								메인 결제한 최근 5명 정보
+								밴드 결제 현황
 							</h3>
 						</div>
 						<div class="panel-body feed">
@@ -371,47 +371,47 @@
 			
 			
 			
-				<div class="col-lg-6">
-					<div class="panel panel-primary">	
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								서브 결제한 최근 5명 정보
-							</h3>
-						</div>
-						<div class="panel-body feed">
-							<section class="feed-item">
-								<table class="table table-hover">
-									<tr>
-										<th class="col-md-1 text-center">no</th>
-										<th class="col-md-3 text-center">콘서트</th>
-										<th class="col-md-3 text-center">예매자</th>
-										<th class="col-md-2 text-center">가격</th>
-										<th class="col-md-2 text-center">입금 여부</th>
+<!-- 				<div class="col-lg-6"> -->
+<!-- 					<div class="panel panel-primary">	 -->
+<!-- 						<div class="panel-heading"> -->
+<!-- 							<h3 class="panel-title"> -->
+<!-- 								서브 결제한 최근 5명 정보 -->
+<!-- 							</h3> -->
+<!-- 						</div> -->
+<!-- 						<div class="panel-body feed"> -->
+<!-- 							<section class="feed-item"> -->
+<!-- 								<table class="table table-hover"> -->
+<!-- 									<tr> -->
+<!-- 										<th class="col-md-1 text-center">no</th> -->
+<!-- 										<th class="col-md-3 text-center">콘서트</th> -->
+<!-- 										<th class="col-md-3 text-center">예매자</th> -->
+<!-- 										<th class="col-md-2 text-center">가격</th> -->
+<!-- 										<th class="col-md-2 text-center">입금 여부</th> -->
 										
-									</tr>
-									<!-- DB에서 꺼내기 -->
-									<!--  foreach 시작 -->
-									<c:forEach items="${subPayList }" var="subPayList" varStatus="spStatus">
-									<c:if test="${spStatus.index <=4 }">
-										<tr>
-											<td class="text-center">${subPayList.p_no }</td>
-											<td class="text-center">${subPayList.b_title}</td>
-											<td class="text-center">${subPayList.name}</td>
-											<td class="text-center">${subPayList.sumPrice}</td>
-											<td class="text-center">${subPayList.non_bankbook_complete}</td>		
-										</tr>
-									</c:if>
-									</c:forEach>
+<!-- 									</tr> -->
+<!-- 									DB에서 꺼내기 -->
+<!-- 									 foreach 시작 -->
+<%-- 									<c:forEach items="${subPayList }" var="subPayList" varStatus="spStatus"> --%>
+<%-- 									<c:if test="${spStatus.index <=4 }"> --%>
+<!-- 										<tr> -->
+<%-- 											<td class="text-center">${subPayList.p_no }</td> --%>
+<%-- 											<td class="text-center">${subPayList.b_title}</td> --%>
+<%-- 											<td class="text-center">${subPayList.name}</td> --%>
+<%-- 											<td class="text-center">${subPayList.sumPrice}</td> --%>
+<%-- 											<td class="text-center">${subPayList.non_bankbook_complete}</td>		 --%>
+<!-- 										</tr> -->
+<%-- 									</c:if> --%>
+<%-- 									</c:forEach> --%>
 									
-									<!-- DB에서 꺼내기 끝 -->
-								</table>
-								<div class="" style="text-align: right;margin-right: 5px;">
-									<a href="<c:url value='/admin/paysub.ins'/>">more view</a></div>
-							</section>
-						</div>
+<!-- 									DB에서 꺼내기 끝 -->
+<!-- 								</table> -->
+<!-- 								<div class="" style="text-align: right;margin-right: 5px;"> -->
+<%-- 									<a href="<c:url value='/admin/paysub.ins'/>">more view</a></div> --%>
+<!-- 							</section> -->
+<!-- 						</div> -->
 						
-					</div>
-				</div>
+<!-- 					</div> -->
+<!-- 				</div> -->
 			</div>
 			<!-- 결제관련 끝 -->
 		</div>

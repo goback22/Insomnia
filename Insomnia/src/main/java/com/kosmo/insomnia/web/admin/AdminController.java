@@ -77,10 +77,10 @@ public class AdminController {
 		
 		//band list
 		List<AdminDTO> bandList = adminService.selectBandList(map);
-		
+		//System.out.println(bandList.get(0).getCt_name());
 		//진행중인 밴드 목록추가
 		List<AdminDTO> bandSubmitList = adminService.selectBandSubmitList();
-		model.addAttribute("bandSubmitList", bandSubmitList);
+		
 		for(AdminDTO dto: bandSubmitList) {  ///타이틀 넘버 받아서 음악이름 찾아넣기 //b_no로
 			dto.setBm_name(adminService.selectOneBandMusic(dto.getB_no()));
 			//subString 처리;
@@ -139,6 +139,7 @@ public class AdminController {
 		int yesterday = adminService.selectYesterDayNewMember(map);
 		int twodaysAgo = adminService.selectTwoDaysAgoNewMember(map);
 		
+		model.addAttribute("bandSubmitList", bandSubmitList);
 		model.addAttribute("bandList", bandList);
 		model.addAttribute("newMemberList", newMemberList);
 		model.addAttribute("todayMember", todayMember);

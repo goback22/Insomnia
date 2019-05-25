@@ -46,11 +46,11 @@
 									style="border-bottom: 1px #c8c8c8 solid;">
 									<tr>
 										<th class="col-md-1"><input type="checkbox" value="all" />&nbsp;&nbsp;no</th>
-										<th class="col-md-2 text-center">ID</th>
-										<th class="col-md-2 text-center">NAME</th>
-										<th class="text-center">LoginChain</th>
-										<th class="text-center">Phone</th>
-										<th class="text-center">JOIN_DATE</th>
+										<th class="col-md-2 text-center">아이디</th>
+										<th class="col-md-2 text-center">성명</th>
+										<th class="text-center">로그인 방법</th>
+										<th class="text-center">연락처</th>
+										<th class="text-center">가입일</th>
 <!-- 										<th class="col-md-2 text-center">해줄까 말까</th> -->
 										<!-- 삭제 버튼을 위한 한줄 -->
 									</tr>
@@ -85,13 +85,12 @@
 													
 <thead>
 														<tr>
-															<th>NAME</th>
-															<th>PASSWORD</th>
-															<th>BIRTHDAY</th>
-															<th>LOGIN_CHAIN</th>
-															<th>SMS_RECIEVE</th>
-															<th>EMAIL_RECIEVE</th>
-															<th>PROFILE_IMAGE</th>
+															<th>성명</th>
+															<th>비밀번호</th>
+															<th>생년월일</th>
+															<th>로그인 방법</th>
+															<th>프로필 사진</th>
+															
 														</tr>
 													</thead>
 													<tbody>
@@ -114,26 +113,16 @@
 																	${item.login_chain }으로 가입
 																</c:if>
 															</td>
+															<td rowspan="3"><img style="height:40%;" src="${item.profile_img }" alt="등록된 이미지가 없습니다"></td>
+														</tr>
+														<tr><th>문자수신</th>
+															<th>이메일수신</th>
+															<th colspan="2">소개글</th>
+														</tr>
+														<tr>
 															<td>${item.sms_recieve==null?"문자 수신 거부":"수신 승락" }</td>
 															<td>${item.email_recieve==null?"이메일 수신 거부":"수신 승락" }</td>
-															<td rowspan="3"><img style="max-width:70%;" src="${item.profile_img }" alt="등록된 이미지가 없습니다"></td>
-														</tr>
-													</tbody>
-													<!-- second floor -->
-													<thead>
-														<tr>
-															<th>미정</th>
-															<th>미정</th>
-															<th>미정</th>
-															<th colspan="3">DESCRIPTION</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>미정</td>
-															<td>미정</td>
-															<td>미정</td>
-															<td colspan="3">${item.description==null?"등록된 소개가 없습니다":item.description }</td>
+															<td colspan="2">${item.description==null?"등록된 소개가 없습니다":item.description }</td>
 														</tr>
 													</tbody>
 

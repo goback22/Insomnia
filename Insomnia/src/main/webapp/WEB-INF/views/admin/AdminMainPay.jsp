@@ -61,10 +61,10 @@
 									</tr>
 									<!-- DB에서 꺼내서~ each~~...tq -->
 									<!-- example1 -->
-									<c:forEach var="map" items="${selectSafepayList}">
+									<c:forEach var="map" items="${selectSafepayList}" varStatus="loop">
 										<c:if test="${map['B_NAME'] ne 'Supporters'}">
 											<tr class="view views">
-												<td>${map['S_NO']}</td>
+												<td>${loop.index+1}</td>
 												<td class="text-center viewDetail">${map["B_NAME"] }</td>
 												<td class="text-center viewDetail people">${map["fundCountpeople"] }</td>
 												<td class="text-center viewDetail cur">${map["S_GOAL_ACCUMULATION"] }</td>
