@@ -189,7 +189,7 @@ var id;
 $(function(){
 	//웹소켓 시작
 	//웹 소켓 객체로 서버에 연결하기
-	wsocket = new WebSocket("ws://192.168.0.69:8080/insomnia/stream-ws.ins");
+	wsocket = new WebSocket("ws://192.168.0.85:8080/insomnia/stream-ws.ins");
 	wsocket.onopen = open;
 	wsocket.onclose = function(){
 		wsocket.send('off$' + id);

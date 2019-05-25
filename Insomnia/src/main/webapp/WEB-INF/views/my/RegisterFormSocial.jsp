@@ -414,12 +414,12 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 								if ($.trim(data) == 0) {
 									$('#email_txt').css('display', 'none');
 									$('#checkMsg').html(
-											'<p style="color:blue">사용가능</p>');
+											'<p style="color:blue">이메일이 사용가능합니다.</p>');
 									
 								} else {
 									$('#email_txt').css('display', 'none');
 									$('#checkMsg').html(
-											'<p style="color:red">사용불가능</p>');
+											'<p style="color:red">이메일이 중복됩니다. 다른 이메일을 입력하세요.</p>');
 								}
 							}
 						}); //end ajax    
@@ -522,11 +522,11 @@ https://www.google.com/recaptcha/admin/create<%@ page language="java" contentTyp
 			//5]성별 검증
 			if ($('#gender').val() == '') {
 				$('#gender_txt').html('성별을 선택해주세요.');
-				$('#gender_txt').css('display', 'none');
+				$('#gender_txt').css('display', 'block');
 
 			} else {
 				$('#gender_txt').html('성별을 선택해주세요.');
-				$('#gender_txt').css('display', 'block');
+				$('#gender_txt').css('display', 'none');
 				flag++; //플래그 = 4
 				console.log(flag + "성별 유효성 확인");  //4
 			}

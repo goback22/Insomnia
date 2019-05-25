@@ -221,13 +221,23 @@
                         <div class="text">
                         </div>
                      </div>
-                     <div class="column q-1-5">
-                        <span class="line"></span> <a onclick="showPopup();" title="Contact Clorova"
+                      <div class="column q-1-5">
+
+                        <span class="line"></span> <a onclick="popStream();" title="Contact Clorova"
+
                            class="flare-hover hover-target">
+
                            <h1 class="large">
+
                               <span class="q_split"><span
-                                 class="q_split_wrap menu-item">Chatting</span> </span>
+
+                                 class="q_split_wrap menu-item">LiveStream</span> </span>
+
                            </h1>
+
+ 
+
+ 
                         </a>
                         <div class="text">
                         </div>
@@ -529,7 +539,7 @@
 
                </div>
 
-               <div class="option-box" style="margin-top: -25px;">
+               <div class="option-box" style="margin-top: -15px;">
                   <div class="option-box-left">
                      <div class="option-box-amount">${bgs2.C_CONCERTDATE}</div>
                      <div class="mt5" style="padding-top: 5px">
@@ -562,11 +572,18 @@
 </body>
 
 <!-- 웹 채팅 -->
-<script>
-function showPopup() {
-     window.open("<c:url value='/bgsChat.jsp'/>", "방구석 채팅!", "width=400, height=600, left=100, top=50");
-}
-</script>
+
+	<script>
+
+	////////////////////// 2019 05 21 임한결 추가 라이브 스트림
+
+	function popStream(){
+
+		window.open("/insomnia/webRTC/getUserMedia.ins", "라이브 스트림", "width=800, height=597, toolbar=no, menubar=no, scrollbars=no, resizable=no" );
+
+	}//function popStream
+
+	</script>
 
 <!-- 약도,SNS API 반응형으로 만들기 -->
 <style>

@@ -1142,6 +1142,7 @@ public class PayCompleteController {
 		
 		//2 서포트 넣기
 		SafePayDTO spDto = new SafePayDTO();
+		System.out.println(userInfoMap.toString());
 		spDto.setSp_support(support);
 		spDto.setR_no("32");
 		spDto.setId(id);
@@ -1152,7 +1153,8 @@ public class PayCompleteController {
 		spDto.setSp_recipient(userInfoMap.get("sp_recipient"));
 		spDto.setSp_shipping_address(userInfoMap.get("sp_shipping_address"));
 		spDto.setSp_zip_code(userInfoMap.get("sp_zip_code"));
-		safePayList.add(spDto);
+				
+		bandService.addSafePaySupport(spDto);
 		
 		//db에 데이터 입력
 		for(SafePayDTO dto : safePayList) {
