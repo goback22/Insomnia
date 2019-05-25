@@ -67,7 +67,7 @@
 								<c:forEach items="${bandlist }" var="item" varStatus="loop">
 									<tr data-tr_value="1" class="view">
 										<td><input type="checkbox" name="allmember" />&nbsp;&nbsp;${loop.index+1+((nowPage-1)*pageSize)}</td>
-										<td class="text-center viewDetail">${item.b_name }</td>
+										<td class="text-center viewDetail" class="forFCMBandName">${item.b_name }</td>
 										<td class="text-center viewDetail">${item.ct_name }</td>
 										<td class="text-center viewDetail">
 											<c:forEach items="${bandWaiting }" var="bandWaiting" varStatus="s-loop">
@@ -160,11 +160,11 @@
 												<c:forEach items="${bandWaiting }" var="bandWaiting" varStatus="s-loop">
 													<c:if test="${bandWaiting.b_no eq item.b_no }" var="isExist">
 														<c:if test='${bandWaiting.sw_isaccept!="T"}'>
-															<div class="btn btn-default apply">수락</div>
+															<div class="btn btn-default apply">수락</div>  <!-- 새로운 FCM 위치 후보 -->
 															<input type="hidden" value="${item.b_no }"/>
 														</c:if>
 													</c:if>
-													<input type="hidden" value="${bandWaiting.sw_isaccept }"/>
+													<input type="hidden" value="${bandWaiting.sw_isaccept }" class="forFCM"/>
 												</c:forEach>
 											</div>
 										</td>
@@ -250,6 +250,42 @@
 	</div>
 	<!-- main end -->
 </div>
+
+
+<!-- FCM 후보 -->
+
+<script>
+	$(function(){
+		
+		$('.apply').click(function(){
+			
+			/* location.href='<c:url value="주소"/>'; */
+			
+			$.ajax({
+				url : "/fcm/adminAjax.ins",
+				type: "post",
+				dataType: "text",
+				data: {fcm: "fcm", whichBand : $('.forFCMBandName').val()},
+				success: function(data){
+					console.log("관리자 페이지 FCM 성공");
+				},
+				error: function(request, error){
+					console.log("관리자 페이지 FCM 실패");
+					////에러코드
+					console.log('상태코드:',request.status);
+					console.log('서버로부터 받은 HTML데이타 :',request.responseText);
+					console.log('에러:',error);	
+				}
+				
+			});////$.ajax()
+			
+		});//////.apply.click()
+		
+	})
+
+</script>
+
+
 
 <script type="text/javascript">
 

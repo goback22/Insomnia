@@ -57,6 +57,13 @@
 	
 	/*======================================태그 선택자 끝===========================================*/
 	
+	#loginError {
+    	font-size: 14px;
+    	margin-top: 10px;
+	}
+	
+	
+	
 	.div-form-login {
 		margin: 0 auto;
 		/* padding-bottom: 96px; */

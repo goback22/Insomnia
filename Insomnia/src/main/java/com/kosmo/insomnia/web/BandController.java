@@ -220,7 +220,6 @@ public class BandController {
 		//token값저장용
 		ArrayList<String> token = new ArrayList<String>();  
 		
-		
 		//Firebase Console->프로젝트 선택->설정->프로젝트 설정
 		//->클라우드 메시징->서버키 복사
 		String simpleApiKey = "AAAAdxhW5go:APA91bEOM7vrXSiQusce7meRsZNwU_2ZRBXjT1WF_dW1EjMrh-k2BlAzzx61OWg_0JxhMBltse2Ps40pJJobsLCWAw8z2BkU85h7V_NTqNHQQ2oX40dPW0p5tveRAX3h7TMXM5KzvH8M";

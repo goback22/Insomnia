@@ -1,6 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <style>
 	/*===================로그인 후 회원화면=========================*/
@@ -222,9 +223,35 @@ $(function(){
 				
 	            	<div class="user_top">		<!-- 상단메뉴:div -->
               			<!-- 프로필 이미지 -->
+						
 
-                		<img class="user_picture" src="https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/${loginRecord.profile_img}"/>
-
+						<!-- 소셜 로그인 이미지 시작 -->
+	  
+	            		
+	            		<!-- 소셜 회원 조건 -->
+	            		<c:if test="${empty loginRecord.login_chain}" var="notSocial">  <!-- 실행코드가 없는 조건: 소셜회원 -->
+						</c:if>
+						<!-- 프로필이 S3형식인지 조건 : 소셜과 비소셜 모두 포함되므로 isSocial과 함께 써야 한다. -->
+						<c:if test="${fn:contains(loginRecord.profile_img, 'cover_Img.jpg')}" var="isChanged">
+						</c:if>
+						<!-- ========================================== -->
+						<!-- 소셜 회원이 아닌 경우 -->
+						<c:if test="${notSocial}">
+							<img class="user_picture" src="https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/${loginRecord.profile_img}"/>
+						</c:if>
+						
+						<!-- 소셜 회원이면서 프로필 안 바꾼 경우 -->
+						<c:if test="${not notSocial and not isChanged}"> 
+                			<img class="user_picture" src="${loginRecord.profile_img}"/>
+						</c:if>
+						
+						<!-- 소셜 회원인데도 프로필 바꿔서 S3형식으로 출력해야 하는 경우 -->
+						<c:if test="${not notSocial and isChanged}"> 
+                			<img class="user_picture" src="https://s3.ap-northeast-2.amazonaws.com/insomnia4/cover_Image/${loginRecord.profile_img}"/>
+						</c:if>
+	            		
+						
+						<!-- 소셜 로그인 이미지 끝 -->
               			<!-- 사용자 이름 -->
               			<a href="<c:url value='/menu/mypage.ins'/>" class=""><span class="profile_name">${loginRecord.name}</span>님 환영합니다!</a>
               			<!-- 쿠폰, 포인트 -->
