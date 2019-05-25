@@ -160,10 +160,8 @@ public class androidController {
 	}/////////// ajaxJson()
 
 	// 안드로이드 카카오페이
-	@RequestMapping(name = "/kakao/pay.ins", method = RequestMethod.GET)
+	@RequestMapping("/androidKakaoPay.ins")
 	public String kakaopay(@RequestParam Map map, Map map1) throws Exception {
-		System.out.println("여기까지 들어올까요?");
-		System.out.println(map.get("list"));
 		StringTokenizer token = new StringTokenizer(map.get("list").toString(), ",");
 
 		String list[] = new String[token.countTokens()];
