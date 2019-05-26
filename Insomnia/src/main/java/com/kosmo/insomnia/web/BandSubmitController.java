@@ -173,9 +173,12 @@ public class BandSubmitController {
 	
 	@ResponseBody
 	@RequestMapping(value="/bandsubmit/addNewBandSubmitWaiting.ins", produces="text/html; charset=UTF-8")
-	public String addNewBandSubmitWaiting(BandSubmitWaitingDTO dto, HttpSession session) throws Exception{
+	public String addNewBandSubmitWaiting(@RequestParam Map map ,BandSubmitWaitingDTO dto, HttpSession session) throws Exception{
+		System.out.println("map:"+map);
+		
 		String b_no = session.getAttribute("b_no").toString();
 		String b_name = session.getAttribute("b_name").toString();
+		
 		
 		//1. 밴드 넘버 등록
 		dto.setB_no(session.getAttribute("b_no").toString());

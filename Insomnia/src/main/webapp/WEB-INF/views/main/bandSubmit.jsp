@@ -842,6 +842,7 @@ background-size: 1800% 1800%;
 				
 			var b_description =$('#b_description').val();
 			var b_banner_description = $('#b_banner_description').val();
+			console.log('b_banner_description : '+b_banner_description);
 			var bi_profile = $("#bi_profile").attr("src");
 			bi_profile = bi_profile.substring(bi_profile.lastIndexOf("/")+1);
 			var video_title = $("#video-title").val();
@@ -867,6 +868,12 @@ background-size: 1800% 1800%;
 					'sw_content' : summernote
 				};
 			
+			console.log(json);
+			
+// 			var kyj = "값아 넘어가라";
+			
+// 			console.log('ㅎㅇ')
+			
 			//reward를 제외한 나머지를 먼저 bandSubmitWaiting에 등록한다.
 			$.ajax({
 				url:'<c:url value="/bandsubmit/addNewBandSubmitWaiting.ins"/>',
@@ -878,10 +885,10 @@ background-size: 1800% 1800%;
 					if(data == "SUC"){}
 					else{
 						isSuccess = false;}
-					
 				},
 				error : function(error){
-					console.log(error);
+					console.log('ㅎㅇ2')
+					console.log("error:"+error);
 					console.log(error.status);
 					alert("에러");
 					isSuccess = false;}
