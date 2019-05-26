@@ -160,7 +160,7 @@ public class androidController {
 	}/////////// ajaxJson()
 
 	// 안드로이드 카카오페이
-	@RequestMapping(name = "/kakao/pay.ins", method = RequestMethod.GET)
+	@RequestMapping("/androidKakaoPay.ins")
 	public String kakaopay(@RequestParam Map map, Map map1) throws Exception {
 		System.out.println("여기까지 들어올까요?");
 		System.out.println(map.get("list"));
@@ -181,9 +181,11 @@ public class androidController {
 		map1.put("name", list[1]);
 		map1.put("email", list[2]);
 		map1.put("phone", list[3]);
-		map1.put("money", list[4]);
+		map1.put("money", list[4].substring(0, 5));
 		map1.put("message", list[5]);
 		map1.put("paymethod", list[6]);
+		
+		
 
 		return "/Pay/Androidkakao.tiles";
 	}

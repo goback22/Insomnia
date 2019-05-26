@@ -241,8 +241,8 @@ public class BandController {
 		String message = "";
 		
 		dismap.put("id", session.getAttribute("id"));
-		message += memberService.selectOne(dismap).getName() + "님의 펀딩이 신청되었습니다.<br>신청 내용이 아래와 동일한지 확인하세요.";
-		message += "<b>" + b_banner_description + "</b>";
+		message += memberService.selectOne(dismap).getName() + "님의 펀딩이 신청되었습니다.\n신청 내용이 아래와 동일한지 확인하세요.";
+		message += b_banner_description.replace("<p>", "").replace("</p>", "").replace("<br>", "").replace("</br>", "").replace("<b>", "");
 		
 		int successTokens=0;
 		try {
