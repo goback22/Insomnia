@@ -160,6 +160,14 @@
     margin-top: 15px;
 }
 
+.on {
+	color: red;
+}
+
+.user_gender a.on {
+	color: red;
+}
+
 /* .user_name {
     border: none;
     border-radius: 3px;
@@ -443,7 +451,7 @@ $(window).scroll(function() {
 							<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 							<input name="roadAddress" type="text" id="sample4_roadAddress" placeholder="도로명주소">
 							<input name="jibunAddress" type="text" id="sample4_jibunAddress" placeholder="지번주소">
-							<!-- <span id="guide" style="color: #999; display: none"></span> -->
+							<span id="guide" style="color: #999; display: none"></span>
 							<input name="detailAddress" type="text" id="sample4_detailAddress" placeholder="상세주소"> <input type="text" id="sample4_extraAddress" placeholder="참고항목">
 							<p class="limit_txt addr_txt" id="addr_txt">주소를 입력해주세요.</p>
 						</div>

@@ -1219,6 +1219,83 @@ public class SGHController {
 	}
 	
 	
+	//관리자 fcm
+	@ResponseBody
+	@RequestMapping("/fcm/adminAjax.ins")
+	public String fcmAdminAjax(@RequestParam Map map) throws Exception {
+		
+			/////////////////////////////서기환 추가  5월 24일
+			if(map.get("fcm") != null) {
+			//token값저장용
+			ArrayList<String> token = new ArrayList<String>();  
+			
+			
+			//Firebase Console->프로젝트 선택->설정->프로젝트 설정
+			//->클라우드 메시징->서버키 복사
+			String simpleApiKey = "AAAAdxhW5go:APA91bEOM7vrXSiQusce7meRsZNwU_2ZRBXjT1WF_dW1EjMrh-k2BlAzzx61OWg_0JxhMBltse2Ps40pJJobsLCWAw8z2BkU85h7V_NTqNHQQ2oX40dPW0p5tveRAX3h7TMXM5KzvH8M";
+			//String gcmURL = "https://android.googleapis.com/fcm/send";    
+			String gcmURL ="https://fcm.googleapis.com/fcm/send";
+			java.sql.Connection conn = null; 
+			PreparedStatement psmt = null; 
+			ResultSet rs = null;
+			
+			//String message = request.getParameter("message");
+			String title = map.get("whichBand").toString() + "님의 펀딩이 수락되었습니다.";
+				
+			String message = "";
+			
+			message += title + "님의 펀딩이 수락되었습니다.<br>";
+			
+			
+			////이 이하는 건들 필요 없다.
+			int successTokens=0;
+			try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@orcl.c3yirc2i0ocz.ap-northeast-2.rds.amazonaws.com:1521:orcl","project","12341234");
+			System.out.println("conn의 값은?" + conn);////////
+			psmt= conn.prepareStatement("SELECT TOKEN FROM FCM_TOKENS");
+			rs = psmt.executeQuery();
+			
+			while(rs.next()){
+			token.add(rs.getString(1));
+			}
+			conn.close();     
+			
+			Sender sender = new Sender(simpleApiKey);
+			Message msg = new Message.Builder()        
+			.addData("message",message)//데이타 메시지
+			.addData("title",title)//데이타 타이틀
+			.build();
+			
+			//등록된 모든 토큰에 푸쉬 메시지 전송.
+			MulticastResult multicast = sender.send(msg,token,3);//3는 메시지 전송실패시 재시도 횟수
+			
+			if (multicast != null) {
+			List<Result> resultList = multicast.getResults();
+			
+			
+			for (Result result : resultList) {
+			if(result.getMessageId()!=null) successTokens++;   
+			
+			System.out.println("메시지 아이디:"+result.getMessageId());
+			
+			}
+			System.out.println(successTokens+"개의 기기에 전송되었어요...");
+			}
+			
+			
+			}catch (Exception e) {
+			e.printStackTrace();
+			}
+			}
+			//////FCM 끝 : 서기환, 5월 14일//////
+		
+		return "관리자 페이지 fcm 컨트롤러 성공";
+	}
+		
+	
+	
 	
 	
 	

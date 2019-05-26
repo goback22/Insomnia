@@ -1193,12 +1193,17 @@ li {
 					afterString += '<img class="thumbnail" src="/insomnia/upload/band/img/' + element['image'] + '"/></a></div>';
 					$(".lightgallery-center-div").html(beforeString + afterString+addDiv);
 					*/
+					
+					if(element['image'] == null){}////
+					
 					///2019 05 17 임한결 수정 끝
-					var beforeString = $(".lightgallery-center-div").html(); 
-					var afterString = '<div class="lightgallery" id="lightgallery">';
-					afterString += ' <a href="/insomnia/upload/band/img/'+ element['image'] + '">';
-					afterString += '<img class="thumbnail" src="/insomnia/upload/band/img/' + element['image'] + '"/></a></div>';
-					$(".lightgallery-center-div").html(beforeString + afterString);
+					else{
+						var beforeString = $(".lightgallery-center-div").html(); 
+						var afterString = '<div class="lightgallery" id="lightgallery">';
+						afterString += ' <a href="/insomnia/upload/band/img/'+ element['image'] + '">';
+						afterString += '<img class="thumbnail" src="/insomnia/upload/band/img/' + element['image'] + '"/></a></div>';
+						$(".lightgallery-center-div").html(beforeString + afterString);
+					}//else
 					
 				});//$.each
 				//추가버튼 마지막으로 붙임
@@ -1251,7 +1256,7 @@ li {
 		///////////////////////////////////////////////// 플러스 버튼을 클릭해 새로운 밴드 음악 등록
 		function addBandMusic(data){
 			console.log("addBandMusic fn START data : " + data);
-			window.location.reload();}
+			location.href='/insomnia//band/bandInfo.ins';}
 		
 		
 		// 플레이버튼 클릭하여 플레이

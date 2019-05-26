@@ -1192,6 +1192,25 @@ public class PayCompleteController {
 		}//for
 		stuffName.append("그 외 다수");
 		
+		
+		
+		//////2019 05 26 임한결 추가 - 해당 이메일 찾기
+		//id가 어떤 형식이든 toEmail에 email값이 담겨야 함
+		int resultInt = 0;
+		String toEmail = null;
+		
+		try {
+			//case 1 : 소셜로그인으로 진행했을 경우 아이디가 숫자형태로 들어온다.
+			resultInt = Integer.parseInt(id.toString());
+			toEmail = bandService.getMemberDTO(id).getEmail().toString();
+		}catch(Exception e) {
+			//case 2  : 일반 로그인으로 진행했을 경우 아이디가 이메일값으로 되어있다.
+			toEmail = id;
+		}/////case end toEmail으로 사용자에게 메일 보내면됨
+		//////2019 05 26 임한결 추가 - 해당 이메일 찾기 끝
+		
+		
+		
 		////////////////메일 보내기
 		String message = getMailMessage(userInfoMap.get("sp_depositor"), Integer.parseInt(total_payment), id, new String(stuffName), String.valueOf(count), Integer.parseInt(total_payment));
 		
@@ -1200,7 +1219,7 @@ public class PayCompleteController {
 			sendMail.setSubject("[insomnia]"+userInfoMap.get("sp_depositor")+"님 주문 내역을 알려드립니다."); //메일 제목은 생략이 가능하다]
 			sendMail.setText(message.toString());//메일 내용]
 			sendMail.setFrom("insmonia@insumnia.com", "인섬니아 관리자");//보내는 사람 이메일]
-			sendMail.setTo(id);//받는사람 이메일]
+			sendMail.setTo(toEmail);//받는사람 이메일]
 			sendMail.send();
 		} catch (Exception e) {
 			e.printStackTrace();}
@@ -1310,7 +1329,19 @@ public class PayCompleteController {
 		List<Map> memberList = bandService.getMembersInBand(bandService.getBandDTOByB_no(bandSubmitDto.getB_no()).getB_name());
 		for(Map resultMap : memberList) {
 			System.out.println("email 보내는 아이디 : " + resultMap.get("ID").toString());
-			sendCompleteMission((String)resultMap.get("ID").toString());
+			int resultInt = 0;
+			String resultId = null;
+			
+			try { //case 1 : 소셜 로그인으로 진행하여 아이디가 넘버값일경우
+				resultInt = Integer.parseInt(resultMap.get("ID").toString());
+				resultId = bandService.getMemberDTO(resultMap.get("ID").toString()).getEmail().toString();
+			}catch(Exception e) {
+				//case 2 : 일반 로그인으로 진행하여 id값 자체로 이메일 형식인 경우
+				resultId = resultMap.get("ID").toString();
+			}//// 이메일을 보내기 위한 진짜 아이디 찾기
+			
+			
+			sendCompleteMission(resultId);
 		}///for
 		return "";
 	}///payComplete
