@@ -49,7 +49,7 @@ public class PayController {
 		
 		view.put("phone_first", view.get("phone_num").toString().substring(2,6));
 		view.put("phone_second", view.get("phone_num").toString().substring(6));	
-			
+		//푸쉬용 주석
 		return "/Pay/SubPayPage.tiles";
 	}///payPage()
 	
