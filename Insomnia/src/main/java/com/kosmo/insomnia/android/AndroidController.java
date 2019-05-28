@@ -31,7 +31,7 @@ import com.kosmo.insomnia.serviceimpl.MemberServiceImpl;
 import com.kosmo.insomnia.serviceimpl.RewardServiceImpl;
 
 @Controller
-public class androidController {
+public class AndroidController {
 
 	@Resource(name = "insService")
 	private ListServiceImpl listservice;
@@ -58,6 +58,7 @@ public class androidController {
 		json.put("bgslist", bgsconcertservice.selectList());
 
 		json.put("name", memberService.selectOne(map).getName());
+		json.put("otp", OTPUtil.create());
 
 		// JSON객체의 put("키값","값")메소드로 저장하면
 
